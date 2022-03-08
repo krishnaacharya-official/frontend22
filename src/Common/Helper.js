@@ -1,4 +1,8 @@
-const Mode = "development"
+let Mode = "production"
+if(window.location.hostname === 'localhost') {
+    Mode = "development"
+}
+
 
 let helper = {
     ApiUrl: 'http://localhost:8080/api/',
@@ -9,8 +13,9 @@ let helper = {
 if (Mode === "production") {
 
     helper = {
-        ApiUrl: '',
-
+        ApiUrl: 'https://donorport.herokuapp.com/api/',
+        CampaignAdminLogoPath: 'https://donorport.herokuapp.com/campaign/logo/resize/',
+        CampaignProductImagePath:'https://donorport.herokuapp.com/campaign/product/resize/'
     }
 }
 
