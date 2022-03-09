@@ -6,6 +6,7 @@ import noimg from "../../../assets/images/noimg.jpg"
 
 export default function CampaignAdminForm(props) {
     let stateData = props.stateData
+    // console.log(stateData)
     return (
         <>
             <Modal
@@ -31,7 +32,7 @@ export default function CampaignAdminForm(props) {
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose file </label>
                             <p className='error'>{stateData.error ? stateData.error.logo ? stateData.error.logo : "" : ""}</p>
                             {/* <img src={props.Img ? props.Img : props.tempImg ? props.tempImg !== "" ? helper.CampaignAdminLogoPath + props.tempImg :  noimg  : noimg } alt="logo"  style={{width:"100px"}}/> */}
-                           { props.Img || props.tempImg ? <img src={props.Img ? props.Img : props.tempImg ? props.tempImg !== "" ? helper.CampaignAdminLogoPath + props.tempImg :  noimg  : noimg } alt="lk" style={{width:"100px",height:"100px"}}/>:""}
+                            {props.Img || props.tempImg ? <img src={props.Img ? props.Img : props.tempImg ? props.tempImg !== "" ? helper.CampaignAdminLogoPath + props.tempImg : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> : ""}
                         </div>
                     </div>
 
@@ -114,44 +115,85 @@ export default function CampaignAdminForm(props) {
                         <label className="col-form-label col-sm-2 ">Category</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
-                                <option selected={stateData ? stateData.category === 1 ? "selected" : "" : ""} value="1">category 1</option>
-                                <option selected={stateData ? stateData.category === 2 ? "selected" : "" : ""} value="2">category 2 </option>
-                            </select>
+                                <option selected disabled value=" ">select Category</option>
+                                {props.categoryList.length > 0 &&
+                                    props.categoryList.map((cat, i) => {
 
-                            {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
+                                        return (
+                                            cat.status === 1 &&
+                                            <option value={cat._id} selected={stateData.category === cat._id}>{cat.name}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.category ? stateData.error.category : "" : ""}</p>
+
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-form-label col-sm-2 ">city</label>
+                        <label className="col-form-label col-sm-2 ">Country</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="country" name="country">
-                                <option selected={stateData ? stateData.country === 1 ? "selected" : "" : ""} value="1">country 1</option>
-                                <option selected={stateData ? stateData.country === 2 ? "selected" : "" : ""} value="2">country 2 </option>
-                            </select>
+                                <option selected disabled value=" ">select Country</option>
+                                {props.countryList.length > 0 &&
+                                    props.countryList.map((country, i) => {
 
-                            {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
+                                        return (
+                                            country.status === 1 &&
+                                            <option value={country.id} selected={ Number(stateData.country) === Number(country.id)}>{country.country}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.country ? stateData.error.country : "" : ""}</p>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">State</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="stateid" name="stateid">
-                                <option selected={stateData ? stateData.stateid === 1 ? "selected" : "" : ""} value="1">state 1</option>
-                                <option selected={stateData ? stateData.stateid === 2 ? "selected" : "" : ""} value="2">state 2 </option>
-                            </select>
+                                <option selected disabled value=" ">select State</option>
+                                {props.stateList.length > 0 &&
+                                    props.stateList.map((state, i) => {
 
-                            {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
+                                        return (
+                                            state.status === 1 &&
+                                            <option value={state.id} selected={stateData.stateid === state.id}>{state.state}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.stateid ? stateData.error.stateid : "" : ""}</p>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">City</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="city" name="city">
-                                <option selected={stateData ? stateData.city === 1 ? "selected" : "" : ""} value="1">city 1</option>
-                                <option selected={stateData ? stateData.city === 2 ? "selected" : "" : ""} value="2">city 2</option>
-                            </select>
+                                <option selected disabled value=" ">select State</option>
+                                {props.cityList.length > 0 &&
+                                    props.cityList.map((city, i) => {
 
-                            {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
+                                        return (
+                                            city.status === 1 &&
+                                            <option value={city.id} selected={stateData.city === city.id}>{city.city}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.city ? stateData.error.city : "" : ""}</p>
                         </div>
                     </div>
 

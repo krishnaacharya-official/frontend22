@@ -7,6 +7,7 @@ import { validateAll } from "indicative/validator";
 import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import adminCampaignApi from "../../Api/admin/adminCampaign";
 
 function UserController() {
     const navigate = useNavigate();
@@ -16,30 +17,39 @@ function UserController() {
     const [userList, setUserList] = useState([])
     const [state, setState] = useState({
         id: "",
-        username: "",
         name: "",
         email: "",
         password: "",
-        role: "",
+        country: "",
+        city: "",
+        stateid: "",
+        street: "",
+        zip: "",
         error: [],
         status: 1
     })
     const {
-        username, name, error, email, password, role, status, id
+        name, error, email, password, country, city, stateid, street, zip, status, id
     } = state;
 
+    const [countryList, setCountryList] = useState([])
+    const [stateList, setStateList] = useState([])
+    const [cityList, setCityList] = useState([])
+
     const adminAuthToken = localStorage.getItem('adminAuthToken');
-    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
     const resetForm = () => {
         setState({
             ...state,
             id: "",
-            username: "",
             name: "",
             email: "",
             password: "",
-            role: "",
+            country: "",
+            city: "",
+            stateid: "",
+            street: "",
+            zip: "",
             error: [],
             status: 1
         })
@@ -51,13 +61,15 @@ function UserController() {
 
     useEffect(() => {
         (async () => {
-            if(CampaignAdminAuthToken){
-                navigate('/admin/Dashboard', { replace: true })
-            }
             setLoading(true)
             const getUserList = await userApi.list(adminAuthToken)
             if (getUserList.data.success) {
                 setUserList(getUserList.data.data)
+            }
+
+            const getCountryList = await adminCampaignApi.countryList(adminAuthToken);
+            if (getCountryList.data.success === true) {
+                setCountryList(getCountryList.data.data)
             }
             setLoading(false)
         })()
@@ -65,12 +77,16 @@ function UserController() {
 
     const addUser = () => {
         const rules = {
-            username: "required",
             name: "required",
             email: 'required|email',
             password: 'required|min:6',
-            // cpassword: 'required|same:password',
-            role: "required"
+
+            country: "required",
+            zip: "required",
+            city: "required",
+            stateid: "required",
+            street: "required",
+
 
         }
 
@@ -80,10 +96,13 @@ function UserController() {
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
             'password.required': 'Password is Requied.',
-            // 'cpassword.required': 'Confirm Password is Requied.',
-            // 'cpassword.same': 'Password and Confirm Password Must be Same',
-            'username.required': 'Username is Requied.',
-            'role.required': 'Role is Requied.',
+
+
+            'zip.required': 'Zip Code is Requied.',
+            'country.required': 'Country is Requied.',
+            'city.required': 'City is Requied.',
+            'stateid.required': 'State is Requied.',
+            'street.required': 'Street Address is Requied.',
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -94,10 +113,13 @@ function UserController() {
             })
             let data = {}
             data.name = name
-            data.username = username
             data.email = email
-            data.role = role
             data.password = password
+            data.country_id = country
+            data.city_id = city
+            data.state_id = stateid
+            data.street = street
+            data.zip = zip
             data.status = status
 
 
@@ -182,7 +204,18 @@ function UserController() {
 
     }
 
-    const getUserRecord = (data) => {
+    const getUserRecord = async (data) => {
+
+        setLoading(true)
+        const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
+        if (getCountryStateList.data.success === true) {
+            setStateList(getCountryStateList.data.data)
+        }
+        const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
+        if (getStateCityList.data.success === true) {
+            setCityList(getStateCityList.data.data)
+        }
+        setLoading(false)
         setState({
             ...state,
             id: data._id,
@@ -190,7 +223,13 @@ function UserController() {
             name: data.name,
             email: data.email,
             role: data.role,
-            status: data.status
+            status: data.status,
+            country: data.country_id,
+            city: data.city_id,
+            stateid: data.state_id,
+            zip: data.zip,
+            street: data.street,
+
         })
         setModal(true)
 
@@ -198,10 +237,14 @@ function UserController() {
     const updateUser = () => {
 
         const rules = {
-            username: "required",
+            // username: "required",
             name: "required",
             email: 'required|email',
-            role: "required"
+            country: "required",
+            zip: "required",
+            city: "required",
+            stateid: "required",
+            street: "required",
 
         }
 
@@ -212,6 +255,13 @@ function UserController() {
             'username.required': 'Username is Requied.',
             'role.required': 'Role is Requied.',
 
+            'zip.required': 'Zip Code is Requied.',
+            'country.required': 'Country is Requied.',
+            'city.required': 'City is Requied.',
+            'stateid.required': 'State is Requied.',
+            'street.required': 'Street Address is Requied.',
+
+
         }
         validateAll(state, rules, message).then(async () => {
             const formaerrror = {};
@@ -221,11 +271,20 @@ function UserController() {
             })
             let data = {}
             data.name = name
-            data.role = role
+            // data.role = role
             if (password && password !== "") {
                 data.password = password
             }
             data.status = status
+            data.country_id = country
+            data.city_id = city
+            data.state_id = stateid
+            data.street = street
+            data.zip = zip
+
+
+
+
 
 
             setLoading(true)
@@ -250,7 +309,7 @@ function UserController() {
 
 
         }).catch(errors => {
-
+            console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {
@@ -273,15 +332,33 @@ function UserController() {
 
 
 
-    const changevalue = (e) => {
+    const changevalue = async (e) => {
         let value = e.target.value;
-        if (e.target.name === 'username') {
-            if (!/[^a-zA-Z0-9]/.test(e.target.value)) {
-                setState({
-                    ...state,
-                    [e.target.name]: e.target.value
-                })
+        if (e.target.name === "country") {
+            setLoading(true)
+            const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
+            if (getCountryStateList.data.success === true) {
+                setStateList(getCountryStateList.data.data)
             }
+
+            setState({
+                ...state,
+                [e.target.name]: value
+            })
+            setLoading(false)
+
+        } else if (e.target.name === "stateid") {
+            setLoading(true)
+            const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
+            if (getStateCityList.data.success === true) {
+                setCityList(getStateCityList.data.data)
+            }
+
+            setState({
+                ...state,
+                [e.target.name]: value
+            })
+            setLoading(false)
         } else {
             setState({
                 ...state,
@@ -303,6 +380,9 @@ function UserController() {
                 stateData={state}
                 addUser={addUser}
                 updateUser={updateUser}
+                countryList={countryList}
+                stateList={stateList}
+                cityList={cityList}
             />
             <UserList
                 userList={userList}

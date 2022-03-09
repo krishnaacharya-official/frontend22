@@ -14,6 +14,11 @@ import categoryFill from '@iconify/icons-eva/grid-fill';
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 // const location = useLocation();
+const adminData = JSON.parse(localStorage.getItem('adminData'));
+
+// if(adminData.roleName == 'ADMIN'){
+
+// }
 
 const sidebarConfig = [
   
@@ -22,11 +27,11 @@ const sidebarConfig = [
     path: '/admin/dashboard/',
     icon: getIcon(pieChart2Fill)
   },
-  // {
-  //   title: 'user',
-  //   path: '/admin/user/',
-  //   icon: getIcon(peopleFill)
-  // },
+  {
+    title: 'donors',
+    path: '/admin/user/',
+    icon: getIcon(peopleFill)
+  },
   {
     title: 'campaign admin',
     path: '/admin/campaign_admin/',
@@ -42,36 +47,7 @@ const sidebarConfig = [
     path: '/admin/products/',
     icon: getIcon('mdi:alpha-p-circle')
   },
-  // {
-  //   title: 'logout',
-  //   path: '',
-  //   icon: getIcon(powerFill)
-  // },
-  // {
-  //   title: 'product',
-  //   path: '/dashboard/products',
-  //   icon: getIcon(shoppingBagFill)
-  // },
-  // {
-  //   title: 'blog',
-  //   path: '/dashboard/blog',
-  //   icon: getIcon(fileTextFill)
-  // },
-  // {
-  //   title: 'login',
-  //   path: '/login',
-  //   icon: getIcon(lockFill)
-  // },
-  // {
-  //   title: 'register',
-  //   path: '/register',
-  //   icon: getIcon(personAddFill)
-  // },
-  // {
-  //   title: 'Not found',
-  //   path: '/404',
-  //   icon: getIcon(alertTriangleFill)
-  // }
+
 ];
 
 export default sidebarConfig;

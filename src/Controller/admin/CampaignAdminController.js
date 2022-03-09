@@ -8,6 +8,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import CampaignAdminForm from "../../View/admin/CampaignAdmin/CampaignAdminForm";
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { fa } from "faker/lib/locales";
+import categoryApi from "../../Api/admin/category";
 
 function CampaignAdminController() {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ function CampaignAdminController() {
     const [update, setUpdate] = useState(false)
     const [tempImg, setTempImg] = useState('')
     const [Img, setImg] = useState('')
+    const [categoryList, setCategoryList] = useState([])
     const [campaignAdminList, setCampaignAdminList] = useState([])
     const [state, setState] = useState({
         id: "",
@@ -28,11 +30,11 @@ function CampaignAdminController() {
         facebook: "",
         linkedin: "",
         url: "",
-        country: 1,
-        city: 1,
-        stateid: 1,
+        country: "",
+        city: "",
+        stateid: "",
         address: "",
-        category: 1,
+        category: "",
         error: [],
         status: 1
     })
@@ -41,8 +43,12 @@ function CampaignAdminController() {
         name, error, email, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
     } = state;
 
+    const [countryList, setCountryList] = useState([])
+    const [stateList, setStateList] = useState([])
+    const [cityList, setCityList] = useState([])
+
+
     const adminAuthToken = localStorage.getItem('adminAuthToken');
-    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
     const resetForm = () => {
         setTempImg('')
@@ -59,11 +65,11 @@ function CampaignAdminController() {
             facebook: "",
             linkedin: "",
             url: "",
-            country: 1,
-            city: 1,
-            stateid: 1,
+            country: "",
+            city: "",
+            stateid: "",
             address: "",
-            category: 1,
+            category: "",
             error: [],
             status: 1
         })
@@ -75,13 +81,20 @@ function CampaignAdminController() {
 
     useEffect(() => {
         (async () => {
-            if (CampaignAdminAuthToken) {
-                navigate('/admin/Dashboard', { replace: true })
-            }
+
             setLoading(true)
-            const getcampaignAdminList = await adminCampaignApi.list(adminAuthToken)
-            if (getcampaignAdminList.data.success) {
-                setCampaignAdminList(getcampaignAdminList.data.data)
+            const getCampaignAdminList = await adminCampaignApi.list(adminAuthToken)
+            if (getCampaignAdminList.data.success) {
+                setCampaignAdminList(getCampaignAdminList.data.data)
+            }
+            const getCategoryList = await categoryApi.listCategory(adminAuthToken);
+            if (getCategoryList.data.success === true) {
+                setCategoryList(getCategoryList.data.data)
+            }
+
+            const getCountryList = await adminCampaignApi.countryList(adminAuthToken);
+            if (getCountryList.data.success === true) {
+                setCountryList(getCountryList.data.data)
             }
             setLoading(false)
         })()
@@ -110,6 +123,12 @@ function CampaignAdminController() {
             linkedin: "required",
             url: "required",
             address: "required",
+            country: "required",
+            city: "required",
+            stateid: "required",
+            category: "required",
+
+
 
         }
 
@@ -127,6 +146,13 @@ function CampaignAdminController() {
             'linkedin.required': 'Linkedin is Requied.',
             'url.required': 'Website is Requied.',
             'address.required': 'Address is Requied.',
+
+            'category.required': 'Category is Requied.',
+            'country.required': 'Country is Requied.',
+            'city.required': 'City is Requied.',
+            'stateid.required': 'State is Requied.',
+
+
 
 
         }
@@ -234,7 +260,17 @@ function CampaignAdminController() {
 
     }
 
-    const getUserRecord = (data) => {
+    const getUserRecord = async (data) => {
+
+        setLoading(true)
+        const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
+        if (getCountryStateList.data.success === true) {
+            setStateList(getCountryStateList.data.data)
+        }
+        const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
+        if (getStateCityList.data.success === true) {
+            setCityList(getStateCityList.data.data)
+        }
         // console.log(data)
         setTempImg(data.logo)
         setState({
@@ -253,8 +289,11 @@ function CampaignAdminController() {
             stateid: data.state_id,
             address: data.address,
             category: data.category_id,
+            error: [],
         })
+        setLoading(false)
         setModal(true)
+
 
     }
 
@@ -270,6 +309,11 @@ function CampaignAdminController() {
             url: "required",
             address: "required",
 
+            country: "required",
+            city: "required",
+            stateid: "required",
+            category: "required",
+
 
 
         }
@@ -284,6 +328,12 @@ function CampaignAdminController() {
             'linkedin.required': 'Linkedin is Requied.',
             'url.required': 'Website is Requied.',
             'address.required': 'Address is Requied.',
+
+            
+            'category.required': 'Category is Requied.',
+            'country.required': 'Country is Requied.',
+            'city.required': 'City is Requied.',
+            'stateid.required': 'State is Requied.',
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -337,7 +387,7 @@ function CampaignAdminController() {
 
 
         }).catch(errors => {
-            console.log(errors)
+            // console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {
@@ -358,12 +408,41 @@ function CampaignAdminController() {
     }
 
 
-    const changevalue = (e) => {
+    const changevalue = async (e) => {
         let value = e.target.value;
-        setState({
-            ...state,
-            [e.target.name]: value
-        })
+
+        if (e.target.name === "country") {
+            setLoading(true)
+            const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
+            if (getCountryStateList.data.success === true) {
+                setStateList(getCountryStateList.data.data)
+            }
+
+            setState({
+                ...state,
+                [e.target.name]: value
+            })
+            setLoading(false)
+
+        } else if(e.target.name === "stateid") {
+            setLoading(true)
+            const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
+            if (getStateCityList.data.success === true) {
+                setCityList(getStateCityList.data.data)
+            }
+
+            setState({
+                ...state,
+                [e.target.name]: value
+            })
+            setLoading(false)
+        } else {
+            setState({
+                ...state,
+                [e.target.name]: value
+            })
+        }
+
 
 
     }
@@ -382,6 +461,11 @@ function CampaignAdminController() {
                 changefile={changefile}
                 tempImg={tempImg}
                 Img={Img}
+                categoryList={categoryList}
+                countryList={countryList}
+                stateList={stateList}
+                cityList={cityList}
+
             />
             <Index
                 campaignAdminList={campaignAdminList}

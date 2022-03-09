@@ -80,6 +80,7 @@ function product() {
         });
         return res;
     }
+
     const updateProduct = async (authToken, cdata, id) => {
 
         const data = new FormData();
@@ -117,11 +118,13 @@ function product() {
         return res;
     }
 
+
     return {
         add,
         list,
         deleteProduct,
-        updateProduct
+        updateProduct,
+       
 
     }
 }

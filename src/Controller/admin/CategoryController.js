@@ -3,10 +3,11 @@ import FrontLoader from "../../Common/FrontLoader"
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Index from "../../View/admin/Category/Index";
 import categoryApi from "../../Api/admin/category";
 import AddCategoryForm from "../../View/admin/Category/AddCategoryForm";
+import { hasPermission } from "../../Common/Helper";
 
 
 function CategoryController() {
@@ -17,7 +18,10 @@ function CategoryController() {
     const [update, setUpdate] = useState(false)
     const navigate = useNavigate();
 
+
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+
 
     const [state, setstate] = useState({
         categoryHdnID: '',
@@ -32,6 +36,10 @@ function CategoryController() {
 
     useEffect(() => {
         (async () => {
+
+            if (!hasPermission(adminData.roleName, 'CATEGORY')) {
+                navigate('/admin/dashboard')
+            }
             setLoading(true)
             const categoryList = await categoryApi.listCategory(adminAuthToken);
             if (categoryList.data.success === true) {
@@ -160,7 +168,7 @@ function CategoryController() {
                     onClick: (async () => {
                         setLoading(true)
                         if (id !== '') {
-                            const deleteCategoryApi = await categoryApi.deleteCategory(adminAuthToken,id)
+                            const deleteCategoryApi = await categoryApi.deleteCategory(adminAuthToken, id)
                             if (deleteCategoryApi) {
                                 if (deleteCategoryApi.data.success === false) {
                                     setLoading(false)

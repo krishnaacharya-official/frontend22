@@ -73,6 +73,7 @@
     "jsx-a11y/anchor-has-content":0,
     "no-script-url":0,
     "prefer-arrow-callback":0,
+    "dot-notation":0,
     // "react-hooks/rules-of-hooks": 2,
     "prefer-const": [
       0,

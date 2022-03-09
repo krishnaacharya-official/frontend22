@@ -91,19 +91,19 @@ export default function UserList(props) {
     };
     return (
 
-        <Page title="User | Minimal-UI">
+        <Page title="Donor | Minimal-UI">
 
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" gutterBottom>
-                        User
+                        Donors
                     </Typography>
                     <Button
                         variant="contained"
                         startIcon={<Icon icon={plusFill} />}
                         onClick={() => props.setOpenModal()}
                     >
-                        New User
+                        New Donor
                     </Button>
                 </Stack>
                 <Card>

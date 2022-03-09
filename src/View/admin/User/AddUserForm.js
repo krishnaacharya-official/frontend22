@@ -17,11 +17,11 @@ export default function AddUserForm(props) {
             >
                 <Modal.Header >
                     <Modal.Title id="example-modal-sizes-title-lg">
-                        {stateData?.id ? "UpDate User" : "Add User"}
+                        {stateData?.id ? "UpDate Donor" : "Add Donor"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">Role</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="role" name="role">
@@ -32,7 +32,7 @@ export default function AddUserForm(props) {
                             {stateData.error && stateData.error.role && <p className="error">{stateData.error ? stateData.error.role ? stateData.error.role : "" : ""}</p>}
 
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
@@ -41,14 +41,14 @@ export default function AddUserForm(props) {
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
                     </div>
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                         <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
                         <div className="col-sm-10">
                             <input type="text"disabled={stateData?stateData.id ? true : false:false} className="form-control form-control-plaintext" name='username' id="username" value={stateData.username} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.username && <p className="error">{stateData.error ? stateData.error.username ? stateData.error.username : "" : ""}</p>}
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
@@ -65,6 +65,88 @@ export default function AddUserForm(props) {
                             {stateData.error && stateData.error.password && <p className="error">{stateData.error ? stateData.error.password ? stateData.error.password : "" : ""}</p>}
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">Country</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="country" name="country">
+                                <option selected disabled value=" ">select Country</option>
+                                {props.countryList.length > 0 &&
+                                    props.countryList.map((country, i) => {
+
+                                        return (
+                                            country.status === 1 &&
+                                            <option value={country.id} selected={ Number(stateData.country) === Number(country.id)}>{country.country}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.country ? stateData.error.country : "" : ""}</p>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">State</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="stateid" name="stateid">
+                                <option selected disabled value=" ">select State</option>
+                                {props.stateList.length > 0 &&
+                                    props.stateList.map((state, i) => {
+
+                                        return (
+                                            state.status === 1 &&
+                                            <option value={state.id} selected={stateData.stateid === state.id}>{state.state}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.stateid ? stateData.error.stateid : "" : ""}</p>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">City</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="city" name="city">
+                                <option selected disabled value=" ">select City</option>
+                                {props.cityList.length > 0 &&
+                                    props.cityList.map((city, i) => {
+
+                                        return (
+                                            city.status === 1 &&
+                                            <option value={city.id} selected={stateData.city === city.id}>{city.city}</option>
+                                        )
+
+                                    })
+
+                                }
+
+                            </select>
+                            <p className='error'>{stateData.error ? stateData.error.city ? stateData.error.city : "" : ""}</p>
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Street Name</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control form-control-plaintext" name='street' id="street" value={stateData.street} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.street && <p className="error">{stateData.error ? stateData.error.street ? stateData.error.street : "" : ""}</p>}
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Zip Code</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control form-control-plaintext" name='zip' id="zip" value={stateData.zip} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.zip && <p className="error">{stateData.error ? stateData.error.zip ? stateData.error.zip : "" : ""}</p>}
+                        </div>
+                    </div>
+
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">Status</label>
                         <div className="col-sm-10">
