@@ -9,6 +9,8 @@ import Index from "../../View/admin/Products/Index";
 import AddProductForm from "../../View/admin/Products/AddProductForm";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import productApi from "../../Api/admin/product";
+import authApi from "../../Api/admin/auth";
+
 
 
 
@@ -48,6 +50,12 @@ function ProductController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
+
+            const verifyUser = await authApi.verifyToken(adminAuthToken)
+            if (!verifyUser.data.success) {
+                localStorage.clear()
+                navigate('/admin/login')
+            }
 
             //Product List
             //----------------------------------

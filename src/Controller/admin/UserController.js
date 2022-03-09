@@ -8,6 +8,8 @@ import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import adminCampaignApi from "../../Api/admin/adminCampaign";
+import authApi from "../../Api/admin/auth";
+
 
 function UserController() {
     const navigate = useNavigate();
@@ -62,6 +64,12 @@ function UserController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
+
+            const verifyUser = await authApi.verifyToken(adminAuthToken)
+            if (!verifyUser.data.success) {
+                localStorage.clear()
+                navigate('/admin/login')
+            }
             const getUserList = await userApi.list(adminAuthToken)
             if (getUserList.data.success) {
                 setUserList(getUserList.data.data)

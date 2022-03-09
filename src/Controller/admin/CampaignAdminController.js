@@ -9,6 +9,7 @@ import CampaignAdminForm from "../../View/admin/CampaignAdmin/CampaignAdminForm"
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { fa } from "faker/lib/locales";
 import categoryApi from "../../Api/admin/category";
+import authApi from "../../Api/admin/auth";
 
 function CampaignAdminController() {
     const navigate = useNavigate();
@@ -81,6 +82,12 @@ function CampaignAdminController() {
 
     useEffect(() => {
         (async () => {
+            const verifyUser = await authApi.verifyToken(adminAuthToken)
+            if (!verifyUser.data.success) {
+                localStorage.clear()
+                navigate('/admin/login')
+            }
+
 
             setLoading(true)
             const getCampaignAdminList = await adminCampaignApi.list(adminAuthToken)
@@ -329,7 +336,7 @@ function CampaignAdminController() {
             'url.required': 'Website is Requied.',
             'address.required': 'Address is Requied.',
 
-            
+
             'category.required': 'Category is Requied.',
             'country.required': 'Country is Requied.',
             'city.required': 'City is Requied.',
@@ -424,7 +431,7 @@ function CampaignAdminController() {
             })
             setLoading(false)
 
-        } else if(e.target.name === "stateid") {
+        } else if (e.target.name === "stateid") {
             setLoading(true)
             const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
             if (getStateCityList.data.success === true) {

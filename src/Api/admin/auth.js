@@ -26,9 +26,32 @@ function auth() {
         });
         return res;
     }
+    const verifyToken = async (token) => {
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}auth/verifToken`,
+            responseType: 'json',
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                token:token
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
 
     return {
         login,
+        verifyToken
 
     }
 }

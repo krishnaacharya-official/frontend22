@@ -8,6 +8,8 @@ import Index from "../../View/admin/Category/Index";
 import categoryApi from "../../Api/admin/category";
 import AddCategoryForm from "../../View/admin/Category/AddCategoryForm";
 import { hasPermission } from "../../Common/Helper";
+import authApi from "../../Api/admin/auth";
+
 
 
 function CategoryController() {
@@ -36,6 +38,12 @@ function CategoryController() {
 
     useEffect(() => {
         (async () => {
+
+            const verifyUser = await authApi.verifyToken(adminAuthToken)
+            if (!verifyUser.data.success) {
+                localStorage.clear()
+                navigate('/admin/login')
+            }
 
             if (!hasPermission(adminData.roleName, 'CATEGORY')) {
                 navigate('/admin/dashboard')
