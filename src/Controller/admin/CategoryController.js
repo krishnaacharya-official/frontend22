@@ -39,15 +39,16 @@ function CategoryController() {
     useEffect(() => {
         (async () => {
 
+            if (!hasPermission(adminData.roleName, 'CATEGORY')) {
+                navigate('/admin/dashboard')
+            }
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {
                 localStorage.clear()
                 navigate('/admin/login')
             }
 
-            if (!hasPermission(adminData.roleName, 'CATEGORY')) {
-                navigate('/admin/dashboard')
-            }
+        
             setLoading(true)
             const categoryList = await categoryApi.listCategory(adminAuthToken);
             if (categoryList.data.success === true) {
