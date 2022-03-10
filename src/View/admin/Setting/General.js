@@ -26,11 +26,13 @@ import settingApi from '../../../Api/admin/setting';
 import React, { useEffect, useState } from 'react';
 import FrontLoader from '../../../Common/FrontLoader';
 import ToastAlert from '../../../Common/ToastAlert';
+import { hasPermission } from '../../../Common/Helper';
 
 export default function General(props) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [state, setState] = useState({
         currency: "",
         currency444: ""
@@ -61,6 +63,9 @@ export default function General(props) {
 
     useEffect(() => {
         (async () => {
+            if (!hasPermission(adminData.roleName, 'SETTING')) {
+                navigate('/admin/dashboard')
+            }
             setLoading(true)
             const getSettingsValue = await settingApi.list(adminAuthToken, Object.keys(state));
             if (getSettingsValue.data.data.length > 0) {

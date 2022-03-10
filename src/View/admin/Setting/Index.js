@@ -60,14 +60,14 @@ export default function Settings() {
                                             <div className="col">
                                                 <div className="d-flex flex-column ps-card justify-content-start">
                                                     <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/general">General</Link></div>
-                                                    <div className="text-alternate">Lollipop apple pie lollipop toffee croissant. Sugar plum fruitcake cotton candy lemon drops. Carrot cake fruitcake dragée pie cotton candy sesame snaps lollipop croissant.</div>
+                                                    {/* <div className="text-alternate">Lollipop apple pie lollipop toffee croissant. Sugar plum fruitcake cotton candy lemon drops. Carrot cake fruitcake dragée pie cotton candy sesame snaps lollipop croissant.</div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col">
+                            {/* <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
                                         <div className="g-0 row">
@@ -132,7 +132,7 @@ export default function Settings() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
