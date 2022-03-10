@@ -60,7 +60,7 @@ export default function AccountPopover() {
 
           onClick: () => {
             user.logout()
-            navigate('/')
+            navigate('/admin/login')
           }
         },
         {

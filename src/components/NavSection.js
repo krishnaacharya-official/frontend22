@@ -76,7 +76,7 @@ function NavItem({ item, active }) {
 
           onClick: () => {
             user.logout()
-            navigate('/admin/login')
+            navigate('/')
           }
         },
         {
