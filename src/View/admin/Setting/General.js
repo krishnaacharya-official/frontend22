@@ -73,10 +73,8 @@ export default function General(props) {
                 setState({
                     ...data
                 })
-                setLoading(false)
-
-
             }
+            setLoading(false)
 
 
 
