@@ -10,6 +10,8 @@ import AddProductForm from "../../View/admin/Products/AddProductForm";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import productApi from "../../Api/admin/product";
 import authApi from "../../Api/admin/auth";
+import { hasPermission } from "../../Common/Helper";
+
 
 
 
@@ -28,6 +30,7 @@ function ProductController() {
     const navigate = useNavigate();
 
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
 
     const [state, setstate] = useState({
         id: '',
@@ -50,6 +53,10 @@ function ProductController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
+
+            if (!hasPermission(adminData.roleName, 'PRODUCT')) {
+                navigate('/admin/dashboard')
+            }
 
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {

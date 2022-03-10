@@ -163,3 +163,23 @@
 .modal-lg{
   height: 50%;
 } */
+
+/* .setting-nav .nav-link.active {
+  color: #fff;
+  cursor: default;
+  background-color: #00AB55 !important;
+}
+.setting-nav .nav-link{
+  color: #00AB55;
+}
+
+.settingButton {
+  margin-left: -10px;
+} */
+.text-primary{
+  color: #00AB55 !important;
+}
+.hover-scale-up:hover {
+  transform: scale(1.02);
+  z-index: 1;
+}

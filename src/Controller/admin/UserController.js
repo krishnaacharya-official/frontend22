@@ -9,6 +9,8 @@ import { confirmAlert } from "react-confirm-alert"
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import authApi from "../../Api/admin/auth";
+import { hasPermission } from "../../Common/Helper";
+
 
 
 function UserController() {
@@ -39,6 +41,7 @@ function UserController() {
     const [cityList, setCityList] = useState([])
 
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
 
     const resetForm = () => {
         setState({
@@ -64,7 +67,9 @@ function UserController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
-
+            if (!hasPermission(adminData.roleName, 'USER')) {
+                navigate('/admin/dashboard')
+            }
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {
                 localStorage.clear()

@@ -10,6 +10,8 @@ import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { fa } from "faker/lib/locales";
 import categoryApi from "../../Api/admin/category";
 import authApi from "../../Api/admin/auth";
+import { hasPermission } from "../../Common/Helper";
+
 
 function CampaignAdminController() {
     const navigate = useNavigate();
@@ -50,6 +52,7 @@ function CampaignAdminController() {
 
 
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
 
     const resetForm = () => {
         setTempImg('')
@@ -82,6 +85,11 @@ function CampaignAdminController() {
 
     useEffect(() => {
         (async () => {
+
+            if (!hasPermission(adminData.roleName, 'CAMPAIGN_ADMIN')) {
+                navigate('/admin/dashboard')
+            }
+
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {
                 localStorage.clear()

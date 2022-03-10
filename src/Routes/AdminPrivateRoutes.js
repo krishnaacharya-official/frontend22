@@ -18,6 +18,9 @@ import CampaignAdminController from '../Controller/admin/CampaignAdminController
 import CategoryController from '../Controller/admin/CategoryController';
 import SubCategoryController from '../Controller/admin/SubCategoryController';
 import ProductController from '../Controller/admin/ProductController';
+import ProfileController from '../Controller/admin/ProfileController';
+import SettingController from '../Controller/admin/SettingController';
+import General from '../View/admin/Setting/General';
 
 // ----------------------------------------------------------------------
 
@@ -61,6 +64,11 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/category" element={<CategoryController />} />
                     <Route exact path="/admin/category/subcategory/:id" element={<SubCategoryController />} />
                     <Route exact path="/admin/products" element={<ProductController />} />
+                    <Route exact path="/admin/profile" element={<ProfileController />} />
+                    <Route exact path="/admin/setting" element={<SettingController />} />
+                    <Route exact path="/admin/setting/general" element={<General />} />
+
+
 
 
 

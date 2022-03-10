@@ -16,38 +16,73 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 // const location = useLocation();
 const adminData = JSON.parse(localStorage.getItem('adminData'));
 
-// if(adminData.roleName == 'ADMIN'){
+let sidebarConfig;
 
-// }
+if(adminData?.roleName === 'ADMIN'){
 
-const sidebarConfig = [
+  sidebarConfig = [
   
-  {
-    title: 'dashboard',
-    path: '/admin/dashboard/',
-    icon: getIcon(pieChart2Fill)
-  },
-  {
-    title: 'donors',
-    path: '/admin/user/',
-    icon: getIcon(peopleFill)
-  },
-  {
-    title: 'campaign admin',
-    path: '/admin/campaign_admin/',
-    icon: getIcon('codicon:organization')
-  },
-  {
-    title: 'category',
-    path: '/admin/category/',
-    icon: getIcon('carbon:category')
-  },
-  {
-    title: 'products',
-    path: '/admin/products/',
-    icon: getIcon('mdi:alpha-p-circle')
-  },
+    {
+      title: 'dashboard',
+      path: '/admin/dashboard/',
+      icon: getIcon(pieChart2Fill)
+    },
+    {
+      title: 'donors',
+      path: '/admin/user/',
+      icon: getIcon(peopleFill)
+    },
+    {
+      title: 'campaign admin',
+      path: '/admin/campaign_admin/',
+      icon: getIcon('codicon:organization')
+    },
+    {
+      title: 'category',
+      path: '/admin/category/',
+      icon: getIcon('carbon:category')
+    },
+    {
+      title: 'products',
+      path: '/admin/products/',
+      icon: getIcon('mdi:alpha-p-circle')
+    },
+    {
+      title: 'profile',
+      path: '/admin/profile/',
+      icon: getIcon(peopleFill)
+    },
+    {
+      title: 'setting',
+      path: '/admin/setting/',
+      icon: getIcon('ci:settings-filled')
+    },
+  
+  ];
 
-];
+}else{
+
+  sidebarConfig = [
+  
+    {
+      title: 'dashboard',
+      path: '/admin/dashboard/',
+      icon: getIcon(pieChart2Fill)
+    },
+    {
+      title: 'products',
+      path: '/admin/products/',
+      icon: getIcon('mdi:alpha-p-circle')
+    },
+    {
+      title: 'profile',
+      path: '/admin/profile/',
+      icon: getIcon(peopleFill)
+    },
+  
+  ];
+}
+
+
 
 export default sidebarConfig;

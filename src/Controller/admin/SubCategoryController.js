@@ -7,6 +7,8 @@ import { confirmAlert } from "react-confirm-alert"
 import React, { useState, useEffect } from "react"
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import AddSubCategoryForm from "../../View/admin/Category/SubCategory/AddSubCategoryForm";
+import { hasPermission } from "../../Common/Helper";
+
 
 
 function SubCategoryController() {
@@ -17,11 +19,13 @@ function SubCategoryController() {
     const [update, setUpdate] = useState(false)
     const navigate = useNavigate();
     const [categoryName, setCategoryName] = useState('')
+    
 
     const params = useParams();
     let categoryId = params.id
 
     const adminAuthToken = localStorage.getItem('adminAuthToken');
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
 
     const [state, setstate] = useState({
         subcategoryHdnID: '',
@@ -37,6 +41,12 @@ function SubCategoryController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
+
+            if (!hasPermission(adminData.roleName, 'CATEGORY')) {
+                navigate('/admin/dashboard')
+            }
+
+
             const subCategoryList = await categoryApi.listSubCategory(adminAuthToken, categoryId);
             if (subCategoryList.data.success === true) {
                 setCategoryName(subCategoryList.data.categoryName)

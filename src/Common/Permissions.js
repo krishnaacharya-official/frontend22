@@ -1,6 +1,6 @@
 const Permissions = {
 
-    'ADMIN': ['PRODUCT', 'CATEGORY', 'CAMPAIGN_ADMIN'],
+    'ADMIN': ['PRODUCT', 'CATEGORY', 'CAMPAIGN_ADMIN','USER','SETTING'],
     
     'CAMPAIGN_ADMIN': ['PRODUCT']
 
