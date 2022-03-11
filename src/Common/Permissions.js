@@ -1,8 +1,8 @@
 const Permissions = {
 
-    'ADMIN': ['PRODUCT', 'CATEGORY', 'CAMPAIGN_ADMIN','USER','SETTING'],
+    'ADMIN': ['PRODUCT', 'CATEGORY', 'CAMPAIGN_ADMIN','DONORS','SETTING','DASHBOARD'],
     
-    'CAMPAIGN_ADMIN': ['PRODUCT']
+    'CAMPAIGN_ADMIN': ['PRODUCT','DASHBOARD','PROFILE']
 
 }
 export default Permissions;

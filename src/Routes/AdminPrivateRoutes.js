@@ -21,6 +21,7 @@ import ProductController from '../Controller/admin/ProductController';
 import ProfileController from '../Controller/admin/ProfileController';
 import SettingController from '../Controller/admin/SettingController';
 import General from '../View/admin/Setting/General';
+import HomePage from '../View/frontEnd/Layout/Home/HomePage';
 
 // ----------------------------------------------------------------------
 
@@ -67,6 +68,7 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/profile" element={<ProfileController />} />
                     <Route exact path="/admin/setting" element={<SettingController />} />
                     <Route exact path="/admin/setting/general" element={<General />} />
+                    {/* <Route exact path="*" element={<HomePage />} /> */}
 
 
 

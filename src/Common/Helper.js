@@ -36,3 +36,9 @@ export function hasPermission(ROLE, MODULE) {
     return RESPONCE;
 
 }
+
+export function ImageExist(url) {
+    let img = new Image();
+    img.src = url;
+    return img.height !== 0 ? true : false;
+}

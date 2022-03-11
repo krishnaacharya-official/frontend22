@@ -67,7 +67,7 @@ function UserController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            if (!hasPermission(adminData.roleName, 'USER')) {
+            if (!hasPermission(adminData.roleName, 'DONORS')) {
                 navigate('/admin/dashboard')
             }
             const verifyUser = await authApi.verifyToken(adminAuthToken)

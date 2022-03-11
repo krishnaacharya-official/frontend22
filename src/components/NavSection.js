@@ -9,7 +9,9 @@ import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css'
+// import hasPermission from '../Common/Helper'
+import { hasPermission } from '../Common/Helper'
 
 // ----------------------------------------------------------------------
 
@@ -55,7 +57,7 @@ NavItem.propTypes = {
 function NavItem({ item, active }) {
   const user = useContext(UserContext)
   const navigate = useNavigate();
-
+  const adminData = JSON.parse(localStorage.getItem('adminData'));
   const theme = useTheme();
   const isActiveRoot = active(item.path);
   const { title, path, icon, info, children } = item;
@@ -186,12 +188,15 @@ NavSection.propTypes = {
 
 export default function NavSection({ navConfig, ...other }) {
   const { pathname } = useLocation();
+  const adminData = JSON.parse(localStorage.getItem('adminData'));
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
 
   return (
     <Box {...other}>
       <List disablePadding>
         {navConfig.map((item) => (
+          // console.log(item)
+          hasPermission(adminData?.roleName,item.name) &&
           <NavItem key={item.title} item={item} active={match} />
         ))}
       </List>

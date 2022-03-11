@@ -9,79 +9,96 @@ import personAddFill from '@iconify/icons-eva/person-add-fill';
 import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 import { useLocation } from 'react-router-dom';
 import categoryFill from '@iconify/icons-eva/grid-fill';
+import React, { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 // const location = useLocation();
 const adminData = JSON.parse(localStorage.getItem('adminData'));
+const adminAuthToken = localStorage.getItem('adminAuthToken');
 
-let sidebarConfig;
 
-if(adminData?.roleName === 'ADMIN'){
 
-  sidebarConfig = [
-  
+
+
+
+// let sidebarConfig;
+
+// if (adminData?.roleName === 'ADMIN') {
+
+ const  sidebarConfig = [
+
     {
       title: 'dashboard',
       path: '/admin/dashboard/',
-      icon: getIcon(pieChart2Fill)
+      icon: getIcon(pieChart2Fill),
+      name:'DASHBOARD'
     },
     {
       title: 'donors',
       path: '/admin/user/',
-      icon: getIcon(peopleFill)
+      icon: getIcon(peopleFill),
+      name:'DONORS'
     },
     {
       title: 'campaign admin',
       path: '/admin/campaign_admin/',
-      icon: getIcon('codicon:organization')
+      icon: getIcon('codicon:organization'),
+      name:'CAMPAIGN_ADMIN'
+
     },
     {
       title: 'category',
       path: '/admin/category/',
-      icon: getIcon('carbon:category')
+      icon: getIcon('carbon:category'),
+      name:'CAMPAIGN_ADMIN'
+
     },
     {
       title: 'products',
       path: '/admin/products/',
-      icon: getIcon('mdi:alpha-p-circle')
+      icon: getIcon('mdi:alpha-p-circle'),
+      name:'PRODUCT'
+
     },
     {
       title: 'profile',
       path: '/admin/profile/',
-      icon: getIcon(peopleFill)
+      icon: getIcon(peopleFill),
+      name:'PROFILE'
     },
     {
       title: 'setting',
       path: '/admin/setting/',
-      icon: getIcon('ci:settings-filled')
+      icon: getIcon('ci:settings-filled'),
+      name:'SETTING'
     },
-  
+
   ];
 
-}else{
+// } else {
 
-  sidebarConfig = [
-  
-    {
-      title: 'dashboard',
-      path: '/admin/dashboard/',
-      icon: getIcon(pieChart2Fill)
-    },
-    {
-      title: 'products',
-      path: '/admin/products/',
-      icon: getIcon('mdi:alpha-p-circle')
-    },
-    {
-      title: 'profile',
-      path: '/admin/profile/',
-      icon: getIcon(peopleFill)
-    },
-  
-  ];
-}
+  // sidebarConfig = [
+
+  //   {
+  //     title: 'dashboard',
+  //     path: '/admin/dashboard/',
+  //     icon: getIcon(pieChart2Fill)
+  //   },
+  //   {
+  //     title: 'products',
+  //     path: '/admin/products/',
+  //     icon: getIcon('mdi:alpha-p-circle')
+  //   },
+  //   {
+  //     title: 'profile',
+  //     path: '/admin/profile/',
+  //     icon: getIcon(peopleFill)
+  //   },
+
+  // ];
+// }
 
 
 

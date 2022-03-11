@@ -33,7 +33,7 @@ import Slide from '@mui/material/Slide';
 
 export default function AddProductForm(props) {
     let stateData = props.stateData
-
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
     return (
         <>
             <Modal
@@ -51,27 +51,30 @@ export default function AddProductForm(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {adminData.roleName === 'ADMIN' &&
+                        <div className="form-group row">
+                            <label className="col-form-label col-sm-2 ">Organization</label>
+                            <div className="col-sm-10">
+                                <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="organization" name="organization">
+                                    <option selected disabled value="">Select Organization</option>
+                                    {
+                                        props.campaignAdminList.length > 0 &&
+                                        props.campaignAdminList.map((admin, i) => {
+                                            return (
+                                                admin.status === 1 &&
+                                                <option value={admin._id} selected={stateData.organization === admin._id}>{admin.name}</option>
+                                            )
+                                        })
 
-                    <div className="form-group row">
-                        <label className="col-form-label col-sm-2 ">Organization</label>
-                        <div className="col-sm-10">
-                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="organization" name="organization">
-                                <option selected disabled value="">Select Organization</option>
-                                {
-                                    props.campaignAdminList.length > 0 &&
-                                    props.campaignAdminList.map((admin,i)=>{
-                                        return(
-                                            admin.status === 1 &&
-                                            <option value={admin._id} selected={stateData.organization === admin._id }>{admin.name}</option>
-                                        )
-                                    })
+                                    }
+                                </select>
 
-                                }
-                            </select>
-
-                            {stateData.error && stateData.error.organization && <p className="error">{stateData.error ? stateData.error.organization ? stateData.error.organization : "" : ""}</p>}
+                                {stateData.error && stateData.error.organization && <p className="error">{stateData.error ? stateData.error.organization ? stateData.error.organization : "" : ""}</p>}
+                            </div>
                         </div>
-                    </div>
+
+                    }
+
 
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Product Title</label>
@@ -98,7 +101,7 @@ export default function AddProductForm(props) {
                             <input type="file" className={stateData.error?.image ? "inputerror custom-file-input form-control" : " custom-file-input form-control"} id="image" accept="image/*" onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose file </label>
                             <p className='error'>{stateData.error ? stateData.error.image ? stateData.error.image : "" : ""}</p>
-                            { props.Img || props.tempImg ? <img src={props.tempImg ? props.tempImg : props.Img ? props.Img !== "" ? helper.CampaignProductImagePath + props.Img :  noimg  : noimg } alt="lk" style={{width:"100px",height:"100px"}}/>:""}
+                            {props.Img || props.tempImg ? <img src={props.tempImg ? props.tempImg : props.Img ? props.Img !== "" ? helper.CampaignProductImagePath + props.Img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> : ""}
 
                         </div>
                     </div>
@@ -150,7 +153,7 @@ export default function AddProductForm(props) {
 
                                         return (
                                             cat.status === 1 &&
-                                            <option value={cat._id} selected={stateData.category ===cat._id }>{cat.name}</option>
+                                            <option value={cat._id} selected={stateData.category === cat._id}>{cat.name}</option>
                                         )
 
                                     })
@@ -176,7 +179,7 @@ export default function AddProductForm(props) {
 
                                         return (
                                             cat.status === 1 &&
-                                            <option value={cat._id} selected={stateData.subcategory ===cat._id }>{cat.name}</option>
+                                            <option value={cat._id} selected={stateData.subcategory === cat._id}>{cat.name}</option>
                                         )
 
                                     })

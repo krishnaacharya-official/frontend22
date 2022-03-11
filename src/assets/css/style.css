@@ -183,3 +183,38 @@
   transform: scale(1.02);
   z-index: 1;
 }
+
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.profile-user-img {
+  border: 3px solid #adb5bd;
+  margin: 0 auto;
+  padding: 3px;
+  width: 100px;
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.card-primary.card-outline {
+    border-top: 3px solid #007bff;
+}
+.card {
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    margin-bottom: 1rem;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: #00AB55 !important;
+}
+.nav-link,.nav-link:hover{
+  color: #00AB55;
+}
+.img100px{
+  width: 100px !important;
+}

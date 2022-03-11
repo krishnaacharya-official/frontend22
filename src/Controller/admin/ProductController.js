@@ -58,6 +58,8 @@ function ProductController() {
                 navigate('/admin/dashboard')
             }
 
+
+
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {
                 localStorage.clear()
@@ -66,10 +68,28 @@ function ProductController() {
 
             //Product List
             //----------------------------------
+            let temp = []
             const getproductList = await productApi.list(adminAuthToken);
             if (getproductList.data.success === true) {
-                setProductList(getproductList.data.data)
+                if (adminData.roleName === 'CAMPAIGN_ADMIN') {
+                    if (getproductList.data.data.length > 0) {
+                        getproductList.data.data.map((p, i) => {
+                            if (p.organizationId === adminData.id) {
+                                temp.push(p)
+                            }
+
+
+                        })
+                        setProductList(temp)
+                    }
+
+
+                } else {
+                    setProductList(getproductList.data.data)
+                }
+
             }
+            // setUpdate(true)
 
             //Category List
             //----------------------------------
@@ -173,6 +193,7 @@ function ProductController() {
     }
 
     const submitProductForm = (e) => {
+
         let rules;
         if (id) {
             rules = {
@@ -187,18 +208,35 @@ function ProductController() {
                 organization: 'required',
             }
         } else {
-            rules = {
-                title: 'required',
-                status: 'required',
-                subtitle: 'required',
-                category: 'required',
-                subcategory: 'required',
-                description: 'required',
-                price: 'required',
-                image: 'required',
-                quantity: 'required',
-                organization: 'required',
+            if (adminData.roleName === 'CAMPAIGN_ADMIN') {
+                rules = {
+                    title: 'required',
+                    status: 'required',
+                    subtitle: 'required',
+                    category: 'required',
+                    subcategory: 'required',
+                    description: 'required',
+                    price: 'required',
+                    image: 'required',
+                    quantity: 'required',
+                }
+
+
+            } else {
+                rules = {
+                    title: 'required',
+                    status: 'required',
+                    subtitle: 'required',
+                    category: 'required',
+                    subcategory: 'required',
+                    description: 'required',
+                    price: 'required',
+                    image: 'required',
+                    quantity: 'required',
+                    organization: 'required',
+                }
             }
+
         }
 
         const message = {
@@ -216,14 +254,14 @@ function ProductController() {
 
 
         }
-  
+
         validateAll(state, rules, message).then(async () => {
             const formaerrror = {};
             setstate({
                 ...state,
                 error: formaerrror
             })
-        
+
             let data = {}
             data.title = title
             data.subtitle = subtitle
@@ -231,8 +269,13 @@ function ProductController() {
             if (image) {
                 data.image = image
             }
+            if (adminData.roleName === 'CAMPAIGN_ADMIN') {
+                data.organizationId = adminData.id
+            } else {
+                data.organizationId = organization
+            }
 
-            data.organizationId = organization
+
             data.price = price
             data.description = description
             data.category_id = category

@@ -256,6 +256,94 @@ function adminCampaign() {
         return res;
     }
 
+    //---------------GET LOGGEDIN CAMPAIGN DETAILS----------------------
+    const getCampaignDetails = async (authToken) => {
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}campaign_admin/details`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const saveCampaignDetails = async (authToken, cdata) => {
+        const data = new FormData();
+        data.append('name', cdata.name);
+        data.append('status', cdata.status);
+        if (cdata.password) {
+            data.append('password', cdata.password);
+        }
+
+        if (cdata.logo) {
+            data.append('logo', cdata.logo);
+        }
+        data.append('description', cdata.description);
+        data.append('twitter', cdata.twitter);
+        data.append('facebook', cdata.facebook);
+        data.append('linkedin', cdata.linkedin);
+        data.append('url', cdata.url);
+        data.append('country_id', cdata.country_id);
+        data.append('city_id', cdata.city_id);
+        data.append('state_id', cdata.state_id);
+        data.append('address', cdata.address);
+        data.append('category_id', cdata.category_id);
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/details`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+    const updatePassword = async (authToken, data) =>{
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/updatePassword`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
     return {
         list,
         add,
@@ -265,7 +353,10 @@ function adminCampaign() {
         VerifyOtpCampaignAdmin,
         countryList,
         stateListByCountry,
-        cityListByState
+        cityListByState,
+        getCampaignDetails,
+        saveCampaignDetails,
+        updatePassword
 
     }
 }
