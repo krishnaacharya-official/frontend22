@@ -86,6 +86,15 @@ export default function AddProductForm(props) {
                     </div>
 
                     <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control form-control-plaintext" disabled={ stateData?.id ? true :false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Product SubTitle</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control form-control-plaintext" name='subtitle' id="subtitle" value={stateData.subtitle} onChange={(e) => { props.changevalue(e) }} />

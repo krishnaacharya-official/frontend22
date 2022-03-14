@@ -46,6 +46,8 @@ function adminCampaign() {
         data.append('state_id', cdata.state_id);
         data.append('address', cdata.address);
         data.append('category_id', cdata.category_id);
+        data.append('slug', cdata.slug);
+
 
         let res = {};
         await axios({

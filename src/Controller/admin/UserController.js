@@ -104,18 +104,18 @@ function UserController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Requied.',
+            'password.required': 'Password is Required.',
 
 
-            'zip.required': 'Zip Code is Requied.',
-            'country.required': 'Country is Requied.',
-            'city.required': 'City is Requied.',
-            'stateid.required': 'State is Requied.',
-            'street.required': 'Street Address is Requied.',
+            'zip.required': 'Zip Code is Required.',
+            'country.required': 'Country is Required.',
+            'city.required': 'City is Required.',
+            'stateid.required': 'State is Required.',
+            'street.required': 'Street Address is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -262,17 +262,17 @@ function UserController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
-            'username.required': 'Username is Requied.',
-            'role.required': 'Role is Requied.',
+            'username.required': 'Username is Required.',
+            'role.required': 'Role is Required.',
 
-            'zip.required': 'Zip Code is Requied.',
-            'country.required': 'Country is Requied.',
-            'city.required': 'City is Requied.',
-            'stateid.required': 'State is Requied.',
-            'street.required': 'Street Address is Requied.',
+            'zip.required': 'Zip Code is Required.',
+            'country.required': 'Country is Required.',
+            'city.required': 'City is Required.',
+            'stateid.required': 'State is Required.',
+            'street.required': 'Street Address is Required.',
 
 
         }

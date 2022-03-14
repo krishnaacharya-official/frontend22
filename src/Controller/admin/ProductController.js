@@ -44,10 +44,11 @@ function ProductController() {
         image: '',
         quantity: '',
         organization: '',
+        slug: '',
         error: [],
     })
     const {
-        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, error
+        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error
     } = state;
 
     useEffect(() => {
@@ -128,6 +129,31 @@ function ProductController() {
                 [e.target.name]: value
             })
 
+        } else if (e.target.name === "title") {
+            if (id === "") {
+                let productNameVar = value.toLowerCase();
+                productNameVar = productNameVar.replace(/\s+/g, '-');
+                setstate({
+                    ...state,
+                    slug: productNameVar,
+                    [e.target.name]: value
+                })
+            } else {
+                setstate({
+                    ...state,
+                    [e.target.name]: value
+                })
+            }
+        } else if (e.target.name === "slug") {
+            if (id === "") {
+                let  productNameVar = value.toLowerCase();
+                productNameVar = productNameVar.replace(/\s+/g, '-');
+                setstate({
+                    ...state,
+                    slug: productNameVar,
+                })
+            }
+
         } else {
             setstate({
                 ...state,
@@ -168,6 +194,7 @@ function ProductController() {
             price: '',
             image: '',
             quantity: '',
+            slug:'',
             error: [],
         });
 
@@ -187,6 +214,7 @@ function ProductController() {
             price: '',
             image: '',
             quantity: '',
+            slug: '',
             error: [],
         });
 
@@ -206,6 +234,7 @@ function ProductController() {
                 price: 'required',
                 quantity: 'required',
                 organization: 'required',
+                // slug: 'required'
             }
         } else {
             if (adminData.roleName === 'CAMPAIGN_ADMIN') {
@@ -219,6 +248,7 @@ function ProductController() {
                     price: 'required',
                     image: 'required',
                     quantity: 'required',
+                    slug: 'required'
                 }
 
 
@@ -234,15 +264,17 @@ function ProductController() {
                     image: 'required',
                     quantity: 'required',
                     organization: 'required',
+                    slug: 'required'
+
                 }
             }
 
         }
 
         const message = {
-            'status.required': 'Status is Requied',
-            'title.required': 'Title is Requied',
-            'subtitle.required': 'SubTitle is Requied',
+            'status.required': 'Status is Required',
+            'title.required': 'Title is Required',
+            'subtitle.required': 'SubTitle is Required',
             'category.required': 'Category is Required',
             'subcategory.required': 'Subcategory is Required',
             'description.required': 'Description is Required',
@@ -250,6 +282,8 @@ function ProductController() {
             'image.required': 'image is Required',
             'quantity.required': 'Quantity is Required',
             'organization.required': 'Organization is Required',
+            'slug.required': 'Slug is Required',
+
 
 
 
@@ -263,9 +297,11 @@ function ProductController() {
             })
 
             let data = {}
+
             data.title = title
             data.subtitle = subtitle
             data.status = status
+
             if (image) {
                 data.image = image
             }
@@ -273,6 +309,10 @@ function ProductController() {
                 data.organizationId = adminData.id
             } else {
                 data.organizationId = organization
+            }
+            if (!id && id === '') {
+                data.productSlug = slug
+
             }
 
 
@@ -388,6 +428,8 @@ function ProductController() {
                 // image: productData.image,
                 quantity: productData.quantity,
                 organization: productData.organizationId,
+                slug: productData.slug,
+
             });
             setImg(productData.image)
 

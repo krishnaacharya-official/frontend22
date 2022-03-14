@@ -111,9 +111,9 @@ function SubCategoryController() {
             icon: 'required'
         }
         const message = {
-            'status.required': 'Status is Requied.',
-            'name.required': 'Category name is Requied.',
-            'icon.required': 'Category Icon is Requied.',
+            'status.required': 'Status is Required.',
+            'name.required': 'Category name is Required.',
+            'icon.required': 'Category Icon is Required.',
 
 
         }

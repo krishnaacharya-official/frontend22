@@ -37,7 +37,7 @@ export default function ForgotPasswordController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
+            'email.required': 'Email is Required.',
             'email.email': 'please enter valid email.',
 
         }
@@ -100,11 +100,11 @@ export default function ForgotPasswordController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
+            'email.required': 'Email is Required.',
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Requied.',
-            'cpassword.required': 'Confirm Password is Requied.',
+            'password.required': 'Password is Required.',
+            'cpassword.required': 'Confirm Password is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {

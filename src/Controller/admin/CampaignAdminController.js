@@ -39,11 +39,12 @@ function CampaignAdminController() {
         address: "",
         category: "",
         error: [],
+        slug:"",
         status: 1
     })
 
     const {
-        name, error, email, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
+        name, error, email,slug, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -75,6 +76,7 @@ function CampaignAdminController() {
             address: "",
             category: "",
             error: [],
+            slug:"",
             status: 1
         })
     }
@@ -142,30 +144,32 @@ function CampaignAdminController() {
             city: "required",
             stateid: "required",
             category: "required",
+            slug: 'required'
 
 
 
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Requied.',
+            'password.required': 'Password is Required.',
 
-            'logo.required': 'logo is Requied.',
-            'description.required': 'description is Requied.',
-            'twitter.required': 'Twitter is Requied.',
-            'facebook.required': 'Facebook is Requied.',
-            'linkedin.required': 'Linkedin is Requied.',
-            'url.required': 'Website is Requied.',
-            'address.required': 'Address is Requied.',
+            'logo.required': 'logo is Required.',
+            'description.required': 'description is Required.',
+            'twitter.required': 'Twitter is Required.',
+            'facebook.required': 'Facebook is Required.',
+            'linkedin.required': 'Linkedin is Required.',
+            'url.required': 'Website is Required.',
+            'address.required': 'Address is Required.',
 
-            'category.required': 'Category is Requied.',
-            'country.required': 'Country is Requied.',
-            'city.required': 'City is Requied.',
-            'stateid.required': 'State is Requied.',
+            'category.required': 'Category is Required.',
+            'country.required': 'Country is Required.',
+            'city.required': 'City is Required.',
+            'stateid.required': 'State is Required.',
+            'slug.required': 'Slug is Required',
 
 
 
@@ -193,6 +197,7 @@ function CampaignAdminController() {
             data.state_id = stateid
             data.address = address
             data.category_id = category
+            data.slug = slug
 
             setLoading(true)
             const addUser = await adminCampaignApi.add(adminAuthToken, data)
@@ -304,6 +309,7 @@ function CampaignAdminController() {
             stateid: data.state_id,
             address: data.address,
             category: data.category_id,
+            slug:data.slug,
             error: [],
         })
         setLoading(false)
@@ -334,21 +340,21 @@ function CampaignAdminController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
-            'description.required': 'description is Requied.',
-            'twitter.required': 'Twitter is Requied.',
-            'facebook.required': 'Facebook is Requied.',
-            'linkedin.required': 'Linkedin is Requied.',
-            'url.required': 'Website is Requied.',
-            'address.required': 'Address is Requied.',
+            'description.required': 'description is Required.',
+            'twitter.required': 'Twitter is Required.',
+            'facebook.required': 'Facebook is Required.',
+            'linkedin.required': 'Linkedin is Required.',
+            'url.required': 'Website is Required.',
+            'address.required': 'Address is Required.',
 
 
-            'category.required': 'Category is Requied.',
-            'country.required': 'Country is Requied.',
-            'city.required': 'City is Requied.',
-            'stateid.required': 'State is Requied.',
+            'category.required': 'Category is Required.',
+            'country.required': 'Country is Required.',
+            'city.required': 'City is Required.',
+            'stateid.required': 'State is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -451,7 +457,33 @@ function CampaignAdminController() {
                 [e.target.name]: value
             })
             setLoading(false)
-        } else {
+        } else if(e.target.name === "name"){
+            if (id === "") {
+                let organizationNameVar = value.toLowerCase();
+                organizationNameVar = organizationNameVar.replace(/\s+/g, '-');
+                setState({
+                    ...state,
+                    slug: organizationNameVar,
+                    [e.target.name]: value
+                })
+            } else {
+                setState({
+                    ...state,
+                    [e.target.name]: value
+                })
+            }
+
+        } else if(e.target.name === "slug"){
+            if (id === "") {
+                let  organizationNameVar = value.toLowerCase();
+                organizationNameVar = organizationNameVar.replace(/\s+/g, '-');
+                setState({
+                    ...state,
+                    slug: organizationNameVar,
+                })
+            }
+
+        }else{
             setState({
                 ...state,
                 [e.target.name]: value

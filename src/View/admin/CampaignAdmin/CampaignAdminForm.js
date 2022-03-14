@@ -46,6 +46,15 @@ export default function CampaignAdminForm(props) {
                     </div>
 
                     <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control form-control-plaintext" disabled={ stateData?.id ? true :false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
                             <input type="email" disabled={stateData ? stateData.id ? true : false : false} className="form-control form-control-plaintext" id="email" name="email" value={stateData.email} onChange={(e) => { props.changevalue(e) }} />

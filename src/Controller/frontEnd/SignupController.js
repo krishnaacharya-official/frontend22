@@ -36,15 +36,15 @@ function SignupController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Requied.',
-            'cpassword.required': 'Confirm Password is Requied.',
+            'password.required': 'Password is Required.',
+            'cpassword.required': 'Confirm Password is Required.',
             'cpassword.same': 'Password and Confirm Password Must be Same',
-            'username.required': 'Username is Requied.',
-            'role.required': 'Role is Requied.',
+            'username.required': 'Username is Required.',
+            'role.required': 'Role is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {

@@ -17,6 +17,8 @@ function product() {
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
         data.append('quantity', cdata.quantity);
+        data.append('productSlug', cdata.productSlug);
+
 
         let res = {};
         await axios({

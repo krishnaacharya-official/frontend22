@@ -28,9 +28,9 @@ function SigninController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
+            'email.required': 'Email is Required.',
             'email.email': 'please enter valid email.',
-            'password.required': 'Password is Requied.',
+            'password.required': 'Password is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {

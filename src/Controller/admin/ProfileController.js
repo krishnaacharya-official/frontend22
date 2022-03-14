@@ -199,24 +199,24 @@ function ProfileController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
-            'name.required': 'Name is Requied.',
+            'email.required': 'Email is Required.',
+            'name.required': 'Name is Required.',
             'email.email': 'please enter valid email.',
             'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Requied.',
+            'password.required': 'Password is Required.',
 
-            // 'logo.required': 'logo is Requied.',
-            'description.required': 'description is Requied.',
-            'twitter.required': 'Twitter is Requied.',
-            'facebook.required': 'Facebook is Requied.',
-            'linkedin.required': 'Linkedin is Requied.',
-            'url.required': 'Website is Requied.',
-            'address.required': 'Address is Requied.',
+            // 'logo.required': 'logo is Required.',
+            'description.required': 'description is Required.',
+            'twitter.required': 'Twitter is Required.',
+            'facebook.required': 'Facebook is Required.',
+            'linkedin.required': 'Linkedin is Required.',
+            'url.required': 'Website is Required.',
+            'address.required': 'Address is Required.',
 
-            'category.required': 'Category is Requied.',
-            'country.required': 'Country is Requied.',
-            'city.required': 'City is Requied.',
-            'stateid.required': 'State is Requied.',
+            'category.required': 'Category is Required.',
+            'country.required': 'Country is Required.',
+            'city.required': 'City is Required.',
+            'stateid.required': 'State is Required.',
 
 
 
@@ -300,13 +300,13 @@ function ProfileController() {
         }
 
         const message = {
-            'email.required': 'Email is Requied.',
+            'email.required': 'Email is Required.',
             'email.email': 'please enter valid email.',
             'newPassword.min': 'New Password must be at least 6 characters',
-            'newPassword.required': 'New Password is Requied.',
-            'confirmPassword.required': 'Confirm Password is Requied.',
+            'newPassword.required': 'New Password is Required.',
+            'confirmPassword.required': 'Confirm Password is Required.',
             'confirmPassword.same': 'New Password and Confirm Password Must be Same',
-            'currentPassword.required': 'Current Password is Requied.',
+            'currentPassword.required': 'Current Password is Required.',
 
 
 
