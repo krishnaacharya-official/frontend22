@@ -218,3 +218,146 @@
 .img100px{
   width: 100px !important;
 }
+
+
+.ReactTags__tags {
+  position: relative;
+}
+
+.ReactTags__clearAll {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #e6e6e6;
+  color: black;
+  border: none;
+}
+
+/* Styles for the input */
+.ReactTags__tagInput {
+  border-radius: 2px;
+  display: inline-block;
+}
+.ReactTags__tagInput input.ReactTags__tagInputField,
+.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+  height: 31px;
+  margin: 0;
+  font-size: 12px;
+  border: 1px solid #eee;
+  min-width: 150px;
+}
+
+.ReactTags__editInput {
+  border-radius: 1px;
+}
+
+.ReactTags__editTagInput {
+  display: inline-flex;
+}
+
+/* Styles for selected tags */
+.ReactTags__selected span.ReactTags__tag {
+  border: 1px solid #ddd;
+  background: hsl(0, 0%, 90%);
+  color: black;
+  font-size: 12px;
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+.ReactTags__selected span.ReactTags__tag:first-child {
+  margin-left: 0px;
+}
+.ReactTags__selected a.ReactTags__remove {
+  color: #aaa;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+
+.ReactTags__suggestions {
+  position: absolute;
+  top:60px;
+}
+.ReactTags__suggestions ul {
+  list-style-type: none;
+  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+  background: white;
+  width: 200px;
+}
+.ReactTags__suggestions li {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0;
+}
+.ReactTags__suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+}
+.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+  background: #b7cfe0;
+  cursor: pointer;
+}
+
+.ReactTags__remove {
+  border: none !important;
+  cursor: pointer  !important;
+  background: none  !important;
+  color: black  !important;
+}
+.ReactTags__tagInputField {
+  display: block !important;
+  width: 100% !important;
+  height: calc(1.90625rem + 2px) !important;
+  padding: 0.25rem 0.7rem !important;
+  font-size: .9375rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #495057 !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.2rem !important;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+}
+.ReactTags__selected{
+  display: flex;
+      flex-wrap: wrap;
+}
+.ReactTags__tagInput{
+  order: 1;
+  flex: 0 0 100%;
+  display: flex;
+  margin-bottom: 15px;
+}
+.ReactTags__tagInputField{
+  /* flex: 0 0 80%; */
+      margin-right: 10px !important;
+}
+.ReactTags__clearAll{
+  flex: 0 0 19%;
+  margin: 0;
+  padding: 0;
+}
+span.tag-wrapper.ReactTags__tag{
+  order: 2;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 5px;
+}
+button.ReactTags__remove{
+  margin-left: 5px !important;
+  padding: 0px;
+  width: 30px;
+  font-size: 20px;
+}
+.ReactTags__remove:hover{
+  background-color: #FFBDAD !important;
+  color: #DE350B !important;
+}
+.ReactTags__remove:focus, .ReactTags__clearAll:focus{
+  outline: unset;
+}

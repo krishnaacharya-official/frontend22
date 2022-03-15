@@ -51,6 +51,8 @@ function ProductController() {
         id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error
     } = state;
 
+    const [tags, setTags] = useState([]);
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -443,6 +445,36 @@ function ProductController() {
             ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
         }
     }
+    const handleDelete = (i) => {
+        setTags(tags.filter((tag, index) => index !== i));
+    };
+
+    const handleAddition = (tag) => {
+        setTags([...tags, tag]);
+    };
+
+    const handleDrag = (tag, currPos, newPos) => {
+        const newTags = [...tags].slice();
+
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+
+        setTags(newTags);
+    };
+
+    const handleTagClick = (index) => {
+        console.log("The tag at index " + index + " was clicked");
+    };
+
+    const onClearAll = () => {
+        setTags([]);
+    };
+    const onTagUpdate = (i, newTag) => {
+        const updatedTags = tags.slice();
+        updatedTags.splice(i, 1, newTag);
+        setTags(updatedTags);
+    };
+    
 
 
 
@@ -468,6 +500,16 @@ function ProductController() {
                 submitProductForm={submitProductForm}
                 campaignAdminList={campaignAdminList}
                 Img={Img}
+
+
+                
+                handleDelete={handleDelete}
+                handleAddition={handleAddition}
+                handleDrag={handleDrag}
+                handleTagClick={handleTagClick}
+                onClearAll={onClearAll}
+                onTagUpdate={onTagUpdate}
+                tags={tags}
             />
 
 

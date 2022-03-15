@@ -34,20 +34,20 @@ export default function UserList(props) {
         { name: "Name", selector: "name", sortable: true },
         // { name: "Username", selector: "username", sortable: true },
         { name: "Email", selector: "email", sortable: true },
-        {
-            name: "Role",
-            cell: (row) => <>
-                {/* <span className={row.status === 1 ? "badge badge-success" : "badge badge-danger"}>{row.status === 1 ? 'Active' : 'InActive'}</span> */}
-                <Label
-                    variant="ghost"
-                    color={(row.role === 2 && 'info') || 'success'}
-                >
-                    {row.roledetails[0].name}
-                </Label>
-            </>,
-            ignoreRowClick: true,
-            allowOverflow: true,
-        },
+        // {
+        //     name: "Role",
+        //     cell: (row) => <>
+        //         {/* <span className={row.status === 1 ? "badge badge-success" : "badge badge-danger"}>{row.status === 1 ? 'Active' : 'InActive'}</span> */}
+        //         <Label
+        //             variant="ghost"
+        //             color={(row.role === 2 && 'info') || 'success'}
+        //         >
+        //             {row.roledetails[0].name}
+        //         </Label>
+        //     </>,
+        //     ignoreRowClick: true,
+        //     allowOverflow: true,
+        // },
         {
             name: "Status",
             cell: (row) => <>

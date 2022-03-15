@@ -8,16 +8,16 @@ if (window.location.hostname === 'localhost') {
 
 let helper = {
     ApiUrl: 'http://localhost:8080/api/',
-    CampaignAdminLogoPath: 'http://localhost:8080/campaign/logo/resize/',
-    CampaignProductImagePath: 'http://localhost:8080/campaign/product/resize/'
+    CampaignAdminLogoPath: 'http://localhost:8080/iamges/campaign/logo/resize/',
+    CampaignProductImagePath: 'http://localhost:8080/iamges/campaign/product/resize/'
 }
 
 if (Mode === "production") {
 
     helper = {
         ApiUrl: 'https://donorport.herokuapp.com/api/',
-        CampaignAdminLogoPath: 'https://donorport.herokuapp.com/campaign/logo/resize/',
-        CampaignProductImagePath: 'https://donorport.herokuapp.com/campaign/product/resize/'
+        CampaignAdminLogoPath: 'https://donorport.herokuapp.com/iamges/campaign/logo/resize/',
+        CampaignProductImagePath: 'https://donorport.herokuapp.com/iamges/campaign/product/resize/'
     }
 }
 

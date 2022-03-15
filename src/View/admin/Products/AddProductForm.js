@@ -20,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import { WithContext as ReactTags } from "react-tag-input";
 // import helper from '../../../Common/Helper';
 
 
@@ -200,6 +201,42 @@ export default function AddProductForm(props) {
                         </div>
 
                     </div>
+
+                    <div className="form-group row">
+                    <div className="col-sm-2">
+                            <label htmlFor="tags">Tags</label>
+                        </div>
+                            {/* <label className="col-form-label col-2 text-sm-right" htmlFor="inputstock">Tags</label> */}
+                            <div className="col-sm-10">
+                                {/* {console.log(variants)} */}
+                                <ReactTags
+                                    handleDelete={props.handleDelete}
+                                    handleAddition={props.handleAddition}
+                                    handleDrag={props.handleDrag}
+                                    delimiters={props.delimiters}
+                                    handleTagClick={props.handleTagClick}
+                                    onClearAll={props.onClearAll}
+                                    onTagUpdate={props.onTagUpdate}
+                              
+                                    placeholder="Enter Tags..."
+                                    // minQueryLength={10}
+                                    // maxLength={15}
+                                    autofocus={false}
+                                    allowDeleteFromEmptyInput
+                                    autocomplete
+                                    readOnly={false}
+                                    allowUnique
+                                    allowDragDrop
+                                    inline
+                                    allowAdditionFromPaste
+                                    editable
+                                    clearAll
+                                    tags={props.tags}
+                                />
+                                <p className='error'>{stateData.error ? stateData.error.tags ? stateData.error.tags : "" : ""}</p>
+
+                            </div>
+                        </div>
 
 
                     <div className="form-group row">
