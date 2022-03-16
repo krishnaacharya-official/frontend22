@@ -7,8 +7,26 @@ function product() {
 
 
         const data = new FormData();
-        data.append('title', cdata.title);
-        data.append('subtitle', cdata.subtitle);
+
+        if (cdata.moreImg && cdata.moreImg.length > 0) {
+            for (let i = 0; i < cdata.moreImg.length; i++) {
+                data.append('moreImg', cdata.moreImg[i]);
+            }
+        }
+
+        if (cdata.galleryImg && cdata.galleryImg.length > 0) {
+            for (let i = 0; i < cdata.galleryImg.length; i++) {
+                data.append('galleryImg', cdata.galleryImg[i]);
+            }
+        }
+
+
+        data.append('brand', cdata.brand);
+        data.append('headline', cdata.headline);
+
+        data.append('needheadline', cdata.needheadline);
+        data.append('galleryUrl', cdata.galleryUrl);
+
         data.append('status', cdata.status);
         data.append('image', cdata.image);
         data.append('organizationId', cdata.organizationId);
@@ -18,6 +36,8 @@ function product() {
         data.append('subcategory_id', cdata.subcategory_id);
         data.append('quantity', cdata.quantity);
         data.append('productSlug', cdata.productSlug);
+        data.append('tags', cdata.tags);
+
 
 
         let res = {};
@@ -86,8 +106,25 @@ function product() {
     const updateProduct = async (authToken, cdata, id) => {
 
         const data = new FormData();
-        data.append('title', cdata.title);
-        data.append('subtitle', cdata.subtitle);
+
+        if (cdata.moreImg && cdata.moreImg.length > 0) {
+            for (let i = 0; i < cdata.moreImg.length; i++) {
+                data.append('moreImg', cdata.moreImg[i]);
+            }
+        }
+
+        if (cdata.galleryImg && cdata.galleryImg.length > 0) {
+            for (let i = 0; i < cdata.galleryImg.length; i++) {
+                data.append('galleryImg', cdata.galleryImg[i]);
+            }
+        }
+
+        data.append('brand', cdata.brand);
+        data.append('headline', cdata.headline);
+
+        data.append('needheadline', cdata.needheadline);
+        data.append('galleryUrl', cdata.galleryUrl);
+
         data.append('status', cdata.status);
         if (cdata.image) {
             data.append('image', cdata.image);
@@ -98,6 +135,7 @@ function product() {
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
         data.append('quantity', cdata.quantity);
+        data.append('tags', cdata.tags);
 
         let res = {};
         await axios({
@@ -126,7 +164,7 @@ function product() {
         list,
         deleteProduct,
         updateProduct,
-       
+
 
     }
 }

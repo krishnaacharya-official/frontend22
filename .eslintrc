@@ -75,6 +75,7 @@
     "prefer-arrow-callback":0,
     "jsx-a11y/img-redundant-alt":0,
     "dot-notation":0,
+    "no-plusplus":0,
     // "react-hooks/rules-of-hooks": 2,
     "prefer-const": [
       0,

@@ -32,11 +32,16 @@ function ProductController() {
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const adminData = JSON.parse(localStorage.getItem('adminData'));
 
+    // const [productImages, setproductImages] = useState([])
+
+
     const [state, setstate] = useState({
         id: '',
         status: 1,
         title: '',
         subtitle: '',
+        headline: '',
+        brand: '',
         category: '',
         subcategory: '',
         description: '',
@@ -46,9 +51,16 @@ function ProductController() {
         organization: '',
         slug: '',
         error: [],
+        moreImg: [],
+        galleryUrl: '',
+        needheadline: '',
+        galleryImg: [],
+
+
+
     })
     const {
-        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error
+        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline,galleryImg
     } = state;
 
     const [tags, setTags] = useState([]);
@@ -131,7 +143,7 @@ function ProductController() {
                 [e.target.name]: value
             })
 
-        } else if (e.target.name === "title") {
+        } else if (e.target.name === "headline") {
             if (id === "") {
                 let productNameVar = value.toLowerCase();
                 productNameVar = productNameVar.replace(/\s+/g, '-');
@@ -148,7 +160,7 @@ function ProductController() {
             }
         } else if (e.target.name === "slug") {
             if (id === "") {
-                let  productNameVar = value.toLowerCase();
+                let productNameVar = value.toLowerCase();
                 productNameVar = productNameVar.replace(/\s+/g, '-');
                 setstate({
                     ...state,
@@ -166,13 +178,28 @@ function ProductController() {
     }
 
     const changefile = (e) => {
-        let file = e.target.files[0] ? e.target.files[0] : '';
-        setTempImg(URL.createObjectURL(file))
+        if (e.target.id === 'mainImg') {
+            let file = e.target.files[0] ? e.target.files[0] : '';
+            setTempImg(URL.createObjectURL(file))
 
-        setstate({
-            ...state,
-            image: file
-        })
+            setstate({
+                ...state,
+                image: file
+            })
+        } else if (e.target.id === 'galleryImg') {
+
+            setstate({
+                ...state,
+                galleryImg: e.target.files
+            })
+
+          }else{ 
+               setstate({
+                ...state,
+                moreImg: e.target.files
+            })
+        }
+
     }
 
     const handleOnDiscriptionChangeValue = (e) => {
@@ -184,6 +211,7 @@ function ProductController() {
 
     const resetForm = (e) => {
         setModal(false);
+        setTags([])
         setTempImg('')
         setstate({
             id: '',
@@ -196,7 +224,7 @@ function ProductController() {
             price: '',
             image: '',
             quantity: '',
-            slug:'',
+            slug: '',
             error: [],
         });
 
@@ -223,13 +251,20 @@ function ProductController() {
     }
 
     const submitProductForm = (e) => {
+        // console.log(tags)
+        const formaerrror = {}
+        if (tags.length === 0) {
+            formaerrror['tags'] = "Please Enter Tags"
 
+        }
         let rules;
         if (id) {
             rules = {
-                title: 'required',
+                brand: 'required',
+                needheadline: 'required',
+                galleryUrl: 'required',
                 status: 'required',
-                subtitle: 'required',
+                headline: 'required',
                 category: 'required',
                 subcategory: 'required',
                 description: 'required',
@@ -241,9 +276,11 @@ function ProductController() {
         } else {
             if (adminData.roleName === 'CAMPAIGN_ADMIN') {
                 rules = {
-                    title: 'required',
+                    brand: 'required',
+                    needheadline: 'required',
+                    galleryUrl: 'required',
                     status: 'required',
-                    subtitle: 'required',
+                    headline: 'required',
                     category: 'required',
                     subcategory: 'required',
                     description: 'required',
@@ -256,9 +293,11 @@ function ProductController() {
 
             } else {
                 rules = {
-                    title: 'required',
+                    brand: 'required',
+                    needheadline: 'required',
+                    galleryUrl: 'required',
                     status: 'required',
-                    subtitle: 'required',
+                    headline: 'required',
                     category: 'required',
                     subcategory: 'required',
                     description: 'required',
@@ -275,8 +314,11 @@ function ProductController() {
 
         const message = {
             'status.required': 'Status is Required',
-            'title.required': 'Title is Required',
-            'subtitle.required': 'SubTitle is Required',
+            'needheadline.required': 'Need Headline is Required',
+            'galleryUrl.required': 'gallery Url is Required',
+
+            'brand.required': 'Brand is Required',
+            'headline.required': 'Headline is Required',
             'category.required': 'Category is Required',
             'subcategory.required': 'Subcategory is Required',
             'description.required': 'Description is Required',
@@ -292,7 +334,7 @@ function ProductController() {
         }
 
         validateAll(state, rules, message).then(async () => {
-            const formaerrror = {};
+            // const formaerrror = {};
             setstate({
                 ...state,
                 error: formaerrror
@@ -300,9 +342,18 @@ function ProductController() {
 
             let data = {}
 
-            data.title = title
-            data.subtitle = subtitle
+            // data.title = title
+            // data.subtitle = subtitle
             data.status = status
+
+            data.brand = brand
+            data.needheadline = needheadline
+            data.galleryUrl = galleryUrl
+            data.headline = headline
+
+
+
+        
 
             if (image) {
                 data.image = image
@@ -316,6 +367,21 @@ function ProductController() {
                 data.productSlug = slug
 
             }
+            let tagsArray = []
+            if (tags.length > 0) {
+                tags.map((ptage, i) => {
+                    tagsArray.push(ptage.id)
+                })
+            }
+
+            if ( moreImg?.length > 0) {
+                data.moreImg = moreImg
+            }
+            if (galleryImg?.length > 0) {
+                data.galleryImg = galleryImg
+            }
+         
+            
 
 
             data.price = price
@@ -323,41 +389,45 @@ function ProductController() {
             data.category_id = category
             data.subcategory_id = subcategory
             data.quantity = quantity
+            data.tags = tagsArray
 
+            if (Object.keys(formaerrror).length === 0) {
 
+                // }
 
-            let addProduct;
-            // Api Call for update Profile
-            setLoading(true)
-            if (id !== '') {
-                addProduct = await productApi.updateProduct(adminAuthToken, data, id)
-            } else {
-                addProduct = await productApi.add(adminAuthToken, data)
-            }
-
-
-            if (addProduct) {
-                if (addProduct.data.success === false) {
-                    setLoading(false)
-                    ToastAlert({ msg: addProduct.data.message, msgType: 'error' });
-
+                let addProduct;
+                // Api Call for update Profile
+                setLoading(true)
+                if (id !== '') {
+                    addProduct = await productApi.updateProduct(adminAuthToken, data, id)
                 } else {
-                    if (addProduct.data.success === true) {
-                        resetForm()
-                        setLoading(false)
-                        setUpdate(!update)
-                        ToastAlert({ msg: addProduct.data.message, msgType: 'success' });
-                    }
+                    addProduct = await productApi.add(adminAuthToken, data)
                 }
-            } else {
-                setLoading(false)
-                ToastAlert({ msg: 'Category not save', msgType: 'error' });
+
+
+                if (addProduct) {
+                    if (addProduct.data.success === false) {
+                        setLoading(false)
+                        ToastAlert({ msg: addProduct.data.message, msgType: 'error' });
+
+                    } else {
+                        if (addProduct.data.success === true) {
+                            resetForm()
+                            setLoading(false)
+                            setUpdate(!update)
+                            ToastAlert({ msg: addProduct.data.message, msgType: 'success' });
+                        }
+                    }
+                } else {
+                    setLoading(false)
+                    ToastAlert({ msg: 'Category not save', msgType: 'error' });
+                }
             }
 
         }).catch(errors => {
             setLoading(false)
             console.log(errors)
-            const formaerrror = {};
+            // const formaerrror = {};
             if (errors.length) {
                 errors.forEach(element => {
                     formaerrror[element.field] = element.message
@@ -372,6 +442,8 @@ function ProductController() {
             })
 
         });
+
+
 
     }
 
@@ -421,18 +493,32 @@ function ProductController() {
             setstate({
                 id: productData._id,
                 status: productData.status,
-                title: productData.title,
-                subtitle: productData.subtitle,
+                headline: productData.headline,
+                brand: productData.brand,
                 category: productData.categoryId,
                 subcategory: productData.subcategoryId,
                 description: productData.description,
                 price: productData.price,
-                // image: productData.image,
                 quantity: productData.quantity,
                 organization: productData.organizationId,
                 slug: productData.slug,
+                needheadline: productData.needheadline,
+                galleryUrl: productData.galleryUrl,
+
 
             });
+            let mytags = []
+            let addedTags = [];
+            if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
+                addedTags = productData.tags.split(',');
+            }
+            addedTags.map((aadedTag, i) => {
+                let tagsObj = {}
+                tagsObj.id = aadedTag
+                tagsObj.text = aadedTag
+                mytags.push(tagsObj)
+            })
+            setTags(mytags)
             setImg(productData.image)
 
             const getsubCategoryList = await categoryApi.listSubCategory(adminAuthToken, productData.categoryId);
@@ -474,12 +560,13 @@ function ProductController() {
         updatedTags.splice(i, 1, newTag);
         setTags(updatedTags);
     };
-    
+
 
 
 
     return (
         <>
+    
             <FrontLoader loading={loading} />
             <Index
                 openModel={openModel}
@@ -502,7 +589,7 @@ function ProductController() {
                 Img={Img}
 
 
-                
+
                 handleDelete={handleDelete}
                 handleAddition={handleAddition}
                 handleDrag={handleDrag}

@@ -31,7 +31,7 @@ export default function Index(props) {
 
     const columns = [
 
-        { name: "Name", selector: "title", sortable: true },
+        { name: "Name", selector: "headline", sortable: true },
         {
             name: "Category",
             cell: (row) => <>
