@@ -11,6 +11,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import productApi from "../../Api/admin/product";
 import authApi from "../../Api/admin/auth";
 import { hasPermission } from "../../Common/Helper";
+import projectApi from "../../Api/admin/project"
 
 
 
@@ -26,12 +27,13 @@ function ProductController() {
     const [Img, setImg] = useState('')
     const [productList, setProductList] = useState([])
     const [iconList, setIconList] = useState([])
+    const [projectList, setProjectList] = useState([])
     const [update, setUpdate] = useState(false)
     const navigate = useNavigate();
 
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const adminData = JSON.parse(localStorage.getItem('adminData'));
-
+    const [seletedProjectList, setSeletedProjectList] = useState([])
     // const [productImages, setproductImages] = useState([])
 
 
@@ -60,7 +62,7 @@ function ProductController() {
 
     })
     const {
-        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline,galleryImg
+        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg
     } = state;
 
     const [tags, setTags] = useState([]);
@@ -104,7 +106,7 @@ function ProductController() {
                 }
 
             }
-            // setUpdate(true)
+            // setUpdate(true) 
 
             //Category List
             //----------------------------------
@@ -118,6 +120,13 @@ function ProductController() {
             const getcampaignAdminList = await adminCampaignApi.list(adminAuthToken)
             if (getcampaignAdminList.data.success) {
                 setCampaignAdminList(getcampaignAdminList.data.data)
+            }
+
+            //Project List
+            //--------------------------------------
+            const getProjectList = await projectApi.list(adminAuthToken)
+            if (getProjectList.data.success) {
+                setProjectList(getProjectList.data.data)
             }
 
             setLoading(false)
@@ -193,8 +202,8 @@ function ProductController() {
                 galleryImg: e.target.files
             })
 
-          }else{ 
-               setstate({
+        } else {
+            setstate({
                 ...state,
                 moreImg: e.target.files
             })
@@ -231,6 +240,7 @@ function ProductController() {
     }
     const openModel = () => {
         setTempImg('')
+        setSeletedProjectList([])
         setImg('')
         setModal(true);
         setstate({
@@ -353,7 +363,7 @@ function ProductController() {
 
 
 
-        
+
 
             if (image) {
                 data.image = image
@@ -374,14 +384,18 @@ function ProductController() {
                 })
             }
 
-            if ( moreImg?.length > 0) {
+            if (moreImg?.length > 0) {
                 data.moreImg = moreImg
             }
             if (galleryImg?.length > 0) {
                 data.galleryImg = galleryImg
             }
-         
-            
+            if(seletedProjectList?.length > 0){
+                data.prjects = seletedProjectList
+
+            }
+
+
 
 
             data.price = price
@@ -505,8 +519,16 @@ function ProductController() {
                 needheadline: productData.needheadline,
                 galleryUrl: productData.galleryUrl,
 
-
             });
+
+            let tempProjectArray = [];
+            if(productData.projectDetails.length > 0 ){
+                productData.projectDetails.map((project,i)=>{
+                    tempProjectArray.push(project.projectId)  
+                })
+                setSeletedProjectList(tempProjectArray)
+            }
+
             let mytags = []
             let addedTags = [];
             if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
@@ -531,6 +553,7 @@ function ProductController() {
             ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
         }
     }
+    
     const handleDelete = (i) => {
         setTags(tags.filter((tag, index) => index !== i));
     };
@@ -561,12 +584,30 @@ function ProductController() {
         setTags(updatedTags);
     };
 
+    const onSelectProject = (e) => {
+
+        if (e.target.checked) {
+            setSeletedProjectList([...seletedProjectList, e.target.id])
+        } else {
+
+            let tempArry = [...seletedProjectList]
+            const index = tempArry.indexOf(e.target.id);
+            if (index > -1) {
+                tempArry.splice(index, 1);
+            }
+            setSeletedProjectList(tempArry)
+
+        }
+
+
+    }
+
 
 
 
     return (
         <>
-    
+
             <FrontLoader loading={loading} />
             <Index
                 openModel={openModel}
@@ -587,6 +628,9 @@ function ProductController() {
                 submitProductForm={submitProductForm}
                 campaignAdminList={campaignAdminList}
                 Img={Img}
+                projectList={projectList}
+                onSelectProject={onSelectProject}
+                seletedProjectList={seletedProjectList}
 
 
 

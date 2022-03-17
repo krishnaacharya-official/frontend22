@@ -19,6 +19,9 @@ function product() {
                 data.append('galleryImg', cdata.galleryImg[i]);
             }
         }
+        if(cdata.prjects && cdata.prjects.length > 0 ){
+            data.append('projects', JSON.stringify(cdata.prjects) );
+        }
 
 
         data.append('brand', cdata.brand);
@@ -118,6 +121,10 @@ function product() {
                 data.append('galleryImg', cdata.galleryImg[i]);
             }
         }
+        if(cdata.prjects && cdata.prjects.length > 0 ){
+            data.append('projects', JSON.stringify(cdata.prjects) );
+        }
+
 
         data.append('brand', cdata.brand);
         data.append('headline', cdata.headline);

@@ -31,6 +31,37 @@ import Chip from '@mui/material/Chip';
 // const DialogTransition = (props) => {
 //     return <Slide direction='up' {...props} />;
 // };
+const productv = {
+    cursor: 'pointer',
+    display: 'block',
+    position: 'absolute',
+    top: "0px",
+    left: "0px",
+    opacity: "0",
+    height: "100%",
+    width: "100%"
+    // top: 0,
+    // bottom: 0,
+    // left: 0,
+    // height: '100%',
+    // appearance: 'none',
+    // width: '100%',
+    // 'WebkitAppearance': 'none',
+    // '-moz-appearance': 'none',
+}
+let variantStyle = {
+    fontSize: "14px",
+    color: "#00ab55",
+    textTransform: "uppercase",
+    // cursor: "pointer",
+    marginRight: "10px",
+    display: "inline-block",
+    // marginBottom: 0,
+    border: "1px solid #9fbcc1",
+    padding: "1px 28px 0px",
+    borderRadius: "7px",
+    marginBottom: "5px"
+}
 
 export default function AddProductForm(props) {
     let stateData = props.stateData
@@ -122,7 +153,7 @@ export default function AddProductForm(props) {
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">More of Product
                             (optional)</label>
                         <div className="col-sm-10">
-                            <input className='custom-file-input form-control' name='moreImg[]' id='moreImg'  type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
+                            <input className='custom-file-input form-control' name='moreImg[]' id='moreImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
 
 
@@ -234,6 +265,28 @@ export default function AddProductForm(props) {
                                 tags={props.tags}
                             />
                             <p className='error'>{stateData.error ? stateData.error.tags ? stateData.error.tags : "" : ""}</p>
+
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">Projects</label>
+                        <div className="col-sm-10">
+                            {
+                                props.projectList && props.projectList.length > 0 &&
+                                props.projectList.map((project, i) => {
+                                    return (
+                                        <>
+                                            <p style={{ ...variantStyle, position: "relative", backgroundColor:props.seletedProjectList.includes(project._id)?"#00ab55":"white",color:props.seletedProjectList.includes(project._id)?"white":"#00ab55" }} key={i}>
+                                                <input type='checkbox' id={project._id} checked={props.seletedProjectList.includes(project._id)} style={productv} name={'project_' + i} onClick={(e) => props.onSelectProject(e)} />
+                                                {project.name}
+                                            </p>
+                                        </>
+                                    )
+
+                                })
+
+                            }
 
                         </div>
                     </div>

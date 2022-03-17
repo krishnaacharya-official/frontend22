@@ -14,18 +14,7 @@ import React, { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
-// const location = useLocation();
-const adminData = JSON.parse(localStorage.getItem('adminData'));
-const adminAuthToken = localStorage.getItem('adminAuthToken');
 
-
-
-
-
-
-// let sidebarConfig;
-
-// if (adminData?.roleName === 'ADMIN') {
 
  const  sidebarConfig = [
 
@@ -63,6 +52,13 @@ const adminAuthToken = localStorage.getItem('adminAuthToken');
 
     },
     {
+      title: 'projects',
+      path: '/admin/projects/',
+      icon: getIcon('fontisto:ampproject'),
+      name:'PROJECT'
+
+    },
+    {
       title: 'profile',
       path: '/admin/profile/',
       icon: getIcon(peopleFill),
@@ -77,28 +73,7 @@ const adminAuthToken = localStorage.getItem('adminAuthToken');
 
   ];
 
-// } else {
 
-  // sidebarConfig = [
-
-  //   {
-  //     title: 'dashboard',
-  //     path: '/admin/dashboard/',
-  //     icon: getIcon(pieChart2Fill)
-  //   },
-  //   {
-  //     title: 'products',
-  //     path: '/admin/products/',
-  //     icon: getIcon('mdi:alpha-p-circle')
-  //   },
-  //   {
-  //     title: 'profile',
-  //     path: '/admin/profile/',
-  //     icon: getIcon(peopleFill)
-  //   },
-
-  // ];
-// }
 
 
 
