@@ -39,12 +39,12 @@ function CampaignAdminController() {
         address: "",
         category: "",
         error: [],
-        slug:"",
+        slug: "",
         status: 1
     })
 
     const {
-        name, error, email,slug, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
+        name, error, email, slug, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -76,7 +76,7 @@ function CampaignAdminController() {
             address: "",
             category: "",
             error: [],
-            slug:"",
+            slug: "",
             status: 1
         })
     }
@@ -281,40 +281,48 @@ function CampaignAdminController() {
     }
 
     const getUserRecord = async (data) => {
+        if ((data) && data !== null && data !== '') {
+            // }
+            console.log(data)
+            setLoading(true)
+            if (data.country_id && data.country_id !== null && data.country_id > 0  ) {
+                const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
+                if (getCountryStateList.data.success === true) {
+                    setStateList(getCountryStateList.data.data)
+                }
+            }
+            if (data.state_id && data.state_id !== null && data.state_id > 0 ) {
+                const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
+                if (getStateCityList.data.success === true) {
+                    setCityList(getStateCityList.data.data)
+                }
+            }
 
-        setLoading(true)
-        const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
-        if (getCountryStateList.data.success === true) {
-            setStateList(getCountryStateList.data.data)
-        }
-        const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
-        if (getStateCityList.data.success === true) {
-            setCityList(getStateCityList.data.data)
-        }
-        // console.log(data)
-        setTempImg(data.logo)
-        setState({
-            ...state,
-            id: data._id,
-            name: data.name,
-            email: data.email,
-            status: data.status,
-            description: data.description,
-            twitter: data.twitter,
-            facebook: data.facebook,
-            linkedin: data.linkedin,
-            url: data.url,
-            country: data.country_id,
-            city: data.city_id,
-            stateid: data.state_id,
-            address: data.address,
-            category: data.category_id,
-            slug:data.slug,
-            error: [],
-        })
-        setLoading(false)
-        setModal(true)
 
+            // console.log(data)
+            setTempImg(data.logo)
+            setState({
+                ...state,
+                id: data._id,
+                name: data.name,
+                email: data.email,
+                status: data.status,
+                description: data.description,
+                twitter: data.twitter,
+                facebook: data.facebook,
+                linkedin: data.linkedin,
+                url: data.url,
+                country: data.country_id,
+                city: data.city_id,
+                stateid: data.state_id,
+                address: data.address,
+                category: data.category_id,
+                slug: data.slug,
+                error: [],
+            })
+            setLoading(false)
+            setModal(true)
+        }
 
     }
 
@@ -457,7 +465,7 @@ function CampaignAdminController() {
                 [e.target.name]: value
             })
             setLoading(false)
-        } else if(e.target.name === "name"){
+        } else if (e.target.name === "name") {
             if (id === "") {
                 let organizationNameVar = value.toLowerCase();
                 organizationNameVar = organizationNameVar.replace(/\s+/g, '-');
@@ -473,9 +481,9 @@ function CampaignAdminController() {
                 })
             }
 
-        } else if(e.target.name === "slug"){
+        } else if (e.target.name === "slug") {
             if (id === "") {
-                let  organizationNameVar = value.toLowerCase();
+                let organizationNameVar = value.toLowerCase();
                 organizationNameVar = organizationNameVar.replace(/\s+/g, '-');
                 setState({
                     ...state,
@@ -483,7 +491,7 @@ function CampaignAdminController() {
                 })
             }
 
-        }else{
+        } else {
             setState({
                 ...state,
                 [e.target.name]: value

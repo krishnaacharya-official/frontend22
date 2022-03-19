@@ -307,7 +307,6 @@ function ProjectController() {
         // setLoading(true)
         setModal(true);
         if ((projectData) && projectData !== null && projectData !== '') {
-          console.log(projectData)
 
             setstate({
                 id: projectData._id,
