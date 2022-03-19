@@ -69,7 +69,7 @@ export default function AddUserForm(props) {
                         <label className="col-form-label col-sm-2 ">Country</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="country" name="country">
-                                <option selected disabled value=" ">select Country</option>
+                                <option selected disabled value=" ">Select Country</option>
                                 {props.countryList.length > 0 &&
                                     props.countryList.map((country, i) => {
 
@@ -90,7 +90,7 @@ export default function AddUserForm(props) {
                         <label className="col-form-label col-sm-2 ">State</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="stateid" name="stateid">
-                                <option selected disabled value=" ">select State</option>
+                                <option selected disabled value=" ">Select State</option>
                                 {props.stateList.length > 0 &&
                                     props.stateList.map((state, i) => {
 
@@ -111,7 +111,7 @@ export default function AddUserForm(props) {
                         <label className="col-form-label col-sm-2 ">City</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="city" name="city">
-                                <option selected disabled value=" ">select City</option>
+                                <option selected disabled value=" ">Select City</option>
                                 {props.cityList.length > 0 &&
                                     props.cityList.map((city, i) => {
 

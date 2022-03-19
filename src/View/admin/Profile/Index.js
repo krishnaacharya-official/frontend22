@@ -53,7 +53,7 @@ export default function Index(props) {
                                             </div>
                                             <h3 className="profile-username text-center">{stateData ? stateData.name.toUpperCase() : ""}</h3>
                                             <p className="text-muted text-center">{stateData.role === 2 ? 'CAMPAIGN ADMIN' : "ADMIN"}</p>
-                                            <ul className="list-group list-group-unbordered mb-3">
+                                            {/* <ul className="list-group list-group-unbordered mb-3">
                                                 <li className="list-group-item">
                                                     <b>Followers</b> <a className="float-right">1,322</a>
                                                 </li>
@@ -63,7 +63,7 @@ export default function Index(props) {
                                                 <li className="list-group-item">
                                                     <b>Friends</b> <a className="float-right">13,287</a>
                                                 </li>
-                                            </ul>
+                                            </ul> */}
                                             {/* <Button
                                                 variant="contained"
                                                 // startIcon={<Icon icon={backfill} />}
@@ -191,7 +191,7 @@ export default function Index(props) {
                                                             <label className="col-form-label col-sm-2 ">Category</label>
                                                             <div className="col-sm-10">
                                                                 <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
-                                                                    <option selected disabled value=" ">select Category</option>
+                                                                    <option selected disabled value=" ">Select Category</option>
                                                                     {props.categoryList.length > 0 &&
                                                                         props.categoryList.map((cat, i) => {
 
@@ -214,7 +214,7 @@ export default function Index(props) {
                                                             <label className="col-form-label col-sm-2 ">Country</label>
                                                             <div className="col-sm-10">
                                                                 <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="country" name="country">
-                                                                    <option selected disabled value=" ">select Country</option>
+                                                                    <option selected disabled value=" ">Select Country</option>
                                                                     {props.countryList.length > 0 &&
                                                                         props.countryList.map((country, i) => {
 
@@ -235,7 +235,7 @@ export default function Index(props) {
                                                             <label className="col-form-label col-sm-2 ">State</label>
                                                             <div className="col-sm-10">
                                                                 <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="stateid" name="stateid">
-                                                                    <option selected disabled value=" ">select State</option>
+                                                                    <option selected disabled value=" ">Select State</option>
                                                                     {props.stateList.length > 0 &&
                                                                         props.stateList.map((state, i) => {
 
@@ -256,7 +256,7 @@ export default function Index(props) {
                                                             <label className="col-form-label col-sm-2 ">City</label>
                                                             <div className="col-sm-10">
                                                                 <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="city" name="city">
-                                                                    <option selected disabled value=" ">select State</option>
+                                                                    <option selected disabled value=" ">Select State</option>
                                                                     {props.cityList.length > 0 &&
                                                                         props.cityList.map((city, i) => {
 

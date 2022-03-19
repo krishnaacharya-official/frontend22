@@ -37,6 +37,13 @@ function ProductController() {
     // const [productImages, setproductImages] = useState([])
 
 
+    const [moreTempImages, setMoreTempImages] = useState([])
+    const [moreImages, setMoreImages] = useState([])
+
+    const [gallaryTempImages, setGallaryTempImages] = useState([])
+    const [gallaryImages, setGallaryImages] = useState([])
+
+
     const [state, setstate] = useState({
         id: '',
         status: 1,
@@ -197,12 +204,36 @@ function ProductController() {
             })
         } else if (e.target.id === 'galleryImg') {
 
+            let gImgtempArry = []
+            let gImgtempObj = []
+
+            if(e.target.files && e.target.files.length > 0)  {
+                gImgtempObj.push(e.target.files)
+                for (let i = 0; i < gImgtempObj[0].length; i++) {
+                    gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+                }
+                setGallaryTempImages(gImgtempArry)
+        
+               }
+
             setstate({
                 ...state,
                 galleryImg: e.target.files
             })
 
         } else {
+
+            let mImgtempArry = []
+            let mImgtempObj = []
+
+            if(e.target.files && e.target.files.length > 0)  {
+                mImgtempObj.push(e.target.files)
+                for (let i = 0; i < mImgtempObj[0].length; i++) {
+                    mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+                }
+                setMoreTempImages(mImgtempArry)
+        
+               }
             setstate({
                 ...state,
                 moreImg: e.target.files
@@ -222,6 +253,12 @@ function ProductController() {
         setModal(false);
         setTags([])
         setTempImg('')
+
+        setMoreTempImages([])
+        setMoreImages([])
+        setGallaryTempImages([])
+        setGallaryImages([])
+
         setstate({
             id: '',
             status: 1,
@@ -241,6 +278,12 @@ function ProductController() {
     const openModel = () => {
         setTempImg('')
         setSeletedProjectList([])
+
+        setMoreTempImages([])
+        setMoreImages([])
+        setGallaryTempImages([])
+        setGallaryImages([])
+
         setImg('')
         setModal(true);
         setstate({
@@ -265,8 +308,21 @@ function ProductController() {
         const formaerrror = {}
         if (tags.length === 0) {
             formaerrror['tags'] = "Please Enter Tags"
+        }
+        if(!id){
+
+            if (moreImg?.length > 0 && moreImg.length <= 1) {
+                formaerrror['moreImg'] = "Please select more then one image"
+            }
+            if (!galleryImg?.length) {
+                formaerrror['galleryImg'] = "Please select more then one image"
+            }
+            if (galleryImg?.length <= 1) {
+                formaerrror['galleryImg'] = "Please select more then one image"
+            }
 
         }
+      
         let rules;
         if (id) {
             rules = {
@@ -390,7 +446,7 @@ function ProductController() {
             if (galleryImg?.length > 0) {
                 data.galleryImg = galleryImg
             }
-            if(seletedProjectList?.length > 0){
+            if (seletedProjectList?.length > 0) {
                 data.prjects = seletedProjectList
 
             }
@@ -522,11 +578,36 @@ function ProductController() {
             });
 
             let tempProjectArray = [];
-            if(productData.projectDetails.length > 0 ){
-                productData.projectDetails.map((project,i)=>{
-                    tempProjectArray.push(project.projectId)  
+            if (productData.projectDetails.length > 0) {
+                productData.projectDetails.map((project, i) => {
+                    tempProjectArray.push(project.projectId)
                 })
                 setSeletedProjectList(tempProjectArray)
+            }
+
+            let tempMImgArray =[]
+
+            if (productData.imageDetails.length > 0) {
+                productData.imageDetails.map((img, i) => {
+                   if(img.type === 'moreImage'){
+                    tempMImgArray.push(img.image)
+                   }
+                    
+                })
+                setMoreImages(tempMImgArray)
+            }
+
+
+            let tempGImgArray =[]
+
+            if (productData.imageDetails.length > 0) {
+                productData.imageDetails.map((img, i) => {
+                   if(img.type === 'galleryImage'){
+                    tempGImgArray.push(img.image)
+                   }
+                    
+                })
+                setGallaryImages(tempGImgArray)
             }
 
             let mytags = []
@@ -553,7 +634,7 @@ function ProductController() {
             ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
         }
     }
-    
+
     const handleDelete = (i) => {
         setTags(tags.filter((tag, index) => index !== i));
     };
@@ -641,6 +722,15 @@ function ProductController() {
                 onClearAll={onClearAll}
                 onTagUpdate={onTagUpdate}
                 tags={tags}
+
+
+                moreTempImages={moreTempImages}
+                gallaryTempImages={gallaryTempImages}
+
+                gallaryImages={gallaryImages}
+                moreImages={moreImages}
+
+
             />
 
 

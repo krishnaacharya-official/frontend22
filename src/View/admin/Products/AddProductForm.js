@@ -52,7 +52,7 @@ const productv = {
 let variantStyle = {
     fontSize: "14px",
     color: "#00ab55",
-    textTransform: "uppercase",
+    // textTransform: "uppercase",
     // cursor: "pointer",
     marginRight: "10px",
     display: "inline-block",
@@ -156,7 +156,30 @@ export default function AddProductForm(props) {
                             <input className='custom-file-input form-control' name='moreImg[]' id='moreImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
 
+                            <div className='grid mt-3 mb-3'>
+                                {props.moreTempImages?.length ?
+                                    props.moreTempImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
 
+                                    })
+
+                                    :
+                                    props.moreImages?.length ?
+                                    props.moreImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
+
+                                    })
+                                    :""
+
+                                     }
+
+                            </div>
+
+                            <p className='error'>{stateData.error ? stateData.error.moreImg ? stateData.error.moreImg : "" : ""}</p>
                         </div>
                     </div>
 
@@ -188,7 +211,7 @@ export default function AddProductForm(props) {
                         </div>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
-                                <option selected disabled value=" ">select Category</option>
+                                <option selected disabled value=" ">Select Category</option>
                                 {props.categoryList.length > 0 &&
                                     props.categoryList.map((cat, i) => {
 
@@ -214,7 +237,7 @@ export default function AddProductForm(props) {
                         </div>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="subcategory" name="subcategory">
-                                <option selected disabled value=" ">select SubCategory</option>
+                                <option selected disabled value=" ">Select SubCategory</option>
                                 {props.subcategoryList.length > 0 &&
                                     props.subcategoryList.map((cat, i) => {
 
@@ -333,7 +356,30 @@ export default function AddProductForm(props) {
                             <input className='custom-file-input form-control' name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
 
+                            <div className='grid mt-3 mb-3'>
+                                {props.gallaryTempImages?.length ?
+                                    props.gallaryTempImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
 
+                                    })
+
+                                    :
+                                    props.gallaryImages?.length ?
+                                    props.gallaryImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
+
+                                    })
+                                    :""
+
+                                     }
+
+                            </div>
+
+                            <p className='error'>{stateData.error ? stateData.error.galleryImg ? stateData.error.galleryImg : "" : ""}</p>
                         </div>
                     </div>
 

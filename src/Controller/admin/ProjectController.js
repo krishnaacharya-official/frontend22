@@ -22,6 +22,10 @@ function ProjectController() {
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [productList, setProductList] = useState([])
     const [seletedProductList, setSeletedProductList] = useState([])
+    const [tempImages, setTempImages] = useState([])
+    const [projectImages, setProjectImages] = useState([])
+
+
     const [state, setstate] = useState({
         id: '',
         status: 1,
@@ -81,6 +85,8 @@ function ProjectController() {
 
     const resetForm = () => {
         setSeletedProductList([])
+        setProjectImages([])
+        setTempImages([])
         setstate({
             id: '',
             status: 1,
@@ -95,6 +101,19 @@ function ProjectController() {
     }
 
     const changefile = (e) => {
+
+        let tempArry = []
+        let tempObj = []
+      
+
+       if(e.target.files && e.target.files.length > 0)  {
+        tempObj.push(e.target.files)
+        for (let i = 0; i < tempObj[0].length; i++) {
+            tempArry.push(URL.createObjectURL(tempObj[0][i]))
+        }
+        setTempImages(tempArry)
+
+       }
         setstate({
             ...state,
             images: e.target.files
@@ -288,7 +307,8 @@ function ProjectController() {
         // setLoading(true)
         setModal(true);
         if ((projectData) && projectData !== null && projectData !== '') {
-          
+          console.log(projectData)
+
             setstate({
                 id: projectData._id,
                 headline: projectData.headline,
@@ -304,6 +324,14 @@ function ProjectController() {
                     tempProductArray.push(product.productId)
                 })
                 setSeletedProductList(tempProductArray)
+            }
+
+            let tempImgArray = []
+            if (projectData.imageDetails.length > 0) {
+                projectData.imageDetails.map((img, i) => {
+                    tempImgArray.push(img.image)
+                })
+                setProjectImages(tempImgArray)
             }
 
 
@@ -334,6 +362,8 @@ function ProjectController() {
                 onSelectProduct={onSelectProduct}
                 submitProjectForm={submitProjectForm}
                 changevalue={changevalue}
+                tempImages={tempImages}
+                projectImages={projectImages}
 
             />
         </>

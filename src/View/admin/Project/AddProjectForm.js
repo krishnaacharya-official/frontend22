@@ -6,31 +6,7 @@ import { Modal } from "react-bootstrap"
 import { Button, Card } from '@mui/material';
 import helper from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
-import { unescape } from 'lodash';
 
-// import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
-import { WithContext as ReactTags } from "react-tag-input";
-// import helper from '../../../Common/Helper';
-import Chip from '@mui/material/Chip';
-
-
-// const Transition = React.forwardRef(function Transition(propss, ref) {
-//     return <Slide direction="up" {...propss} />;
-// });
-// const DialogTransition = (props) => {
-//     return <Slide direction='up' {...props} />;
-// };
 const productv = {
     cursor: 'pointer',
     display: 'block',
@@ -124,6 +100,28 @@ export default function AddProjectForm(props) {
                         <div className="col-sm-10">
                             <input className='custom-file-input form-control' name='Iamges[]' id='Iamges' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
+                            <div className='grid mt-3 mb-3'>
+                                {props.tempImages?.length ?
+                                    props.tempImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
+
+                                    })
+
+                                    :
+                                    props.projectImages?.length ?
+                                    props.projectImages.map((img, key) => {
+                                        return (
+                                            <img src={img ? img !== "" ? helper.ProjectImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                        )
+
+                                    })
+                                    :""
+
+                                     }
+
+                            </div>
                             {stateData.error && stateData.error.images && <p className="error">{stateData.error ? stateData.error.images ? stateData.error.images : "" : ""}</p>}
 
                         </div>
