@@ -434,7 +434,7 @@ function ProductController() {
                     }
                 } else {
                     setLoading(false)
-                    ToastAlert({ msg: 'Category not save', msgType: 'error' });
+                    ToastAlert({ msg: 'Product not save', msgType: 'error' });
                 }
             }
 

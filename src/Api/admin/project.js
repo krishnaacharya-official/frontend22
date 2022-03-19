@@ -3,6 +3,8 @@ import helper from "../../Common/Helper";
 
 function project() {
 
+
+
     const list = async (authToken) => {
         let res = {};
         await axios({
@@ -26,6 +28,7 @@ function project() {
 
     const add = async (authToken, cdata) => {
 
+      
         const data = new FormData();
 
         if (cdata.images && cdata.images.length > 0) {
@@ -58,13 +61,13 @@ function project() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data:data
 
         }).then((response) => {
             res = response
         });
         return res;
     }
-
 
     const deleteProject = async (authToken, id) => {
         let res = {};
@@ -86,8 +89,6 @@ function project() {
         });
         return res;
     }
-
-    
 
     const updateProject = async (authToken, cdata, id) => {
 

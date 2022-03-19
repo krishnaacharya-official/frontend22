@@ -33,28 +33,28 @@ export default function Index(props) {
 
         { name: "Name", selector: "name", sortable: true },
       
-        {
-            name: "Status",
-            cell: (row) => <>
+        // {
+        //     name: "Status",
+        //     cell: (row) => <>
                
-                <Label
-                    variant="ghost"
-                    color={(row.status === 1 && 'success') || 'error'}
-                >
-                    {row.status === 1 ? "Active" : "Inactive"}
-                </Label>
-            </>,
-            ignoreRowClick: true,
-            allowOverflow: true,
-        },
+        //         <Label
+        //             variant="ghost"
+        //             color={(row.status === 1 && 'success') || 'error'}
+        //         >
+        //             {row.status === 1 ? "Active" : "Inactive"}
+        //         </Label>
+        //     </>,
+        //     ignoreRowClick: true,
+        //     allowOverflow: true,
+        // },
 
        
 
         {
             name: "Actions",
             cell: (row) => <>
-                <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProduct(row._id)}><Icon icon={trash} /></button>&nbsp;
-                <button className="btn btn-sm btn-primary" onClick={() => props.editProduct(row)}><Icon icon={editfill} /></button>
+                <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProject(row._id)}><Icon icon={trash} /></button>&nbsp;
+                <button className="btn btn-sm btn-primary" onClick={() => props.editProject(row)}><Icon icon={editfill} /></button>
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -84,13 +84,13 @@ export default function Index(props) {
                     <Typography variant="h4" gutterBottom>
                         Projects
                     </Typography>
-                    {/* <Button
+                    <Button
                         variant="contained"
                         startIcon={<Icon icon={plusFill} />}
                         onClick={() => props.openModel()}
                     >
                         Add Project
-                    </Button> */}
+                    </Button>
                 </Stack>
                 <Card>
                     <DataTableExtensions {...tableData}>
