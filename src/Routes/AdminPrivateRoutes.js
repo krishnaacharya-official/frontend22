@@ -23,6 +23,8 @@ import SettingController from '../Controller/admin/SettingController';
 import General from '../View/admin/Setting/General';
 import HomePage from '../View/frontEnd/Layout/Home/HomePage';
 import ProjectController from '../Controller/admin/ProjectController';
+import Rank from '../View/admin/Setting/Rank';
+import Xp from '../View/admin/Setting/Xp';
 
 // ----------------------------------------------------------------------
 
@@ -70,6 +72,10 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/profile" element={<ProfileController />} />
                     <Route exact path="/admin/setting" element={<SettingController />} />
                     <Route exact path="/admin/setting/general" element={<General />} />
+                    <Route exact path="/admin/setting/rank" element={<Rank/>} />
+                    <Route exact path="/admin/setting/xp" element={<Xp/>} />
+
+
                     {/* <Route exact path="*" element={<HomePage />} /> */}
 
 

@@ -35,9 +35,8 @@ export default function General(props) {
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [state, setState] = useState({
         currency: "",
-        currency444: ""
     })
-    const { currency, currency444 } = state
+    const { currency} = state
 
 
     const saveGenralSettings = async () => {

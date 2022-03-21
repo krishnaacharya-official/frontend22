@@ -51,10 +51,7 @@ export default function Settings() {
                                         <div className="g-0 row">
                                             <div className="col-auto">
                                                 <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon gear text-primary">
-                                                        <path d="M8.32233 3.75427C8.52487 1.45662 11.776 1.3967 11.898 3.68836C11.9675 4.99415 13.2898 5.76859 14.4394 5.17678C16.4568 4.13815 18.0312 7.02423 16.1709 8.35098C15.111 9.10697 15.0829 10.7051 16.1171 11.4225C17.932 12.6815 16.2552 15.6275 14.273 14.6626C13.1434 14.1128 11.7931 14.9365 11.6777 16.2457C11.4751 18.5434 8.22404 18.6033 8.10202 16.3116C8.03249 15.0059 6.71017 14.2314 5.56062 14.8232C3.54318 15.8619 1.96879 12.9758 3.82906 11.649C4.88905 10.893 4.91709 9.29487 3.88295 8.57749C2.06805 7.31848 3.74476 4.37247 5.72705 5.33737C6.85656 5.88718 8.20692 5.06347 8.32233 3.75427Z"></path>
-                                                        <path d="M10 8C11.1046 8 12 8.89543 12 10V10C12 11.1046 11.1046 12 10 12V12C8.89543 12 8 11.1046 8 10V10C8 8.89543 8.89543 8 10 8V8Z"></path>
-                                                    </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ width: "22px" }}><path fill='green' d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"/></svg>
                                                 </div>
                                             </div>
                                             <div className="col">
@@ -67,30 +64,27 @@ export default function Settings() {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="col">
+                             <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
                                         <div className="g-0 row">
                                             <div className="col-auto">
                                                 <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon building text-primary">
-                                                        <path d="M5 5.5C5 4.09554 5 3.39331 5.33706 2.88886C5.48298 2.67048 5.67048 2.48298 5.88886 2.33706C6.39331 2 7.09554 2 8.5 2H11.5C12.9045 2 13.6067 2 14.1111 2.33706C14.3295 2.48298 14.517 2.67048 14.6629 2.88886C15 3.39331 15 4.09554 15 5.5V14.5C15 15.9045 15 16.6067 14.6629 17.1111C14.517 17.3295 14.3295 17.517 14.1111 17.6629C13.6067 18 12.9045 18 11.5 18H8.5C7.09554 18 6.39331 18 5.88886 17.6629C5.67048 17.517 5.48298 17.3295 5.33706 17.1111C5 16.6067 5 15.9045 5 14.5V5.5Z"></path>
-                                                        <path d="M12 18V15.75C12 15.0478 12 14.6967 11.8315 14.4444C11.7585 14.3352 11.6648 14.2415 11.5556 14.1685C11.3033 14 10.9522 14 10.25 14H9.75C9.04777 14 8.69665 14 8.44443 14.1685C8.33524 14.2415 8.24149 14.3352 8.16853 14.4444C8 14.6967 8 15.0478 8 15.75V18"></path>
-                                                        <path d="M8 5H8.5M8 8H8.5M8 11H8.5M11.5 5H12M11.5 8H12M11.5 11H12"></path>
-                                                    </svg>
+                                                {/* <i className="fa fa-shield" aria-hidden="true"></i> */}
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ width: "22px" }}><path fill='green' d="M223.7 130.8L149.1 7.77C147.1 2.949 141.9 0 136.3 0H16.03c-12.95 0-20.53 14.58-13.1 25.18l111.3 158.9C143.9 156.4 181.7 137.3 223.7 130.8zM256 160c-97.25 0-176 78.75-176 176S158.8 512 256 512s176-78.75 176-176S353.3 160 256 160zM348.5 317.3l-37.88 37l8.875 52.25c1.625 9.25-8.25 16.5-16.63 12l-46.88-24.62L209.1 418.5c-8.375 4.5-18.25-2.75-16.63-12l8.875-52.25l-37.88-37C156.6 310.6 160.5 299 169.9 297.6l52.38-7.625L245.7 242.5c2-4.25 6.125-6.375 10.25-6.375S264.2 238.3 266.2 242.5l23.5 47.5l52.38 7.625C351.6 299 355.4 310.6 348.5 317.3zM495.1 0H375.7c-5.621 0-10.83 2.949-13.72 7.77l-73.76 122.1c42 6.5 79.88 25.62 109.5 53.38l111.3-158.9C516.5 14.58 508.9 0 495.1 0z"/></svg>
                                                 </div>
                                             </div>
                                             <div className="col">
                                                 <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><a className="heading text-primary stretched-link" href="/settings/general">Other 1</a></div>
-                                                    <div className="text-alternate">Cheesecake bonbon chocolate bar. Tart sugar plum candy canes toffee sweet roll muffin oat cake. Chupa chups cookie icing tart tiramisu chocolate cake.</div>
+                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/rank">Rank</Link></div>
+                                                    {/* <div className="text-alternate">Cheesecake bonbon chocolate bar. Tart sugar plum candy canes toffee sweet roll muffin oat cake. Chupa chups cookie icing tart tiramisu chocolate cake.</div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col">
+                          <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
                                         <div className="g-0 row">
@@ -104,15 +98,15 @@ export default function Settings() {
                                             </div>
                                             <div className="col">
                                                 <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><a className="heading text-primary stretched-link" href="/settings/general">Other</a></div>
-                                                    <div className="text-alternate">Marshmallow donut sweet roll. Wafer tootsie roll gingerbread croissant ice cream. Sweet roll ice cream marzipan croissant soufflé fruitcake.</div>
+                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/xp">XP</Link></div>
+                                                    {/* <div className="text-alternate">Marshmallow donut sweet roll. Wafer tootsie roll gingerbread croissant ice cream. Sweet roll ice cream marzipan croissant soufflé fruitcake.</div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col">
+                           {/*   <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
                                         <div className="g-0 row">
