@@ -30,10 +30,11 @@ function CategoryController() {
         status: 1,
         name: '',
         icon: '',
+        color: '#ff0000',
         error: [],
     })
     const {
-        status, name, categoryHdnID, icon, error
+        status, name, categoryHdnID, icon, error,color
     } = state;
 
     useEffect(() => {
@@ -85,11 +86,13 @@ function CategoryController() {
     const openModel = () => {
         setModal(true);
         setstate({
+            ...state,
             categoryHdnID: '',
             status: 1,
             categoryName: '',
             icon: '',
             error: [],
+            color: '#ff0000',
         });
     }
 
@@ -118,6 +121,8 @@ function CategoryController() {
             data.name = name
             data.iconId = icon
             data.status = status
+            data.color = color
+
 
             let addCategory;
             // Api Call for update Profile
@@ -218,7 +223,9 @@ function CategoryController() {
                 categoryHdnID: categoryData._id,
                 status: categoryData.status,
                 name: categoryData.name,
-                icon: categoryData.iconId
+                icon: categoryData.iconId,
+                color: categoryData.color
+
             });
             setLoading(false)
         } else {
@@ -234,6 +241,7 @@ function CategoryController() {
     return (
         <>
             <FrontLoader loading={loading} />
+            {/* {console.log(color)} */}
             <Index
                 category={category}
                 openModel={openModel}

@@ -3,6 +3,9 @@ import React, { useState, createContext, useEffect, useReducer } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { userReducer } from './Reducer/userReducer';
 import useUser from './hooks/useUser';
+// import './styles/scss/global.scss'
+import './styles/scss/global.scss'
+
 
 import Router from './routes';
 // theme
@@ -14,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 import Abc from './pages/Abc';
 import MainRoutes from './Routes/MainRoutes';
+
 
 export const UserContext = createContext({});
 

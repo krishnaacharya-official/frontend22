@@ -21,7 +21,7 @@ import ProductController from '../Controller/admin/ProductController';
 import ProfileController from '../Controller/admin/ProfileController';
 import SettingController from '../Controller/admin/SettingController';
 import General from '../View/admin/Setting/General';
-import HomePage from '../View/frontEnd/Layout/Home/HomePage';
+// import HomePage from '../View/frontEnd/Layout/Home/HomePage';
 import ProjectController from '../Controller/admin/ProjectController';
 import Rank from '../View/admin/Setting/Rank';
 import Xp from '../View/admin/Setting/Xp';

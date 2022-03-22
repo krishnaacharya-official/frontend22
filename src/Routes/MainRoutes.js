@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import ForgotPasswordController from '../Controller/frontEnd/ForgotPasswordController';
 import SigninController from '../Controller/frontEnd/SigninController';
 import SignupController from '../Controller/frontEnd/SignupController';
-import HomePage from '../View/frontEnd/Layout/Home/HomePage';
+// import HomePage from '../View/frontEnd/Layout/Home/HomePage';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 
 
@@ -21,6 +21,7 @@ import { BaseOptionChartStyle } from '../components/charts/BaseOptionChart';
 import AdminPrivateRoutes from './AdminPrivateRoutes';
 import Logo from '../components/Logo';
 import UserPrivateRoutes from './UserPrivateRoutes';
+import HomeController from '../Controller/frontEnd/HomeController';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -61,12 +62,12 @@ export default function MainRoutes() {
                     :
                     // !location.pathname.startsWith('/app') ?
                         <Routes>
-                            <Route exact path="/" element={<HomePage />} />
-                            <Route exact path="/home" element={<HomePage />} />
+                            <Route exact path="/" element={<HomeController />} />
+                            {/* <Route exact path="/home" element={<HomePage />} /> */}
                             {/* <Route exact path="/signin" element={<SigninController />} />
                             <Route exact path="/signup" element={<SignupController />} />
                             <Route exact path="/forgotpassword" element={<ForgotPasswordController />} /> */}
-                            <Route exact path="*" element={<HomePage />} />
+                            {/* <Route exact path="*" element={<HomePage />} /> */}
                         </Routes>
                         //  : ""
             }

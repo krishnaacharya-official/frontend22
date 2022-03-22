@@ -41,7 +41,7 @@ export default function Index(props) {
                     variant="ghost"
                     color='info'
                 >
-                    {row.categoryDetails[0].name}
+                    {row.categoryDetails?.name}
                 </Label>
             </>,
             ignoreRowClick: true,
@@ -73,7 +73,7 @@ export default function Index(props) {
                     variant="ghost"
                     color='primary'
                 >
-                    {row.campaignDetails[0]?.name}
+                    {row.campaignDetails?.name}
                 </Label>
             </>,
             ignoreRowClick: true,

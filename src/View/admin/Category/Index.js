@@ -28,28 +28,28 @@ import "react-data-table-component-extensions/dist/index.css";
 import Page from '../../../components/Page';
 
 export default function Index(props) {
-
+const dot ={
+    height: '25px',
+    width: '25px',
+  
+    borderRadius: '50%',
+    display: 'inline-block',
+}
     const columns = [
 
         { name: "Name", selector: "name", sortable: true },
 
 
-    
-        // { name: "Email", selector: "email", sortable: true },
-        // {
-        //     name: "Role",
-        //     cell: (row) => <>
-        //         {/* <span className={row.status === 1 ? "badge badge-success" : "badge badge-danger"}>{row.status === 1 ? 'Active' : 'InActive'}</span> */}
-        //         <Label
-        //             variant="ghost"
-        //             color={(row.role === 2 && 'info') || 'success'}
-        //         >
-        //             {row.roledetails[0].name}
-        //         </Label>
-        //     </>,
-        //     ignoreRowClick: true,
-        //     allowOverflow: true,
-        // },
+
+        // { name: "Color", selector: "color", sortable: true },
+        {
+            name: "Color",
+            cell: (row) => <>
+                <span className="dot" style={{...dot,backgroundColor:row.color,}}></span>
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
         {
             name: "Status",
             cell: (row) => <>

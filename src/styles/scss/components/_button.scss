@@ -1,0 +1,17 @@
+.btn {
+  font-weight: $input-font-weight;
+}
+
+.btn-success,
+.btn-primary {
+  &,
+  &:hover,
+  &:focus,
+  &:visited {
+    color: #fff;
+  }
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+}

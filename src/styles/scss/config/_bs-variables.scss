@@ -1,0 +1,167 @@
+// Bootstrap variables
+
+$body-bg: #fff;
+$body-color: #3e3e50;
+$font-family-sans-serif: "Jcfonts linotte", Arial, sans-serif;
+
+$gray-100: #f8fafd;
+$gray-200: #f4f4f4;
+$gray-300: #dfe3e8;
+$gray-400: #c4cdd5;
+$gray-500: #6f6f90;
+$gray-600: #585a83;
+$gray-700: #454f5b;
+$gray-800: #3e4155;
+
+$darkest: #001429;
+$dark: $gray-800;
+$light: $gray-600;
+$border-color: #e6e6e6;
+$hr-border-color: $light;
+
+$font-size-base: 0.875rem; // 14px
+$font-size-lg: $font-size-base * 1.428571429; // 20px
+$font-size-sm: $font-size-base * 0.857142857; // 12px
+
+$small-font-size: 85%;
+$text-muted: $gray-500;
+$h1-font-size: $font-size-base * 3; // 42px
+$h2-font-size: $font-size-base * 2; // 28px
+$h3-font-size: $font-size-base * 1.857142857; // 26px
+$h4-font-size: $font-size-base * 1.428571429; // 20px
+$lead-font-size: $font-size-base * 1.1428571429; // 16px
+$lead-font-weight: 400;
+$headings-font-weight: 700;
+
+$input-btn-font-size-sm: 0.75rem;
+
+$line-height-base: 1.428571429;
+$line-height-sm: 1.4;
+
+$input-btn-padding-y: 0.4375rem;
+$input-btn-padding-x: 0.75rem;
+
+$btn-padding-y-sm: 5px;
+$btn-padding-x-sm: 14px;
+$btn-disabled-opacity: 0.5;
+$input-btn-border-width: 2px;
+
+$border-radius: 3px;
+
+$primary: #756fe4;
+$secondary: #5e89ed;
+$success: #3cd3ad;
+$warning: #ffd20b;
+$danger: #de3618;
+$info: #3ec0be;
+
+$theme-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: map-merge(
+  (
+    "primary": $primary,
+    "darkest": $darkest,
+    "success": $success,
+    "warning": $warning,
+    "danger": $danger,
+    "info": $info,
+  ),
+  $theme-colors
+);
+
+$progress-height: 0.5rem;
+$progress-border-radius: 4px;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$spacer: 1rem;
+$spacers: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: map-merge(
+  (
+    0: 0,
+    1: $spacer * 0.5,
+    2: $spacer,
+    3: $spacer * 1.5,
+    4: $spacer * 2,
+    5: $spacer * 2.5,
+  ),
+  $spacers
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1500px,
+) !default;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1440px,
+) !default;
+
+$navbar-padding-x: 0;
+
+$caret-vertical-align: middle;
+$caret-spacing: 0.4rem;
+
+// badge
+$badge-font-size: 10px;
+$badge-font-weight: $font-weight-semibold;
+$badge-padding-y: 0.4em;
+$badge-border-radius: 2px;
+$badge-padding-x: 1em;
+
+$dropdown-box-shadow: 0 10px 40px rgba(60, 60, 60, 0.25);
+$dropdown-padding-y: 10px;
+$dropdown-item-padding-x: 1rem;
+$dropdown-item-padding-y: 8px;
+$dropdown-link-hover-bg: #c4c4c433;
+$dropdown-link-active-color: #3e4e57;
+$dropdown-link-active-bg: $gray-300;
+
+$yiq-contrasted-threshold: 120;
+$yiq-text-dark: $dark;
+
+$table-cell-padding: 1rem 0.75rem;
+$table-head-color: $gray-700;
+
+$input-focus-box-shadow: none;
+$input-btn-focus-width: 0;
+
+$component-active-color: $secondary;
+$component-active-bg: $secondary;
+$custom-control-indicator-checked-bg: $secondary;
+
+// $modal-content-border-color: $border-color;
+$modal-content-box-shadow-sm-up: 0 10px 10px rgba(0, 0, 0, 0.25);
+$modal-backdrop-opacity: 0.6;
+
+$modal-lg: 720px;
+
+$modal-xl: 960px;
+
+$tooltip-arrow-width: 0;
+$tooltip-arrow-height: 0;
+
+$tooltip-border-radius: 10px;
+$tooltip-opacity: 1;
+$tooltip-padding-y: 10px;
+$tooltip-padding-x: 1rem;
+$tooltip-color: #ededed;
+
+$popover-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+$popover-border-width: 0;
+$popover-body-padding-y: 0;
+$popover-body-padding-x: 0;
+
+$dropdown-divider-bg: #c4c4c4;

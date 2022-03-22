@@ -4,6 +4,9 @@ import { Button } from '@mui/material';
 import helper from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
 import { unescape } from 'lodash';
+import ReactDOM from "react-dom";
+
+
 
 export default function AddCategoryForm(props) {
     let stateData = props.stateData
@@ -67,7 +70,12 @@ export default function AddCategoryForm(props) {
                             {stateData.error && stateData.error.icon && <p className="error">{stateData.error ? stateData.error.icon ? stateData.error.icon : "" : ""}</p>}
                         </div>
                     </div>
-
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Category Color</label>
+                        <div className="col-sm-10">
+                        <input type="color" id="color" name="color" value={stateData.color} onChange={(e) => { props.changevalue(e) }} />
+                        </div>
+                    </div>
 
 
 
