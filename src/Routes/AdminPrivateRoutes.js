@@ -25,6 +25,7 @@ import General from '../View/admin/Setting/General';
 import ProjectController from '../Controller/admin/ProjectController';
 import Rank from '../View/admin/Setting/Rank';
 import Xp from '../View/admin/Setting/Xp';
+import Plans from '../View/admin/Setting/Plans';
 
 // ----------------------------------------------------------------------
 
@@ -74,6 +75,8 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/setting/general" element={<General />} />
                     <Route exact path="/admin/setting/rank" element={<Rank/>} />
                     <Route exact path="/admin/setting/xp" element={<Xp/>} />
+                    <Route exact path="/admin/setting/plans" element={<Plans/>} />
+
 
 
                     {/* <Route exact path="*" element={<HomePage />} /> */}

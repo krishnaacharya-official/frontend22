@@ -391,3 +391,119 @@ button.ReactTags__remove{
   border: 1px solid #ccc;
   padding: 0.5em 1em;
 }
+
+.pricing-plan li {
+  border-bottom: 1px dotted #ededed;
+  font-size: 16px;
+}
+
+.pricing-plan {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 50px;
+}
+
+.pricing-plan .card-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.card li {
+  padding: 8px 0;
+}
+
+.set-price {
+  background: #f4f6f8 !important;
+  color: #6f6f90;
+}
+.starter {
+  background: #62c5ff !important;
+  color: #ffffff;
+}
+
+.advanced {
+  background: #ffb62f !important;
+  color: #ffffff;
+}
+
+.business {
+  background: #10db65 !important;
+  color: #ffffff;
+}
+
+
+.--switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 35px;
+}
+
+.--switch input {
+  display:none;
+}
+
+.--slider .fa-check {
+  color: #FFFFFF;
+  position:absolute;
+  left:15px;
+  font-size:16px;
+  display:none;
+}
+.--slider .fa-times {
+  color: #FFFFFF;
+  position:absolute;
+  font-size:16px;
+  right:15px; 
+}
+
+.--slider {
+  position: absolute;
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color: #db3a34;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius:50px;
+}
+
+.--slider:before {
+  position: absolute;
+  content:"";
+  height: 27px;
+  width: 27px;
+  left: 4px;
+  bottom: 4px;
+  border-radius:50%;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.--switch input:checked + .--slider .fa-check {
+  display:block;
+}
+
+.--switch input:checked + .--slider .fa-times {
+  display:none;
+}
+
+.--switch input:checked + .--slider {
+  background-color: #52b69a;
+}
+
+.--switch input:focus + .--slider {
+  box-shadow: 0 0 1px #52b69a;
+}
+
+.--switch input:checked + .--slider:before {
+
+  -webkit-transform: translateX(35px);
+  -ms-transform: translateX(35px);
+  transform: translateX(35px);
+}

@@ -106,27 +106,25 @@ export default function Settings() {
                                     </div>
                                 </div>
                             </div>
-                           {/*   <div className="col">
+                             <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
                                         <div className="g-0 row">
                                             <div className="col-auto">
                                                 <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon pin text-primary">
-                                                        <path d="M3.5 8.49998C3.5 -0.191432 16.5 -0.191368 16.5 8.49998C16.5 12.6585 12.8256 15.9341 11.0021 17.3036C10.4026 17.7539 9.59777 17.754 8.99821 17.3037C7.17467 15.9342 3.5 12.6585 3.5 8.49998Z"></path>
-                                                    </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><path fill='green' d="M528 32h-480C21.49 32 0 53.49 0 80V96h576V80C576 53.49 554.5 32 528 32zM0 432C0 458.5 21.49 480 48 480h480c26.51 0 48-21.49 48-48V128H0V432zM368 192h128C504.8 192 512 199.2 512 208S504.8 224 496 224h-128C359.2 224 352 216.8 352 208S359.2 192 368 192zM368 256h128C504.8 256 512 263.2 512 272S504.8 288 496 288h-128C359.2 288 352 280.8 352 272S359.2 256 368 256zM368 320h128c8.836 0 16 7.164 16 16S504.8 352 496 352h-128c-8.836 0-16-7.164-16-16S359.2 320 368 320zM176 192c35.35 0 64 28.66 64 64s-28.65 64-64 64s-64-28.66-64-64S140.7 192 176 192zM112 352h128c26.51 0 48 21.49 48 48c0 8.836-7.164 16-16 16h-192C71.16 416 64 408.8 64 400C64 373.5 85.49 352 112 352z"/></svg>
                                                 </div>
                                             </div>
                                             <div className="col">
                                                 <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><a className="heading text-primary stretched-link" href="/settings/general">Other</a></div>
-                                                    <div className="text-alternate">Chocolate bar sesame snaps tootsie roll donut apple pie. Tart chocolate cake pastry cupcake croissant chocolate. Gingerbread danish tiramisu.</div>
+                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/plans">Plans</Link></div>
+                                                    {/* <div className="text-alternate">Chocolate bar sesame snaps tootsie roll donut apple pie. Tart chocolate cake pastry cupcake croissant chocolate. Gingerbread danish tiramisu.</div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                             {/* <div className="col">
                                 <div className="hover-scale-up h-100 card" style={cardStyle}>
                                     <div className="card-body">
