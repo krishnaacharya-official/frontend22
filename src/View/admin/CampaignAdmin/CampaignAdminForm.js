@@ -39,7 +39,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
@@ -48,7 +48,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" disabled={ stateData?.id ? true :false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " disabled={ stateData?.id ? true :false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
                         </div>
@@ -57,7 +57,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
-                            <input type="email" disabled={stateData ? stateData.id ? true : false : false} className="form-control form-control-plaintext" id="email" name="email" value={stateData.email} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="email" disabled={stateData ? stateData.id ? true : false : false} className="form-control " id="email" name="email" value={stateData.email} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.email && <p className="error">{stateData.error ? stateData.error.email ? stateData.error.email : "" : ""}</p>}
                         </div>
@@ -82,7 +82,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Twitter</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='twitter' id="twitter" value={stateData.twitter} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='twitter' id="twitter" value={stateData.twitter} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.twitter && <p className="error">{stateData.error ? stateData.error.twitter ? stateData.error.twitter : "" : ""}</p>}
                         </div>
@@ -91,7 +91,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Facebook</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='facebook' id="facebook" value={stateData.facebook} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='facebook' id="facebook" value={stateData.facebook} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.facebook && <p className="error">{stateData.error ? stateData.error.facebook ? stateData.error.facebook : "" : ""}</p>}
                         </div>
@@ -99,7 +99,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Linkedin</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='linkedin' id="linkedin" value={stateData.linkedin} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='linkedin' id="linkedin" value={stateData.linkedin} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.linkedin && <p className="error">{stateData.error ? stateData.error.linkedin ? stateData.error.linkedin : "" : ""}</p>}
                         </div>
@@ -107,7 +107,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Website</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='url' id="url" value={stateData.url} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='url' id="url" value={stateData.url} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.url && <p className="error">{stateData.error ? stateData.error.url ? stateData.error.url : "" : ""}</p>}
                         </div>
@@ -115,7 +115,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Building Address</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='address' id="address" value={stateData.address} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='address' id="address" value={stateData.address} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.address && <p className="error">{stateData.error ? stateData.error.address ? stateData.error.address : "" : ""}</p>}
                         </div>

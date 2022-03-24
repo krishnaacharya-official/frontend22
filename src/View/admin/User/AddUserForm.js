@@ -36,7 +36,7 @@ export default function AddUserForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
@@ -44,7 +44,7 @@ export default function AddUserForm(props) {
                     {/* <div className="form-group row">
                         <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
                         <div className="col-sm-10">
-                            <input type="text"disabled={stateData?stateData.id ? true : false:false} className="form-control form-control-plaintext" name='username' id="username" value={stateData.username} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text"disabled={stateData?stateData.id ? true : false:false} className="form-control " name='username' id="username" value={stateData.username} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.username && <p className="error">{stateData.error ? stateData.error.username ? stateData.error.username : "" : ""}</p>}
                         </div>
@@ -52,7 +52,7 @@ export default function AddUserForm(props) {
                     <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
-                            <input type="email" disabled={stateData?stateData.id ? true : false:false} className="form-control form-control-plaintext" id="email" name="email" value={stateData.email} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="email" disabled={stateData?stateData.id ? true : false:false} className="form-control " id="email" name="email" value={stateData.email} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.email && <p className="error">{stateData.error ? stateData.error.email ? stateData.error.email : "" : ""}</p>}
                         </div>
@@ -132,7 +132,7 @@ export default function AddUserForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Street Name</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='street' id="street" value={stateData.street} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='street' id="street" value={stateData.street} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.street && <p className="error">{stateData.error ? stateData.error.street ? stateData.error.street : "" : ""}</p>}
                         </div>
@@ -141,7 +141,7 @@ export default function AddUserForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Zip Code</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='zip' id="zip" value={stateData.zip} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='zip' id="zip" value={stateData.zip} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.zip && <p className="error">{stateData.error ? stateData.error.zip ? stateData.error.zip : "" : ""}</p>}
                         </div>

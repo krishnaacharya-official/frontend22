@@ -173,7 +173,7 @@ export default function Xp(props) {
                                             value={topDonator}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -194,7 +194,7 @@ export default function Xp(props) {
                                             value={topDonation}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -216,7 +216,7 @@ export default function Xp(props) {
                                             value={forEachItem}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -238,7 +238,7 @@ export default function Xp(props) {
                                             value={forEachDonation}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -261,7 +261,7 @@ export default function Xp(props) {
                                             value={forEachShare}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -284,7 +284,7 @@ export default function Xp(props) {
                                             value={forEachOrganization}
                                             onChange={(e) => changevalue(e)}
                                         />
-                                        <span className="input-group-addon">
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>

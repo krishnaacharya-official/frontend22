@@ -22,7 +22,9 @@ function product() {
         if(cdata.prjects && cdata.prjects.length > 0 ){
             data.append('projects', JSON.stringify(cdata.prjects) );
         }
-
+        data.append('unlimited', cdata.unlimited);
+        data.append('tax', cdata.tax);
+        data.append('postTag', cdata.postTag);
 
         data.append('brand', cdata.brand);
         data.append('headline', cdata.headline);
@@ -128,6 +130,13 @@ function product() {
 
         data.append('brand', cdata.brand);
         data.append('headline', cdata.headline);
+
+        data.append('unlimited', cdata.unlimited);
+        data.append('tax', cdata.tax);
+        data.append('postTag', cdata.postTag);
+
+
+ 
 
         data.append('needheadline', cdata.needheadline);
         data.append('galleryUrl', cdata.galleryUrl);

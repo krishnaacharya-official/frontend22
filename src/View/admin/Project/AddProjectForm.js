@@ -56,7 +56,7 @@ export default function AddProjectForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
@@ -65,7 +65,7 @@ export default function AddProjectForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Headline</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='headline' id="headline" value={stateData.headline} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='headline' id="headline" value={stateData.headline} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.headline && <p className="error">{stateData.error ? stateData.error.headline ? stateData.error.headline : "" : ""}</p>}
                         </div>
@@ -89,7 +89,7 @@ export default function AddProjectForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Pictures & Video</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='video' id="video" value={stateData.video} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='video' id="video" value={stateData.video} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.video && <p className="error">{stateData.error ? stateData.error.video ? stateData.error.video : "" : ""}</p>}
                         </div>

@@ -276,7 +276,7 @@ export default function Index(props) {
                                                         <div className="form-group row">
                                                             <label htmlFor="name" className="col-sm-2 col-form-label">Building Address</label>
                                                             <div className="col-sm-10">
-                                                                <input type="text" className="form-control form-control-plaintext" name='address' id="address" value={stateData.address} onChange={(e) => { props.changevalue(e) }} />
+                                                                <input type="text" className="form-control " name='address' id="address" value={stateData.address} onChange={(e) => { props.changevalue(e) }} />
 
                                                                 {stateData.error && stateData.error.address && <p className="error">{stateData.error ? stateData.error.address ? stateData.error.address : "" : ""}</p>}
                                                             </div>

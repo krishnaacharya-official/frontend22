@@ -111,7 +111,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Headline</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='headline' id="headline" value={stateData.headline} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='headline' id="headline" value={stateData.headline} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.headline && <p className="error">{stateData.error ? stateData.error.headline ? stateData.error.headline : "" : ""}</p>}
                         </div>
@@ -120,7 +120,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Brand</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='brand' id="brand" value={stateData.brand} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='brand' id="brand" value={stateData.brand} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.brand && <p className="error">{stateData.error ? stateData.error.brand ? stateData.error.brand : "" : ""}</p>}
                         </div>
@@ -129,13 +129,11 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" disabled={stateData?.id ? true : false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " disabled={stateData?.id ? true : false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
                         </div>
                     </div>
-
-
 
 
                     <div className="form-group row">
@@ -149,6 +147,10 @@ export default function AddProductForm(props) {
                         </div>
                     </div>
 
+
+
+
+
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">More of Product
                             (optional)</label>
@@ -160,22 +162,22 @@ export default function AddProductForm(props) {
                                 {props.moreTempImages?.length ?
                                     props.moreTempImages.map((img, key) => {
                                         return (
-                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                         )
 
                                     })
 
                                     :
                                     props.moreImages?.length ?
-                                    props.moreImages.map((img, key) => {
-                                        return (
-                                            <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                        )
+                                        props.moreImages.map((img, key) => {
+                                            return (
+                                                <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            )
 
-                                    })
-                                    :""
+                                        })
+                                        : ""
 
-                                     }
+                                }
 
                             </div>
 
@@ -183,10 +185,55 @@ export default function AddProductForm(props) {
                         </div>
                     </div>
 
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Unlimited</label>
+                        <div className="col-sm-10">
+
+                            <label className="--switch mt-1">
+                                <input type="checkbox" id="unlimited" checked={stateData.unlimited} name="unlimited" onChange={(e) => props.changevalue(e)} />
+                                <span className="--slider">
+                                    <i className="fa fa-check"></i>
+                                    <i className="fa fa-times"></i>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label"><i className="fa fa-calculator" aria-hidden="true"></i></label>
+                        <div className="col-sm-10">
+
+                            <label className="--switch mt-1">
+                                <input type="checkbox" id="tax" checked={stateData.tax} name="tax" onChange={(e) => props.changevalue(e)} />
+                                <span className="--slider">
+                                    <i className="fa fa-check"></i>
+                                    <i className="fa fa-times"></i>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label"><i className="fa fa-tag" aria-hidden="true"></i></label>
+                        <div className="col-sm-10">
+
+                            <label className="--switch mt-1">
+                                <input type="checkbox" id="postTag" checked={stateData.postTag} name="postTag" onChange={(e) => props.changevalue(e)} />
+                                <span className="--slider">
+                                    <i className="fa fa-check"></i>
+                                    <i className="fa fa-times"></i>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Price</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='price' id="price" value={stateData.price} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='price' id="price" value={stateData.price} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.price && <p className="error">{stateData.error ? stateData.error.price ? stateData.error.price : "" : ""}</p>}
                         </div>
@@ -195,14 +242,11 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Quantity</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='quantity' id="quantity" value={stateData.quantity} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='quantity' id="quantity" value={stateData.quantity} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.quantity && <p className="error">{stateData.error ? stateData.error.quantity ? stateData.error.quantity : "" : ""}</p>}
                         </div>
                     </div>
-
-
-
 
 
                     <div className="form-group row">
@@ -300,7 +344,7 @@ export default function AddProductForm(props) {
                                 props.projectList.map((project, i) => {
                                     return (
                                         <>
-                                            <p style={{ ...variantStyle, position: "relative", backgroundColor:props.seletedProjectList.includes(project._id)?"#00ab55":"white",color:props.seletedProjectList.includes(project._id)?"white":"#00ab55" }} key={i}>
+                                            <p style={{ ...variantStyle, position: "relative", backgroundColor: props.seletedProjectList.includes(project._id) ? "#00ab55" : "white", color: props.seletedProjectList.includes(project._id) ? "white" : "#00ab55" }} key={i}>
                                                 <input type='checkbox' id={project._id} checked={props.seletedProjectList.includes(project._id)} style={productv} name={'project_' + i} onClick={(e) => props.onSelectProject(e)} />
                                                 {project.name}
                                             </p>
@@ -321,7 +365,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Need Headline</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='needheadline' id="needheadline" value={stateData.needheadline} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='needheadline' id="needheadline" value={stateData.needheadline} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.needheadline && <p className="error">{stateData.error ? stateData.error.needheadline ? stateData.error.needheadline : "" : ""}</p>}
                         </div>
@@ -330,7 +374,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Need Gallery <small>(optional)</small></label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='galleryUrl' id="galleryUrl" value={stateData.galleryUrl} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='galleryUrl' id="galleryUrl" value={stateData.galleryUrl} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.galleryUrl && <p className="error">{stateData.error ? stateData.error.galleryUrl ? stateData.error.galleryUrl : "" : ""}</p>}
                         </div>
@@ -360,22 +404,22 @@ export default function AddProductForm(props) {
                                 {props.gallaryTempImages?.length ?
                                     props.gallaryTempImages.map((img, key) => {
                                         return (
-                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                         )
 
                                     })
 
                                     :
                                     props.gallaryImages?.length ?
-                                    props.gallaryImages.map((img, key) => {
-                                        return (
-                                            <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                        )
+                                        props.gallaryImages.map((img, key) => {
+                                            return (
+                                                <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            )
 
-                                    })
-                                    :""
+                                        })
+                                        : ""
 
-                                     }
+                                }
 
                             </div>
 
@@ -440,7 +484,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
@@ -458,7 +502,7 @@ export default function AddProductForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Price</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control form-control-plaintext" name='price' id="price" value={stateData.price} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " name='price' id="price" value={stateData.price} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.price && <p className="error">{stateData.error ? stateData.error.price ? stateData.error.price : "" : ""}</p>}
                         </div>

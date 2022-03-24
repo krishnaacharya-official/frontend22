@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { userReducer } from './Reducer/userReducer';
 import useUser from './hooks/useUser';
 // import './styles/scss/global.scss'
-import './styles/scss/global.scss'
+// import './styles/scss/global.scss'
 
 
 import Router from './routes';

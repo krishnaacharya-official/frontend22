@@ -1,4 +1,14 @@
 // load variables, mixins and functions
+.frontend_pages{
+
+@import './config/functions';
+@import './config/app-variables';
+@import './config/bs-variables';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
 @import './config';
 
 
@@ -32,3 +42,5 @@
 
 // load utility styles
 @import './utils';
+
+}

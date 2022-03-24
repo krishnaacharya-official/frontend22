@@ -63,13 +63,16 @@ function ProductController() {
         moreImg: [],
         galleryUrl: '',
         needheadline: '',
+        unlimited: false,
+        tax: false,
+        postTag: false,
         galleryImg: [],
 
 
 
     })
     const {
-        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg
+        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag
     } = state;
 
     const [tags, setTags] = useState([]);
@@ -145,6 +148,10 @@ function ProductController() {
     const changevalue = async (e) => {
         let value = e.target.value;
 
+        if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag') {
+            value = e.target.checked
+        }
+
         if (e.target.name === "category") {
 
             //get subCategory List on Category Change
@@ -207,14 +214,14 @@ function ProductController() {
             let gImgtempArry = []
             let gImgtempObj = []
 
-            if(e.target.files && e.target.files.length > 0)  {
+            if (e.target.files && e.target.files.length > 0) {
                 gImgtempObj.push(e.target.files)
                 for (let i = 0; i < gImgtempObj[0].length; i++) {
                     gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
                 }
                 setGallaryTempImages(gImgtempArry)
-        
-               }
+
+            }
 
             setstate({
                 ...state,
@@ -226,14 +233,14 @@ function ProductController() {
             let mImgtempArry = []
             let mImgtempObj = []
 
-            if(e.target.files && e.target.files.length > 0)  {
+            if (e.target.files && e.target.files.length > 0) {
                 mImgtempObj.push(e.target.files)
                 for (let i = 0; i < mImgtempObj[0].length; i++) {
                     mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
                 }
                 setMoreTempImages(mImgtempArry)
-        
-               }
+
+            }
             setstate({
                 ...state,
                 moreImg: e.target.files
@@ -271,6 +278,9 @@ function ProductController() {
             image: '',
             quantity: '',
             slug: '',
+            unlimited: false,
+            tax: false,
+            postTag: false,
             error: [],
         });
 
@@ -298,6 +308,9 @@ function ProductController() {
             image: '',
             quantity: '',
             slug: '',
+            unlimited: false,
+            tax: false,
+            postTag: false,
             error: [],
         });
 
@@ -309,7 +322,7 @@ function ProductController() {
         if (tags.length === 0) {
             formaerrror['tags'] = "Please Enter Tags"
         }
-        if(!id){
+        if (!id) {
 
             if (moreImg?.length > 0 && moreImg.length <= 1) {
                 formaerrror['moreImg'] = "Please select more then one image"
@@ -322,7 +335,7 @@ function ProductController() {
             }
 
         }
-      
+
         let rules;
         if (id) {
             rules = {
@@ -416,9 +429,9 @@ function ProductController() {
             data.needheadline = needheadline
             data.galleryUrl = galleryUrl
             data.headline = headline
-
-
-
+            data.unlimited = unlimited
+            data.tax = tax
+            data.postTag = postTag
 
 
             if (image) {
@@ -575,6 +588,12 @@ function ProductController() {
                 needheadline: productData.needheadline,
                 galleryUrl: productData.galleryUrl,
 
+                unlimited: productData.unlimited,
+                tax: productData.tax,
+                postTag: productData.postTag,
+
+
+
             });
 
             let tempProjectArray = [];
@@ -585,27 +604,27 @@ function ProductController() {
                 setSeletedProjectList(tempProjectArray)
             }
 
-            let tempMImgArray =[]
+            let tempMImgArray = []
 
             if (productData.imageDetails.length > 0) {
                 productData.imageDetails.map((img, i) => {
-                   if(img.type === 'moreImage'){
-                    tempMImgArray.push(img.image)
-                   }
-                    
+                    if (img.type === 'moreImage') {
+                        tempMImgArray.push(img.image)
+                    }
+
                 })
                 setMoreImages(tempMImgArray)
             }
 
 
-            let tempGImgArray =[]
+            let tempGImgArray = []
 
             if (productData.imageDetails.length > 0) {
                 productData.imageDetails.map((img, i) => {
-                   if(img.type === 'galleryImage'){
-                    tempGImgArray.push(img.image)
-                   }
-                    
+                    if (img.type === 'galleryImage') {
+                        tempGImgArray.push(img.image)
+                    }
+
                 })
                 setGallaryImages(tempGImgArray)
             }

@@ -173,8 +173,8 @@ export default function Rank(props) {
 
                                     <div className="input-group">
 
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='captian' id="captian" value={captian} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='captian' id="captian" value={captian} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -190,8 +190,8 @@ export default function Rank(props) {
 
                                 <div className="col-sm-10">
                                     <div className="input-group">
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='admiral' id="admiral" value={admiral} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='admiral' id="admiral" value={admiral} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -205,8 +205,8 @@ export default function Rank(props) {
 
                                 <div className="col-sm-10">
                                     <div className="input-group">
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='pirate' id="pirate" value={pirate} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='pirate' id="pirate" value={pirate} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -220,8 +220,8 @@ export default function Rank(props) {
 
                                 <div className="col-sm-10">
                                     <div className="input-group">
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='narwhal' id="narwhal" value={narwhal} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='narwhal' id="narwhal" value={narwhal} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -237,8 +237,8 @@ export default function Rank(props) {
 
                                 <div className="col-sm-10">
                                     <div className="input-group">
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='beluga' id="beluga" value={beluga} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='beluga' id="beluga" value={beluga} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
@@ -253,8 +253,8 @@ export default function Rank(props) {
 
                                 <div className="col-sm-10">
                                     <div className="input-group">
-                                        <input type="text" className="form-control form-control-plaintext" placeholder='e.g 500' name='fish' id="fish" value={fish} onChange={(e) => { changevalue(e) }} />
-                                        <span className="input-group-addon">
+                                        <input type="text" className="form-control " placeholder='e.g 500' name='fish' id="fish" value={fish} onChange={(e) => { changevalue(e) }} />
+                                        <span className="input-group-addon11">
                                             XP
                                         </span>
                                     </div>
