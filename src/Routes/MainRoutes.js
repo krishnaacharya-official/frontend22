@@ -66,7 +66,7 @@ export default function MainRoutes() {
                         {/* <Route exact path="/" element={<HomeController />} /> */}
 
                         <Route path="/" element={<FrontEndLayOut />} >
-                            <Route path="/" element={<HomeController />} /> 
+                            <Route path="/" element={<HomeController />} />
                         </Route>
                         {/* <Route exact path="/home" element={<HomePage />} /> */}
                         {/* <Route exact path="/signin" element={<SigninController />} />
