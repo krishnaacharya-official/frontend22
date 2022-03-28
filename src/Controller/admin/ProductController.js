@@ -151,6 +151,9 @@ function ProductController() {
         if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag') {
             value = e.target.checked
         }
+        if(e.target.name === 'price' || e.target.name === 'quantity' ){
+            value =  e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        }
 
         if (e.target.name === "category") {
 
