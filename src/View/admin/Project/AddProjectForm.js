@@ -35,6 +35,10 @@ let variantStyle = {
 export default function AddProjectForm(props) {
     let stateData = props.stateData
     const adminData = JSON.parse(localStorage.getItem('adminData'));
+    let url = stateData.video;
+    let id = url.split("?v=")[1];
+    let embedlink = "http://www.youtube.com/embed/" + id;
+
     return (
         <>
             <Modal
@@ -90,13 +94,21 @@ export default function AddProjectForm(props) {
                         <label htmlFor="name" className="col-sm-2 col-form-label">Pictures & Video</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control " name='video' id="video" value={stateData.video} onChange={(e) => { props.changevalue(e) }} />
+                            {
+
+                                stateData.video &&
+
+                                <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
+                                // <iframe id="video1" width="520" title="myFrame" height="360" src={stateData.video} frameBorder="0" allowtransparency="true" ></iframe>
+                            }
+
 
                             {stateData.error && stateData.error.video && <p className="error">{stateData.error ? stateData.error.video ? stateData.error.video : "" : ""}</p>}
                         </div>
                     </div>
 
                     <div className="form-group row">
-                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Iamges</label>
+                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Images</label>
                         <div className="col-sm-10">
                             <input className='custom-file-input form-control' name='Iamges[]' id='Iamges' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
                             <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
@@ -104,22 +116,22 @@ export default function AddProjectForm(props) {
                                 {props.tempImages?.length ?
                                     props.tempImages.map((img, key) => {
                                         return (
-                                            <img src={img ? img :noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                         )
 
                                     })
 
                                     :
                                     props.projectImages?.length ?
-                                    props.projectImages.map((img, key) => {
-                                        return (
-                                            <img src={img ? img !== "" ? helper.ProjectImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                        )
+                                        props.projectImages.map((img, key) => {
+                                            return (
+                                                <img src={img ? img !== "" ? helper.ProjectImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                            )
 
-                                    })
-                                    :""
+                                        })
+                                        : ""
 
-                                     }
+                                }
 
                             </div>
                             {stateData.error && stateData.error.images && <p className="error">{stateData.error ? stateData.error.images ? stateData.error.images : "" : ""}</p>}

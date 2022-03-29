@@ -66,6 +66,9 @@ let variantStyle = {
 export default function AddProductForm(props) {
     let stateData = props.stateData
     const adminData = JSON.parse(localStorage.getItem('adminData'));
+    let url = stateData.galleryUrl;
+    let id = url?.split("?v=")[1];
+    let embedlink = "http://www.youtube.com/embed/" + id;
     return (
         <>
             <Modal
@@ -376,7 +379,16 @@ export default function AddProductForm(props) {
                         <div className="col-sm-10">
                             <input type="text" className="form-control " name='galleryUrl' id="galleryUrl" value={stateData.galleryUrl} onChange={(e) => { props.changevalue(e) }} />
 
+                            {
+
+                                stateData.galleryUrl &&
+
+                                <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
+                                // <iframe id="video1" width="520" title="myFrame" height="360" src={stateData.video} frameBorder="0" allowtransparency="true" ></iframe>
+                            }
+
                             {stateData.error && stateData.error.galleryUrl && <p className="error">{stateData.error ? stateData.error.galleryUrl ? stateData.error.galleryUrl : "" : ""}</p>}
+
                         </div>
                     </div>
 
