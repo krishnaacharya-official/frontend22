@@ -1,0 +1,50 @@
+.footer {
+  background-color: $gray-100;
+  color: #6d6d86;
+  display: flex;
+  padding-top: 40px;
+  flex-direction: column;
+  flex: 0 0 auto;
+  border-top: 1px solid #f5f5f5;
+  font-size: 16px;
+  line-height: 1.5;
+
+  @include media-breakpoint-up(sm) {
+    .loop__text {
+      max-width: 428px;
+    }
+  }
+
+  .svg__logo {
+    display: flex;
+    width: 21px;
+    height: 21px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .svg__name {
+    color: $gray-700;
+    display: flex;
+    margin-top: 0;
+    font-family: Fredoka, sans-serif;
+    font-size: 23px;
+    font-weight: $font-weight-extra-bold;
+  }
+}
+
+.footer__socialwrap {
+  gap: 12px;
+}
+
+.footer__bottom {
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+@include media-breakpoint-down(sm) {
+  .col.footer__block {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}

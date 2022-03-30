@@ -1,0 +1,39 @@
+.org__project__ {
+  &item__main {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &item__name {
+    line-height: 1rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+.circle__progress {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.circle__progress-img {
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 46px / 2);
+  top: calc(50% - 46px / 2);
+  width: 46px;
+  height: 46px;
+  background: #fff;
+  text-align: center;
+  display: table;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

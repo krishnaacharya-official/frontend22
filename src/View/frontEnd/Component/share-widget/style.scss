@@ -1,0 +1,117 @@
+.btn.btn__share {
+    align-items: center;
+    color: #6f6f90ad;
+    display: flex;
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+}
+
+.share-dialog {
+  color: $gray-700;
+  position: absolute;
+  left: 60px;
+  top: 0px;
+  z-index: 9999999999;
+
+  .icon.icon--secure {
+    padding-right: 12px;
+    color: #5fc996;
+    font-size: 16px;
+  }
+  .icon.icon--close {
+    color: $gray-700;
+    width: 26px;
+    height: 26px;
+    margin-top: -12px;
+    margin-left: auto;
+    padding: 9px;
+    font-size: 19px;
+  }
+  .sh__box {
+    background-color: #fff;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    width: 350px;
+    padding: 1.9rem 1.6rem 1.3rem;
+    flex-direction: column;
+    border-radius: 9px;
+    box-shadow: 3px 3px 7px 3px rgb(0 0 0 / 5%);
+    transform: translate(-50%, -50%);
+  }
+
+  .sh__header {
+    display: flex;
+    margin-bottom: 0.9rem;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .sh__list {
+    display: flex;
+    margin-top: 0.9rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .sh__type {
+    background-color: $gray-100;
+    display: flex;
+    width: 54px;
+    height: 54px;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    font-size: 21px;
+  }
+
+  .sh__header.share__header--sub {
+    margin-top: 0.9rem;
+    margin-bottom: 0.3rem;
+    font-size: 14px;
+  }
+
+  .sh__link {
+    background-color: $gray-100;
+    display: flex;
+    margin-top: 9px;
+    padding: 9px 19px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .sh__url {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .sh__type.sh__type--facebook {
+    color: #4267b2;
+  }
+
+  .sh__type.sh__type--email {
+    color: $gray-700;
+  }
+
+  .sh__type.sh__type--twitter {
+    color: #1da1f2;
+  }
+  .sh__type.sh__type--linkedin {
+    color: #0077b5;
+  }
+}

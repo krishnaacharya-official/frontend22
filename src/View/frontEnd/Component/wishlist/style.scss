@@ -1,0 +1,35 @@
+.wishlist {
+  background-color: #fff;
+  height: 250px;
+  position: relative;
+  overflow: auto;
+  flex: 1;
+
+  &__item__main {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__item__name {
+    line-height: 1rem;
+    font-weight: $font-weight-extra-bold;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  &__item__location {
+    color: #aaa9c2;
+    font-weight: $font-weight-bold;
+    font-size: 11px;
+  }
+
+  &__item__price {
+    font-weight: $font-weight-bold;
+    color: #45bb82;
+  }
+}

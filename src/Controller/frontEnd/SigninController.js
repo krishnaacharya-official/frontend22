@@ -46,7 +46,7 @@ function SigninController() {
                     setLoading(false)
                     ToastAlert({ msg: uselogin.data.message, msgType: 'error' });
                 } else {
-                    if (uselogin.data.roleName !== "Admin") {
+                    if (uselogin.data.roleName !== "ADMIN") {
                         localStorage.clear()
                         localStorage.setItem('userAuthToken', uselogin.data.accessToken)
                         localStorage.setItem('userData', JSON.stringify(uselogin.data))

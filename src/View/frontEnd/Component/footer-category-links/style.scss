@@ -1,0 +1,20 @@
+.footer__category-title {
+  color: $gray-700;
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 36px;
+}
+
+.footer__link {
+  color: #6f6f90ad;
+
+  &:hover {
+    color: #6f6f90ad;
+    text-decoration: underline;
+  }
+}
+
+.footer__link-item {
+  margin-bottom: 8px;
+  font-size: 14px;
+}

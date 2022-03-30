@@ -283,7 +283,7 @@ function CampaignAdminController() {
     const getUserRecord = async (data) => {
         if ((data) && data !== null && data !== '') {
             // }
-            console.log(data)
+            // console.log(data)
             setLoading(true)
             if (data.country_id && data.country_id !== null && data.country_id > 0  ) {
                 const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);

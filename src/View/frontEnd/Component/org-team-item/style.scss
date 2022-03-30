@@ -1,0 +1,25 @@
+.org__team__ {
+  // .similar__item__main
+  &item__main {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  // .similar__item__name
+  &item__name {
+    line-height: 1rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  &item__location {
+    color: #aaa9c2;
+    font-weight: $font-weight-bold;
+    font-size: 13px;
+  }
+}

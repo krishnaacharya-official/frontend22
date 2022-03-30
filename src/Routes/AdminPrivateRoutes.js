@@ -63,7 +63,7 @@ export default function AdminPrivateRoutes() {
             <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
             <MainStyle>
                 <Routes>
-                    {/* <Route exact path="/" element={<DashboardApp />} /> */}
+                    <Route exact path="/" element={<DashboardApp />} />
                     <Route exact path="/admin" element={<DashboardApp />} />
                     <Route exact path="/admin/Dashboard" element={<DashboardApp />} />
                     <Route exact path="/admin/user" element={<UserController />} />

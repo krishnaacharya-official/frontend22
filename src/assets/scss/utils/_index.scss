@@ -4,6 +4,7 @@ $spacers: (
   0: 3,
   1: 6,
   2: 12,
+  3: 20,
 );
 
 $props: (
@@ -17,6 +18,8 @@ $pos: (
   l: "left",
   r: "right",
 );
+
+// this creates utilities like .mt-3p, .mt-6p, .mt-12p, pt-3p, pt-6p, pt-12p, etc
 
 // this loops through all spacers and props anc creates custom utilities
 @each $key, $val in $spacers {
@@ -45,4 +48,42 @@ $pos: (
 
 .text-dark {
   color: $gray-500 !important;
+}
+
+.w-310 {
+  width: 310px;
+}
+
+.w-60 {
+  width: 60px;
+}
+
+.fs-7 {
+  font-size: 12px;
+}
+
+.fs-8 {
+  font-size: 11px;
+}
+
+.fs-9 {
+  font-size: 10px;
+}
+
+.fw-bolder {
+  font-weight: $font-weight-extra-bold;
+}
+
+.heading-4 {
+  font-family: Fredoka,sans-serif;
+  font-size: 24px;
+  font-weight: $font-weight-semibold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+}
+
+.text-lighter {
+  color: #bcbdc4;
 }

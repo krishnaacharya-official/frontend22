@@ -1,0 +1,67 @@
+.view__more-activity {
+  font-size: 20px;
+}
+
+.btn.mark__feed {
+  font-size: 10px;
+  font-weight: $font-weight-normal;
+}
+
+.activity__controls {
+  background-color: #fff;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.activity__settings {
+  font-size: 16px;
+}
+
+.mark__feed,
+.activity__settings {
+  line-height: 1;
+}
+
+.ad__ {
+  // .ad__activity__list
+  &activity__list {
+    background-color: #fff;
+    height: 250px;
+    position: relative;
+    overflow: auto;
+    flex: 1;
+  }
+
+  // .ad__activity__main
+  &activity__main {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  // .ad__activity__name
+  &activity__name {
+    line-height: 1rem;
+    font-weight: $font-weight-extra-bold;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    margin-bottom: 4px;
+  }
+
+  &activity__sub-name {
+    color: #aaa9c2;
+    font-size: 11px;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+
+  &activity__title {
+    margin-bottom: 4px;
+  }
+}

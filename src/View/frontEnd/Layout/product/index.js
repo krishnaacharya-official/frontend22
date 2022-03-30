@@ -4,6 +4,7 @@ import { ProgressBar, Button } from "react-bootstrap";
 import { ReactComponent as HeartSvg } from "../../../../assets/svg/heart-o.svg";
 import helper from "../../../../Common/Helper";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 
 import "./style.scss";
@@ -11,7 +12,7 @@ import "./style.scss";
 
 
 const Product = (props) => {
-  console.log(props)
+  // console.log(props)
   let name = props.headline
   let sold = props.quantity
   let total = props.quantity
@@ -82,13 +83,13 @@ const Product = (props) => {
     );
   return (
     <div className="product">
-      <a
-        href="/categories/home"
+      <Link
+        to={"/organization/"+props.slug}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
       >
         &nbsp;
-      </a>
+      </Link>
 
       <div className="product__top border-bottom d-flex align-items-center">
         <div className="wish me-1">
@@ -126,13 +127,13 @@ const Product = (props) => {
         </div>
         <div className="product__right d-flex flex-column align-items-center pt-12p pb-2">
           <div className="product__org">
-            <a href="/organization/pandy" className="">
+            <Link to={"/organization/"+props.campaignDetails.slug} className="">
               <img
                 alt=""
                 className="img-fluid org__img"
                 src={helper.CampaignAdminLogoPath + organisation}
               />
-            </a>
+            </Link>
           </div>
           <div className="product__location d-flex align-items-center small mt-auto">
             <span className="icon icon__pro"></span>

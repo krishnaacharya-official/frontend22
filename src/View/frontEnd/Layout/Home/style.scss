@@ -1,0 +1,25 @@
+.donate-section {
+    background-color: $gray-100;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+  
+    .donate-value-control {
+        width: 105px;
+  
+        .input-group-text {
+            background: #fff;
+        }
+  
+        .form-control {
+            border-left: 0;
+            padding-left: 0;
+        }
+    }
+  }
+  
+  @include media-breakpoint-down(sm) {
+      .btn__cart {
+          width: 100%;
+      }
+  }

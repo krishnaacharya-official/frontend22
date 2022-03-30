@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import ProductItems from "./products.json";
 import Product from "../product";
+import "./style.scss";
 
 export default function Index(props) {
     let products;

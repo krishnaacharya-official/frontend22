@@ -10,12 +10,12 @@ function SignupController() {
 
     const [loading, setLoading] = useState(false)
     const [state, setstate] = useState({
-        username: "",
+        // username: "",
         name: "",
         email: "",
         password: "",
         cpassword: "",
-        role: "",
+        // role: "",
         error: [],
     })
     const navigate = useNavigate();
@@ -26,12 +26,10 @@ function SignupController() {
 
     const signUp = () => {
         const rules = {
-            username: "required",
             name: "required",
             email: 'required|email',
             password: 'required|min:6',
             cpassword: 'required|same:password',
-            role: "required"
 
         }
 
@@ -43,8 +41,7 @@ function SignupController() {
             'password.required': 'Password is Required.',
             'cpassword.required': 'Confirm Password is Required.',
             'cpassword.same': 'Password and Confirm Password Must be Same',
-            'username.required': 'Username is Required.',
-            'role.required': 'Role is Required.',
+    
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -55,9 +52,7 @@ function SignupController() {
             })
             let data = {}
             data.name = name
-            data.username = username
             data.email = email
-            data.role = role
             data.password = password
 
             setLoading(true)

@@ -23,6 +23,7 @@ import Logo from '../components/Logo';
 import UserPrivateRoutes from './UserPrivateRoutes';
 import HomeController from '../Controller/frontEnd/HomeController'
 import FrontEndLayOut from './FrontEndLayOut'
+import OrganizationDetailsController from '../Controller/frontEnd/OrganizationDetailsController';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -62,18 +63,27 @@ export default function MainRoutes() {
                     </ThemeConfig>
                     :
                     // !location.pathname.startsWith('/app') ?
-                    <Routes>
-                        {/* <Route exact path="/" element={<HomeController />} /> */}
+                    !adminAuthToken && !userAuthToken &&
 
-                        <Route path="/" element={<FrontEndLayOut />} >
-                            <Route path="/" element={<HomeController />} />
-                        </Route>
-                        {/* <Route exact path="/home" element={<HomePage />} /> */}
-                        {/* <Route exact path="/signin" element={<SigninController />} />
+                    <>
+                        <Routes>
+                            <Route exact path="/signin" element={<SigninController />} />
+                            <Route exact path="*" element={<SigninController />} />
                             <Route exact path="/signup" element={<SignupController />} />
-                            <Route exact path="/forgotpassword" element={<ForgotPasswordController />} /> */}
-                        {/* <Route exact path="*" element={<HomePage />} /> */}
-                    </Routes>
+                          
+
+                        </Routes>
+                    </>
+                // <Routes>
+                //     {/* <Route exact path="/" element={<HomeController />} /> */}
+
+
+                //     {/* <Route exact path="/home" element={<HomePage />} /> */}
+                //     {/* <Route exact path="/signin" element={<SigninController />} /> */}
+                //     {/* <Route exact path="/signup" element={<SignupController />} /> */}
+                //     {/* <Route exact path="/forgotpassword" element={<ForgotPasswordController />} /> */}
+                //     {/* <Route exact path="*" element={<SigninController />} /> */}
+                // </Routes>
                 //  : ""
             }
 
@@ -93,10 +103,23 @@ export default function MainRoutes() {
 
 
 
-            {
-                userAuthToken && location.pathname.startsWith('/app') ? <UserPrivateRoutes /> : ""
 
-            }
+            <Routes>
+                {
+                    userAuthToken &&
+                    <Route path="/" element={<FrontEndLayOut />} >
+                        <Route path="/" element={<HomeController />} />
+                        <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
+                        <Route path="*" element={<HomeController />} />
+
+                    </Route>
+
+
+                }
+            </Routes>
+
+
+
         </>
 
 

@@ -1,0 +1,27 @@
+.suggest__item {
+  position: relative;
+
+  .product__thumb {
+    width: 112px;
+    height: 75px;
+    padding: 0.9rem 0.6rem;
+
+    img {
+      width: 50px;
+    }
+  }
+
+  .post__sold {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+}

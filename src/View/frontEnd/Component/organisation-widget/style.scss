@@ -1,0 +1,35 @@
+.note__info {
+  background-color: $gray-100;
+  color: $gray-700;
+  font-size: 13px;
+  display: flex;
+  max-width: 100%;
+  padding: 16px 20px;
+  align-items: center;
+  list-style-type: none;
+}
+
+.input-group.donate__control {
+  width: 105px;
+  
+  .input-group-text {
+    background: $gray-100;
+    border-color: $gray-100;
+    }
+
+  .form-control {
+    border-left: 0;
+    background: $gray-100;
+    border-color: $gray-100;  
+    padding-left: 0;
+    margin: 0 10px;
+  }
+}
+
+.organisation__cart-btn {
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    margin-left: 20px;
+    width: auto;
+  }
+}
