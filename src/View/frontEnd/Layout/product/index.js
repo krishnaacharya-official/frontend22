@@ -84,7 +84,7 @@ const Product = (props) => {
   return (
     <div className="product">
       <Link
-        to={"/organization/"+props.slug}
+        to={"/item/"+props.slug}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
       >
@@ -109,9 +109,9 @@ const Product = (props) => {
       <div className="product__columns border-bottom d-flex align-items-center">
         <div className="product__left d-flex flex-column">
           <div className="product__order">
-            <a href="/item/personal-tents" className="d-inline-block">
+            <Link  to={"/item/"+props.slug} className="d-inline-block">
               <h4 className="product__title mt-12p text-dark">{name}</h4>
-            </a>
+            </Link>
             <div className="small">Price:</div>
             <div className="product__price">
               <span>$</span>

@@ -26,7 +26,7 @@ function OrganisationItem() {
           <div className="org__item__price">$14</div>
         </div>
 
-        <span class="org__item-subtotal d-sm-none text-success fw-bolder">
+        <span className="org__item-subtotal d-sm-none text-success fw-bolder">
           $1,650.00
         </span>
       </div>
@@ -47,7 +47,7 @@ function OrganisationItem() {
           </div>
           <div className="org__item__count mt-3p">10</div>
         </div>
-        <span class="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
+        <span className="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
           $1,650.00
         </span>
         <Button className="ms-auto">

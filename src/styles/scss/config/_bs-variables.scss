@@ -7,67 +7,73 @@ $font-family-sans-serif: "Jcfonts linotte", Arial, sans-serif;
 $gray-100: #f8fafd;
 $gray-200: #f4f4f4;
 $gray-300: #dfe3e8;
-$gray-400: #c4cdd5;
+$gray-400: #9796b1;
 $gray-500: #6f6f90;
-$gray-600: #585a83;
-$gray-700: #454f5b;
+$gray-600: #6d6d86;
+$gray-700: #585a83;
 $gray-800: #3e4155;
 
 $darkest: #001429;
 $dark: $gray-800;
-$light: $gray-600;
+$light: $gray-400;
 $border-color: #e6e6e6;
 $hr-border-color: $light;
 
 $font-size-base: 0.875rem; // 14px
-$font-size-lg: $font-size-base * 1.428571429; // 20px
-$font-size-sm: $font-size-base * 0.857142857; // 12px
+$font-size-lg: 1rem; // 16px
+$font-size-sm: 0.75rem; // 12px
 
 $small-font-size: 85%;
 $text-muted: $gray-500;
-$h1-font-size: $font-size-base * 3; // 42px
-$h2-font-size: $font-size-base * 2; // 28px
-$h3-font-size: $font-size-base * 1.857142857; // 26px
-$h4-font-size: $font-size-base * 1.428571429; // 20px
-$lead-font-size: $font-size-base * 1.1428571429; // 16px
+
+$h1-font-size: $font-size-base * 3;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.4285;
+$h5-font-size: $font-size-base * 1.14285;
+$h6-font-size: $font-size-base;
+
 $lead-font-weight: 400;
 $headings-font-weight: 700;
 
+$font-weight-lighter: lighter;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-bolder: 900;
+
+$input-font-weight: $font-weight-normal;
+
 $input-btn-font-size-sm: 0.75rem;
+$input-btn-font-size: 0.875rem;
 
-$line-height-base: 1.428571429;
-$line-height-sm: 1.4;
+$line-height-base: 1.25;
+$line-height-lg: 1.25;
 
-$input-btn-padding-y: 0.4375rem;
-$input-btn-padding-x: 0.75rem;
+$input-btn-padding-y: 0.58rem;
+$input-btn-padding-x: 1rem;
+
+$input-btn-padding-y-lg: 0.75rem;
+$input-btn-padding-x-lg: 1.25rem;
 
 $btn-padding-y-sm: 5px;
 $btn-padding-x-sm: 14px;
+
+//$btn-padding-y-lg: 10px;
+//$btn-padding-x-lg: 20px;
+
 $btn-disabled-opacity: 0.5;
-$input-btn-border-width: 2px;
+$input-btn-border-width: 1px;
 
 $border-radius: 3px;
+$border-radius-lg: 6px;
 
 $primary: #756fe4;
-$secondary: #5e89ed;
-$success: #3cd3ad;
+$secondary: #5fc996;
+$success: #45bb82;
 $warning: #ffd20b;
-$danger: #de3618;
-$info: #3ec0be;
-
-$theme-colors: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
-$theme-colors: map-merge(
-  (
-    "primary": $primary,
-    "darkest": $darkest,
-    "success": $success,
-    "warning": $warning,
-    "danger": $danger,
-    "info": $info,
-  ),
-  $theme-colors
-);
+$danger: #f15e5e;
+$info: #50a8ef;
 
 $progress-height: 0.5rem;
 $progress-border-radius: 4px;
@@ -121,7 +127,7 @@ $badge-padding-y: 0.4em;
 $badge-border-radius: 2px;
 $badge-padding-x: 1em;
 
-$dropdown-box-shadow: 0 10px 40px rgba(60, 60, 60, 0.25);
+$dropdown-box-shadow: 6px 6px 18px 1px rgb(0 0 0 / 10%);
 $dropdown-padding-y: 10px;
 $dropdown-item-padding-x: 1rem;
 $dropdown-item-padding-y: 8px;

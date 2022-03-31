@@ -1,4 +1,4 @@
-@import './animation';
+@import "./animation";
 
 $spacers: (
   0: 3,
@@ -46,16 +46,21 @@ $pos: (
   }
 }
 
+$width: (
+  0: 60,
+  1: 150,
+  2: 310,
+);
+
+@each $key, $val in $width {
+  // loop each properties
+  .w-#{$val} {
+    width: #{$val}px !important;
+  }
+}
+
 .text-dark {
   color: $gray-500 !important;
-}
-
-.w-310 {
-  width: 310px;
-}
-
-.w-60 {
-  width: 60px;
 }
 
 .fs-7 {
@@ -70,17 +75,18 @@ $pos: (
   font-size: 10px;
 }
 
-.fw-bolder {
-  font-weight: $font-weight-extra-bold;
-}
-
 .heading-4 {
-  font-family: Fredoka,sans-serif;
+  font-family: Fredoka, sans-serif;
   font-size: 24px;
   font-weight: $font-weight-semibold;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.25;
 }
 

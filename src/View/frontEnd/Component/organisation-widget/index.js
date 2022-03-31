@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 
-import { WidgetTitle, TagTitle, ToggleSwitch } from "../../Component";
+// import { WidgetTitle, TagTitle, ToggleSwitch } from "../../Component";
+import WidgetTitle from '../widget-title'
+import TagTitle from "../tag-title";
+import ToggleSwitch from '../toggle-switch'
+
 import OrganisationItem from "../org-item";
 
 import "./style.scss";

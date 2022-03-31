@@ -10,23 +10,30 @@ import TagTitle from "../tag-title"
 
 import IconButton from "../icon-button";
 import ShareWidget from "../share-widget";
-import OrganisationWidget from "../org-projects-widget";
+import OrganisationWidget from "../organisation-widget";
+import moment from "moment";
+import helper from "../../../../Common/Helper";
 
 import "./style.scss";
 
 function OrganisationDetailMain(props) {
+  let organizationDetails = props.organizationDetails
+  // console.log(organizationDetails)
+  // console.log(Object.keys(organizationDetails).length)
+  let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '')
+  // console.log(organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-',''))
   return (
     <div className="project__detail-main">
       <div className="mb-4">
         <div className="d-flex align-items-center mb-1">
           <div>
             <TagTitle>Organization</TagTitle>
-            <h1 className="project__detail-title mb-0">Red Cross</h1>
+            <h1 className="project__detail-title mb-0" style={{ textTransform: "capitalize" }}>{organizationDetails?.name}</h1>
           </div>
           <div className="page__logo page__logo--org ms-auto">
             <img
               alt=""
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5ebcb0c93fcd2a0d1b6f822d_Red_Cross_icon.svg"
+              src={helper.CampaignAdminLogoPath + organizationDetails?.logo}
             />
           </div>
         </div>
@@ -34,14 +41,15 @@ function OrganisationDetailMain(props) {
         <div className="project__detail-meta d-flex align-items-center mb-2">
           <div className="d-flex align-items-center">
             <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-            December 27, 2018
+            {/* December 27, 2018 */}
+            {moment(organizationDetails?.created_at).format('MMMM DD , Y')}
           </div>
           <div className="d-flex align-items-center ms-2">
             <FontAwesomeIcon
               icon={regular("circle-location-arrow")}
               className="me-1"
             />
-            Toronto, ON
+           {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
           </div>
           <div className="text-light d-flex align-items-center ms-2">
             <IconToggle
@@ -60,15 +68,16 @@ function OrganisationDetailMain(props) {
             className="btn__category text-decoration-none"
           >
             <RoundedIcon
-              bgColor="#c13e40"
+              bgColor={organizationDetails?.categoryDetails?.color}
               size={16}
               className="mr-6p"
-              icon={<FontAwesomeIcon icon={solid("briefcase-medical")} />}
+              style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal" }}
+              icon={<i style={{ fontStyle: "normal" }} className={organizationDetails?.categoryDetails?.iconDetails?.class}></i>}
             />
-            <span className="fs-6 text-dark fw-bold">Shelter</span>
+            <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{organizationDetails?.categoryDetails?.name}</span>
           </Button>
 
-          <Button
+          {/* <Button
             size="lg"
             variant="link"
             className="btn__category text-decoration-none"
@@ -80,25 +89,19 @@ function OrganisationDetailMain(props) {
                 src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c38e4fd28a71363f4ac5d_Tree-Frog-Logo-Mock.png"
               />
             </span>
-          </Button>
+          </Button> */}
           <Button
             size="lg"
             variant="secondary"
             className=" text-decoration-none"
           >
-            <span className="fs-6">Shelter</span>
+            <span className="fs-6"style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
           </Button>
         </div>
 
         <h5>Personal tents for the homeless in Alberta, Canada</h5>
         <div className="page__paragraph lh-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {organizationDetails?.description}
         </div>
         <div>
           <IconButton
@@ -106,7 +109,7 @@ function OrganisationDetailMain(props) {
             className="text-light text-decoration-none fw-normal px-0 fs-6"
             icon={<FontAwesomeIcon icon={solid("building")} />}
           >
-            A 501(c)(3) nonprofit, EIN 59-2751953
+            {organizationDetails?.address}
           </IconButton>
         </div>
       </div>
