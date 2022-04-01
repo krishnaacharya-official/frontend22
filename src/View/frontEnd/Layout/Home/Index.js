@@ -1,4 +1,4 @@
-import Header from "../header";
+import Header from "../../Component/organisms/header";
 import {
     Button,
     Container,
@@ -8,7 +8,7 @@ import {
     InputGroup,
 } from "react-bootstrap";
 import ProductItems from "./products.json";
-import Product from "../product";
+import Product from "../../Component/organisms/product";
 import "./style.scss";
 
 export default function Index(props) {

@@ -6,15 +6,16 @@ import React from "react";
 import { Col, Container, Row, Button } from "react-bootstrap";
 
 // app specific
-import Header from "../Layout/header";
-import Footer from "../Layout/footer";
-import OrganisationDetailMain from "../Component/organisation-detail-main";
-import History from "../Component/history";
-import SuggestionWrapper from "../Component/suggestion-wrapper";
-import SuggestedList from "../Component/suggested-list";
-import OrganisationTeamWidget from "../Component/org-team-widget";
-import OrganisationProjectsWidget from "../Component/org-projects-widget";
-import GrabDropdown from "../Component/grab-dropdown";
+
+import Header from "../Component/organisms/header";
+import Footer from "../Component/organisms/footer";
+import OrganisationDetailMain from "../Component/organisms/organisation-detail-main";
+import History from "../Component/organisms/history";
+import SuggestionWrapper from "../Component/molecules/suggestion-wrapper";
+import SuggestedList from "../Component/organisms/suggested-list";
+import OrganisationTeamWidget from "../Component/organisms/org-team-widget";
+import OrganisationProjectsWidget from "../Component/organisms/org-projects-widget";
+import GrabDropdown from "../Component/organisms/grab-dropdown";
 
 // style
 import "./style.scss";

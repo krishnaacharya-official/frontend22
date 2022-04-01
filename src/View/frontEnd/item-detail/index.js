@@ -15,13 +15,13 @@ import { Col, Container, Row } from "react-bootstrap";
 //   SimilarItems,
 // } from "@components/organisms";
 
-import Header from "../Layout/header";
-import Footer from "../Layout/footer";
-import History from "../Component/history";
-import SuggestedList from "../Component/suggested-list";
-import ItemDetailMain from "../Component/item-detail-main"
-import SimilarItems from "../Component/similar-items";
-import SuggestionWrapper from "../Component/suggestion-wrapper";
+import Header from "../Component/organisms/header";
+import Footer from "../Component/organisms/footer";
+import History from "../Component/organisms/history";
+import SuggestedList from "../Component/organisms/suggested-list";
+import ItemDetailMain from "../Component/organisms/item-detail-main"
+import SimilarItems from "../Component/organisms/similar-items";
+import SuggestionWrapper from "../Component/molecules/suggestion-wrapper";
 import helper from "../../../Common/Helper";
 
 // style

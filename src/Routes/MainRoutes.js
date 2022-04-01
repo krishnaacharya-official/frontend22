@@ -25,6 +25,7 @@ import HomeController from '../Controller/frontEnd/HomeController'
 import FrontEndLayOut from './FrontEndLayOut'
 import OrganizationDetailsController from '../Controller/frontEnd/OrganizationDetailsController';
 import ItemDetailsController from '../Controller/frontEnd/ItemDetailsController';
+import ProjectDetailsController from "../Controller/frontEnd/ProjectDetailsController"
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -112,6 +113,7 @@ export default function MainRoutes() {
                         <Route path="/" element={<HomeController />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
+                        <Route exact path="/project/:name" element={<ProjectDetailsController />} />
                         <Route path="*" element={<HomeController />} />
 
                     </Route>
