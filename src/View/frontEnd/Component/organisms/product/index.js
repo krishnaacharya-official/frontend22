@@ -5,6 +5,13 @@ import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.sv
 import helper from "../../../../../Common/Helper";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import IconToggle from "../../atoms/icon-toggle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  regular,
+  solid,
+  light,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 
 import "./style.scss";
@@ -92,14 +99,13 @@ const Product = (props) => {
       </Link>
 
       <div className="product__top border-bottom d-flex align-items-center">
-        <div className="wish me-1">
-          <label className="wish__label">
-            <input type="checkbox" className="wish__check" />
-            <span className="wish__icon">
-              <HeartSvg />
-            </span>
-          </label>
-        </div>
+      <div className="wish me-1">
+            <IconToggle
+              activeColor="rgb(246, 100, 97)"
+              icon={<FontAwesomeIcon icon={regular("heart")} />}
+              checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
+            />
+          </div>
         <div className="flex-grow-1">
           <ProgressBar variant="success" now={progress} />
         </div>
