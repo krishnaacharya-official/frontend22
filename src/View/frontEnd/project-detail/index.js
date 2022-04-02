@@ -14,6 +14,7 @@ import SuggestionWrapper from "../Component/molecules/suggestion-wrapper";
 import SuggestedList from "../Component/organisms/suggested-list";
 import ProjectSuggestionList from "../Component/organisms/project-suggestion-list";
 import GrabDropdown from "../Component/organisms/grab-dropdown";
+import HeaderController from "../../../Controller/frontEnd/HeaderController";
 
 // style
 import "./style.scss";
@@ -61,7 +62,7 @@ import "./style.scss";
 const ProjectDetail = () => {
   return (
     <>
-      <Header />
+      <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
           <ProjectSuggestionList />

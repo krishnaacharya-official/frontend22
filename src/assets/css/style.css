@@ -545,3 +545,9 @@ button.ReactTags__remove{
   border-radius: 50%;
   margin-right: 20px;
 }
+
+.cart__dropdown{
+  position: absolute !important ;
+  inset: 0px 0px auto auto !important;
+  transform: translate(0px, 39px) !important;
+}

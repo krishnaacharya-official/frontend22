@@ -10,6 +10,7 @@ import {
 import ProductItems from "./products.json";
 import Product from "../../Component/organisms/product";
 import "./style.scss";
+import HeaderController from "../../../../Controller/frontEnd/HeaderController";
 
 export default function Index(props) {
     let products;
@@ -22,7 +23,7 @@ export default function Index(props) {
             return (
                 item.status === 1 &&
                 <Col sm="6" md="4" lg="3" className="mb-2" key={index}>
-                    <Product {...item} />
+                    <Product {...item} addToCart={props.addToCart} />
                 </Col>
             );
         });
@@ -38,7 +39,7 @@ export default function Index(props) {
 
     return (
         <>
-            <Header />
+            <HeaderController />
 
             <Container className="d-flex align-items-center" fluid>
                 <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">

@@ -6,17 +6,19 @@ import ListItemImg from "../../atoms/list-item-img";
 
 import "./style.scss";
 
-function CartItem() {
+function CartItem(props) {
+  // console.log(props.cartItem)
+  let cartItem= props.cartItem
   return (
     <li className="cd__cart__item px-1 py-2 d-flex align-items-center border-bottom">
       <div className="d-flex align-items-center">
         <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c2478bda7359714d93fec_image%20(2).png" />
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
-            <div className="cd__cart__name">Backpacks</div>
+            <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
             <div className="cd__cart__location">Canada</div>
           </div>
-          <div className="cd__cart__price">$14</div>
+          <div className="cd__cart__price">${cartItem?.productDetails?.price}</div>
         </div>
         <div className="cd__cart__right d-flex align-items-center">
           <Button
@@ -25,7 +27,7 @@ function CartItem() {
           >
             <FontAwesomeIcon icon={regular("angle-down")} />
           </Button>
-          <div className="cd__cart__count text-light">1</div>
+          <div className="cd__cart__count text-light">{cartItem?.quantity}</div>
           <Button
             variant="link"
             className="btn__link-light text-decoration-none p-0"
@@ -35,7 +37,7 @@ function CartItem() {
         </div>
       </div>
       <div className="cd__cart__remove ms-auto">
-        <Button variant="link" className="btn__link-light text-decoration-none">
+        <Button variant="link" className="btn__link-light text-decoration-none" onClick={()=>props.removeCartItem(cartItem._id)}>
           <FontAwesomeIcon icon={solid("trash")} />
         </Button>
       </div>

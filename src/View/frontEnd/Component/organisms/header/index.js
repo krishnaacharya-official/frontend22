@@ -13,7 +13,7 @@ import UserSettings from "../user-settings";
 import "./style.scss";
 
 
-const Header = () => {
+const Header = (props) => {
   return (
     <header className="main-header">
       <Container className="d-flex align-items-center" fluid>
@@ -21,7 +21,7 @@ const Header = () => {
         <div className="ms-auto header__right d-flex">
           <GeoLocation />
 
-          <ShoppingCart />
+          <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem}  />
 
           <Activity />
 

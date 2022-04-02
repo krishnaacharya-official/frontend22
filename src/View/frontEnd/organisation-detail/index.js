@@ -16,7 +16,7 @@ import SuggestedList from "../Component/organisms/suggested-list";
 import OrganisationTeamWidget from "../Component/organisms/org-team-widget";
 import OrganisationProjectsWidget from "../Component/organisms/org-projects-widget";
 import GrabDropdown from "../Component/organisms/grab-dropdown";
-
+import HeaderController from "../../../Controller/frontEnd/HeaderController";
 // style
 import "./style.scss";
 
@@ -62,7 +62,7 @@ const OrganisationDetail = (props) => {
   // console.log(Object.keys(organizationDetails).length)
   return (
     <>
-      <Header />
+      <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
           <SuggestedList />

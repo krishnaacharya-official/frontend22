@@ -21,7 +21,7 @@ import "./style.scss";
 const Product = (props) => {
   // console.log(props)
   let name = props.headline
-  let sold = props.quantity
+  let sold = 0
   let total = props.quantity
   let location = props.cityDetails.city
   let progress = 60
@@ -59,7 +59,11 @@ const Product = (props) => {
   })
   const { added_to_cart } = state
 
-  const addToCart = () => { setState({ added_to_cart: true }) };
+  const addToCart = async () => {
+    // alert(props._id)
+    await props.addToCart(props._id)
+    setState({ added_to_cart: true })
+  };
 
   const removeFromCart = () => { setState({ added_to_cart: false }) };
 
@@ -77,7 +81,7 @@ const Product = (props) => {
       variant="primary"
       size="sm"
       className="icon icon__pro"
-      onClick={addToCart}
+      onClick={() => addToCart()}
     >
       
     </Button>
@@ -91,7 +95,7 @@ const Product = (props) => {
   return (
     <div className="product">
       <Link
-        to={"/item/"+props.slug}
+        to={"/item/" + props.slug}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
       >
@@ -99,13 +103,13 @@ const Product = (props) => {
       </Link>
 
       <div className="product__top border-bottom d-flex align-items-center">
-      <div className="wish me-1">
-            <IconToggle
-              activeColor="rgb(246, 100, 97)"
-              icon={<FontAwesomeIcon icon={regular("heart")} />}
-              checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
-            />
-          </div>
+        <div className="wish me-1">
+          <IconToggle
+            activeColor="rgb(246, 100, 97)"
+            icon={<FontAwesomeIcon icon={regular("heart")} />}
+            checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
+          />
+        </div>
         <div className="flex-grow-1">
           <ProgressBar variant="success" now={progress} />
         </div>
@@ -115,7 +119,7 @@ const Product = (props) => {
       <div className="product__columns border-bottom d-flex align-items-center">
         <div className="product__left d-flex flex-column">
           <div className="product__order">
-            <Link  to={"/item/"+props.slug} className="d-inline-block">
+            <Link to={"/item/" + props.slug} className="d-inline-block">
               <h4 className="product__title mt-12p text-dark">{name}</h4>
             </Link>
             <div className="small">Price:</div>
@@ -133,7 +137,7 @@ const Product = (props) => {
         </div>
         <div className="product__right d-flex flex-column align-items-center pt-12p pb-2">
           <div className="product__org">
-            <Link to={"/organization/"+props.campaignDetails.slug} className="">
+            <Link to={"/organization/" + props.campaignDetails.slug} className="">
               <img
                 alt=""
                 className="img-fluid org__img"
