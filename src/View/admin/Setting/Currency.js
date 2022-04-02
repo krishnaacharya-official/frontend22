@@ -28,7 +28,7 @@ import FrontLoader from '../../../Common/FrontLoader';
 import ToastAlert from '../../../Common/ToastAlert';
 import { hasPermission } from '../../../Common/Helper';
 
-export default function General(props) {
+export default function Currency(props) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const adminAuthToken = localStorage.getItem('adminAuthToken');
@@ -36,7 +36,7 @@ export default function General(props) {
     const [state, setState] = useState({
         currency: "",
     })
-    const { currency} = state
+    const { currency } = state
 
 
     const saveGenralSettings = async () => {
@@ -90,12 +90,12 @@ export default function General(props) {
     return (
         <>
             <FrontLoader loading={loading} />
-            <Page title="Profile | Minimal-UI">
+            <Page title="Setting |Currency">
 
                 <Container>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                         <Typography variant="h4" gutterBottom>
-                            General Settings
+                            Currency Settings
                         </Typography>
                         <Button
                             variant="contained"

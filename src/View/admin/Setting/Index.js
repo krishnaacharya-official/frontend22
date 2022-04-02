@@ -28,7 +28,7 @@ import '../../../assets/css/style.css';
 import { Link } from 'react-router-dom';
 
 export default function Settings() {
-    const cardStyle ={
+    const cardStyle = {
         // borderRadius:'1.25rem'
     }
     return (
@@ -43,174 +43,361 @@ export default function Settings() {
                         </Typography>
 
                     </Stack>
-              
-                        <div className="row-cols-1 row-cols-md-2 g-2 row">
-                            <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ width: "22px" }}><path fill='green' d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"/></svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/general">General</Link></div>
-                                                    {/* <div className="text-alternate">Lollipop apple pie lollipop toffee croissant. Sugar plum fruitcake cotton candy lemon drops. Carrot cake fruitcake dragée pie cotton candy sesame snaps lollipop croissant.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                    <div className="sw-card__content">
+                        <div id="sw-settings__content-grid-shop" className="sw-settings__content-grid">
+
+                            <Link to="/admin/setting/currency" className="sw-settings-item" id="sw-settings-currency">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-symbol-euro sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3.05492878,13 C3.01863331,12.6716661 3,12.3380091 3,12 C3,11.6619909 3.01863331,11.3283339 3.05492878,11 L2,11 C1.44771525,11 1,10.5522847 1,10 C1,9.44771525 1.44771525,9 2,9 L3.51211712,9 C4.74762635,5.50442288 8.08134352,3 12,3 C13.5834474,3 15.1095006,3.41031856 16.4560029,4.17895174 C16.9356425,4.45274774 17.1025118,5.06352802 16.8287158,5.54316767 C16.5549198,6.02280731 15.9441395,6.18967655 15.4644998,5.91588055 C14.4180486,5.31852758 13.2333836,5 12,5 C9.20760404,5 6.7970951,6.63505267 5.67363116,9 L10,9 C10.5522847,9 11,9.44771525 11,10 C11,10.5522847 10.5522847,11 10,11 L5.07088886,11 C5.02417196,11.326603 5,11.6604787 5,12 C5,12.3395213 5.02417196,12.673397 5.07088886,13 L10,13 C10.5522847,13 11,13.4477153 11,14 C11,14.5522847 10.5522847,15 10,15 L5.67363116,15 C6.7970951,17.3649473 9.20760404,19 12,19 C13.2087081,19 14.3707302,18.6941236 15.4021079,18.1193123 C15.8845291,17.8504476 16.4935666,18.0235693 16.7624314,18.5059905 C17.0312961,18.9884116 16.8581745,19.5974492 16.3757533,19.866314 C15.0485633,20.6059884 13.5517163,21 12,21 C8.08134352,21 4.74762635,18.4955771 3.51211712,15 L2,15 C1.44771525,15 1,14.5522847 1,14 C1,13.4477153 1.44771525,13 2,13 L3.05492878,13 Z"></path>
+                                        </svg>
+                                    </span>
                                 </div>
-                            </div>
-                             <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                {/* <i className="fa fa-shield" aria-hidden="true"></i> */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ width: "22px" }}><path fill='green' d="M223.7 130.8L149.1 7.77C147.1 2.949 141.9 0 136.3 0H16.03c-12.95 0-20.53 14.58-13.1 25.18l111.3 158.9C143.9 156.4 181.7 137.3 223.7 130.8zM256 160c-97.25 0-176 78.75-176 176S158.8 512 256 512s176-78.75 176-176S353.3 160 256 160zM348.5 317.3l-37.88 37l8.875 52.25c1.625 9.25-8.25 16.5-16.63 12l-46.88-24.62L209.1 418.5c-8.375 4.5-18.25-2.75-16.63-12l8.875-52.25l-37.88-37C156.6 310.6 160.5 299 169.9 297.6l52.38-7.625L245.7 242.5c2-4.25 6.125-6.375 10.25-6.375S264.2 238.3 266.2 242.5l23.5 47.5l52.38 7.625C351.6 299 355.4 310.6 348.5 317.3zM495.1 0H375.7c-5.621 0-10.83 2.949-13.72 7.77l-73.76 122.1c42 6.5 79.88 25.62 109.5 53.38l111.3-158.9C516.5 14.58 508.9 0 495.1 0z"/></svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/rank">Rank</Link></div>
-                                                    {/* <div className="text-alternate">Cheesecake bonbon chocolate bar. Tart sugar plum candy canes toffee sweet roll muffin oat cake. Chupa chups cookie icing tart tiramisu chocolate cake.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Currencies</div>
+                            </Link>
+
+                            <Link to="/admin/setting/rank" className="sw-settings-item" id="sw-settings-address">
+                                <div className="sw-settings-item__icon background--enabled">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" ><path fill='#758CA3' d="M223.7 130.8L149.1 7.77C147.1 2.949 141.9 0 136.3 0H16.03c-12.95 0-20.53 14.58-13.1 25.18l111.3 158.9C143.9 156.4 181.7 137.3 223.7 130.8zM256 160c-97.25 0-176 78.75-176 176S158.8 512 256 512s176-78.75 176-176S353.3 160 256 160zM348.5 317.3l-37.88 37l8.875 52.25c1.625 9.25-8.25 16.5-16.63 12l-46.88-24.62L209.1 418.5c-8.375 4.5-18.25-2.75-16.63-12l8.875-52.25l-37.88-37C156.6 310.6 160.5 299 169.9 297.6l52.38-7.625L245.7 242.5c2-4.25 6.125-6.375 10.25-6.375S264.2 238.3 266.2 242.5l23.5 47.5l52.38 7.625C351.6 299 355.4 310.6 348.5 317.3zM495.1 0H375.7c-5.621 0-10.83 2.949-13.72 7.77l-73.76 122.1c42 6.5 79.88 25.62 109.5 53.38l111.3-158.9C516.5 14.58 508.9 0 495.1 0z"/></svg>
                                 </div>
-                            </div>
-                          <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon folders text-primary">
-                                                        <path d="M18 15 18 5C18 4.06812 18 3.60218 17.8478 3.23463 17.6448 2.74458 17.2554 2.35523 16.7654 2.15224 16.3978 2 15.9319 2 15 2 14.0681 2 13.6022 2 13.2346 2.15224 12.7446 2.35523 12.3552 2.74458 12.1522 3.23463 12 3.60217 12 4.06812 12 5L12 15C12 15.9319 12 16.3978 12.1522 16.7654 12.3552 17.2554 12.7446 17.6448 13.2346 17.8478 13.6022 18 14.0681 18 15 18 15.9319 18 16.3978 18 16.7654 17.8478 17.2554 17.6448 17.6448 17.2554 17.8478 16.7654 18 16.3978 18 15.9319 18 15zM8 15 8 5C8 4.06812 8 3.60218 7.84776 3.23463 7.64477 2.74458 7.25542 2.35523 6.76537 2.15224 6.39782 2 5.93188 2 5 2 4.06812 2 3.60218 2 3.23463 2.15224 2.74458 2.35523 2.35523 2.74458 2.15224 3.23463 2 3.60217 2 4.06812 2 5L2 15C2 15.9319 2 16.3978 2.15224 16.7654 2.35523 17.2554 2.74458 17.6448 3.23463 17.8478 3.60217 18 4.06812 18 5 18 5.93188 18 6.39782 18 6.76537 17.8478 7.25542 17.6448 7.64477 17.2554 7.84776 16.7654 8 16.3978 8 15.9319 8 15z"></path>
-                                                        <path d="M15 5 15 11M15 14 15 15M5 5 5 11M5 14 5 15"></path>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/xp">XP</Link></div>
-                                                    {/* <div className="text-alternate">Marshmallow donut sweet roll. Wafer tootsie roll gingerbread croissant ice cream. Sweet roll ice cream marzipan croissant soufflé fruitcake.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Rank</div>
+                            </Link>
+                            <Link  to="/admin/setting/payment" className="sw-settings-item" id="sw-settings-payment">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-money-card sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M17,14 C16.4477153,14 16,13.5522847 16,13 C16,12.4477153 16.4477153,12 17,12 L19,12 C19.5522847,12 20,12.4477153 20,13 C20,13.5522847 19.5522847,14 19,14 L17,14 Z M8,14 C7.44771525,14 7,13.5522847 7,13 C7,12.4477153 7.44771525,12 8,12 L14,12 C14.5522847,12 15,12.4477153 15,13 C15,13.5522847 14.5522847,14 14,14 L8,14 Z M22,8 L22,6 C22,5.44771525 21.5522847,5 21,5 L3,5 C2.44771525,5 2,5.44771525 2,6 L2,8 L22,8 Z M22,10 L2,10 L2,18 C2,18.5522847 2.44771525,19 3,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L22,10 Z M3,3 L21,3 C22.6568542,3 24,4.34314575 24,6 L24,18 C24,19.6568542 22.6568542,21 21,21 L3,21 C1.34314575,21 2.02906125e-16,19.6568542 0,18 L0,6 C-2.02906125e-16,4.34314575 1.34314575,3 3,3 Z"></path>
+                                        </svg>
+                                    </span>
                                 </div>
-                            </div>
-                             <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><path fill='green' d="M528 32h-480C21.49 32 0 53.49 0 80V96h576V80C576 53.49 554.5 32 528 32zM0 432C0 458.5 21.49 480 48 480h480c26.51 0 48-21.49 48-48V128H0V432zM368 192h128C504.8 192 512 199.2 512 208S504.8 224 496 224h-128C359.2 224 352 216.8 352 208S359.2 192 368 192zM368 256h128C504.8 256 512 263.2 512 272S504.8 288 496 288h-128C359.2 288 352 280.8 352 272S359.2 256 368 256zM368 320h128c8.836 0 16 7.164 16 16S504.8 352 496 352h-128c-8.836 0-16-7.164-16-16S359.2 320 368 320zM176 192c35.35 0 64 28.66 64 64s-28.65 64-64 64s-64-28.66-64-64S140.7 192 176 192zM112 352h128c26.51 0 48 21.49 48 48c0 8.836-7.164 16-16 16h-192C71.16 416 64 408.8 64 400C64 373.5 85.49 352 112 352z"/></svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/plans">Plans</Link></div>
-                                                    {/* <div className="text-alternate">Chocolate bar sesame snaps tootsie roll donut apple pie. Tart chocolate cake pastry cupcake croissant chocolate. Gingerbread danish tiramisu.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Stripe</div>
+                            </Link>
+                            <Link to="/admin/setting/plans" className="sw-settings-item" id="sw-settings-basic-information">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-basic-stack-line sw-icon--fill">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><path fill='#758CA3' d="M528 32h-480C21.49 32 0 53.49 0 80V96h576V80C576 53.49 554.5 32 528 32zM0 432C0 458.5 21.49 480 48 480h480c26.51 0 48-21.49 48-48V128H0V432zM368 192h128C504.8 192 512 199.2 512 208S504.8 224 496 224h-128C359.2 224 352 216.8 352 208S359.2 192 368 192zM368 256h128C504.8 256 512 263.2 512 272S504.8 288 496 288h-128C359.2 288 352 280.8 352 272S359.2 256 368 256zM368 320h128c8.836 0 16 7.164 16 16S504.8 352 496 352h-128c-8.836 0-16-7.164-16-16S359.2 320 368 320zM176 192c35.35 0 64 28.66 64 64s-28.65 64-64 64s-64-28.66-64-64S140.7 192 176 192zM112 352h128c26.51 0 48 21.49 48 48c0 8.836-7.164 16-16 16h-192C71.16 416 64 408.8 64 400C64 373.5 85.49 352 112 352z"/></svg>
+                                    </span>
                                 </div>
-                            </div>
-                        <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" viewBox="0 0 576 512"><path fill='green' d="M492.4 220.8c-8.9 0-18.7 6.7-18.7 22.7h36.7c0-16-9.3-22.7-18-22.7zM375 223.4c-8.2 0-13.3 2.9-17 7l.2 52.8c3.5 3.7 8.5 6.7 16.8 6.7 13.1 0 21.9-14.3 21.9-33.4 0-18.6-9-33.2-21.9-33.1zM528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM122.2 281.1c0 25.6-20.3 40.1-49.9 40.3-12.2 0-25.6-2.4-38.8-8.1v-33.9c12 6.4 27.1 11.3 38.9 11.3 7.9 0 13.6-2.1 13.6-8.7 0-17-54-10.6-54-49.9 0-25.2 19.2-40.2 48-40.2 11.8 0 23.5 1.8 35.3 6.5v33.4c-10.8-5.8-24.5-9.1-35.3-9.1-7.5 0-12.1 2.2-12.1 7.7 0 16 54.3 8.4 54.3 50.7zm68.8-56.6h-27V275c0 20.9 22.5 14.4 27 12.6v28.9c-4.7 2.6-13.3 4.7-24.9 4.7-21.1 0-36.9-15.5-36.9-36.5l.2-113.9 34.7-7.4v30.8H191zm74 2.4c-4.5-1.5-18.7-3.6-27.1 7.4v84.4h-35.5V194.2h30.7l2.2 10.5c8.3-15.3 24.9-12.2 29.6-10.5h.1zm44.1 91.8h-35.7V194.2h35.7zm0-142.9l-35.7 7.6v-28.9l35.7-7.6zm74.1 145.5c-12.4 0-20-5.3-25.1-9l-.1 40.2-35.5 7.5V194.2h31.3l1.8 8.8c4.9-4.5 13.9-11.1 27.8-11.1 24.9 0 48.4 22.5 48.4 63.8 0 45.1-23.2 65.5-48.6 65.6zm160.4-51.5h-69.5c1.6 16.6 13.8 21.5 27.6 21.5 14.1 0 25.2-3 34.9-7.9V312c-9.7 5.3-22.4 9.2-39.4 9.2-34.6 0-58.8-21.7-58.8-64.5 0-36.2 20.5-64.9 54.3-64.9 33.7 0 51.3 28.7 51.3 65.1 0 3.5-.3 10.9-.4 12.9z"/></svg>
-                                            
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/payment">Payment</Link></div>
-                                                    {/* <div className="text-alternate">Halvah jujubes bonbon gummies caramels. Carrot cake pie caramels caramels. Wafer tootsie roll gingerbread croissant ice cream.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Plans</div>
+                            </Link>
+                            <Link to="/admin/setting/pricing" className="sw-settings-item" id="sw-settings-cart">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    {/* <span className="sw-icon icon--default-lock-closed sw-icon--fill"> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><path fill='#758CA3' d="M512 64C547.3 64 576 92.65 576 128V384C576 419.3 547.3 448 512 448H64C28.65 448 0 419.3 0 384V128C0 92.65 28.65 64 64 64H512zM272 192C263.2 192 256 199.2 256 208C256 216.8 263.2 224 272 224H496C504.8 224 512 216.8 512 208C512 199.2 504.8 192 496 192H272zM272 320H496C504.8 320 512 312.8 512 304C512 295.2 504.8 288 496 288H272C263.2 288 256 295.2 256 304C256 312.8 263.2 320 272 320zM164.1 160C164.1 148.9 155.1 139.9 143.1 139.9C132.9 139.9 123.9 148.9 123.9 160V166C118.3 167.2 112.1 168.9 108 171.1C93.06 177.9 80.07 190.5 76.91 208.8C75.14 219 76.08 228.9 80.32 237.8C84.47 246.6 91 252.8 97.63 257.3C109.2 265.2 124.5 269.8 136.2 273.3L138.4 273.9C152.4 278.2 161.8 281.3 167.7 285.6C170.2 287.4 171.1 288.8 171.4 289.7C171.8 290.5 172.4 292.3 171.7 296.3C171.1 299.8 169.2 302.8 163.7 305.1C157.6 307.7 147.7 309 134.9 307C128.9 306 118.2 302.4 108.7 299.2C106.5 298.4 104.3 297.7 102.3 297C91.84 293.5 80.51 299.2 77.02 309.7C73.53 320.2 79.2 331.5 89.68 334.1C90.89 335.4 92.39 335.9 94.11 336.5C101.1 339.2 114.4 343.4 123.9 345.6V352C123.9 363.1 132.9 372.1 143.1 372.1C155.1 372.1 164.1 363.1 164.1 352V346.5C169.4 345.5 174.6 343.1 179.4 341.9C195.2 335.2 207.8 322.2 211.1 303.2C212.9 292.8 212.1 282.8 208.1 273.7C204.2 264.7 197.9 258.1 191.2 253.3C179.1 244.4 162.9 239.6 150.8 235.9L149.1 235.7C135.8 231.4 126.2 228.4 120.1 224.2C117.5 222.4 116.7 221.2 116.5 220.7C116.3 220.3 115.7 219.1 116.3 215.7C116.7 213.7 118.2 210.4 124.5 207.6C130.1 204.7 140.9 203.1 153.1 204.1C157.5 205.7 171 208.3 174.9 209.3C185.5 212.2 196.5 205.8 199.3 195.1C202.2 184.5 195.8 173.5 185.1 170.7C180.7 169.5 170.7 167.5 164.1 166.3L164.1 160z"/></svg>
+                                    {/* </span> */}
                                 </div>
-                            </div>
-                            <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" viewBox="0 0 576 512"><path fill='green' d="M568.2 336.3c-13.12-17.81-38.14-21.66-55.93-8.469l-119.7 88.17h-120.6c-8.748 0-15.1-7.25-15.1-15.99c0-8.75 7.25-16 15.1-16h78.25c15.1 0 30.75-10.88 33.37-26.62c3.25-20-12.12-37.38-31.62-37.38H191.1c-26.1 0-53.12 9.25-74.12 26.25l-46.5 37.74L15.1 383.1C7.251 383.1 0 391.3 0 400v95.98C0 504.8 7.251 512 15.1 512h346.1c22.03 0 43.92-7.188 61.7-20.27l135.1-99.52C577.5 379.1 581.3 354.1 568.2 336.3zM279.3 175C271.7 173.9 261.7 170.3 252.9 167.1L248 165.4C235.5 160.1 221.8 167.5 217.4 179.1s2.121 26.2 14.59 30.64l4.655 1.656c8.486 3.061 17.88 6.095 27.39 8.312V232c0 13.25 10.73 24 23.98 24s24-10.75 24-24V221.6c25.27-5.723 42.88-21.85 46.1-45.72c8.688-50.05-38.89-63.66-64.42-70.95L288.4 103.1C262.1 95.64 263.6 92.42 264.3 88.31c1.156-6.766 15.3-10.06 32.21-7.391c4.938 .7813 11.37 2.547 19.65 5.422c12.53 4.281 26.21-2.312 30.52-14.84s-2.309-26.19-14.84-30.53c-7.602-2.627-13.92-4.358-19.82-5.721V24c0-13.25-10.75-24-24-24s-23.98 10.75-23.98 24v10.52C238.8 40.23 221.1 56.25 216.1 80.13C208.4 129.6 256.7 143.8 274.9 149.2l6.498 1.875c31.66 9.062 31.15 11.89 30.34 16.64C310.6 174.5 296.5 177.8 279.3 175z"/></svg>
-                                                   
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><Link className="heading text-primary stretched-link" to="/admin/setting/pricing">Pricing</Link></div>
-                                                    {/* <div className="text-alternate">Dessert sweet roll cake lollipop. Jelly-o danish donut tiramisu biscuit toffee tart tootsie roll lemon drops. Lemon drops powder.</div> */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Donor Fees</div>
+                            </Link>
+                            <Link to="/admin/setting/xp" className="sw-settings-item" id="sw-settings-country">
+                                <div className="sw-settings-item__icon background--enabled">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><path fill='#758CA3' d="M512 80C512 98.01 497.7 114.6 473.6 128C444.5 144.1 401.2 155.5 351.3 158.9C347.7 157.2 343.9 155.5 340.1 153.9C300.6 137.4 248.2 128 192 128C183.7 128 175.6 128.2 167.5 128.6L166.4 128C142.3 114.6 128 98.01 128 80C128 35.82 213.1 0 320 0C426 0 512 35.82 512 80V80zM160.7 161.1C170.9 160.4 181.3 160 192 160C254.2 160 309.4 172.3 344.5 191.4C369.3 204.9 384 221.7 384 240C384 243.1 383.3 247.9 381.9 251.7C377.3 264.9 364.1 277 346.9 287.3C346.9 287.3 346.9 287.3 346.9 287.3C346.8 287.3 346.6 287.4 346.5 287.5L346.5 287.5C346.2 287.7 345.9 287.8 345.6 288C310.6 307.4 254.8 320 192 320C132.4 320 79.06 308.7 43.84 290.9C41.97 289.9 40.15 288.1 38.39 288C14.28 274.6 0 258 0 240C0 205.2 53.43 175.5 128 164.6C138.5 163 149.4 161.8 160.7 161.1L160.7 161.1zM391.9 186.6C420.2 182.2 446.1 175.2 468.1 166.1C484.4 159.3 499.5 150.9 512 140.6V176C512 195.3 495.5 213.1 468.2 226.9C453.5 234.3 435.8 240.5 415.8 245.3C415.9 243.6 416 241.8 416 240C416 218.1 405.4 200.1 391.9 186.6V186.6zM384 336C384 354 369.7 370.6 345.6 384C343.8 384.1 342 385.9 340.2 386.9C304.9 404.7 251.6 416 192 416C129.2 416 73.42 403.4 38.39 384C14.28 370.6 .0003 354 .0003 336V300.6C12.45 310.9 27.62 319.3 43.93 326.1C83.44 342.6 135.8 352 192 352C248.2 352 300.6 342.6 340.1 326.1C347.9 322.9 355.4 319.2 362.5 315.2C368.6 311.8 374.3 308 379.7 304C381.2 302.9 382.6 301.7 384 300.6L384 336zM416 278.1C434.1 273.1 452.5 268.6 468.1 262.1C484.4 255.3 499.5 246.9 512 236.6V272C512 282.5 507 293 497.1 302.9C480.8 319.2 452.1 332.6 415.8 341.3C415.9 339.6 416 337.8 416 336V278.1zM192 448C248.2 448 300.6 438.6 340.1 422.1C356.4 415.3 371.5 406.9 384 396.6V432C384 476.2 298 512 192 512C85.96 512 .0003 476.2 .0003 432V396.6C12.45 406.9 27.62 415.3 43.93 422.1C83.44 438.6 135.8 448 192 448z"/></svg>
                                 </div>
-                            </div>
-                            {/* <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon file-text text-primary">
-                                                        <path d="M6.5 18H13.5C14.9045 18 15.6067 18 16.1111 17.6629C16.3295 17.517 16.517 17.3295 16.6629 17.1111C17 16.6067 17 15.9045 17 14.5V7.44975C17 6.83775 17 6.53175 16.9139 6.24786C16.8759 6.12249 16.8256 6.00117 16.7638 5.88563C16.624 5.62399 16.4076 5.40762 15.9749 4.97487L14.0251 3.02513L14.0251 3.02512C13.5924 2.59238 13.376 2.37601 13.1144 2.23616C12.9988 2.1744 12.8775 2.12415 12.7521 2.08612C12.4682 2 12.1622 2 11.5503 2H6.5C5.09554 2 4.39331 2 3.88886 2.33706C3.67048 2.48298 3.48298 2.67048 3.33706 2.88886C3 3.39331 3 4.09554 3 5.5V14.5C3 15.9045 3 16.6067 3.33706 17.1111C3.48298 17.3295 3.67048 17.517 3.88886 17.6629C4.39331 18 5.09554 18 6.5 18Z"></path>
-                                                        <path d="M13 6 7 6M13 10 7 10M13 14 7 14"></path>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><a className="heading text-primary stretched-link" href="/settings/general">Billing</a></div>
-                                                    <div className="text-alternate">Macaroon candy ice cream candy canes chocolate bar sesame snaps jelly pudding caramels. Dragée macaroon lemon drops icing cupcake gingerbread.</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">XP</div>
+                            </Link>
+                            <Link to="/admin/setting/email" className="sw-settings-item" id="sw-mail-template">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-communication-envelope sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3.74379366,5 L10.8530753,9.97649716 C11.5417156,10.4585454 12.4582844,10.4585454 13.1469247,9.97649716 L20.2562063,5 L3.74379366,5 Z M22,6.22065556 L14.2938494,11.614961 C12.9165688,12.5790574 11.0834312,12.5790574 9.70615062,11.614961 L2,6.22065556 L2,18 C2,18.5522847 2.44771525,19 3,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L22,6.22065556 Z M3,3 L21,3 C22.6568542,3 24,4.34314575 24,6 L24,18 C24,19.6568542 22.6568542,21 21,21 L3,21 C1.34314575,21 2.02906125e-16,19.6568542 0,18 L0,6 C-2.02906125e-16,4.34314575 1.34314575,3 3,3 Z"></path>
+                                        </svg>
+                                    </span>
                                 </div>
-                            </div>
-                            <div className="col">
-                                <div className="hover-scale-up h-100 card" style={cardStyle}>
-                                    <div className="card-body">
-                                        <div className="g-0 row">
-                                            <div className="col-auto">
-                                                <div className="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center  mb-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cs-icon content text-primary">
-                                                        <path d="M3 5.5C3 4.09554 3 3.39331 3.33706 2.88886C3.48298 2.67048 3.67048 2.48298 3.88886 2.33706C4.39331 2 5.09554 2 6.5 2H13.5C14.9045 2 15.6067 2 16.1111 2.33706C16.3295 2.48298 16.517 2.67048 16.6629 2.88886C17 3.39331 17 4.09554 17 5.5V14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18H6.5C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5V5.5Z"></path>
-                                                        <path d="M7 6.75C7 6.04777 7 5.69665 7.16853 5.44443C7.24149 5.33524 7.33524 5.24149 7.44443 5.16853C7.69665 5 8.04777 5 8.75 5H11.25C11.9522 5 12.3033 5 12.5556 5.16853C12.6648 5.24149 12.7585 5.33524 12.8315 5.44443C13 5.69665 13 6.04777 13 6.75V7.25C13 7.95223 13 8.30335 12.8315 8.55557C12.7585 8.66476 12.6648 8.75851 12.5556 8.83147C12.3033 9 11.9522 9 11.25 9H8.75C8.04777 9 7.69665 9 7.44443 8.83147C7.33524 8.75851 7.24149 8.66476 7.16853 8.55557C7 8.30335 7 7.95223 7 7.25V6.75Z"></path>
-                                                        <path d="M7 12H13M7 15H13"></path>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="d-flex flex-column ps-card justify-content-start">
-                                                    <div className="d-flex flex-column justify-content-center mb-2"><a className="heading text-primary stretched-link" href="/settings/general">Taxes</a></div>
-                                                    <div className="text-alternate">Dragée macaroon lemon drops icing cupcake gingerbread. Apple pie caramels tart. Caramels brownie gummies.</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="sw-settings-item__label">Email</div>
+                            </Link>
+
+                            {/* <a href="#/sw/settings/customer/group/index" className="sw-settings-item" id="sw-settings-customer-group">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-avatar-multiple sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M8,3 C5.790861,3 4,4.790861 4,7 C4,9.209139 5.790861,11 8,11 C10.209139,11 12,9.209139 12,7 C12,4.790861 10.209139,3 8,3 Z M8,1 C11.3137085,1 14,3.6862915 14,7 C14,10.3137085 11.3137085,13 8,13 C4.6862915,13 2,10.3137085 2,7 C2,3.6862915 4.6862915,1 8,1 Z M2,22.0990195 C2,22.6513043 1.55228475,23.0990195 1,23.0990195 C0.44771525,23.0990195 0,22.6513043 0,22.0990195 L0,20 C-2.77555756e-16,17.2385763 2.23857625,15 5,15 L11.0007003,15 C13.7621241,15 16.0007003,17.2385763 16.0007003,20 L16.0007003,22.0990195 C16.0007003,22.6513043 15.5529851,23.0990195 15.0007003,23.0990195 C14.4484156,23.0990195 14.0007003,22.6513043 14.0007003,22.0990195 L14.0007003,20 C14.0007003,18.3431458 12.6575546,17 11.0007003,17 L5,17 C3.34314575,17 2,18.3431458 2,20 L2,22.0990195 Z M15.8010678,3.08003137 C15.2598214,2.97016416 14.9101195,2.4423323 15.0199867,1.90108592 C15.129854,1.35983955 15.6576858,1.01013764 16.1989322,1.12000486 C18.9750987,1.68353692 21,4.13340058 21,7 C21,9.86659942 18.9750987,12.3164631 16.1989322,12.8799951 C15.6576858,12.9898624 15.129854,12.6401605 15.0199867,12.0989141 C14.9101195,11.5576677 15.2598214,11.0298358 15.8010678,10.9199686 C17.6494777,10.5447612 19,8.91080725 19,7 C19,5.08919275 17.6494777,3.45523878 15.8010678,3.08003137 Z M19.0007003,17 C18.4484156,17 18.0007003,16.5522847 18.0007003,16 C18.0007003,15.4477153 18.4484156,15 19.0007003,15 C21.7621241,15 24.0007003,17.2385763 24.0007003,20 L24.0007003,22.0990195 C24.0007003,22.6513043 23.5529851,23.0990195 23.0007003,23.0990195 C22.4484156,23.0990195 22.0007003,22.6513043 22.0007003,22.0990195 L22.0007003,20 C22.0007003,18.3431458 20.6575546,17 19.0007003,17 Z"></path>
+                                        </svg>
+                                    </span>
                                 </div>
-                            </div> */}
+                                <div className="sw-settings-item__label">Customer groups</div>
+                            </a>
+                            <a href="#/sw/settings/delivery/time/index" className="sw-settings-item" id="sw-settings-delivery-time">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-time-clock sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M13,11 L13,6 C13,5.44771525 12.5522847,5 12,5 C11.4477153,5 11,5.44771525 11,6 L11,12 C11,12.5522847 11.4477153,13 12,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L13,11 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Delivery times</div>
+                            </a>
+                            <a href="#/sw/settings/document/index" className="sw-settings-item" id="sw-settings-document">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-documentation-file sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M5,7 L5,21 C5,21.5522847 5.44771525,22 6,22 L18,22 C18.5522847,22 19,21.5522847 19,21 L19,3 C19,2.44771525 18.5522847,2 18,2 L10,2 L10,6 C10,6.55228475 9.55228475,7 9,7 L5,7 Z M5.12601749,5 L8,5 L8,2.12601749 C6.59439271,2.4877958 5.4877958,3.59439271 5.12601749,5 Z M18,5.42101086e-20 C19.6568542,-3.33012697e-16 21,1.34314575 21,3 L21,21 C21,22.6568542 19.6568542,24 18,24 L6,24 C4.34314575,24 3,22.6568542 3,21 L3,6 C3,2.6862915 5.6862915,5.32961262e-16 9,5.42101086e-20 L18,5.42101086e-20 Z M8,11 C7.44771525,11 7,10.5522847 7,10 C7,9.44771525 7.44771525,9 8,9 L16,9 C16.5522847,9 17,9.44771525 17,10 C17,10.5522847 16.5522847,11 16,11 L8,11 Z M8,15 C7.44771525,15 7,14.5522847 7,14 C7,13.4477153 7.44771525,13 8,13 L16,13 C16.5522847,13 17,13.4477153 17,14 C17,14.5522847 16.5522847,15 16,15 L8,15 Z M8,19 C7.44771525,19 7,18.5522847 7,18 C7,17.4477153 7.44771525,17 8,17 L16,17 C16.5522847,17 17,17.4477153 17,18 C17,18.5522847 16.5522847,19 16,19 L8,19 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Documents</div>
+                            </a>
+                            <a href="#/sw/mail/template/index" className="sw-settings-item" id="sw-mail-template">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-communication-envelope sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3.74379366,5 L10.8530753,9.97649716 C11.5417156,10.4585454 12.4582844,10.4585454 13.1469247,9.97649716 L20.2562063,5 L3.74379366,5 Z M22,6.22065556 L14.2938494,11.614961 C12.9165688,12.5790574 11.0834312,12.5790574 9.70615062,11.614961 L2,6.22065556 L2,18 C2,18.5522847 2.44771525,19 3,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L22,6.22065556 Z M3,3 L21,3 C22.6568542,3 24,4.34314575 24,6 L24,18 C24,19.6568542 22.6568542,21 21,21 L3,21 C1.34314575,21 2.02906125e-16,19.6568542 0,18 L0,6 C-2.02906125e-16,4.34314575 1.34314575,3 3,3 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Email templates</div>
+                            </a>
+                            <a href="#/sw/import-export/index" className="sw-settings-item" id="sw-import-export">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-location-flag sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M5,6.60582393e-16 L18.966922,0 C20.0714915,-1.5494586e-15 20.966922,0.8954305 20.966922,2 C20.966922,2.27085355 20.9119065,2.5388849 20.805212,2.7878386 L19,7 L20.805212,11.2121614 C21.2403233,12.227421 20.7700201,13.4031788 19.7547606,13.8382901 C19.5058069,13.9449845 19.2377755,14 18.966922,14 L6,14 L6,23 C6,23.5522847 5.55228475,24 5,24 C4.44771525,24 4,23.5522847 4,23 L4,1 C4,0.44771525 4.44771525,2.98238268e-16 5,1.48999946e-31 Z M6,2 L6,12 L18.966922,12 L16.8240648,7 L18.966922,2 L6,2 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Import/Export</div>
+                            </a>
+                            <a href="#/sw/settings/language/index" className="sw-settings-item" id="sw-settings-language">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-location-flag sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M5,6.60582393e-16 L18.966922,0 C20.0714915,-1.5494586e-15 20.966922,0.8954305 20.966922,2 C20.966922,2.27085355 20.9119065,2.5388849 20.805212,2.7878386 L19,7 L20.805212,11.2121614 C21.2403233,12.227421 20.7700201,13.4031788 19.7547606,13.8382901 C19.5058069,13.9449845 19.2377755,14 18.966922,14 L6,14 L6,23 C6,23.5522847 5.55228475,24 5,24 C4.44771525,24 4,23.5522847 4,23 L4,1 C4,0.44771525 4.44771525,2.98238268e-16 5,1.48999946e-31 Z M6,2 L6,12 L18.966922,12 L16.8240648,7 L18.966922,2 L6,2 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Languages</div>
+                            </a>
+                            <a href="#/sw/settings/login/registration/index" className="sw-settings-item" id="sw-settings-login-registration">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-action-log-in sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M16.5857864,13 L1,13 C0.44771525,13 0,12.5522847 0,12 C0,11.4477153 0.44771525,11 1,11 L16.5857864,11 L14.2928932,8.70710678 C13.9023689,8.31658249 13.9023689,7.68341751 14.2928932,7.29289322 C14.6834175,6.90236893 15.3165825,6.90236893 15.7071068,7.29289322 L19.7071068,11.2928932 C20.0976311,11.6834175 20.0976311,12.3165825 19.7071068,12.7071068 L15.7071068,16.7071068 C15.3165825,17.0976311 14.6834175,17.0976311 14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 L16.5857864,13 Z M10,7 L10,4.69425418 C10,3.22773672 11.0602391,1.97616639 12.506803,1.73507241 L20.506803,0.401739072 C22.141114,0.129353911 23.6867966,1.23341292 23.9591818,2.86772388 C23.9863475,3.03071816 24,3.19567826 24,3.36092084 L24,20.6390792 C24,22.2959334 22.6568542,23.6390792 21,23.6390792 C20.8347574,23.6390792 20.6697973,23.6254266 20.506803,23.5982609 L12.506803,22.2649276 C11.0602391,22.0238336 10,20.7722633 10,19.3057458 L10,17 C10,16.4477153 10.4477153,16 11,16 C11.5522847,16 12,16.4477153 12,17 L12,19.3057458 C12,19.794585 12.353413,20.2117751 12.835601,20.2921397 L20.835601,21.6254731 C20.8899324,21.6345283 20.9449191,21.6390792 21,21.6390792 C21.5522847,21.6390792 22,21.1913639 22,20.6390792 L22,3.36092084 C22,3.30583998 21.9954492,3.25085328 21.9863939,3.19652186 C21.8955989,2.65175153 21.3803713,2.28373187 20.835601,2.37452692 L12.835601,3.70786025 C12.353413,3.78822491 12,4.20541502 12,4.69425418 L12,7 C12,7.55228475 11.5522847,8 11,8 C10.4477153,8 10,7.55228475 10,7 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Login / Registration</div>
+                            </a>
+                            <a href="#/sw/settings/number/range/index" className="sw-settings-item" id="sw-settings-number-range">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-documentation-paper-pencil-signed sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3,7 L3,21 C3,21.5522847 3.44771525,22 4,22 L16,22 C16.5522847,22 17,21.5522847 17,21 L17,14.4142136 L13.7071068,17.7071068 C13.5195704,17.8946432 13.2652165,18 13,18 L10.5,18 L6,18 C5.44771525,18 5,17.5522847 5,17 C5,16.4477153 5.44771525,16 6,16 L9,16 L9,14 C9,13.7347835 9.10535684,13.4804296 9.29289322,13.2928932 L17,5.58578644 L17,3 C17,2.44771525 16.5522847,2 16,2 L8,2 L8,6 C8,6.55228475 7.55228475,7 7,7 L3,7 Z M3.12601749,5 L6,5 L6,2.12601749 C4.59439271,2.4877958 3.4877958,3.59439271 3.12601749,5 Z M19,12.4142136 L19,21 C19,22.6568542 17.6568542,24 16,24 L4,24 C2.34314575,24 1,22.6568542 1,21 L1,6 C1,2.6862915 3.6862915,5.32961262e-16 7,5.42101086e-20 L16,5.42101086e-20 C17.6568542,-3.33012697e-16 19,1.34314575 19,3 L19,4 C19.2559223,4 19.5118446,4.09763107 19.7071068,4.29289322 L22.7071068,7.29289322 C23.0976311,7.68341751 23.0976311,8.31658249 22.7071068,8.70710678 L19,12.4142136 Z M12.5857864,16 L20.5857864,8 L19,6.41421356 L11,14.4142136 L11,16 L12.5857864,16 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Number ranges</div>
+                            </a>
+                            <a href="#/sw/settings/payment/index" className="sw-settings-item" id="sw-settings-payment">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-money-card sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M17,14 C16.4477153,14 16,13.5522847 16,13 C16,12.4477153 16.4477153,12 17,12 L19,12 C19.5522847,12 20,12.4477153 20,13 C20,13.5522847 19.5522847,14 19,14 L17,14 Z M8,14 C7.44771525,14 7,13.5522847 7,13 C7,12.4477153 7.44771525,12 8,12 L14,12 C14.5522847,12 15,12.4477153 15,13 C15,13.5522847 14.5522847,14 14,14 L8,14 Z M22,8 L22,6 C22,5.44771525 21.5522847,5 21,5 L3,5 C2.44771525,5 2,5.44771525 2,6 L2,8 L22,8 Z M22,10 L2,10 L2,18 C2,18.5522847 2.44771525,19 3,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L22,10 Z M3,3 L21,3 C22.6568542,3 24,4.34314575 24,6 L24,18 C24,19.6568542 22.6568542,21 21,21 L3,21 C1.34314575,21 2.02906125e-16,19.6568542 0,18 L0,6 C-2.02906125e-16,4.34314575 1.34314575,3 3,3 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Payment</div>
+                            </a>
+                            <a href="#/sw/settings/listing/index" className="sw-settings-item" id="sw-settings-listing">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-symbol-products sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M10,9 C9.44771525,9 9,9.44771525 9,10 L9,21 C9,21.5522847 9.44771525,22 10,22 L21,22 C21.5522847,22 22,21.5522847 22,21 L22,10 C22,9.44771525 21.5522847,9 21,9 L10,9 Z M15,7 L15,3 C15,2.44771525 14.5522847,2 14,2 L3,2 C2.44771525,2 2,2.44771525 2,3 L2,14 C2,14.5522847 2.44771525,15 3,15 L7,15 L7,10 C7,8.34314575 8.34314575,7 10,7 L15,7 Z M17,7 L21,7 C22.6568542,7 24,8.34314575 24,10 L24,21 C24,22.6568542 22.6568542,24 21,24 L10,24 C8.34314575,24 7,22.6568542 7,21 L7,17 L3,17 C1.34314575,17 1.09108455e-15,15.6568542 8.8817842e-16,14 L0,3 C-2.02906125e-16,1.34314575 1.34314575,7.80279975e-16 3,8.8817842e-16 L14,8.8817842e-16 C15.6568542,6.15657427e-16 17,1.34314575 17,3 L17,7 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Products</div>
+                            </a>
+                            <a href="#/sw/settings/rule/index" className="sw-settings-item" id="sw-settings-rule">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-symbol-rule sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M4.00078261,3 C3.8687566,3 3.7380374,3.02614384 3.61616723,3.07692308 C3.10636592,3.28934029 2.86528848,3.87481408 3.07770569,4.38461538 L6.02642364,10.4615385 C6.43668005,11.4461538 6.43668005,12.5538462 6.02642364,13.5384615 L3.07770569,19.6153846 C3.02692645,19.7372548 3.00078261,19.867974 3.00078261,20 C3.00078261,20.5522847 3.44849786,21 4.00078261,21 L16.5007826,21 C16.9044835,21 17.26859,20.7572623 17.4238595,20.3846154 L21.1738595,12.3846154 C21.2764236,12.1384615 21.2764236,11.8615385 21.1738595,11.6153846 L17.4238595,3.61538462 C17.26859,3.24273768 16.9044835,3 16.5007826,3 L4.00078261,3 Z M4.00078261,1 L16.5007826,1 C17.7118852,1 18.8042047,1.72821303 19.2700134,2.84615385 L23.0200134,10.8461538 C23.3277057,11.5846154 23.3277057,12.4153846 23.0200134,13.1538462 L19.2700134,21.1538462 C18.8042047,22.271787 17.7118852,23 16.5007826,23 L4.00078261,23 C2.34392836,23 1.00078261,21.6568542 1.00078261,20 C1.00078261,19.6039219 1.07921413,19.2117644 1.23155184,18.8461538 L4.18026979,12.7692308 C4.385398,12.2769231 4.385398,11.7230769 4.18026979,11.2307692 L1.23155184,5.15384615 C0.59430021,3.62444223 1.31753254,1.86802087 2.84693646,1.23076923 C3.21254697,1.07843152 3.60470456,1 4.00078261,1 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Rule builder</div>
+                            </a>
+                            <a href="#/sw/settings/salutation/index" className="sw-settings-item" id="sw-settings-salutation">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-communication-speech-bubbles sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M8,14 L6.35757692,14 L3.26815925,16.5333227 C2.41403126,17.2337077 1.15384949,17.1090744 0.453464477,16.2549465 C0.160245796,15.8973627 8.8817842e-16,15.4492192 8.8817842e-16,14.9867872 L0,6 C-2.77555756e-16,3.23857625 2.23857625,1 5,1 L11,1 C13.7614237,1 16,3.23857625 16,6 L16,7 L19,7 C21.7614237,7 24,9.23857625 24,12 L24,20.9867872 C24,21.4492192 23.8397542,21.8973627 23.5465355,22.2549465 C22.8461505,23.1090744 21.5859687,23.2337077 20.7318408,22.5333227 L17.6424231,20 L13,20 C10.2385763,20 8,17.7614237 8,15 L8,14 Z M8,12 C8,9.23857625 10.2385763,7 13,7 L14,7 L14,6 C14,4.34314575 12.6568542,3 11,3 L5,3 C3.34314575,3 2,4.34314575 2,6 L2,14.9867872 L5.64242308,12 L8,12 Z M14,9 L13,9 C11.3431458,9 10,10.3431458 10,12 L10,15 C10,16.6568542 11.3431458,18 13,18 L18.3575769,18 L22,20.9867872 L22,12 C22,10.3431458 20.6568542,9 19,9 L16,9 L14,9 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Salutations</div>
+                            </a>
+                            <a href="#/sw/settings/units/index" className="sw-settings-item" id="sw-settings-units">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-object-scale sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M6.16970446,5.34683573 L9.9486833,16.6837722 C10.1060542,17.1558848 9.89232562,17.6718712 9.4472136,17.8944272 L8.57770876,18.3291796 C6.32548884,19.4552896 3.67451116,19.4552896 1.42229124,18.3291796 L0.552786405,17.8944272 C0.107674376,17.6718712 -0.106054165,17.1558848 0.0513167019,16.6837722 L3.71231623,5.70077364 C3.2069479,5.78622544 2.701549,5.8794941 2.19611614,5.98058068 C1.65455638,6.08889263 1.12773127,5.73767589 1.01941932,5.19611614 C0.911107374,4.65455638 1.26232411,4.12773127 1.80388386,4.01941932 C4.86832475,3.40653115 7.93392153,3.06992317 11,3.00980391 L11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L13,3.00980391 C16.0660785,3.06992317 19.1316752,3.40653115 22.1961161,4.01941932 C22.7376759,4.12773127 23.0888926,4.65455638 22.9805807,5.19611614 C22.8722687,5.73767589 22.3454436,6.08889263 21.8038839,5.98058068 C21.298451,5.8794941 20.7930521,5.78622544 20.2876838,5.70077364 L23.9486833,16.6837722 C24.1060542,17.1558848 23.8923256,17.6718712 23.4472136,17.8944272 L22.5777088,18.3291796 C20.3254888,19.4552896 17.6745112,19.4552896 15.4222912,18.3291796 L14.5527864,17.8944272 C14.1076744,17.6718712 13.8939458,17.1558848 14.0513167,16.6837722 L17.8302955,5.34683573 C16.2199791,5.1552587 14.6099172,5.04305949 13,5.01020409 L13,21 L16,21 C16.5522847,21 17,21.4477153 17,22 C17,22.5522847 16.5522847,23 16,23 L8,23 C7.44771525,23 7,22.5522847 7,22 C7,21.4477153 7.44771525,21 8,21 L11,21 L11,5.01020409 C9.39008278,5.04305949 7.78002091,5.1552587 6.16970446,5.34683573 Z M21.7770538,16.4934391 L19,8.16227766 L16.2229462,16.4934391 L16.3167184,16.5403252 C18.0058834,17.3849077 19.9941166,17.3849077 21.6832816,16.5403252 L21.7770538,16.4934391 Z M5,8.16227766 L2.22294619,16.4934391 L2.31671843,16.5403252 C4.00588337,17.3849077 5.99411663,17.3849077 7.68328157,16.5403252 L7.77705381,16.4934391 L5,8.16227766 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Scale units</div>
+                            </a>
+                            <a href="#/sw/settings/seo/index" className="sw-settings-item" id="sw-settings-seo">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-action-search sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M10.0943561,16.3198574 L4.70710678,21.7071068 C4.31658249,22.0976311 3.68341751,22.0976311 3.29289322,21.7071068 C2.90236893,21.3165825 2.90236893,20.6834175 3.29289322,20.2928932 L8.68014258,14.9056439 C7.62708161,13.5509601 7,11.8487115 7,10 C7,5.581722 10.581722,2 15,2 C19.418278,2 23,5.581722 23,10 C23,14.418278 19.418278,18 15,18 C13.1512885,18 11.4490399,17.3729184 10.0943561,16.3198574 Z M15,16 C18.3137085,16 21,13.3137085 21,10 C21,6.6862915 18.3137085,4 15,4 C11.6862915,4 9,6.6862915 9,10 C9,13.3137085 11.6862915,16 15,16 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">SEO</div>
+                            </a>
+                            <a href="#/sw/settings/shipping/index" className="sw-settings-item" id="sw-settings-shipping">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-package-open sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M13,3.69951446 L13,7.44575236 L15.4181269,8.95708169 L18.940874,7 L13,3.69951446 Z M13.4203427,10.0669618 L12,9.17924764 L10.5796573,10.0669618 L12,10.8560411 L13.4203427,10.0669618 Z M8.58187307,8.95708169 L11,7.44575236 L11,3.69951446 L5.05912603,7 L8.58187307,8.95708169 Z M21.9944838,6.89397056 L23.9284767,11.7289527 C24.1154611,12.1964138 23.9257558,12.7299935 23.4856429,12.9745007 L22,13.7998578 L22,17 C22,17.3631671 21.8031081,17.6977877 21.4856429,17.8741573 L12.4856429,22.8741573 C12.1836204,23.0419476 11.8163796,23.0419476 11.5143571,22.8741573 L2.51435707,17.8741573 C2.19689188,17.6977877 2,17.3631671 2,17 L2,13.7998578 L0.514357069,12.9745007 C0.0742441858,12.7299935 -0.115461145,12.1964138 0.0715233091,11.7289527 L2.00551616,6.89397056 C2.03734946,6.5889972 2.2069631,6.29661715 2.51435707,6.12584272 L11.5143571,1.12584272 C11.8163796,0.958052425 12.1836204,0.958052425 12.4856429,1.12584272 L21.4856429,6.12584272 C21.7930369,6.29661715 21.9626505,6.5889972 21.9944838,6.89397056 Z M20,14.9109689 L14.4856429,17.9745007 C13.9590544,18.2670499 13.2952475,18.0310444 13.0715233,17.4717341 L12,14.7929258 L10.9284767,17.4717341 C10.7047525,18.0310444 10.0409456,18.2670499 9.51435707,17.9745007 L4,14.9109689 L4,16.4115967 L12,20.8560411 L20,16.4115967 L20,14.9109689 Z M10.7444047,12.4464059 L3.50682224,8.42552681 L2.25559534,11.5535941 L9.49317776,15.5744732 L10.7444047,12.4464059 Z M13.2555953,12.4464059 L14.5068222,15.5744732 L21.7444047,11.5535941 L20.4931778,8.42552681 L13.2555953,12.4464059 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Shipping</div>
+                            </a>
+                            <a href="#/sw/settings/sitemap/index" className="sw-settings-item" id="sw-settings-sitemap">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-location-map sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M15.7357088,2.0352964 C15.8198966,2.01228539 15.9085136,2 16,2 C16.1033917,2 16.2031186,2.01569087 16.2969293,2.04482125 L23.2747211,4.03847605 C23.7040227,4.16113364 24,4.55351964 24,5 L24,21 C24,21.6643789 23.3640951,22.1440429 22.7252789,21.9615239 L15.9827533,20.0350881 L8.26429121,21.9647036 C8.18010339,21.9877146 8.0914864,22 8,22 C7.89660831,22 7.79688142,21.9843091 7.7030707,21.9551788 L0.725278872,19.9615239 C0.295977314,19.8388664 0,19.4464804 0,19 L0,3 C0,2.33562112 0.635904922,1.85595714 1.27472113,2.03847605 L8.01724668,3.96491192 L15.7357088,2.0352964 Z M15,4.28077641 L9,5.78077641 L9,19.7192236 L15,18.2192236 L15,4.28077641 Z M17,4.32572998 L17,18.2456986 L22,19.67427 L22,5.75430141 L17,4.32572998 Z M7,5.75430141 L2,4.32572998 L2,18.2456986 L7,19.67427 L7,5.75430141 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Sitemap</div>
+                            </a>
+                            <a href="#/sw/settings/snippet/index" className="sw-settings-item" id="sw-settings-snippet">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-object-globe sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M12,16 C15.8659932,16 19,12.8659932 19,9 C19,5.13400675 15.8659932,2 12,2 C8.13400675,2 5,5.13400675 5,9 C5,12.8659932 8.13400675,16 12,16 Z M13,20.9589262 L13,22 L15,22 C15.5522847,22 16,22.4477153 16,23 C16,23.5522847 15.5522847,24 15,24 L9,24 C8.44771525,24 8,23.5522847 8,23 C8,22.4477153 8.44771525,22 9,22 L11,22 L11,20.9587715 C8.1631816,20.7240519 5.53467828,19.4960697 3.53425348,17.5047716 C3.14283731,17.1151412 3.14138963,16.4819779 3.53102001,16.0905617 C3.92065038,15.6991456 4.5538137,15.6976979 4.94522987,16.0873283 C6.80777215,17.9413729 9.31886859,19 12,19 C17.5228475,19 22,14.5228475 22,9 C22,6.33159756 20.9514707,3.83144866 19.1130314,1.97114455 C18.7248224,1.57831857 18.7285652,0.945164656 19.1213912,0.556955694 C19.5142172,0.168746732 20.1473711,0.17248956 20.5355801,0.565315536 C22.7403385,2.79629543 24,5.79987513 24,9 C24,15.2906638 19.1595305,20.4507753 13,20.9589262 Z M12,18 C7.02943725,18 3,13.9705627 3,9 C3,4.02943725 7.02943725,0 12,0 C16.9705627,0 21,4.02943725 21,9 C21,13.9705627 16.9705627,18 12,18 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Snippets</div>
+                            </a>
+                            <a href="#/sw/settings/tax/index" className="sw-settings-item" id="sw-settings-tax">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-chart-pie sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M20.9883049,14 C20.7273284,19.5668168 16.1313769,24 10.5,24 C4.70101013,24 0,19.2989899 0,13.5 C0,7.86862308 4.4331832,3.27267158 10,3.0116951 L10,2 C10,1.44771525 10.4477153,1 11,1 C17.627417,1 23,6.372583 23,13 C23,13.5522847 22.5522847,14 22,14 L20.9883049,14 Z M10,5.01446179 C5.53831026,5.27327069 2,8.97342702 2,13.5 C2,18.1944204 5.80557963,22 10.5,22 C15.026573,22 18.7267293,18.4616897 18.9855382,14 L11,14 C10.4477153,14 10,13.5522847 10,13 L10,5.01446179 Z M12,3.04937524 L12,12 L20.9506248,12 C20.4815561,7.27558355 16.7244165,3.51844387 12,3.04937524 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Tax</div>
+                            </a>
+                            <div></div>
                         </div>
+                        <div id="sw-settings__content-grid-system" className="sw-settings__content-grid" style={{ display: "none" }}>
+                            <a href="#/sw/settings/cache/index" className="sw-settings-item" id="sw-settings-cache">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-action-replace sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M16,4 L20,4 C21.6568542,4 23,5.34314575 23,7 L23,21 C23,22.6568542 21.6568542,24 20,24 L11,24 C9.34314575,24 8,22.6568542 8,21 L8,20 L4,20 C2.34314575,20 1,18.6568542 1,17 L1,6 C1,2.6862915 3.6862915,5.32907052e-16 7,0 L13,0 C14.6568542,-3.33066907e-16 16,1.34314575 16,3 L16,4 Z M16,6 L16,17 C16,18.6568542 14.6568542,20 13,20 L10,20 L10,21 C10,21.5522847 10.4477153,22 11,22 L20,22 C20.5522847,22 21,21.5522847 21,21 L21,7 C21,6.44771525 20.5522847,6 20,6 L16,6 Z M3,7 L3,17 C3,17.5522847 3.44771525,18 4,18 L13,18 C13.5522847,18 14,17.5522847 14,17 L14,3 C14,2.44771525 13.5522847,2 13,2 L8,2 L8,6 C8,6.55228475 7.55228475,7 7,7 L3,7 Z M3.12601749,5 L6,5 L6,2.12601749 C4.59439271,2.4877958 3.4877958,3.59439271 3.12601749,5 L3.12601749,5 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Caches &amp; Indexes</div>
+                            </a>
+                            <a href="#/sw/settings/custom/field/index" className="sw-settings-item" id="sw-settings-custom-field">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-basic-stack-block sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3,8.95550994e-16 L21,8.95550994e-16 C22.6568542,1.02790497e-15 24,1.34314575 24,3 L24,21 C24,22.6568542 22.6568542,24 21,24 L3,24 C1.34314575,24 2.02906125e-16,22.6568542 0,21 L0,3 C-2.02906125e-16,1.34314575 1.34314575,2.08071949e-15 3,8.95550994e-16 Z M3,2 C2.44771525,2 2,2.44771525 2,3 L2,21 C2,21.5522847 2.44771525,22 3,22 L21,22 C21.5522847,22 22,21.5522847 22,21 L22,3 C22,2.44771525 21.5522847,2 21,2 L3,2 Z M7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L7,13 Z M7,9 C6.44771525,9 6,8.55228475 6,8 C6,7.44771525 6.44771525,7 7,7 L17,7 C17.5522847,7 18,7.44771525 18,8 C18,8.55228475 17.5522847,9 17,9 L7,9 Z M7,17 C6.44771525,17 6,16.5522847 6,16 C6,15.4477153 6.44771525,15 7,15 L17,15 C17.5522847,15 18,15.4477153 18,16 C18,16.5522847 17.5522847,17 17,17 L7,17 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Custom fields</div>
+                            </a>
+                            <a href="#/sw/first/run/wizard/index" className="sw-settings-item" id="sw-first-run-wizard">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-object-rocket sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M5.221307,14.4041754 C4.15911078,13.7669947 2.99505235,13.2795395 1.75746437,12.9701425 C1.00337797,12.7816209 0.743263024,11.8425234 1.29289322,11.2928932 L3.12132034,9.46446609 C4.05900224,8.5267842 5.3307718,8 6.65685425,8 L9.12713904,8 L9.597126,7.35376793 C12.0434354,3.99009253 15.9515195,2 20.1106951,2 L21,2 C21.5522847,2 22,2.44771525 22,3 L22,3.8893049 C22,8.04848052 20.0099075,11.9565646 16.6462321,14.402874 L16.2106852,14.7196353 L16.4208572,15.560323 C16.8468259,17.2641981 16.3475803,19.0666333 15.1056786,20.308535 L12.7071068,22.7071068 C12.1574766,23.256737 11.2183791,22.996622 11.0298575,22.2425356 C10.7204605,21.0049476 10.2330053,19.8408892 9.59582458,18.778693 C7.88984549,19.6200553 6.12604198,20.3454119 4.31622777,20.9486833 C3.53446974,21.2092693 2.79073069,20.4655303 3.0513167,19.6837722 C3.65458811,17.873958 4.37994472,16.1101545 5.221307,14.4041754 Z M6.14997343,12.6294841 C6.6459551,11.7344454 7.17488489,10.8573378 7.73581656,10 L6.65685425,10 C5.86120478,10 5.09814304,10.3160705 4.53553391,10.8786797 L3.87445525,11.5397583 C4.6684492,11.8393649 5.42912666,12.2047782 6.14997343,12.6294841 Z M14.4590934,15.9594792 C13.4565129,16.6344451 12.425982,17.2651448 11.3705159,17.8500266 C11.7952218,18.5708733 12.1606351,19.3315508 12.4602417,20.1255447 L13.691465,18.8943214 C14.436606,18.1491804 14.7361534,17.0677193 14.4805722,16.0453942 L14.4590934,15.9594792 Z M10.2347981,16.1923129 C11.7197224,15.3786684 13.1534272,14.4701011 14.5267244,13.4713395 L15.4698887,12.7854018 C18.2860638,10.7372744 19.9643584,7.47820803 19.9994389,4.00056108 C16.521792,4.03564164 13.2627256,5.71393617 11.2145982,8.53011133 L10.5286605,9.47327559 C9.52989893,10.8465728 8.62133163,12.2802776 7.80768707,13.7652019 C8.70824977,14.4770072 9.52299279,15.2917502 10.2347981,16.1923129 Z M8.41757903,17.1282875 C7.94749752,16.5697599 7.4302401,16.0525025 6.87171247,15.582421 C6.43695419,16.482471 6.03593828,17.3990816 5.66963749,18.3303625 C6.60091838,17.9640617 7.51752896,17.5630458 8.41757903,17.1282875 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">First Run Wizard</div>
+                            </a>
+                            <a href="#/sw/integration/index" className="sw-settings-item" id="sw-integration">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-action-settings sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M16.625567,3.13179233 L17.6568542,2.10050506 C18.0473785,1.70998077 18.6805435,1.70998077 19.0710678,2.10050506 L21.8994949,4.92893219 C22.2900192,5.31945648 22.2900192,5.95262146 21.8994949,6.34314575 L20.8682077,7.37443302 C21.1383927,7.89137577 21.3647034,8.4348788 21.5421977,9 L23,9 C23.5522847,9 24,9.44771525 24,10 L24,14 C24,14.5522847 23.5522847,15 23,15 L21.5421977,15 C21.3647034,15.5651212 21.1383927,16.1086242 20.8682077,16.625567 L21.8994949,17.6568542 C22.2900192,18.0473785 22.2900192,18.6805435 21.8994949,19.0710678 L19.0710678,21.8994949 C18.6805435,22.2900192 18.0473785,22.2900192 17.6568542,21.8994949 L16.625567,20.8682077 C16.1086242,21.1383927 15.5651212,21.3647034 15,21.5421977 L15,23 C15,23.5522847 14.5522847,24 14,24 L10,24 C9.44771525,24 9,23.5522847 9,23 L9,21.5421977 C8.4348788,21.3647034 7.89137577,21.1383927 7.37443302,20.8682077 L6.34314575,21.8994949 C5.95262146,22.2900192 5.31945648,22.2900192 4.92893219,21.8994949 L2.10050506,19.0710678 C1.70998077,18.6805435 1.70998077,18.0473785 2.10050506,17.6568542 L3.13179233,16.625567 C2.86160732,16.1086242 2.63529659,15.5651212 2.45780228,15 L1,15 C0.44771525,15 6.76353751e-17,14.5522847 0,14 L0,10 C-6.76353751e-17,9.44771525 0.44771525,9 1,9 L2.45780228,9 C2.63529659,8.4348788 2.86160732,7.89137577 3.13179233,7.37443302 L2.10050506,6.34314575 C1.70998077,5.95262146 1.70998077,5.31945648 2.10050506,4.92893219 L4.92893219,2.10050506 C5.31945648,1.70998077 5.95262146,1.70998077 6.34314575,2.10050506 L7.37443302,3.13179233 C7.89137577,2.86160732 8.4348788,2.63529659 9,2.45780228 L9,1 C9,0.44771525 9.44771525,1.01453063e-16 10,0 L14,0 C14.5522847,-1.01453063e-16 15,0.44771525 15,1 L15,2.45780228 C15.5651212,2.63529659 16.1086242,2.86160732 16.625567,3.13179233 Z M13,2 L11,2 L11,3.92596624 L9.59929915,4.36590095 C9.15088211,4.5067406 8.71660273,4.68699392 8.30084704,4.90429257 L6.99895324,5.58473968 L5.63603897,4.22182541 L4.22182541,5.63603897 L5.58473968,6.99895324 L4.90429257,8.30084704 C4.68699392,8.71660273 4.5067406,9.15088211 4.36590095,9.59929915 L3.92596624,11 L2,11 L2,13 L3.92596624,13 L4.36590095,14.4007008 C4.5067406,14.8491179 4.68699392,15.2833973 4.90429257,15.699153 L5.58473968,17.0010468 L4.22182541,18.363961 L5.63603897,19.7781746 L6.99895324,18.4152603 L8.30084704,19.0957074 C8.71660273,19.3130061 9.15088211,19.4932594 9.59929915,19.634099 L11,20.0740338 L11,22 L13,22 L13,20.0740338 L14.4007008,19.634099 C14.8491179,19.4932594 15.2833973,19.3130061 15.699153,19.0957074 L17.0010468,18.4152603 L18.363961,19.7781746 L19.7781746,18.363961 L18.4152603,17.0010468 L19.0957074,15.699153 C19.3130061,15.2833973 19.4932594,14.8491179 19.634099,14.4007008 L20.0740338,13 L22,13 L22,11 L20.0740338,11 L19.634099,9.59929915 C19.4932594,9.15088211 19.3130061,8.71660273 19.0957074,8.30084704 L18.4152603,6.99895324 L19.7781746,5.63603897 L18.363961,4.22182541 L17.0010468,5.58473968 L15.699153,4.90429257 C15.2833973,4.68699392 14.8491179,4.5067406 14.4007008,4.36590095 L13,3.92596624 L13,2 Z M12,17 C9.23857625,17 7,14.7614237 7,12 C7,9.23857625 9.23857625,7 12,7 C14.7614237,7 17,9.23857625 17,12 C17,14.7614237 14.7614237,17 12,17 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Integrations</div>
+                            </a>
+                            <a href="#/sw/settings/logging/list" className="sw-settings-item" id="sw-settings-logging">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-device-server sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M2.3541756,15 C1.52375489,14.2670555 1,13.1946925 1,12 C1,10.8053075 1.52375489,9.73294445 2.3541756,9 C1.52375489,8.26705555 1,7.19469253 1,6 C1,3.790861 2.790861,2 5,2 L19,2 C21.209139,2 23,3.790861 23,6 C23,7.19469253 22.4762451,8.26705555 21.6458244,9 C22.4762451,9.73294445 23,10.8053075 23,12 C23,13.1946925 22.4762451,14.2670555 21.6458244,15 C22.4762451,15.7329445 23,16.8053075 23,18 C23,20.209139 21.209139,22 19,22 L5,22 C2.790861,22 1,20.209139 1,18 C1,16.8053075 1.52375489,15.7329445 2.3541756,15 Z M19,14 C20.1045695,14 21,13.1045695 21,12 C21,10.8954305 20.1045695,10 19,10 L5,10 C3.8954305,10 3,10.8954305 3,12 C3,13.1045695 3.8954305,14 5,14 L19,14 Z M19,8 C20.1045695,8 21,7.1045695 21,6 C21,4.8954305 20.1045695,4 19,4 L5,4 C3.8954305,4 3,4.8954305 3,6 C3,7.1045695 3.8954305,8 5,8 L19,8 Z M5,5 C5.55228475,5 6,5.44771525 6,6 C6,6.55228475 5.55228475,7 5,7 C4.44771525,7 4,6.55228475 4,6 C4,5.44771525 4.44771525,5 5,5 Z M5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 C4.44771525,13 4,12.5522847 4,12 C4,11.4477153 4.44771525,11 5,11 Z M5,16 C3.8954305,16 3,16.8954305 3,18 C3,19.1045695 3.8954305,20 5,20 L19,20 C20.1045695,20 21,19.1045695 21,18 C21,16.8954305 20.1045695,16 19,16 L5,16 Z M5,17 C5.55228475,17 6,17.4477153 6,18 C6,18.5522847 5.55228475,19 5,19 C4.44771525,19 4,18.5522847 4,18 C4,17.4477153 4.44771525,17 5,17 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Logging</div>
+                            </a>
+                            <a href="#/sw/settings/mailer/index" className="sw-settings-item" id="sw-settings-mailer">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-communication-envelope sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M3.74379366,5 L10.8530753,9.97649716 C11.5417156,10.4585454 12.4582844,10.4585454 13.1469247,9.97649716 L20.2562063,5 L3.74379366,5 Z M22,6.22065556 L14.2938494,11.614961 C12.9165688,12.5790574 11.0834312,12.5790574 9.70615062,11.614961 L2,6.22065556 L2,18 C2,18.5522847 2.44771525,19 3,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L22,6.22065556 Z M3,3 L21,3 C22.6568542,3 24,4.34314575 24,6 L24,18 C24,19.6568542 22.6568542,21 21,21 L3,21 C1.34314575,21 2.02906125e-16,19.6568542 0,18 L0,6 C-2.02906125e-16,4.34314575 1.34314575,3 3,3 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Mailer</div>
+                            </a>
+                            <a href="#/sw/plugin/index" className="sw-settings-item" id="sw-plugin">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-object-plug sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M19,16 L19,17 C19,18.1045695 18.1045695,19 17,19 L9,19 C6.790861,19 5,17.209139 5,15 L5,13 L1,13 C0.44771525,13 0,12.5522847 0,12 C0,11.4477153 0.44771525,11 1,11 L5,11 L5,9 C5,6.790861 6.790861,5 9,5 L17,5 C18.1045695,5 19,5.8954305 19,7 L19,8 L22,8 C22.5522847,8 23,8.44771525 23,9 C23,9.55228475 22.5522847,10 22,10 L19,10 L19,14 L22,14 C22.5522847,14 23,14.4477153 23,15 C23,15.5522847 22.5522847,16 22,16 L19,16 Z M9,7 C7.8954305,7 7,7.8954305 7,9 L7,15 C7,16.1045695 7.8954305,17 9,17 L17,17 L17,7 L9,7 Z M8,11 C8,10.4477153 8.44771525,10 9,10 C9.55228475,10 10,10.4477153 10,11 L10,13 C10,13.5522847 9.55228475,14 9,14 C8.44771525,14 8,13.5522847 8,13 L8,11 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Plugins</div>
+                            </a>
+                            <a href="#/sw/settings/store/index" className="sw-settings-item" id="sw-settings-store">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-device-laptop sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M21.7899108,16.105081 C23.0635323,16.4517876 24,17.6165319 24,19 C24,20.6568542 22.6568542,22 21,22 L3,22 C1.34314575,22 2.02906125e-16,20.6568542 0,19 C-1.69425975e-16,17.6165319 0.936467729,16.4517876 2.21008923,16.105081 C2.07451355,15.7630918 2,15.3902477 2,15 L2,5 C2,3.34314575 3.34314575,2 5,2 L19,2 C20.6568542,2 22,3.34314575 22,5 L22,15 C22,15.3902477 21.9254865,15.7630918 21.7899108,16.105081 Z M19,16 C19.5522847,16 20,15.5522847 20,15 L20,5 C20,4.44771525 19.5522847,4 19,4 L5,4 C4.44771525,4 4,4.44771525 4,5 L4,15 C4,15.5522847 4.44771525,16 5,16 L19,16 Z M3,18 C2.44771525,18 2,18.4477153 2,19 C2,19.5522847 2.44771525,20 3,20 L21,20 C21.5522847,20 22,19.5522847 22,19 C22,18.4477153 21.5522847,18 21,18 L3,18 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Shopware Account</div>
+                            </a>
+                            <a href="#/sw/settings/shopware/updates/index" className="sw-settings-item" id="sw-settings-shopware-updates">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-arrow-360-full sw-icon--fill">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                            <title>icons/default/arrow/360/full</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <g id="icons/default/arrow/360/full" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                                <path d="M12.427025,5.01281147 L13.7071068,6.29289322 C14.0976311,6.68341751 14.0976311,7.31658249 13.7071068,7.70710678 C13.3165825,8.09763107 12.6834175,8.09763107 12.2928932,7.70710678 L9.29289322,4.70710678 C8.90236893,4.31658249 8.90236893,3.68341751 9.29289322,3.29289322 L12.2928932,0.292893219 C12.6834175,-0.0976310729 13.3165825,-0.0976310729 13.7071068,0.292893219 C14.0976311,0.683417511 14.0976311,1.31658249 13.7071068,1.70710678 L12.4052525,3.0089611 C17.1877425,3.22089037 21,7.16524497 21,12 C21,14.3980898 20.0565004,16.6496309 18.4052619,18.3223919 C18.0172744,18.7154365 17.3841226,18.7195361 16.991078,18.3315485 C16.5980333,17.943561 16.5939338,17.3104093 16.9819213,16.9173646 C18.2673195,15.6152124 19,13.866764 19,12 C19,8.27739625 16.0941622,5.23348728 12.427025,5.01281147 Z M11.5947475,20.9910389 C6.81225747,20.7791096 3,16.834755 3,12 C3,9.59705642 3.94734018,7.34134665 5.60450652,5.66772756 C5.99309704,5.27527902 6.62625429,5.27215148 7.01870283,5.660742 C7.41115137,6.04933252 7.41427891,6.68248977 7.02568839,7.07493831 C5.73566736,8.37776698 5,10.129463 5,12 C5,15.7226038 7.90583778,18.7665127 11.572975,18.9871885 L10.2928932,17.7071068 C9.90236893,17.3165825 9.90236893,16.6834175 10.2928932,16.2928932 C10.6834175,15.9023689 11.3165825,15.9023689 11.7071068,16.2928932 L14.7071068,19.2928932 C15.0976311,19.6834175 15.0976311,20.3165825 14.7071068,20.7071068 L11.7071068,23.7071068 C11.3165825,24.0976311 10.6834175,24.0976311 10.2928932,23.7071068 C9.90236893,23.3165825 9.90236893,22.6834175 10.2928932,22.2928932 L11.5947475,20.9910389 L11.5947475,20.9910389 Z" id="Shape" fill="#758CA3"></path>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Shopware update</div>
+                            </a>
+                            <a href="#/sw/settings/user/list" className="sw-settings-item" id="sw-settings-user">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <span className="sw-icon icon--default-avatar-single sw-icon--fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="#758CA3" fillRule="evenodd" d="M12,3 C9.790861,3 8,4.790861 8,7 C8,9.209139 9.790861,11 12,11 C14.209139,11 16,9.209139 16,7 C16,4.790861 14.209139,3 12,3 Z M12,1 C15.3137085,1 18,3.6862915 18,7 C18,10.3137085 15.3137085,13 12,13 C8.6862915,13 6,10.3137085 6,7 C6,3.6862915 8.6862915,1 12,1 Z M4,22.0990195 C4,22.6513043 3.55228475,23.0990195 3,23.0990195 C2.44771525,23.0990195 2,22.6513043 2,22.0990195 L2,20 C2,17.2385763 4.23857625,15 7,15 L17.0007003,15 C19.7621241,15 22.0007003,17.2385763 22.0007003,20 L22.0007003,22.0990195 C22.0007003,22.6513043 21.5529851,23.0990195 21.0007003,23.0990195 C20.4484156,23.0990195 20.0007003,22.6513043 20.0007003,22.0990195 L20.0007003,20 C20.0007003,18.3431458 18.6575546,17 17.0007003,17 L7,17 C5.34314575,17 4,18.3431458 4,20 L4,22.0990195 Z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div className="sw-settings-item__label">Users &amp; permissions</div>
+                            </a> */}
+                            <div></div>
+                        </div>
+                        <div className="sw-settings__content-grid" style={{ display: "none" }}></div>
+                    </div>
 
                 </Container>
             </Page>

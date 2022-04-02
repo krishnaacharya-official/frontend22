@@ -20,7 +20,7 @@ import SubCategoryController from '../Controller/admin/SubCategoryController';
 import ProductController from '../Controller/admin/ProductController';
 import ProfileController from '../Controller/admin/ProfileController';
 import SettingController from '../Controller/admin/SettingController';
-import General from '../View/admin/Setting/General';
+import Currency from '../View/admin/Setting/Currency';
 // import HomePage from '../View/frontEnd/Layout/Home/HomePage';
 import ProjectController from '../Controller/admin/ProjectController';
 import Rank from '../View/admin/Setting/Rank';
@@ -28,6 +28,7 @@ import Xp from '../View/admin/Setting/Xp';
 import Plans from '../View/admin/Setting/Plans';
 import Payment from '../View/admin/Setting/Payment';
 import PricingFees from '../View/admin/Setting/PricingFees';
+import Email from '../View/admin/Setting/Email';
 
 // ----------------------------------------------------------------------
 
@@ -74,12 +75,13 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/projects" element={<ProjectController />} />
                     <Route exact path="/admin/profile" element={<ProfileController />} />
                     <Route exact path="/admin/setting" element={<SettingController />} />
-                    <Route exact path="/admin/setting/general" element={<General />} />
+                    <Route exact path="/admin/setting/currency" element={<Currency />} />
                     <Route exact path="/admin/setting/rank" element={<Rank/>} />
                     <Route exact path="/admin/setting/xp" element={<Xp/>} />
                     <Route exact path="/admin/setting/plans" element={<Plans/>} />
                     <Route exact path="/admin/setting/payment" element={<Payment/>} />
                     <Route exact path="/admin/setting/pricing" element={<PricingFees/>} />
+                    <Route exact path="/admin/setting/email" element={<Email/>} />
 
 
 
