@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect,useContext } from "react";
+import { UserContext } from '../../../../../App';
 import { ProgressBar, Button } from "react-bootstrap";
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
 import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.svg";
@@ -33,8 +34,26 @@ const Product = (props) => {
   let date = moment(props.created_at).format('MMM DD');
   let catIcon = props.categoryDetails.iconDetails.class;
   let subCatIcon = props.subCategoryDetails.iconDetails.class;
+  const user = useContext(UserContext)
+  const [state, setState] = useState({
+    added_to_cart: false,
+  })
+  useEffect(() => {
+    (async () => {
+ 
+      const checkItem = await props.checkItemInCart(props._id)
+      if(checkItem === true){
+        setState({
+          added_to_cart:true
+        })
+      }else{
+        setState({
+          added_to_cart:false
+        })
+      }
+    })()
 
-
+  }, [user.isUpdateCart])
 
 
 
@@ -54,18 +73,22 @@ const Product = (props) => {
   //   organisation,
   // } = props;
 
-  const [state, setState] = useState({
-    added_to_cart: false,
-  })
+ 
   const { added_to_cart } = state
 
   const addToCart = async () => {
     // alert(props._id)
+    // user.setCart(true)
+    user.setCart(!user.isUpdateCart)
     await props.addToCart(props._id)
     setState({ added_to_cart: true })
   };
 
-  const removeFromCart = () => { setState({ added_to_cart: false }) };
+  const removeFromCart = async () => {
+    user.setCart(!user.isUpdateCart)
+    await props.removeCartItem(props._id)
+    setState({ added_to_cart: false })
+  };
 
   const cart_btn = added_to_cart ? (
     <Button
@@ -191,7 +214,7 @@ const Product = (props) => {
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
         >
-          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white" }}></i>
+          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white",fontStyle:"normal" }}></i>
           {/* <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68d1a8d5f290171371bc_family(white).svg"
               className="img-fluid"

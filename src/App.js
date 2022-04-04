@@ -25,6 +25,7 @@ export const UserContext = createContext({});
 export default function App() {
     const [user, userdispatch] = useReducer(userReducer, {
         isLoggedIn: false,
+        isUpdateCart: false,
         data: {}
     });
     const UserProviderContext = useUser(user, userdispatch);

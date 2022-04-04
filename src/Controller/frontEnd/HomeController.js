@@ -13,6 +13,8 @@ export default function HomeController() {
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
     const [update, setIsUpdate] = useState(false)
+    const [inCart, setInCart] = useState(false)
+
 
     useEffect(() => {
         (async () => {
@@ -21,10 +23,34 @@ export default function HomeController() {
             if (getproductList.data.success === true) {
                 setProductList(getproductList.data.data)
             }
+
             setLoading(false)
+
 
         })()
     }, [])
+
+    const checkItemInCart = async (id) => {
+        let res;
+        const checkItemInCart = await cartApi.checkItemInCart(userAuthToken, id);
+        if (checkItemInCart) {
+            if (checkItemInCart.data.success) {
+                setInCart(true)
+                res = true
+            } else {
+                setInCart(false)
+                res = false
+
+            }
+
+        } else {
+            setLoading(false)
+            setInCart(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            res = false
+        }
+        return res;
+    }
 
     const addToCart = async (id) => {
         setLoading(true)
@@ -44,13 +70,34 @@ export default function HomeController() {
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
     }
+
+    const removeCartItem = async (id) => {
+        setLoading(true)
+        const removeCartItem = await cartApi.removeCartProduct(userAuthToken, id);
+        if (removeCartItem) {
+            if (!removeCartItem.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
+            } else {
+                setIsUpdate(!update)
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
     return (
         <>
             <FrontLoader loading={loading} />
-            <Index 
-            productList={productList}
-            addToCart={addToCart}
-             />
+            <Index
+                productList={productList}
+                addToCart={addToCart}
+                removeCartItem={removeCartItem}
+                checkItemInCart={checkItemInCart}
+            />
         </>
     )
 

@@ -96,11 +96,67 @@ function cart() {
         return res;
     }
 
+    const removeCartProduct = async (authToken, productId) => {
+
+      
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}cart/remove_item`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                productId:productId
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const checkItemInCart = async (authToken, productId) => {
+
+      
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}cart/check_item`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                productId:productId
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+
     return {
         add,
         list,
         deleteCartItem,
         updateCart,
+        removeCartProduct,
+        checkItemInCart
 
 
     }
