@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 function SignupController() {
 
     const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showCPassword, setShowCPassword] = useState(false)
+
     const [state, setstate] = useState({
         // username: "",
         name: "",
@@ -114,12 +117,17 @@ function SignupController() {
     }
     return (
         <>
-            <FrontLoader loading={loading} />
             <SignUp
                 stateData={state}
                 changevalue={changevalue}
                 signUp={signUp}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+                showCPassword={showCPassword}
+                setShowCPassword={setShowCPassword}
             />
+            <FrontLoader loading={loading} />
+
         </>
     )
 }

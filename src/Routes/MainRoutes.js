@@ -26,6 +26,7 @@ import FrontEndLayOut from './FrontEndLayOut'
 import OrganizationDetailsController from '../Controller/frontEnd/OrganizationDetailsController';
 import ItemDetailsController from '../Controller/frontEnd/ItemDetailsController';
 import ProjectDetailsController from "../Controller/frontEnd/ProjectDetailsController"
+import FrontEndAuthLayOut from './FrontEndAuthLayout';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -65,14 +66,19 @@ export default function MainRoutes() {
                     </ThemeConfig>
                     :
                     // !location.pathname.startsWith('/app') ?
-                    !adminAuthToken && !userAuthToken &&
+                    !location.pathname.startsWith('/admin')  &&  !userAuthToken &&
 
                     <>
                         <Routes>
-                            <Route exact path="/signin" element={<SigninController />} />
-                            <Route exact path="*" element={<SigninController />} />
-                            <Route exact path="/signup" element={<SignupController />} />
-                          
+                            <Route path="/" element={<FrontEndAuthLayOut />} >
+                                <Route exact path="/" element={<SigninController />} />
+                                <Route exact path="/signin" element={<SigninController />} />
+                                <Route exact path="*" element={<SigninController />} />
+                                <Route exact path="/signup" element={<SignupController />} />
+
+                            </Route>
+
+
 
                         </Routes>
                     </>

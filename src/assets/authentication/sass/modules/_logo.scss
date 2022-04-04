@@ -1,0 +1,23 @@
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  font-family: Fredoka, sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #585a83;
+  text-decoration: none;
+  gap: 0.5rem;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    color: #585a83;
+  }
+
+  img {
+    width: 21px;
+    height: 21px;
+  }
+}

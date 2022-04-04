@@ -1,0 +1,33 @@
+.round-checkbox {
+  position: relative;
+  line-height: 1;
+
+  label {
+    background-color: #fff;
+    border: 2px solid #3a94d4;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 14px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 14px;
+  }
+
+  input[type="checkbox"] {
+    visibility: hidden;
+
+    &:checked {
+      + {
+        label {
+          background-color: #3a94d4;
+          border-color: #3a94d4;
+
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

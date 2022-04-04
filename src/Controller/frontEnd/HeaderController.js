@@ -51,9 +51,10 @@ export default function HeaderController() {
             if (!removeCartItem.data.success) {
                 setLoading(false)
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
-                user.setCart(!user.isUpdateCart)
+                
             } else {
                 setIsUpdate(!update)
+                user.setCart(!user.isUpdateCart)
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
                 setLoading(false)
             }

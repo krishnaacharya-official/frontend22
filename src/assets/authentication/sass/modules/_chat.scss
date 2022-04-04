@@ -1,0 +1,135 @@
+.chat-wrapper {
+  padding: 4.8rem 4.3rem;
+  align-items: center;
+
+  @media(max-width: 991px) {
+    background: #f8fafd;
+  }
+
+  @media(max-width: 499px) {
+    padding: 4.8rem 2rem;
+  }
+
+  h2 {
+    margin-bottom: 60px;
+    max-width: 325px;
+    font-family: Fredoka, sans-serif;
+    display: flex;
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 20px;
+    padding-right: 16px;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    color: #585a83;
+  }
+}
+
+.chart-comment-block {
+  overflow: hidden;
+
+  div {
+    max-width: 255px;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    line-height: 24px;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.5em;
+  }
+
+  .from-me {
+    position: relative;
+    padding: 10px 20px;
+    color: white;
+    background: #0B93F6;
+    border-radius: 25px;
+    float: right;
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      right: -7px;
+      height: 20px;
+      border-right: 20px solid #0B93F6;
+      border-bottom-left-radius: 16px 14px;
+      transform: translate(0, -2px);
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: -2px;
+      right: -56px;
+      width: 26px;
+      height: 20px;
+      border-bottom-left-radius: 10px;
+      transform: translate(-30px, -2px);
+    }
+  }
+
+  .from-them {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: #E5E5EA;
+    color: black;
+    float: left;
+
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      bottom: -2px;
+      left: -7px;
+      height: 20px;
+      border-left: 20px solid #E5E5EA;
+      border-bottom-right-radius: 16px 14px;
+      transform: translate(0, -2px);
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      bottom: -2px;
+      left: 4px;
+      width: 26px;
+      height: 20px;
+      border-bottom-right-radius: 10px;
+      transform: translate(-30px, -2px);
+    }
+  }
+}
+
+.chat-info-wrap {
+  margin-top: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font-size: 13px;
+  line-height: 1.3rem;
+  font-weight: 400;
+
+  .bi {
+    color: #3a94d4;
+  }
+
+  a {
+    color: rgba(111, 111, 144, .6);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

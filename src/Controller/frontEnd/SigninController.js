@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function SigninController() {
     const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const [state, setstate] = useState({
         email: "",
         password: "",
@@ -104,12 +105,16 @@ function SigninController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
             <Signin
                 signIn={signIn}
                 changevalue={changevalue}
                 stateData={state}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+
             />
+            <FrontLoader loading={loading} />
+
         </>
     )
 }
