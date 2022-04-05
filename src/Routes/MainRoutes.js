@@ -69,7 +69,7 @@ export default function MainRoutes() {
 
 
                 location.pathname.startsWith('/admin') ?
-                    !adminAuthToken &&
+                    !adminAuthToken && !userAuthToken &&
                     <ThemeConfig>
                         <ScrollToTop />
                         <GlobalStyles />

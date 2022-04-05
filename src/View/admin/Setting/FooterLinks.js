@@ -29,6 +29,8 @@ import ToastAlert from '../../../Common/ToastAlert';
 import { hasPermission } from '../../../Common/Helper';
 import { validateAll } from "indicative/validator";
 import CryptoJS from 'crypto-js';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 
 export default function FooterLinks(props) {
@@ -225,6 +227,7 @@ export default function FooterLinks(props) {
                             <div className="form-group row">
                                 <div className="col-sm-1">
                                     <i className="fa-brands fa-twitter" style={{ ...setting_social_icon, backgroundColor: "#1d9bf0" }}></i>
+                                    
                                 </div>
 
                                 <div className="col-sm-11">
