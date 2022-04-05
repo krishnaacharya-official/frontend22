@@ -16,7 +16,7 @@ function CartItem(props) {
         <ListItemImg imgSrc={helper.CampaignProductImagePath+cartItem?.productDetails?.image} />
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
-            <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
+            <div className="cd__cart__name">{cartItem?.productDetails?.headline?.headline}</div>
             <div className="cd__cart__location">Canada</div>
           </div>
           <div className="cd__cart__price">${cartItem?.productDetails?.price}</div>

@@ -155,7 +155,9 @@ const Product = (props) => {
         </div>
         <div className="product__mid d-flex align-items-center justify-content-center">
           <div className="proudct__img-wrap d-flex align-items-center justify-content-center">
+            <Link to={"/item/" + props.slug}>
             <img className="product__img img-fluid" alt="" src={helper.CampaignProductImagePath + img} />
+            </Link>
           </div>
         </div>
         <div className="product__right d-flex flex-column align-items-center pt-12p pb-2">

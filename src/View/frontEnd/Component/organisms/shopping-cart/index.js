@@ -50,7 +50,7 @@ const ShoppingCart = (props) => {
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={CartButton}>
           <div className="c__badge">
-            <span className="c__badge__count">{props.cartItem.length}</span>
+            <span className="c__badge__count">{props.cartItem?.length}</span>
           </div>
           <span className="d-flex align-items-center icon">
           <FontAwesomeIcon icon={solid("bag-shopping")} />

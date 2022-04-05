@@ -26,6 +26,7 @@ import helper from "../../../Common/Helper";
 
 // style
 import "./style.scss";
+import HeaderController from "../../../Controller/frontEnd/HeaderController";
 
 // class ItemDetail extends React.Component {
 //   render() {
@@ -72,7 +73,7 @@ const ItemDetail = (props) => {
 
   return (
     <>
-      <Header />
+      <HeaderController />
       <SuggestionWrapper>
         <SuggestedList />
       </SuggestionWrapper>
