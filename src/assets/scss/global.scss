@@ -1,4 +1,5 @@
 // load variables, mixins and functions
+// .frontend_pages{
 @import "./config";
 
 // load bootstrap styles
@@ -26,6 +27,7 @@
 @import "./components/button";
 @import "./components/product";
 @import "./components/title";
+@import "./components/forms";
 
 // layout styles
 @import "./layout/grid";
@@ -35,3 +37,4 @@
 
 // load utility styles
 @import "./utils";
+// }

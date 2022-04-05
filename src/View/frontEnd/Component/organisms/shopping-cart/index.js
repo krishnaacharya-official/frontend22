@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import EmptyCart from "../../atoms/empty-cart";
 import CartList from "./cart-list";
@@ -51,7 +53,7 @@ const ShoppingCart = (props) => {
             <span className="c__badge__count">{props.cartItem.length}</span>
           </div>
           <span className="d-flex align-items-center icon">
-            <i className="fa-solid fa-bag-shopping"></i>
+          <FontAwesomeIcon icon={solid("bag-shopping")} />
           </span>
         </Dropdown.Toggle>
 

@@ -97,7 +97,7 @@ const Product = (props) => {
       className="icon icon__pro"
       onClick={removeFromCart}
     >
-      
+      <FontAwesomeIcon icon={solid("cart-shopping")} />
     </Button>
   ) : (
     <Button
@@ -106,7 +106,7 @@ const Product = (props) => {
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
-      
+      <FontAwesomeIcon icon={solid("cart-shopping")} />
     </Button>
   );
   const btn =

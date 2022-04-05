@@ -50,6 +50,7 @@ $width: (
   0: 60,
   1: 150,
   2: 310,
+  3: 400
 );
 
 @each $key, $val in $width {
@@ -57,10 +58,6 @@ $width: (
   .w-#{$val} {
     width: #{$val}px !important;
   }
-}
-
-.text-dark {
-  color: $gray-500 !important;
 }
 
 .fs-7 {
@@ -92,4 +89,28 @@ h6 {
 
 .text-lighter {
   color: #bcbdc4;
+}
+
+.mr-12p {
+  margin-right: 12px;
+}
+
+.flex__1 {
+  flex: 1;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.bg-lighter {
+  background-color: var(--bkg-shade) !important;
+}
+
+.text-subtext {
+  color: var(--text-subtext);
+}
+
+.mw-600 {
+  max-width: 600px;
 }

@@ -1,7 +1,6 @@
 // Bootstrap variables
 
 $body-bg: #fff;
-$body-color: #3e3e50;
 $font-family-sans-serif: "Jcfonts linotte", Arial, sans-serif;
 
 $gray-100: #f8fafd;
@@ -13,8 +12,10 @@ $gray-600: #6d6d86;
 $gray-700: #585a83;
 $gray-800: #3e4155;
 
+$body-color: $gray-700;
+
 $darkest: #001429;
-$dark: $gray-800;
+$dark: $gray-700;
 $light: $gray-400;
 $border-color: #e6e6e6;
 $hr-border-color: $light;
@@ -71,11 +72,28 @@ $border-radius-lg: 6px;
 $primary: #756fe4;
 $secondary: #5fc996;
 $success: #45bb82;
-$warning: #ffd20b;
+$warning: #f8b22f;
 $danger: #f15e5e;
 $info: #50a8ef;
 
-$progress-height: 0.5rem;
+$light: $gray-100 !default;
+$dark: $gray-900 !default;
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "ldanger": #fd7a7a,
+) !default;
+
+$progress-height: 0.75rem;
 $progress-border-radius: 4px;
 
 $font-weight-normal: 400;
@@ -134,6 +152,9 @@ $dropdown-item-padding-y: 8px;
 $dropdown-link-hover-bg: #c4c4c433;
 $dropdown-link-active-color: #3e4e57;
 $dropdown-link-active-bg: $gray-300;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
 
 $yiq-contrasted-threshold: 120;
 $yiq-text-dark: $dark;

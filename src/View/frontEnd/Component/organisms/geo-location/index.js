@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { ReactComponent as SearchIcon } from "../../../../../assets/svg/search.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -143,7 +145,7 @@ const GeoLocation = () => {
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={ToggleButton}>
           <span className="d-flex align-items-center icon">
-            <i className="fa-solid fa-circle-location-arrow"></i>
+          <FontAwesomeIcon icon={solid("circle-location-arrow")} />
           </span>
         </Dropdown.Toggle>
 

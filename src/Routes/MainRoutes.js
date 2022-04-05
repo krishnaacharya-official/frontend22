@@ -27,6 +27,8 @@ import OrganizationDetailsController from '../Controller/frontEnd/OrganizationDe
 import ItemDetailsController from '../Controller/frontEnd/ItemDetailsController';
 import ProjectDetailsController from "../Controller/frontEnd/ProjectDetailsController"
 import FrontEndAuthLayOut from './FrontEndAuthLayout';
+import OrganizationAdminController from '../Controller/frontEnd/OrganizationAdminController';
+import CampaignAdminLayout from './CampaignAdminLayout';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -53,9 +55,19 @@ export default function MainRoutes() {
     return (
 
         <>
+            {
+                adminAuthToken && location.pathname.startsWith('/campaign') &&
 
+                <Routes>
+                    <Route path="/" element={<CampaignAdminLayout />} >
+                        <Route path="/campaign/:name" element={<OrganizationAdminController />} />
+                    </Route>
+                </Routes>
+            }
 
             {
+
+
                 location.pathname.startsWith('/admin') ?
                     !adminAuthToken &&
                     <ThemeConfig>
@@ -65,8 +77,8 @@ export default function MainRoutes() {
                         <LogoOnlyLayout />
                     </ThemeConfig>
                     :
-                    // !location.pathname.startsWith('/app') ?
-                    !location.pathname.startsWith('/admin')  &&  !userAuthToken &&
+
+                    !location.pathname.startsWith('/admin') &&  !location.pathname.startsWith('/campaign') && !userAuthToken &&
 
                     <>
                         <Routes>
@@ -82,17 +94,7 @@ export default function MainRoutes() {
 
                         </Routes>
                     </>
-                // <Routes>
-                //     {/* <Route exact path="/" element={<HomeController />} /> */}
 
-
-                //     {/* <Route exact path="/home" element={<HomePage />} /> */}
-                //     {/* <Route exact path="/signin" element={<SigninController />} /> */}
-                //     {/* <Route exact path="/signup" element={<SignupController />} /> */}
-                //     {/* <Route exact path="/forgotpassword" element={<ForgotPasswordController />} /> */}
-                //     {/* <Route exact path="*" element={<SigninController />} /> */}
-                // </Routes>
-                //  : ""
             }
 
             {
@@ -105,28 +107,44 @@ export default function MainRoutes() {
                         <GlobalStyles />
                         <BaseOptionChartStyle />
                         <AdminPrivateRoutes />
-                    </ThemeConfig> : ""
+                    </ThemeConfig> :
+
+                    ""
+
+
+
+
+
             }
 
 
 
 
 
-            <Routes>
-                {
-                    userAuthToken &&
+
+            {
+                userAuthToken && !location.pathname.startsWith('/admin') &&
+                <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
+
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
+                        {/* <Route path="/campaign/:name" element={<OrganizationAdminController />} /> */}
                         <Route path="*" element={<HomeController />} />
 
                     </Route>
+                </Routes>
 
 
-                }
-            </Routes>
+
+
+            }
+
+
+
+
 
 
 

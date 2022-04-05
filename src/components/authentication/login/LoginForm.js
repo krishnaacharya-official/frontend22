@@ -72,7 +72,12 @@ export default function LoginForm() {
               localStorage.clear()
               localStorage.setItem('adminAuthToken', login.data.accessToken)
               localStorage.setItem('adminData', JSON.stringify(login.data))
-              navigate('/admin/dashboard', { replace: true })
+              if(login.data.roleName === "CAMPAIGN_ADMIN"){
+                navigate('/campaign/'+login.data.slug, { replace: true })
+              }else{
+                navigate('/admin/dashboard', { replace: true })
+
+              }
               ToastAlert({ msg: login.data.message + " " + login.data.name, msgType: 'success' });
               setLoading(false)
             }

@@ -1,0 +1,38 @@
+.tab__btn {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: $font-weight-bolder;
+  border: 1px solid transparent;
+  line-height: 1;
+  padding: 12px 16px;
+  justify-content: start;
+
+  &.active {
+    background-color: $gray-100;
+    border-color:  var(--border-input);
+    border-radius: 25px;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.tab__icon {
+  display: flex;
+  font-size: 24px;
+}
+
+.desktop__tab .tab__text {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .desktop__tab .tab__icon {
+    margin-right: 12px;
+  }
+
+  .desktop__tab .tab__text {
+    display: block;
+  }
+}
