@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 // import { Header, Footer } from "@components/organisms";
 import HeaderController from "../../../../../Controller/frontEnd/HeaderController";
 import Footer from "../../organisms/footer";
+
+
+
 const propTypes = {
   hasFooter: PropTypes.bool,
 };
