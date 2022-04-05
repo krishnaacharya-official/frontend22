@@ -24,16 +24,16 @@ const Product = (props) => {
   let name = props.headline
   let sold = 0
   let total = props.quantity
-  let location = props.cityDetails.city
+  let location = props.cityDetails?.city
   let progress = 60
   let price = props.price
-  let theme_color = props.categoryDetails.color
-  let category = props.subCategoryDetails.name
-  let organisation = props.campaignDetails.logo
+  let theme_color = props.categoryDetails?.color
+  let category = props.subCategoryDetails?.name
+  let organisation = props.campaignDetails?.logo
   let img = props.image
   let date = moment(props.created_at).format('MMM DD');
-  let catIcon = props.categoryDetails.iconDetails.class;
-  let subCatIcon = props.subCategoryDetails.iconDetails.class;
+  let catIcon = props.categoryDetails?.iconDetails?.class;
+  let subCatIcon = props.subCategoryDetails?.iconDetails?.class;
   const user = useContext(UserContext)
   const [state, setState] = useState({
     added_to_cart: false,
@@ -160,7 +160,7 @@ const Product = (props) => {
         </div>
         <div className="product__right d-flex flex-column align-items-center pt-12p pb-2">
           <div className="product__org">
-            <Link to={"/organization/" + props.campaignDetails.slug} className="">
+            <Link to={"/organization/" + props.campaignDetails?.slug} className="">
               <img
                 alt=""
                 className="img-fluid org__img"
@@ -181,7 +181,7 @@ const Product = (props) => {
           <span className="date__name">{date}</span>
         </div>
         <div className="product__meta d-flex align-items-center ms-auto">
-          {props.projectDetails.length > 0 &&
+          {props.projectDetails?.length > 0 &&
             <span className="product__type icon icon__solid-900 text-dark">
               
             </span>
