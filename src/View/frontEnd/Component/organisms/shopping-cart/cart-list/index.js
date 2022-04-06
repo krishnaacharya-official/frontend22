@@ -9,7 +9,7 @@ function CartList(props) {
         props.cartItem?.length > 0 &&
         props.cartItem.map((item,i)=>{
           return(
-            <CartItem cartItem={item} removeCartItem={props.removeCartItem}  />
+            <CartItem cartItem={item} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem}   />
           )
         })
       }

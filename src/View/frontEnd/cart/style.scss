@@ -1,0 +1,40 @@
+.cart {
+  &__page {
+    .logo__wrap {
+      @include media-breakpoint-down(sm) {
+        border-bottom: 1px solid var(--border-input);
+        padding: 20px;
+        margin: 0 -20px;
+      }
+    }
+
+    .btn__remove {
+      color: var(--text-subtext);
+      &:hover {
+        color: var(--text-danger);
+      }
+    }
+
+    .qty__input {
+      border: 1px solid var(--border-input);
+      background-color: var(--bkg-color);
+      color: var(--text-subtext);
+      flex: 0;
+      font-size: 16px;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      min-height: 42px;
+      border-radius: 3px;
+      width: 49px;
+    }
+  }
+
+  &__steps {
+    .btn {
+      color: var(--text-subtext);
+    }
+    .active {
+      color: var(--text-color);
+    }
+  }
+}

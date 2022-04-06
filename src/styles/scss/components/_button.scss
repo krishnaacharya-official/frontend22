@@ -79,3 +79,18 @@
 .btn-lg {
   height: 48px;
 }
+
+.btn__signout {
+  background-color: var(--bkg-shade);
+
+  &:hover {
+    background-color: $gray-200;
+  }
+}
+
+.btn__checkout {
+  padding: 12px 18px;
+  img {
+    height: 18px;
+  }
+}

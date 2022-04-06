@@ -1,25 +1,20 @@
-import Index from "../../View/frontEnd/Layout/Home/Index";
-import productApi from "../../Api/admin/product";
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom";
 import FrontLoader from "../../Common/FrontLoader";
-import Header from "../../View/frontEnd/Component/organisms/header";
+import Cart from "../../View/frontEnd/cart";
 import cartApi from "../../Api/frontEnd/cart";
 import authApi from "../../Api/admin/auth";
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import ToastAlert from "../../Common/ToastAlert";
-import { UserContext } from '../../App';
 
 
 
-
-export default function HeaderController() {
-
+export default function CartController() {
+    const [cartItem, setCartItem] = useState([])
     const userAuthToken = localStorage.getItem('userAuthToken');
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
-    const [cartItem, setCartItem] = useState([])
+    const params = useParams();
     const navigate = useNavigate();
-    const user = useContext(UserContext)
 
 
     useEffect(() => {
@@ -36,13 +31,11 @@ export default function HeaderController() {
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
-                // console.log(getCartList.data.data)
             }
             setLoading(false)
 
         })()
-    }, [userAuthToken, update, user.isUpdateCart])
-
+    }, [update])
 
     const removeCartItem = async (id) => {
         setLoading(true)
@@ -54,7 +47,6 @@ export default function HeaderController() {
 
             } else {
                 setIsUpdate(!update)
-                user.setCart(!user.isUpdateCart)
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
                 setLoading(false)
             }
@@ -64,6 +56,27 @@ export default function HeaderController() {
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
     }
+
+    const clearCart = async () => {
+        setLoading(true)
+        const clearCart = await cartApi.clearCart(userAuthToken);
+        if (clearCart) {
+            if (!clearCart.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: clearCart.data.message, msgType: 'error' });
+
+            } else {
+                setIsUpdate(!update)
+                ToastAlert({ msg: clearCart.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
 
     const updateCartItem = async (quentity, id) => {
         setLoading(true)
@@ -75,7 +88,6 @@ export default function HeaderController() {
 
             } else {
                 setIsUpdate(!update)
-                user.setCart(!user.isUpdateCart)
                 ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
                 setLoading(false)
             }
@@ -86,19 +98,20 @@ export default function HeaderController() {
         }
     }
 
-
+    const checkout =() =>{
+        navigate('/checkout')
+    }
     return (
         <>
-            {/* {console.log(cartItem)} */}
             <FrontLoader loading={loading} />
-            <Header
+            <Cart
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
+                clearCart={clearCart}
                 updateCartItem={updateCartItem}
-
+                checkout={checkout}
 
             />
-
         </>
     )
 

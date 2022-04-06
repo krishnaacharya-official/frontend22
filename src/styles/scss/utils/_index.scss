@@ -114,3 +114,42 @@ h6 {
 .mw-600 {
   max-width: 600px;
 }
+
+.mw-1280 {
+  max-width: 1280px;
+}
+
+.or__divider {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 12px;
+
+  &-text {
+    position: relative;
+  }
+
+  &:after, &:before {
+    border-bottom: 1px solid;
+    border-color: var(--border-input);
+    flex: 1;
+    content: '';
+    height: 0;
+  }
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+  transition: rotate 0.25s;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.25s;
+}
+
+.rotate__icon {
+  transition: transform 0.25s;
+}

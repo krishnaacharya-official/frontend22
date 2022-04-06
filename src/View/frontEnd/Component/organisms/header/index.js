@@ -21,7 +21,8 @@ const Header = (props) => {
         <div className="ms-auto header__right d-flex">
           <GeoLocation />
 
-          <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem}  />
+                
+          <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem}  updateCartItem={props.updateCartItem}   />
 
           <Activity />
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
@@ -8,15 +8,32 @@ import helper from "../../../../../Common/Helper";
 import "./style.scss";
 
 function CartItem(props) {
-  console.log(props.cartItem)
   let cartItem= props.cartItem
+const  [quantity, setQuantity] = useState(cartItem?.quantity)
+  
+  const minusValue = async(value) => {
+    if (value > 1) {
+      value--;
+      await props.updateCartItem(value,cartItem?._id)
+    }
+    setQuantity(value)
+   
+
+  }
+  const plusValue = async(value) => {
+    value++;
+    setQuantity(value)
+    await props.updateCartItem(value,cartItem?._id)
+  }
+  // console.log(props.cartItem)
+
   return (
     <li className="cd__cart__item px-1 py-2 d-flex align-items-center border-bottom">
       <div className="d-flex align-items-center">
         <ListItemImg imgSrc={helper.CampaignProductImagePath+cartItem?.productDetails?.image} />
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
-            <div className="cd__cart__name">{cartItem?.productDetails?.headline?.headline}</div>
+            <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
             <div className="cd__cart__location">Canada</div>
           </div>
           <div className="cd__cart__price">${cartItem?.productDetails?.price}</div>
@@ -26,14 +43,14 @@ function CartItem(props) {
             variant="link"
             className="text-decoration-none btn__link-light p-0"
           >
-            <FontAwesomeIcon icon={regular("angle-down")} />
+            <FontAwesomeIcon icon={regular("angle-down")}  onClick={() => minusValue(quantity)} />
           </Button>
-          <div className="cd__cart__count text-light">{cartItem?.quantity}</div>
+          <div className="cd__cart__count text-light">{quantity}</div>
           <Button
             variant="link"
             className="btn__link-light text-decoration-none p-0"
           >
-            <FontAwesomeIcon icon={regular("angle-up")} />
+            <FontAwesomeIcon icon={regular("angle-up")} onClick={() => plusValue(quantity)} />
           </Button>
         </div>
       </div>

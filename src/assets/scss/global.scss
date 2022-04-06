@@ -1,5 +1,4 @@
 // load variables, mixins and functions
-// .frontend_pages{
 @import "./config";
 
 // load bootstrap styles
@@ -14,6 +13,7 @@
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/button-group";
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/dropdown";
@@ -37,4 +37,4 @@
 
 // load utility styles
 @import "./utils";
-// }
+

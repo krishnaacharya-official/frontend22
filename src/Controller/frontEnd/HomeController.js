@@ -9,7 +9,7 @@ import cartApi from "../../Api/frontEnd/cart";
 
 export default function HomeController() {
     const [productList, setProductList] = useState([])
-    const adminAuthToken = localStorage.getItem('adminAuthToken');
+    // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
     const [update, setIsUpdate] = useState(false)
@@ -19,7 +19,7 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            const getproductList = await productApi.list(adminAuthToken);
+            const getproductList = await productApi.list(userAuthToken);
             if (getproductList.data.success === true) {
                 setProductList(getproductList.data.data)
             }

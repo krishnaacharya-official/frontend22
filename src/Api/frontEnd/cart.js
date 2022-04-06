@@ -3,6 +3,7 @@ import helper from "../../Common/Helper";
 
 function cart() {
 
+
     const add = async (authToken, productId) => {
 
         let res = {};
@@ -19,7 +20,7 @@ function cart() {
                 mode: 'no-cors',
             },
             data: {
-                productId:productId
+                productId: productId
             }
 
         }).then((response) => {
@@ -72,7 +73,7 @@ function cart() {
 
     const updateCart = async (authToken, quantity, id) => {
 
-      
+
         let res = {};
         await axios({
             method: 'put',
@@ -87,7 +88,7 @@ function cart() {
                 mode: 'no-cors',
             },
             data: {
-                quantity:quantity
+                quantity: quantity
             }
 
         }).then((response) => {
@@ -98,7 +99,7 @@ function cart() {
 
     const removeCartProduct = async (authToken, productId) => {
 
-      
+
         let res = {};
         await axios({
             method: 'post',
@@ -113,7 +114,7 @@ function cart() {
                 mode: 'no-cors',
             },
             data: {
-                productId:productId
+                productId: productId
             }
 
         }).then((response) => {
@@ -124,7 +125,7 @@ function cart() {
 
     const checkItemInCart = async (authToken, productId) => {
 
-      
+
         let res = {};
         await axios({
             method: 'post',
@@ -139,7 +140,7 @@ function cart() {
                 mode: 'no-cors',
             },
             data: {
-                productId:productId
+                productId: productId
             }
 
         }).then((response) => {
@@ -148,7 +149,29 @@ function cart() {
         return res;
     }
 
+    const clearCart = async (authToken) => {
 
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}cart/clear_cart`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
 
     return {
         add,
@@ -156,9 +179,8 @@ function cart() {
         deleteCartItem,
         updateCart,
         removeCartProduct,
-        checkItemInCart
-
-
+        checkItemInCart,
+        clearCart
     }
 }
 const cartApi = cart();
