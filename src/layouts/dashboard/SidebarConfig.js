@@ -59,6 +59,13 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
     },
     {
+      title: 'orders',
+      path: '/admin/orders/',
+      icon: getIcon('eos-icons:products'),
+      name:'ORDERS'
+
+    },
+    {
       title: 'profile',
       path: '/admin/profile/',
       icon: getIcon(peopleFill),

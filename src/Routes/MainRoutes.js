@@ -31,6 +31,7 @@ import OrganizationAdminController from '../Controller/frontEnd/OrganizationAdmi
 import CampaignAdminLayout from './CampaignAdminLayout';
 import CartController from '../Controller/frontEnd/CartController';
 import CheckoutController from '../Controller/frontEnd/CheckoutController';
+import ThankYou from '../View/frontEnd/ThankYou';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -135,6 +136,8 @@ export default function MainRoutes() {
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
                         <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
+                        <Route path="/thankyou" element={<ThankYou />} />
+
 
                         <Route path="*" element={<HomeController />} />
 

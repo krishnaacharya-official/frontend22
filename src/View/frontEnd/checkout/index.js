@@ -17,9 +17,11 @@ const Checkout = (props) => {
   const [summary, showSummary] = useState(false);
   const isTab = useWindowSize() <= 991;
   const summaryElementRef = useRef(null);
+  let stateData = props.stateData
+
   // console.log(summaryElementRef.current?.clientHeight);
 
-  
+
   return (
     <div className="checkout__page">
       {isTab ? (
@@ -226,21 +228,34 @@ const Checkout = (props) => {
                     type="text"
                     size="lg"
                     placeholder="•••• •••• •••• ••••"
+                    value={stateData.cardNumber}
+                    name="cardNumber"
+                    onChange={(e)=>props.changevalue(e)}
                   />
+                    {stateData.error && stateData.error.cardNumber && <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>}
                 </Form.Group>
 
-                <div className="d-sm-flex gap-2 align-items-center">
+                <div className="d-sm-flex gap-3 align-items-center">
                   <Form.Group className="mb-3 flex__1">
                     <Form.Label className="fw-bold text-dark fs-7">
-                      Expiration (MM/YY)
+                      Expiration Month
                     </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•• / ••" />
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpMonth} name="cardExpMonth"  onChange={(e)=>props.changevalue(e)} />
+                    {stateData.error && stateData.error.cardExpMonth && <p className="error">{stateData.error ? stateData.error.cardExpMonth ? stateData.error.cardExpMonth : "" : ""}</p>}
+                  </Form.Group>
+                  <Form.Group className="mb-3 flex__1">
+                    <Form.Label className="fw-bold text-dark fs-7">
+                      Expiration Year
+                    </Form.Label>
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpYear} name="cardExpYear"  onChange={(e)=>props.changevalue(e)} />
+                    {stateData.error && stateData.error.cardExpYear && <p className="error">{stateData.error ? stateData.error.cardExpYear ? stateData.error.cardExpYear : "" : ""}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3 flex__1">
                     <Form.Label className="fw-bold text-dark fs-7">
                       CVC/CVV
                     </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" />
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardCVC} name="cardCVC"  onChange={(e)=>props.changevalue(e)} />
+                    {stateData.error && stateData.error.cardCVC && <p className="error">{stateData.error ? stateData.error.cardCVC ? stateData.error.cardCVC : "" : ""}</p>}
                   </Form.Group>
                 </div>
 
@@ -263,16 +278,17 @@ const Checkout = (props) => {
             </div>
 
             <div className="d-flex align-items-center pb-20p">
-              <Button variant="success" size="lg" className="fs-6 fw-bold">
+              <Button variant="success" size="lg" className="fs-6 fw-bold" onClick={()=>props.pay()}>
                 Complete Transaction
               </Button>
-              <Button
+              <Link
                 variant="link"
                 size="lg"
                 className="fs-6 text-light fw-normal px-0 ms-3"
+                to='/cart'
               >
                 Return to cart
-              </Button>
+              </Link>
             </div>
           </div>
 
@@ -300,7 +316,7 @@ const Checkout = (props) => {
           ""
         ) : (
           <div className="summary__section">
-            <SummaryContent cartItem={cartItem}  total={props.total} />
+            <SummaryContent cartItem={cartItem} total={props.total} />
           </div>
         )}
       </Container>

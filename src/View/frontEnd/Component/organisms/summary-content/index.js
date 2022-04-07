@@ -8,26 +8,8 @@ import helper from "../../../../../Common/Helper";
 
 const SummaryContent = (props) => {
   let cartItem = props.cartItem
-
-  // const [total, setTotal] = useState(0)
-
   let total = props.total
-  // useEffect(() => {
-  //   if (props.cartItem.length > 0) {
 
-
-  //     let tempPriceArray = []
-  //     props.cartItem.map((item, i) => {
-  //       tempPriceArray.push(item.productDetails?.price * item.quantity)
-  //     })
-
-  //     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
-  //     setTotal(sum)
-
-  //   }
-
-
-  // }, [props.cartItem])
 
 
   return (

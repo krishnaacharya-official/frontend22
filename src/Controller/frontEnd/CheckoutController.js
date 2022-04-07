@@ -31,13 +31,13 @@ export default function CheckoutController() {
         country: "",
         zip: "382415",
         line1: "address",
-        cardNumber: "4242424242424242",
-        cardExpMonth: "02",
-        cardExpYear: "2050",
-        cardCVC: "111",
+        cardNumber: "",
+        cardExpMonth: "",
+        cardExpYear: "",
+        cardCVC: "",
         error: [],
     })
-    const { amount, email, phone, name, stateName, city, line1, cardNumber,
+    const { email, phone, name, stateName, city, line1, cardNumber,
         cardExpMonth,
         cardExpYear,
         cardCVC,
@@ -75,12 +75,13 @@ export default function CheckoutController() {
 
     const pay = async () => {
 
+
+
         const rules = {
             cardNumber: "required",
             cardExpMonth: "required",
             cardExpYear: "required",
             cardCVC: "required",
-
 
         }
 
@@ -89,9 +90,6 @@ export default function CheckoutController() {
             'cardExpMonth.required': 'card Expiry Month is Required.',
             'cardExpYear.required': 'card Expiry Year is Required.',
             'cardCVC.required': 'card cvc is Required.',
-
-
-
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -128,9 +126,50 @@ export default function CheckoutController() {
                     ToastAlert({ msg: payment.data.message, msgType: 'error' });
 
                 } else {
-                    await cartApi.clearCart(userAuthToken);
-                    ToastAlert({ msg: payment.data.message, msgType: 'success' });
-                    setLoading(false)
+
+                    let orderDetails = {}
+                    let productDetails = []
+                    if (cartItem && cartItem.length > 0) {
+                        cartItem.map((item, i) => {
+                            let tempObj = {}
+                            tempObj.id = item.productDetails._id
+                            tempObj.quantity = item.quantity
+                            tempObj.productName = item.productDetails.headline
+                            tempObj.productImage = item.productDetails.image
+                            tempObj.productPrice = item.productDetails.price
+                            tempObj.tax = item.productDetails.tax
+                            tempObj.unlimited = item.productDetails.unlimited
+                            tempObj.postTag = item.productDetails.postTag
+                            tempObj.totalPrice = item.productDetails.price * item.quantity
+                            productDetails.push(tempObj)
+                        })
+                    }
+
+                    orderDetails.transactionId = payment.data.data.id
+                    orderDetails.subtotal = total
+                    orderDetails.appliedTaxPercentage = 10
+                    orderDetails.tax = 10
+                    orderDetails.total = total
+                    orderDetails.transactionStatus = payment.data.data.status
+                    orderDetails.products = productDetails
+
+                    const saveOrderDetails = await orderApi.saveOrderDetails(userAuthToken, orderDetails);
+
+                    if (!saveOrderDetails.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'error' });
+                    } else {
+                        const clearCart = await cartApi.clearCart(userAuthToken);
+                        if (clearCart.data.success) {
+                            navigate('/thankyou')
+                        }
+                        ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });
+                        setLoading(false)
+                    }
+
+
+                    // 
+
                 }
 
             } else {
@@ -157,14 +196,24 @@ export default function CheckoutController() {
         });
     }
 
+    const changevalue = (e) => {
+        let value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        setstate({
+            ...state,
+            [e.target.name]: value
+        })
+    }
 
     return (
         <>
+            {/* {console.log(cartItem)} */}
             <FrontLoader loading={loading} />
             <Checkout
                 cartItem={cartItem}
                 total={total}
                 stateData={state}
+                pay={pay}
+                changevalue={changevalue}
 
             />
         </>
