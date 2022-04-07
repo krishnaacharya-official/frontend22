@@ -14,7 +14,7 @@ function userAuth() {
                 'Access-Control-Allow-Credentials': 'true',
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",
                 withCredentials: true,
-                mode: 'no-cors',
+                mode: 'cors',
             },
             data: {
                 'email': email,
@@ -37,7 +37,7 @@ function userAuth() {
                 'Access-Control-Allow-Credentials': 'true',
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",
                 withCredentials: true,
-                mode: 'no-cors',
+                mode: 'cors',
             },
             data: data
 
