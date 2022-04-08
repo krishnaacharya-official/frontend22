@@ -60,28 +60,31 @@ export default function LoginForm() {
       setLoading(true)
       const login = await authApi.login(formik.values.email, formik.values.password)
       if (login) {
-        if (!login.data.success ||  login.data.status !== 1 ) {
+        if (!login.data.success || login.data.status !== 1) {
           setLoading(false)
           ToastAlert({ msg: login.data.message, msgType: 'error' });
         } else {
           if (login.data.roleName === "ADMIN" || login.data.roleName === "CAMPAIGN_ADMIN") {
-            if (login.data.roleName === "CAMPAIGN_ADMIN" &&  login.data.otp_status !== 1) {
+            if (login.data.roleName === "CAMPAIGN_ADMIN" && login.data.otp_status !== 1) {
               setLoading(false)
               ToastAlert({ msg: 'Campaign Admin not Approved.', msgType: 'error' });
-            }else{
+            } else {
               localStorage.clear()
-              localStorage.setItem('adminAuthToken', login.data.accessToken)
-              localStorage.setItem('adminData', JSON.stringify(login.data))
-              if(login.data.roleName === "CAMPAIGN_ADMIN"){
-                navigate('/campaign/'+login.data.slug, { replace: true })
-              }else{
+
+              if (login.data.roleName === "CAMPAIGN_ADMIN") {
+                localStorage.setItem('CampaignAdminAuthToken', login.data.accessToken)
+                localStorage.setItem('CampaignAdmin', JSON.stringify(login.data))
+                navigate('/campaign/' + login.data.slug, { replace: true })
+              } else {
+                localStorage.setItem('adminAuthToken', login.data.accessToken)
+                localStorage.setItem('adminData', JSON.stringify(login.data))
                 navigate('/admin/dashboard', { replace: true })
 
               }
               ToastAlert({ msg: login.data.message + " " + login.data.name, msgType: 'success' });
               setLoading(false)
             }
-        
+
             // } else if (login.data.roleName === "CAMPAIGN_ADMIN") {
             //   if(login.data.status === 1 && login.data.otp_status === 1 ){
             //     localStorage.clear()

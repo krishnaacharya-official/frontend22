@@ -35,11 +35,14 @@ import {
 import DefaultLayout from "../Component/templates/default-layout";
 
 import "./style.scss";
+import helper from "../../../Common/Helper"
 
 function AdminDetail(props) {
   const [selectedTabKey, setSelectedTabKey] = useState("posts");
   const [dropdown, setDropdown] = useState(false);
   const isMobile = useWindowSize() <= 575;
+  let organizationDetails = props.organizationDetails
+  // console.log(organizationDetails)
 
   return (
     <DefaultLayout>
@@ -55,11 +58,14 @@ function AdminDetail(props) {
                   <div className="user__img-content">
                     <div
                       className="user__img"
-                      style={{
-                        backgroundImage:
-                          "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",
-                      }}
-                    ></div>
+                      // style={{
+                      //   backgroundImage:
+                      //     "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",
+                      // }}
+                     
+                    >
+                       <img src={helper.CampaignAdminLogoPath+organizationDetails?.logo} alt='logo' />
+                    </div>
                   </div>
                 </div>
 
@@ -149,7 +155,8 @@ function AdminDetail(props) {
                 <AdminDashboard />
               </Tab.Pane>
               <Tab.Pane eventKey="posts">
-                <AdminPosts />
+              
+                <AdminPosts organizationDetails={props.organizationDetails}  getProductList={props.getProductList} productList={props.productList}   />
               </Tab.Pane>
               <Tab.Pane eventKey="activity">
                 <UserXp />

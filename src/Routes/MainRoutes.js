@@ -59,11 +59,12 @@ export default function MainRoutes() {
 
         <>
             {
-                adminAuthToken && location.pathname.startsWith('/campaign') &&
+                CampaignAdminAuthToken && location.pathname.startsWith('/campaign') &&
 
                 <Routes>
                     <Route path="/" element={<CampaignAdminLayout />} >
                         <Route path="/campaign/:name" element={<OrganizationAdminController />} />
+
                     </Route>
                 </Routes>
             }
@@ -72,7 +73,7 @@ export default function MainRoutes() {
 
 
                 location.pathname.startsWith('/admin') ?
-                    !adminAuthToken && !userAuthToken &&
+                    !adminAuthToken && !userAuthToken && !CampaignAdminAuthToken &&
                     <ThemeConfig>
                         <ScrollToTop />
                         <GlobalStyles />

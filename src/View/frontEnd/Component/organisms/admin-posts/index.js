@@ -12,8 +12,8 @@ import AddPost from "../add-post";
 
 import "./style.scss";
 
-const AdminPosts = () => {
-  const [viewPost, createPost] = useState(true);
+const AdminPosts = (props) => {
+  const [viewPost, createPost] = useState(false);
   return (
     <>
       {!viewPost ? (
@@ -22,7 +22,7 @@ const AdminPosts = () => {
             <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">
               Posts
             </h1>
-            <span className="d-none d-sm-flex text-light fs-5 ml-2">(6)</span>
+            <span className="d-none d-sm-flex text-light fs-5 ml-2">({props.productList.length})</span>
 
             <div className="d-flex align-items-center ms-sm-auto">
               <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createPost(true)}>Create New</Button>
@@ -30,7 +30,7 @@ const AdminPosts = () => {
             </div>
           </header>
 
-          <PostsTable />
+          <PostsTable organizationDetails={props.organizationDetails} getProductList={props.getProductList} productList={props.productList}  />
         </div>
       ) : <AddPost />}
     </>

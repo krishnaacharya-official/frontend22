@@ -10,7 +10,7 @@ import LadderMenu from "../ladder-menu";
 import "./style.scss";
 
 const UserProfile = (props) => {
-  console.log(props.organizationDetails)
+  // console.log(props.organizationDetails)
   let organizationDetails= props.organizationDetails
   const [check, setCheck] = useState(false);
   return (
