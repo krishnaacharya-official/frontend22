@@ -144,8 +144,9 @@ export default function CheckoutController() {
                             productDetails.push(tempObj)
                         })
                     }
-
+                    orderDetails.email = userData.email
                     orderDetails.transactionId = payment.data.data.id
+                    orderDetails.paymentResponse = JSON.stringify(payment.data)
                     orderDetails.subtotal = total
                     orderDetails.appliedTaxPercentage = 10
                     orderDetails.tax = 10

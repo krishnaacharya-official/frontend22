@@ -5,6 +5,7 @@ import orderApi from "../../Api/admin/order";
 import { hasPermission } from "../../Common/Helper";
 import authApi from "../../Api/admin/auth";
 import Index from "../../View/admin/Order/Index";
+import OrderDetails from "../../View/admin/Order/OrderDetails";
 
 
 export default function OrderController() {
@@ -13,6 +14,11 @@ export default function OrderController() {
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [loading, setLoading] = useState(false)
+    const [modal, setModal] = useState(false)
+    const [orderDetails, setOrderDetails] = useState({})
+    const [orderItemList, setOrderItemList] = useState([])
+
+
     const params = useParams();
     const navigate = useNavigate();
 
@@ -38,13 +44,21 @@ export default function OrderController() {
         })()
     }, [])
 
+    const viewOrderDetails =(data) => {
+        setOrderDetails(data)
+        setModal(true)
+        // console.log(data)
+    }
+
     return (
         <>
 
             <FrontLoader loading={loading} />
             <Index
             orderList={orderList}
+            viewOrderDetails={viewOrderDetails}
             />
+            <OrderDetails modal={modal} setModal={setModal} orderDetails={orderDetails} orderItemList={orderItemList} />
             
 
         </>

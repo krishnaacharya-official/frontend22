@@ -49,3 +49,9 @@ export function ImageExist(url) {
     img.src = url;
     return img.height !== 0 ? true : false;
 }
+
+export function priceFormat(m) {
+    let price = parseInt(m,10)
+    let nf = new Intl.NumberFormat('en-US');
+    return nf.format(price)
+}

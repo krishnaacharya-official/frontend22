@@ -90,9 +90,10 @@ const ShoppingCart = (props) => {
                   <span>Total:</span>
                   <span className="cd__cart__total ml-6p">${state.subTotal}</span>
                 </div>
-                <Button variant="info" href="/checkout" className="ms-auto">
+                {/* <Button variant="info" href="/checkout" className="ms-auto">
                   Checkout
-                </Button>
+                </Button> */}
+                <Link to='/checkout' className=" btn btn-info ms-auto">Checkout</Link>
               </div>}
             </div>
 
