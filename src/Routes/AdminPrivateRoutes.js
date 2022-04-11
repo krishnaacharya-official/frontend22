@@ -31,6 +31,7 @@ import PricingFees from '../View/admin/Setting/PricingFees';
 import Email from '../View/admin/Setting/Email';
 import FooterLinks from '../View/admin/Setting/FooterLinks';
 import OrderController from '../Controller/admin/OrderController';
+import CmsController from '../Controller/admin/CmsController';
 
 // ----------------------------------------------------------------------
 
@@ -86,6 +87,8 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/setting/email" element={<Email/>} />
                     <Route exact path="/admin/setting/social" element={<FooterLinks/>} />
                     <Route exact path="/admin/orders" element={<OrderController/>} />
+                    <Route exact path="/admin/cms" element={<CmsController/>} />
+
 
 
 

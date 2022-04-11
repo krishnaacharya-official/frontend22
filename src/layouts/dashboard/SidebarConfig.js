@@ -66,6 +66,13 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
     },
     {
+      title: 'cms',
+      path: '/admin/cms/',
+      icon: getIcon('iconoir:page-flip'),
+      name:'CMS'
+
+    },
+    {
       title: 'profile',
       path: '/admin/profile/',
       icon: getIcon(peopleFill),
