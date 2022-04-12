@@ -5,6 +5,8 @@ import helper from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
 import { unescape } from 'lodash';
 import ReactDOM from "react-dom";
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
 
 
 
@@ -46,6 +48,45 @@ export default function AddCmsForm(props) {
                         </div>
                     </div>
 
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control " disabled={stateData?.id ? true : false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
+                        </div>
+                    </div>
+
+                    
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Description</label>
+                        <div className="col-sm-10">
+                            <ReactQuill
+                                theme='snow'
+                                value={stateData.description}
+                                onChange={(e) => props.handleOnDiscriptionChangeValue(e,'description')}
+                                style={{ height: '240px', marginBottom: "50px" }}
+                                name="description"
+                            />
+                            <p className='error'>{stateData.error ? stateData.error.description ? stateData.error.description : "" : ""}</p>
+
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Body</label>
+                        <div className="col-sm-10">
+                            <ReactQuill
+                                theme='snow'
+                                value={stateData.body}
+                                onChange={(e) => props.handleOnDiscriptionChangeValue(e,'body')}
+                                style={{ height: '240px', marginBottom: "50px" }}
+                                name="body"
+                            />
+                            <p className='error'>{stateData.error ? stateData.error.body ? stateData.error.body : "" : ""}</p>
+
+                        </div>
+                    </div>
+
 
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">Status</label>
@@ -60,8 +101,8 @@ export default function AddCmsForm(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    {/* <Button variant="btnWarning" className='btnDanger' onClick={() => props.setModal(false)}>Close</Button>&nbsp;
-                    <Button variant="contained" onClick={() => props.submitCategoryForm()}>Save</Button> */}
+                    <Button variant="btnWarning" className='btnDanger' onClick={() => props.setModal(false)}>Close</Button>&nbsp;
+                    <Button variant="contained" onClick={() => props.submitCmsForm()}>Save</Button>
                 </Modal.Footer>
             </Modal>
         </>
