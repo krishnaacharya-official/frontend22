@@ -46,7 +46,7 @@ export default function FooterLinks(props) {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "9px",
-        color: "#fff",
+        // color: "#fff",
         fontSize: "24px",
     }
 
@@ -226,8 +226,11 @@ export default function FooterLinks(props) {
                         <form className="mb-4 p-4">
                             <div className="form-group row">
                                 <div className="col-sm-1">
-                                    <i className="fa-brands fa-twitter" style={{ ...setting_social_icon, backgroundColor: "#1d9bf0" }}></i>
-                                    
+                                    {/* <Icon icon='akar-icons:twitter-fill' style={{ ...setting_social_icon, color: "#1d9bf0" }} /> */}
+                                    <Icon icon='logos:twitter' style={{ ...setting_social_icon }} />
+
+                                    {/* <i className="fa-brands fa-twitter" style={{ ...setting_social_icon, backgroundColor: "#1d9bf0" }}></i> */}
+
                                 </div>
 
                                 <div className="col-sm-11">
@@ -245,7 +248,11 @@ export default function FooterLinks(props) {
 
                             <div className="form-group row">
                                 <div className="col-sm-1">
-                                    <i className="fa-brands fa-facebook-f" style={{ ...setting_social_icon, backgroundColor: "#3b5998" }}></i>
+                                    {/* <Icon icon='ant-design:facebook-filled' style={{ ...setting_social_icon, color: "#3b5998" }} /> */}
+                                    <Icon icon='logos:facebook' style={{ ...setting_social_icon }} />
+
+
+                                    {/* <i className="fa-brands fa-facebook-f" style={{ ...setting_social_icon, backgroundColor: "#3b5998" }}></i> */}
                                 </div>
 
                                 <div className="col-sm-11">
@@ -264,7 +271,10 @@ export default function FooterLinks(props) {
 
                             <div className="form-group row">
                                 <div className="col-sm-1">
-                                    <i className="fa-brands fa-instagram-square" id='insta'></i>
+                                    {/* <i className="fa-brands fa-instagram-square" id='insta'></i> */}
+                                    {/* <Icon icon="akar-icons:instagram-fill" style={{ ...setting_social_icon, color: "#d6249f" }} /> */}
+                                    <Icon icon="ant-design:instagram-outlined"  style={{ ...setting_social_icon, color: "#fff", background: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'}} />
+
                                 </div>
 
                                 <div className="col-sm-11">
@@ -282,7 +292,10 @@ export default function FooterLinks(props) {
 
                             <div className="form-group row">
                                 <div className="col-sm-1">
-                                    <i className="fa-brands fa-discord" style={{ ...setting_social_icon, backgroundColor: "#7289DA" }}></i>
+                                    {/* <i className="fa-brands fa-discord" style={{ ...setting_social_icon, backgroundColor: "#7289DA" }}></i> */}
+                                    {/* <Icon icon="akar-icons:discord-fill"style={{ ...setting_social_icon, color: "#7289DA" }} /> */}
+                                    <Icon icon="logos:discord-icon"style={{ ...setting_social_icon }} />
+
                                 </div>
 
                                 <div className="col-sm-11">
@@ -301,7 +314,8 @@ export default function FooterLinks(props) {
                             <div className="form-group row">
                                 <div className="col-sm-1">
                                     {/* <i className="fa-brands fa-discord" style={{ ...setting_social_icon, backgroundColor: "#7289DA" }}></i> */}
-                                    <i className="fa-solid fa-envelope" style={{ ...setting_social_icon, backgroundColor: "rgb(201, 44, 25)" }}></i>
+                                    {/* <i className="fa-solid fa-envelope" style={{ ...setting_social_icon, backgroundColor: "rgb(201, 44, 25)" }}></i> */}
+                                    <Icon icon="logos:google-gmail"style={setting_social_icon} />
                                 </div>
 
                                 <div className="col-sm-11">

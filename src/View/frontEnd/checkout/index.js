@@ -59,7 +59,7 @@ const Checkout = (props) => {
             }}
           >
             <div ref={summaryElementRef} className="summary__section pe-4 pt-0">
-              <SummaryContent cartItem={cartItem} total={props.total} />
+              <SummaryContent cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} />
             </div>
           </div>
         </>
@@ -316,7 +316,7 @@ const Checkout = (props) => {
           ""
         ) : (
           <div className="summary__section">
-            <SummaryContent cartItem={cartItem} total={props.total} />
+            <SummaryContent cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} />
           </div>
         )}
       </Container>

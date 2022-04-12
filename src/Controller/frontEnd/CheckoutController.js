@@ -61,12 +61,17 @@ export default function CheckoutController() {
                 setCartItem(getCartList.data.data)
 
                 let tempPriceArray = []
+               if( getCartList.data.data.length >0 ){
                 getCartList.data.data.map((item, i) => {
                     tempPriceArray.push(item.productDetails?.price * item.quantity)
                 })
 
                 let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
                 setTotal(sum)
+               }else{
+                navigate('/')
+               }
+              
             }
             setLoading(false)
 
@@ -134,6 +139,7 @@ export default function CheckoutController() {
                             let tempObj = {}
                             tempObj.id = item.productDetails._id
                             tempObj.quantity = item.quantity
+                            tempObj.soldOut = item.productDetails.soldout
                             tempObj.productName = item.productDetails.headline
                             tempObj.productImage = item.productDetails.image
                             tempObj.productPrice = item.productDetails.price
@@ -205,6 +211,26 @@ export default function CheckoutController() {
         })
     }
 
+    const removeCartItem = async (id) => {
+        setLoading(true)
+        const removeCartItem = await cartApi.deleteCartItem(userAuthToken, id);
+        if (removeCartItem) {
+            if (!removeCartItem.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
+
+            } else {
+                setIsUpdate(!update)
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
     return (
         <>
             {/* {console.log(cartItem)} */}
@@ -215,6 +241,7 @@ export default function CheckoutController() {
                 stateData={state}
                 pay={pay}
                 changevalue={changevalue}
+                removeCartItem={removeCartItem}
 
             />
         </>

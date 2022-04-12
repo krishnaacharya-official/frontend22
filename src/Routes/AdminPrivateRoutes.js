@@ -32,6 +32,8 @@ import Email from '../View/admin/Setting/Email';
 import FooterLinks from '../View/admin/Setting/FooterLinks';
 import OrderController from '../Controller/admin/OrderController';
 import CmsController from '../Controller/admin/CmsController';
+import PartnershipInquiryController from '../Controller/admin/PartnershipInquiryController';
+import VerificationInquiryController from '../Controller/admin/VerificationInquiryController';
 
 // ----------------------------------------------------------------------
 
@@ -88,6 +90,10 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/setting/social" element={<FooterLinks/>} />
                     <Route exact path="/admin/orders" element={<OrderController/>} />
                     <Route exact path="/admin/cms" element={<CmsController/>} />
+                    <Route exact path="/admin/partnership" element={<PartnershipInquiryController/>} />
+                    <Route exact path="/admin/verified" element={<VerificationInquiryController/>} />
+
+
 
 
 

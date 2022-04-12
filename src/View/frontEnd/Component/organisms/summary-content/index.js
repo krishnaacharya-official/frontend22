@@ -47,6 +47,7 @@ const SummaryContent = (props) => {
                       <Button
                         variant="link"
                         className="btn__remove p-0 fs-7 text-decoration-none"
+                        onClick={()=>props.removeCartItem(item._id)}
                       >
                         remove
                       </Button>

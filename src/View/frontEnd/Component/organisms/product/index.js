@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../../../../App';
 import { ProgressBar, Button } from "react-bootstrap";
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
@@ -13,6 +13,8 @@ import {
   solid,
   light,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Icon } from '@iconify/react';
+
 
 
 import "./style.scss";
@@ -22,7 +24,7 @@ import "./style.scss";
 const Product = (props) => {
   // console.log(props)
   let name = props.headline
-  let sold = 0
+  let sold = props.soldout
   let total = props.quantity
   let location = props.cityDetails?.city
   let progress = 60
@@ -40,15 +42,15 @@ const Product = (props) => {
   })
   useEffect(() => {
     (async () => {
- 
+
       const checkItem = await props.checkItemInCart(props._id)
-      if(checkItem === true){
+      if (checkItem === true) {
         setState({
-          added_to_cart:true
+          added_to_cart: true
         })
-      }else{
+      } else {
         setState({
-          added_to_cart:false
+          added_to_cart: false
         })
       }
     })()
@@ -73,7 +75,7 @@ const Product = (props) => {
   //   organisation,
   // } = props;
 
- 
+
   const { added_to_cart } = state
 
   const addToCart = async () => {
@@ -129,6 +131,7 @@ const Product = (props) => {
         <div className="wish me-1">
           <IconToggle
             activeColor="rgb(246, 100, 97)"
+            // checked={false}
             icon={<FontAwesomeIcon icon={regular("heart")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
           />
@@ -156,7 +159,7 @@ const Product = (props) => {
         <div className="product__mid d-flex align-items-center justify-content-center">
           <div className="proudct__img-wrap d-flex align-items-center justify-content-center">
             <Link to={"/item/" + props.slug}>
-            <img className="product__img img-fluid" alt="" src={helper.CampaignProductImagePath + img} />
+              <img className="product__img img-fluid" alt="" src={helper.CampaignProductImagePath + img} />
             </Link>
           </div>
         </div>
@@ -171,7 +174,10 @@ const Product = (props) => {
             </Link>
           </div>
           <div className="product__location d-flex align-items-center small mt-auto">
-            <span className="icon icon__pro"></span>
+            {/* <span className="icon icon__pro"></span> */}
+            {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
+          <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+
             <span className="date__name">{location}</span>
           </div>
         </div>
@@ -179,20 +185,26 @@ const Product = (props) => {
 
       <div className="product__details border-bottom d-flex align-items-center">
         <div className="product__date d-flex align-items-center small">
-          <span className="icon icon__pro-400 date__icon mr-6p"></span>
+          {/* <span className="icon icon__pro-400 date__icon mr-6p"></span> */}
+          <FontAwesomeIcon icon={regular("clock")} className="mr-6p" />
+
           <span className="date__name">{date}</span>
         </div>
         <div className="product__meta d-flex align-items-center ms-auto">
           {props.projectDetails?.length > 0 &&
             <span className="product__type icon icon__solid-900 text-dark">
-              
+              {/*  */}
+              {/* <Icon icon="bi:lightning-charge-fill" /> */}
+              <FontAwesomeIcon icon={solid("bolt")} />
             </span>
           }
 
           {
             props.postTag &&
             <span className="product__type product__type-tab icon icon__solid-900 text-dark">
-              
+              {/* <Icon icon="bxs:purchase-tag" color="#947ada" /> */}
+              <FontAwesomeIcon icon={solid("tag")} color="#947ada" />
+
             </span>
           }
 
@@ -200,7 +212,9 @@ const Product = (props) => {
             props.tax &&
 
             <span className="product__type product__type-tax icon icon__solid-900">
-              
+              {/*  */}
+              {/* <FontAwesomeIcon icon="fa-solid fa-calculator-simple" /> */}
+              <FontAwesomeIcon icon={solid("calculator-simple")} />
             </span>
 
           }
@@ -216,7 +230,7 @@ const Product = (props) => {
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
         >
-          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white",fontStyle:"normal" }}></i>
+          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal",marginLeft: "1.5px" }}></i>
           {/* <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68d1a8d5f290171371bc_family(white).svg"
               className="img-fluid"
@@ -225,7 +239,7 @@ const Product = (props) => {
         </a>
         <div className="product__subcategory small d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-3p">
-            <i className={subCatIcon} style={{ fontFamily: "fontAwesome" }}></i>
+            <i className={subCatIcon} style={{ fontFamily: "fontAwesome",fontStyle:"normal" }}></i>
 
             {/* <svg
                 viewBox="0 0 25 25"
@@ -245,7 +259,7 @@ const Product = (props) => {
           <span>{category}</span>
         </div>
         <div className="product__count d-flex align-items-center ms-auto text-dark">
-          <span>0/10 sold</span>
+          <span>{sold}/{total} sold</span>
         </div>
       </div>
 

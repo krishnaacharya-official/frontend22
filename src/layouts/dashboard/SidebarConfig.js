@@ -73,6 +73,20 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
     },
     {
+      title: 'partnership',
+      path: '/admin/partnership/',
+      icon: getIcon('teenyicons:question-circle-solid'),
+      name:'PARTNERSHIP'
+
+    },
+    {
+      title: 'verified',
+      path: '/admin/verified/',
+      icon: getIcon('codicon:unverified'),
+      name:'VERIFIED'
+
+    },
+    {
       title: 'profile',
       path: '/admin/profile/',
       icon: getIcon(peopleFill),
