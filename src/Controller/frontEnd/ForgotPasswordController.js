@@ -1,11 +1,13 @@
 import FrontLoader from "../../Common/FrontLoader";
-import ForgotPassword from "../../View/frontEnd/Layout/ForgotPassword";
+// import ForgotPassword from "../../View/frontEnd/Layout/ForgotPassword";
 import React, { useState, useEffect } from "react";
-import ResetPassword from "../../View/frontEnd/Layout/ResetPassword";
+// import ResetPassword from "../../View/frontEnd/Layout/ResetPassword";
 import { useParams, useNavigate } from "react-router-dom";
 import ToastAlert from "../../Common/ToastAlert";
 import { validateAll } from "indicative/validator";
 import userAuthApi from "../../Api/frontEnd/auth";
+import ForgotPassword from "../../View/frontEnd/forgot-password";
+
 
 
 
@@ -14,13 +16,14 @@ export default function ForgotPasswordController() {
     const [isSendOtp, setIsSendOtp] = useState(false)
     const [state, setstate] = useState({
         email: "",
-        password: "",
-        cpassword: "",
-        otp: "",
+        // password: "",
+        // cpassword: "",
+        // otp: "",
         error: [],
     })
     const {
-        error, email, password,cpassword,otp,
+        error, email, 
+        // password,cpassword,otp,
     } = state;
     const navigate = useNavigate()
 
@@ -54,7 +57,12 @@ export default function ForgotPasswordController() {
                     setLoading(false)
                     ToastAlert({ msg: sendOtp.data.message, msgType: 'error' });
                 } else {
-                    setIsSendOtp(true)
+                    // setIsSendOtp(true)
+                    setstate({
+                        ...state,
+                        email: "",
+                        error: [],
+                    })
                     ToastAlert({ msg: sendOtp.data.message, msgType: 'success' });
                     setLoading(false)
                 }
@@ -91,77 +99,77 @@ export default function ForgotPasswordController() {
         });
 
     }
-    const reset = () => {
-        const rules = {
-            otp: 'required',
-            password: 'required|min:6',
-            cpassword: 'required|same:password',
+    // const reset = () => {
+    //     const rules = {
+    //         otp: 'required',
+    //         password: 'required|min:6',
+    //         cpassword: 'required|same:password',
 
-        }
+    //     }
 
-        const message = {
-            'email.required': 'Email is Required.',
-            'email.email': 'please enter valid email.',
-            'password.min': 'Password must be at least 6 characters',
-            'password.required': 'Password is Required.',
-            'cpassword.required': 'Confirm Password is Required.',
+    //     const message = {
+    //         'email.required': 'Email is Required.',
+    //         'email.email': 'please enter valid email.',
+    //         'password.min': 'Password must be at least 6 characters',
+    //         'password.required': 'Password is Required.',
+    //         'cpassword.required': 'Confirm Password is Required.',
 
-        }
-        validateAll(state, rules, message).then(async () => {
-            const formaerrror = {};
-            setstate({
-                ...state,
-                error: formaerrror
-            })
-            setLoading(true)
-            const resetPassword = await userAuthApi.verifyOtp(email,otp,password)
-            if (resetPassword) {
-                if (!resetPassword.data.success) {
-                    setLoading(false)
-                    ToastAlert({ msg: resetPassword.data.message, msgType: 'error' });
-                } else {
-                    navigate('/signin')
-                    ToastAlert({ msg: resetPassword.data.message, msgType: 'success' });
-                    setLoading(false)
-                }
+    //     }
+    //     validateAll(state, rules, message).then(async () => {
+    //         const formaerrror = {};
+    //         setstate({
+    //             ...state,
+    //             error: formaerrror
+    //         })
+    //         setLoading(true)
+    //         const resetPassword = await userAuthApi.verifyOtp(email,otp,password)
+    //         if (resetPassword) {
+    //             if (!resetPassword.data.success) {
+    //                 setLoading(false)
+    //                 ToastAlert({ msg: resetPassword.data.message, msgType: 'error' });
+    //             } else {
+    //                 navigate('/signin')
+    //                 ToastAlert({ msg: resetPassword.data.message, msgType: 'success' });
+    //                 setLoading(false)
+    //             }
 
-            } else {
-                setLoading(false)
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
-
-
+    //         } else {
+    //             setLoading(false)
+    //             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+    //         }
 
 
 
 
 
 
-        }).catch(errors => {
 
-            setLoading(false)
-            const formaerrror = {};
-            if (errors.length) {
-                errors.forEach(element => {
-                    formaerrror[element.field] = element.message
-                });
-            } else {
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
 
-            setstate({
-                ...state,
-                error: formaerrror
-            })
+    //     }).catch(errors => {
 
-        });
+    //         setLoading(false)
+    //         const formaerrror = {};
+    //         if (errors.length) {
+    //             errors.forEach(element => {
+    //                 formaerrror[element.field] = element.message
+    //             });
+    //         } else {
+    //             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+    //         }
 
-    }
+    //         setstate({
+    //             ...state,
+    //             error: formaerrror
+    //         })
+
+    //     });
+
+    // }
 
     return (
         <>
             <FrontLoader loading={loading} />
-            {!isSendOtp ?
+            {/* {!isSendOtp ?
                 <ForgotPassword
                     changevalue={changevalue}
                     stateData={state}
@@ -172,7 +180,12 @@ export default function ForgotPasswordController() {
                     stateData={state}
                     reset={reset}
 
-                />}
+                />} */}
+                <ForgotPassword 
+                changevalue={changevalue}
+                stateData={state}
+                sendOtp={sendOtp}
+                />
 
         </>
     )

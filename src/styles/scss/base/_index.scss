@@ -23,3 +23,14 @@ body {
   --border-input: #{$border-color};
   --bkg-shade: #{$gray-100};
 }
+
+// style from other dev
+
+.clear {
+  clear: both;
+}
+
+.bg-container {
+  min-height: calc(100vh - 38px);
+  background: linear-gradient(to right, #f8fafd 0%, #f8fafd 50%, #fff 50%, #fff 100%);
+}

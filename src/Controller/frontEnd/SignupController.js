@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { validateAll } from "indicative/validator";
 import FrontLoader from "../../Common/FrontLoader";
 import ToastAlert from "../../Common/ToastAlert";
-import SignUp from "../../View/frontEnd/Layout/SignUp"
+// import SignUp from "../../View/frontEnd/Layout/SignUp"
 import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
+import Register from "../../View/frontEnd/register";
 
 function SignupController() {
 
@@ -117,7 +118,7 @@ function SignupController() {
     }
     return (
         <>
-            <SignUp
+            {/* <SignUp
                 stateData={state}
                 changevalue={changevalue}
                 signUp={signUp}
@@ -125,6 +126,15 @@ function SignupController() {
                 setShowPassword={setShowPassword}
                 showCPassword={showCPassword}
                 setShowCPassword={setShowCPassword}
+            /> */}
+            <Register
+               stateData={state}
+               changevalue={changevalue}
+               signUp={signUp}
+               showPassword={showPassword}
+               setShowPassword={setShowPassword}
+               showCPassword={showCPassword}
+               setShowCPassword={setShowCPassword}
             />
             <FrontLoader loading={loading} />
 

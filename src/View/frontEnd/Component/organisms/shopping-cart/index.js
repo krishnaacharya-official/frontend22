@@ -75,13 +75,17 @@ const ShoppingCart = (props) => {
           <div className="dropdown__inner">
             <div className="d-flex cart__dropdown-header">
               <div className="fw-bold">Cart</div>
-              <Link
+              {
+                !state.empty && 
+                <Link
                 to="/cart"
                 variant="link"
                 className="p-0 ms-auto btn__link-light text-decoration-none fw-normal fs-7"
               >
                 view cart
               </Link>
+              }
+      
             </div>
             <div className="cart_dropdown-body">
               {state.empty ? <EmptyCart /> : <CartList cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem}  />}

@@ -50,7 +50,7 @@ $width: (
   0: 60,
   1: 150,
   2: 310,
-  3: 400
+  3: 400,
 );
 
 @each $key, $val in $width {
@@ -129,11 +129,12 @@ h6 {
     position: relative;
   }
 
-  &:after, &:before {
+  &:after,
+  &:before {
     border-bottom: 1px solid;
     border-color: var(--border-input);
     flex: 1;
-    content: '';
+    content: "";
     height: 0;
   }
 }
@@ -153,3 +154,4 @@ h6 {
 .rotate__icon {
   transition: transform 0.25s;
 }
+

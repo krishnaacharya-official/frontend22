@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 import { validateAll } from "indicative/validator";
 import FrontLoader from "../../Common/FrontLoader"
 import ToastAlert from "../../Common/ToastAlert"
-import Signin from "../../View/frontEnd/Layout/Signin"
+// import Signin from "../../View/frontEnd/Layout/Signin"
 import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
+import Login from "../../View/frontEnd/login";
 
 
 function SigninController() {
@@ -105,7 +106,15 @@ function SigninController() {
 
     return (
         <>
-            <Signin
+            {/* <Signin
+                signIn={signIn}
+                changevalue={changevalue}
+                stateData={state}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+
+            /> */}
+            <Login
                 signIn={signIn}
                 changevalue={changevalue}
                 stateData={state}

@@ -86,13 +86,15 @@ export default function MainRoutes() {
 
                     <>
                         <Routes>
-                            <Route path="/" element={<FrontEndAuthLayOut />} >
+                            {/* <Route path="/" element={<FrontEndAuthLayOut />} > */}
                                 <Route exact path="/" element={<SigninController />} />
                                 <Route exact path="/signin" element={<SigninController />} />
                                 <Route exact path="*" element={<SigninController />} />
                                 <Route exact path="/signup" element={<SignupController />} />
+                                <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
 
-                            </Route>
+
+                            {/* </Route> */}
 
 
 
