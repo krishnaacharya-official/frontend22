@@ -4,6 +4,7 @@ $spacers: (
   0: 3,
   1: 6,
   2: 12,
+  4: 18,
   3: 20,
 );
 
@@ -115,6 +116,10 @@ h6 {
   max-width: 600px;
 }
 
+.mw-850 {
+  max-width: 850px;
+}
+
 .mw-1280 {
   max-width: 1280px;
 }
@@ -155,3 +160,26 @@ h6 {
   transition: transform 0.25s;
 }
 
+.note {
+  max-width: 600px;
+  padding: 20px 28px;
+  border-radius: 6px;
+  color: rgba(111,111,144,.59);
+  font-size: 13px;
+  line-height: 1.3rem;
+}
+
+.note.note--clear {
+  background: unset !important;
+  color: $body-color;
+}
+
+.bg-purple {
+  background: #a976f0;
+}
+
+.form-control::placeholder {
+  color: #00000040;
+  font-weight: $font-weight-base;
+  font-size: 14px;
+}

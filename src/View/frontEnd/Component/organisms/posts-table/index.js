@@ -49,7 +49,7 @@ const PostsTable = (props) => {
           {
             productList.length > 0 &&
             productList.map((product, i) => {
-              console.log(product)
+              // console.log(product)
               return (
                 <li className="table__list-item p-2">
                   <div className="d-xl-flex align-items-center flex-grow-1">

@@ -649,3 +649,6 @@ button.ReactTags__remove{
     border-top: 1px solid #aaa;
     padding: 8px 0
 }
+a.MuiListItemButton-root.active:focus{
+  color: #6b68f8 !important;
+}

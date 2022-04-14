@@ -61,4 +61,6 @@
 
 .dropdown-menu {
   @include box-shadow($dropdown-box-shadow);
+  max-height: 300px;
+  overflow: auto;
 }

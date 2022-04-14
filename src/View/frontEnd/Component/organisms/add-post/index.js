@@ -1,12 +1,137 @@
-import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-
+import { useContext } from "react";
 import "./style.scss";
+import {
+  Button,
+  Accordion,
+  AccordionContext,
+  useAccordionButton,
+  Card,
+  Col,
+  Row,
+  Dropdown,
+} from "react-bootstrap";
+
+// import { ToggleSwitch, FeedTag } from "@components/atoms";
+import ToggleSwitch from "../../atoms/toggle-switch";
+import FeedTag from "../../atoms/feed-tag";
+import * as Icon from '../../atoms/category-icons';
+
+function AccordionToggle({ children, eventKey, callback }) {
+  const { activeEventKey } = useContext(AccordionContext);
+
+  const decoratedOnClick = useAccordionButton(
+    eventKey,
+    () => callback && callback(eventKey)
+  );
+
+  const isCurrentEventKey = activeEventKey === eventKey;
+  
+
+  return (
+    <div className="accordion__btn" onClick={decoratedOnClick}>
+      <div className="d-flex aling-items-center">
+        {children}
+        <FontAwesomeIcon
+          icon={solid("angle-right")}
+          className={`accordion__icon ms-2 fs-4 ${isCurrentEventKey ? "rotate-90" : ""
+            }`}
+        />
+      </div>
+    </div>
+  );
+}
 
 const AddPost = (props) => {
+
+  const Categories = [
+    {
+        name: 'Animals'
+    },
+    {
+        name: 'Education'
+    },
+    {
+        name: 'Environment'
+    },
+    {
+        name: 'Family'
+    },
+    {
+        name: 'Food'
+    },
+    {
+        name: 'Home'
+    },
+    {
+        name: 'Lifestyle'
+    },
+    {
+        name: 'Micro-Farm'
+    },
+    {
+        name: 'Relief'
+    },
+    {
+        name: 'Science'
+    },
+    {
+        name: 'Sports'
+    },
+    {
+        name: 'Supplies'
+    },
+  ]
+
+  const SubCategories = [
+    {
+      name: "Zoo",
+      icon: Icon.ZooIcon
+    },
+    {
+      name: "Child",
+      icon: Icon.ChildIcon
+    },
+    {
+      name: "Baby",
+      icon: Icon.BabyIcon
+    },
+    {
+      name: "Engineering",
+      icon: Icon.EngineeringIcon
+    },
+    {
+      name: "Space",
+      icon: Icon.SpaceIcon
+    },
+    {
+      name: "Research",
+      icon: Icon.ResearchIcon
+    },
+    {
+      name: "Lab",
+      icon: Icon.LabIcon
+    },
+    {
+      name: "Bedding",
+      icon: Icon.BeddingIcon
+    },
+    {
+      name: "Marine",
+      icon: Icon.MarineIcon
+    },
+    {
+      name: "Air",
+      icon: Icon.AirIcon
+    },
+    {
+      name: "Growth",
+      icon: Icon.GrowthIcon
+    },
+  ];
   return (
-    <div>
+    <div className="add-post">
       <div className="d-flex align-items-center flex-grow-1 pb-20p mb-3 border-bottom">
         <Button variant="link" className="me-sm-2 me-1">
           <FontAwesomeIcon
@@ -57,14 +182,513 @@ const AddPost = (props) => {
       </div>
 
       <div>
-        <div className="">
-          <span>Post Location</span>
-          <FontAwesomeIcon icon={solid("angle-right")} />
+        <Accordion defaultActiveKey="2" className="mb-5 pb-5">
+          <Card>
+            <Card.Header className="post__accordion-header">
+              <AccordionToggle eventKey="0">
+                <span className="fs-3 fw-bolder text-dark">Post Location</span>
+              </AccordionToggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey="0" className="py-5" >
+              <Row className="mw-850 ml-5">
+                <Col lg="6">
+                  <div className="post-location-wrap">
+                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                      <div className="d-flex align-items-center">
+                        <div className="icon-wrap mr-20p">
+                          <FontAwesomeIcon
+                            icon={solid("location-dot")}
+                            className="fs-3 text-primary"
+                          />
+                        </div>
+                        <div className="info-wrap">
+                          <div className="fs-6 mb-3p">
+                            Your post will be posted in
+                          </div>
+                          <h3 className="mb-0 fs-4 fw-bolder">New York, NY</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="note note--clear">
+                      <FontAwesomeIcon
+                        icon={regular("circle-info")}
+                        className="text-info mr-3p"
+                      />
+                      <span>
+                        Not the city you want to post in? Try using the search
+                        bar to choose another location.
+                      </span>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Accordion.Collapse>
+          </Card>
+
+          <Card>
+            <Card.Header className="post__accordion-header">
+              <AccordionToggle eventKey="1">
+                <span className="fs-3 fw-bolder text-dark">
+                  Product Details
+                </span>
+              </AccordionToggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey="1" className="py-5" >
+              <>
+                <Row className="mw-850 ml-5 mb-5">
+                  <div className="col-lg-6 mb-5 mb-sm-0">
+                    <form className="profile-detail-form">
+                      <div className="form-group border-bottom mb-2">
+                        <label htmlFor="headlineInput" className="form__label">
+                          Headline
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg mb-2"
+                          id="headlineInput"
+                          placeholder="Ex: Children's Bicycle"
+                        />
+                        <div className="text-light fs-8 pb-2 mb-1">
+                          <span>120</span> chars remaining
+                        </div>
+                      </div>
+                      <div className="form-group mb-4">
+                        <label htmlFor="brandInput" className="form__label">
+                          Brand
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          id="brandInput"
+                          placeholder="Hasbro ®"
+                        />
+                      </div>
+                      <div className="price-group-wrap d-flex align-items-center gap-2 mb-3">
+                        <div className="form-group">
+                          <label htmlFor="priceInput" className="form__label">
+                            Price
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="$0"
+                            className="form-control form-control-lg"
+                            id="priceInput"
+                          />
+                        </div>
+                        <div className="form-group quantity-from-group">
+                          <label
+                            htmlFor="quantityInput"
+                            className="form__label"
+                          >
+                            Quantity
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control form-control-lg studio__input--quantity"
+                            id="quantityInput"
+                            placeholder="12"
+                          />
+                        </div>
+                        <div className="form-group unlimited-switch-wrap">
+                          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p text-white">
+                            Unlimited
+                            <FontAwesomeIcon
+                              icon={solid("infinity")}
+                              className="ml-3p"
+                            />
+                          </div>
+                          <ToggleSwitch />
+                        </div>
+                      </div>
+                      <div className="keyword-tags-wrap">
+                        <div className="form-group">
+                          <label
+                            htmlFor="keywordsInput"
+                            className="form__label"
+                          >
+                            <FontAwesomeIcon
+                              icon={solid("magnifying-glass")}
+                              className="me-2 text-primary"
+                            />
+                            Keywords Tags
+                            <span className="fs-8 ms-1 text-light fw-normal">
+                              (up to 3)
+                            </span>
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            id="keywordsInput"
+                            placeholder="Keywords..."
+                          />
+                        </div>
+                      </div>
+                      <div className="post-type-wrap">
+                        <label className="form__label">
+                          Post Type
+                          <span className="fs-7 text-light ms-1 fw-normal">
+                            (optional)
+                          </span>
+                        </label>
+                        <div className="d-flex gap-2">
+                          <div className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                              className="fs-3 text-info"
+                              icon={solid("calculator-simple")}
+                            />
+                            <div className="d-flex py-12p px-18p">
+                              <ToggleSwitch />
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                              className="fs-3 text-primary"
+                              icon={solid("tag")}
+                            />
+                            <div className="d-flex py-12p px-18p">
+                              <ToggleSwitch />
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center image__switch-wrap">
+                            <FontAwesomeIcon
+                              className="fs-3 text-info"
+                              icon={solid("image")}
+                            />
+                            <div className="d-flex py-12p px-18p">
+                              <ToggleSwitch />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="post-type-note p-18p bg-lighter rounded-3 text-light mb-4">
+                          Will you be uploading media after you have purchased
+                          the items? Posts that upload pictures / videos of the
+                          proceeds tend to get funded quicker.
+                        </div>
+                      </div>
+
+                      <div className="item-category-select">
+                        <span className="title">Item Category</span>
+                        <div className="d-flex gap-2">
+                          <Dropdown className="d-flex" autoClose="outside">
+                            <Dropdown.Toggle variant="outline-light" size="lg">
+                              Category
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className="w-100">
+                              {Categories.map((item, idx) => (
+                                <Dropdown.Item
+                                  key={`cat_${idx}`}
+                                  className="py-18p px-12p border-bottom fw-semibold text-dark"
+                                >
+                                  {item.name}
+                                </Dropdown.Item>
+                              ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          <Dropdown className="d-flex" autoClose="outside">
+                            <Dropdown.Toggle variant="outline-light" size="lg">
+                              Subcategory
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className="w-100">
+                              {SubCategories.map((item, idx) => (
+                                <Dropdown.Item
+                                  key={`sub_cat_${idx}`}
+                                  className="d-flex align-items-center py-18p px-12p border-bottom fw-semibold text-dark"
+                                >
+                                  {item.name}
+                                  <div className="ms-auto">{item.icon}</div>
+                                </Dropdown.Item>
+                              ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="col-lg-6">
+                    <form className="video-detail-form">
+                      <div className="main-upload-image-wrap">
+                        <div className="form__label">Main Image</div>
+                        <div className="upload-wrap mb-3">
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture">
+                            <input id="videoPicture" type="file" />
+                          </label>
+                        </div>
+                      </div>
+                      <div className="note note--info mb-3">
+                        <FontAwesomeIcon
+                          icon={regular("circle-info")}
+                          className="text-info icon-method mr-3p"
+                        />
+                        <span className="text-dark">
+                          Upload a transparent image of the item. See the how-to
+                          guide <a href="#">here</a> if you aren't sure how to
+                          make your image transparent.
+                        </span>
+                      </div>
+                      <div className="">
+                        <div className="project-tilte-optional">
+                          <div className="form__label">
+                            More of Product
+                            <span className="fs-7 text-light ms-1 fw-normal">
+                              (optional)
+                            </span>
+                          </div>
+                        </div>
+                        <div className="d-flex align-items-center flex-wrap gap-2 mb-3">
+                          <div className="upload-wrap">
+                            <FontAwesomeIcon
+                              icon={solid("cloud-arrow-up")}
+                              className="icon-cloud"
+                            />
+                            <label htmlFor="videoPicture">
+                              <input id="videoPicture" type="file" />
+                            </label>
+                          </div>
+                          <div className="upload-wrap">
+                            <img
+                              className="img-fluid"
+                              src="https://i1.wp.com/lanecdr.org/wp-content/uploads/2019/08/placeholder.png?w=1200&ssl=1"
+                              alt="img"
+                            />
+                            <label htmlFor="videoPicture2">
+                              <input id="videoPicture2" type="file" />
+                            </label>
+                          </div>
+                          <div className="upload-wrap">
+                            <FontAwesomeIcon
+                              icon={solid("cloud-arrow-up")}
+                              className="icon-cloud"
+                            />
+                            <label htmlFor="videoPicture3">
+                              <input id="videoPicture3" type="file" />
+                            </label>
+                          </div>
+                          <div className="upload-wrap">
+                            <FontAwesomeIcon
+                              icon={solid("cloud-arrow-up")}
+                              className="icon-cloud"
+                            />
+                            <label htmlFor="videoPicture3">
+                              <input id="videoPicture3" type="file" />
+                            </label>
+                          </div>
+                          <div className="upload-wrap">
+                            <FontAwesomeIcon
+                              icon={solid("cloud-arrow-up")}
+                              className="icon-cloud"
+                            />
+                            <label htmlFor="videoPicture3">
+                              <input id="videoPicture3" type="file" />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="d-grid">
+                          <Button
+                            variant="info"
+                            className="fs-7 fw-bold"
+                            size="lg"
+                          >
+                            Upload from File
+                          </Button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </Row>
+                <div className="select-projects-option mb-5">
+                  <div className="fw-bold mb-3">
+                    Project
+                    <FontAwesomeIcon
+                      icon={solid("bolt")}
+                      className="text-primary ms-1 me-2"
+                    />
+                    <span className="fs-7 text-light  ms-1 fw-normal">
+                      (optional)
+                    </span>
+                  </div>
+
+                  <div className="d-flex flex-wrap mb-3">
+                    <FeedTag />
+                    <FeedTag />
+                    <FeedTag />
+                    <FeedTag />
+                  </div>
+
+                  <div className="manage-post-type">
+                    <strong>Y</strong>ou can add this product to any of your
+                    existing projects. To manage your projects &nbsp;{" "}
+                    <a href="./" className="link">
+                      click here
+                    </a>
+                  </div>
+                </div>
+              </>
+            </Accordion.Collapse>
+          </Card>
+
+          <Card>
+            <Card.Header className="post__accordion-header">
+              <AccordionToggle eventKey="3">
+                <span className="fs-3 fw-bolder text-dark">Need Headline</span>
+              </AccordionToggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey="3" className="py-5" >
+              <Row className="mw-850 ml-5">
+                <Col lg="6">
+                  <form className="profile-detail-form">
+                    <div className="form-group mb-5 border-bottom pb-5">
+                      <label className="form__label">Need Headline</label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg mb-2"
+                        placeholder="Ex: For inner city kids in Colorado"
+                      />
+                      <div className="text-light fs-8">
+                        <span>120</span> chars remaining
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label
+                        htmlFor="needDescriptionTextarea"
+                        className="form__label"
+                      >
+                        Need Description
+                      </label>
+
+                      <textarea
+                        className="form-control form-control-lg mb-2"
+                        id="needDescriptionTextarea"
+                        rows="1"
+                        data-length="240"
+                        placeholder="Enter some details about your need"
+                      ></textarea>
+                      <div className="text-light fs-8 pb-2 mb-1">
+                        <span>120</span> chars remaining
+                      </div>
+                    </div>
+                  </form>
+                </Col>
+                <Col lg="6">
+                  <form className="video-detail-form">
+                    <div className="form-group mb-2">
+                      <label htmlFor="videoInput" className="form__label">
+                        Need Gallery
+                        <span className="post-type-text">(optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="videoInput"
+                        placeholder="Video URL"
+                      />
+                    </div>
+                    <div className="project-video-wrap mb-4">
+                      <iframe src="" title="YouTube video player"></iframe>
+                    </div>
+                    <div className="">
+                      <div className="upload-picture-video-block mb-2">
+                        <div className="upload-wrap">
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture">
+                            <input id="videoPicture" type="file" />
+                          </label>
+                        </div>
+                        <div className="upload-wrap">
+                          {/* <img src="../img/user2.jpeg" alt="img" /> */}
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture2">
+                            <input id="videoPicture2" type="file" />
+                          </label>
+                        </div>
+                        <div className="upload-wrap">
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture3">
+                            <input id="videoPicture3" type="file" />
+                          </label>
+                        </div>
+                        <div className="upload-wrap">
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture3">
+                            <input id="videoPicture3" type="file" />
+                          </label>
+                        </div>
+                        <div className="upload-wrap">
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label htmlFor="videoPicture3">
+                            <input id="videoPicture3" type="file" />
+                          </label>
+                        </div>
+                      </div>
+                      <div className="d-grid">
+                        <Button
+                          variant="info"
+                          className="fs-7 fw-bold"
+                          size="lg"
+                        >
+                          Upload from File
+                        </Button>
+                      </div>
+                    </div>
+                  </form>
+                </Col>
+              </Row>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+
+        <div className="fulfilling-check-wrap">
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="fulfillingCheck"
+            />
+            <label className="form-check-label" htmlFor="fulfillingCheck">
+              By posting your ad, you are agreeing to our{" "}
+              <a href="#" target="_blank">
+                <strong>terms of use</strong>
+              </a>
+              ,{" "}
+              <a href="#" target="_blank">
+                <strong>privacy policy</strong>
+              </a>{" "}
+              and{" "}
+              <a href="#" target="_blank">
+                <strong>site policies</strong>
+              </a>
+              . Please do not post duplicate ads. You may not edit your post
+              after it has received funding. If you delete your post after it
+              has received donations, the donors will receive a full refund and
+              the post will be closed.
+            </label>
+          </div>
         </div>
-        <Row className="pt-5">
-          <Col md="6"></Col>
-          <Col md="6"></Col>
-        </Row>
+        <div className="products-detial-footer py-5">
+          <Button variant="info" size="lg" className="fw-bold fs-6">Preview</Button>
+          <Button variant="success" size="lg" className="fw-bold fs-6">Post Ad</Button>
+        </div>
       </div>
     </div>
   );

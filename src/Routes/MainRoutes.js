@@ -64,7 +64,6 @@ export default function MainRoutes() {
                 <Routes>
                     <Route path="/" element={<CampaignAdminLayout />} >
                         <Route path="/campaign/:name" element={<OrganizationAdminController />} />
-
                     </Route>
                 </Routes>
             }

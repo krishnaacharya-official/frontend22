@@ -1,0 +1,55 @@
+.feed__tag {
+  display: flex;
+  height: 32px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 12px;
+  padding: 3px 6px 3px 15px;
+  align-items: center;
+  flex: 0 0 auto;
+  cursor: pointer;
+
+  .icon--feedtag.on,
+  .icon--feedremove.on {
+    align-items: center;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+  }
+
+  .icon--feedtag.on {
+    transform: scale(1);
+  }
+
+  .icon--feedtag.off,
+  .icon--feedremove.off {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  .icon--feedtag.off {
+    transform: scale(0);
+  }
+
+  .icon--feedremove,
+  .icon--feedtag {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    transition: all 0.25s ease;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+  }
+}

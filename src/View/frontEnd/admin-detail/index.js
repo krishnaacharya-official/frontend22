@@ -20,7 +20,7 @@ import UserXp from "../Component/organisms/user-history";
 import UserTax from "../Component/organisms/user-tax";
 // import UserXp from "../Component/organisms/user-history";
 import UserSettingsTab from "../Component/organisms/user-settings-tab";
-
+import { BrowserRouter as Router, Route, Routes, useLocation, Link as RouterLink } from 'react-router-dom'
 // import useWindowSize from "@hooks/device-check";
 import useWindowSize from "../../../hooks/device-check";
 import {
@@ -150,6 +150,7 @@ function AdminDetail(props) {
                 )}
               </div>
             </div>
+            
             <Tab.Content className="flex-grow-1">
               <Tab.Pane eventKey="dashboard">
                 <AdminDashboard />
