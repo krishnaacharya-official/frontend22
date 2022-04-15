@@ -32,6 +32,9 @@ import CampaignAdminLayout from './CampaignAdminLayout';
 import CartController from '../Controller/frontEnd/CartController';
 import CheckoutController from '../Controller/frontEnd/CheckoutController';
 import ThankYou from '../View/frontEnd/ThankYou';
+import AdminDashboard from '../View/frontEnd/Component/organisms/admin-dashboard';
+import AdminDetail from '../View/frontEnd/admin-detail';
+import AdminPosts from '../View/frontEnd/Component/organisms/admin-posts';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -62,8 +65,10 @@ export default function MainRoutes() {
                 CampaignAdminAuthToken && location.pathname.startsWith('/campaign') &&
 
                 <Routes>
-                    <Route path="/" element={<CampaignAdminLayout />} >
-                        <Route path="/campaign/:name" element={<OrganizationAdminController />} />
+                    <Route path="campaign" element={<AdminDetail />} >
+                        <Route path="/campaign/:name/dashboard" element={<AdminDashboard />} />
+                        <Route path="/campaign/:name" element={<AdminDashboard />} />
+                        <Route path="/campaign/:name/posts" element={<AdminPosts />} />
                     </Route>
                 </Routes>
             }
@@ -81,16 +86,16 @@ export default function MainRoutes() {
                     </ThemeConfig>
                     :
 
-                    !location.pathname.startsWith('/admin') &&  !location.pathname.startsWith('/campaign') && !userAuthToken &&
+                    !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/campaign') && !userAuthToken &&
 
                     <>
                         <Routes>
                             {/* <Route path="/" element={<FrontEndAuthLayOut />} > */}
-                                <Route exact path="/" element={<SigninController />} />
-                                <Route exact path="/signin" element={<SigninController />} />
-                                <Route exact path="*" element={<SigninController />} />
-                                <Route exact path="/signup" element={<SignupController />} />
-                                <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
+                            <Route exact path="/" element={<SigninController />} />
+                            <Route exact path="/signin" element={<SigninController />} />
+                            <Route exact path="*" element={<SigninController />} />
+                            <Route exact path="/signup" element={<SignupController />} />
+                            <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
 
 
                             {/* </Route> */}

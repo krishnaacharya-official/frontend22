@@ -8,15 +8,15 @@ import React, { useEffect } from "react";
 import helper from "../../../../../Common/Helper";
 
 const PostsTable = (props) => {
-  let organizationDetails = props.organizationDetails
+  // let organizationDetails = props.organizationDetails
   // getProductList={props.getProductList}
   let productList = props.productList
 
-  useEffect(() => {
-    (async () => {
-      props.getProductList(organizationDetails._id)
-    })()
-  }, [organizationDetails])
+  // useEffect(() => {
+  //   (async () => {
+  //     props.getProductList(organizationDetails._id)
+  //   })()
+  // }, [organizationDetails])
 
   return (
     <>
@@ -80,14 +80,14 @@ const PostsTable = (props) => {
                       <div className="d-flex align-items-center flex__1">
                         <div className="d-flex align-items-center progress__wrap me-2 flex__1">
                           <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
-                            7/10
+                          {product.soldout}/{product.quantity}
                           </span>
                           <ProgressBar
                             variant="success"
-                            now={30}
+                            now={product.soldout/product.quantity*100}
                             className="flex__1"
                           />
-                          <span className="text-light ms-1 fw-bold">30%</span>
+                          <span className="text-light ms-1 fw-bold">{product.soldout/product.quantity*100}%</span>
                         </div>
                       </div>
                     </div>

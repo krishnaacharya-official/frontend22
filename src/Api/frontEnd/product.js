@@ -54,7 +54,7 @@ function product() {
 
     return {
         details,
-        listByOrganization
+        // listByOrganization
 
 
     }

@@ -15,7 +15,7 @@ import "./style.scss";
 
 const Header = (props) => {
   return (
-    <header className="main-header">
+    <header className="frontend_pages main-header">
       <Container className="d-flex align-items-center" fluid>
         <Logo />
         <div className="ms-auto header__right d-flex">
