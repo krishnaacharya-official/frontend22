@@ -200,13 +200,39 @@ function product() {
     }
 
 
+    const publishProduct = async(authToken,id)=>{
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}product/publish`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                id:id
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
 
     return {
         add,
         list,
         deleteProduct,
         updateProduct,
-        listByOrganization
+        listByOrganization,
+        publishProduct
 
 
     }

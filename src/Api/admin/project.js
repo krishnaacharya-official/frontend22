@@ -40,6 +40,10 @@ function project() {
         data.append('headline', cdata.headline);
         data.append('description', cdata.description);
         data.append('video', cdata.video);
+        data.append('status', cdata.status);
+        data.append('infinity', cdata.infinity);
+
+
         if (cdata.products && cdata.products.length > 0) {
             data.append('products', JSON.stringify(cdata.products));
         }
@@ -103,6 +107,9 @@ function project() {
         data.append('headline', cdata.headline);
         data.append('description', cdata.description);
         data.append('video', cdata.video);
+        data.append('status', cdata.status);
+        data.append('infinity', cdata.infinity);
+
         if (cdata.products && cdata.products.length > 0) {
             data.append('products', JSON.stringify(cdata.products));
         }
@@ -128,13 +135,63 @@ function project() {
         return res;
     }
 
+    const projectListByOrganization = async (authToken) => {
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}project/organization`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            // data:{
+            //     organizationId:organizationId
+            // }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const publishProject = async(authToken,id)=>{
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}project/publish`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                id:id
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
     return {
         list,
         add,
         deleteProject,
-        updateProject
+        updateProject,
+        projectListByOrganization,
+        publishProject
 
     }
 }

@@ -1,0 +1,51 @@
+.upload__item {
+  position: relative;
+
+  .upload-wrap {
+    padding-top: calc(100% - 4px);
+  }
+}
+.upload-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5f4ff;
+  border: 2px dashed rgba(62, 170, 255, 0.58);
+  border-radius: 9px;
+  position: relative;
+
+  &:hover .icon-cloud {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    cursor: pointer;
+  }
+
+  .icon-cloud {
+    position: absolute;
+    color: #5f6982;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  label input {
+    display: none;
+    cursor: pointer;
+  }
+}
+
+.upload-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

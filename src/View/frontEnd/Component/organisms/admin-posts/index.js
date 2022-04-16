@@ -102,7 +102,7 @@ const AdminPosts = (props) => {
         setCategoryList(getcategoryList.data.data)
       }
 
-      const getProjectList = await projectApi.list(CampaignAdminAuthToken)
+      const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken)
       if (getProjectList.data.success) {
         setProjectList(getProjectList.data.data)
       }
@@ -272,12 +272,12 @@ const AdminPosts = (props) => {
     // setModal(false);
     setTags([])
     setTempImg('')
-
+    setImg('')
     setMoreTempImages([])
     setMoreImages([])
     setGallaryTempImages([])
     setGallaryImages([])
-
+    setSeletedProjectList([])
     setstate({
       id: '',
       status: 1,
@@ -488,6 +488,158 @@ const AdminPosts = (props) => {
 
   }
 
+  const deleteProduct = (id) => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to delete Product.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: (async () => {
+            setLoading(true)
+            if (id !== '') {
+              const deleteProductApi = await productApi.deleteProduct(CampaignAdminAuthToken, id)
+              if (deleteProductApi) {
+                if (deleteProductApi.data.success === false) {
+                  setLoading(false)
+                  ToastAlert({ msg: deleteProductApi.data.message, msgType: 'error' });
+                } else {
+                  if (deleteProductApi.data.success === true) {
+                    setLoading(false)
+                    setUpdate(!update)
+                    ToastAlert({ msg: deleteProductApi.data.message, msgType: 'success' });
+                  }
+                }
+              } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Product not delete', msgType: 'error' });
+              }
+            } else {
+              setLoading(false)
+              ToastAlert({ msg: 'Product not delete id Not found', msgType: 'error' });
+            }
+          })
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  }
+
+  const editProduct = async (productData) => {
+    setLoading(true)
+    if ((productData) && productData !== null && productData !== '') {
+      // 
+      setstate({
+        id: productData._id,
+        status: productData.status,
+        headline: productData.headline,
+        brand: productData.brand,
+        category: productData.categoryId,
+        subcategory: productData.subcategoryId,
+        description: productData.description,
+        price: productData.price,
+        quantity: productData.quantity,
+        organization: productData.organizationId,
+        slug: productData.slug,
+        needheadline: productData.needheadline,
+        galleryUrl: productData.galleryUrl,
+
+        unlimited: productData.unlimited,
+        tax: productData.tax,
+        postTag: productData.postTag,
+
+
+
+      });
+
+      let tempProjectArray = [];
+      if (productData.projectDetails.length > 0) {
+        productData.projectDetails.map((project, i) => {
+          tempProjectArray.push(project.projectId)
+        })
+        setSeletedProjectList(tempProjectArray)
+      }
+
+      let tempMImgArray = []
+
+      if (productData.imageDetails.length > 0) {
+        productData.imageDetails.map((img, i) => {
+          if (img.type === 'moreImage') {
+            tempMImgArray.push(img.image)
+          }
+
+        })
+        setMoreImages(tempMImgArray)
+      }
+
+
+      let tempGImgArray = []
+
+      if (productData.imageDetails.length > 0) {
+        productData.imageDetails.map((img, i) => {
+          if (img.type === 'galleryImage') {
+            tempGImgArray.push(img.image)
+          }
+
+        })
+        setGallaryImages(tempGImgArray)
+      }
+
+      let mytags = []
+      let addedTags = [];
+      if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
+        addedTags = productData.tags.split(',');
+      }
+      addedTags.map((aadedTag, i) => {
+        let tagsObj = {}
+        tagsObj.id = aadedTag
+        tagsObj.text = aadedTag
+        mytags.push(tagsObj)
+      })
+      setTags(mytags)
+      setImg(productData.image)
+
+      const getsubCategoryList = await categoryApi.listSubCategory(CampaignAdminAuthToken, productData.categoryId);
+      if (getsubCategoryList.data.success === true) {
+        setSubCategoryList(getsubCategoryList.data.data)
+      }
+      createPost(true);
+      setLoading(false)
+
+    } else {
+      setLoading(false)
+      ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
+    }
+  }
+
+  const createNewPost = () => {
+    resetForm()
+    createPost(true)
+  }
+
+  const publishProduct = async (id) => {
+
+    const publish = await productApi.publishProduct(CampaignAdminAuthToken, id)
+    if (publish) {
+      if (publish.data.success === false) {
+        setLoading(false)
+        ToastAlert({ msg: publish.data.message, msgType: 'error' });
+      } else {
+        if (publish.data.success === true) {
+          setLoading(false)
+          setUpdate(!update)
+          ToastAlert({ msg: publish.data.message, msgType: 'success' });
+        }
+      }
+    } else {
+      setLoading(false)
+      ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+    }
+
+  }
+
 
   // console.log(data)
   const getProductList = async () => {
@@ -518,42 +670,47 @@ const AdminPosts = (props) => {
             <span className="d-none d-sm-flex text-light fs-5 ml-2">({productList.length})</span>
 
             <div className="d-flex align-items-center ms-sm-auto">
-              <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createPost(true)}>Create New</Button>
+              <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createNewPost()}>Create New</Button>
               <LadderMenuItems />
             </div>
           </header>
 
-          <PostsTable productList={productList} />
+          <PostsTable
+            productList={productList}
+            editProduct={editProduct}
+            deleteProduct={deleteProduct}
+            publishProduct={publishProduct}
+          />
         </div>
-      ) : 
-      <AddPost
-        createPost={createPost}
-        organizationDetails={data}
-        stateData={state} 
-        handleDelete={handleDelete}
-        handleAddition={handleAddition}
-        handleDrag={handleDrag}
-        handleTagClick={handleTagClick}
-        onClearAll={onClearAll}
-        onTagUpdate={onTagUpdate}
-        onSelectProject={onSelectProject}
-        changevalue={changevalue}
-        changefile={changefile}
-        resetForm={resetForm}
-        submitProductForm={submitProductForm}
-        tags={tags}
-        categoryList={categoryList}
-        subcategoryList={subcategoryList}
-        Img={Img}
-        tempImg={tempImg}
-        moreTempImages={moreTempImages}
-        moreImages={moreImages}
-        projectList={projectList}
-        seletedProjectList={seletedProjectList}
-        gallaryTempImages={gallaryTempImages}
-        gallaryImages={gallaryImages}
+      ) :
+        <AddPost
+          createPost={createPost}
+          organizationDetails={data}
+          stateData={state}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleDrag={handleDrag}
+          handleTagClick={handleTagClick}
+          onClearAll={onClearAll}
+          onTagUpdate={onTagUpdate}
+          onSelectProject={onSelectProject}
+          changevalue={changevalue}
+          changefile={changefile}
+          resetForm={resetForm}
+          submitProductForm={submitProductForm}
+          tags={tags}
+          categoryList={categoryList}
+          subcategoryList={subcategoryList}
+          Img={Img}
+          tempImg={tempImg}
+          moreTempImages={moreTempImages}
+          moreImages={moreImages}
+          projectList={projectList}
+          seletedProjectList={seletedProjectList}
+          gallaryTempImages={gallaryTempImages}
+          gallaryImages={gallaryImages}
 
-      />}
+        />}
     </>
   );
 };

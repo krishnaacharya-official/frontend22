@@ -74,7 +74,7 @@ export default function LoginForm() {
               if (login.data.roleName === "CAMPAIGN_ADMIN") {
                 localStorage.setItem('CampaignAdminAuthToken', login.data.accessToken)
                 localStorage.setItem('CampaignAdmin', JSON.stringify(login.data))
-                navigate('/campaign/' + login.data.slug, { replace: true })
+                navigate('/campaign/' + login.data.slug+'/dashboard', { replace: true })
               } else {
                 localStorage.setItem('adminAuthToken', login.data.accessToken)
                 localStorage.setItem('adminData', JSON.stringify(login.data))

@@ -1,0 +1,26 @@
+// @import "@styles/scss/components/list-table";
+@import '../../../../../assets//scss/components/list-table';
+
+.admin__billing-value {
+  width: 46px;
+
+  @include media-breakpoint-down(sm) {
+    order: 2;
+  }
+}
+
+.file__name {
+  font-size: 13px;
+}
+
+.admin__tax-table {
+  @include media-breakpoint-down(sm) {
+    .btn__wrap {
+      flex: 1;
+    }
+
+    .text__wrap {
+      flex: 1;
+    }
+  }
+}

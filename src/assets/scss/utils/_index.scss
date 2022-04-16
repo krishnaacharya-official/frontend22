@@ -47,17 +47,22 @@ $pos: (
   }
 }
 
-$width: (
-  0: 60,
-  1: 150,
-  2: 310,
-  3: 400,
-);
+$width: (60, 150, 200, 310, 400);
 
-@each $key, $val in $width {
+@each $val in $width {
   // loop each properties
   .w-#{$val} {
     width: #{$val}px !important;
+  }
+}
+
+// max-width utility
+$mwidth: (200, 300, 400, 600, 850, 1280);
+
+@each $val in $mwidth {
+  // loop each properties
+  .mw-#{$val} {
+    max-width: #{$val}px !important;
   }
 }
 
@@ -92,10 +97,6 @@ h6 {
   color: #bcbdc4;
 }
 
-.mr-12p {
-  margin-right: 12px;
-}
-
 .flex__1 {
   flex: 1;
 }
@@ -112,16 +113,12 @@ h6 {
   color: var(--text-subtext);
 }
 
-.mw-600 {
-  max-width: 600px;
+.mh-75v {
+  max-height: 75vh;
 }
 
-.mw-850 {
-  max-width: 850px;
-}
-
-.mw-1280 {
-  max-width: 1280px;
+.minh-120 {
+  min-height: 120px;
 }
 
 .or__divider {
@@ -164,7 +161,7 @@ h6 {
   max-width: 600px;
   padding: 20px 28px;
   border-radius: 6px;
-  color: rgba(111,111,144,.59);
+  color: rgba(111, 111, 144, 0.59);
   font-size: 13px;
   line-height: 1.3rem;
 }
@@ -172,14 +169,37 @@ h6 {
 .note.note--clear {
   background: unset !important;
   color: $body-color;
+
+  @include media-breakpoint-down(sm) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .bg-purple {
   background: #a976f0;
 }
 
-.form-control::placeholder {
-  color: #00000040;
-  font-weight: $font-weight-base;
-  font-size: 14px;
+.form-control,
+.input__text {
+  &::placeholder {
+    color: #00000040;
+    font-weight: $font-weight-base;
+    font-size: 14px;
+  }
+}
+
+.products-detial-footer {
+  @include media-breakpoint-down(sm) {
+    display: block;
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.border-bottom-sm-none {
+  @include media-breakpoint-up(sm) {
+    border-bottom-width: 0 !important;
+  }
 }

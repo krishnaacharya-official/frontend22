@@ -1,0 +1,15 @@
+.user__settings-content {
+  padding: 20px 60px;
+}
+
+@media screen and(min-width: 768px) and (max-width: 990px) {
+  .user__settings-content {
+    padding: 16px 24px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .user__settings-content {
+    padding: 16px 0;
+  }
+}

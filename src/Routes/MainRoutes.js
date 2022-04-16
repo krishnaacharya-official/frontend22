@@ -27,7 +27,7 @@ import OrganizationDetailsController from '../Controller/frontEnd/OrganizationDe
 import ItemDetailsController from '../Controller/frontEnd/ItemDetailsController';
 import ProjectDetailsController from "../Controller/frontEnd/ProjectDetailsController"
 import FrontEndAuthLayOut from './FrontEndAuthLayout';
-import OrganizationAdminController from '../Controller/frontEnd/OrganizationAdminController';
+// import OrganizationAdminController from '../Controller/frontEnd/OrganizationAdminController';
 import CampaignAdminLayout from './CampaignAdminLayout';
 import CartController from '../Controller/frontEnd/CartController';
 import CheckoutController from '../Controller/frontEnd/CheckoutController';
@@ -35,6 +35,10 @@ import ThankYou from '../View/frontEnd/ThankYou';
 import AdminDashboard from '../View/frontEnd/Component/organisms/admin-dashboard';
 import AdminDetail from '../View/frontEnd/admin-detail';
 import AdminPosts from '../View/frontEnd/Component/organisms/admin-posts';
+import AdminActivity from '../View/frontEnd/Component/organisms/admin-activity';
+import AdminTax from '../View/frontEnd/Component/organisms/admin-tax';
+import AdminProjects from '../View/frontEnd/Component/organisms/admin-projects';
+import AdminSettingsTab from '../View/frontEnd/Component/organisms/admin-settings-tab';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -69,6 +73,14 @@ export default function MainRoutes() {
                         <Route path="/campaign/:name/dashboard" element={<AdminDashboard />} />
                         <Route path="/campaign/:name" element={<AdminDashboard />} />
                         <Route path="/campaign/:name/posts" element={<AdminPosts />} />
+                        <Route path="/campaign/:name/activity" element={<AdminActivity />} />
+                        <Route path="/campaign/:name/tax" element={<AdminTax />} />
+                        <Route path="/campaign/:name/project" element={<AdminProjects />} />
+                        <Route path="/campaign/:name/settings" element={<AdminSettingsTab />} />
+
+
+
+
                     </Route>
                 </Routes>
             }

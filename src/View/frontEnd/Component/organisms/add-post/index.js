@@ -85,6 +85,7 @@ const AddPost = (props) => {
   let gallaryTempImages = props.gallaryTempImages
   let gallaryImages = props.gallaryImages
 
+
   let url = galleryUrl;
   let videoid = url?.split("?v=")[1];
   let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
@@ -245,6 +246,22 @@ const AddPost = (props) => {
                         />
                         {/* <p className="error">Required</p> */}
                         {error && error.brand && <p className="error">{error ? error.brand ? error.brand : "" : ""}</p>}
+
+                      </div>
+
+                      <div className="form-group mb-4">
+                        <label htmlFor="brandInput" className="form__label">
+                          Slug
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          // id="brandInput"
+                          placeholder="Slug"
+                          disabled={id ? true : false} name='slug' id="slug" value={slug} onChange={(e) => {changevalue(e) }}
+                        />
+                        {/* <p className="error">Required</p> */}
+                        {error && error.slug && <p className="error">{error ? error.slug ? error.slug : "" : ""}</p>}
 
                       </div>
                       <div className="price-group-wrap d-flex align-items-center gap-2 mb-3">
@@ -622,7 +639,7 @@ const AddPost = (props) => {
                       projectList.length > 0 &&
                       projectList.map((project, i) => {
                         return (
-                          <FeedTag project={project} onSelectProject={onSelectProject} seletedProjectList={seletedProjectList} />
+                          <FeedTag data={project} name={project.name} onSelect={onSelectProject} checked={seletedProjectList.includes(project._id)}  />
 
                         )
                       })

@@ -1,10 +1,9 @@
 .feed__tag {
   display: flex;
-  height: 32px;
   margin-top: 8px;
   margin-bottom: 8px;
   margin-right: 12px;
-  padding: 3px 6px 3px 15px;
+  padding: 3px 12px;
   align-items: center;
   flex: 0 0 auto;
   cursor: pointer;
@@ -13,13 +12,16 @@
   .icon--feedremove.on {
     align-items: center;
     display: flex;
-    width: 24px;
-    height: 24px;
     opacity: 1;
   }
 
   .icon--feedtag.on {
     transform: scale(1);
+    margin-right: 8px;
+  }
+
+  .icon--feedremove.on {
+    margin-left: 8px;
   }
 
   .icon--feedtag.off,
@@ -37,8 +39,7 @@
   .icon--feedtag {
     display: flex;
     align-items: center;
-    width: 24px;
-    height: 24px;
+    justify-content: center;
     transition: all 0.25s ease;
   }
 
@@ -51,5 +52,18 @@
     align-items: center;
     user-select: none;
     cursor: pointer;
+  }
+
+  .icon__wrap {
+    height: 32px;
+    margin-right: 12px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
 }
