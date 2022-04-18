@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
@@ -6,15 +6,49 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import { LadderMenu } from "@components/organisms";
 import ToggleSwitch from "../../atoms/toggle-switch";
 import LadderMenu from "../ladder-menu";
+import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import FrontLoader from "../../../../../Common/FrontLoader";
+
 
 import "./style.scss";
 
 const UserProfile = (props) => {
-  // console.log(props.organizationDetails)
-  let organizationDetails= props.organizationDetails
+  const [data, setData] = useOutletContext();
+  const [loading, setLoading] = useState(false)
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    street: "",
+    city: "",
+    stateId: "",
+    country: "",
+    zip: "",
+    error: []
+  })
+  const { name, email, street, city, stateId, country, zip, error } = state
   const [check, setCheck] = useState(false);
+
+
+  useEffect(() => {
+    // console.log(data)
+    setLoading(true)
+    setState({
+      ...state,
+      name:data.name,
+      email:data.email,
+      city:data.city_id,
+      country:data.country_id,
+      stateId:data.state_id,
+      street:data.street,
+      zip:data.zip,
+    })
+
+    setLoading(false)
+
+}, [data._id])
   return (
     <>
+      <FrontLoader loading={loading} />
       <div className="mb-5">
         <h4 className="fw-bolder">Personal</h4>
         <div className="text-subtext mb-3">
@@ -23,14 +57,14 @@ const UserProfile = (props) => {
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text" value={organizationDetails.name} />
+            <input type="text" value={name} />
             <span className="input__span">Name</span>
           </label>
         </div>
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text"  value={organizationDetails.email}/>
+            <input type="text" value={email} />
             <span className="input__span">Email</span>
           </label>
         </div>
@@ -62,28 +96,28 @@ const UserProfile = (props) => {
         </div>
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text" value={organizationDetails.address} />
+            <input type="text" value={street} />
             <span className="input__span">Street Name</span>
           </label>
         </div>
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text" value={organizationDetails?.cityDetails?.city} />
+            <input type="text" value='' />
             <span className="input__span">City</span>
           </label>
         </div>
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text"value={organizationDetails?.stateDetails?.state} />
+            <input type="text" value='' />
             <span className="input__span">State/Province</span>
           </label>
         </div>
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <input type="text" value={organizationDetails?.countryDetails?.country} />
+            <input type="text" value='' />
             <span className="input__span">Country</span>
           </label>
         </div>

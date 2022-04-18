@@ -3,10 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import ListItemImg from "../../atoms/list-item-img";
+import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 
 import "./style.scss";
 
 const UserAccounts = () => {
+  const [data, setData] = useOutletContext();
+
   return (
     <>
       <div className="mb-5">
@@ -25,7 +28,7 @@ const UserAccounts = () => {
               />
             </div>
             <div className="accounts__email fw-bolder flex__1 mx-2 text-break">
-              bill_johnson@gmail.com
+              {data.email}
             </div>
             <Button variant="link" className="text-danger">
               unlink
@@ -41,7 +44,7 @@ const UserAccounts = () => {
               />
             </div>
             <div className="accounts__email fw-bolder flex__1 mx-2 text-break">
-              bill_johnson@gmail.com
+              {data.email}
             </div>
             <Button variant="link" className="text-danger">
               unlink

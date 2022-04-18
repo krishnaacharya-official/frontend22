@@ -16,11 +16,16 @@ import CompanySettings from "../company-settings";
 import AdminBilling from "../admin-billing";
 import AdminControl from "../admin-control";
 import AdminAdmin from "../admin-admin";
+import { Outlet, Link, useLocation,useOutletContext } from "react-router-dom";
+
 
 import "./style.scss";
 
 const AdminSettingsTab = () => {
-  const [selectedTabKey, setSelectedTabKey] = useState("billing");
+  const [data, setData] = useOutletContext();
+  // console.log(data)
+
+  const [selectedTabKey, setSelectedTabKey] = useState("");
   return (
     <>
       <header className="py-sm-2 pb-2 w-100 d-sm-flex align-items-center">
@@ -35,8 +40,11 @@ const AdminSettingsTab = () => {
         onSelect={(key) => setSelectedTabKey(key)}
       >
         <div className="d-md-flex align-items-start">
-          <SettingsTabsAdmin activeKey={selectedTabKey} />
-          <Tab.Content className="user__settings-content flex-grow-1">
+          <SettingsTabsAdmin activeKey={selectedTabKey} data={data} />
+          <div className="user__settings-content flex-grow-1">
+            <Outlet context={[data, setData]}  />
+          </div>
+          {/* <Tab.Content className="user__settings-content flex-grow-1">
             <Tab.Pane eventKey="company">
               <CompanySettings />
             </Tab.Pane>
@@ -52,7 +60,7 @@ const AdminSettingsTab = () => {
             <Tab.Pane eventKey="controls">
               <AdminControl />
             </Tab.Pane>
-          </Tab.Content>
+          </Tab.Content> */}
         </div>
       </Tab.Container>
     </>

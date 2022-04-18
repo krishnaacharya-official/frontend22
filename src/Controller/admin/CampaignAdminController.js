@@ -40,11 +40,13 @@ function CampaignAdminController() {
         category: "",
         error: [],
         slug: "",
+        headline: "",
+        promoVideo:"",
         status: 1
     })
 
     const {
-        name, error, email, slug, password, id, status, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
+        name, error, email,promoVideo, slug, password, id, status,headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -77,6 +79,8 @@ function CampaignAdminController() {
             category: "",
             error: [],
             slug: "",
+            headline: "",
+            promoVideo: "",
             status: 1
         })
     }
@@ -144,7 +148,11 @@ function CampaignAdminController() {
             city: "required",
             stateid: "required",
             category: "required",
-            slug: 'required'
+            slug: 'required',
+            headline: 'required',
+            promoVideo: 'required'
+
+
 
 
 
@@ -170,6 +178,10 @@ function CampaignAdminController() {
             'city.required': 'City is Required.',
             'stateid.required': 'State is Required.',
             'slug.required': 'Slug is Required',
+            'headline.required': 'Headline is Required',
+            'promoVideo.required': 'Promo Video is Required',
+
+
 
 
 
@@ -198,6 +210,10 @@ function CampaignAdminController() {
             data.address = address
             data.category_id = category
             data.slug = slug
+            data.headline = headline
+            data.promoVideo = promoVideo
+
+
 
             setLoading(true)
             const addUser = await adminCampaignApi.add(adminAuthToken, data)
@@ -318,6 +334,8 @@ function CampaignAdminController() {
                 address: data.address,
                 category: data.category_id,
                 slug: data.slug,
+                headline: data.headline,
+                promoVideo: data.promoVideo,
                 error: [],
             })
             setLoading(false)
@@ -342,6 +360,10 @@ function CampaignAdminController() {
             city: "required",
             stateid: "required",
             category: "required",
+            headline: 'required',
+            promoVideo: 'required'
+
+
 
 
 
@@ -363,6 +385,9 @@ function CampaignAdminController() {
             'country.required': 'Country is Required.',
             'city.required': 'City is Required.',
             'stateid.required': 'State is Required.',
+            'headline.required': 'Headline is Required',
+            'promoVideo.required': 'Promo Video is Required',
+
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -392,6 +417,10 @@ function CampaignAdminController() {
             data.address = address
             data.category_id = category
             // data.status = status
+            data.headline = headline
+            data.promoVideo = promoVideo
+
+
 
 
             setLoading(true)

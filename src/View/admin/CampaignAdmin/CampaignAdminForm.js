@@ -6,6 +6,11 @@ import noimg from "../../../assets/images/noimg.jpg"
 
 export default function CampaignAdminForm(props) {
     let stateData = props.stateData
+
+    let url = stateData.promoVideo;
+    let id = url.split("?v=")[1];
+    let embedlink =url? "http://www.youtube.com/embed/" + id:"";
+
     // console.log(stateData)
     return (
         <>
@@ -48,7 +53,7 @@ export default function CampaignAdminForm(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Slug</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control " disabled={ stateData?.id ? true :false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="text" className="form-control " disabled={stateData?.id ? true : false} name='slug' id="slug" value={stateData.slug} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.slug && <p className="error">{stateData.error ? stateData.error.slug ? stateData.error.slug : "" : ""}</p>}
                         </div>
@@ -76,6 +81,32 @@ export default function CampaignAdminForm(props) {
                             <textarea className="form-control" id="description" name='description' rows="4" onChange={(e) => { props.changevalue(e) }}>{stateData.description}</textarea>
 
                             {stateData.error && stateData.error.description && <p className="error">{stateData.error ? stateData.error.description ? stateData.error.description : "" : ""}</p>}
+                        </div>
+                    </div>
+                    {/* promoVideo: req.body.promoVideo,
+                headline: req.body.headline, */}
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Headline</label>
+                        <div className="col-sm-10">
+                            <textarea className="form-control" id="headline" name='headline' rows="4" onChange={(e) => { props.changevalue(e) }}>{stateData.headline}</textarea>
+
+                            {stateData.error && stateData.error.headline && <p className="error">{stateData.error ? stateData.error.headline ? stateData.error.headline : "" : ""}</p>}
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Promo Video</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control " name='promoVideo' id="promoVideo" value={stateData.promoVideo} onChange={(e) => { props.changevalue(e) }} />
+                            {
+
+                                stateData.promoVideo &&
+
+                                <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
+                            }
+
+
+                            {stateData.error && stateData.error.promoVideo && <p className="error">{stateData.error ? stateData.error.promoVideo ? stateData.error.promoVideo : "" : ""}</p>}
                         </div>
                     </div>
 
@@ -152,7 +183,7 @@ export default function CampaignAdminForm(props) {
 
                                         return (
                                             country.status === 1 &&
-                                            <option value={country.id} selected={ Number(stateData.country) === Number(country.id)}>{country.country}</option>
+                                            <option value={country.id} selected={Number(stateData.country) === Number(country.id)}>{country.country}</option>
                                         )
 
                                     })

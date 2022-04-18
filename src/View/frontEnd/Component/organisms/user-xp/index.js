@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import IconButton from "@components/molecules/icon-button";
-
+// import IconButton from "@components/molecules/icon-button";
+import IconButton from "../../molecules/icon-button";
 // import { LadderMenuXp, XpTable, ShareWidget } from "@components/organisms";
 import ShareWidget from "../share-widget";
 import LadderMenuXp from "../ladder-menu-xp";
@@ -11,7 +11,7 @@ import AvatarImg from "../../../../../assets/images/avatar.jpeg";
 
 import "./style.scss";
 
-const UserItems = () => {
+const UserXp = () => {
   return (
     <>
       <header className="py-sm-2 pb-2 w-100 d-sm-flex align-items-center">
@@ -52,4 +52,4 @@ const UserItems = () => {
   );
 };
 
-export default UserItems;
+export default UserXp;

@@ -13,18 +13,21 @@ import "./style.scss";
 
 
 const UserSettings = () => {
+
+  const userData = JSON.parse(localStorage.getItem('userData')) ;
+
   const [state, setState] = useState({
     wishlist: false,
     linked_org: false,
   })
 
   const goBack = () => {
-    setState({...state, wishlist: false, linked_org: false });
+    setState({ ...state, wishlist: false, linked_org: false });
   };
 
-  const showWishList = () => setState({...state, wishlist: true });
+  const showWishList = () => setState({ ...state, wishlist: true });
 
-  const showOrg = () => setState({...state, linked_org: true });
+  const showOrg = () => setState({ ...state, linked_org: true });
 
   const UserButton = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -56,7 +59,7 @@ const UserSettings = () => {
                 <Button
                   variant="link"
                   className="btn__link-light px-6p text-decoration-none"
-                  onClick={()=>goBack()}
+                  onClick={() => goBack()}
                 >
                   {/* <i className="fa-solid fa-chevron-left"></i> */}
                   <FontAwesomeIcon icon={solid("chevron-left")} />
@@ -77,14 +80,14 @@ const UserSettings = () => {
                     variant="link"
                     className="p-0 ms-2 btn__link-dark text-decoration-none"
                   >
-                    David Abbott
+                    {userData?.name}
                   </Button>
                   <a
                     href="/leaderboard"
                     className="btn btn__xs rounded-pill btn__purple ms-auto"
                   >
                     {/* <i className="fa-solid fa-narwhal mr-3p"></i> */}
-                    <FontAwesomeIcon  className="mr-3p" icon={solid("narwhal")} />
+                    <FontAwesomeIcon className="mr-3p" icon={solid("narwhal")} />
                     <span className="text text__badge">Narwhal</span>
                   </a>
                 </div>
@@ -98,8 +101,9 @@ const UserSettings = () => {
                 <LinkedOrg />
               ) : (
                 <UserSettingsList
-                  onWishlistClick={()=>showWishList()}
-                  onOrgClick={()=>showOrg()}
+                  onWishlistClick={() => showWishList()}
+                  onOrgClick={() => showOrg()}
+                  userData={userData}
                 />
               )}
             </div>

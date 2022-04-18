@@ -194,7 +194,7 @@ export default function ProfileController() {
 
     return (
         <>
-            {console.log(state.error)}
+            {/* {console.log(state.error)} */}
             <FrontLoader loading={loading} />
             <Profile
                 stateData={state}

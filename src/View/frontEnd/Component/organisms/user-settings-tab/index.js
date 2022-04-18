@@ -16,11 +16,14 @@ import UserProfile from "../user-profile";
 import UserBilling from "../user-billing";
 import UserControl from "../user-control";
 import UserAdmin from "../user-admin";
+import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 
 import "./style.scss";
 
-const UserSettingsTab = (props) => {
-  const [selectedTabKey, setSelectedTabKey] = useState("profile");
+const UserSettingsTab = () => {
+  const [selectedTabKey, setSelectedTabKey] = useState("");
+  const [data, setData] = useOutletContext();
+
   return (
     <>
       <header className="py-sm-2 pb-2 w-100 d-sm-flex align-items-center">
@@ -35,10 +38,14 @@ const UserSettingsTab = (props) => {
         onSelect={(key) => setSelectedTabKey(key)}
       >
         <div className="d-md-flex align-items-start">
-          <SettingsTabs activeKey={selectedTabKey} />
-          <Tab.Content className="user__settings-content flex-grow-1">
+          <SettingsTabs activeKey={selectedTabKey} data={data} />
+
+          <div className="user__settings-content flex-grow-1">
+            <Outlet context={[data, setData]} />
+          </div>
+          {/* <Tab.Content className="user__settings-content flex-grow-1">
             <Tab.Pane eventKey="profile">
-              <UserProfile organizationDetails={props.organizationDetails}  />
+              <UserProfile />
             </Tab.Pane>
             <Tab.Pane eventKey="accounts">
               <UserAccounts />
@@ -52,7 +59,7 @@ const UserSettingsTab = (props) => {
             <Tab.Pane eventKey="administrator">
               <UserAdmin />
             </Tab.Pane>
-          </Tab.Content>
+          </Tab.Content> */}
         </div>
       </Tab.Container>
     </>

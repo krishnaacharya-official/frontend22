@@ -47,6 +47,10 @@ function adminCampaign() {
         data.append('address', cdata.address);
         data.append('category_id', cdata.category_id);
         data.append('slug', cdata.slug);
+        data.append('headline', cdata.headline);
+        data.append('promoVideo', cdata.promoVideo);
+
+
 
 
         let res = {};
@@ -89,6 +93,10 @@ function adminCampaign() {
         data.append('state_id', cdata.state_id);
         data.append('address', cdata.address);
         data.append('category_id', cdata.category_id);
+        data.append('headline', cdata.headline);
+        data.append('promoVideo', cdata.promoVideo);
+
+
 
         let res = {};
         await axios({

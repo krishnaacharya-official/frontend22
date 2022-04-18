@@ -49,9 +49,57 @@ function user() {
 
     }
 
+    const getUserDetails = async (authToken) => {
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}user/details`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const getUserOrderDetails = async (authToken,pageNo) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}user/orders`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:{
+                pageNo:pageNo
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
     return {
         updateProfile,
-        updatePassword
+        updatePassword,
+        getUserDetails,
+        getUserOrderDetails
 
     }
 }

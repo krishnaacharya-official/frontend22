@@ -39,6 +39,24 @@ import AdminActivity from '../View/frontEnd/Component/organisms/admin-activity';
 import AdminTax from '../View/frontEnd/Component/organisms/admin-tax';
 import AdminProjects from '../View/frontEnd/Component/organisms/admin-projects';
 import AdminSettingsTab from '../View/frontEnd/Component/organisms/admin-settings-tab';
+import CompanySettings from '../View/frontEnd/Component/organisms/company-settings'
+import PaymentMethod from '../View/frontEnd/Component/organisms/payment-method';
+import AdminAdmin from '../View/frontEnd/Component/organisms/admin-admin';
+import AdminBilling from '../View/frontEnd/Component/organisms/admin-billing';
+import AdminControl from '../View/frontEnd/Component/organisms/admin-control';
+import UserDetail from '../View/frontEnd/user-detail';
+import UserDashboard from '../View/frontEnd/Component/organisms/user-dashboard';
+import UserItems from '../View/frontEnd/Component/organisms/user-items';
+import UserXp from '../View/frontEnd/Component/organisms/user-xp';
+import UserTax from '../View/frontEnd/Component/organisms/user-tax';
+import UserHistory from '../View/frontEnd/Component/organisms/user-history';
+import UserSettings from '../View/frontEnd/Component/organisms/user-settings';
+import UserSettingsTab from '../View/frontEnd/Component/organisms/user-settings-tab';
+import UserProfile from '../View/frontEnd/Component/organisms/user-profile';
+import UserAccounts from '../View/frontEnd/Component/organisms/user-accounts';
+import UserBilling from '../View/frontEnd/Component/organisms/user-billing';
+import UserControl from '../View/frontEnd/Component/organisms/user-control';
+import UserAdmin from '../View/frontEnd/Component/organisms/user-admin';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -76,11 +94,13 @@ export default function MainRoutes() {
                         <Route path="/campaign/:name/activity" element={<AdminActivity />} />
                         <Route path="/campaign/:name/tax" element={<AdminTax />} />
                         <Route path="/campaign/:name/project" element={<AdminProjects />} />
-                        <Route path="/campaign/:name/settings" element={<AdminSettingsTab />} />
-
-
-
-
+                        <Route path="/campaign/:name/settings" element={<AdminSettingsTab />} >
+                            <Route path="/campaign/:name/settings/company" element={<CompanySettings />} />
+                            <Route path="/campaign/:name/settings/paymentMethod" element={<PaymentMethod />} />
+                            <Route path="/campaign/:name/settings/administrators" element={<AdminAdmin />} />
+                            <Route path="/campaign/:name/settings/billing" element={<AdminBilling />} />
+                            <Route path="/campaign/:name/settings/controls" element={<AdminControl />} />
+                        </Route>
                     </Route>
                 </Routes>
             }
@@ -156,9 +176,29 @@ export default function MainRoutes() {
                         <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
                         <Route path="/thankyou" element={<ThankYou />} />
-
-
                         <Route path="*" element={<HomeController />} />
+                        <Route path="user" element={<UserDetail />} >
+                            <Route path="/user/:name/dashboard" element={<UserDashboard />} />
+                            <Route path="/user/:name/items" element={<UserItems />} />
+                            <Route path="/user/:name/xp" element={<UserXp />} />
+                            <Route path="/user/:name/tax" element={<UserTax />} />
+                            <Route path="/user/:name/history" element={<UserHistory />} />
+                            <Route path="/user/:name/settings" element={<UserSettingsTab />} >
+                                <Route path="/user/:name/settings/profile" element={<UserProfile />} />
+                                <Route path="/user/:name/settings/accounts" element={<UserAccounts />} />
+                                <Route path="/user/:name/settings/billing" element={<UserBilling />} />
+                                <Route path="/user/:name/settings/controls" element={<UserControl />} />
+                                <Route path="/user/:name/settings/administrator" element={<UserAdmin />} />
+
+
+
+
+
+
+
+                            </Route>
+
+                        </Route>
 
                     </Route>
                 </Routes>

@@ -164,6 +164,7 @@ function AdminDetail() {
                           <AdminTabs
                             _onClick={() => setDropdown(false)}
                             activeKey={selectedTabKey}
+                            data={data}
                           />
                         </div>
                       ) : (

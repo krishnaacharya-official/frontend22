@@ -106,7 +106,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
         </Link>
 
 
-        <Link to={'/campaign/' + data?.slug + '/settings'}>
+        <Link to={'/campaign/' + data?.slug + '/settings/company'}>
           <Nav.Item className="" onClick={_onClick}>
             <Nav.Link
               eventKey="settings"
