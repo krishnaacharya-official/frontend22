@@ -87,7 +87,7 @@ export default function MainRoutes() {
                 CampaignAdminAuthToken && location.pathname.startsWith('/campaign') &&
 
                 <Routes>
-                    <Route path="campaign" element={<AdminDetail />} >
+                    <Route path="/" element={<AdminDetail />} >
                         <Route path="/campaign/:name/dashboard" element={<AdminDashboard />} />
                         <Route path="/campaign/:name" element={<AdminDashboard />} />
                         <Route path="/campaign/:name/posts" element={<AdminPosts />} />
@@ -101,6 +101,8 @@ export default function MainRoutes() {
                             <Route path="/campaign/:name/settings/billing" element={<AdminBilling />} />
                             <Route path="/campaign/:name/settings/controls" element={<AdminControl />} />
                         </Route>
+                        <Route path="*" element={<AdminDashboard />} />
+
                     </Route>
                 </Routes>
             }

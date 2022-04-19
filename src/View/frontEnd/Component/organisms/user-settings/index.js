@@ -14,7 +14,9 @@ import "./style.scss";
 
 const UserSettings = () => {
 
-  const userData = JSON.parse(localStorage.getItem('userData')) ;
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+
 
   const [state, setState] = useState({
     wishlist: false,
@@ -80,16 +82,23 @@ const UserSettings = () => {
                     variant="link"
                     className="p-0 ms-2 btn__link-dark text-decoration-none"
                   >
-                    {userData?.name}
+                    {userData?.name ? userData.name : CampaignAdmin?.name}
                   </Button>
-                  <a
-                    href="/leaderboard"
-                    className="btn btn__xs rounded-pill btn__purple ms-auto"
-                  >
-                    {/* <i className="fa-solid fa-narwhal mr-3p"></i> */}
-                    <FontAwesomeIcon className="mr-3p" icon={solid("narwhal")} />
-                    <span className="text text__badge">Narwhal</span>
-                  </a>
+                  {
+                    userData &&
+                    <a
+                      href="/leaderboard"
+                      className="btn btn__xs rounded-pill btn__purple ms-auto"
+                    >
+
+
+                      <>
+                        <FontAwesomeIcon className="mr-3p" icon={solid("narwhal")} />
+                        <span className="text text__badge">Narwhal</span>
+                      </>
+
+                    </a>
+                  }
                 </div>
               )}
             </div>

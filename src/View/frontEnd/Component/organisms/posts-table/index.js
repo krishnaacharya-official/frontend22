@@ -6,6 +6,9 @@ import ListItemImg from "../../atoms/list-item-img";
 import "./style.scss";
 import React, { useEffect } from "react";
 import helper from "../../../../../Common/Helper";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import moment from "moment";
 
 const PostsTable = (props) => {
   // let organizationDetails = props.organizationDetails
@@ -26,12 +29,22 @@ const PostsTable = (props) => {
             <Button
               variant="link"
               className="btn__sort px-0 text-decoration-none"
+              onClick={() => props.handleSortingChange('created_at')}
             >
               Date
-              <FontAwesomeIcon
-                icon={solid("angle-up")}
-                className="small ml-6p"
-              />
+              {
+                props.sortField === 'created_at' && props.order === 'asc' ?
+                  <FontAwesomeIcon
+                    icon={solid("angle-up")}
+                    className="small ml-6p"
+                  />
+                  :
+                  <FontAwesomeIcon
+                    icon={solid("angle-down")}
+                    className="small ml-6p"
+                  />
+              }
+
             </Button>
           </div>
           <Button
@@ -56,7 +69,7 @@ const PostsTable = (props) => {
                       <div className="d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
                           <div className="text-success fw-bold fs-5">${product.price}</div>
-                          <div className="text-light fs-8">11 months ago</div>
+                          <div className="text-light fs-8">{moment(product.created_at).fromNow()}</div>
                         </div>
                         <ListItemImg
                           size={75}
@@ -147,7 +160,7 @@ const PostsTable = (props) => {
                   </li>
                 )
               })
-              : <li className="table__list-item p-2 fw-bold">No entries to show</li>} 
+              : <li className="table__list-item p-2 fw-bold">No entries to show</li>}
 
 
           {/* 
@@ -228,6 +241,15 @@ const PostsTable = (props) => {
           </li> */}
 
         </ul>
+
+        <div className="mt-5 d-flex justify-content-center mb-5">
+
+          {props.totalPages > 1 ?
+            < Stack spacing={2} >
+              <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+            </Stack>
+            : <></>}
+        </div>
       </div>
     </>
   );

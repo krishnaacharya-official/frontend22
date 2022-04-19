@@ -19,8 +19,8 @@ function product() {
                 data.append('galleryImg', cdata.galleryImg[i]);
             }
         }
-        if(cdata.prjects && cdata.prjects.length > 0 ){
-            data.append('projects', JSON.stringify(cdata.prjects) );
+        if (cdata.prjects && cdata.prjects.length > 0) {
+            data.append('projects', JSON.stringify(cdata.prjects));
         }
         data.append('unlimited', cdata.unlimited);
         data.append('tax', cdata.tax);
@@ -123,8 +123,8 @@ function product() {
                 data.append('galleryImg', cdata.galleryImg[i]);
             }
         }
-        if(cdata.prjects && cdata.prjects.length > 0 ){
-            data.append('projects', JSON.stringify(cdata.prjects) );
+        if (cdata.prjects && cdata.prjects.length > 0) {
+            data.append('projects', JSON.stringify(cdata.prjects));
         }
 
 
@@ -136,7 +136,7 @@ function product() {
         data.append('postTag', cdata.postTag);
 
 
- 
+
 
         data.append('needheadline', cdata.needheadline);
         data.append('galleryUrl', cdata.galleryUrl);
@@ -174,8 +174,8 @@ function product() {
         return res;
     }
 
-    
-    const listByOrganization = async (authToken,organizationId) => {
+
+    const listByOrganization = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -189,9 +189,7 @@ function product() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:{
-                organizationId:organizationId
-            }
+            data: data
 
         }).then((response) => {
             res = response
@@ -200,7 +198,7 @@ function product() {
     }
 
 
-    const publishProduct = async(authToken,id)=>{
+    const publishProduct = async (authToken, id) => {
         let res = {};
         await axios({
             method: 'Post',
@@ -215,7 +213,7 @@ function product() {
                 mode: 'no-cors',
             },
             data: {
-                id:id
+                id: id
             }
 
         }).then((response) => {
@@ -225,14 +223,14 @@ function product() {
     }
 
 
-
     return {
         add,
         list,
         deleteProduct,
         updateProduct,
         listByOrganization,
-        publishProduct
+        publishProduct,
+        
 
 
     }

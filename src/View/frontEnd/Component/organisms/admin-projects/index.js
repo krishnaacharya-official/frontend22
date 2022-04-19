@@ -39,15 +39,40 @@ const AdminProjects = () => {
 
   const { id, status, name, headline, video, description, error, images, infinite } = state
 
+  const [pageNo, setPageNo] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [totalRecord, setTotalRecord] = useState(1)
 
-  const getProjectList = async () => {
-    const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken)
+
+  const [sortField, setSortField] = useState("created_at");
+  const [order, setOrder] = useState("asc");
+
+
+  const getProjectList = async (page, field, type) => {
+
+    let formData = {}
+    // formData.organizationId = data._id
+    formData.pageNo = page
+    formData.sortField = field
+    formData.sortType = type
+    formData.filter = true
+    const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken, formData)
     if (getProjectList.data.success) {
       setProjectList(getProjectList.data.data)
+      setTotalPages(getProjectList.data.totalPages)
+      setTotalRecord(getProjectList.data.totalRecord)
     }
   }
+
+
   const getProductList = async () => {
-    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, data._id);
+    let formData = {}
+    formData.organizationId = data._id
+    formData.filter = false
+    formData.sortField = 'created_at'
+    formData.sortType = 'asc'
+    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, formData);
+
     if (getOrganizationProducts.data.success === true) {
       setProductList(getOrganizationProducts.data.data)
     }
@@ -58,7 +83,7 @@ const AdminProjects = () => {
     (async () => {
       setLoading(true)
       await getProductList()
-      await getProjectList()
+      await getProjectList(pageNo, sortField, order)
       setLoading(false)
 
     })()
@@ -333,13 +358,13 @@ const AdminProjects = () => {
     // setModal(false);
   }
 
-  const discardProject = ()=>{
+  const discardProject = () => {
     createProject(false);
     resetForm()
   }
 
 
-  
+
   const publishProject = async (id) => {
 
     const publish = await projectApi.publishProject(CampaignAdminAuthToken, id)
@@ -361,6 +386,24 @@ const AdminProjects = () => {
 
   }
 
+  const handleClick = async (e, v) => {
+
+    setPageNo(Number(v))
+    await getProjectList(Number(v), sortField, order)
+  }
+
+
+  const handleSortingChange = async (accessor) => {
+
+    const sortOrder =
+      accessor === sortField && order === "asc" ? "desc" : "asc";
+    setSortField(accessor);
+    setOrder(sortOrder);
+    await getProjectList(pageNo, accessor, sortOrder)
+
+
+  };
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -371,7 +414,7 @@ const AdminProjects = () => {
             <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">
               Projects
             </h1>
-            <span className="d-none d-sm-flex text-light fs-5 ml-2">({projectList.length})</span>
+            <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
 
             <div className="d-flex align-items-center ms-sm-auto text-nowrap">
               <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => openModel()}>Create New</Button>
@@ -384,6 +427,13 @@ const AdminProjects = () => {
             editProject={editProject}
             deleteProject={deleteProject}
             publishProject={publishProject}
+            handleClick={handleClick}
+            totalPages={totalPages}
+            totalRecord={totalRecord}
+            pageNo={pageNo}
+            handleSortingChange={handleSortingChange}
+            order={order}
+            sortField={sortField}
           />
         </div>
       ) :

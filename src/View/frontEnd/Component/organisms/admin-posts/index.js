@@ -59,6 +59,14 @@ const AdminPosts = (props) => {
   const [gallaryTempImages, setGallaryTempImages] = useState([])
   const [gallaryImages, setGallaryImages] = useState([])
 
+  const [pageNo, setPageNo] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [totalRecord, setTotalRecord] = useState(1)
+
+
+  const [sortField, setSortField] = useState("created_at");
+  const [order, setOrder] = useState("asc");
+
 
   const [state, setstate] = useState({
     id: '',
@@ -102,14 +110,24 @@ const AdminPosts = (props) => {
         setCategoryList(getcategoryList.data.data)
       }
 
-      const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken)
-      if (getProjectList.data.success) {
-        setProjectList(getProjectList.data.data)
-      }
+      await orgProjectList()
       setLoading(false)
 
     })()
   }, [])
+
+  const orgProjectList = async () => {
+    let formData = {}
+    formData.filter = false
+    formData.sortField = 'created_at'
+    formData.sortType = 'asc'
+
+    const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken, formData)
+    if (getProjectList.data.success) {
+      setProjectList(getProjectList.data.data)
+    }
+
+  }
 
   const handleDelete = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
@@ -641,23 +659,56 @@ const AdminPosts = (props) => {
   }
 
 
+
   // console.log(data)
-  const getProductList = async () => {
-    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, data._id);
+  const getProductList = async (page, field, type) => {
+    setLoading(true)
+    let formData = {}
+    formData.organizationId = data._id
+    formData.pageNo = page
+    formData.sortField = field
+    formData.sortType = type
+    formData.filter = true
+
+
+
+    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, formData);
     if (getOrganizationProducts.data.success === true) {
       setProductList(getOrganizationProducts.data.data)
+      setTotalPages(getOrganizationProducts.data.totalPages)
+      setTotalRecord(getOrganizationProducts.data.totalRecord)
     }
+    setLoading(false)
+
 
   }
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
-      await getProductList()
-      setLoading(false)
+
+      await getProductList(pageNo, sortField, order)
 
     })()
   }, [data._id, update])
+
+  const handleClick = async (e, v) => {
+
+    setPageNo(Number(v))
+    await getProductList(Number(v), sortField, order)
+  }
+
+
+  const handleSortingChange = async (accessor) => {
+
+    const sortOrder =
+      accessor === sortField && order === "asc" ? "desc" : "asc";
+    setSortField(accessor);
+    setOrder(sortOrder);
+    await getProductList(pageNo, accessor, sortOrder)
+
+
+  };
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -667,7 +718,7 @@ const AdminPosts = (props) => {
             <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">
               Posts
             </h1>
-            <span className="d-none d-sm-flex text-light fs-5 ml-2">({productList.length})</span>
+            <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
 
             <div className="d-flex align-items-center ms-sm-auto">
               <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createNewPost()}>Create New</Button>
@@ -680,6 +731,14 @@ const AdminPosts = (props) => {
             editProduct={editProduct}
             deleteProduct={deleteProduct}
             publishProduct={publishProduct}
+            handleClick={handleClick}
+            totalPages={totalPages}
+            totalRecord={totalRecord}
+            pageNo={pageNo}
+            handleSortingChange={handleSortingChange}
+            order={order}
+            sortField={sortField}
+
           />
         </div>
       ) :

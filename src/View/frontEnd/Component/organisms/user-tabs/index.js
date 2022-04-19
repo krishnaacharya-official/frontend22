@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import PropTypes from "prop-types";
 
 import { Nav } from "react-bootstrap";
@@ -23,11 +23,17 @@ const navItemStyle = {
 }
 
 function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
-
   const location = useLocation()
-  let currentOption = location.pathname.split('/')[3]
+  const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[3])
+
+  // let currentOption = location.pathname.split('/')[3]
   // let userName = data?.name
   // let newSlug =userName?.split(/\s/).join('');
+
+  useEffect(() => {
+    setCurrentOption(location.pathname.split('/')[3])
+  }, [location.pathname])
+  
 
   const userData = JSON.parse(localStorage.getItem('userData')) ;
   let newSlug =userData.name.split(/\s/).join('');

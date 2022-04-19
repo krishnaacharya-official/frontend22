@@ -8,7 +8,13 @@ import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 function UserSettingsList(props) {
   const navigate = useNavigate();
   let userData = props.userData
-  let newSlug =userData.name.split(/\s/).join('');
+  let newSlug;
+  if (userData) {
+    newSlug = userData.name.split(/\s/).join('');
+  } else {
+    newSlug = '';
+  }
+
   const logout = () => {
     localStorage.clear()
     navigate('/')
@@ -16,38 +22,52 @@ function UserSettingsList(props) {
 
   return (
     <ul className="user__settings__list list-unstyled mb-0">
-      <Link to={'/user/' + newSlug + '/dashboard/'} >
-        <UserSettingsItem
-          icon={<FontAwesomeIcon icon={solid("circle-user")} />}
-          // icon={<i className="fa-solid fa-circle-user"></i>}
-          label="Profile"
-          itemClass="border-bottom"
-        />
-      </Link>
-      <UserSettingsItem
-        // icon={<i className="fa-solid fa-heart"></i>}
-        icon={<FontAwesomeIcon icon={solid("heart")} />}
+      {
+        userData ?
+          <>
+            <Link to={'/user/' + newSlug + '/dashboard/'} >
+              <UserSettingsItem
+                icon={<FontAwesomeIcon icon={solid("circle-user")} />}
+                // icon={<i className="fa-solid fa-circle-user"></i>}
+                label="Profile"
+                itemClass="border-bottom"
+              />
+            </Link>
+            <UserSettingsItem
+              // icon={<i className="fa-solid fa-heart"></i>}
+              icon={<FontAwesomeIcon icon={solid("heart")} />}
 
-        nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
-        label="Wishlist"
-        onClick={props.onWishlistClick}
-      />
-      <UserSettingsItem
-        icon={<FontAwesomeIcon icon={solid("signature")} />}
-        nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
-        label="Linked Organisations"
-        onClick={props.onOrgClick}
-      />
-      <UserSettingsItem
-        icon={<FontAwesomeIcon icon={solid("trophy-star")} />}
-        label="Leaderboard"
-        itemClass="border-bottom"
-      />
-      <UserSettingsItem
-        icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
-        label="Sign out"
-        onClick={() => logout()}
-      />
+              nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
+              label="Wishlist"
+              onClick={props.onWishlistClick}
+            />
+            <UserSettingsItem
+              icon={<FontAwesomeIcon icon={solid("signature")} />}
+              nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
+              label="Linked Organisations"
+              onClick={props.onOrgClick}
+            />
+            <UserSettingsItem
+              icon={<FontAwesomeIcon icon={solid("trophy-star")} />}
+              label="Leaderboard"
+              itemClass="border-bottom"
+            />
+            <UserSettingsItem
+              icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
+              label="Sign out"
+              onClick={() => logout()}
+            />
+          </>
+          :
+          <>
+            <UserSettingsItem
+              icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
+              label="Sign out"
+              onClick={() => logout()}
+            />
+          </>
+      }
+
     </ul>
   );
 }

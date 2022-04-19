@@ -28,7 +28,7 @@ function project() {
 
     const add = async (authToken, cdata) => {
 
-      
+
         const data = new FormData();
 
         if (cdata.images && cdata.images.length > 0) {
@@ -65,7 +65,7 @@ function project() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
@@ -135,10 +135,10 @@ function project() {
         return res;
     }
 
-    const projectListByOrganization = async (authToken) => {
+    const projectListByOrganization = async (authToken, data) => {
         let res = {};
         await axios({
-            method: 'get',
+            method: 'post',
             url: `${helper.ApiUrl}project/organization`,
             responseType: 'json',
             headers: {
@@ -149,9 +149,7 @@ function project() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            // data:{
-            //     organizationId:organizationId
-            // }
+            data: data
 
         }).then((response) => {
             res = response
@@ -159,7 +157,7 @@ function project() {
         return res;
     }
 
-    const publishProject = async(authToken,id)=>{
+    const publishProject = async (authToken, id) => {
         let res = {};
         await axios({
             method: 'Post',
@@ -174,7 +172,7 @@ function project() {
                 mode: 'no-cors',
             },
             data: {
-                id:id
+                id: id
             }
 
         }).then((response) => {
