@@ -25,7 +25,7 @@ function user() {
         });
         return res;
     }
-    const updatePassword = async (authToken, data) =>{
+    const updatePassword = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -71,7 +71,7 @@ function user() {
         return res;
     }
 
-    const getUserOrderDetails = async (authToken,pageNo) => {
+    const getUserOrderDetails = async (authToken, pageNo) => {
 
         let res = {};
         await axios({
@@ -86,9 +86,32 @@ function user() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:{
-                pageNo:pageNo
+            data: {
+                pageNo: pageNo
             }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const userOrderItemslist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}user/order_items`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
 
         }).then((response) => {
             res = response
@@ -99,7 +122,8 @@ function user() {
         updateProfile,
         updatePassword,
         getUserDetails,
-        getUserOrderDetails
+        getUserOrderDetails,
+        userOrderItemslist
 
     }
 }

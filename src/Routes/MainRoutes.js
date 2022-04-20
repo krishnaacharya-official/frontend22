@@ -193,11 +193,6 @@ export default function MainRoutes() {
                                 <Route path="/user/:name/settings/administrator" element={<UserAdmin />} />
 
 
-
-
-
-
-
                             </Route>
 
                         </Route>
