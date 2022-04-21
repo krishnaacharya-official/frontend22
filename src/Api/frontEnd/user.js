@@ -118,12 +118,37 @@ function user() {
         });
         return res;
     }
+
+
+    const userTaxlist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}user/tax`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
     return {
         updateProfile,
         updatePassword,
         getUserDetails,
         getUserOrderDetails,
-        userOrderItemslist
+        userOrderItemslist,
+        userTaxlist
 
     }
 }

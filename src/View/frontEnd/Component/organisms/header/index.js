@@ -14,20 +14,30 @@ import "./style.scss";
 
 
 const Header = (props) => {
+
+  const adminAuthToken = localStorage.getItem('adminAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken');
+
+
   return (
     <header className="frontend_pages main-header">
       <Container className="d-flex align-items-center" fluid>
         <Logo />
-        <div className="ms-auto header__right d-flex">
-          <GeoLocation />
+        {
+          adminAuthToken || CampaignAdminAuthToken || userAuthToken &&
 
-                
-          <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem}  updateCartItem={props.updateCartItem}   />
+          <div className="ms-auto header__right d-flex">
+            <GeoLocation />
 
-          <Activity />
 
-          <UserSettings />
-        </div>
+            <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} />
+
+            <Activity />
+
+            <UserSettings />
+          </div>
+        }
       </Container>
     </header>
   );

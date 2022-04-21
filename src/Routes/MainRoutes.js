@@ -57,6 +57,9 @@ import UserAccounts from '../View/frontEnd/Component/organisms/user-accounts';
 import UserBilling from '../View/frontEnd/Component/organisms/user-billing';
 import UserControl from '../View/frontEnd/Component/organisms/user-control';
 import UserAdmin from '../View/frontEnd/Component/organisms/user-admin';
+import ResetPasswordController from '../Controller/frontEnd/ResetPasswordController';
+import ChangePassword from '../View/frontEnd/change-password';
+import Apply from '../View/frontEnd/apply';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -120,7 +123,7 @@ export default function MainRoutes() {
                     </ThemeConfig>
                     :
 
-                    !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/campaign') && !userAuthToken &&
+                    !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/campaign') && !adminAuthToken && !userAuthToken && !CampaignAdminAuthToken &&
 
                     <>
                         <Routes>
@@ -130,6 +133,10 @@ export default function MainRoutes() {
                             <Route exact path="*" element={<SigninController />} />
                             <Route exact path="/signup" element={<SignupController />} />
                             <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
+                            <Route exact path="/otp/:email" element={<ResetPasswordController />} />
+                            <Route exact path="/apply" element={<Apply />} />
+
+
 
 
                             {/* </Route> */}
@@ -173,6 +180,7 @@ export default function MainRoutes() {
                         <Route path="/" element={<HomeController />} />
 
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
+                        <Route exact path="/change-password" element={<ChangePassword />} />
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
                         <Route path="/cart" element={<CartController />} />

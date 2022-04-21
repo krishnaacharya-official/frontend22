@@ -61,17 +61,17 @@ export default function CheckoutController() {
                 setCartItem(getCartList.data.data)
 
                 let tempPriceArray = []
-               if( getCartList.data.data.length >0 ){
-                getCartList.data.data.map((item, i) => {
-                    tempPriceArray.push(item.productDetails?.price * item.quantity)
-                })
+                if (getCartList.data.data.length > 0) {
+                    getCartList.data.data.map((item, i) => {
+                        tempPriceArray.push(item.productDetails?.price * item.quantity)
+                    })
 
-                let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
-                setTotal(sum)
-               }else{
-                navigate('/')
-               }
-              
+                    let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
+                    setTotal(sum)
+                } else {
+                    navigate('/')
+                }
+
             }
             setLoading(false)
 
@@ -80,7 +80,12 @@ export default function CheckoutController() {
 
     const pay = async () => {
 
+        // if (cartItem.find(e => e.productDetails.tax === true)) {
+        //     console.log(true)
+        // } else {
+        //     console.log(false)
 
+        // }
 
         const rules = {
             cardNumber: "required",
@@ -159,6 +164,11 @@ export default function CheckoutController() {
                     orderDetails.total = total
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
+                    if (cartItem.find(e => e.productDetails.tax === true)) {
+                        orderDetails.taxRecipt = true
+                    } else {
+                        orderDetails.taxRecipt = false
+                    }
 
                     const saveOrderDetails = await orderApi.saveOrderDetails(userAuthToken, orderDetails);
 

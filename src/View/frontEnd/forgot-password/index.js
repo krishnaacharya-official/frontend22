@@ -92,13 +92,7 @@ const ForgotPassword = (props) => {
                 <Button size="lg" className="w-100 mb-4" onClick={() => props.sendOtp()}>
                   Submit
                 </Button>
-                {/* <Button
-                  variant="link"
-                  className="text-light w-100 p-0 fw-normal"
-                  
-                >
-                  Don’t have an account? Sign up
-                </Button> */}
+        
                 <Link className="text-light w-100 p-0 fw-normal" to='/signin'>Back To Sign in</Link>
 
               </form>

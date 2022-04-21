@@ -57,7 +57,7 @@ const UserAccounts = () => {
               className="mr-3p text-info"
             />
             <span className="text-light">
-              To change your password click here
+              To change your password <Link to='/change-password'>click here</Link> 
             </span>
           </div>
         </div>

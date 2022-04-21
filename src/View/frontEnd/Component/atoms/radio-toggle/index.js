@@ -12,22 +12,29 @@ const defaultProps = {
   color: "",
 };
 
-function RadioToggle({ checked, children, color,disabled, ...otherProps }) {
+function RadioToggle(props) {
+  let checked = props.checked
+  let color = '#3898ec'
+  let children = props.children
+  let disabled = false
+console.log(checked)
+
+
   const [_checked, setChecked] = useState(checked);
 
   const sharedProps = {
     checked,
     color,
     disabled,
-    ...otherProps,
+    // ...otherProps,
   };
   return (
-    <label className={`radio__toggle-label ${_checked ? 'active' : ''}`} style={{backgroundColor: _checked ? color : 'transparent', opacity: disabled ? '0.4' : 1}} onClick={() => !disabled ? setChecked(!_checked) : ''}>
-      <input type="radio" value={_checked} className="radio__toggle-input" />
-      <mark className="dot" style={{backgroundColor: !_checked ? color : 'transparent'}}></mark>
+    <label className={`radio__toggle-label ${checked ? 'active' : ''}`} style={{ backgroundColor: checked ? color : 'transparent', opacity: disabled ? '0.4' : 1 }} onClick={() => !disabled ? setChecked(!checked) : ''}>
+      <input type="radio" value={checked} className="radio__toggle-input" name={props.value} onClick={(e)=>props.onChange(e)} />
+      <mark className="dot" style={{ backgroundColor: !checked ? color : 'transparent' }}></mark>
       <span
         className="icon__toggle-icon d-flex align-items-center"
-        style={{ color: _checked ? sharedProps.activeColor : "" }}
+        style={{ color: checked ? "white" : "" }}
       >
         {children}
       </span>
