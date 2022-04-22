@@ -51,7 +51,7 @@ const ItemsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"500px",minHeight:"500px"}}>
           {
             orderItemList.length > 0 &&
             orderItemList.map((item, key) => {

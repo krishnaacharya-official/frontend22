@@ -36,8 +36,8 @@ export default function LogoOnlyLayout() {
       </HeaderStyle>
       <Routes>
         <Route exact path="/admin/login" element={<Login />} />
-        <Route exact path="/admin/register" element={<Register />} />
-        <Route exact path="/admin/otp/:email" element={<VerifyOtp />} />
+        {/* <Route exact path="/admin/register" element={<Register />} /> */}
+        {/* <Route exact path="/admin/otp/:email" element={<VerifyOtp />} /> */}
         <Route exact path="*" element={<Login />} />
 
       </Routes>

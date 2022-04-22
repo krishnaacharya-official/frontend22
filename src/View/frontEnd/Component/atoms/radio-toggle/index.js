@@ -17,7 +17,7 @@ function RadioToggle(props) {
   let color = '#3898ec'
   let children = props.children
   let disabled = false
-console.log(checked)
+// console.log(checked)
 
 
   const [_checked, setChecked] = useState(checked);

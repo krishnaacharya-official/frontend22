@@ -50,16 +50,16 @@ export default function Index(props) {
 
        
 
-        {
-            name: "Actions",
-            cell: (row) => <>
-                <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProject(row._id)}><Icon icon={trash} /></button>&nbsp;
-                <button className="btn btn-sm btn-primary" onClick={() => props.editProject(row)}><Icon icon={editfill} /></button>
-            </>,
-            ignoreRowClick: true,
-            allowOverflow: true,
-            button: true,
-        },
+        // {
+        //     name: "Actions",
+        //     cell: (row) => <>
+        //         <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProject(row._id)}><Icon icon={trash} /></button>&nbsp;
+        //         <button className="btn btn-sm btn-primary" onClick={() => props.editProject(row)}><Icon icon={editfill} /></button>
+        //     </>,
+        //     ignoreRowClick: true,
+        //     allowOverflow: true,
+        //     button: true,
+        // },
     ];
     const data = [];
     if (props.projectList && props.projectList.length > 0) {
@@ -84,13 +84,13 @@ export default function Index(props) {
                     <Typography variant="h4" gutterBottom>
                         Projects
                     </Typography>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         startIcon={<Icon icon={plusFill} />}
                         onClick={() => props.openModel()}
                     >
                         Add Project
-                    </Button>
+                    </Button> */}
                 </Stack>
                 <Card>
                     <DataTableExtensions {...tableData}>

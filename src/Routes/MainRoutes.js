@@ -109,6 +109,23 @@ export default function MainRoutes() {
                     </Route>
                 </Routes>
             }
+            {
+                CampaignAdminAuthToken && !location.pathname.startsWith('/campaign') &&
+                <Routes>
+                    <Route path="/" element={<FrontEndLayOut />} >
+                        <Route path="/" element={<HomeController />} />
+
+                        <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
+                        <Route exact path="/change-password" element={<ChangePassword />} />
+                        <Route exact path="/item/:name" element={<ItemDetailsController />} />
+                        <Route exact path="/project/:name" element={<ProjectDetailsController />} />
+                        <Route path="/cart" element={<CartController />} />
+                        <Route path="/checkout" element={<CheckoutController />} />
+                        <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="*" element={<HomeController />} />
+                    </Route>
+                </Routes>
+            }
 
             {
 
@@ -135,6 +152,8 @@ export default function MainRoutes() {
                             <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
                             <Route exact path="/otp/:email" element={<ResetPasswordController />} />
                             <Route exact path="/apply" element={<Apply />} />
+                            <Route exact path="/apply/:email" element={<Apply />} />
+
 
 
 
@@ -160,9 +179,28 @@ export default function MainRoutes() {
                         <AdminPrivateRoutes />
                     </ThemeConfig> :
 
-                    ""
+                    adminAuthToken && !location.pathname.startsWith('/admin') &&
+
+                    <Routes>
+                    {/* <Route path="/" element={<FrontEndAuthLayOut />} > */}
+                    <Route exact path="/" element={<SigninController />} />
+                    <Route exact path="/signin" element={<SigninController />} />
+                    <Route exact path="*" element={<SigninController />} />
+                    <Route exact path="/signup" element={<SignupController />} />
+                    <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
+                    <Route exact path="/otp/:email" element={<ResetPasswordController />} />
+                    <Route exact path="/apply" element={<Apply />} />
+                    {/* <Route exact path="/apply/:email" element={<Apply />} /> */}
 
 
+
+
+
+                    {/* </Route> */}
+
+
+
+                </Routes>
 
 
 

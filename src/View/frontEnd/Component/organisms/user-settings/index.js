@@ -6,7 +6,7 @@ import Avatar from "../../atoms/avatar";
 import LinkedOrg from "../../molecules/linked-org";
 import FollowingList from "../wishlist/index";
 import UserSettingsList from "./user-settings-list";
-
+import { Link } from "react-router-dom";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
 
 import "./style.scss";
@@ -77,13 +77,25 @@ const UserSettings = () => {
               ) : (
                 <div className="d-flex align-items-center w-100">
                   <Avatar avatarUrl={AvatarImg} />
-                  <Button
-                    href="#"
-                    variant="link"
-                    className="p-0 ms-2 btn__link-dark text-decoration-none"
-                  >
-                    {userData?.name ? userData.name : CampaignAdmin?.name}
-                  </Button>
+
+                  {
+                    CampaignAdmin?.name ?
+                      <Link
+                        to={'/campaign/' + CampaignAdmin?.slug + '/dashboard'}
+                        variant="link"
+                        className="p-0 ms-2 btn__link-dark text-decoration-none"
+                      >
+                        {CampaignAdmin?.name}
+                      </Link> :
+                      <Button
+                        href="#"
+                        variant="link"
+                        className="p-0 ms-2 btn__link-dark text-decoration-none"
+                      >
+                        {userData?.name ? userData.name : CampaignAdmin?.name}
+                      </Button>
+                  }
+
                   {
                     userData &&
                     <a

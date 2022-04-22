@@ -14,9 +14,37 @@ import Stack from '@mui/material/Stack';
 
 import "./style.scss";
 
+
+
 const ProjectsTable = (props) => {
 
   let projectList = props.projectList
+
+  const countProjectProcess = (data) => {
+    // console.log(data)
+    let totalQArray = []
+    let soldOutQArray = []
+    let per = 0
+
+    if (data.length > 0) {
+      data.map((p, i) => {
+        console.log(p.itemDetails)
+        totalQArray.push(Number(p.itemDetails.quantity))
+        soldOutQArray.push(Number(p.itemDetails.soldout))
+      })
+
+      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+      const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+      per = soldout / total * 100
+    } else {
+      per = 0;
+
+    }
+    return  Math.round(per);
+
+  }
 
   return (
     <>
@@ -55,11 +83,12 @@ const ProjectsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"550px",minHeight:"550px"}}>
 
           {
             projectList.length > 0 ?
               projectList.map((project, i) => {
+                // console.log(project.productDetails)
                 return (
                   <li className="table__list-item p-2" key={i}>
                     <div className="d-xl-flex align-items-center flex-grow-1">
@@ -78,12 +107,25 @@ const ProjectsTable = (props) => {
                           <div className="fw-bolder fs-5 mb-3p">{project.name}</div>
                         </div>
                       </div>
-                      <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
-                        <div className="d-flex align-items-center flex__1 mw-200">
-                          <ProgressBar variant="success" now={30} className="flex__1" />
-                          <span className="text-light ms-1 fw-bold">30%</span>
-                        </div>
-                      </div>
+
+                      {
+                        project.infinity ?
+                          <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
+                            <div className="d-flex align-items-center flex__1 mw-200">
+                              <ProgressBar variant="success" now={100} className="flex__1" />
+                              <span className="text-light ms-1 fw-bold">Infinite</span>
+                            </div>
+                          </div>
+                          :
+                          <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
+                            <div className="d-flex align-items-center flex__1 mw-200">
+                              <ProgressBar variant="success" now={countProjectProcess(project.productDetails)} className="flex__1" />
+                              <span className="text-light ms-1 fw-bold">{countProjectProcess(project.productDetails)}%</span>
+                            </div>
+                          </div>
+
+                      }
+
                       <div className="billing__buttons d-flex align-items-center">
                         <div className="ms-auto">
                           <Button variant="link" className="p-0" onClick={() => props.editProject(project)}>

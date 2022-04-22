@@ -9,6 +9,7 @@ import helper from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const PostsTable = (props) => {
   // let organizationDetails = props.organizationDetails
@@ -58,7 +59,7 @@ const PostsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"600px",minHeight:"600px"}}>
           {
             productList.length > 0 ?
               productList.map((product, i) => {
@@ -80,13 +81,13 @@ const PostsTable = (props) => {
                           <div className="fs-7 text-light mb-6p">
                             {product.brand}
                           </div>
-                          <Button variant="link" className="text-light p-0 fw-normal">
+                          <Link variant="link" className="text-light p-0 fw-normal" to={'/item/'+product.slug}>
                             <FontAwesomeIcon
                               icon={regular("square-up-right")}
                               className="me-1"
                             />{" "}
                             Go to Post
-                          </Button>
+                          </Link>
                         </div>
                       </div>
                       <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">

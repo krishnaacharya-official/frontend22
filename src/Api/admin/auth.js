@@ -7,7 +7,7 @@ function auth() {
         let res = {};
         await axios({
             method: 'Post',
-            url: `${helper.ApiUrl}auth/signin`,
+            url: `${helper.ApiUrl}auth/admin_signin`,
             responseType: 'json',
             headers: {
                 "Access-Control-Allow-Origin": "*",

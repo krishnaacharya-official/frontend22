@@ -41,12 +41,12 @@ function CampaignAdminController() {
         error: [],
         slug: "",
         headline: "",
-        promoVideo:"",
+        promoVideo: "",
         status: 1
     })
 
     const {
-        name, error, email,promoVideo, slug, password, id, status,headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
+        name, error, email, promoVideo, slug, password, id, status, headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -301,13 +301,13 @@ function CampaignAdminController() {
             // }
             // console.log(data)
             setLoading(true)
-            if (data.country_id && data.country_id !== null && data.country_id > 0  ) {
+            if (data.country_id && data.country_id !== null && data.country_id > 0) {
                 const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
                 if (getCountryStateList.data.success === true) {
                     setStateList(getCountryStateList.data.data)
                 }
             }
-            if (data.state_id && data.state_id !== null && data.state_id > 0 ) {
+            if (data.state_id && data.state_id !== null && data.state_id > 0) {
                 const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
                 if (getStateCityList.data.success === true) {
                     setCityList(getStateCityList.data.data)
@@ -349,19 +349,19 @@ function CampaignAdminController() {
 
         const rules = {
             name: "required",
-            description: "required",
-            twitter: "required",
-            facebook: "required",
-            linkedin: "required",
-            url: "required",
-            address: "required",
+            // description: "required",
+            // twitter: "required",
+            // facebook: "required",
+            // linkedin: "required",
+            // url: "required",
+            // address: "required",
 
-            country: "required",
-            city: "required",
-            stateid: "required",
+            // country: "required",
+            // city: "required",
+            // stateid: "required",
             category: "required",
-            headline: 'required',
-            promoVideo: 'required'
+            // headline: 'required',
+            // promoVideo: 'required'
 
 
 
@@ -445,7 +445,7 @@ function CampaignAdminController() {
 
 
         }).catch(errors => {
-            // console.log(errors)
+            console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {

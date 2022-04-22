@@ -46,7 +46,7 @@ const TaxTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"550px",minHeight:"550px"}}>
 
           {
             props.taxList.length > 0 ?

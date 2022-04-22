@@ -58,6 +58,7 @@ const AdminProjects = () => {
     formData.filter = true
     const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken, formData)
     if (getProjectList.data.success) {
+      // console.log(getProjectList.data.data)
       setProjectList(getProjectList.data.data)
       setTotalPages(getProjectList.data.totalPages)
       setTotalRecord(getProjectList.data.totalRecord)

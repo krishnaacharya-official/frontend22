@@ -28,7 +28,7 @@ const HistoryList = (props) => {
   // }
   return (
     <>
-      <ul className="history__list list-unstyled mb-0">
+      <ul className="history__list list-unstyled mb-0" style={{maxHeight:"550px",minHeight:"550px"}}>
 
         {
           orderList.length > 0 ?

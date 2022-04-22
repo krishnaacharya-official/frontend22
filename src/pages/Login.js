@@ -43,10 +43,10 @@ export default function Login() {
   return (
     <RootStyle title="Login | Minimal-UI">
       <AuthLayout>
-        Apply For Campaign Admin ? &nbsp;
+        {/* Apply For Campaign Admin ? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/admin/register">
           Get started
-        </Link>
+        </Link> */}
       </AuthLayout>
 
       <MHidden width="mdDown">

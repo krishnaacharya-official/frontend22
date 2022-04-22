@@ -64,22 +64,20 @@ export default function LoginForm() {
           setLoading(false)
           ToastAlert({ msg: login.data.message, msgType: 'error' });
         } else {
-          if (login.data.roleName === "ADMIN" || login.data.roleName === "CAMPAIGN_ADMIN") {
+          if (login.data.roleName === "ADMIN") {
             if (login.data.roleName === "CAMPAIGN_ADMIN" && login.data.otp_status !== 1) {
               setLoading(false)
               ToastAlert({ msg: 'Campaign Admin not Approved.', msgType: 'error' });
             } else {
               localStorage.clear()
-
               if (login.data.roleName === "CAMPAIGN_ADMIN") {
                 localStorage.setItem('CampaignAdminAuthToken', login.data.accessToken)
                 localStorage.setItem('CampaignAdmin', JSON.stringify(login.data))
-                navigate('/campaign/' + login.data.slug+'/dashboard', { replace: true })
+                navigate('/campaign/' + login.data.slug + '/dashboard', { replace: true })
               } else {
                 localStorage.setItem('adminAuthToken', login.data.accessToken)
                 localStorage.setItem('adminData', JSON.stringify(login.data))
                 navigate('/admin/dashboard', { replace: true })
-
               }
               ToastAlert({ msg: login.data.message + " " + login.data.name, msgType: 'success' });
               setLoading(false)

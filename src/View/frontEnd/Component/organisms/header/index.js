@@ -25,7 +25,7 @@ const Header = (props) => {
       <Container className="d-flex align-items-center" fluid>
         <Logo />
         {
-          adminAuthToken || CampaignAdminAuthToken || userAuthToken &&
+          adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
 
           <div className="ms-auto header__right d-flex">
             <GeoLocation />
@@ -36,7 +36,7 @@ const Header = (props) => {
             <Activity />
 
             <UserSettings />
-          </div>
+          </div>:<></>
         }
       </Container>
     </header>

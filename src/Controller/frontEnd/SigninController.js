@@ -49,13 +49,34 @@ function SigninController() {
                     setLoading(false)
                     ToastAlert({ msg: uselogin.data.message, msgType: 'error' });
                 } else {
-                    if (uselogin.data.roleName === "USER") {
-                        localStorage.clear()
-                        localStorage.setItem('userAuthToken', uselogin.data.accessToken)
-                        localStorage.setItem('userData', JSON.stringify(uselogin.data))
-                        navigate('/', { replace: true })
-                        ToastAlert({ msg: uselogin.data.message + " " + uselogin.data.name, msgType: 'success' });
-                        setLoading(false)
+                    if (uselogin.data.roleName === "USER" || uselogin.data.roleName === "CAMPAIGN_ADMIN") {
+
+                        if (uselogin.data.roleName === "CAMPAIGN_ADMIN" && uselogin.data.otp_status !== 1) {
+                            setLoading(false)
+                            ToastAlert({ msg: 'Campaign Admin not Active.', msgType: 'error' });
+                        } else {
+                            localStorage.clear()
+
+                            if (uselogin.data.roleName === "CAMPAIGN_ADMIN") {
+                                localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
+                                localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
+                                navigate('/campaign/' + uselogin.data.slug + '/dashboard', { replace: true })
+                            } else {
+                                localStorage.setItem('userAuthToken', uselogin.data.accessToken)
+                                localStorage.setItem('userData', JSON.stringify(uselogin.data))
+                                navigate('/', { replace: true })
+
+                            }
+                              ToastAlert({ msg: uselogin.data.message + " " + uselogin.data.name, msgType: 'success' });
+                            setLoading(false)
+                        }
+
+                        // localStorage.clear()
+                        // localStorage.setItem('userAuthToken', uselogin.data.accessToken)
+                        // localStorage.setItem('userData', JSON.stringify(uselogin.data))
+                        // navigate('/', { replace: true })
+                        // ToastAlert({ msg: uselogin.data.message + " " + uselogin.data.name, msgType: 'success' });
+                        // setLoading(false)
 
                     } else {
                         setLoading(false)

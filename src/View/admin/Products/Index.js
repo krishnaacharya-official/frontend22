@@ -105,16 +105,16 @@ export default function Index(props) {
         //     button: true,
         // },
 
-        {
-            name: "Actions",
-            cell: (row) => <>
-                <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProduct(row._id)}><Icon icon={trash} /></button>&nbsp;
-                <button className="btn btn-sm btn-primary" onClick={() => props.editProduct(row)}><Icon icon={editfill} /></button>
-            </>,
-            ignoreRowClick: true,
-            allowOverflow: true,
-            button: true,
-        },
+        // {
+        //     name: "Actions",
+        //     cell: (row) => <>
+        //         {/* <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteProduct(row._id)}><Icon icon={trash} /></button>&nbsp;
+        //         <button className="btn btn-sm btn-primary" onClick={() => props.editProduct(row)}><Icon icon={editfill} /></button> */}
+        //     </>,
+        //     ignoreRowClick: true,
+        //     allowOverflow: true,
+        //     button: true,
+        // },
     ];
     const data = [];
     if (props.productList && props.productList.length > 0) {
@@ -139,13 +139,13 @@ export default function Index(props) {
                     <Typography variant="h4" gutterBottom>
                         Products
                     </Typography>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         startIcon={<Icon icon={plusFill} />}
                         onClick={() => props.openModel()}
                     >
                         Add Products
-                    </Button>
+                    </Button> */}
                 </Stack>
                 <Card>
                     <DataTableExtensions {...tableData}>

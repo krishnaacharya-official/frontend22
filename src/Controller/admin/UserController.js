@@ -220,14 +220,22 @@ function UserController() {
     const getUserRecord = async (data) => {
 
         setLoading(true)
-        const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
-        if (getCountryStateList.data.success === true) {
-            setStateList(getCountryStateList.data.data)
+
+        if (data.country_id) {
+            const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
+            if (getCountryStateList.data.success === true) {
+                setStateList(getCountryStateList.data.data)
+            }
         }
-        const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
-        if (getStateCityList.data.success === true) {
-            setCityList(getStateCityList.data.data)
+
+        if (data.state_id) {
+            const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, data.state_id);
+            if (getStateCityList.data.success === true) {
+                setCityList(getStateCityList.data.data)
+            }
         }
+
+
         setLoading(false)
         setState({
             ...state,
