@@ -1,10 +1,11 @@
-import { setData, setLogin,setCart } from "../action/userAction";
+import { setData, setLogin,setCart,setUpdateOrg } from "../action/userAction";
 
 
 const useUser = (user,userdispatch)=> {
     return {
         isLoggedIn:user.isLoggedIn,
         isUpdateCart:user.isUpdateCart,
+        isUpdateOrg:user.isUpdateOrg,
         data:user.data,
         setUserData:(data)=>{            
             userdispatch(setData(data));
@@ -14,6 +15,9 @@ const useUser = (user,userdispatch)=> {
         },
         setCart:(cartStatus)=>{
             userdispatch(setCart(cartStatus));                        
+        },
+        setUpdateOrg:(cartStatus)=>{
+            userdispatch(setUpdateOrg(cartStatus));                        
         },
         logout:()=>{
             localStorage.clear();

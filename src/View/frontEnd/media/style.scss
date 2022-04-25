@@ -1,0 +1,35 @@
+.media__box {
+  overflow: hidden;
+  height: 150px;
+  @include media-breakpoint-up(sm) {
+    height: 100px;
+    width: 175px;
+  }
+  // media__box--lg
+  &--lg {
+    height: 229px;
+    width: auto;
+  }
+
+  .btn__wrap {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: all 0.25s;
+    background-color: hsla(0, 0%, 100%, 0.75);
+  }
+
+  &:hover {
+    .btn__wrap {
+      opacity: 1;
+    }
+  }
+}
+
+.media__icon {
+  width: 42px;
+  height: 42px;
+}

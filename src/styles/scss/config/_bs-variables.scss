@@ -10,12 +10,12 @@ $gray-400: #9796b1;
 $gray-500: #6f6f90;
 $gray-600: #6d6d86;
 $gray-700: #585a83;
-$gray-800: #3e4155;
+$gray-800: #3d4279;
 
 $body-color: $gray-700;
 
 $darkest: #001429;
-$dark: $gray-700;
+$dark: $gray-800;
 $light: $gray-400;
 $border-color: #e6e6e6;
 $hr-border-color: #e6e6e6;
@@ -149,6 +149,8 @@ $badge-border-radius: 2px;
 $badge-padding-x: 1em;
 
 $enable-shadows: true;
+$btn-box-shadow: none;
+
 $dropdown-border-width: 0;
 $dropdown-box-shadow: 6px 6px 18px 1px rgb(0 0 0 / 10%);
 $dropdown-padding-y: 10px;
@@ -169,8 +171,8 @@ $table-head-color: $gray-700;
 
 $input-focus-box-shadow: none;
 $input-btn-focus-width: 0;
-$input-box-shadow:  none;
-$input-focus-box-shadow:  none;
+$input-box-shadow: none;
+$input-focus-box-shadow: none;
 
 // $modal-content-border-color: $border-color;
 $modal-content-box-shadow-sm-up: 0 10px 10px rgba(0, 0, 0, 0.25);
@@ -195,3 +197,11 @@ $popover-body-padding-y: 0;
 $popover-body-padding-x: 0;
 
 $dropdown-divider-bg: #c4c4c4;
+
+$accordion-button-active-bg: transparent;
+$accordion-button-focus-box-shadow: none;
+$accordion-button-active-color: $dark;
+
+$form-check-input-border: 2px solid $info;
+$form-check-input-checked-bg-color: $info;
+$form-check-input-border-radius: 0;

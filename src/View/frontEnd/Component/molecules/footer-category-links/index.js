@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 import "./style.scss";
 
 const propTypes = {
@@ -22,14 +22,14 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
       </a>
       <ul className="list-unstyled footer__links">
         <li className="footer__link-item">
-          <a href="/about-us" className="footer__link">
+          <Link to="/about-us" className="footer__link">
             About Us
-          </a>
+          </Link>
         </li>
         <li className="footer__link-item">
-          <a href="/media" className="footer__link">
+          <Link to="/media" className="footer__link">
             Press &amp; Media
-          </a>
+          </Link>
         </li>
         <li className="footer__link-item">
           <a href="/leaderboard" className="footer__link">
@@ -37,14 +37,14 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
           </a>
         </li>
         <li className="footer__link-item">
-          <a href="/xp" className="footer__link">
+          <Link to="/xp" className="footer__link">
             XP
-          </a>
+          </Link>
         </li>
         <li className="footer__link-item">
-          <a href="/ranks" className="footer__link">
+          <Link to="/ranks" className="footer__link">
             Ranks
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

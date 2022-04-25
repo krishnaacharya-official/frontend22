@@ -1,0 +1,18 @@
+@import "~bootstrap/scss/accordion";
+
+
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.faq__accordion {
+  .accordion-button {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .accordion-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

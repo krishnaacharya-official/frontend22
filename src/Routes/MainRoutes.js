@@ -59,7 +59,18 @@ import UserControl from '../View/frontEnd/Component/organisms/user-control';
 import UserAdmin from '../View/frontEnd/Component/organisms/user-admin';
 import ResetPasswordController from '../Controller/frontEnd/ResetPasswordController';
 import ChangePassword from '../View/frontEnd/change-password';
-import Apply from '../View/frontEnd/apply';
+import ApplyOrganizationController from '../Controller/frontEnd/ApplyOrganizationController';
+import AboutController from '../Controller/frontEnd/AboutController';
+import Media from '../View/frontEnd/media';
+import Xp from '../View/frontEnd/xp';
+import Ranks from '../View/frontEnd/ranks';
+import Partnership from '../View/frontEnd/partnership';
+import Sponsors from '../View/frontEnd/sponsors';
+import ItemTags from '../View/frontEnd/item-tags';
+import Help from '../View/frontEnd/help';
+import HelpCategory from '../View/frontEnd/help-category';
+import HelpArticle from '../View/frontEnd/help-article';
+import HelpContact from '../View/frontEnd/help-contact';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -114,7 +125,9 @@ export default function MainRoutes() {
                 <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
-
+                        <Route path="/xp" element={<Xp />} />
+                        <Route path="/media" element={<Media />} />
+                        <Route path="/about-us" element={<AboutController />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
                         <Route exact path="/change-password" element={<ChangePassword />} />
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
@@ -144,24 +157,13 @@ export default function MainRoutes() {
 
                     <>
                         <Routes>
-                            {/* <Route path="/" element={<FrontEndAuthLayOut />} > */}
                             <Route exact path="/" element={<SigninController />} />
                             <Route exact path="/signin" element={<SigninController />} />
-                            <Route exact path="*" element={<SigninController />} />
                             <Route exact path="/signup" element={<SignupController />} />
                             <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
                             <Route exact path="/otp/:email" element={<ResetPasswordController />} />
-                            <Route exact path="/apply" element={<Apply />} />
-                            <Route exact path="/apply/:email" element={<Apply />} />
-
-
-
-
-
-                            {/* </Route> */}
-
-
-
+                            <Route exact path="/apply" element={<ApplyOrganizationController />} />
+                            <Route exact path="*" element={<SigninController />} />
                         </Routes>
                     </>
 
@@ -182,41 +184,33 @@ export default function MainRoutes() {
                     adminAuthToken && !location.pathname.startsWith('/admin') &&
 
                     <Routes>
-                    {/* <Route path="/" element={<FrontEndAuthLayOut />} > */}
-                    <Route exact path="/" element={<SigninController />} />
-                    <Route exact path="/signin" element={<SigninController />} />
-                    <Route exact path="*" element={<SigninController />} />
-                    <Route exact path="/signup" element={<SignupController />} />
-                    <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
-                    <Route exact path="/otp/:email" element={<ResetPasswordController />} />
-                    <Route exact path="/apply" element={<Apply />} />
-                    {/* <Route exact path="/apply/:email" element={<Apply />} /> */}
-
-
-
-
-
-                    {/* </Route> */}
-
-
-
-                </Routes>
-
-
+                        <Route exact path="/" element={<SigninController />} />
+                        <Route exact path="/signin" element={<SigninController />} />
+                        <Route exact path="*" element={<SigninController />} />
+                        <Route exact path="/signup" element={<SignupController />} />
+                        <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
+                        <Route exact path="/otp/:email" element={<ResetPasswordController />} />
+                        <Route exact path="/apply" element={<ApplyOrganizationController />} />
+                    </Routes>
 
             }
-
-
-
-
-
 
             {
                 userAuthToken && !location.pathname.startsWith('/admin') &&
                 <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
-
+                        <Route path="/about-us" element={<AboutController />} />
+                        <Route path="/xp" element={<Xp />} />
+                        <Route path="/partnership" element={<Partnership />} />
+                        <Route path="/sponsors" element={<Sponsors />} />
+                        <Route path="/help" element={<Help />} />
+                        <Route path="/help-category" element={<HelpCategory />} />
+                        <Route path="/help-article" element={<HelpArticle />} />
+                        <Route path="/help-contact" element={<HelpContact />} />
+                        <Route path="/item-tags" element={<ItemTags />} />
+                        <Route path="/media" element={<Media />} />
+                        <Route path="/ranks" element={<Ranks />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
                         <Route exact path="/change-password" element={<ChangePassword />} />
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
@@ -224,7 +218,6 @@ export default function MainRoutes() {
                         <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
                         <Route path="/thankyou" element={<ThankYou />} />
-                        <Route path="*" element={<HomeController />} />
                         <Route path="user" element={<UserDetail />} >
                             <Route path="/user/:name/dashboard" element={<UserDashboard />} />
                             <Route path="/user/:name/items" element={<UserItems />} />
@@ -237,11 +230,9 @@ export default function MainRoutes() {
                                 <Route path="/user/:name/settings/billing" element={<UserBilling />} />
                                 <Route path="/user/:name/settings/controls" element={<UserControl />} />
                                 <Route path="/user/:name/settings/administrator" element={<UserAdmin />} />
-
-
                             </Route>
-
                         </Route>
+                        <Route path="*" element={<HomeController />} />
 
                     </Route>
                 </Routes>

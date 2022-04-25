@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-
+import { UserContext } from '../../../App';
 // import {
 //   AdminDashboard,
 //   AdminTabs,
@@ -43,6 +43,8 @@ import { Outlet,Link, useLocation } from "react-router-dom";
 
 
 function AdminDetail() {
+  const user = useContext(UserContext)
+
   const [selectedTabKey, setSelectedTabKey] = useState("");
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const [dropdown, setDropdown] = useState(false);
@@ -57,6 +59,7 @@ function AdminDetail() {
       setLoading(true)
       const getCampaignDetails = await adminCampaignApi.getCampaignDetails(CampaignAdminAuthToken);
       if (getCampaignDetails.data.success) {
+        console.log(getCampaignDetails.data.data.description)
         setData(getCampaignDetails.data.data)
       }
  
@@ -64,7 +67,7 @@ function AdminDetail() {
 
     })()
 
-  }, [])
+  }, [user.isUpdateOrg])
 
   // let data ={}
   return (
@@ -86,7 +89,7 @@ function AdminDetail() {
                         style={{
                           backgroundImage:
                             // "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",
-                            "url("+helper.CampaignAdminLogoPath+data?.logo+")",
+                            "url("+helper.CampaignAdminLogoPath+data?.logo+")",width:"120px"
 
                         }}
 

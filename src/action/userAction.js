@@ -8,3 +8,7 @@ export const setCart = (status)=>{
 export const setData = (data)=>{
     return {type:"data",value:data}
 }
+
+export const setUpdateOrg = (data)=>{
+    return {type:"isUpdateOrg",value:data}
+}

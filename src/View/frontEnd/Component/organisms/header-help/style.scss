@@ -1,0 +1,27 @@
+.main-header {
+  background: #fff;
+  border-bottom: 1px solid $border-color;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header__right {
+    gap: 8px;
+  }
+
+  .icon__btn {
+    align-items: center;
+    display: flex;
+    width: 30px;
+
+    .icon {
+      color: #6f6f90;
+      font-size: 21px;
+    }
+
+    .activity-icon {
+      color: rgba(146, 157, 175, 0.6);
+    }
+  }
+}

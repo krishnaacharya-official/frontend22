@@ -1,0 +1,11 @@
+.xp__btn-wrap {
+  min-width: 120px;
+}
+
+.rank__list {
+  .rank__item {
+    @include media-breakpoint-down(sm) {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}

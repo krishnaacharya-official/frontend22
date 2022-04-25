@@ -1,0 +1,58 @@
+.about {
+  .about__title {
+    line-height: 0.875;
+  }
+
+  .crypto__icon {
+    height: 36px;
+    width: 36px;
+  }
+}
+
+.about__row-1 {
+  padding: 24px 0;
+}
+
+.about__step {
+  width: 64px;
+  height: 64px;
+}
+
+.about__step-icon {
+  height: 120px;
+}
+
+.video__frame {
+  position: relative;
+  padding-top: 56%;
+
+  .video__iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.crypto__icon-24 {
+  height: 24px;
+  img {
+    height: 100%;
+  }
+}
+
+.page__circle {
+  width: 120px;
+  height: 120px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.seperator {
+  height: 2px;
+  border: 2px dashed #e6e6e6;
+}
+

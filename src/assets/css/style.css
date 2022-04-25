@@ -717,3 +717,42 @@ a.MuiListItemButton-root.active:focus {
   border: 1px solid rgb(117 111 228) !important;
   background-color: rgb(117 111 228) !important;
 }
+
+.filelabel {
+  width: 120px;
+  border: 2px dashed grey;
+  border-radius: 5px;
+  display: block;
+  padding: 5px;
+  transition: border 300ms ease;
+  cursor: pointer;
+  text-align: center;
+  margin: 0;
+}
+.filelabel i {
+  display: block;
+  font-size: 30px;
+  padding-bottom: 5px;
+}
+.filelabel i,
+.filelabel .title {
+color: grey;
+transition: 200ms color;
+}
+.filelabel:hover {
+border: 2px solid #756fe4;
+}
+.filelabel:hover i,
+.filelabel:hover .title {
+color: #756fe4;
+}
+#FileInput{
+  display:none;
+}
+
+
+
+ .input__span, .input__label textarea:focus + .input__span {
+    transform: translatey(-23px) !important;
+    outline: none ;
+}

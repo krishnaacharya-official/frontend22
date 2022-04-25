@@ -92,22 +92,6 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/cms" element={<CmsController/>} />
                     <Route exact path="/admin/partnership" element={<PartnershipInquiryController/>} />
                     <Route exact path="/admin/verified" element={<VerificationInquiryController/>} />
-
-
-
-
-
-
-
-
-
-
-                    {/* <Route exact path="*" element={<HomePage />} /> */}
-
-
-
-
-
                 </Routes>
             </MainStyle>
         </RootStyle>

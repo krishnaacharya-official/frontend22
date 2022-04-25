@@ -14,9 +14,11 @@
     pointer-events: none;
   }
 
-  input:focus + .input__span {
-    transform: translatey(-23px);
-    outline: none;
+  input, textarea {
+    &:focus + .input__span {
+      transform: translatey(-23px);
+      outline: none;
+    }
   }
   textarea:focus,
   input:focus {
@@ -32,7 +34,7 @@
     width: 100%;
     font-family: inherit;
     border-radius: 3px;
-    padding: 0px 12px;
+    padding: 12px;
     height: 54px;
     font-size: 16px;
     transition: transform 0.2s ease;
@@ -47,4 +49,16 @@
   font-weight: $font-weight-bold;
   color: $gray-500;
   margin-bottom: 8px;
+}
+
+.form-control-xl {
+  height: 54px;
+}
+
+.form-check .form-check-input {
+  margin-top: -2px;
+}
+
+.form-check {
+  padding-left: 2.25em;
 }

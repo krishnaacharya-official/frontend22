@@ -7,45 +7,48 @@ import "./style.scss";
 const propTypes = {
   label: PropTypes.string,
   size: PropTypes.string,
-  bgColor: PropTypes.string 
+  bgColor: PropTypes.string,
 };
 
 const defaultProps = {
   label: "",
-  // border: "1px",
+  // border: 1,
   bgColor: "",
 };
 
-const IconButton = ({ className, label, size, bgColor, ...otherProps }) => {
+const IconButton = ({
+  className,
+  icon,
+  label,
+  size,
+  bgColor,
+  children,
+  ...otherProps
+}) => {
   const sharedProps = {
     className,
-    size,
     ...otherProps,
   };
   return (
     <Button
       {...sharedProps}
       className={`${
-        !sharedProps.children
-          ? sharedProps.size
-            ? "btn__icon-" + sharedProps.size
-            : "btn__icon"
-          : ""
-      } ${sharedProps.className}`}
-      style={{'backgroundColor': sharedProps.bgColor, 'borderColor': sharedProps.bgColor}}
+        !children ? (size ? "btn__icon-" + size : "btn__icon") : ""
+      } ${className}`}
+      style={{ backgroundColor: bgColor, borderColor: bgColor }}
     >
       <ButtonContent
-        size={sharedProps.size}
+        size={size}
         className="d-flex align-items-center btn__content"
       >
         <span
           className={`icon__wrap d-flex align-items-center ${
-            sharedProps.children ? "me-1" : ""
+            children ? "me-1" : ""
           }`}
         >
-          {sharedProps.icon}
+          {icon}
         </span>
-        {sharedProps.children}
+        {children}
       </ButtonContent>
     </Button>
   );
