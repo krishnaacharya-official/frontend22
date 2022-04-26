@@ -756,3 +756,7 @@ color: #756fe4;
     transform: translatey(-23px) !important;
     outline: none ;
 }
+
+.basic-single{
+width: 100%;
+}
