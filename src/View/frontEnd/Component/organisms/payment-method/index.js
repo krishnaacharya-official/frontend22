@@ -6,6 +6,7 @@ import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import ListItemImg from "../../atoms/list-item-img";
 import ToggleSwitch from "../../atoms/toggle-switch";
+import { Link } from "react-router-dom";
 
 import "./style.scss";
 
@@ -59,7 +60,7 @@ const PaymentMethod = () => {
               className="mr-3p text-info"
             />
             <span className="text-light">
-              To change your password click here
+              To change your password <Link to='/change-password'>click here</Link>
             </span>
           </div>
         </div>

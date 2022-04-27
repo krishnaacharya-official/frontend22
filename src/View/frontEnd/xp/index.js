@@ -15,6 +15,8 @@ import "./style.scss";
 
 const Xp = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
   const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
     topDonator: "",
@@ -32,7 +34,7 @@ const Xp = () => {
     (async () => {
 
       setLoading(true)
-      const getSettingsValue = await settingApi.list(userAuthToken, Object.keys(state));
+      const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken :CampaignAdminAuthToken, Object.keys(state));
       if (getSettingsValue.data.data.length > 0) {
         let data = {}
 

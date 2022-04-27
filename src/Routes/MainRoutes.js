@@ -71,6 +71,7 @@ import Help from '../View/frontEnd/help';
 import HelpCategory from '../View/frontEnd/help-category';
 import HelpArticle from '../View/frontEnd/help-article';
 import HelpContact from '../View/frontEnd/help-contact';
+import Trust from '../View/frontEnd/trust';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -126,7 +127,17 @@ export default function MainRoutes() {
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
                         <Route path="/xp" element={<Xp />} />
+                        <Route exact path="/change-password" element={<ChangePassword />} />
+                        <Route path="/partnership" element={<Partnership />} />
+                        <Route path="/sponsors" element={<Sponsors />} />
+                        <Route path="/help" element={<Help />} />
+                        <Route path="/trust" element={<Trust />} />
+                        <Route path="/help-category" element={<HelpCategory />} />
+                        <Route path="/help-article" element={<HelpArticle />} />
+                        <Route path="/help-contact" element={<HelpContact />} />
+                        <Route path="/item-tags" element={<ItemTags />} />
                         <Route path="/media" element={<Media />} />
+                        <Route path="/ranks" element={<Ranks />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
                         <Route exact path="/change-password" element={<ChangePassword />} />
@@ -205,6 +216,7 @@ export default function MainRoutes() {
                         <Route path="/partnership" element={<Partnership />} />
                         <Route path="/sponsors" element={<Sponsors />} />
                         <Route path="/help" element={<Help />} />
+                        <Route path="/trust" element={<Trust />} />
                         <Route path="/help-category" element={<HelpCategory />} />
                         <Route path="/help-article" element={<HelpArticle />} />
                         <Route path="/help-contact" element={<HelpContact />} />

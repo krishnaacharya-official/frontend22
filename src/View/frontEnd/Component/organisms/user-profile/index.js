@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { validateAll } from "indicative/validator";
@@ -14,6 +14,7 @@ import locationApi from "../../../../../Api/frontEnd/location";
 import userApi from "../../../../../Api/frontEnd/user";
 import { UserContext } from '../../../../../App';
 import { Button } from "react-bootstrap";
+import helper from "../../../../../Common/Helper";
 
 
 
@@ -36,7 +37,7 @@ const UserProfile = (props) => {
 
   const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
-    id: "",
+    image: "",
     name: "",
     email: "",
     street: "",
@@ -46,8 +47,12 @@ const UserProfile = (props) => {
     zip: "",
     error: []
   })
-  const { name, email, street, city, stateId, country, zip, error } = state
+  const { name, email, street, city, stateId, country, zip, error, image } = state
   const [check, setCheck] = useState(false);
+  const [tempImg, setTempImg] = useState('')
+
+
+
 
   const getCountryList = async () => {
     let tempArray = []
@@ -132,6 +137,16 @@ const UserProfile = (props) => {
     })
   }
 
+  const changefile = (e) => {
+    let file = e.target.files[0] ? e.target.files[0] : '';
+    setTempImg(URL.createObjectURL(file))
+
+    setState({
+      ...state,
+      image: file
+    })
+  }
+
   useEffect(() => {
     (async () => {
       setLoading(true)
@@ -140,6 +155,7 @@ const UserProfile = (props) => {
       setState({
         ...state,
         name: data.name,
+        image: data.image,
         email: data.email,
         city: data.city_id,
         country: data.country_id,
@@ -147,18 +163,26 @@ const UserProfile = (props) => {
         street: data.street,
         zip: data.zip,
       })
-      // setDefaultCountry(countryList.find(x => x.value === data.country_id));
+      console.log('contex', data.country_id)
+      setDefaultCountry(countryList.find(x => x.value === data.country_id));
       // console.log(countryList.find(x => x.value === data.country_id))
       setLoading(false)
     })()
   }, [data._id])
 
+
+  const countrySelect = useRef(null)
   useEffect(() => {
-    setDefaultCountry(countryList.find(x => x.value === data.country_id));
+    // console.log('contex', data.country_id)
+
+    // countrySelect.current = (
+    //   countryList.find(x => x.value === data.country_id)
+    // )
+    // setDefaultCountry(countryList.find(x => x.value === data.country_id));
     // setDefaultState(stateList.find(x => x.value === data.state_id));
     // setDefaultCity(cityList.find(x => x.value === data.city_id));
 
-  }, [countryList, data._id])
+  }, [countryList, data.country_id])
 
 
   const updateProfile = () => {
@@ -188,8 +212,13 @@ const UserProfile = (props) => {
       fdata.state_id = stateId
       fdata.country_id = country
 
+      if (image) {
+        fdata.image = image
+
+      }
+
       setLoading(true)
-      const addUser = await userApi.updateProfile(userAuthToken, fdata, data._id)
+      const addUser = await userApi.updateProfile(userAuthToken, fdata)
       if (addUser) {
         if (!addUser.data.success) {
           setLoading(false)
@@ -210,7 +239,7 @@ const UserProfile = (props) => {
 
 
     }).catch(errors => {
-      console.log(errors)
+      // console.log(errors)
       setLoading(false)
       const formaerrror = {};
       if (errors.length) {
@@ -237,14 +266,39 @@ const UserProfile = (props) => {
   //   { value: 'vanilla', label: 'Vanilla' }
   // ]
 
-  // console.log(defaultCountry)
+
   return (
     <>
+      {/* {console.log(defaultCountry)} */}
       <FrontLoader loading={loading} />
       <div className="mb-5">
         <h4 className="fw-bolder">Personal</h4>
         <div className="text-subtext mb-3">
           This info is only shared with the Organizations you donate to
+        </div>
+
+        <div className="ml-3 mb-5">
+          <div className="row">
+
+            <label className="filelabel col-sm-3">
+              <i className="fa fa-paperclip ">
+              </i>
+              <span className="title">
+                Logo
+              </span>
+              <input className="FileUpload1" id="FileInput" name="booking_attachment" type="file" onChange={(e) => changefile(e)} />
+            </label>
+            {
+              tempImg !== "" || image !== "" ?
+                <div className="col-sm-6 ml-3">
+
+                  <img src={tempImg ? tempImg : image ? helper.DonorImagePath + image : ""} alt="user profile" className="" style={{ width: "120px", borderRadius: "9px", height: "120px", objectFit: "cover" }} />
+
+                </div>
+                : <></>
+            }
+
+          </div>
         </div>
 
         <div className="input__wrap d-flex">
@@ -299,10 +353,12 @@ const UserProfile = (props) => {
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
             {/* <input type="text" value='' /> */}
+            {/* {countrySelect.current} */}
             <Select
               className="basic-single"
               classNamePrefix="select"
               defaultValue={defaultCountry}
+              // defaultValue={countrySelect.current}
               name="country"
               options={countryList}
               onChange={onChangeCountry}
@@ -332,7 +388,7 @@ const UserProfile = (props) => {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={defaultCity} 
+              defaultValue={defaultCity}
               name="city"
               options={cityList}
               onChange={onClickCity}

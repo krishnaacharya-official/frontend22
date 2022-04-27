@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -16,7 +16,9 @@ import {
 import DefaultLayout from "../Component/templates/default-layout";
 import userApi from "../../../Api/frontEnd/user";
 import FrontLoader from "../../../Common/FrontLoader";
+import helper from "../../../Common/Helper";
 
+import { UserContext } from '../../../App';
 
 
 
@@ -24,6 +26,7 @@ import FrontLoader from "../../../Common/FrontLoader";
 import "./style.scss";
 
 function UserDetail(props) {
+  const user = useContext(UserContext)
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [selectedTabKey, setSelectedTabKey] = useState("");
   const [dropdown, setDropdown] = useState(false);
@@ -54,7 +57,7 @@ function UserDetail(props) {
 
     })()
 
-  }, [])
+  }, [user.isUpdateOrg])
 
 
   return (
@@ -74,7 +77,7 @@ function UserDetail(props) {
                       className="user__img"
                       style={{
                         backgroundImage:
-                          "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",
+                          "url(" + helper.DonorImagePath + data.image + ")",width:"120px"
                       }}
                     ></div>
                   </div>

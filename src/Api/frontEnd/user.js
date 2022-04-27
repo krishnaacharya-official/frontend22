@@ -3,11 +3,36 @@ import helper from "../../Common/Helper";
 
 function user() {
 
-    const updateProfile = async (authToken, data, id) => {
+    const updateProfile = async (authToken, cdata) => {
+
+        
+        const data = new FormData();
+        data.append('name', cdata.name);
+        data.append('street', cdata.street);
+        data.append('zip', cdata.zip);
+        data.append('city_id', cdata.city_id);
+        data.append('state_id', cdata.state_id);
+        data.append('country_id', cdata.country_id);
+
+        if (cdata.image) {
+            data.append('image', cdata.image);
+        }
+        // data.append('description', cdata.description);
+        // data.append('twitter', cdata.twitter);
+        // data.append('facebook', cdata.facebook);
+        // data.append('linkedin', cdata.linkedin);
+        // data.append('url', cdata.url);
+        // data.append('country_id', cdata.country_id);
+        // data.append('city_id', cdata.city_id);
+        // data.append('state_id', cdata.state_id);
+        // data.append('address', cdata.address);
+        // data.append('category_id', cdata.category_id);
+        // data.append('headline', cdata.headline);
+        // data.append('promoVideo', cdata.promoVideo);
         let res = {};
         await axios({
-            method: 'put',
-            url: `${helper.ApiUrl}user/${id}`,
+            method: 'post',
+            url: `${helper.ApiUrl}user/update_profile`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,

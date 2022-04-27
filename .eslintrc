@@ -86,6 +86,8 @@
     "react/jsx-boolean-value":0,
     "jsx-a11y/accessible-emoji":0,
     "jsx-a11y/no-static-element-interactions":0,
+    "no-useless-concat":0,
+
 
 
 

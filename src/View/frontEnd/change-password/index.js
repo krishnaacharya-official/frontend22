@@ -17,6 +17,7 @@ import { validateAll } from "indicative/validator";
 import "./style.scss";
 import FrontLoader from "../../../Common/FrontLoader";
 import userApi from "../../../Api/frontEnd/user";
+import adminCampaignApi from "../../../Api/admin/adminCampaign";
 
 const ChangePassword = () => {
   const [showCPassword, toggleCPassword] = useState(false);
@@ -24,6 +25,7 @@ const ChangePassword = () => {
   const [showRNPassword, toggleRNPassword] = useState(false);
   const [loading, setLoading] = useState(false)
   const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const params = useParams()
   const navigate = useNavigate()
   const [state, setstate] = useState({
@@ -73,8 +75,14 @@ const ChangePassword = () => {
       let data = {}
       data.current_password = currentPassword
       data.new_password = newPassword
+      let changePassword;
+      if (CampaignAdminAuthToken) {
+        changePassword = await adminCampaignApi.updatePassword(CampaignAdminAuthToken, data)
 
-      const changePassword = await userApi.updatePassword(userAuthToken, data)
+      } else {
+        changePassword = await userApi.updatePassword(userAuthToken, data)
+
+      }
       if (changePassword) {
         if (!changePassword.data.success) {
           setLoading(false)
@@ -135,7 +143,7 @@ const ChangePassword = () => {
 
               <InputGroup className="">
                 <Form.Control
-                  type={!showCPassword ? "password" :"text"}
+                  type={!showCPassword ? "password" : "text"}
                   size="xl"
                   name="currentPassword"
                   placeholder="Current Password"
@@ -157,7 +165,7 @@ const ChangePassword = () => {
 
               <InputGroup className="mt-3">
                 <Form.Control
-                  type={!showNPassword ? "password" :"text"}
+                  type={!showNPassword ? "password" : "text"}
                   size="xl"
                   name="newPassword"
                   placeholder="New Password"
@@ -179,7 +187,7 @@ const ChangePassword = () => {
               {error && error.newPassword && <p className="error">{error ? error.newPassword ? error.newPassword : "" : ""}</p>}
               <InputGroup className="mt-3 ">
                 <Form.Control
-                  type={!showRNPassword ? "password" :"text"}
+                  type={!showRNPassword ? "password" : "text"}
                   size="xl"
                   name="confirmPassword"
                   placeholder="Re-type New Password"
@@ -208,7 +216,7 @@ const ChangePassword = () => {
               A confirmation link will be sent to your email.
             </div> */}
 
-              <Button variant="info" size="lg" className="fw-bold mt-3" onClick={()=>change()}>
+              <Button variant="info" size="lg" className="fw-bold mt-3" onClick={() => change()}>
                 Change Password
               </Button>
             </Form>

@@ -46,7 +46,7 @@ const LadderMenuXp = () => {
           </div>
           Donated
         </li>
-        <li className="ladder__menu-item" onClick={() => setActive(false)}>
+        <li className="ladder__menu-item " onClick={() => setActive(false)}>
           <div className="ladder__icon">
             <img
               alt=""
