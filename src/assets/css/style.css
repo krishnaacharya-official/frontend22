@@ -760,3 +760,13 @@ color: #756fe4;
 .basic-single{
 width: 100%;
 }
+/* 
+.my-modalbank {
+  width: 90vw !important  ; 
+  max-width: 90vw !important;
+}  */
+
+.react-confirm-alert-body{
+  width: unset !important;
+
+}

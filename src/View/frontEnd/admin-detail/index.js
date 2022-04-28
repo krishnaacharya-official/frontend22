@@ -59,7 +59,7 @@ function AdminDetail() {
       setLoading(true)
       const getCampaignDetails = await adminCampaignApi.getCampaignDetails(CampaignAdminAuthToken);
       if (getCampaignDetails.data.success) {
-        console.log(getCampaignDetails.data.data.description)
+        // console.log(getCampaignDetails.data.data.description)
         setData(getCampaignDetails.data.data)
       }
  

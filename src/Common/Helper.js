@@ -1,4 +1,5 @@
 import Permissions from './Permissions'
+import CryptoJS from 'crypto-js';
 
 let Mode = "production"
 if (window.location.hostname === 'localhost') {
@@ -86,3 +87,14 @@ export function setCookie(cname, cvalue, exdays) {
 export function deleteCookie(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
+
+export function encryptData(val) {
+    let ciphertext = CryptoJS.AES.encrypt(val, 'my-secret-key@123').toString();
+    return ciphertext;
+}
+export function decryptData(val) {
+    let bytes = CryptoJS.AES.decrypt(val, 'my-secret-key@123');
+    let decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    return decryptedData;
+
+}

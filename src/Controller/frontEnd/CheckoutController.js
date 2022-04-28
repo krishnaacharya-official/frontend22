@@ -59,6 +59,7 @@ export default function CheckoutController() {
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
+                console.log(getCartList.data.data)
 
                 let tempPriceArray = []
                 if (getCartList.data.data.length > 0) {
@@ -152,6 +153,8 @@ export default function CheckoutController() {
                             tempObj.unlimited = item.productDetails.unlimited
                             tempObj.postTag = item.productDetails.postTag
                             tempObj.totalPrice = item.productDetails.price * item.quantity
+                            tempObj.organizationId = item.productDetails.organizationId
+
                             productDetails.push(tempObj)
                         })
                     }

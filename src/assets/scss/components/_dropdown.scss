@@ -73,6 +73,13 @@
   overflow: auto;
 }
 
+.filter__dropdown,
+.grab__dropdown {
+  &.dropdown-menu {
+    max-height: initial;
+  }
+}
+
 @include media-breakpoint-down(sm) {
   .mobile__dropdown {
     flex-direction: column;

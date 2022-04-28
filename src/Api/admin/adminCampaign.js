@@ -357,6 +357,98 @@ function adminCampaign() {
         return res;
 
     }
+
+
+    const addBankAccount = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}bank_account`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    //---------------LIST BANK ACCOUNTS----------------------
+    const listBankAccount = async (authToken) => {
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}bank_account`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    //---------------DELETE BANK ACCOUNT----------------------
+
+    const deleteBankAccount = async (authToken, id) => {
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}bank_account/${id}`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const activityList = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/activity`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
     return {
         list,
         add,
@@ -369,7 +461,11 @@ function adminCampaign() {
         cityListByState,
         getCampaignDetails,
         saveCampaignDetails,
-        updatePassword
+        updatePassword,
+        addBankAccount,
+        listBankAccount,
+        deleteBankAccount,
+        activityList
 
     }
 }

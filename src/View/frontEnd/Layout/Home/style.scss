@@ -5,21 +5,32 @@
     font-size: 1rem;
   
     .donate-value-control {
-        width: 105px;
+      width: 105px;
   
-        .input-group-text {
-            background: #fff;
-        }
+      .input-group-text {
+        background: #fff;
+      }
   
-        .form-control {
-            border-left: 0;
-            padding-left: 0;
-        }
+      .form-control {
+        border-left: 0;
+        padding-left: 0;
+      }
     }
   }
   
   @include media-breakpoint-down(sm) {
-      .btn__cart {
-          width: 100%;
-      }
+    .btn__cart {
+      width: 100%;
+    }
+  
+    .filter__dropdown-wrap,
+    .grab__dropdown-wrap,
+    .grab__info,
+    .filter__search-wrap {
+      width: 100%;
+    }
+  }
+  
+  .filter__item-icon {
+      width: 28px;
   }

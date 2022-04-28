@@ -42,15 +42,15 @@ export default function PricingFees(props) {
     const [defaultValue, setDefaultValue] = useState([])
 
     const [state, setState] = useState({
-        platformFees: 0,
-        transectionFees: 0,
+        platformFee: 0,
+        transectionFee: 0,
 
     })
-    const { platformFees, transectionFees } = state
+    const { platformFee, transectionFee } = state
 
     const [changePlatform, setChangePlatform] = useState(false)
     const [changeTransaction, setChangeTransaction] = useState(false)
-    const [totalFees, setTotalFees] = useState(Number(platformFees) + Number(transectionFees))
+    const [totalFees, setTotalFees] = useState(Number(platformFee) + Number(transectionFee))
     const [update, setUpdate] = useState(false)
     const [country, setCountry] = useState(39)
 
@@ -65,8 +65,8 @@ export default function PricingFees(props) {
         setError([])
         setState({
             ...state,
-            platformFees: pf,
-            transectionFees: tf
+            platformFee: pf,
+            transectionFee: tf
         })
         setChangePlatform(type === 'PLATFORM')
         setChangeTransaction(type === 'TRANSECTION')
@@ -78,22 +78,22 @@ export default function PricingFees(props) {
         if (type === 'PLATFORM') {
             rules = {
 
-                platformFees: "required",
+                platformFee: "required",
             }
         } else {
             rules = {
-                transectionFees: "required",
+                transectionFee: "required",
             }
         }
         // const rules = {
-        //     platformFees: "required",
-        //     transectionFees: "required",
+        //     platformFee: "required",
+        //     transectionFee: "required",
 
         // }
 
         const message = {
-            'platformFees.required': 'Platform Fee is Required.',
-            'transectionFees.required': 'STransection Fee is Required.',
+            'platformFee.required': 'Platform Fee is Required.',
+            'transectionFee.required': 'STransection Fee is Required.',
 
         }
 
@@ -103,13 +103,15 @@ export default function PricingFees(props) {
                 ...error,
                 formaerrror
             )
-            let tempData = {}
-            tempData.platformFees = platformFees
-            tempData.transectionFees = transectionFees
-            tempData.countryId = country
+            // let tempData = {}
+            // tempData.platformFee = platformFee
+            // tempData.transectionFee = transectionFee
+            // tempData.countryId = country
 
             setLoading(true)
-            const saveSettingsValue = await pricingFeesApi.save(adminAuthToken, tempData);
+            // const saveSettingsValue = await pricingFeesApi.save(adminAuthToken, tempData);
+            const saveSettingsValue = await settingApi.save(adminAuthToken, state);
+
             if (saveSettingsValue.data.success === true) {
                 setLoading(false)
                 ToastAlert({ msg: saveSettingsValue.data.message, msgType: 'success' });
@@ -147,7 +149,7 @@ export default function PricingFees(props) {
             ...state,
             [e.target.name]: value
         })
-        // setTotalFees(Number(platformFees) + Number(transectionFees))
+        // setTotalFees(Number(platformFee) + Number(transectionFee))
     }
 
     const getCountryList = async () => {
@@ -186,12 +188,12 @@ export default function PricingFees(props) {
 
             setState({
                 ...state,
-                platformFees: getSettingsValue.data.data.platformFees,
-                transectionFees: getSettingsValue.data.data.transectionFees
+                platformFee: getSettingsValue.data.data.platformFee,
+                transectionFee: getSettingsValue.data.data.transectionFee
             })
-            setPf(getSettingsValue.data.data.platformFees)
-            setTf(getSettingsValue.data.data.transectionFees)
-            setTotalFees(Number(getSettingsValue.data.data.platformFees) + Number(getSettingsValue.data.data.transectionFees))
+            setPf(getSettingsValue.data.data.platformFee)
+            setTf(getSettingsValue.data.data.transectionFee)
+            setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
 
 
         }
@@ -207,34 +209,39 @@ export default function PricingFees(props) {
             await getCountryList()
             let tempD = {}
             tempD.countryId = country
-            const getSettingsValue = await pricingFeesApi.list(adminAuthToken, tempD);
+            // const getSettingsValue = await pricingFeesApi.list(adminAuthToken, tempD);
+            const getSettingsValue = await settingApi.list(adminAuthToken, Object.keys(state));
+
             if (getSettingsValue.data.success) {
                 // console.log(getSettingsValue.data.data)
 
-                setState({
-                    ...state,
-                    platformFees: getSettingsValue.data.data.platformFees,
-                    transectionFees: getSettingsValue.data.data.transectionFees
-                })
-                setPf(getSettingsValue.data.data.platformFees)
-                setTf(getSettingsValue.data.data.transectionFees)
-                setTotalFees(Number(getSettingsValue.data.data.platformFees) + Number(getSettingsValue.data.data.transectionFees))
-
-                // let data = {}
-
-                // getSettingsValue.data.data.map((d, i) => {
-                //     data[d.name] = d.value
+                // setState({
+                //     ...state,
+                //     platformFee: getSettingsValue.data.data.platformFee,
+                //     transectionFee: getSettingsValue.data.data.transectionFee
                 // })
+                // setPf(getSettingsValue.data.data.platformFee)
+                // setTf(getSettingsValue.data.data.transectionFee)
+                // setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
 
+                let data = {}
 
-                // if (data.platformFees || data.transectionFees) {
-                //     setPf(data.platformFees)
-                //     setTf(data.transectionFees)
-                //     setTotalFees(Number(data.platformFees) + Number(data.transectionFees))
+                getSettingsValue.data.data.map((d, i) => {
+                    data[d.name] = d.value
+                })
+                setState({
+                    ...data
+                })
+                // console.log(data)
 
-                // } else {
-                //     setTotalFees(0)
-                // }
+                if (data.platformFee || data.transectionFee) {
+                    setPf(data.platformFee)
+                    setTf(data.transectionFee)
+                    setTotalFees(Number(data.platformFee) + Number(data.transectionFee))
+
+                } else {
+                    setTotalFees(0)
+                }
             }
             setLoading(false)
 
@@ -251,9 +258,9 @@ export default function PricingFees(props) {
             // if(country.country === 'Canada'){
             //    
             // }
-            // if (platformFees && transectionFees) {
+            // if (platformFee && transectionFee) {
 
-            setTotalFees(Number(platformFees) + Number(transectionFees))
+            setTotalFees(Number(platformFee) + Number(transectionFee))
 
             // } else {
             //     setTotalFees(0)
@@ -261,7 +268,7 @@ export default function PricingFees(props) {
 
 
         })()
-    }, [update, platformFees, transectionFees])
+    }, [update, platformFee, transectionFee])
 
     const lineStyle = {
 
@@ -341,9 +348,9 @@ export default function PricingFees(props) {
                         <div className='row container'>
 
                             <div className="row py-4">
-                                <div className='pb-4 d-flex'>
+                                {/* <div className='pb-4 d-flex'>
                                     <h2 className='mr-2'>Pricing and Fees in</h2>
-                                    <div style={{width:"30%"}}> 
+                                    <div style={{ width: "30%" }}>
                                         <Select
                                             isClearable={false}
                                             defaultValue={options[0]}
@@ -352,7 +359,7 @@ export default function PricingFees(props) {
 
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="col-sm-4 mb-3 mb-md-0">
                                     <div className=" text-center h-100">
 
@@ -365,15 +372,15 @@ export default function PricingFees(props) {
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="platformFees"
-                                                            name="platformFees"
-                                                            value={platformFees}
+                                                            id="platformFee"
+                                                            name="platformFee"
+                                                            value={platformFee}
                                                             onChange={(e) => changevalue(e)}
                                                         />
                                                         :
-                                                        <span className="display-4">{platformFees}%</span>
+                                                        <span className="display-4">{platformFee}%</span>
                                                 }
-                                                {error && error.platformFees && <p className="error">{error ? error.platformFees ? error.platformFees : "" : ""}</p>}
+                                                {error && error.platformFee && <p className="error">{error ? error.platformFee ? error.platformFee : "" : ""}</p>}
 
 
 
@@ -406,15 +413,15 @@ export default function PricingFees(props) {
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="transectionFees"
-                                                            name="transectionFees"
-                                                            value={transectionFees}
+                                                            id="transectionFee"
+                                                            name="transectionFee"
+                                                            value={transectionFee}
                                                             onChange={(e) => changevalue(e)}
                                                         />
                                                         :
-                                                        <span className="display-4">{transectionFees}%</span>
+                                                        <span className="display-4">{transectionFee}%</span>
                                                 }
-                                                {error && error.transectionFees && <p className="error">{error ? error.transectionFees ? error.transectionFees : "" : ""}</p>}
+                                                {error && error.transectionFee && <p className="error">{error ? error.transectionFee ? error.transectionFee : "" : ""}</p>}
                                             </div>
 
                                             <p>

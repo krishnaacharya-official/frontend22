@@ -205,3 +205,11 @@ $accordion-button-active-color: $dark;
 $form-check-input-border: 2px solid $info;
 $form-check-input-checked-bg-color: $info;
 $form-check-input-border-radius: 0;
+
+$modal-sm:                          300px !default;
+$modal-md:                          425px;
+$modal-lg:                          800px !default;
+$modal-xl:                          1140px !default;
+
+$modal-content-border-width:        0;
+$modal-content-border-radius:       8px;
