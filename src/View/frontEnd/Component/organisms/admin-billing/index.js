@@ -7,6 +7,7 @@ import Avatar from "../../atoms/avatar";
 import ToggleSwitch from "../../atoms/toggle-switch";
 
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 const AdminBilling = () => {
   return (
@@ -17,9 +18,9 @@ const AdminBilling = () => {
           <div className="text-subtext">Your current account plan:</div>
         </div>
 
-        <Button variant="info" className="rounded-pill ms-auto">
+        <Link variant="info" className=" btn btn-info rounded-pill ms-auto" to='/plans'>
           Free Plan <FontAwesomeIcon icon={solid("cloud")} className="ms-1" />
-        </Button>
+        </Link>
       </div>
 
       <div className="mb-5">

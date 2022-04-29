@@ -57,7 +57,7 @@ $width: (60, 150, 200, 310, 400);
 }
 
 // max-width utility
-$mwidth: (200, 300, 400, 600, 800, 850, 960, 1280);
+$mwidth: (200, 240, 300, 400, 600, 800, 850, 960, 1280);
 
 @each $val in $mwidth {
   // loop each properties
@@ -216,4 +216,8 @@ h6 {
   @include media-breakpoint-up(sm) {
     border-right: 1px solid $border-color;
   }
+}
+
+.bg-enterprise {
+  background-color: #10db65;
 }

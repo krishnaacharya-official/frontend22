@@ -72,6 +72,7 @@ import HelpCategory from '../View/frontEnd/help-category';
 import HelpArticle from '../View/frontEnd/help-article';
 import HelpContact from '../View/frontEnd/help-contact';
 import Trust from '../View/frontEnd/trust';
+import PlansController from '../Controller/frontEnd/PlansController';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -132,6 +133,7 @@ export default function MainRoutes() {
                         <Route path="/sponsors" element={<Sponsors />} />
                         <Route path="/help" element={<Help />} />
                         <Route path="/trust" element={<Trust />} />
+                        <Route path="/plans" element={<PlansController />} />
                         <Route path="/help-category" element={<HelpCategory />} />
                         <Route path="/help-article" element={<HelpArticle />} />
                         <Route path="/help-contact" element={<HelpContact />} />

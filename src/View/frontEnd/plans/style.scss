@@ -1,0 +1,33 @@
+.plan__info {
+  padding: 14px;
+  @include media-breakpoint-up(sm) {
+    min-height: 190px;
+  }
+}
+
+.plan__item {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  @include media-breakpoint-down(sm) {
+    &:not(:last) {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
+
+.option__item.disabled {
+  opacity: 0.35;
+}
+
+.plans__term {
+  color: #9494af;
+  font-size: 18px;
+}
+
+@include media-breakpoint-down(sm) {
+  .plan__left {
+    border-bottom: 1px solid $border-color;
+    padding-top: 16px;
+  }
+}
