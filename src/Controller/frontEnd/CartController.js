@@ -11,6 +11,8 @@ import ToastAlert from "../../Common/ToastAlert";
 export default function CartController() {
     const [cartItem, setCartItem] = useState([])
     const userAuthToken = localStorage.getItem('userAuthToken');
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const params = useParams();
@@ -21,14 +23,14 @@ export default function CartController() {
         (async () => {
             setLoading(true)
             if (userAuthToken) {
-                const verifyUser = await authApi.verifyToken(userAuthToken)
+                const verifyUser = await authApi.verifyToken(userAuthToken ?userAuthToken :CampaignAdminAuthToken)
                 if (!verifyUser.data.success) {
                     localStorage.clear()
                     navigate('/login')
                 }
             }
 
-            const getCartList = await cartApi.list(userAuthToken);
+            const getCartList = await cartApi.list(userAuthToken ?userAuthToken :CampaignAdminAuthToken);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
             }
@@ -39,7 +41,7 @@ export default function CartController() {
 
     const removeCartItem = async (id) => {
         setLoading(true)
-        const removeCartItem = await cartApi.deleteCartItem(userAuthToken, id);
+        const removeCartItem = await cartApi.deleteCartItem(userAuthToken ?userAuthToken :CampaignAdminAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
                 setLoading(false)
@@ -59,7 +61,7 @@ export default function CartController() {
 
     const clearCart = async () => {
         setLoading(true)
-        const clearCart = await cartApi.clearCart(userAuthToken);
+        const clearCart = await cartApi.clearCart(userAuthToken ?userAuthToken :CampaignAdminAuthToken);
         if (clearCart) {
             if (!clearCart.data.success) {
                 setLoading(false)
@@ -80,7 +82,7 @@ export default function CartController() {
 
     const updateCartItem = async (quentity, id) => {
         setLoading(true)
-        const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id);
+        const updateCartItem = await cartApi.updateCart(userAuthToken ?userAuthToken :CampaignAdminAuthToken, quentity, id);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
                 setLoading(false)

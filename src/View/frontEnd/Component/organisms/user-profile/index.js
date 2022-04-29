@@ -20,7 +20,8 @@ import helper from "../../../../../Common/Helper";
 
 import "./style.scss";
 
-const UserProfile = (props) => {
+const UserProfile = () => {
+  const [check, setCheck] = useState(false);
   const user = useContext(UserContext)
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [update, setUpdate] = useState(false)
@@ -48,10 +49,45 @@ const UserProfile = (props) => {
     error: []
   })
   const { name, email, street, city, stateId, country, zip, error, image } = state
-  const [check, setCheck] = useState(false);
   const [tempImg, setTempImg] = useState('')
 
+  const getCountryStateList = async (countryId) => {
+    let tempArray = []
+    const getCountryStateList = await locationApi.stateListByCountry(userAuthToken, Number(countryId));
+    if (getCountryStateList) {
+      if (getCountryStateList.data.success) {
+        if (getCountryStateList.data.data.length > 0) {
+          getCountryStateList.data.data.map((state, i) => {
+            let Obj = {}
+            Obj.value = state.id
+            Obj.label = state.state
+            tempArray.push(Obj)
+          })
+          setDefaultState([])
+          setStateList(tempArray)
+        }
+      }
+    }
+  }
 
+  const getStateCityList = async (stateId) => {
+    let tempArray = []
+    const getStateCityList = await locationApi.cityListByState(userAuthToken, stateId);
+    if (getStateCityList) {
+      if (getStateCityList.data.success) {
+        if (getStateCityList.data.data.length > 0) {
+          getStateCityList.data.data.map((city, i) => {
+            let Obj = {}
+            Obj.value = city.id
+            Obj.label = city.city
+            tempArray.push(Obj)
+          })
+          setDefaultCity([])
+          setCityList(tempArray)
+        }
+      }
+    }
+  }
 
 
   const getCountryList = async () => {
@@ -75,49 +111,56 @@ const UserProfile = (props) => {
   const onChangeCountry = async (e) => {
 
     let tempArray = []
-
+    setDefaultCountry(e)
     setState({
       ...state,
-      country: e.value
-    })
+      country: e.value,
+      stateId: "",
+      city: ""
 
-    const getCountryStateList = await locationApi.stateListByCountry(userAuthToken, e.value);
-    if (getCountryStateList) {
-      if (getCountryStateList.data.success) {
-        if (getCountryStateList.data.data.length > 0) {
-          getCountryStateList.data.data.map((state, i) => {
-            let Obj = {}
-            Obj.value = state.id
-            Obj.label = state.state
-            tempArray.push(Obj)
-          })
-          setStateList(tempArray)
-        }
-      }
-    }
+    })
+    setDefaultCity([])
+
+    await getCountryStateList(e.value)
+    // const getCountryStateList = await locationApi.stateListByCountry(userAuthToken, e.value);
+    // if (getCountryStateList) {
+    //   if (getCountryStateList.data.success) {
+    //     if (getCountryStateList.data.data.length > 0) {
+    //       getCountryStateList.data.data.map((state, i) => {
+    //         let Obj = {}
+    //         Obj.value = state.id
+    //         Obj.label = state.state
+    //         tempArray.push(Obj)
+    //       })
+    //       setStateList(tempArray)
+    //     }
+    //   }
+    // }
 
   }
   const onChangeState = async (e) => {
-
-    let tempArray = []
+    setDefaultState(e)
     setState({
       ...state,
-      stateId: e.value
+      stateId: e.value,
+      city: ""
+
     })
-    const getStateCityList = await locationApi.cityListByState(userAuthToken, e.value);
-    if (getStateCityList) {
-      if (getStateCityList.data.success) {
-        if (getStateCityList.data.data.length > 0) {
-          getStateCityList.data.data.map((city, i) => {
-            let Obj = {}
-            Obj.value = city.id
-            Obj.label = city.city
-            tempArray.push(Obj)
-          })
-          setCityList(tempArray)
-        }
-      }
-    }
+    await getStateCityList(e.value)
+    // const getStateCityList = await locationApi.cityListByState(userAuthToken, e.value);
+    // if (getStateCityList) {
+    //   if (getStateCityList.data.success) {
+    //     if (getStateCityList.data.data.length > 0) {
+    //       getStateCityList.data.data.map((city, i) => {
+    //         let Obj = {}
+    //         Obj.value = city.id
+    //         Obj.label = city.city
+    //         tempArray.push(Obj)
+    //       })
+    //       setCityList(tempArray)
+    //     }
+    //   }
+    // }
 
   }
 
@@ -131,6 +174,7 @@ const UserProfile = (props) => {
   }
 
   const onClickCity = async (e) => {
+    setDefaultCity(e)
     setState({
       ...state,
       city: e.value
@@ -147,10 +191,20 @@ const UserProfile = (props) => {
     })
   }
 
+
+
   useEffect(() => {
     (async () => {
       setLoading(true)
+      if (data.country_id) {
+        await getCountryStateList(data.country_id)
+      }
+      if (data.state_id) {
+        await getStateCityList(data.state_id)
+
+      }
       await getCountryList()
+
       // console.log(data)
       setState({
         ...state,
@@ -163,24 +217,19 @@ const UserProfile = (props) => {
         street: data.street,
         zip: data.zip,
       })
-      console.log('contex', data.country_id)
-      setDefaultCountry(countryList.find(x => x.value === data.country_id));
+      // console.log('contex', data.country_id)
+      // setDefaultCountry(countryList.find(x => x.value === data.country_id));
       // console.log(countryList.find(x => x.value === data.country_id))
       setLoading(false)
     })()
   }, [data._id])
 
 
-  const countrySelect = useRef(null)
+  // const countrySelect = useRef(null)
   useEffect(() => {
-    // console.log('contex', data.country_id)
-
-    // countrySelect.current = (
-    //   countryList.find(x => x.value === data.country_id)
-    // )
-    // setDefaultCountry(countryList.find(x => x.value === data.country_id));
-    // setDefaultState(stateList.find(x => x.value === data.state_id));
-    // setDefaultCity(cityList.find(x => x.value === data.city_id));
+    setDefaultCountry(countryList.find(x => x.value === data.country_id));
+    setDefaultState(stateList.find(x => x.value === data.state_id));
+    setDefaultCity(cityList.find(x => x.value === data.city_id));
 
   }, [countryList, data.country_id])
 
@@ -190,12 +239,22 @@ const UserProfile = (props) => {
       name: "required",
       street: "required",
       zip: "required",
+      city: "required",
+      stateId: "required",
+      country: "required",
+
     }
 
     const message = {
       'name.required': 'Name is Required.',
       'street.required': 'Street is Required.',
       'zip.required': 'zip is Required.',
+
+      'stateId.required': 'State is Required.',
+      'city.required': 'City is Required.',
+      'country.required': 'Country is Required.',
+
+
     }
 
     validateAll(state, rules, message).then(async () => {
@@ -269,7 +328,6 @@ const UserProfile = (props) => {
 
   return (
     <>
-      {/* {console.log(defaultCountry)} */}
       <FrontLoader loading={loading} />
       <div className="mb-5">
         <h4 className="fw-bolder">Personal</h4>
@@ -357,7 +415,7 @@ const UserProfile = (props) => {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={defaultCountry}
+              value={defaultCountry}
               // defaultValue={countrySelect.current}
               name="country"
               options={countryList}
@@ -366,6 +424,8 @@ const UserProfile = (props) => {
             <span className="input__span">Country</span>
           </label>
         </div>
+        {error && error.country && <p className="error">{error.country}</p>}
+
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
@@ -373,7 +433,7 @@ const UserProfile = (props) => {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={defaultState}
+              value={defaultState}
               name="state"
               options={stateList}
               onChange={onChangeState}
@@ -382,13 +442,15 @@ const UserProfile = (props) => {
             <span className="input__span">State/Province</span>
           </label>
         </div>
+        {error && error.stateId && <p className="error">{error.stateId}</p>}
+
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={defaultCity}
+              value={defaultCity}
               name="city"
               options={cityList}
               onChange={onClickCity}
@@ -397,6 +459,7 @@ const UserProfile = (props) => {
             <span className="input__span">City</span>
           </label>
         </div>
+        {error && error.city && <p className="error">{error.city}</p>}
 
 
 

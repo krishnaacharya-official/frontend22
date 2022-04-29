@@ -9,12 +9,14 @@ function userAuth() {
             method: 'Post',
             url: `${helper.ApiUrl}auth/signin`,
             responseType: 'json',
+            // withCredentials: true,
+            // credentials: 'same-origin',
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 'Access-Control-Allow-Credentials': 'true',
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                withCredentials: true,
                 mode: 'no-cors',
+
             },
             data: {
                 'email': email,
@@ -60,7 +62,7 @@ function userAuth() {
                 mode: 'no-cors',
             },
             data: {
-                email:email
+                email: email
             }
 
         }).then((response) => {
@@ -68,7 +70,7 @@ function userAuth() {
         });
         return res;
     }
-    const verifyOtp = async (email,otp,password) => {
+    const verifyOtp = async (email, otp, password) => {
         let res = {};
         await axios({
             method: 'Post',
@@ -82,9 +84,9 @@ function userAuth() {
                 mode: 'no-cors',
             },
             data: {
-                email:email,
-                otp:Number(otp),
-                password:password
+                email: email,
+                otp: Number(otp),
+                password: password
             }
 
         }).then((response) => {
