@@ -68,7 +68,7 @@ const ToggleSwitch = (props) => {
 
       <label className="--switch mt-1">
         <input type="checkbox"  id={props.id} checked={check} name={props.name} onChange={(e) => props.changevalue(e)} />
-        <span className="--slider" style={{ background: check ? 'rgb(6, 214, 160)' : 'rgb(239, 239, 239)' }}>
+        <span className="--slider" style={{ background: check ? '#06D6A0' : '#efefef' }}>
           {/* <i className="fa fa-check"></i>
           <i className="fa fa-times"></i> */}
         </span>
