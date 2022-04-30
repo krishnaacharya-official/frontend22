@@ -51,9 +51,17 @@ export function hasPermission(ROLE, MODULE) {
 }
 
 export function ImageExist(url) {
-    let img = new Image();
-    img.src = url;
-    return img.height !== 0 ? true : false;
+    // let img = new Image();
+    // img.src = url;
+    // return img.height !== 0 ? true : false;
+    
+    let http = new XMLHttpRequest();
+
+    http.open('HEAD', url, false);
+    http.send();
+
+    return http.status !== 404;
+
 }
 
 export function priceFormat(m) {

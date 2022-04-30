@@ -94,7 +94,7 @@ function SettingsTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        {/* <Link to={'/user/' +newSlug + '/settings/administrator'}>
+        <Link to={'/user/' +newSlug + '/settings/administrator'}>
           <Nav.Item>
             <Nav.Link
               eventKey="administrator"
@@ -107,7 +107,7 @@ function SettingsTabs({ activeKey, data, _onClick, ...otherProps }) {
               <div className="tab__active--indicator" style={{marginLeft: '10px'}}></div>
             </Nav.Link>
           </Nav.Item>
-        </Link> */}
+        </Link>
 
       </Nav>
     </div>

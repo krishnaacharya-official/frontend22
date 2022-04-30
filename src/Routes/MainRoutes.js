@@ -142,7 +142,7 @@ export default function MainRoutes() {
                         <Route path="/ranks" element={<Ranks />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
-                        <Route exact path="/change-password" element={<ChangePassword />} />
+                        {/* <Route exact path="/change-password" element={<ChangePassword />} /> */}
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
                         <Route path="/cart" element={<CartController />} />

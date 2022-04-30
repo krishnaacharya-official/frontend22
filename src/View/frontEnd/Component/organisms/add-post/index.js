@@ -729,7 +729,7 @@ const AddPost = (props) => {
                       <iframe src={embedlink} title="YouTube video player"></iframe>
                     </div>
                     <div className="">
-                      <div className="upload-picture-video-block mb-2">
+                      <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
                         <div className="upload-wrap" style={{ width: "100%" }}>
                           <FontAwesomeIcon
                             icon={solid("cloud-arrow-up")}

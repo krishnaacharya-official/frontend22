@@ -9,7 +9,11 @@
 
 .radio__toggle-label {
   align-items: center;
-  border-radius: 6px;
+  // border-radius: 6px;
+
+  border-radius: 22px;
+
+
   cursor: pointer;
   display: inline-flex;
   justify-content: center;
@@ -36,5 +40,12 @@
     margin-right: 6px;
     opacity: 1;
     transition: all 0.25s;
+
+
+    //
+    background: #fff !important;
+    border: 2px solid #3898ec;
+    width: 20px;
+    height: 20px;
   }
 }

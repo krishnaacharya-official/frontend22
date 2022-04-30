@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -36,10 +36,12 @@ import {
 import DefaultLayout from "../Component/templates/default-layout";
 
 import "./style.scss";
-import helper from "../../../Common/Helper"
+import helper, { ImageExist } from "../../../Common/Helper"
 import adminCampaignApi from "../../../Api/admin/adminCampaign";
 import FrontLoader from "../../../Common/FrontLoader";
-import { Outlet,Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import noimg from "../../../assets/images/noimg.jpg"
+
 
 
 function AdminDetail() {
@@ -53,6 +55,9 @@ function AdminDetail() {
   const [data, setData] = useState({});
   const location = useLocation()
   let currentOption = location.pathname.split('/')[3]
+  const [logoImg, setlogoImg] = useState("");
+
+
 
   useEffect(() => {
     (async () => {
@@ -60,6 +65,7 @@ function AdminDetail() {
       const getCampaignDetails = await adminCampaignApi.getCampaignDetails(CampaignAdminAuthToken);
       if (getCampaignDetails.data.success) {
         // console.log(getCampaignDetails.data.data.description)
+        setlogoImg(ImageExist(helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo) ? helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo : noimg) 
         setData(getCampaignDetails.data.data)
       }
  
@@ -72,7 +78,7 @@ function AdminDetail() {
   // let data ={}
   return (
     <div className="frontend_pages">
-      <FrontLoader loading={loading}/>
+      <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid>
           <Tab.Container
@@ -89,12 +95,12 @@ function AdminDetail() {
                         style={{
                           backgroundImage:
                             // "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",
-                            "url("+helper.CampaignAdminLogoPath+data?.logo+")",width:"120px"
+                            "url(" + logoImg + ")", width: "120px"
 
                         }}
 
                       >
-                        {/* <img src={helper.CampaignAdminLogoPath+organizationDetails?.logo} alt='logo' /> */}
+                        {/* <img src={ImageExist(helper.CampaignAdminLogoPath + data?.logo) ? helper.CampaignAdminLogoPath + data?.logo : noimg} alt='logo' /> */}
                       </div>
                     </div>
                   </div>
@@ -176,7 +182,7 @@ function AdminDetail() {
                     </div>
                   ) : (
                     <div className="desktop__tab">
-                      <AdminTabs activeKey={selectedTabKey} data={data}  />
+                      <AdminTabs activeKey={selectedTabKey} data={data} />
                     </div>
                   )}
                 </div>

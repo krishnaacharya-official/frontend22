@@ -16,9 +16,11 @@ import {
 import DefaultLayout from "../Component/templates/default-layout";
 import userApi from "../../../Api/frontEnd/user";
 import FrontLoader from "../../../Common/FrontLoader";
-import helper from "../../../Common/Helper";
+import helper, { ImageExist } from "../../../Common/Helper"
+
 
 import { UserContext } from '../../../App';
+import noimg from "../../../assets/images/noimg.jpg"
 
 
 
@@ -34,6 +36,7 @@ function UserDetail(props) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const [profileImg, setProfileImg] = useState("");
 
 
   useEffect(() => {
@@ -43,6 +46,7 @@ function UserDetail(props) {
       if (getUserDetails) {
         if (getUserDetails.data.success) {
           // console.log(getUserDetails.data.data)
+          setProfileImg(ImageExist(helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg) 
           setData(getUserDetails.data.data)
         } else {
           localStorage.clear()
@@ -77,7 +81,7 @@ function UserDetail(props) {
                       className="user__img"
                       style={{
                         backgroundImage:
-                          "url(" + helper.DonorImagePath + data.image + ")",width:"120px"
+                          "url(" + profileImg + ")",width:"120px"
                       }}
                     ></div>
                   </div>

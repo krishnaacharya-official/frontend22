@@ -28,6 +28,10 @@ import FrontLoader from '../../../Common/FrontLoader';
 import ToastAlert from '../../../Common/ToastAlert';
 import { hasPermission } from '../../../Common/Helper';
 import { validateAll } from "indicative/validator";
+import IconButton from '../../frontEnd/Component/molecules/icon-button';
+import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export default function Rank(props) {
     const navigate = useNavigate();
@@ -166,7 +170,16 @@ export default function Rank(props) {
                         <form className="mb-4 p-4">
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill bg-dark" style={badgeStyle}> <i className="fa fa-anchor" aria-hidden="true"></i> Captain</span>
+                                    {/* <span className="badge rounded-pill bg-dark" style={badgeStyle}> <i className="fa fa-anchor" aria-hidden="true"></i> Captain</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="#000"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("anchor")} />}
+                                        >
+                                            Captain
+                                        </IconButton>
+                                    </div>
                                 </div>
 
                                 <div className="col-sm-10">
@@ -185,7 +198,16 @@ export default function Rank(props) {
                             </div>
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#95dbb0" }}> <i className="fa fa-ship" aria-hidden="true"></i> Admiral</span>
+                                    {/* <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#95dbb0" }}> <i className="fa fa-ship" aria-hidden="true"></i> Admiral</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="#95dbb0"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("ship")} />}
+                                        >
+                                            Admiral
+                                        </IconButton>
+                                    </div>
                                 </div>
 
                                 <div className="col-sm-10">
@@ -200,7 +222,16 @@ export default function Rank(props) {
                             </div>
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#fc8c63" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Pirate</span>
+                                    {/* <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#fc8c63" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Pirate</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="#fc8c63"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("swords")} />}
+                                        >
+                                            Pirate
+                                        </IconButton>
+                                    </div>
                                 </div>
 
                                 <div className="col-sm-10">
@@ -215,7 +246,16 @@ export default function Rank(props) {
                             </div>
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#a278fc" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Narwhal</span>
+                                    {/* <span className="badge rounded-pill" style={{ ...badgeStyle, backgroundColor: "#a278fc" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Narwhal</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="#a278fc"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("narwhal")} />}
+                                        >
+                                            Narwhal
+                                        </IconButton>
+                                    </div>
                                 </div>
 
                                 <div className="col-sm-10">
@@ -232,7 +272,16 @@ export default function Rank(props) {
                             </div>
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill " style={{ ...badgeStyle, backgroundColor: "#78bafc" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Beluga</span>
+                                    {/* <span className="badge rounded-pill " style={{ ...badgeStyle, backgroundColor: "#78bafc" }}> <i className="fa fa-anchor" aria-hidden="true"></i> Beluga</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="#78bafc"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("whale")} />}
+                                        >
+                                            Beluga
+                                        </IconButton>
+                                    </div>
                                 </div>
 
                                 <div className="col-sm-10">
@@ -247,9 +296,18 @@ export default function Rank(props) {
                             </div>
                             <div className="form-group row">
                                 <div className="col-sm-2">
-                                    <span className="badge rounded-pill " style={{ ...badgeStyle, backgroundColor: "hsla(0, 96.46%, 76.14%, 1.00)" }}> <i className="fa fa-fish" aria-hidden="true"></i>   Fish</span>
-                                        {/* <svg xmlns="http://www.w3.org/2000/svg" style={{ width: "17px" }} viewBox="0 0 576 512"><path fill='white' d="M180.5 141.5C219.7 108.5 272.6 80 336 80C399.4 80 452.3 108.5 491.5 141.5C530.5 174.5 558.3 213.1 572.4 241.3C577.2 250.5 577.2 261.5 572.4 270.7C558.3 298 530.5 337.5 491.5 370.5C452.3 403.5 399.4 432 336 432C272.6 432 219.7 403.5 180.5 370.5C164.3 356.7 150 341.9 137.8 327.3L48.12 379.6C35.61 386.9 19.76 384.9 9.474 374.7C-.8133 364.5-2.97 348.7 4.216 336.1L50 256L4.216 175.9C-2.97 163.3-.8133 147.5 9.474 137.3C19.76 127.1 35.61 125.1 48.12 132.4L137.8 184.7C150 170.1 164.3 155.3 180.5 141.5L180.5 141.5zM416 224C398.3 224 384 238.3 384 256C384 273.7 398.3 288 416 288C433.7 288 448 273.7 448 256C448 238.3 433.7 224 416 224z" /></svg> */}
-                                       
+                                    {/* <span className="badge rounded-pill " style={{ ...badgeStyle, backgroundColor: "hsla(0, 96.46%, 76.14%, 1.00)" }}> <i className="fa fa-fish" aria-hidden="true"></i>   Fish</span> */}
+                                    <div className="xp__btn-wrap mb-2 mb-sm-0">
+                                        <IconButton
+                                            bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
+                                            className="rounded-pill"
+                                            icon={<FontAwesomeIcon icon={solid("fish")} />}
+                                        >
+                                            Fish
+                                        </IconButton>
+                                    </div>
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" style={{ width: "17px" }} viewBox="0 0 576 512"><path fill='white' d="M180.5 141.5C219.7 108.5 272.6 80 336 80C399.4 80 452.3 108.5 491.5 141.5C530.5 174.5 558.3 213.1 572.4 241.3C577.2 250.5 577.2 261.5 572.4 270.7C558.3 298 530.5 337.5 491.5 370.5C452.3 403.5 399.4 432 336 432C272.6 432 219.7 403.5 180.5 370.5C164.3 356.7 150 341.9 137.8 327.3L48.12 379.6C35.61 386.9 19.76 384.9 9.474 374.7C-.8133 364.5-2.97 348.7 4.216 336.1L50 256L4.216 175.9C-2.97 163.3-.8133 147.5 9.474 137.3C19.76 127.1 35.61 125.1 48.12 132.4L137.8 184.7C150 170.1 164.3 155.3 180.5 141.5L180.5 141.5zM416 224C398.3 224 384 238.3 384 256C384 273.7 398.3 288 416 288C433.7 288 448 273.7 448 256C448 238.3 433.7 224 416 224z" /></svg> */}
+
                                 </div>
 
                                 <div className="col-sm-10">

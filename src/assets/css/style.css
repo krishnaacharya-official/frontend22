@@ -728,6 +728,11 @@ a.MuiListItemButton-root.active:focus {
   cursor: pointer;
   text-align: center;
   margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .filelabel i {
   display: block;
@@ -769,4 +774,8 @@ width: 100%;
 .react-confirm-alert-body{
   width: unset !important;
 
+}
+
+.btn-check:checked + .btn, .btn-check:active + .btn, .btn:active, .btn.active{
+  box-shadow: unset !important;
 }
