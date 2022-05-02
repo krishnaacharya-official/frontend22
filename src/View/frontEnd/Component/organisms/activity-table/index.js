@@ -46,7 +46,7 @@ const ActivityTable = (props) => {
             </Button>
           </div>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "600px", minHeight: "600px" }}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight:activityList.length > 0 ? "600px":"", minHeight:activityList.length > 0?  "600px":"" }}>
           {
             activityList.length > 0 ?
               activityList.map((list, i) => {
@@ -197,14 +197,14 @@ const ActivityTable = (props) => {
           </li> */}
         </ul>
 
-        <div className="mt-5 d-flex justify-content-center mb-5">
+        {props.totalPages > 1 ? <div className="mt-5 d-flex justify-content-center mb-5">
 
-          {props.totalPages > 1 ?
+        
             < Stack spacing={2} >
               <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
-            : <></>}
-        </div>
+         
+        </div>   : <></>}
       </div>
     </>
   );

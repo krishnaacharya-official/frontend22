@@ -27,16 +27,20 @@ const Header = (props) => {
         {
           adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
 
-          <div className="ms-auto header__right d-flex">
-            <GeoLocation />
+            <div className="ms-auto header__right d-flex">
+              {
+                userAuthToken &&
+                <>
+                  <GeoLocation />
 
 
-            <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} />
+                  <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} pricingFees={props.pricingFees} />
 
-            <Activity />
-
-            <UserSettings />
-          </div>:<></>
+                  <Activity />
+                </>
+              }
+              <UserSettings />
+            </div> : <></>
         }
       </Container>
     </header>

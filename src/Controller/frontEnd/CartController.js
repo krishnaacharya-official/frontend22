@@ -1,47 +1,85 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom";
 import FrontLoader from "../../Common/FrontLoader";
 import Cart from "../../View/frontEnd/cart";
 import cartApi from "../../Api/frontEnd/cart";
 import authApi from "../../Api/admin/auth";
 import ToastAlert from "../../Common/ToastAlert";
-
+import { UserContext } from '../../App';
+import settingApi from "../../Api/admin/setting";
 
 
 export default function CartController() {
     const [cartItem, setCartItem] = useState([])
     const userAuthToken = localStorage.getItem('userAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
 
+    const user = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const params = useParams();
     const navigate = useNavigate();
+    const [pricingFees, setPricingFees] = useState({
+        platformFee: 0,
+        transectionFee: 0,
+
+    })
+    const { platformFee, transectionFee } = pricingFees
+
+    const getFeesValues = async () => {
+        const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
+
+        if (getSettingsValue.data.success) {
+            let data = {}
+
+            getSettingsValue.data.data.map((d, i) => {
+                data[d.name] = d.value
+            })
+
+            setPricingFees({
+                ...data
+            })
+            // user.setTransectionFee(data.transectionFee)
+            // user.setPlatformFee(data.platformFee)
+
+
+        }
+    }
 
 
     useEffect(() => {
         (async () => {
             setLoading(true)
             if (userAuthToken) {
-                const verifyUser = await authApi.verifyToken(userAuthToken ?userAuthToken :CampaignAdminAuthToken)
+                const verifyUser = await authApi.verifyToken(userAuthToken ? userAuthToken : CampaignAdminAuthToken)
                 if (!verifyUser.data.success) {
                     localStorage.clear()
                     navigate('/login')
                 }
             }
+            await getFeesValues()
 
-            const getCartList = await cartApi.list(userAuthToken ?userAuthToken :CampaignAdminAuthToken);
+            const getCartList = await cartApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
             }
             setLoading(false)
 
+
+
+            // setPricingFees({
+            //     ...pricingFees,
+            //     platformFee:user.platformFee,
+            //     transectionFee:user.transectionFee
+            // })
+
         })()
-    }, [update])
+    }, [update, token])
 
     const removeCartItem = async (id) => {
         setLoading(true)
-        const removeCartItem = await cartApi.deleteCartItem(userAuthToken ?userAuthToken :CampaignAdminAuthToken, id);
+        const removeCartItem = await cartApi.deleteCartItem(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
                 setLoading(false)
@@ -61,7 +99,7 @@ export default function CartController() {
 
     const clearCart = async () => {
         setLoading(true)
-        const clearCart = await cartApi.clearCart(userAuthToken ?userAuthToken :CampaignAdminAuthToken);
+        const clearCart = await cartApi.clearCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
         if (clearCart) {
             if (!clearCart.data.success) {
                 setLoading(false)
@@ -82,7 +120,7 @@ export default function CartController() {
 
     const updateCartItem = async (quentity, id) => {
         setLoading(true)
-        const updateCartItem = await cartApi.updateCart(userAuthToken ?userAuthToken :CampaignAdminAuthToken, quentity, id);
+        const updateCartItem = await cartApi.updateCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken, quentity, id);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
                 setLoading(false)
@@ -100,7 +138,7 @@ export default function CartController() {
         }
     }
 
-    const checkout =() =>{
+    const checkout = () => {
         navigate('/checkout')
     }
     return (
@@ -112,6 +150,7 @@ export default function CartController() {
                 clearCart={clearCart}
                 updateCartItem={updateCartItem}
                 checkout={checkout}
+                pricingFees={pricingFees}
 
             />
         </>

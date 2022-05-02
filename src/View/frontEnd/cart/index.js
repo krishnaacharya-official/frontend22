@@ -15,26 +15,31 @@ const Cart = (props) => {
   let cartItem = props.cartItem
   const [total, setTotal] = useState(0)
 
-  const onChange =(e)=>{
+  let transectionFee = props.pricingFees?.transectionFee
+  let platformFee = props.pricingFees?.platformFee
+  let totalCharge = Number(transectionFee) + Number(platformFee)
+
+  const onChange = (e) => {
     console.log(e)
   }
 
-    useEffect(() => {
-      if (props.cartItem.length > 0) {
+  useEffect(() => {
+    if (props.cartItem.length > 0) {
 
 
-        let tempPriceArray = []
-        props.cartItem.map((item, i) => {
-          tempPriceArray.push(item.productDetails?.price * item.quantity)
-        })
+      let tempPriceArray = []
+      props.cartItem.map((item, i) => {
+        let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+        tempPriceArray.push(price * item.quantity)
+      })
+      // console.log(tempPriceArray)
+      let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
+      setTotal(sum)
 
-        let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
-        setTotal(sum)
-
-      }
+    }
 
 
-    }, [props.cartItem])
+  }, [props.cartItem])
   return (
     <Container fluid className="cart__page py-sm-5 mw-1280">
       <header className="pt-sm-5">
@@ -82,6 +87,8 @@ const Cart = (props) => {
 
                 {
                   cartItem.map((item, i) => {
+                    let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+
                     return (
                       <li className="d-flex align-items-center py-2" key={i}>
                         <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
@@ -136,11 +143,11 @@ const Cart = (props) => {
 
                           <span className="d-flex align-items-center ms-2 fw-bold text-subtext">
                             <span className="mr-6p d-none d-sm-block">Qty:</span>{" "}
-                            <input type="text" className="qty__input" id={item._id} value={item?.quantity} 
+                            <input type="text" className="qty__input" id={item._id} value={item?.quantity}
                             // onChange={()=>onChange(item._id)}
-                             />
+                            />
                           </span>
-                          <span className="fs-5 fw-bold text-success ms-3">${item.productDetails?.price * item.quantity}</span>
+                          <span className="fs-5 fw-bold text-success ms-3">${price * item.quantity}</span>
                         </div>
                       </li>
                     )
@@ -170,7 +177,7 @@ const Cart = (props) => {
               >
                 Clear Cart
               </Button>
-              <Button size="lg" className="fw-bold fs-6 ms-0 ms-sm-2" onClick={()=>props.checkout()}>
+              <Button size="lg" className="fw-bold fs-6 ms-0 ms-sm-2" onClick={() => props.checkout()}>
                 Proceed to Checkout
               </Button>
             </div>

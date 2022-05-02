@@ -10,6 +10,11 @@ import "./style.scss";
 function CartItem(props) {
   let cartItem= props.cartItem
 const  [quantity, setQuantity] = useState(cartItem?.quantity)
+
+let transectionFee = props.pricingFees?.transectionFee
+let platformFee = props.pricingFees?.platformFee
+let totalCharge = Number(transectionFee) + Number(platformFee)
+let price = Math.round(cartItem?.productDetails?.price + (totalCharge / 100) * cartItem?.productDetails?.price)
   
   const minusValue = async(value) => {
     if (value > 1) {
@@ -36,7 +41,7 @@ const  [quantity, setQuantity] = useState(cartItem?.quantity)
             <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
             <div className="cd__cart__location">Canada</div>
           </div>
-          <div className="cd__cart__price">${cartItem?.productDetails?.price}</div>
+          <div className="cd__cart__price">${price}</div>
         </div>
         <div className="cd__cart__right d-flex align-items-center">
           <Button

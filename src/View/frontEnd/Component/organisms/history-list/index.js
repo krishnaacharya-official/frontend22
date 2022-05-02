@@ -34,6 +34,8 @@ const HistoryList = (props) => {
           orderList.length > 0 ?
             orderList.map((order, i) => {
               // console.log(order)
+              let totalCharge = Number(order.appliedTaxPercentage)
+              // 
 
               return (
                 <>
@@ -70,6 +72,7 @@ const HistoryList = (props) => {
                           order.orderItems.length > 0 &&
                           order.orderItems.map((item, key) => {
                             // console.log(item)
+                            let price = Math.round( Number(item.productPrice) + (totalCharge / 100) * Number(item.productPrice))
 
                             return (
                               <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
@@ -86,7 +89,7 @@ const HistoryList = (props) => {
                                       {item.productName}
                                     </Button>
                                     <div className="text-light mb-3p">Axebat</div>
-                                    <div className="fs-5 text-success fw-bold">$ {item.productPrice}</div>
+                                    <div className="fs-5 text-success fw-bold">$ {price}</div>
                                   </div>
                                   <ListItemImg
                                     size={42}
@@ -96,7 +99,7 @@ const HistoryList = (props) => {
                                 </div>
                                 <div className="order__values d-flex align-items-center">
                                   <span className="text-info fw-bold flex__1">40 xp</span>
-                                  <span className="fs-5 fw-bold text-success ms-2">${item.totalPrice}</span>
+                                  <span className="fs-5 fw-bold text-success ms-2">${price*item.quantity}</span>
                                 </div>
                               </li>
                             )

@@ -29,7 +29,7 @@ const OrderDetails = (props) => {
     
     let orderDetails = {}
     orderDetails = props.orderDetails
-    // console.log(orderDetails)
+    console.log(orderDetails)
     // console.log(Object.keys(orderDetails).length)
 
 
@@ -153,16 +153,22 @@ const OrderDetails = (props) => {
                         </tbody>
                         {
                             Object.keys(orderDetails).length !== 0 &&  orderDetails.orderItems.length > 0 &&
+                            
                             <tfoot>
                                 <tr>
                                     <td colSpan="3"></td>
                                     <td colSpan="2">SUBTOTAL</td>
-                                    <td>${priceFormat(orderDetails.total)}</td>
+                                    <td>${priceFormat(orderDetails.subtotal)}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">TAX 0%</td>
-                                    <td>$0</td>
+                                    <td colSpan="2">TRANSECTION FEES ({orderDetails.transectionFees} %)</td>
+                                    <td>${Math.round(( Number(orderDetails.transectionFees) / 100) * Number(orderDetails.subtotal))}</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="3"></td>
+                                    <td colSpan="2">PLATFORM FEES ({orderDetails.platformFees} %)</td>
+                                    <td>${Math.round((  Number(orderDetails.platformFees) / 100) * Number(orderDetails.subtotal))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>

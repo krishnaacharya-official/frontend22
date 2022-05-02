@@ -167,9 +167,9 @@ const AdminProjects = () => {
     const formaerrror = {}
 
     if (!id) {
-      if (images.length <= 1) {
-        formaerrror['images'] = "Please select more then one Image"
-      }
+      // if (images.length <= 1) {
+      //   formaerrror['images'] = "Please select more then one Image"
+      // }
     }
 
     if (seletedProductList.length === 0) {

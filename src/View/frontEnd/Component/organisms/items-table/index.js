@@ -56,6 +56,8 @@ const ItemsTable = (props) => {
             orderItemList.length > 0 &&
             orderItemList.map((item, key) => {
               // console.log(item)
+          let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+
               return (
                 <li className="table__list-item p-2" key={key} >
                   <div className="d-xl-flex align-items-center flex-grow-1">
@@ -65,7 +67,7 @@ const ItemsTable = (props) => {
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start"
                     >
                       <div className="me-2">
-                        <div className="text-success fw-bold fs-5">${item?.totalPrice}</div>
+                        <div className="text-success fw-bold fs-5">${price}</div>
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>
                       <div className="position-relative">

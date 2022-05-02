@@ -42,7 +42,7 @@ const ProjectsTable = (props) => {
       per = 0;
 
     }
-    return  Math.round(per);
+    return Math.round(per);
 
   }
 
@@ -83,7 +83,7 @@ const ProjectsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"550px",minHeight:"550px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: projectList.length > 1 ? "550px" :"", minHeight: projectList.length > 1 ? "550px" :"" }}>
 
           {
             projectList.length > 0 ?
@@ -154,18 +154,19 @@ const ProjectsTable = (props) => {
                 )
               })
               :
-              <li className="table__list-item p-2 fw-bold">No entries to show</li>}
+              <li className="table__list-item p-2 fw-bold d-flex justify-content-center">No entries to show</li>}
 
 
         </ul>
-        <div className="mt-5 d-flex justify-content-center mb-5">
+        {props.totalPages > 1 ?
+          <div className="mt-5 d-flex justify-content-center mb-5">
 
-          {props.totalPages > 1 ?
+
             < Stack spacing={2} >
               <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
-            : <></>}
-        </div>
+
+          </div> : <></>}
       </div>
     </>
   );

@@ -59,9 +59,9 @@ const PostsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"600px",minHeight:"600px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 1 && "600px",minHeight: productList.length > 1 &&"600px"}}>
           {
-            productList.length > 0 ?
+            productList.length > 1 ?
               productList.map((product, i) => {
                 // console.log(product)
                 return (
@@ -161,7 +161,7 @@ const PostsTable = (props) => {
                   </li>
                 )
               })
-              : <li className="table__list-item p-2 fw-bold">No entries to show</li>}
+              : <li className="table__list-item p-2 fw-bold d-flex justify-content-center">No entries to show</li>}
 
 
           {/* 
@@ -242,15 +242,16 @@ const PostsTable = (props) => {
           </li> */}
 
         </ul>
-
+        {props.totalPages > 1 ?
         <div className="mt-5 d-flex justify-content-center mb-5">
 
-          {props.totalPages > 1 ?
+      
             < Stack spacing={2} >
               <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
-            : <></>}
+           
         </div>
+         : <></>}
       </div>
     </>
   );

@@ -12,3 +12,10 @@ export const setData = (data)=>{
 export const setUpdateOrg = (data)=>{
     return {type:"isUpdateOrg",value:data}
 }
+
+export const setTransectionFee = (data)=>{
+    return {type:"transectionFee",value:data}
+}
+export const setPlatformFee = (data)=>{
+    return {type:"platformFee",value:data}
+}

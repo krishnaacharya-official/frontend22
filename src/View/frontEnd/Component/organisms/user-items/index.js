@@ -132,6 +132,9 @@ const UserItems = () => {
       ) : (
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
+          // console.log(item.appliedTaxPer)
+          let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+
           return (
 
             <div className={detail.show && Number(detail.key) === i ? "" : "d-none"}>
@@ -199,7 +202,7 @@ const UserItems = () => {
                     <h5 className="project__detail-sublabel">Product</h5>
                     <div className="project__detail-subtitle mb-12p">Eureka ™</div>
                     <div className="project__detail-price fs-2 text-success">
-                      $ {item.productPrice}
+                      $ {price}
                     </div>
                     <div className="project__detail-meta d-flex align-items-center mb-4">
                       <div className="d-flex align-items-center">
@@ -268,7 +271,7 @@ const UserItems = () => {
                       </div>
                       <div className="ms-2 flex__1 fw-bolder">
                         <div className="mb-3p">{item.itemDetails?.headline}</div>
-                        <div className="text-success ">$ {item.productPrice}</div>
+                        <div className="text-success ">$ {price}</div>
                       </div>
                       <div>
                         qty <span className="fw-bolder ml-3p">{item.quantity}</span>
@@ -278,7 +281,7 @@ const UserItems = () => {
                     <div className="py-3 border-top border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">Subtotal:</span>
-                        <span className="text-success">$ {item.totalPrice}</span>
+                        <span className="text-success">$ {price}</span>
                       </div>
                       <div className="d-flex align-items-center ">
                         <span className="fw-bolder flex__1">XP</span>
@@ -287,7 +290,7 @@ const UserItems = () => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">$ {item.totalPrice}</span>
+                      <span className="text-success fw-bold fs-4">$ {price}</span>
                     </div>
                     <div className="bg-lighter d-flex align-items-center p-20p rounded">
                       <div className="order__logo me-2">

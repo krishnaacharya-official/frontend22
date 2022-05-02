@@ -206,9 +206,9 @@ export default function PricingFees(props) {
                 navigate('/admin/dashboard')
             }
             setLoading(true)
-            await getCountryList()
-            let tempD = {}
-            tempD.countryId = country
+            // await getCountryList()
+            // let tempD = {}
+            // tempD.countryId = country
             // const getSettingsValue = await pricingFeesApi.list(adminAuthToken, tempD);
             const getSettingsValue = await settingApi.list(adminAuthToken, Object.keys(state));
 

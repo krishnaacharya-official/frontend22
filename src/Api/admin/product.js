@@ -7,13 +7,11 @@ function product() {
 
 
         const data = new FormData();
-
         if (cdata.moreImg && cdata.moreImg.length > 0) {
             for (let i = 0; i < cdata.moreImg.length; i++) {
                 data.append('moreImg', cdata.moreImg[i]);
             }
         }
-
         if (cdata.galleryImg && cdata.galleryImg.length > 0) {
             for (let i = 0; i < cdata.galleryImg.length; i++) {
                 data.append('galleryImg', cdata.galleryImg[i]);
@@ -43,7 +41,7 @@ function product() {
         data.append('productSlug', cdata.productSlug);
         data.append('tags', cdata.tags);
 
-
+        // console.log(data)
 
         let res = {};
         await axios({
@@ -230,7 +228,7 @@ function product() {
         updateProduct,
         listByOrganization,
         publishProduct,
-        
+
 
 
     }

@@ -1,9 +1,11 @@
 import Index from "../../View/frontEnd/Layout/Home/Index";
 import productApi from "../../Api/admin/product";
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect,useContext } from "react"
 import FrontLoader from "../../Common/FrontLoader";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
+import settingApi from "../../Api/admin/setting";
+import { UserContext } from '../../App';
 
 
 
@@ -12,23 +14,49 @@ export default function HomeController() {
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    const user = useContext(UserContext)
+
     const [update, setIsUpdate] = useState(false)
     const [inCart, setInCart] = useState(false)
+
+    const [pricingFees, setPricingFees] = useState({
+        platformFee: 0,
+        transectionFee: 0,
+
+    })
+    const { platformFee, transectionFee } = pricingFees
 
 
     useEffect(() => {
         (async () => {
             setLoading(true)
-            const getproductList = await productApi.list(userAuthToken);
+            const getproductList = await productApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
             if (getproductList.data.success === true) {
                 setProductList(getproductList.data.data)
             }
+            setPricingFees({
+                ...pricingFees,
+                platformFee:user.platformFee,
+                transectionFee:user.transectionFee
+            })
+            // const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 
+            // if (getSettingsValue.data.success) {
+            //     let data = {}
+
+            //     getSettingsValue.data.data.map((d, i) => {
+            //         data[d.name] = d.value
+            //     })
+            //     setPricingFees({
+            //         ...data
+            //     })
+            // }
             setLoading(false)
 
 
         })()
-    }, [])
+    }, [user])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -97,6 +125,8 @@ export default function HomeController() {
                 addToCart={addToCart}
                 removeCartItem={removeCartItem}
                 checkItemInCart={checkItemInCart}
+                pricingFees={pricingFees}
+                
             />
         </>
     )

@@ -22,6 +22,7 @@ export default function ItemDetailsController() {
         (async () => {
             setLoading(true)
             // console.log(params.name)
+            window.scrollTo(0, 0);
             let mydata = {}
             const getproductDetails = await productApi.details(params.name);
             // console.log(getproductDetails)

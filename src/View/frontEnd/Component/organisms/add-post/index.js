@@ -32,6 +32,7 @@ import { confirmAlert } from "react-confirm-alert"
 
 function AccordionToggle({ children, eventKey, callback }) {
   const { activeEventKey } = useContext(AccordionContext);
+  window.scrollTo(0, 0);
 
   const decoratedOnClick = useAccordionButton(
     eventKey,
@@ -500,7 +501,7 @@ const AddPost = (props) => {
                             className="icon-cloud"
                           /> */}
                           {Img || tempImg ?
-                            <img src={tempImg ? tempImg : Img ? Img !== "" ? helper.CampaignProductImagePath + Img : noimg : noimg} alt="lk" className="" style={{ width: "unset" }} />
+                            <img src={tempImg ? tempImg : Img ? Img !== "" ? helper.CampaignProductImagePath + Img : noimg : noimg} alt="lk" className="" style={{ objectFit: "contain" }} />
                             :
                             <FontAwesomeIcon
                               icon={solid("cloud-arrow-up")}
@@ -740,7 +741,7 @@ const AddPost = (props) => {
                           </label>
                         </div>
 
-                        <div className='grid mt-3 mb-3' style={{ display: "contents" }}>
+                        <div className='grid mt-3 mb-3' style={{ display: "" }}>
                           {gallaryTempImages?.length ?
                             gallaryTempImages.map((img, key) => {
                               return (

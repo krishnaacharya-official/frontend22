@@ -145,9 +145,9 @@ export default function MainRoutes() {
                         {/* <Route exact path="/change-password" element={<ChangePassword />} /> */}
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
-                        <Route path="/cart" element={<CartController />} />
+                        {/* <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
-                        <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="/thankyou" element={<ThankYou />} /> */}
                         <Route path="*" element={<HomeController />} />
                     </Route>
                 </Routes>

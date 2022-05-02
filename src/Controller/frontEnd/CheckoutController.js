@@ -8,6 +8,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import Checkout from "../../View/frontEnd/checkout";
 import orderApi from "../../Api/frontEnd/order";
 import { validateAll } from "indicative/validator";
+import settingApi from "../../Api/admin/setting";
 
 
 
@@ -16,9 +17,16 @@ export default function CheckoutController() {
     const userAuthToken = localStorage.getItem('userAuthToken');
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
+    const [subtotal, setSubTotal] = useState(0)
     const [total, setTotal] = useState(0)
-    const userData = JSON.parse(localStorage.getItem('userData'));
 
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const [pricingFees, setPricingFees] = useState({
+        platformFee: 0,
+        transectionFee: 0,
+
+    })
+    const { platformFee, transectionFee } = pricingFees
 
     const params = useParams();
     const navigate = useNavigate();
@@ -55,19 +63,50 @@ export default function CheckoutController() {
                     navigate('/login')
                 }
             }
+            let data = {}
+            const getSettingsValue = await settingApi.list(userAuthToken, Object.keys(pricingFees));
+
+            if (getSettingsValue.data.success) {
+
+
+                getSettingsValue.data.data.map((d, i) => {
+                    data[d.name] = d.value
+                })
+
+                setPricingFees({
+                    ...data
+                })
+                // user.setTransectionFee(data.transectionFee)
+                // user.setPlatformFee(data.platformFee)
+
+
+            }
 
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
-                console.log(getCartList.data.data)
+                // console.log(getCartList.data.data)
 
                 let tempPriceArray = []
+                let tempProductPriceArray = []
+
                 if (getCartList.data.data.length > 0) {
                     getCartList.data.data.map((item, i) => {
-                        tempPriceArray.push(item.productDetails?.price * item.quantity)
+
+                        let transectionFee = data.transectionFee
+                        let platformFee = data.platformFee
+                        let totalCharge = Number(transectionFee) + Number(platformFee)
+
+                        let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+
+                        tempPriceArray.push(price * item.quantity)
+                        tempProductPriceArray.push(item.productDetails?.price * item.quantity)
+
                     })
 
                     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
+                    let sumSubTotal = tempProductPriceArray.reduce(function (a, b) { return a + b; }, 0);
+                    setSubTotal(sumSubTotal)
                     setTotal(sum)
                 } else {
                     navigate('/')
@@ -161,9 +200,11 @@ export default function CheckoutController() {
                     orderDetails.email = userData.email
                     orderDetails.transactionId = payment.data.data.id
                     orderDetails.paymentResponse = JSON.stringify(payment.data)
-                    orderDetails.subtotal = total
-                    orderDetails.appliedTaxPercentage = 10
-                    orderDetails.tax = 10
+                    orderDetails.subtotal = subtotal
+                    orderDetails.appliedTaxPercentage = Number(platformFee) + Number(transectionFee)
+                    orderDetails.platformFees = platformFee
+                    orderDetails.transectionFees = transectionFee
+                    orderDetails.tax = Number(total) - Number(subtotal)
                     orderDetails.total = total
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
@@ -255,6 +296,7 @@ export default function CheckoutController() {
                 pay={pay}
                 changevalue={changevalue}
                 removeCartItem={removeCartItem}
+                pricingFees={pricingFees}
 
             />
         </>

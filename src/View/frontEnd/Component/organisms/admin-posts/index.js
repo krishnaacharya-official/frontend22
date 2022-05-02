@@ -317,6 +317,7 @@ const AdminPosts = (props) => {
   }
 
   const submitProductForm = (s) => {
+    window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
     if (tags.length === 0) {
@@ -324,15 +325,15 @@ const AdminPosts = (props) => {
     }
     if (!id) {
 
-      if (moreImg?.length > 0 && moreImg.length <= 1) {
-        formaerrror['moreImg'] = "Please select more then one image"
-      }
-      if (!galleryImg?.length) {
-        formaerrror['galleryImg'] = "Please select more then one image"
-      }
-      if (galleryImg?.length <= 1) {
-        formaerrror['galleryImg'] = "Please select more then one image"
-      }
+      // if (moreImg?.length > 0 && moreImg.length <= 1) {
+      //   formaerrror['moreImg'] = "Please select more then one image"
+      // }
+      // if (!galleryImg?.length) {
+      //   formaerrror['galleryImg'] = "Please select more then one image"
+      // }
+      // if (galleryImg?.length <= 1) {
+      //   formaerrror['galleryImg'] = "Please select more then one image"
+      // }
 
     }
 

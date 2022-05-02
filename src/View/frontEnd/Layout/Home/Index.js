@@ -23,7 +23,7 @@ export default function Index(props) {
             return (
                 item.status === 1 &&
                 <Col sm="6" md="4" lg="3" className="mb-2" key={index}>
-                    <Product {...item} addToCart={props.addToCart} removeCartItem={props.removeCartItem} checkItemInCart={props.checkItemInCart} />
+                    <Product {...item} addToCart={props.addToCart} removeCartItem={props.removeCartItem} checkItemInCart={props.checkItemInCart} pricingFees={props.pricingFees} />
                 </Col>
             );
         });

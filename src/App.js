@@ -26,8 +26,11 @@ export default function App() {
     const [user, userdispatch] = useReducer(userReducer, {
         isLoggedIn: false,
         isUpdateCart: false,
-        isUpdateOrg:false,
-        data: {}
+        isUpdateOrg: false,
+        data: {},
+        transectionFee: 0,
+        platformFee: 0
+
     });
     const UserProviderContext = useUser(user, userdispatch);
     return (

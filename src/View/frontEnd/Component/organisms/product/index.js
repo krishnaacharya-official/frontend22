@@ -22,13 +22,21 @@ import "./style.scss";
 
 
 const Product = (props) => {
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
   // console.log(props)
   let name = props.headline
   let sold = props.soldout
   let total = props.quantity
   let location = props.cityDetails?.city
   let progress = 60
-  let price = props.price
+
+  
+  let transectionFee = props.pricingFees?.transectionFee
+  let platformFee = props.pricingFees?.platformFee
+  let totalCharge = Number(transectionFee) + Number(platformFee)
+  let price = Math.round(props.price + (totalCharge / 100) * props.price)
+
   let theme_color = props.categoryDetails?.color
   let category = props.subCategoryDetails?.name
   let organisation = props.campaignDetails?.logo
@@ -42,17 +50,19 @@ const Product = (props) => {
   })
   useEffect(() => {
     (async () => {
-
-      const checkItem = await props.checkItemInCart(props._id)
-      if (checkItem === true) {
-        setState({
-          added_to_cart: true
-        })
-      } else {
-        setState({
-          added_to_cart: false
-        })
+      if (!CampaignAdminAuthToken) {
+        const checkItem = await props.checkItemInCart(props._id)
+        if (checkItem === true) {
+          setState({
+            added_to_cart: true
+          })
+        } else {
+          setState({
+            added_to_cart: false
+          })
+        }
       }
+
     })()
 
   }, [user.isUpdateCart])
@@ -154,7 +164,11 @@ const Product = (props) => {
               <span className="cost">{price}</span>
             </div>
           </div>
-          <div className="mt-auto mb-12p">{btn}</div>
+          {
+            !CampaignAdminAuthToken &&
+            <div className="mt-auto mb-12p">{btn}</div>
+
+          }
         </div>
         <div className="product__mid d-flex align-items-center justify-content-center">
           <div className="proudct__img-wrap d-flex align-items-center justify-content-center">
@@ -176,7 +190,7 @@ const Product = (props) => {
           <div className="product__location d-flex align-items-center small mt-auto">
             {/* <span className="icon icon__pro"></span> */}
             {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
-          <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+            <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
 
             <span className="date__name">{location}</span>
           </div>
@@ -230,7 +244,7 @@ const Product = (props) => {
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
         >
-          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal",marginLeft: "1.5px" }}></i>
+          <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal", marginLeft: "1.5px" }}></i>
           {/* <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68d1a8d5f290171371bc_family(white).svg"
               className="img-fluid"
@@ -239,7 +253,7 @@ const Product = (props) => {
         </a>
         <div className="product__subcategory small d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-3p">
-            <i className={subCatIcon} style={{ fontFamily: "fontAwesome",fontStyle:"normal" }}></i>
+            <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
 
             {/* <svg
                 viewBox="0 0 25 25"

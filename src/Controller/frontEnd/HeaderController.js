@@ -8,32 +8,41 @@ import authApi from "../../Api/admin/auth";
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import ToastAlert from "../../Common/ToastAlert";
 import { UserContext } from '../../App';
-
+import settingApi from "../../Api/admin/setting";
 
 
 
 export default function HeaderController() {
 
     const userAuthToken = localStorage.getItem('userAuthToken');
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
+
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const [cartItem, setCartItem] = useState([])
     const navigate = useNavigate();
     const user = useContext(UserContext)
 
+    const [pricingFees, setPricingFees] = useState({
+        platformFee: 0,
+        transectionFee: 0,
+
+    })
+    const { platformFee, transectionFee } = pricingFees
 
     useEffect(() => {
         (async () => {
             setLoading(true)
-            if (userAuthToken) {
-                const verifyUser = await authApi.verifyToken(userAuthToken)
+            if (token) {
+                const verifyUser = await authApi.verifyToken(token)
                 if (!verifyUser.data.success) {
                     localStorage.clear()
                     navigate('/login')
                 }
             }
 
-            const getCartList = await cartApi.list(userAuthToken);
+            const getCartList = await cartApi.list(token);
             if (getCartList.data.success === true) {
                 setCartItem(getCartList.data.data)
                 // console.log(getCartList.data.data)
@@ -41,7 +50,34 @@ export default function HeaderController() {
             setLoading(false)
 
         })()
-    }, [userAuthToken, update, user.isUpdateCart])
+    }, [token, update, user.isUpdateCart])
+
+
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true)
+            const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
+
+            if (getSettingsValue.data.success) {
+                let data = {}
+
+                getSettingsValue.data.data.map((d, i) => {
+                    data[d.name] = d.value
+                })
+
+                setPricingFees({
+                    ...data
+                })
+                user.setTransectionFee(data.transectionFee)
+                user.setPlatformFee(data.platformFee)
+
+
+            }
+            setLoading(false)
+
+        })()
+    }, [token])
 
 
     const removeCartItem = async (id) => {
@@ -95,6 +131,7 @@ export default function HeaderController() {
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
                 updateCartItem={updateCartItem}
+                pricingFees={pricingFees}
 
 
             />
