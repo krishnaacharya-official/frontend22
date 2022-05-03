@@ -54,7 +54,7 @@ export function ImageExist(url) {
     // let img = new Image();
     // img.src = url;
     // return img.height !== 0 ? true : false;
-    
+
     let http = new XMLHttpRequest();
 
     http.open('HEAD', url, false);
@@ -104,5 +104,8 @@ export function decryptData(val) {
     let bytes = CryptoJS.AES.decrypt(val, 'my-secret-key@123');
     let decryptedData = bytes.toString(CryptoJS.enc.Utf8);
     return decryptedData;
+
+}
+export function getCalculatedPrice(price) {
 
 }

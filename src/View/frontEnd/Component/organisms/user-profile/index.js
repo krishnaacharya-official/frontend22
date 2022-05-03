@@ -29,10 +29,16 @@ const UserProfile = () => {
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [cityList, setCityList] = useState([])
+  const [currencyList, setCurrencyList] = useState([])
+
 
   const [defaultCountry, setDefaultCountry] = useState([])
   const [defaultState, setDefaultState] = useState([])
   const [defaultCity, setDefaultCity] = useState([])
+
+  const [defaultLanguage, setDefaultLanguage] = useState([])
+  const [defaultCurrency, setDefaultCurrency] = useState([])
+
 
 
 
@@ -45,10 +51,12 @@ const UserProfile = () => {
     city: "",
     stateId: "",
     country: "",
+    currency: "",
+    language: "",
     zip: "",
     error: []
   })
-  const { name, email, street, city, stateId, country, zip, error, image } = state
+  const { name, email, street, city, stateId, country, zip, error, image, currency, language } = state
   const [tempImg, setTempImg] = useState('')
 
   const getCountryStateList = async (countryId) => {
@@ -92,6 +100,8 @@ const UserProfile = () => {
 
   const getCountryList = async () => {
     let tempArray = []
+    let tempCurrencyArray = []
+
 
     const getCountryList = await locationApi.countryList(userAuthToken);
     if (getCountryList) {
@@ -99,11 +109,25 @@ const UserProfile = () => {
         if (getCountryList.data.data.length > 0) {
           getCountryList.data.data.map((country, i) => {
             let Obj = {}
+            let currencyObj = {}
+            currencyObj.value = country.currency + "=" + country.symbol
+            currencyObj.label = country.currency
+            currencyObj.icon = country.symbol
+
+
+
             Obj.value = country.id
             Obj.label = country.country
             tempArray.push(Obj)
+            tempCurrencyArray.push(currencyObj)
+
           })
           setCountryList(tempArray)
+
+          const currencyLable = tempCurrencyArray.map(o => o.label)
+          const filteredLabels = tempCurrencyArray.filter(({ label }, index) => !currencyLable.includes(label, index + 1))
+
+          setCurrencyList(filteredLabels)
         }
       }
     }
@@ -191,19 +215,33 @@ const UserProfile = () => {
     })
   }
 
+  const onChangeCurrency = (e) => {
+    setDefaultCurrency(e)
+    setState({
+      ...state,
+      currency: e.value,
+    })
+  }
+  const onChangeLanguage = (e) => {
+    setDefaultLanguage(e)
+    setState({
+      ...state,
+      language: e.value,
+    })
+  }
 
 
   useEffect(() => {
     (async () => {
       setLoading(true)
-      if (data.country_id) {
-        await getCountryStateList(data.country_id)
-      }
-      if (data.state_id) {
-        await getStateCityList(data.state_id)
+      // if (data.country_id && data.country_id !== null ) {
+      //   await getCountryStateList(data.country_id)
+      // }
+      // if (data.state_id  && data.state_id !== null) {
+      //   await getStateCityList(data.state_id)
 
-      }
-      await getCountryList()
+      // }
+      // await getCountryList()
 
       // console.log(data)
       setState({
@@ -215,21 +253,54 @@ const UserProfile = () => {
         country: data.country_id,
         stateId: data.state_id,
         street: data.street,
+        language: data.language,
+        currency: data.currency,
         zip: data.zip,
       })
+
+      if (data.country_id && data.country_id !== null) {
+        await getCountryStateList(data.country_id)
+      }
+      if (data.state_id && data.state_id !== null) {
+        await getStateCityList(data.state_id)
+
+      }
+      await getCountryList()
       // console.log('contex', data.country_id)
       // setDefaultCountry(countryList.find(x => x.value === data.country_id));
       // console.log(countryList.find(x => x.value === data.country_id))
       setLoading(false)
     })()
-  }, [data._id])
+  }, [data])
 
-
+  const options = [
+    { value: 'english', label: 'English' },
+    { value: 'manderin', label: 'Manderin' },
+    { value: 'french', label: 'French' }
+  ]
   // const countrySelect = useRef(null)
   useEffect(() => {
-    setDefaultCountry(countryList.find(x => x.value === data.country_id));
-    setDefaultState(stateList.find(x => x.value === data.state_id));
-    setDefaultCity(cityList.find(x => x.value === data.city_id));
+    if (countryList.length > 0) {
+      setDefaultCountry(countryList.find(x => x.value === data.country_id));
+
+    }
+    if (stateList.length > 0) {
+      setDefaultState(stateList.find(x => x.value === data.state_id));
+
+    }
+    if (cityList.length > 0) {
+      setDefaultCity(cityList.find(x => x.value === data.city_id));
+
+    }
+    setDefaultLanguage(options.find(x => x.value === data.language))
+    let tempCurrencyObj = {}
+    let userCurrency = data.currency ? data.currency : ''
+    if (userCurrency) {
+      tempCurrencyObj.value = data.currency
+      tempCurrencyObj.label = userCurrency.split('=')[0]
+      tempCurrencyObj.icon = userCurrency.split('=')[1]
+      setDefaultCurrency(tempCurrencyObj)
+    }
 
   }, [countryList, data.country_id])
 
@@ -242,6 +313,8 @@ const UserProfile = () => {
       city: "required",
       stateId: "required",
       country: "required",
+      language: "required",
+      currency: "required",
 
     }
 
@@ -253,6 +326,10 @@ const UserProfile = () => {
       'stateId.required': 'State is Required.',
       'city.required': 'City is Required.',
       'country.required': 'Country is Required.',
+
+      'language.required': 'Language is Required.',
+      'currency.required': 'Currency is Required.',
+
 
 
     }
@@ -270,6 +347,12 @@ const UserProfile = () => {
       fdata.city_id = city
       fdata.state_id = stateId
       fdata.country_id = country
+
+      fdata.language = language
+      fdata.currency = currency
+
+
+
 
       if (image) {
         fdata.image = image
@@ -319,11 +402,7 @@ const UserProfile = () => {
   }
 
 
-  // const options = [
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'strawberry', label: 'Strawberry' },
-  //   { value: 'vanilla', label: 'Vanilla' }
-  // ]
+
 
 
   return (
@@ -474,7 +553,6 @@ const UserProfile = () => {
         {error && error.zip && <p className="error">{error.zip}</p>}
 
       </div>
-      <Button variant="info" className="mb-3" onClick={() => updateProfile()}>Save Details</Button>
       <div className="mb-5">
         <h4 className="fw-bolder">Language & Currency</h4>
         <div className="text-subtext mb-3">
@@ -482,11 +560,43 @@ const UserProfile = () => {
         </div>
         <div className="w-400">
           <div className="mb-2">
-            <LadderMenu items={["English", "French", "Manderin"]} />
+            {/* <LadderMenu items={["English", "French", "Manderin"]} /> */}
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              value={defaultLanguage}
+              name="language"
+              options={options}
+              onChange={onChangeLanguage}
+
+            />
           </div>
-          <LadderMenu items={["USD", "CAD", "Yen"]} />
+          {error && error.language && <p className="error">{error.language}</p>}
+
+          {/* <LadderMenu items={["USD", "CAD", "Yen"]} /> */}
+          <Select
+            className="basic-single"
+            classNamePrefix="select"
+            value={defaultCurrency}
+            // defaultValue={countrySelect.current}
+            name="currency"
+            options={currencyList}
+            getOptionLabel={e => (
+              <div style={{ display: '', alignItems: 'center' }}>
+                {/* {e.icon} */}
+                <span className="" style={{ float: "right" }}>{e.icon}</span>
+                <span >{e.label}</span>
+
+
+              </div>
+            )}
+            onChange={onChangeCurrency}
+          />
         </div>
+        {error && error.currency && <p className="error">{error.currency}</p>}
+
       </div>
+      <Button variant="info" className="mb-3" onClick={() => updateProfile()}>Save Details</Button>
 
       <div className="mb-5">
         <h4 className="fw-bolder">Account Deactivation</h4>

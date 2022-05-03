@@ -23,6 +23,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import moment from 'moment';
 
 
 import Page from '../../../components/Page';
@@ -31,8 +32,9 @@ export default function Index(props) {
 
     const columns = [
 
-        { name: "Name", selector: "userDetails.name", sortable: true },
+        { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
         {
+            id: 'transactionStatus',
             name: "Payment Status",
             cell: (row) => <>
 
@@ -47,6 +49,7 @@ export default function Index(props) {
             allowOverflow: true,
         },
         {
+            id: 'amount',
             name: "Amount",
             cell: (row) => <>
                 <span>${row.total}</span>
@@ -54,8 +57,28 @@ export default function Index(props) {
             ignoreRowClick: true,
             allowOverflow: true,
         },
-        
+        // {
+        //     name: "Date",
+        //     cell: (row) => <>
+        //         <span>{row.created_at}</span>
+        //     </>,
+        //     // ignoreRowClick: true,
+        //     sortable: true,
+        //     // allowOverflow: true,
+        // },
+        // { name: "Date", selector: "created_at", sortable: true },
         {
+            id: 'created_at',
+            name: 'Date',
+            selector: 'created_at',
+            cell: row => <div>{moment(row.created_at).format("DD MMMM YYYY ")}</div>,
+            sortable: true,
+            accessor: '',
+        },
+
+
+        {
+            id: 'action',
             name: "Actions",
             cell: (row) => <>
                 <button className="btn btn-info btn-sm" onClick={(e) => props.viewOrderDetails(row)}>View</button>&nbsp;
@@ -83,6 +106,9 @@ export default function Index(props) {
         export: false,
         print: false,
     };
+
+
+    
     return (
 
         <Page title="Order | Minimal-UI">
@@ -107,10 +133,14 @@ export default function Index(props) {
                             columns={columns}
                             data={data}
                             noHeader
-                            defaultSortField="id"
-                            defaultSortAsc={false}
+                            defaultSortField="created_at"
                             pagination
+                            striped
                             highlightOnHover
+                            defaultSortAsc={false}
+                            
+                    
+
                         />
                     </DataTableExtensions>
 

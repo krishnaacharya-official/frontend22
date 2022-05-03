@@ -14,6 +14,10 @@ function user() {
         data.append('state_id', cdata.state_id);
         data.append('country_id', cdata.country_id);
 
+        data.append('currency', cdata.currency);
+        data.append('language', cdata.language);
+
+
         if (cdata.image) {
             data.append('image', cdata.image);
         }

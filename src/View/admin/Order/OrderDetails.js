@@ -29,7 +29,7 @@ const OrderDetails = (props) => {
     
     let orderDetails = {}
     orderDetails = props.orderDetails
-    console.log(orderDetails)
+    // console.log(orderDetails)
     // console.log(Object.keys(orderDetails).length)
 
 
@@ -162,13 +162,13 @@ const OrderDetails = (props) => {
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">TRANSECTION FEES ({orderDetails.transectionFees} %)</td>
-                                    <td>${Math.round(( Number(orderDetails.transectionFees) / 100) * Number(orderDetails.subtotal))}</td>
+                                    <td colSpan="2">TRANSECTION FEES ( {orderDetails.transectionFees ?orderDetails.transectionFees:0} %)</td>
+                                    <td>${Math.round(( Number(orderDetails.transectionFees ?orderDetails.transectionFees:0) / 100) * Number(orderDetails.subtotal))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">PLATFORM FEES ({orderDetails.platformFees} %)</td>
-                                    <td>${Math.round((  Number(orderDetails.platformFees) / 100) * Number(orderDetails.subtotal))}</td>
+                                    <td colSpan="2">PLATFORM FEES ( {orderDetails.platformFees ?orderDetails.platformFees:0} %)</td>
+                                    <td>${Math.round((  Number(orderDetails.platformFees ?orderDetails.platformFees:0) / 100) * Number(orderDetails.subtotal))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
