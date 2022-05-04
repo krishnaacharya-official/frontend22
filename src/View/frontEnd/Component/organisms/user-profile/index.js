@@ -12,9 +12,11 @@ import FrontLoader from "../../../../../Common/FrontLoader";
 import Select from "react-select"
 import locationApi from "../../../../../Api/frontEnd/location";
 import userApi from "../../../../../Api/frontEnd/user";
-import { UserContext } from '../../../../../App';
+// import { UserContext } from '../../../../../App';
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateUserDetails} from "../../../../../user/user.action"
 
 
 
@@ -22,7 +24,10 @@ import "./style.scss";
 
 const UserProfile = () => {
   const [check, setCheck] = useState(false);
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [update, setUpdate] = useState(false)
   const [data, setData] = useOutletContext();
@@ -367,7 +372,8 @@ const UserProfile = () => {
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
           setUpdate(!update)
-          user.setUpdateOrg(!user.isUpdateOrg)
+          // user.setUpdateOrg(!user.isUpdateOrg)
+          dispatch(setIsUpdateUserDetails(!user.isUpdateUserDetails))
           setData(fdata)
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'success' });

@@ -1,10 +1,13 @@
 import Permissions from './Permissions'
 import CryptoJS from 'crypto-js';
+import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
 if (window.location.hostname === 'localhost') {
     Mode = "development"
 }
+
+
 
 
 let helper = {
@@ -106,6 +109,50 @@ export function decryptData(val) {
     return decryptedData;
 
 }
-export function getCalculatedPrice(price) {
 
+
+
+// export function getCalculatedPrice(price) {
+
+//     const user = useSelector((state) => state.user);
+//     // Get Fees(%) from Reducer
+
+//     let transectionFee = user.transectionFee
+//     let platformFee = user.platformFee
+
+//     //Calculate total charges (transectionFee + platformFee )
+
+//     let totalCharge = Number(transectionFee) + Number(platformFee)
+
+
+//     // Applying to Price
+//     let taxPrice = Math.round(price + (totalCharge / 100) * price)
+
+
+//     return taxPrice;
+// }
+
+export function getCalculatedPrice() {
+    const user = useSelector((state) => state.user);
+    
+    // Get Fees(%) from Reducer
+    const getData = (price) => {
+
+        let transectionFee = user.transectionFee
+        let platformFee = user.platformFee
+
+        //Calculate total charges (transectionFee + platformFee )
+
+        let totalCharge = Number(transectionFee) + Number(platformFee)
+
+
+        // Applying to Price
+        let taxPrice = Math.round(price + (totalCharge / 100) * price)
+
+
+        return taxPrice;
+    }
+    return {
+        getData
+    }
 }

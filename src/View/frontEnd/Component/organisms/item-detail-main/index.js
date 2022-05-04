@@ -10,7 +10,7 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper from "../../../../../Common/Helper";
+import helper,{getCalculatedPrice} from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -26,7 +26,7 @@ function ProjectDetailMain(props) {
       <h1 className="project__detail-title mb-0" style={{textTransform:"capitalize"}}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
-      <div className="project__detail-price fs-2 text-success">$ {productDetails?.price}</div>
+      <div className="project__detail-price fs-2 text-success">$ {getCalculatedPrice(productDetails?.price)}</div>
       <div className="project__detail-meta d-flex align-items-center">
         <div className="d-flex align-items-center">
           <FontAwesomeIcon icon={regular("clock")} className="me-1" />

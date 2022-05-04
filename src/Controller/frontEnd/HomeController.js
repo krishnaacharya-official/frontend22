@@ -1,11 +1,13 @@
 import Index from "../../View/frontEnd/Layout/Home/Index";
 import productApi from "../../Api/admin/product";
-import React, { useState, useEffect,useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import FrontLoader from "../../Common/FrontLoader";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
 import settingApi from "../../Api/admin/setting";
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
+import { useSelector, useDispatch } from "react-redux";
+// import { setFees, setIsUpdateCart } from "../../user/user.action";
 
 
 
@@ -15,7 +17,8 @@ export default function HomeController() {
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
+    const user = useSelector((state) => state.user);
 
     const [update, setIsUpdate] = useState(false)
     const [inCart, setInCart] = useState(false)
@@ -37,8 +40,8 @@ export default function HomeController() {
             }
             setPricingFees({
                 ...pricingFees,
-                platformFee:user.platformFee,
-                transectionFee:user.transectionFee
+                platformFee: user.platformFee,
+                transectionFee: user.transectionFee
             })
             // const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 
@@ -126,7 +129,7 @@ export default function HomeController() {
                 removeCartItem={removeCartItem}
                 checkItemInCart={checkItemInCart}
                 pricingFees={pricingFees}
-                
+
             />
         </>
     )

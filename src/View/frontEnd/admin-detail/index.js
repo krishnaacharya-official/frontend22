@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { UserContext } from '../../../App';
+// import { UserContext } from '../../../App';
 // import {
 //   AdminDashboard,
 //   AdminTabs,
@@ -41,11 +41,14 @@ import adminCampaignApi from "../../../Api/admin/adminCampaign";
 import FrontLoader from "../../../Common/FrontLoader";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import noimg from "../../../assets/images/noimg.jpg"
-
+import { useSelector, useDispatch } from "react-redux";
+// import { setLogout } from "../../../user/user.action"
 
 
 function AdminDetail() {
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const user = useSelector((state) => state.user);
+
 
   const [selectedTabKey, setSelectedTabKey] = useState("");
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');

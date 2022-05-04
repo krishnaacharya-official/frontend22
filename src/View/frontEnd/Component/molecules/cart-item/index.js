@@ -11,10 +11,10 @@ function CartItem(props) {
   let cartItem= props.cartItem
 const  [quantity, setQuantity] = useState(cartItem?.quantity)
 
-let transectionFee = props.pricingFees?.transectionFee
-let platformFee = props.pricingFees?.platformFee
-let totalCharge = Number(transectionFee) + Number(platformFee)
-let price = Math.round(cartItem?.productDetails?.price + (totalCharge / 100) * cartItem?.productDetails?.price)
+// let transectionFee = props.pricingFees?.transectionFee
+// let platformFee = props.pricingFees?.platformFee
+// let totalCharge = Number(transectionFee) + Number(platformFee)
+let price = props.CalculatePrice.getData(cartItem?.productDetails?.price) 
   
   const minusValue = async(value) => {
     if (value > 1) {

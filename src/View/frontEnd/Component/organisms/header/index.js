@@ -34,7 +34,7 @@ const Header = (props) => {
                   <GeoLocation />
 
 
-                  <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} pricingFees={props.pricingFees} />
+                  <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem}  />
 
                   <Activity />
                 </>

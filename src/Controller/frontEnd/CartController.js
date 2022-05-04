@@ -5,7 +5,7 @@ import Cart from "../../View/frontEnd/cart";
 import cartApi from "../../Api/frontEnd/cart";
 import authApi from "../../Api/admin/auth";
 import ToastAlert from "../../Common/ToastAlert";
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 import settingApi from "../../Api/admin/setting";
 
 
@@ -15,7 +15,7 @@ export default function CartController() {
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
 
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const params = useParams();

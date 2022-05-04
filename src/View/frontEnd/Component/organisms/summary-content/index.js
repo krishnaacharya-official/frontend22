@@ -8,12 +8,12 @@ import helper from "../../../../../Common/Helper";
 
 const SummaryContent = (props) => {
   let cartItem = props.cartItem
-  let total = props.total
+  let total = props.CalculatedPrice.getData(props.total)
 
 
-  let transectionFee = props.pricingFees?.transectionFee
-  let platformFee = props.pricingFees?.platformFee
-  let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let transectionFee = props.pricingFees?.transectionFee
+  // let platformFee = props.pricingFees?.platformFee
+  // let totalCharge = Number(transectionFee) + Number(platformFee)
 
   return (
     <div className="summary__content">
@@ -23,7 +23,8 @@ const SummaryContent = (props) => {
           {
             cartItem && cartItem.length > 0 &&
             cartItem.map((item, i) => {
-              let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+              // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+              // let price = props.CalculatedPrice(item.productDetails?.price)
 
               return (
                 <li className="d-flex align-items-center py-2">
@@ -58,7 +59,7 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
-                  <span className="fs-5 fw-bold text-success ms-3">${price * item.quantity}</span>
+                  <span className="fs-5 fw-bold text-success ms-3">${ props.CalculatedPrice.getData(item.productDetails?.price * item.quantity)}</span>
                 </li>
               )
             })

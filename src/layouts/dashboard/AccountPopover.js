@@ -11,8 +11,11 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 import MenuPopover from '../../components/MenuPopover';
 //
 import account from '../../_mocks_/account';
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 import { confirmAlert } from 'react-confirm-alert';
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../../user/user.action"
+
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
@@ -37,8 +40,9 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const adminData = JSON.parse(localStorage.getItem('adminData'));
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -59,7 +63,8 @@ export default function AccountPopover() {
           label: 'Yes',
 
           onClick: () => {
-            user.logout()
+            // user.logout()
+            dispatch(setLogout());
             navigate('/admin/login')
           }
         },
