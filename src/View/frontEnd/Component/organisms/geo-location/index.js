@@ -173,9 +173,9 @@ const GeoLocation = () => {
                 >
                   <span className="d-flex align-items-center icon">
                     {state.locked ? (
-                      <i className="fa-light fa-lock-open"></i>
+                      <FontAwesomeIcon icon={light('lock-open')} />
                     ) : (
-                      <i className="fa-solid fa-lock text-success"></i>
+                      <FontAwesomeIcon icon={solid('lock')} />
                     )}
                   </span>
                 </Button>

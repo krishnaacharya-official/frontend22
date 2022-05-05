@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
 if (window.location.hostname === 'localhost') {
-    Mode = "development"
+   // Mode = "development"
 }
 
 
