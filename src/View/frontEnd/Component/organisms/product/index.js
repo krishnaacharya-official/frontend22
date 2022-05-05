@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../../../../App';
+// import { UserContext } from '../../../../../App';
 import { ProgressBar, Button } from "react-bootstrap";
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
 import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.svg";
-import helper from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import IconToggle from "../../atoms/icon-toggle";
@@ -14,7 +14,8 @@ import {
   light,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Icon } from '@iconify/react';
-
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateCart } from "../../../../../user/user.action"
 
 
 import "./style.scss";
@@ -31,11 +32,13 @@ const Product = (props) => {
   let location = props.cityDetails?.city
   let progress = 60
 
-  
-  let transectionFee = props.pricingFees?.transectionFee
-  let platformFee = props.pricingFees?.platformFee
-  let totalCharge = Number(transectionFee) + Number(platformFee)
-  let price = Math.round(props.price + (totalCharge / 100) * props.price)
+const getCalc = getCalculatedPrice();
+  // let transectionFee = props.pricingFees?.transectionFee
+  // let platformFee = props.pricingFees?.platformFee
+  // let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let price = Math.round(props.price + (totalCharge / 100) * props.price)
+  let price = getCalc.getData(props.price)
+
 
   let theme_color = props.categoryDetails?.color
   let category = props.subCategoryDetails?.name
@@ -44,7 +47,10 @@ const Product = (props) => {
   let date = moment(props.created_at).format('MMM DD');
   let catIcon = props.categoryDetails?.iconDetails?.class;
   let subCatIcon = props.subCategoryDetails?.iconDetails?.class;
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     added_to_cart: false,
   })
@@ -91,13 +97,15 @@ const Product = (props) => {
   const addToCart = async () => {
     // alert(props._id)
     // user.setCart(true)
-    user.setCart(!user.isUpdateCart)
+    // user.setCart(!user.isUpdateCart)
+    dispatch(setIsUpdateCart(!user.isUpdateCart))
     await props.addToCart(props._id)
     setState({ added_to_cart: true })
   };
 
   const removeFromCart = async () => {
-    user.setCart(!user.isUpdateCart)
+    // user.setCart(!user.isUpdateCart)
+    dispatch(setIsUpdateCart(!user.isUpdateCart))
     await props.removeCartItem(props._id)
     setState({ added_to_cart: false })
   };

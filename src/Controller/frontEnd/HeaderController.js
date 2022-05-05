@@ -7,8 +7,10 @@ import cartApi from "../../Api/frontEnd/cart";
 import authApi from "../../Api/admin/auth";
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import ToastAlert from "../../Common/ToastAlert";
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';`
 import settingApi from "../../Api/admin/setting";
+import { useSelector, useDispatch } from "react-redux";
+import { setFees,setIsUpdateCart } from "../../user/user.action";
 
 
 
@@ -22,7 +24,11 @@ export default function HeaderController() {
     const [update, setIsUpdate] = useState(false)
     const [cartItem, setCartItem] = useState([])
     const navigate = useNavigate();
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
+    const user = useSelector((state) => state.user);
+
+    const dispatch = useDispatch();
+
 
     const [pricingFees, setPricingFees] = useState({
         platformFee: 0,
@@ -49,8 +55,11 @@ export default function HeaderController() {
             }
             setLoading(false)
 
+            // console.log(user.isUpdateCart)
+
         })()
-    }, [token, update, user.isUpdateCart])
+        }, [token, update, user.isUpdateCart])
+
 
 
 
@@ -69,8 +78,10 @@ export default function HeaderController() {
                 setPricingFees({
                     ...data
                 })
-                user.setTransectionFee(data.transectionFee)
-                user.setPlatformFee(data.platformFee)
+                dispatch(setFees(data))
+
+                // user.setTransectionFee(data.transectionFee)
+                // user.setPlatformFee(data.platformFee)
 
 
             }
@@ -90,7 +101,8 @@ export default function HeaderController() {
 
             } else {
                 setIsUpdate(!update)
-                user.setCart(!user.isUpdateCart)
+                // user.setCart(!user.isUpdateCart)
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
                 setLoading(false)
             }
@@ -111,7 +123,8 @@ export default function HeaderController() {
 
             } else {
                 setIsUpdate(!update)
-                user.setCart(!user.isUpdateCart)
+                // user.setCart(!user.isUpdateCart)
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
                 ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
                 setLoading(false)
             }
@@ -131,7 +144,7 @@ export default function HeaderController() {
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
                 updateCartItem={updateCartItem}
-                pricingFees={pricingFees}
+  
 
 
             />

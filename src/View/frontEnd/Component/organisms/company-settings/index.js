@@ -7,10 +7,14 @@ import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
 import { Button } from "react-bootstrap";
-import { UserContext } from '../../../../../App';
+// import { UserContext } from '../../../../../App';
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateCart ,setIsUpdateOrganization} from "../../../../../user/user.action"
 
 const CompanySettings = () => {
-  const user = useContext(UserContext)
+    const user = useSelector((state) => state.user);
+    // const user = useContext(UserContext)
+  const dispatch = useDispatch();
   const [data, setData] = useOutletContext();
   const [loading, setLoading] = useState(false)
   const [embedlink, setEmbedlink] = useState('')
@@ -121,7 +125,9 @@ const CompanySettings = () => {
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
           setUpdate(!update)
-          user.setUpdateOrg(!user.isUpdateOrg)
+          // user.setUpdateOrg(!user.isUpdateOrg)
+          dispatch(setIsUpdateOrganization(!user.isUpdateOrg))
+
           setData(state)
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'success' });

@@ -9,7 +9,8 @@ import Checkout from "../../View/frontEnd/checkout";
 import orderApi from "../../Api/frontEnd/order";
 import { validateAll } from "indicative/validator";
 import settingApi from "../../Api/admin/setting";
-
+import helper, { getCalculatedPrice } from "../../Common/Helper";
+import { useSelector, useDispatch } from "react-redux";
 
 
 export default function CheckoutController() {
@@ -19,14 +20,16 @@ export default function CheckoutController() {
     const [update, setIsUpdate] = useState(false)
     const [subtotal, setSubTotal] = useState(0)
     const [total, setTotal] = useState(0)
+    const CalculatedPrice = getCalculatedPrice()
+    const user = useSelector((state) => state.user);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
-    const [pricingFees, setPricingFees] = useState({
-        platformFee: 0,
-        transectionFee: 0,
+    // const [pricingFees, setPricingFees] = useState({
+    //     platformFee: 0,
+    //     transectionFee: 0,
 
-    })
-    const { platformFee, transectionFee } = pricingFees
+    // })
+    // const { platformFee, transectionFee } = pricingFees
 
     const params = useParams();
     const navigate = useNavigate();
@@ -64,23 +67,23 @@ export default function CheckoutController() {
                 }
             }
             let data = {}
-            const getSettingsValue = await settingApi.list(userAuthToken, Object.keys(pricingFees));
+            // const getSettingsValue = await settingApi.list(userAuthToken, Object.keys(pricingFees));
 
-            if (getSettingsValue.data.success) {
-
-
-                getSettingsValue.data.data.map((d, i) => {
-                    data[d.name] = d.value
-                })
-
-                setPricingFees({
-                    ...data
-                })
-                // user.setTransectionFee(data.transectionFee)
-                // user.setPlatformFee(data.platformFee)
+            // if (getSettingsValue.data.success) {
 
 
-            }
+            //     getSettingsValue.data.data.map((d, i) => {
+            //         data[d.name] = d.value
+            //     })
+
+            //     setPricingFees({
+            //         ...data
+            //     })
+            //     // user.setTransectionFee(data.transectionFee)
+            //     // user.setPlatformFee(data.platformFee)
+
+
+            // }
 
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
@@ -93,11 +96,13 @@ export default function CheckoutController() {
                 if (getCartList.data.data.length > 0) {
                     getCartList.data.data.map((item, i) => {
 
-                        let transectionFee = data.transectionFee
-                        let platformFee = data.platformFee
-                        let totalCharge = Number(transectionFee) + Number(platformFee)
+                        // let transectionFee = data.transectionFee
+                        // let platformFee = data.platformFee
+                        // let totalCharge = Number(transectionFee) + Number(platformFee)
 
-                        let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+                        // let price = CalculatedPrice.getData(item.productDetails?.price) 
+                        let price = item.productDetails?.price
+                        // console.log('first',price)
 
                         tempPriceArray.push(price * item.quantity)
                         tempProductPriceArray.push(item.productDetails?.price * item.quantity)
@@ -159,7 +164,7 @@ export default function CheckoutController() {
             data.state = stateName
             data.line1 = line1
             data.country = country
-            data.amount = total
+            data.amount = CalculatedPrice.getData(total)
             data.cardNumber = cardNumber
             data.cardExpMonth = cardExpMonth
             data.cardExpYear = cardExpYear
@@ -201,11 +206,11 @@ export default function CheckoutController() {
                     orderDetails.transactionId = payment.data.data.id
                     orderDetails.paymentResponse = JSON.stringify(payment.data)
                     orderDetails.subtotal = subtotal
-                    orderDetails.appliedTaxPercentage = Number(platformFee) + Number(transectionFee)
-                    orderDetails.platformFees = platformFee
-                    orderDetails.transectionFees = transectionFee
-                    orderDetails.tax = Number(total) - Number(subtotal)
-                    orderDetails.total = total
+                    orderDetails.appliedTaxPercentage = Number(user.platformFee) + Number(user.transectionFee)
+                    orderDetails.platformFees = user.platformFee
+                    orderDetails.transectionFees = user.transectionFee
+                    orderDetails.tax = Number(CalculatedPrice.getData(total)) - Number(subtotal)
+                    orderDetails.total = CalculatedPrice.getData(total)
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
                     if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -287,7 +292,6 @@ export default function CheckoutController() {
 
     return (
         <>
-            {/* {console.log(cartItem)} */}
             <FrontLoader loading={loading} />
             <Checkout
                 cartItem={cartItem}
@@ -296,7 +300,8 @@ export default function CheckoutController() {
                 pay={pay}
                 changevalue={changevalue}
                 removeCartItem={removeCartItem}
-                pricingFees={pricingFees}
+                CalculatedPrice={CalculatedPrice}
+            // pricingFees={pricingFees}
 
             />
         </>

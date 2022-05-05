@@ -5,7 +5,7 @@ import { Container, Button } from "react-bootstrap";
 // import { Logo, ListItemImg } from "@components/atoms";
 import Logo from "../Component/atoms/logo"
 import ListItemImg from "../Component/atoms/list-item-img"
-import helper from "../../../Common/Helper";
+import helper, { getCalculatedPrice } from "../../../Common/Helper";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -18,6 +18,8 @@ const Cart = (props) => {
   let transectionFee = props.pricingFees?.transectionFee
   let platformFee = props.pricingFees?.platformFee
   let totalCharge = Number(transectionFee) + Number(platformFee)
+  const getCalc = getCalculatedPrice()
+
 
   const onChange = (e) => {
     console.log(e)
@@ -29,7 +31,10 @@ const Cart = (props) => {
 
       let tempPriceArray = []
       props.cartItem.map((item, i) => {
-        let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+        // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+        let price = getCalc.getData(item.productDetails?.price)
+
+
         tempPriceArray.push(price * item.quantity)
       })
       // console.log(tempPriceArray)
@@ -87,7 +92,9 @@ const Cart = (props) => {
 
                 {
                   cartItem.map((item, i) => {
-                    let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+                    // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+                    // let price = getCalc.getData(item.productDetails?.price)
+
 
                     return (
                       <li className="d-flex align-items-center py-2" key={i}>
@@ -147,7 +154,7 @@ const Cart = (props) => {
                             // onChange={()=>onChange(item._id)}
                             />
                           </span>
-                          <span className="fs-5 fw-bold text-success ms-3">${price * item.quantity}</span>
+                          <span className="fs-5 fw-bold text-success ms-3">${getCalc.getData(item.productDetails?.price * item.quantity)}</span>
                         </div>
                       </li>
                     )

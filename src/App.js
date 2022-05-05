@@ -5,8 +5,8 @@ import { userReducer } from './Reducer/userReducer';
 import useUser from './hooks/useUser';
 // import './styles/scss/global.scss'
 // import './styles/scss/global.scss'
-
-
+import { store } from "./store"
+import { Provider } from "react-redux";
 import Router from './routes';
 // theme
 
@@ -35,10 +35,13 @@ export default function App() {
     const UserProviderContext = useUser(user, userdispatch);
     return (
         <>
-            <UserContext.Provider value={UserProviderContext}>
+            {/* <UserContext.Provider value={UserProviderContext}> */}
+            <Provider store={store}>
                 <ToastContainer />
                 <MainRoutes />
-            </UserContext.Provider>
+            </Provider>
+            {/* </UserContext.Provider> */}
+
         </>
     );
 }

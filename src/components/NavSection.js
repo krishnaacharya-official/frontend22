@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
-import { UserContext } from '../App';
+// import { UserContext } from '../App';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
-import { NavLink as RouterLink, matchPath, useLocation,useNavigate } from 'react-router-dom';
+import { NavLink as RouterLink, matchPath, useLocation, useNavigate } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 // material
@@ -12,7 +12,8 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css'
 // import hasPermission from '../Common/Helper'
 import { hasPermission } from '../Common/Helper'
-
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../user/user.action"
 // ----------------------------------------------------------------------
 
 const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(
@@ -55,7 +56,8 @@ NavItem.propTypes = {
 };
 
 function NavItem({ item, active }) {
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const adminData = JSON.parse(localStorage.getItem('adminData'));
   const theme = useTheme();
@@ -77,7 +79,8 @@ function NavItem({ item, active }) {
           label: 'Yes',
 
           onClick: () => {
-            user.logout()
+            // user.logout()
+            dispatch(setLogout());
             navigate('/')
           }
         },
@@ -106,7 +109,7 @@ function NavItem({ item, active }) {
         <ListItemStyle
           onClick={handleOpen}
           sx={{
-            ...( isActiveRoot && activeRootStyle)
+            ...(isActiveRoot && activeRootStyle)
           }}
         >
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
@@ -171,7 +174,7 @@ function NavItem({ item, active }) {
         to={path}
         onClick={() => title === "logout" && logOut()}
         sx={{
-          ...(title !== "logout" &&  isActiveRoot && activeRootStyle)
+          ...(title !== "logout" && isActiveRoot && activeRootStyle)
         }}
       >
         <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
@@ -196,7 +199,7 @@ export default function NavSection({ navConfig, ...other }) {
       <List disablePadding>
         {navConfig.map((item) => (
           // console.log(item)
-          hasPermission(adminData?.roleName,item.name) &&
+          hasPermission(adminData?.roleName, item.name) &&
           <NavItem key={item.title} item={item} active={match} />
         ))}
       </List>

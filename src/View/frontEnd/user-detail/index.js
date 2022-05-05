@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -19,8 +19,9 @@ import FrontLoader from "../../../Common/FrontLoader";
 import helper, { ImageExist } from "../../../Common/Helper"
 
 
-import { UserContext } from '../../../App';
+// import { UserContext } from '../../../App';
 import noimg from "../../../assets/images/noimg.jpg"
+import { useSelector, useDispatch } from "react-redux";
 
 
 
@@ -28,7 +29,9 @@ import noimg from "../../../assets/images/noimg.jpg"
 import "./style.scss";
 
 function UserDetail(props) {
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const user = useSelector((state) => state.user);
+
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [selectedTabKey, setSelectedTabKey] = useState("");
   const [dropdown, setDropdown] = useState(false);
@@ -46,7 +49,7 @@ function UserDetail(props) {
       if (getUserDetails) {
         if (getUserDetails.data.success) {
           // console.log(getUserDetails.data.data)
-          setProfileImg(ImageExist(helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg) 
+          setProfileImg(ImageExist(helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg)
           setData(getUserDetails.data.data)
         } else {
           localStorage.clear()
@@ -61,7 +64,7 @@ function UserDetail(props) {
 
     })()
 
-  }, [user.isUpdateOrg])
+  }, [user.isUpdateUserDetails])
 
 
   return (
@@ -81,7 +84,7 @@ function UserDetail(props) {
                       className="user__img"
                       style={{
                         backgroundImage:
-                          "url(" + profileImg + ")",width:"120px"
+                          "url(" + profileImg + ")", width: "120px"
                       }}
                     ></div>
                   </div>
