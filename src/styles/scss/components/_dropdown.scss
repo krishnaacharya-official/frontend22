@@ -67,9 +67,6 @@
 
 .dropdown-menu {
   @include box-shadow($dropdown-box-shadow);
-  &:not(.mobile__dropdown) {
-    max-height: 300px;
-  }
   overflow: auto;
 }
 

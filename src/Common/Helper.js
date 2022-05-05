@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 
 let Mode = "production"
 if (window.location.hostname === 'localhost') {
-    Mode = "development"
+   // Mode = "development"
 }
 
 

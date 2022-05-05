@@ -17,6 +17,10 @@ import {
   AppConversionRates
 } from '../components/_dashboard/app';
 
+// load styles
+import '../styles/scss/admin-styles.scss';
+
+
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
