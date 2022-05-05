@@ -61,7 +61,7 @@ export default function Payment(props) {
         validateAll(state, rules, message).then(async () => {
             const formaerrror = {};
             setError(
-                ...error,
+                // ...error,
                 formaerrror
             )
 
@@ -75,7 +75,7 @@ export default function Payment(props) {
             }
 
         }).catch(errors => {
-            // console.log(errors)
+            console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {

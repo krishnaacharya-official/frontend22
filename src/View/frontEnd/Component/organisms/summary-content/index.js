@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 // import { ListItemImg } from "@components/atoms";
 import ListItemImg from "../../atoms/list-item-img";
-import helper from "../../../../../Common/Helper";
+import helper,{priceFormat} from "../../../../../Common/Helper";
 
 const SummaryContent = (props) => {
   let cartItem = props.cartItem
@@ -59,7 +59,7 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
-                  <span className="fs-5 fw-bold text-success ms-3">{props.currencySymbol + props.CalculatedPrice.getData(item.productDetails?.price * item.quantity)}</span>
+                  <span className="fs-5 fw-bold text-success ms-3">{props.currencySymbol + priceFormat(props.CalculatedPrice.getData(item.productDetails?.price * item.quantity))}</span>
                 </li>
               )
             })
@@ -73,7 +73,7 @@ const SummaryContent = (props) => {
         <div className=" py-3 border-bottom">
           <div className="d-flex align-items-center pb-20p">
             <span className="fw-bolder flex__1">Subtotal:</span>
-            <span className="fw-bold text-success fs-5">{props.currencySymbol + total}</span>
+            <span className="fw-bold text-success fs-5">{props.currencySymbol + priceFormat(total)}</span>
           </div>
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
@@ -84,7 +84,7 @@ const SummaryContent = (props) => {
       <div className="d-flex align-items-center pt-1 pb-4">
         <span className="fw-bolder flex__1">Total:</span>
         {/* <span className="text-subtext me-2 fs-7">USD</span> */}
-        <span className="fw-bold text-success fs-4">{props.currencySymbol + total}</span>
+        <span className="fw-bold text-success fs-4">{props.currencySymbol + priceFormat(total)}</span>
       </div>
 
       <div className="note note--info px-0 text-center">

@@ -393,6 +393,7 @@ function UserController() {
 
     return (
         <>
+
             <FrontLoader loading={loading} />
             <AddUserForm
                 modal={modal}

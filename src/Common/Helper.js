@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
 if (window.location.hostname === 'localhost') {
-   // Mode = "development"
+    Mode = "development"
 }
 
 
@@ -163,6 +163,15 @@ export function getCalculatedPrice() {
         return convertdPrice;
     }
 
+    const priceWithoutTax = (price) => {
+
+        let taxPrice = Math.round(price)
+        let convertdPrice = Math.round(taxPrice)
+        convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
+        return convertdPrice;
+
+    }
+
     //get Currency Symbol
 
     const currencySymbol = () => {
@@ -177,7 +186,8 @@ export function getCalculatedPrice() {
 
     return {
         getData,
-        currencySymbol
+        currencySymbol,
+        priceWithoutTax
     }
 }
 

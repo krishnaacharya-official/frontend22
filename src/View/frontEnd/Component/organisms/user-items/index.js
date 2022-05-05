@@ -133,7 +133,9 @@ const UserItems = () => {
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
           // console.log(item.appliedTaxPer)
-          let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+          // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+          let price = Math.round(item.productPrice)
+
 
           return (
 

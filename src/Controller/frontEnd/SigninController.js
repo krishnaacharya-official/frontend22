@@ -31,8 +31,8 @@ function SigninController() {
     const convertCurrency = async (currency) => {
         const getCurrencyPrice = await locationApi.convertCurrency(currency)
         if (getCurrencyPrice) {
-            console.log(getCurrencyPrice)
-            console.log(getCurrencyPrice.data.result)
+            // console.log(getCurrencyPrice)
+            // console.log(getCurrencyPrice.data.result)
 
             if (getCurrencyPrice.data.success) {
                 dispatch(setCurrencyPrice(getCurrencyPrice.data.result))
@@ -106,6 +106,9 @@ function SigninController() {
                                                     currencyData.currency = getCountryData.data.data.currency
                                                     currencyData.currencySymbol = getCountryData.data.data.symbol
                                                     dispatch(setCurrency(currencyData))
+                                                    await convertCurrency(getCountryData.data.data.currency)
+
+
                                                 }
                                             }
                                         }

@@ -22,6 +22,8 @@ export default function CheckoutController() {
     const [total, setTotal] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
     const currencySymbol = CalculatedPrice.currencySymbol()
+    const getPricewithoutTax = CalculatedPrice.priceWithoutTax()
+
 
     const user = useSelector((state) => state.user);
 
@@ -133,6 +135,8 @@ export default function CheckoutController() {
         //     console.log(false)
 
         // }
+        // console.log(CalculatedPrice.priceWithoutTax(Number(subtotal)))  
+        // return false
 
         const rules = {
             cardNumber: "required",
@@ -173,6 +177,8 @@ export default function CheckoutController() {
             data.cardCVC = cardCVC
             data.postalCode = zip
             data.phone = phone
+            data.currency = user.currency
+
 
 
 
@@ -194,11 +200,11 @@ export default function CheckoutController() {
                             tempObj.soldOut = item.productDetails.soldout
                             tempObj.productName = item.productDetails.headline
                             tempObj.productImage = item.productDetails.image
-                            tempObj.productPrice = item.productDetails.price
+                            tempObj.productPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price)
                             tempObj.tax = item.productDetails.tax
                             tempObj.unlimited = item.productDetails.unlimited
                             tempObj.postTag = item.productDetails.postTag
-                            tempObj.totalPrice = item.productDetails.price * item.quantity
+                            tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
                             tempObj.organizationId = item.productDetails.organizationId
 
                             productDetails.push(tempObj)
@@ -209,11 +215,11 @@ export default function CheckoutController() {
                     orderDetails.currencySymbol = user.currencySymbol
                     orderDetails.transactionId = payment.data.data.id
                     orderDetails.paymentResponse = JSON.stringify(payment.data)
-                    orderDetails.subtotal = subtotal
+                    orderDetails.subtotal = CalculatedPrice.priceWithoutTax(Number(subtotal))
                     orderDetails.appliedTaxPercentage = Number(user.platformFee) + Number(user.transectionFee)
                     orderDetails.platformFees = user.platformFee
                     orderDetails.transectionFees = user.transectionFee
-                    orderDetails.tax = Number(CalculatedPrice.getData(total)) - Number(subtotal)
+                    orderDetails.tax = Number(CalculatedPrice.getData(total)) - Number(CalculatedPrice.priceWithoutTax(Number(subtotal)))
                     orderDetails.total = CalculatedPrice.getData(total)
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
@@ -247,7 +253,7 @@ export default function CheckoutController() {
                 ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
             }
         }).catch(errors => {
-
+            console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {

@@ -5,7 +5,7 @@ import { Container, Button } from "react-bootstrap";
 // import { Logo, ListItemImg } from "@components/atoms";
 import Logo from "../Component/atoms/logo"
 import ListItemImg from "../Component/atoms/list-item-img"
-import helper, { getCalculatedPrice } from "../../../Common/Helper";
+import helper, { getCalculatedPrice,priceFormat } from "../../../Common/Helper";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -156,7 +156,7 @@ const Cart = (props) => {
                             // onChange={()=>onChange(item._id)}
                             />
                           </span>
-                          <span className="fs-5 fw-bold text-success ms-3">{currencySymbol + getCalc.getData(item.productDetails?.price * item.quantity)}</span>
+                          <span className="fs-5 fw-bold text-success ms-3">{currencySymbol + priceFormat(getCalc.getData(item.productDetails?.price * item.quantity))}</span>
                         </div>
                       </li>
                     )
@@ -170,12 +170,12 @@ const Cart = (props) => {
 
               <div className="d-flex align-items-center py-3 border-bottom">
                 <span className="fw-bolder flex__1">Subtotal:</span>
-                <span className="fw-bold text-success fs-5">{currencySymbol +total}</span>
+                <span className="fw-bold text-success fs-5">{currencySymbol +priceFormat(total)}</span>
               </div>
             </div>
             <div className="d-flex align-items-center py-1">
               <span className="fw-bolder flex__1">Total:</span>
-              <span className="fw-bold text-success fs-4">{currencySymbol + total}</span>
+              <span className="fw-bold text-success fs-4">{currencySymbol + priceFormat(total)}</span>
             </div>
             <div className="pb-4 border-bottom d-grid d-sm-block">
               <Button
