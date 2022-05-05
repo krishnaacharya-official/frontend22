@@ -21,6 +21,8 @@ export default function CheckoutController() {
     const [subtotal, setSubTotal] = useState(0)
     const [total, setTotal] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
+    const currencySymbol = CalculatedPrice.currencySymbol()
+
     const user = useSelector((state) => state.user);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -203,6 +205,8 @@ export default function CheckoutController() {
                         })
                     }
                     orderDetails.email = userData.email
+                    orderDetails.currency = user.currency
+                    orderDetails.currencySymbol = user.currencySymbol
                     orderDetails.transactionId = payment.data.data.id
                     orderDetails.paymentResponse = JSON.stringify(payment.data)
                     orderDetails.subtotal = subtotal
@@ -301,6 +305,7 @@ export default function CheckoutController() {
                 changevalue={changevalue}
                 removeCartItem={removeCartItem}
                 CalculatedPrice={CalculatedPrice}
+                currencySymbol={currencySymbol}
             // pricingFees={pricingFees}
 
             />

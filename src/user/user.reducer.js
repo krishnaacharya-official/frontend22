@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, LOGOUT } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -46,13 +46,21 @@ const userReducer = (state = userInitialState, action) => {
 
 
             }
-     
+
 
         case UPDATE_USER_LANGUAGE:
 
             return {
                 ...state,
                 userLanguage: action.payload
+
+            }
+
+        case UPDATE_CURRENCY_PRICE:
+
+            return {
+                ...state,
+                pricePerCurrency: action.payload
 
             }
 
@@ -68,6 +76,8 @@ const userReducer = (state = userInitialState, action) => {
                 platformFee: 0,
                 currencySymbol: '$',
                 userLanguage: 'english',
+                pricePerCurrency: 0
+
             }
 
         default:

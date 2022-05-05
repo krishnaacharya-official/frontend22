@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, LOGOUT } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT } from "./user.types"
 
 export const setCurrency = (data) => ({
     type: UPDATE_CURRENCY,
@@ -29,6 +29,12 @@ export const setUserLanguage = (val) => ({
     type: UPDATE_USER_LANGUAGE,
     payload: val,
 });
+
+export const setCurrencyPrice = (val) => ({
+    type: UPDATE_CURRENCY_PRICE,
+    payload: val,
+});
+
 export const setLogout = () => ({
     type: LOGOUT,
 });

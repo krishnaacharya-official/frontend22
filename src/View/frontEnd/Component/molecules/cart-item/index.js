@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
 import ListItemImg from "../../atoms/list-item-img";
-import helper from "../../../../../Common/Helper";
+import helper,{priceFormat} from "../../../../../Common/Helper";
 
 import "./style.scss";
 
@@ -15,6 +15,7 @@ const  [quantity, setQuantity] = useState(cartItem?.quantity)
 // let platformFee = props.pricingFees?.platformFee
 // let totalCharge = Number(transectionFee) + Number(platformFee)
 let price = props.CalculatePrice.getData(cartItem?.productDetails?.price) 
+let currencySymbol =props.currencySymbol
   
   const minusValue = async(value) => {
     if (value > 1) {
@@ -41,7 +42,7 @@ let price = props.CalculatePrice.getData(cartItem?.productDetails?.price)
             <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
             <div className="cd__cart__location">Canada</div>
           </div>
-          <div className="cd__cart__price">${price}</div>
+          <div className="cd__cart__price">{currencySymbol + priceFormat(price)}</div>
         </div>
         <div className="cd__cart__right d-flex align-items-center">
           <Button

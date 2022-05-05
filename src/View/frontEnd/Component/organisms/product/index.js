@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ProgressBar, Button } from "react-bootstrap";
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
 import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.svg";
-import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import IconToggle from "../../atoms/icon-toggle";
@@ -32,12 +32,10 @@ const Product = (props) => {
   let location = props.cityDetails?.city
   let progress = 60
 
-const getCalc = getCalculatedPrice();
-  // let transectionFee = props.pricingFees?.transectionFee
-  // let platformFee = props.pricingFees?.platformFee
-  // let totalCharge = Number(transectionFee) + Number(platformFee)
-  // let price = Math.round(props.price + (totalCharge / 100) * props.price)
+  const getCalc = getCalculatedPrice();
+
   let price = getCalc.getData(props.price)
+  let currencySymbol = getCalc.currencySymbol()
 
 
   let theme_color = props.categoryDetails?.color
@@ -168,8 +166,8 @@ const getCalc = getCalculatedPrice();
             </Link>
             <div className="small">Price:</div>
             <div className="product__price">
-              <span>$</span>
-              <span className="cost">{price}</span>
+              <span>{currencySymbol}</span>
+              <span className="cost">{priceFormat(price)}</span>
             </div>
           </div>
           {

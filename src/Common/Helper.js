@@ -133,10 +133,16 @@ export function decryptData(val) {
 // }
 
 export function getCalculatedPrice() {
+
     const user = useSelector((state) => state.user);
-    
-    // Get Fees(%) from Reducer
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    // console.log('first', user.pricePerCurrency)
+
+    //calculating price
+
     const getData = (price) => {
+
+        // Get Fees(%) from Reducer
 
         let transectionFee = user.transectionFee
         let platformFee = user.platformFee
@@ -148,11 +154,30 @@ export function getCalculatedPrice() {
 
         // Applying to Price
         let taxPrice = Math.round(price + (totalCharge / 100) * price)
+        let convertdPrice = Math.round(taxPrice)
+        if (!CampaignAdminAuthToken) {
+            convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
+        }
 
 
-        return taxPrice;
+        return convertdPrice;
     }
+
+    //get Currency Symbol
+
+    const currencySymbol = () => {
+
+        let currencySymbol = '$'
+        if (!CampaignAdminAuthToken) {
+            currencySymbol = user.currencySymbol
+        }
+        return currencySymbol
+    }
+
+
     return {
-        getData
+        getData,
+        currencySymbol
     }
 }
+

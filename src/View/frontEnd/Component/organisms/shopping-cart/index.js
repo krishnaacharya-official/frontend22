@@ -3,7 +3,7 @@ import { Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
-import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
 import EmptyCart from "../../atoms/empty-cart";
 import CartList from "./cart-list";
 
@@ -20,6 +20,8 @@ const ShoppingCart = (props) => {
 
 
   const CalculatePrice = getCalculatedPrice()
+  let currencySymbol = CalculatePrice.currencySymbol()
+
 
   const CartButton = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -47,8 +49,9 @@ const ShoppingCart = (props) => {
       let tempPriceArray = []
       props.cartItem.map((item, i) => {
         let price = CalculatePrice.getData(item.productDetails?.price)
-        // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
+
         tempPriceArray.push(price * item.quantity)
+      
       })
 
       let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
@@ -56,7 +59,7 @@ const ShoppingCart = (props) => {
       setState({
         ...state,
         empty: false,
-        subTotal: sum
+        subTotal: Number(sum)
       })
     }
 
@@ -93,11 +96,11 @@ const ShoppingCart = (props) => {
 
             </div>
             <div className="cart_dropdown-body">
-              {state.empty ? <EmptyCart /> : <CartList cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} CalculatePrice={CalculatePrice} />}
+              {state.empty ? <EmptyCart /> : <CartList cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} CalculatePrice={CalculatePrice} currencySymbol={currencySymbol} />}
               {!state.empty && <div className="cd__cart__controls d-flex align-items-center">
                 <div className="cd__cart__value">
                   <span>Total:</span>
-                  <span className="cd__cart__total ml-6p">${state.subTotal}</span>
+                  <span className="cd__cart__total ml-6p">{currencySymbol + priceFormat(state.subTotal)}</span>
                 </div>
                 {/* <Button variant="info" href="/checkout" className="ms-auto">
                   Checkout

@@ -16,7 +16,8 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails} from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency } from "../../../../../user/user.action"
+import noImg from "../../../../../assets/images/noimg.jpg"
 
 
 
@@ -221,6 +222,9 @@ const UserProfile = () => {
   }
 
   const onChangeCurrency = (e) => {
+    // console.log(e)
+
+
     setDefaultCurrency(e)
     setState({
       ...state,
@@ -305,12 +309,17 @@ const UserProfile = () => {
       tempCurrencyObj.label = userCurrency.split('=')[0]
       tempCurrencyObj.icon = userCurrency.split('=')[1]
       setDefaultCurrency(tempCurrencyObj)
+      // let currencyData ={}
+      // currencyData.currency = userCurrency.split('=')[0]
+      // currencyData.currencySymbol = userCurrency.split('=')[1]
+      // dispatch(setCurrency(currencyData))
     }
 
   }, [countryList, data.country_id])
 
 
   const updateProfile = () => {
+
     const rules = {
       name: "required",
       street: "required",
@@ -358,7 +367,6 @@ const UserProfile = () => {
 
 
 
-
       if (image) {
         fdata.image = image
 
@@ -371,6 +379,12 @@ const UserProfile = () => {
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
+
+          let currencyData ={}
+          currencyData.currency = currency.split('=')[0]
+          currencyData.currencySymbol = currency.split('=')[1]
+          dispatch(setCurrency(currencyData))
+
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateUserDetails(!user.isUpdateUserDetails))
@@ -432,10 +446,10 @@ const UserProfile = () => {
               <input className="FileUpload1" id="FileInput" name="booking_attachment" type="file" onChange={(e) => changefile(e)} />
             </label>
             {
-              tempImg !== "" || image !== "" ?
+              tempImg !== "" || image !== "" || image !== null ?
                 <div className="col-sm-6 ml-3">
 
-                  <img src={tempImg ? tempImg : image ? helper.DonorImagePath + image : ""} alt="user profile" className="" style={{ width: "120px", borderRadius: "9px", height: "120px", objectFit: "cover" }} />
+                  <img src={tempImg ? tempImg : image ? helper.DonorImagePath + image : noImg} alt="user profile" className="" style={{ width: "120px", borderRadius: "9px", height: "120px", objectFit: "cover" }} />
 
                 </div>
                 : <></>

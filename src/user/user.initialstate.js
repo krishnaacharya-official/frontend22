@@ -8,6 +8,7 @@ const userInitialState = {
     currency: 'USD',
     currencySymbol: '$',
     userLanguage: 'english',
+    pricePerCurrency:0
 
 
 };

@@ -15,10 +15,12 @@ const Cart = (props) => {
   let cartItem = props.cartItem
   const [total, setTotal] = useState(0)
 
-  let transectionFee = props.pricingFees?.transectionFee
-  let platformFee = props.pricingFees?.platformFee
-  let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let transectionFee = props.pricingFees?.transectionFee
+  // let platformFee = props.pricingFees?.platformFee
+  // let totalCharge = Number(transectionFee) + Number(platformFee)
   const getCalc = getCalculatedPrice()
+  let currencySymbol = getCalc.currencySymbol()
+
 
 
   const onChange = (e) => {
@@ -154,7 +156,7 @@ const Cart = (props) => {
                             // onChange={()=>onChange(item._id)}
                             />
                           </span>
-                          <span className="fs-5 fw-bold text-success ms-3">${getCalc.getData(item.productDetails?.price * item.quantity)}</span>
+                          <span className="fs-5 fw-bold text-success ms-3">{currencySymbol + getCalc.getData(item.productDetails?.price * item.quantity)}</span>
                         </div>
                       </li>
                     )
@@ -168,12 +170,12 @@ const Cart = (props) => {
 
               <div className="d-flex align-items-center py-3 border-bottom">
                 <span className="fw-bolder flex__1">Subtotal:</span>
-                <span className="fw-bold text-success fs-5">${total}</span>
+                <span className="fw-bold text-success fs-5">{currencySymbol +total}</span>
               </div>
             </div>
             <div className="d-flex align-items-center py-1">
               <span className="fw-bolder flex__1">Total:</span>
-              <span className="fw-bold text-success fs-4">${total}</span>
+              <span className="fw-bold text-success fs-4">{currencySymbol + total}</span>
             </div>
             <div className="pb-4 border-bottom d-grid d-sm-block">
               <Button

@@ -4,9 +4,13 @@ import UserSettingsItem from "../../../molecules/user-settings-item";
 import { NavLink as RouterLink, matchPath, useLocation, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../../../../../../user/user.action"
+
 
 function UserSettingsList(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   let userData = props.userData
   let newSlug;
   if (userData) {
@@ -16,7 +20,8 @@ function UserSettingsList(props) {
   }
 
   const logout = () => {
-    localStorage.clear()
+    // localStorage.clear()
+    dispatch(setLogout())
     navigate('/')
   }
 

@@ -10,7 +10,7 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper,{getCalculatedPrice} from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -18,19 +18,23 @@ import "./style.scss";
 function ProjectDetailMain(props) {
   let productDetails = props.productDetails
 
+  const getCalc = getCalculatedPrice();
+  let price = getCalc.getData(productDetails?.price)
+  let currencySymbol = getCalc.currencySymbol()
+
   // console.log(productDetails)
 
   return (
     <div className="project__detail-main">
       <h6 className="project__detail-label mb-3p">Item</h6>
-      <h1 className="project__detail-title mb-0" style={{textTransform:"capitalize"}}>{productDetails?.headline}</h1>
+      <h1 className="project__detail-title mb-0" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
-      <div className="project__detail-price fs-2 text-success">$ {getCalculatedPrice(productDetails?.price)}</div>
+      <div className="project__detail-price fs-2 text-success">{currencySymbol} {price}</div>
       <div className="project__detail-meta d-flex align-items-center">
         <div className="d-flex align-items-center">
           <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-          { moment(productDetails?.created_at).format('MMMM DD, YYYY')}
+          {moment(productDetails?.created_at).format('MMMM DD, YYYY')}
         </div>
         <div className="d-flex align-items-center ms-2">
           <FontAwesomeIcon
@@ -40,9 +44,9 @@ function ProjectDetailMain(props) {
           Toronto, ON
         </div>
       </div>
-      
+
       {/* show for mobile view */}
-      
+
       <div className="d-sm-none project__detail-img mb-3">
         <img
           className="img-fluid"
@@ -89,28 +93,28 @@ function ProjectDetailMain(props) {
           variant="link"
           className="btn__category text-decoration-none"
         >
-          <span className="d-flex align-items-center icon__category"style={{ fontFamily: "fontAwesome", color: productDetails?.categoryDetails?.color, fontStyle: "normal" }}>
-           <span style={{fontSize:"x-large"}} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span>
+          <span className="d-flex align-items-center icon__category" style={{ fontFamily: "fontAwesome", color: productDetails?.categoryDetails?.color, fontStyle: "normal" }}>
+            <span style={{ fontSize: "x-large" }} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span>
           </span>{" "}
-          <span className="fs-6 text-dark fw-bold" style={{textTransform:"capitalize"}}>{productDetails?.subCategoryDetails?.name}</span>
+          <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{productDetails?.subCategoryDetails?.name}</span>
         </Button>
         <Link
           size="lg"
           variant="link"
           className="btn__category text-decoration-none"
-          to={'/organization/'+productDetails?.campaignDetails?.slug}
+          to={'/organization/' + productDetails?.campaignDetails?.slug}
         >
           <span className="d-flex align-items-center icon__category">
             {/* <CategoryIcon /> */}
             {/* <div className="page__logo page__logo--org ms-auto" > */}
             <img
               alt=""
-              style={{width:"30px"}}
+              style={{ width: "30px" }}
               src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
             />
-          {/* </div> */}
+            {/* </div> */}
           </span>
-          <span className="fs-6 text-dark fw-bold" style={{textTransform:"capitalize"}}>{productDetails?.campaignDetails?.name}</span>
+          <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{productDetails?.campaignDetails?.name}</span>
         </Link>
         {/* <Button
           size="lg"
@@ -132,7 +136,7 @@ function ProjectDetailMain(props) {
 
       <h5>Personal tents for the homeless in Alberta, Canada</h5>
       <div className="page__paragraph lh-lg">
-      {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+        {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
       <div className="project__calculate mt-4">
