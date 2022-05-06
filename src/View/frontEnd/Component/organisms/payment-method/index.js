@@ -273,7 +273,9 @@ const PaymentMethod = () => {
             Direct Deposit information for contributions from your donors
           </span>
           <Button variant="info" onClick={() => openModel()}>Add Bank</Button>
-          <AddBankModal show={modalShow} onHide={() => setModalShow(false)} changevalue={changevalue} stateData={state} setstate={setstate} addBankAccount={addBankAccount} />
+          <AddBankModal show={modalShow} setModalShow={setModalShow} 
+          changevalue={changevalue} stateData={state} setstate={setstate} addBankAccount={addBankAccount}
+           />
         </div>
         {bankAccountList.length > 0 &&
           bankAccountList.map((list, i) => {
