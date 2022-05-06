@@ -1,5 +1,5 @@
 import Dialog from '@mui/material/Dialog';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
@@ -15,7 +15,7 @@ import { Button, Card } from '@mui/material';
 import moment from 'moment';
 import Label from '../../../components/Label';
 // import helper from '../../../Common/Helper';
-import helper,{ priceFormat } from '../../../Common/Helper';
+import helper, { priceFormat } from '../../../Common/Helper';
 
 
 
@@ -26,7 +26,7 @@ const DialogTransition = (props) => {
     return <Slide direction='up' {...props} />;
 };
 const OrderDetails = (props) => {
-    
+
     let orderDetails = {}
     orderDetails = props.orderDetails
     // console.log(orderDetails)
@@ -68,13 +68,13 @@ const OrderDetails = (props) => {
                     </Toolbar>
                 </AppBar>
 
-                <div className="invoice invoice-content  px-5 pt-5">
+                <div className="invoice invoice-content  px-5 pt-5" style={{overflow:"auto"}}>
                     <div className="row">
                         <div className="col-3">
                             <h5 className="almost-gray mb-3">Invoiced to:</h5>
                             <p className="gray-ish" style={{ textTransform: "capitalize" }}>{orderDetails?.userDetails?.name}</p>
-                            <p className="gray-ish">User Adress</p>
-                            <p className="gray-ish">EMAIL ID : {orderDetails?.userDetails?.email}</p>
+                            <p className="gray-ish">{orderDetails?.userDetails?.street}<br />{orderDetails?.userDetails?.zip} , {orderDetails?.userDetails?.cityDetails?.city},{orderDetails?.userDetails?.stateDetails?.state}<br />{orderDetails?.userDetails?.countryDetails?.country}</p>
+                            <p className="gray-ish">{orderDetails?.userDetails?.email}</p>
                         </div>
                         <div className="col-3">
                             <h5 className="almost-gray">Order Id:</h5>
@@ -110,7 +110,7 @@ const OrderDetails = (props) => {
                         </div>
                         <div className="col-3 text-right total-field">
                             <h4 className="almost-gray">Total Amount</h4>
-                            <h1 className="gray-ish"><span className="curency">$</span>{priceFormat(orderDetails.total)}</h1>
+                            <h1 className="gray-ish"><span className="curency">{orderDetails.currencySymbol ? orderDetails.currencySymbol : "$"}</span>{priceFormat(orderDetails.total)}</h1>
 
                         </div>
                     </div>
@@ -134,17 +134,17 @@ const OrderDetails = (props) => {
                                                 <td className="no">{i + 1}</td>
                                                 <td className="price"><img style={{ width: "50px" }} src={helper.CampaignProductImagePath + item.productImage} alt="product" /></td>
                                                 <td className=""><h3>{item.productName}</h3></td>
-                                                <td className="unit">${priceFormat(item.productPrice)}</td>
+                                                <td className="unit">{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(item.productPrice)}</td>
                                                 <td className="qty">{item.quantity}</td>
-                                                <td className="total">${priceFormat(item.totalPrice)}</td>
+                                                <td className="total">{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(item.totalPrice)}</td>
 
                                             </tr>
                                         )
-                                    }) : 
+                                    }) :
                                     <tr>
-                                    <td className="unit text-center" colSpan={6}>Items Not Found</td>
+                                        <td className="unit text-center" colSpan={6}>Items Not Found</td>
 
-                                </tr>
+                                    </tr>
 
                             }
 
@@ -152,28 +152,28 @@ const OrderDetails = (props) => {
 
                         </tbody>
                         {
-                            Object.keys(orderDetails).length !== 0 &&  orderDetails.orderItems.length > 0 &&
-                            
+                            Object.keys(orderDetails).length !== 0 && orderDetails.orderItems.length > 0 &&
+
                             <tfoot>
                                 <tr>
                                     <td colSpan="3"></td>
                                     <td colSpan="2">SUBTOTAL</td>
-                                    <td>${priceFormat(orderDetails.subtotal)}</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(orderDetails.subtotal)}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">TRANSECTION FEES ( {orderDetails.transectionFees ?orderDetails.transectionFees:0} %)</td>
-                                    <td>${Math.round(( Number(orderDetails.transectionFees ?orderDetails.transectionFees:0) / 100) * Number(orderDetails.subtotal))}</td>
+                                    <td colSpan="2">TRANSECTION FEES ( {orderDetails.transectionFees ? orderDetails.transectionFees : 0} %)</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.transectionFees ? orderDetails.transectionFees : 0) / 100) * Number(orderDetails.subtotal)))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">PLATFORM FEES ( {orderDetails.platformFees ?orderDetails.platformFees:0} %)</td>
-                                    <td>${Math.round((  Number(orderDetails.platformFees ?orderDetails.platformFees:0) / 100) * Number(orderDetails.subtotal))}</td>
+                                    <td colSpan="2">PLATFORM FEES ( {orderDetails.platformFees ? orderDetails.platformFees : 0} %)</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.platformFees ? orderDetails.platformFees : 0) / 100) * Number(orderDetails.subtotal)))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
                                     <td colSpan="2">GRAND TOTAL</td>
-                                    <td>${priceFormat(orderDetails.total)}</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(orderDetails.total)}</td>
                                 </tr>
                             </tfoot>
                         }

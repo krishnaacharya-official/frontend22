@@ -7,13 +7,17 @@ import ListItemImg from "../../atoms/list-item-img";
 import "./style.scss";
 
 import moment from "moment";
-import helper from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
+
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 
 const ItemsTable = (props) => {
+  const calculatedPrice = getCalculatedPrice()
+
   let orderItemList = props.orderItemList
+  // console.log(orderItemList)
   return (
     <>
       <div className="list__table">
@@ -56,7 +60,8 @@ const ItemsTable = (props) => {
             orderItemList.length > 0 &&
             orderItemList.map((item, key) => {
               // console.log(item)
-          let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+          // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+          let price =priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
 
               return (
                 <li className="table__list-item p-2" key={key} >

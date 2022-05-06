@@ -16,8 +16,10 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
+// import { useSelector, useDispatch } from "react-redux";
+// import { setCurrency,setUserLanguage, setCurrencyPrice } from "../../../../../user/user.action";
 
 
 
@@ -222,7 +224,7 @@ const UserProfile = () => {
   }
 
   const onChangeCurrency = (e) => {
-    // console.log(e)
+    console.log(e)
 
 
     setDefaultCurrency(e)
@@ -237,6 +239,20 @@ const UserProfile = () => {
       ...state,
       language: e.value,
     })
+  }
+
+  const convertCurrency = async (currency) => {
+    const getCurrencyPrice = await locationApi.convertCurrency(currency)
+    if (getCurrencyPrice) {
+      // console.log(getCurrencyPrice)
+      // console.log(getCurrencyPrice.data.result)
+
+      if (getCurrencyPrice.data.success) {
+        dispatch(setCurrencyPrice(getCurrencyPrice.data.result))
+
+      }
+
+    }
   }
 
 
@@ -380,11 +396,11 @@ const UserProfile = () => {
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
 
-          let currencyData ={}
+          let currencyData = {}
           currencyData.currency = currency.split('=')[0]
           currencyData.currencySymbol = currency.split('=')[1]
           dispatch(setCurrency(currencyData))
-
+          await convertCurrency(currency.split('=')[0])
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateUserDetails(!user.isUpdateUserDetails))

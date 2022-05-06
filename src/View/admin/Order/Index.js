@@ -24,6 +24,7 @@ import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import moment from 'moment';
+import helper ,{priceFormat} from '../../../Common/Helper';
 
 
 import Page from '../../../components/Page';
@@ -52,7 +53,7 @@ export default function Index(props) {
             id: 'amount',
             name: "Amount",
             cell: (row) => <>
-                <span>${row.total}</span>
+                <span>{(row.currencySymbol ? row.currencySymbol : "$" )+  priceFormat(row.total)}</span>
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -108,7 +109,7 @@ export default function Index(props) {
     };
 
 
-    
+
     return (
 
         <Page title="Order | Minimal-UI">
@@ -138,8 +139,8 @@ export default function Index(props) {
                             striped
                             highlightOnHover
                             defaultSortAsc={false}
-                            
-                    
+
+
 
                         />
                     </DataTableExtensions>

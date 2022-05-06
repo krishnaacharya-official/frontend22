@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 
 import ListItemImg from "../../atoms/list-item-img";
 import moment from "moment";
-import helper from "../../../../../Common/Helper";
+import helper,{priceFormat,getCalculatedPrice} from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -21,7 +21,7 @@ const HistoryList = (props) => {
     activeDetail: false
   });
   const { key, activeDetail } = openData
-
+const calculatedPrice = getCalculatedPrice()
 
   // const showDetails = (key,isOpen) ={
 
@@ -47,8 +47,8 @@ const HistoryList = (props) => {
                             icon={solid("receipt")}
                             className="mr-12p text-dark fs-4"
                           />
-                          <span className="text-success fw-bold fs-4">$ {order.total}</span>
-                          <span className="ml-6p text-light">USD</span>
+                          <span className="text-success fw-bold fs-4">{order.currencySymbol?order.currencySymbol:"$"} {priceFormat(order.total)}</span>
+                          <span className="ml-6p text-light">{order.currency?order.currency:"USD"}</span>
                         </span>
                         <span className="text-info fs-5 fw-bold">50 xp</span>
                       </div>
@@ -73,6 +73,7 @@ const HistoryList = (props) => {
                           order.orderItems.map((item, key) => {
                             // console.log(item)
                             let price = Math.round( Number(item.productPrice) + (totalCharge / 100) * Number(item.productPrice))
+                            // let price = calculatedPrice.priceWithTax(item.productPrice)
 
                             return (
                               <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
@@ -89,7 +90,7 @@ const HistoryList = (props) => {
                                       {item.productName}
                                     </Button>
                                     <div className="text-light mb-3p">Axebat</div>
-                                    <div className="fs-5 text-success fw-bold">$ {price}</div>
+                                    <div className="fs-5 text-success fw-bold">{order.currencySymbol?order.currencySymbol:"$"} {priceFormat(price)}</div>
                                   </div>
                                   <ListItemImg
                                     size={42}
@@ -99,7 +100,7 @@ const HistoryList = (props) => {
                                 </div>
                                 <div className="order__values d-flex align-items-center">
                                   <span className="text-info fw-bold flex__1">40 xp</span>
-                                  <span className="fs-5 fw-bold text-success ms-2">${price*item.quantity}</span>
+                                  <span className="fs-5 fw-bold text-success ms-2">{order.currencySymbol?order.currencySymbol:"$"}{priceFormat(price*item.quantity)}</span>
                                 </div>
                               </li>
                             )
@@ -122,7 +123,9 @@ const HistoryList = (props) => {
                                 5432 XXXX XXXX 4809
                               </div>
                               <div className="text-light fw-semibold">
-                                <div>Transaction: July 02, 2019</div>
+                                {/* <div>Transaction: July 02, 2019</div> */}
+                                <div>Transaction: {moment(order.created_at).format('MMMM DD , YYYY')}</div>
+
                               </div>
                             </div>
                           </div>

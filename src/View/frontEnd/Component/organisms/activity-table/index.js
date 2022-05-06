@@ -10,7 +10,7 @@ import "./style.scss";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg"
 import ListItemImg from "../../atoms/list-item-img";
-import helper from "../../../../../Common/Helper";
+import helper,{priceFormat} from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from "moment";
@@ -50,13 +50,13 @@ const ActivityTable = (props) => {
           {
             activityList.length > 0 ?
               activityList.map((list, i) => {
-                console.log(list)
+                // console.log(list)
                 return (
                   <li className="table__list-item p-2">
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center me-sm-2 flex__1">
                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? '$' + list.amount : ""}</div>
+                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (list.currencySymbol?list.currencySymbol :"$")  +  priceFormat(list.amount) : ""}</div>
                           <div className="text-light fs-8">{moment(list.created_at).fromNow()}</div>
                         </div>
                         <div className="position-relative d-flex">

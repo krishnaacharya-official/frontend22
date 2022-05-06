@@ -158,6 +158,7 @@ export function getCalculatedPrice() {
         if (!CampaignAdminAuthToken) {
             convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
         }
+        // console.log(user.pricePerCurrency)
 
 
         return convertdPrice;
@@ -169,6 +170,23 @@ export function getCalculatedPrice() {
         let convertdPrice = Math.round(taxPrice)
         convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
         return convertdPrice;
+
+    }
+
+    const priceWithTax = (price) => {
+
+
+        let transectionFee = user.transectionFee
+        let platformFee = user.platformFee
+
+        //Calculate total charges (transectionFee + platformFee )
+
+        let totalCharge = Number(transectionFee) + Number(platformFee)
+
+
+        // Applying to Price
+        let taxPrice = Math.round(price + (totalCharge / 100) * price)
+        return taxPrice;
 
     }
 
@@ -187,7 +205,8 @@ export function getCalculatedPrice() {
     return {
         getData,
         currencySymbol,
-        priceWithoutTax
+        priceWithoutTax,
+        priceWithTax
     }
 }
 
