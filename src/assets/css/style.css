@@ -779,3 +779,11 @@ width: 100%;
 .btn-check:checked + .btn, .btn-check:active + .btn, .btn:active, .btn.active{
   box-shadow: unset !important;
 }
+
+.ssninstruction {
+  display: none;
+}
+
+.ssnlable:hover .ssninstruction {
+  display: block;
+}
