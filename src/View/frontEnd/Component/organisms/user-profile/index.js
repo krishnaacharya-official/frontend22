@@ -224,7 +224,7 @@ const UserProfile = () => {
   }
 
   const onChangeCurrency = (e) => {
-    console.log(e)
+    // console.log(e)
 
 
     setDefaultCurrency(e)

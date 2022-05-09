@@ -17,6 +17,7 @@ import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
+import locationApi from "../../../../../Api/frontEnd/location";
 
 const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -24,18 +25,50 @@ const PaymentMethod = () => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(false)
+  const [defaultCountry, setDefaultCountry] = useState([])
+  const [countryList, setCountryList] = useState([])
+  const [stateList, setStateList] = useState([])
+  const [defaultState, setDefaultState] = useState([])
+  const [tempImg, setTempImg] = useState('')
+  const [tempImgName, setTempImgName] = useState('')
+  const [selectedDoc, setSelectedDoc] = useState('')
+
+
+
 
 
   const [state, setstate] = useState({
-    accountHolderName: '',
+    registerdBusinessAddress: "US",
+    typeOfBusiness: "individual",
+    firstName: "",
+    lastName: "",
+    personalEmail: "",
+    dob: "",
+    phoneNo: "",
+    ssn: "",
+    homeCountry: "",
+    addLine1: "",
+    addLine2: "",
+    city: "",
+    stateName: "",
+    zip: "",
+    personalIdNumber: "",
+    businessName: "",
+    businessWebsite: "",
+    mcc: "",
+    accountHolderName: "",
+    accountHolderType: "individual",
+    routingNumber: "",
+    accountNumber: "",
+    confirmAccountNumber: "",
+    bankEmail: "",
+    identity: "",
+    identityDocumentImage: "",
     status: 1,
-    accountHolderType: '',
-    routingNumber: '',
-    accountNumber: '',
     error: [],
   })
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber
+    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber
   } = state;
 
   useEffect(() => {
@@ -50,32 +83,124 @@ const PaymentMethod = () => {
         setBankAccountList(getAccountList.data.data)
       }
 
+      await getCountryList()
+      await getCountryStateList(233)
+
+
       setLoading(false)
 
     })()
   }, [update])
 
+
+  useEffect(() => {
+    if (countryList.length > 0) {
+      setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
+    }
+
+  }, [countryList])
+
+
+  const getCountryList = async () => {
+    let tempArray = []
+    const getCountryList = await locationApi.countryList(CampaignAdminAuthToken);
+    if (getCountryList) {
+      if (getCountryList.data.success) {
+        if (getCountryList.data.data.length > 0) {
+          getCountryList.data.data.map((country, i) => {
+            let Obj = {}
+            Obj.value = country.iso2
+            Obj.label = country.country
+            tempArray.push(Obj)
+
+
+          })
+          setCountryList(tempArray)
+        }
+      }
+    }
+  }
+
+  const getCountryStateList = async (countryId) => {
+    let tempArray = []
+    const getCountryStateList = await locationApi.stateListByCountry(CampaignAdminAuthToken, Number(countryId));
+    if (getCountryStateList) {
+      if (getCountryStateList.data.success) {
+        if (getCountryStateList.data.data.length > 0) {
+          getCountryStateList.data.data.map((state, i) => {
+            let Obj = {}
+            Obj.value = state.state
+            Obj.label = state.state
+            tempArray.push(Obj)
+          })
+          setDefaultState([])
+          setStateList(tempArray)
+        }
+      }
+    }
+  }
+
   const changevalue = (e) => {
     let value = e.target.value;
 
-    if (e.target.name === 'routingNumber' || e.target.name === 'accountNumber') {
+    if (e.target.name === 'routingNumber' || e.target.name === 'accountNumber' || e.target.name === 'phoneNo' || e.target.name === 'ssn' || e.target.name === 'personalIdNumber' || e.target.name === 'zip' || e.target.name === 'mcc') {
       value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
     }
-    setstate({
-      ...state,
-      [e.target.name]: value
-    })
+    if (e.target.name === 'identity') {
+      // alert(e.target.name)
+      setSelectedDoc(e.target.id)
+      setstate({
+        ...state,
+        [e.target.name]: value
+      })
+    }
+    if (e.target.name === 'identityDocumentImage') {
+      let file = e.target.files[0] ? e.target.files[0] : '';
+      setTempImg(URL.createObjectURL(file))
+      setTempImgName(file.name)
+      setstate({
+        ...state,
+        identityDocumentImage: file
+      })
+    } else {
+
+      setstate({
+        ...state,
+        [e.target.name]: value
+      })
+    }
   }
 
   const resetForm = () => {
     setModalShow(false);
     setstate({
       ...state,
-      accountHolderName: '',
+      registerdBusinessAddress: "US",
+      typeOfBusiness: "individual",
+      firstName: "",
+      lastName: "",
+      personalEmail: "",
+      dob: "",
+      phoneNo: "",
+      ssn: "",
+      homeCountry: "",
+      addLine1: "",
+      addLine2: "",
+      city: "",
+      stateName: "",
+      zip: "",
+      personalIdNumber: "",
+      businessName: "",
+      businessWebsite: "",
+      mmc: "",
+      accountHolderName: "",
+      accountHolderType: "individual",
+      routingNumber: "",
+      accountNumber: "",
+      bankEmail: "",
+      identityDocumentType: "",
+      identityDocumentImage: "",
       status: 1,
-      accountHolderType: '',
-      RoutingNumber: '',
-      accountNumber: '',
       error: [],
     });
 
@@ -84,11 +209,32 @@ const PaymentMethod = () => {
     setModalShow(true);
     setstate({
       ...state,
-      accountHolderName: '',
+      registerdBusinessAddress: "US",
+      typeOfBusiness: "individual",
+      firstName: "",
+      lastName: "",
+      personalEmail: "",
+      dob: "",
+      phoneNo: "",
+      ssn: "",
+      homeCountry: "",
+      addLine1: "",
+      addLine2: "",
+      city: "",
+      stateName: "",
+      zip: "",
+      personalIdNumber: "",
+      businessName: "",
+      businessWebsite: "",
+      mmc: "",
+      accountHolderName: "",
+      accountHolderType: "individual",
+      routingNumber: "",
+      accountNumber: "",
+      bankEmail: "",
+      identityDocumentType: "",
+      identityDocumentImage: "",
       status: 1,
-      accountHolderType: '',
-      routingNumber: '',
-      accountNumber: '',
       error: [],
     });
   }
@@ -150,7 +296,7 @@ const PaymentMethod = () => {
       }
 
     }).catch(errors => {
-      // console.log(errors)
+      console.log(errors)
       setLoading(false)
       const formaerrror = {};
       if (errors && errors.length) {
@@ -260,7 +406,7 @@ const PaymentMethod = () => {
               className="mr-3p text-info"
             />
             <span className="text-light">
-              To change your password <Link to='/change-password'>click here</Link> 
+              To change your password <Link to='/change-password'>click here</Link>
             </span>
           </div>
         </div>
@@ -273,14 +419,30 @@ const PaymentMethod = () => {
             Direct Deposit information for contributions from your donors
           </span>
           <Button variant="info" onClick={() => openModel()}>Add Bank</Button>
-          <AddBankModal show={modalShow} setModalShow={setModalShow} 
-          changevalue={changevalue} stateData={state} setstate={setstate} addBankAccount={addBankAccount}
-           />
+
+          <AddBankModal
+            show={modalShow}
+            setModalShow={setModalShow}
+            changevalue={changevalue}
+            stateData={state}
+            setstate={setstate}
+            addBankAccount={addBankAccount}
+            countryList={countryList}
+            defaultCountry={defaultCountry}
+            setDefaultCountry={setDefaultCountry}
+            stateList={stateList}
+            defaultState={defaultState}
+            setDefaultState={setDefaultState}
+            tempImg={tempImg}
+            tempImgName={tempImgName}
+            selectedDoc={selectedDoc}
+          />
         </div>
+
         {bankAccountList.length > 0 &&
           bankAccountList.map((list, i) => {
             return (
-              <div className="linked__list d-flex flex-column">
+              <div className="linked__list d-flex flex-column" key={i}>
                 <div className="linked__item d-flex align-items-center p-2 border">
                   <div className="accounts__icon">
                     <ListItemImg
