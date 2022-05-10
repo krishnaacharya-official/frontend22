@@ -31,14 +31,19 @@ const Transition = React.forwardRef(function Transition(propss, ref) {
 const AddBankModal = (props) => {
   let stateData = props.stateData
 
-  const [value, setValue] = useState(0);
-  const [defaultTypeOfBusiness, setDefaultTypeOfBusiness] = useState([
-    { value: 'individual ', label: 'Individual ' },
-  ])
+  // const [value, setValue] = useState(0);
+  // const [defaultTypeOfBusiness, setDefaultTypeOfBusiness] = useState([
+  //   { value: 'individual ', label: 'Individual ' },
+  // ])
 
   // const [defaultCountry, setDefaultCountry] = useState([])
   // const [countryList, setCountryList] = useState([])
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
+  let defaultTypeOfBusiness = props.defaultTypeOfBusiness
+  let setDefaultTypeOfBusiness = props.setDefaultTypeOfBusiness
+
+
 
   let countryList = props.countryList
   let defaultCountry = props.defaultCountry
@@ -47,8 +52,8 @@ const AddBankModal = (props) => {
   let stateList = props.stateList
   let defaultState = props.defaultState
   let setDefaultState = props.setDefaultState
-
-
+  const handleChange = props.handleChange
+  const value = props.value
 
 
 
@@ -136,9 +141,9 @@ const AddBankModal = (props) => {
     };
   }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
   const btnstyle = {
     backgroundColor: "#3773c6",
@@ -159,9 +164,9 @@ const AddBankModal = (props) => {
 
   const imageuploadwrap = {
     marginTop: "20px",
-    border: " 4px dashed #3773c6",
+    // border: " 4px dashed #3773c6",
     position: "relative",
-    width: "500px"
+    width: "100%"
   }
 
 
@@ -297,7 +302,7 @@ const AddBankModal = (props) => {
 
 
                 </div>
-                <button type="button" className="btn btn-xg" style={btnstyle}>continue
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(0)}>Continue
                   &nbsp;
                   <FontAwesomeIcon
                     icon={solid("arrow-right-long")}
@@ -305,7 +310,8 @@ const AddBankModal = (props) => {
                   />
                 </button>
               </div>
-            </TabContainer>}
+            </TabContainer>
+          }
 
           {value === 1 &&
             <TabContainer style={{ width: "100%" }} >
@@ -323,7 +329,7 @@ const AddBankModal = (props) => {
                       <input type="text" name="firstName" className="form-control" value={stateData.firstName}
                         onChange={(e) => props.changevalue(e)}
                         placeholder="First name" />
-                      {stateData.error && stateData.error.firstName && <p className="error">stateData.error.firstName</p>}
+                      {stateData.error && stateData.error.firstName && <p className="error">{stateData.error.firstName}</p>}
 
                       <input type="text" name="lastName" className="form-control mt-2" value={stateData.lastName} onChange={props.changevalue} placeholder="Last name" />
                       {stateData.error && stateData.error.lastName && <p className="error">{stateData.error.lastName}</p>}
@@ -346,11 +352,14 @@ const AddBankModal = (props) => {
 
 
                     <label htmlFor="exampleFormControlInput1" className="form-label">Phone number</label>
-                    <div className="input-group mb-3">
-                      <span className="input-group-text" id="basic-addon1">+1</span>
-                      <input type="text" className="form-control" name="phoneNo" placeholder="(201) 555-0123" onChange={(e) => props.changevalue(e)} value={stateData.phoneNo} />
-                      {stateData.error && stateData.error.phoneNo && <p className="error">{stateData.error.phoneNo}</p>}
+                    <div className="mb-3">
 
+                      <div className="input-group">
+                        <span className="input-group-text" id="basic-addon1">+1</span>
+                        <input type="text" className="form-control" name="phoneNo" placeholder="(201) 555-0123" onChange={(e) => props.changevalue(e)} value={stateData.phoneNo} />
+
+                      </div>
+                      {stateData.error && stateData.error.phoneNo && <p className="error">{stateData.error.phoneNo}</p>}
                     </div>
 
 
@@ -358,11 +367,13 @@ const AddBankModal = (props) => {
                     <label htmlFor="exampleFormControlInput1" className="form-label ">Last 4 digits of Social Security number</label>
                     <div className="row ssnlable">
                       <div className="col-sm-6 ">
+                        <div className="mb-3">
 
-                        <div className="input-group mb-3">
+                          <div className="input-group">
 
-                          <span className="input-group-text" id="basic-addon1">••• – •• –</span>
-                          <input type="text" className="form-control" placeholder="8888" name='ssn' value={stateData.ssn} aria-label="ssn" aria-describedby="basic-addon1" onChange={props.changevalue} maxLength="4" />
+                            <span className="input-group-text" id="basic-addon1">••• – •• –</span>
+                            <input type="text" className="form-control" placeholder="8888" name='ssn' value={stateData.ssn} aria-label="ssn" aria-describedby="basic-addon1" onChange={props.changevalue} maxLength="4" />
+                          </div>
                           {stateData.error && stateData.error.ssn && <p className="error">{stateData.error.ssn}</p>}
 
                         </div>
@@ -386,7 +397,7 @@ const AddBankModal = (props) => {
                         className="basic-single"
                         classNamePrefix="select"
                         name="accountHolderType"
-                        value={defaultCountry}
+                        value={props.defaultHomeCountry}
                         options={countryList}
                         isDisabled={true}
                         onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
@@ -441,12 +452,24 @@ const AddBankModal = (props) => {
 
                 </div>
                 <br />
-                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.addBankAccount()}>continue
+
+                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.goToBack(0)}>
+                  <FontAwesomeIcon
+                    icon={solid("arrow-left-long")}
+                    className=" text-white ml-5"
+                  />
+                  &nbsp;
+                  Back
+
+                </button>
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(1)}>Continue
                   &nbsp;
                   <FontAwesomeIcon
                     icon={solid("arrow-right-long")}
                     className=" text-white ml-5"
-                  /></button>
+                  />
+                </button>
+
               </div>
             </TabContainer>}
 
@@ -485,12 +508,22 @@ const AddBankModal = (props) => {
 
 
                 </div>
-                <button type="button" className="btn btn-xg" style={btnstyle}>continue
+                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.goToBack(1)}>
+                  <FontAwesomeIcon
+                    icon={solid("arrow-left-long")}
+                    className=" text-white ml-5"
+                  />
+                  &nbsp;
+                  Back
+
+                </button>
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(2)}>Continue
                   &nbsp;
                   <FontAwesomeIcon
                     icon={solid("arrow-right-long")}
                     className=" text-white ml-5"
-                  /></button>
+                  />
+                </button>
               </div>
             </TabContainer>}
 
@@ -564,7 +597,16 @@ const AddBankModal = (props) => {
 
 
                 </div>
-                <button type="button" className="btn btn-xg" style={btnstyle} >continue
+                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.goToBack(2)}>
+                  <FontAwesomeIcon
+                    icon={solid("arrow-left-long")}
+                    className=" text-white ml-5"
+                  />
+                  &nbsp;
+                  Back
+
+                </button>
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(3)}>Continue
                   &nbsp;
                   <FontAwesomeIcon
                     icon={solid("arrow-right-long")}
@@ -582,58 +624,60 @@ const AddBankModal = (props) => {
                 <span>Please pick which document you'd like to upload in order to verify the identity of first_name last_name.</span>
 
                 <div className="mt-5">
+                  {stateData.error && stateData.error.identity && <p className="error">{stateData.error.identity}</p>}
+
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="passport" value="passport" style={{ marginTop: "revert" }} onClick={props.changevalue}  checked={stateData.identity === "passport"} />
+                    <input className="form-check-input Passport" data-label="Passport" type="radio" name="identity" id="passport" value="passport" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "passport"} />
                     <label className="form-check-label" name="identity" id="passport" value="passport" htmlFor="passport" style={{ paddingLeft: "initial" }} >
                       Passport
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="passport_card" value="passport_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "passport_card"}  />
+                    <input className="form-check-input" type="radio" data-label="Passport Card" name="identity" id="passport_card" value="passport_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "passport_card"} />
                     <label className="form-check-label" htmlFor="passport_card" style={{ paddingLeft: "initial" }}>
                       Passport Card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="driver_license" value="driver_license" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "driver_license"} />
+                    <input className="form-check-input" type="radio" data-label="Driver license" name="identity" id="driver_license" value="driver_license" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "driver_license"} />
                     <label className="form-check-label" htmlFor="driver_license" style={{ paddingLeft: "initial" }}>
                       Driver license
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="state_issued_id_card" value="state_issued_id_card" style={{ marginTop: "revert" }} onClick={props.changevalue}  checked={stateData.identity === "state_issued_id_card"}/>
+                    <input className="form-check-input" data-label="State issued ID card" type="radio" name="identity" id="state_issued_id_card" value="state_issued_id_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "state_issued_id_card"} />
                     <label className="form-check-label" htmlFor="state_issued_id_card" style={{ paddingLeft: "initial" }}>
                       State issued ID card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="permit_id" value="permit_id" style={{ marginTop: "revert" }} onClick={props.changevalue}  checked={stateData.identity === "permit_id"} />
+                    <input className="form-check-input" data-label="Resident permit ID / U.S. Green Card" type="radio" name="identity" id="permit_id" value="permit_id" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "permit_id"} />
                     <label className="form-check-label" htmlFor="permit_id" style={{ paddingLeft: "initial" }}>
                       Resident permit ID / U.S. Green Card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="border_crossing_card" value="border_crossing_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "border_crossing_card"}  />
+                    <input className="form-check-input" data-label="Border crossing card" type="radio" name="identity" id="border_crossing_card" value="border_crossing_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "border_crossing_card"} />
                     <label className="form-check-label" htmlFor="border_crossing_card" style={{ paddingLeft: "initial" }}>
                       Border crossing card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="child_id_card" value="child_id_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "child_id_card"}   />
+                    <input className="form-check-input" data-label="Child ID card" type="radio" name="identity" id="child_id_card" value="child_id_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "child_id_card"} />
                     <label className="form-check-label" htmlFor="child_id_card" style={{ paddingLeft: "initial" }}>
                       Child ID card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="nyc_card" value="nyc_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "nyc_card"} />
+                    <input className="form-check-input" data-label="NYC card" type="radio" name="identity" id="nyc_card" value="nyc_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "nyc_card"} />
                     <label className="form-check-label" htmlFor="nyc_card" style={{ paddingLeft: "initial" }}>
                       NYC card
                     </label>
@@ -641,21 +685,21 @@ const AddBankModal = (props) => {
 
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="us_visa_card" value="us_visa_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "us_visa_card"}  />
+                    <input className="form-check-input" data-label="U.S. visa card" type="radio" name="identity" id="us_visa_card" value="us_visa_card" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "us_visa_card"} />
                     <label className="form-check-label" htmlFor="us_visa_card" style={{ paddingLeft: "initial" }}>
                       U.S. visa card
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="birth_certificate" value="birth_certificate" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "birth_certificate"} />
+                    <input className="form-check-input" type="radio" data-label="Birth Certificate" name="identity" id="birth_certificate" value="birth_certificate" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "birth_certificate"} />
                     <label className="form-check-label" htmlFor="birth_certificate" style={{ paddingLeft: "initial" }}>
                       Birth Certificate
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="radio" name="identity" id="other" value="other" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "other"} />
+                    <input className="form-check-input" type="radio" data-label="Other" name="identity" id="other" value="other" style={{ marginTop: "revert" }} onClick={props.changevalue} checked={stateData.identity === "other"} />
                     <label className="form-check-label" htmlFor="other" style={{ paddingLeft: "initial" }}>
                       Other
                     </label>
@@ -667,7 +711,16 @@ const AddBankModal = (props) => {
 
 
                 </div>
-                <button type="button" className="btn btn-xg" style={btnstyle}>continue
+                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.goToBack(3)}>
+                  <FontAwesomeIcon
+                    icon={solid("arrow-left-long")}
+                    className=" text-white ml-5"
+                  />
+                  &nbsp;
+                  Back
+
+                </button>
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(4)}>Continue
                   &nbsp;
                   <FontAwesomeIcon
                     icon={solid("arrow-right-long")}
@@ -680,7 +733,7 @@ const AddBankModal = (props) => {
           {value === 5 &&
             <TabContainer >
               <div className="container">
-                <h1>Passport</h1>
+                <h1>{props.selectedDoc}</h1>
                 <span><b>The document shows exactly this information : </b><br />Legal name of person <span className="text-light">
                   (First Name & Last Name)</span></span>
 
@@ -689,10 +742,12 @@ const AddBankModal = (props) => {
                     <div className="col-sm-6">
 
 
-                      <div className="image-upload-wrap mb-3" style={imageuploadwrap}>
+                      <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, border: !props.tempImgName && props.tempImgName === "" && stateData.error.identityDocumentImage ? "4px dashed red" : "4px dashed #3773c6" }}>
                         <input className="file-upload-input" type='file' name="identityDocumentImage" onChange={props.changevalue} accept="image/*" style={fileuploadinput} />
                         <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-                          <h3>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :"Drag and drop a file or select Image" } </h3>
+                          <h3>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :
+                            stateData.error.identityDocumentImage ? "Please Upload Selected Document" :
+                              "Drag and drop a file or select Image"} </h3>
                         </div>
                       </div>
                     </div>
@@ -710,7 +765,19 @@ const AddBankModal = (props) => {
 
 
                 </div>
-                <button type="button" className="btn btn-xg" style={btnstyle}>
+
+
+
+                <button type="button" className="btn btn-xg" style={btnstyle} onClick={() => props.goToBack(4)}>
+                  <FontAwesomeIcon
+                    icon={solid("arrow-left-long")}
+                    className=" text-white ml-5"
+                  />
+                  &nbsp;
+                  Back
+
+                </button>
+                <button type="button" className="btn btn-xg" style={{ ...btnstyle, float: "right" }} onClick={() => props.goToNextStep(5)}>
 
                   <FontAwesomeIcon
                     icon={solid("building-columns")}

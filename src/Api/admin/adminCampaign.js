@@ -359,7 +359,37 @@ function adminCampaign() {
     }
 
 
-    const addBankAccount = async (authToken, data) => {
+    const addBankAccount = async (authToken, fromdata) => {
+
+        const data = new FormData();
+        data.append('registerdBusinessAddress', fromdata.registerdBusinessAddress);
+        data.append('typeOfBusiness', fromdata.typeOfBusiness);
+        data.append('firstName', fromdata.firstName);
+        data.append('lastName', fromdata.lastName);
+        data.append('personalEmail', fromdata.personalEmail);
+        data.append('dob', fromdata.dob);
+        data.append('phoneNo', fromdata.phoneNo);
+        data.append('ssn', fromdata.ssn);
+        data.append('homeCountry', fromdata.homeCountry);
+        data.append('addLine1', fromdata.addLine1);
+        data.append('addLine2', fromdata.addLine2);
+        data.append('city', fromdata.city);
+        data.append('stateName', fromdata.stateName);
+        data.append('zip', fromdata.zip);
+        data.append('personalIdNumber', fromdata.personalIdNumber);
+        data.append('businessName', fromdata.businessName);
+        data.append('businessWebsite', fromdata.businessWebsite);
+        data.append('mcc', fromdata.mcc);
+        data.append('accountHolderName', fromdata.accountHolderName);
+        data.append('accountHolderType', fromdata.accountHolderType);
+        data.append('routingNumber', fromdata.routingNumber);
+        data.append('accountNumber', fromdata.accountNumber);
+        data.append('bankEmail', fromdata.bankEmail);
+        data.append('identityDocumentType', fromdata.identityDocumentType);
+        data.append('identityDocumentImage', fromdata.identityDocumentImage);
+        data.append('status', fromdata.status);
+
+
         let res = {};
         await axios({
             method: 'Post',

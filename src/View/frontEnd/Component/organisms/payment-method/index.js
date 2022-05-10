@@ -26,14 +26,18 @@ const PaymentMethod = () => {
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(false)
   const [defaultCountry, setDefaultCountry] = useState([])
+  const [defaultHomeCountry, setDefaultHomeCountry] = useState([])
+
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [defaultState, setDefaultState] = useState([])
   const [tempImg, setTempImg] = useState('')
   const [tempImgName, setTempImgName] = useState('')
   const [selectedDoc, setSelectedDoc] = useState('')
-
-
+  const [value, setValue] = useState(0);
+  const [defaultTypeOfBusiness, setDefaultTypeOfBusiness] = useState([
+    { value: 'individual ', label: 'Individual ' },
+  ])
 
 
 
@@ -68,7 +72,7 @@ const PaymentMethod = () => {
     error: [],
   })
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber
+    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber,
   } = state;
 
   useEffect(() => {
@@ -96,6 +100,8 @@ const PaymentMethod = () => {
   useEffect(() => {
     if (countryList.length > 0) {
       setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
+      setDefaultHomeCountry(countryList.find(x => x.value === "US"));
+
     }
 
   }, [countryList])
@@ -147,8 +153,10 @@ const PaymentMethod = () => {
       value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
     }
     if (e.target.name === 'identity') {
-      // alert(e.target.name)
-      setSelectedDoc(e.target.id)
+
+      setSelectedDoc(e.target.getAttribute('data-label'))
+
+
       setstate({
         ...state,
         [e.target.name]: value
@@ -173,6 +181,12 @@ const PaymentMethod = () => {
 
   const resetForm = () => {
     setModalShow(false);
+    setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
+    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' })
+    setTempImg('')
+    setTempImgName('')
+    setSelectedDoc('')
+    setValue(0)
     setstate({
       ...state,
       registerdBusinessAddress: "US",
@@ -192,21 +206,27 @@ const PaymentMethod = () => {
       personalIdNumber: "",
       businessName: "",
       businessWebsite: "",
-      mmc: "",
+      mcc: "",
       accountHolderName: "",
       accountHolderType: "individual",
       routingNumber: "",
       accountNumber: "",
+      confirmAccountNumber: "",
       bankEmail: "",
-      identityDocumentType: "",
+      identity: "",
       identityDocumentImage: "",
       status: 1,
-      error: [],
     });
 
   }
   const openModel = () => {
+    setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
+    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' })
     setModalShow(true);
+    setTempImg('')
+    setTempImgName('')
+    setSelectedDoc('')
+    setValue(0)
     setstate({
       ...state,
       registerdBusinessAddress: "US",
@@ -226,16 +246,16 @@ const PaymentMethod = () => {
       personalIdNumber: "",
       businessName: "",
       businessWebsite: "",
-      mmc: "",
+      mcc: "",
       accountHolderName: "",
       accountHolderType: "individual",
       routingNumber: "",
       accountNumber: "",
+      confirmAccountNumber: "",
       bankEmail: "",
-      identityDocumentType: "",
+      identity: "",
       identityDocumentImage: "",
       status: 1,
-      error: [],
     });
   }
 
@@ -296,7 +316,7 @@ const PaymentMethod = () => {
       }
 
     }).catch(errors => {
-      console.log(errors)
+      // console.log(errors)
       setLoading(false)
       const formaerrror = {};
       if (errors && errors.length) {
@@ -354,6 +374,218 @@ const PaymentMethod = () => {
         }
       ]
     });
+  }
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const goToBack = (key) => {
+    setValue(key);
+  };
+
+
+  const goToNextStep = (key) => {
+
+    let rules = {}
+    let message = {}
+
+    switch (key) {
+
+      case 1:
+        rules = {
+          firstName: 'required',
+          lastName: 'required',
+          personalEmail: 'required',
+          dob: 'required',
+          phoneNo: 'required',
+          addLine1: 'required',
+          addLine2: 'required',
+          stateName: 'required',
+          zip: 'required',
+          city: 'required',
+          ssn: 'required',
+          personalIdNumber: 'required',
+        }
+
+        message = {
+          'firstName.required': 'First Name is Required.',
+          'lastName.required': 'Last Name is Required.',
+          'personalEmail.required': 'Email is Required.',
+          'personalEmail.email': 'Please Enter valid Email.',
+          'dob.required': 'Date of birth is Required.',
+          'phoneNo.required': 'Phone Number is Required.',
+          'addLine1.required': 'Address Line 1 is Required.',
+          'addLine2.required': 'Address Line 2 is Required.',
+          'stateName.required': 'State is Required.',
+          'zip.required': 'Zip code is Required.',
+          'personalIdNumber.required': 'personal Id Number is Required.',
+          'ssn.required': 'SSN is Required.',
+          'city.required': 'city is Required.',
+        }
+        break;
+
+      case 2:
+
+        rules = {
+          businessName: 'required',
+          businessWebsite: 'required',
+          mcc: 'required',
+        }
+
+        message = {
+          'businessName.required': 'Business Name is Required.',
+          'businessWebsite.required': 'Business Website is Required.',
+          'mcc.required': 'MCC is Required.',
+        }
+
+        break;
+
+      case 3:
+
+        rules = {
+          accountHolderName: 'required',
+          bankEmail: 'required',
+          routingNumber: 'required',
+          accountNumber: 'required',
+          confirmAccountNumber: 'required|same:accountNumber',
+
+
+        }
+
+        message = {
+          'accountHolderName.required': 'Accountholder Name is Required.',
+          'bankEmail.required': 'Email is Required.',
+          'routingNumber.required': 'Routing number is Required.',
+          'accountNumber.required': 'Account number is Required.',
+          'confirmAccountNumber.required': 'Confirm Account number is Required.',
+          'confirmAccountNumber.same': 'Account number and Confirm Account Number is Required.',
+
+        }
+
+        break;
+
+      case 4:
+
+        rules = {
+          identity: 'required',
+
+        }
+
+        message = {
+          'identity.required': 'Please select type of Identity document to Upload',
+        }
+
+        break;
+
+      case 5:
+
+        rules = {
+          identityDocumentImage: 'required',
+
+        }
+
+        message = {
+          'identityDocumentImage.required': 'Please upload Identity Document',
+        }
+
+        break;
+
+      default:
+
+        break;
+
+    }
+
+
+    validateAll(state, rules, message).then(async () => {
+      const formaerrror = {};
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+
+
+      setLoading(true)
+      if (key !== 5) {
+        setValue(key + 1);
+
+      } else {
+
+        let data = {}
+        data.registerdBusinessAddress = registerdBusinessAddress
+        data.typeOfBusiness = typeOfBusiness
+        data.firstName = firstName
+        data.lastName = lastName
+        data.personalEmail = personalEmail
+        data.dob = dob
+        data.phoneNo = phoneNo
+        data.ssn = ssn
+        data.homeCountry = homeCountry
+        data.addLine1 = addLine1
+        data.addLine2 = addLine2
+        data.city = city
+        data.stateName = stateName
+        data.zip = zip
+        data.personalIdNumber = personalIdNumber
+        data.businessName = businessName
+        data.businessWebsite = businessWebsite
+        data.mcc = mcc
+        data.accountHolderName = accountHolderName
+        data.accountHolderType = accountHolderType
+        data.routingNumber = routingNumber
+        data.accountNumber = accountNumber
+        data.bankEmail = bankEmail
+        data.identityDocumentType = identity
+        data.identityDocumentImage = identityDocumentImage
+        data.status = status
+
+
+        const addBank = await adminCampaignApi.addBankAccount(CampaignAdminAuthToken, data)
+
+
+        if (addBank) {
+          if (addBank.data.success === false) {
+            setLoading(false)
+            ToastAlert({ msg: addBank.data.message, msgType: 'error' });
+
+          } else {
+            if (addBank.data.success === true) {
+              resetForm()
+              setLoading(false)
+              setUpdate(!update)
+              ToastAlert({ msg: addBank.data.message, msgType: 'success' });
+            }
+          }
+        } else {
+          setLoading(false)
+          ToastAlert({ msg: 'Bank Account Not Added', msgType: 'error' });
+        }
+      }
+      setLoading(false)
+
+    }).catch(errors => {
+      // console.log(errors)
+      setLoading(false)
+      const formaerrror = {};
+      if (errors && errors.length) {
+        errors.forEach(element => {
+          formaerrror[element.field] = element.message
+        });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+      }
+
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+
+    });
+
+
+
+
   }
 
 
@@ -436,13 +668,20 @@ const PaymentMethod = () => {
             tempImg={tempImg}
             tempImgName={tempImgName}
             selectedDoc={selectedDoc}
+            value={value}
+            handleChange={handleChange}
+            goToNextStep={goToNextStep}
+            goToBack={goToBack}
+            defaultTypeOfBusiness={defaultTypeOfBusiness}
+            setDefaultTypeOfBusiness={setDefaultTypeOfBusiness}
+            defaultHomeCountry={defaultHomeCountry}
           />
         </div>
 
         {bankAccountList.length > 0 &&
           bankAccountList.map((list, i) => {
             return (
-              <div className="linked__list d-flex flex-column" key={i}>
+              <div className="linked__list d-flex flex-column mb-2" key={i}>
                 <div className="linked__item d-flex align-items-center p-2 border">
                   <div className="accounts__icon">
                     <ListItemImg

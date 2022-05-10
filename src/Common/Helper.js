@@ -100,7 +100,8 @@ export function deleteCookie(name) {
 };
 
 export function encryptData(val) {
-    let ciphertext = CryptoJS.AES.encrypt(val, 'my-secret-key@123').toString();
+    let newVal = val.toString();
+    let ciphertext = CryptoJS.AES.encrypt(newVal, 'my-secret-key@123').toString();
     return ciphertext;
 }
 export function decryptData(val) {
