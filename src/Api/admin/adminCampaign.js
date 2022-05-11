@@ -295,7 +295,7 @@ function adminCampaign() {
         data.append('description', cdata.description);
         data.append('headline', cdata.headline);
         data.append('promoVideo', cdata.promoVideo);
-  
+
         // if (cdata.password) {
         //     data.append('password', cdata.password);
         // }
@@ -327,14 +327,14 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
         });
         return res;
     }
-    const updatePassword = async (authToken, data) =>{
+    const updatePassword = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -407,6 +407,10 @@ function adminCampaign() {
 
         }).then((response) => {
             res = response
+
+        }).catch((err) => {
+            console.log(err)
+            res = err
         });
         return res;
     }

@@ -55,7 +55,7 @@ const AddBankModal = (props) => {
   const handleChange = props.handleChange
   const value = props.value
 
-
+// console.log(stateData.dob)
 
   // useEffect(() => {
   //   (async () => {
@@ -337,7 +337,7 @@ const AddBankModal = (props) => {
 
                     <div className="mb-3">
                       <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-                      <input type="text" name="personalEmail" className="form-control" value={stateData.personalEmail} onChange={props.changevalue} placeholder="you@example.com" />
+                      <input type="email" name="personalEmail" className="form-control" value={stateData.personalEmail} onChange={props.changevalue} placeholder="you@example.com" />
                       {stateData.error && stateData.error.personalEmail && <p className="error">{stateData.error.personalEmail}</p>}
 
                     </div>
@@ -345,7 +345,7 @@ const AddBankModal = (props) => {
 
                     <div className="mb-3">
                       <label htmlFor="exampleFormControlInput1" className="form-label">Date of birth</label>
-                      <input type="date" name="dob" className="form-control" onChange={props.changevalue} />
+                      <input type="date" name="dob" className="form-control" value={stateData.dob} onChange={props.changevalue} />
                       {stateData.error && stateData.error.dob && <p className="error">{stateData.error.dob}</p>}
 
                     </div>
@@ -372,14 +372,14 @@ const AddBankModal = (props) => {
                           <div className="input-group">
 
                             <span className="input-group-text" id="basic-addon1">••• – •• –</span>
-                            <input type="text" className="form-control" placeholder="8888" name='ssn' value={stateData.ssn} aria-label="ssn" aria-describedby="basic-addon1" onChange={props.changevalue} maxLength="4" />
+                            <input type="text" className="form-control" placeholder="6789" name='ssn' value={stateData.ssn} aria-label="ssn" aria-describedby="basic-addon1" onChange={props.changevalue} maxLength="4" />
                           </div>
                           {stateData.error && stateData.error.ssn && <p className="error">{stateData.error.ssn}</p>}
 
                         </div>
                       </div>
                       <div className="col-sm-6 ">
-                        <p className="ssninstruction text-light">The last 4 digits of your SSN are only used to verify your identity—no credit checks.</p>
+                        <p className="ssninstruction text-light">The last 4 digits of your SSN are only used to verify your identity—no credit checks.<br/>SSN number is must same as Last 4 digits of Personal Id Number.</p>
                       </div>
 
                     </div>
@@ -400,7 +400,7 @@ const AddBankModal = (props) => {
                         value={props.defaultHomeCountry}
                         options={countryList}
                         isDisabled={true}
-                        onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
+                        // onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
 
                       />
 
@@ -544,7 +544,7 @@ const AddBankModal = (props) => {
 
                   <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label">Email Address</label>
-                    <input type="text" name="bankEmail" className="form-control" value={stateData.bankEmail} onChange={props.changevalue} placeholder="abc@example.com" />
+                    <input type="email" name="bankEmail" className="form-control" value={stateData.bankEmail} onChange={props.changevalue} placeholder="abc@example.com" />
                     {stateData.error && stateData.error.bankEmail && <p className="error">{stateData.error.bankEmail}</p>}
 
                   </div>
@@ -743,16 +743,16 @@ const AddBankModal = (props) => {
 
 
                       <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, border: !props.tempImgName && props.tempImgName === "" && stateData.error.identityDocumentImage ? "4px dashed red" : "4px dashed #3773c6" }}>
-                        <input className="file-upload-input" type='file' name="identityDocumentImage" onChange={props.changevalue} accept="image/*" style={fileuploadinput} />
+                        <input className="file-upload-input" type='file' name="identityDocumentImage" onChange={props.changevalue} accept="image/*" style={fileuploadinput}  title=" " />
                         <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-                          <h3>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :
+                          <h3 style={{fontSize:"inherit"}}>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :
                             stateData.error.identityDocumentImage ? "Please Upload Selected Document" :
                               "Drag and drop a file or select Image"} </h3>
                         </div>
                       </div>
                     </div>
                     <div className="col-sm-6">
-                      {props.tempImg && <img alt="" src={props.tempImg} width="250px" />}
+                      {props.tempImg && <img alt="" src={props.tempImg} width="250px" style={{width:"150px",height:"200px",objectFit:"contain"}} />}
                     </div>
                   </div>
 
