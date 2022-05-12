@@ -269,7 +269,7 @@ export default function Plans(props) {
                             startIcon={<Icon icon={backfill} />}
                             onClick={() => navigate('/admin/setting')}
                         >
-                            Back
+                           Go To Back
                         </Button>
                     </Stack>
                     <Card>

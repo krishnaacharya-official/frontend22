@@ -34,6 +34,7 @@ import OrderController from '../Controller/admin/OrderController';
 import CmsController from '../Controller/admin/CmsController';
 import PartnershipInquiryController from '../Controller/admin/PartnershipInquiryController';
 import VerificationInquiryController from '../Controller/admin/VerificationInquiryController';
+import Aws from '../View/admin/Setting/Aws';
 
 // ----------------------------------------------------------------------
 
@@ -88,6 +89,8 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/setting/pricing" element={<PricingFees/>} />
                     <Route exact path="/admin/setting/email" element={<Email/>} />
                     <Route exact path="/admin/setting/social" element={<FooterLinks/>} />
+                    <Route exact path="/admin/setting/aws" element={<Aws/>} />
+
                     <Route exact path="/admin/orders" element={<OrderController/>} />
                     <Route exact path="/admin/cms" element={<CmsController/>} />
                     <Route exact path="/admin/partnership" element={<PartnershipInquiryController/>} />
