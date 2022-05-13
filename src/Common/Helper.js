@@ -3,39 +3,26 @@ import CryptoJS from 'crypto-js';
 import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
+let BASE_URL = 'https://donorport.herokuapp.com/'
+
 if (window.location.hostname === 'localhost') {
     Mode = "development"
+    BASE_URL = 'http://localhost:8080/'
+
 }
-
-
-
+const AWS_S3_BUCKET_BASE_URL = "https://donorport.s3.us-west-2.amazonaws.com/"
 
 let helper = {
-    ApiUrl: 'http://localhost:8080/api/',
-    CampaignAdminLogoPath: 'http://localhost:8080/images/campaign/logo/resize/',
-    CampaignProductImagePath: 'http://localhost:8080/images/campaign/product/resize/',
-    ProjectImagePath: 'http://localhost:8080/images/project/resize/',
-    CampaignProductFullImagePath: 'http://localhost:8080/images/campaign/product/',
-    DonorImagePath: 'http://localhost:8080/images/donor/'
-    //     DONOR_IMAGE_PATH = /assets/images/donor/
-    // DONOR_IMAGE_RESIZE_PATH = /assets/images/donor/resize/
+    ApiUrl: BASE_URL + 'api/',
+    CampaignAdminLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/resize/',
+    CampaignProductImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/resize/',
+    ProjectImagePath: BASE_URL + 'images/project/resize/',
+    CampaignProductFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/',
+    DonorImagePath: BASE_URL + 'images/donor/',
+    DonorImageResizePath: BASE_URL + 'images/donor/resize'
 
 }
 
-if (Mode === "production") {
-
-    helper = {
-        ApiUrl: 'https://donorport.herokuapp.com/api/',
-        CampaignAdminLogoPath: 'https://donorport.herokuapp.com/images/campaign/logo/resize/',
-        CampaignProductImagePath: 'https://donorport.herokuapp.com/images/campaign/product/resize/',
-        ProjectImagePath: 'https://donorport.herokuapp.com/images/project/resize/',
-        CampaignProductFullImagePath: 'https://donorport.herokuapp.com/images/campaign/product/',
-        DonorImagePath: 'https://donorport.herokuapp.com/images/donor/'
-
-
-
-    }
-}
 
 
 export default helper
@@ -54,16 +41,17 @@ export function hasPermission(ROLE, MODULE) {
 }
 
 export function ImageExist(url) {
-    // let img = new Image();
-    // img.src = url;
-    // return img.height !== 0 ? true : false;
+    let img = new Image();
+    img.src = url;
+    return img.height !== 0 ? true : false;
 
-    let http = new XMLHttpRequest();
+    // let http = new XMLHttpRequest();
 
-    http.open('HEAD', url, false);
-    http.send();
+    // http.open('HEAD', url, false);
+    // http.send();
 
-    return http.status !== 404;
+    // return http.status !== 404;
+    // return true
 
 }
 

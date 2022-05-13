@@ -81,7 +81,7 @@ export default function Aws(props) {
             }
 
         }).catch(errors => {
-            console.log(errors)
+            // console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {

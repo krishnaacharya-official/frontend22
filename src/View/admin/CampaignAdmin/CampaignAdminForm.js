@@ -182,7 +182,7 @@ export default function CampaignAdminForm(props) {
                                     props.countryList.map((country, i) => {
 
                                         return (
-                                            country.status === 1 &&
+                                            // country.status === 1 &&
                                             <option value={country.id} selected={Number(stateData.country) === Number(country.id)}>{country.country}</option>
                                         )
 
