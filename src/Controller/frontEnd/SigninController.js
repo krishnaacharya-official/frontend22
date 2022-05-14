@@ -88,31 +88,31 @@ function SigninController() {
                                     currencyData.currency = uselogin.data.currency.split('=')[0]
                                     currencyData.currencySymbol = uselogin.data.currency.split('=')[1]
                                     dispatch(setCurrency(currencyData))
-                                    await convertCurrency(uselogin.data.currency.split('=')[0])
+                                    // await convertCurrency(uselogin.data.currency.split('=')[0])
                                 } else {
 
                                     //getting user current location(country)
-                                    const userCurrentLocation = await locationApi.getUserCurrentLoaction()
-                                    if (userCurrentLocation) {
+                                    // const userCurrentLocation = await locationApi.getUserCurrentLoaction()
+                                    // if (userCurrentLocation) {
 
-                                        let countryName = userCurrentLocation.data.country_name
-                                        if (countryName) {
+                                    //     let countryName = userCurrentLocation.data.country_name
+                                    //     if (countryName) {
 
-                                            // get currency by country name
-                                            const getCountryData = await locationApi.currencyByCountry(uselogin.data.accessToken, countryName)
-                                            if (getCountryData) {
-                                                if (getCountryData.data.success) {
-                                                    let currencyData = {}
-                                                    currencyData.currency = getCountryData.data.data.currency
-                                                    currencyData.currencySymbol = getCountryData.data.data.symbol
-                                                    dispatch(setCurrency(currencyData))
-                                                    await convertCurrency(getCountryData.data.data.currency)
+                                    //         // get currency by country name
+                                    //         const getCountryData = await locationApi.currencyByCountry(uselogin.data.accessToken, countryName)
+                                    //         if (getCountryData) {
+                                    //             if (getCountryData.data.success) {
+                                    //                 let currencyData = {}
+                                    //                 currencyData.currency = getCountryData.data.data.currency
+                                    //                 currencyData.currencySymbol = getCountryData.data.data.symbol
+                                    //                 dispatch(setCurrency(currencyData))
+                                    //                 await convertCurrency(getCountryData.data.data.currency)
 
 
-                                                }
-                                            }
-                                        }
-                                    }
+                                    //             }
+                                    //         }
+                                    //     }
+                                    // }
                                 }
                                 if (uselogin.data?.language && uselogin.data?.language !== null) {
                                     dispatch(setUserLanguage(uselogin.data.language))

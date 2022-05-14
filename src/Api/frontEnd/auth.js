@@ -5,6 +5,7 @@ function userAuth() {
 
     const login = async (email, password) => {
         let res = {};
+
         await axios({
             method: 'Post',
             url: `${helper.ApiUrl}auth/signin`,

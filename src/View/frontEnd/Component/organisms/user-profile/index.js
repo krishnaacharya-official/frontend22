@@ -400,7 +400,7 @@ const UserProfile = () => {
           currencyData.currency = currency.split('=')[0]
           currencyData.currencySymbol = currency.split('=')[1]
           dispatch(setCurrency(currencyData))
-          await convertCurrency(currency.split('=')[0])
+          // await convertCurrency(currency.split('=')[0])
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateUserDetails(!user.isUpdateUserDetails))

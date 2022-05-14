@@ -10,7 +10,7 @@ import ToastAlert from "../../Common/ToastAlert";
 // import { UserContext } from '../../App';`
 import settingApi from "../../Api/admin/setting";
 import { useSelector, useDispatch } from "react-redux";
-import { setFees,setIsUpdateCart } from "../../user/user.action";
+import { setFees, setIsUpdateCart } from "../../user/user.action";
 
 
 
@@ -18,7 +18,7 @@ export default function HeaderController() {
 
     const userAuthToken = localStorage.getItem('userAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-    const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
+    const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
 
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
@@ -46,19 +46,20 @@ export default function HeaderController() {
                     localStorage.clear()
                     navigate('/login')
                 }
-            }
 
-            const getCartList = await cartApi.list(token);
-            if (getCartList.data.success === true) {
-                setCartItem(getCartList.data.data)
-                // console.log(getCartList.data.data)
+
+                const getCartList = await cartApi.list(token);
+                if (getCartList.data.success === true) {
+                    setCartItem(getCartList.data.data)
+                    // console.log(getCartList.data.data)
+                }
             }
             setLoading(false)
 
             // console.log(user.isUpdateCart)
 
         })()
-        }, [token, update, user.isUpdateCart])
+    }, [token, update, user.isUpdateCart])
 
 
 
@@ -66,6 +67,7 @@ export default function HeaderController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
+            if (token) {
             const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 
             if (getSettingsValue.data.success) {
@@ -85,6 +87,7 @@ export default function HeaderController() {
 
 
             }
+        }
             setLoading(false)
 
         })()
@@ -144,7 +147,7 @@ export default function HeaderController() {
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
                 updateCartItem={updateCartItem}
-  
+
 
 
             />

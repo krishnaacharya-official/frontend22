@@ -49,7 +49,7 @@ function UserDetail(props) {
       if (getUserDetails) {
         if (getUserDetails.data.success) {
           // console.log(getUserDetails.data.data)
-          setProfileImg(ImageExist(helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg)
+          setProfileImg((helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg)
           setData(getUserDetails.data.data)
         } else {
           localStorage.clear()

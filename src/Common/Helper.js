@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
 let BASE_URL = 'https://donorport.herokuapp.com/'
+// let BASE_URL = 'http://54.186.21.246:9000/'
+
 
 if (window.location.hostname === 'localhost') {
     Mode = "development"
@@ -16,10 +18,10 @@ let helper = {
     ApiUrl: BASE_URL + 'api/',
     CampaignAdminLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/resize/',
     CampaignProductImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/resize/',
-    ProjectImagePath: BASE_URL + 'images/project/resize/',
+    ProjectImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/project/resize/',
     CampaignProductFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/',
-    DonorImagePath: BASE_URL + 'images/donor/',
-    DonorImageResizePath: BASE_URL + 'images/donor/resize'
+    DonorImagePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/',
+    DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize'
 
 }
 
@@ -41,16 +43,16 @@ export function hasPermission(ROLE, MODULE) {
 }
 
 export function ImageExist(url) {
-    let img = new Image();
-    img.src = url;
-    return img.height !== 0 ? true : false;
+    // let img = new Image();
+    // img.src = url;
+    // return img.height !== 0 ? true : false;
 
-    // let http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
 
-    // http.open('HEAD', url, false);
-    // http.send();
+    http.open('HEAD', url, false);
+    http.send();
 
-    // return http.status !== 404;
+    return http.status !== 404;
     // return true
 
 }
@@ -145,9 +147,9 @@ export function getCalculatedPrice() {
         // Applying to Price
         let taxPrice = Math.round(price + (totalCharge / 100) * price)
         let convertdPrice = Math.round(taxPrice)
-        if (!CampaignAdminAuthToken) {
-            convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
-        }
+        // if (!CampaignAdminAuthToken) {
+        //     convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
+        // }
         // console.log(user.pricePerCurrency)
 
 
@@ -158,7 +160,7 @@ export function getCalculatedPrice() {
 
         let taxPrice = Math.round(price)
         let convertdPrice = Math.round(taxPrice)
-        convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
+        // convertdPrice = Math.round(user.pricePerCurrency * taxPrice)
         return convertdPrice;
 
     }
@@ -185,9 +187,9 @@ export function getCalculatedPrice() {
     const currencySymbol = () => {
 
         let currencySymbol = '$'
-        if (!CampaignAdminAuthToken) {
-            currencySymbol = user.currencySymbol
-        }
+        // if (!CampaignAdminAuthToken) {
+        //     currencySymbol = user.currencySymbol
+        // }
         return currencySymbol
     }
 
