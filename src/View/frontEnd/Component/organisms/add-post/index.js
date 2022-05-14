@@ -32,7 +32,7 @@ import { confirmAlert } from "react-confirm-alert"
 
 function AccordionToggle({ children, eventKey, callback }) {
   const { activeEventKey } = useContext(AccordionContext);
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
   const decoratedOnClick = useAccordionButton(
     eventKey,
@@ -91,7 +91,7 @@ const AddPost = (props) => {
   let videoid = url?.split("?v=")[1];
   let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
 
-
+// console.log(gallaryImages)
 
 
 

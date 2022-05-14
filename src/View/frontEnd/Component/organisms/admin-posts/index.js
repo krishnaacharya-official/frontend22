@@ -317,7 +317,7 @@ const AdminPosts = (props) => {
   }
 
   const submitProductForm = (s) => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
     if (tags.length === 0) {
@@ -549,6 +549,7 @@ const AdminPosts = (props) => {
   const editProduct = async (productData) => {
     setLoading(true)
     if ((productData) && productData !== null && productData !== '') {
+      console.log(productData)
       // 
       setstate({
         id: productData._id,

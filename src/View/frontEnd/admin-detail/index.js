@@ -68,7 +68,7 @@ function AdminDetail() {
       const getCampaignDetails = await adminCampaignApi.getCampaignDetails(CampaignAdminAuthToken);
       if (getCampaignDetails.data.success) {
         // console.log(getCampaignDetails.data.data.description)
-        setlogoImg(ImageExist(helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo) ? helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo : noimg) 
+        setlogoImg((helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo) ? helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo : noimg) 
         setData(getCampaignDetails.data.data)
       }
  
