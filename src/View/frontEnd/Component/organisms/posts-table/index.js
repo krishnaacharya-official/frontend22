@@ -61,7 +61,7 @@ const PostsTable = (props) => {
         </div>
         <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 1 && "600px",minHeight: productList.length > 1 &&"600px"}}>
           {
-            productList.length > 1 ?
+            productList.length > 0 ?
               productList.map((product, i) => {
                 // console.log(product)
                 return (
@@ -98,10 +98,10 @@ const PostsTable = (props) => {
                             </span>
                             <ProgressBar
                               variant="success"
-                              now={product.soldout / product.quantity * 100}
+                              now={Math.round(product.soldout / product.quantity * 100)}
                               className="flex__1"
                             />
-                            <span className="text-light ms-1 fw-bold">{product.soldout / product.quantity * 100}%</span>
+                            <span className="text-light ms-1 fw-bold">{Math.round(product.soldout / product.quantity * 100)}%</span>
                           </div>
                         </div>
                       </div>

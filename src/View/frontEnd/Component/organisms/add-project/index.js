@@ -248,7 +248,7 @@ const AddProject = (props) => {
           productList.map((product, i) => {
             return (
               <FeedTag
-                data={product} name={product.headline} onSelect={onSelectProduct} checked={seletedProductList.includes(product._id)}
+                data={product} name={product.headline} onSelect={(e)=>onSelectProduct(e)} checked={seletedProductList.includes(product._id)}
                 icon={
                   <img
                     src={helper.CampaignProductImagePath + product.image}

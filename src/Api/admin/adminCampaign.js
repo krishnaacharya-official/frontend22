@@ -76,6 +76,8 @@ function adminCampaign() {
         const data = new FormData();
         data.append('name', cdata.name);
         data.append('status', cdata.status);
+        data.append('email', cdata.email);
+
         if (cdata.password) {
             data.append('password', cdata.password);
         }

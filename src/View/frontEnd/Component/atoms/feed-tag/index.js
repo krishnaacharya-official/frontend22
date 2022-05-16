@@ -23,6 +23,7 @@ const FeedTag = (props) => {
         type="checkbox"
         name="checkbox"
         className=""
+        checked={checked}
         // onChange={() => setActive(!active)}
         onClick={(e) => props.onSelect(e)} 
       />

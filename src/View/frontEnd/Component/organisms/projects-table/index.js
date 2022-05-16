@@ -28,7 +28,7 @@ const ProjectsTable = (props) => {
 
     if (data.length > 0) {
       data.map((p, i) => {
-        console.log(p.itemDetails)
+        // console.log(p.itemDetails)
         totalQArray.push(Number(p.itemDetails.quantity))
         soldOutQArray.push(Number(p.itemDetails.soldout))
       })

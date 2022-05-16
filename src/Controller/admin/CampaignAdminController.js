@@ -399,6 +399,7 @@ function CampaignAdminController() {
             let data = {}
             data.name = name
             data.status = status
+            data.email = email
             if (password && password !== "") {
                 data.password = password
             }
