@@ -18,10 +18,17 @@ import OrganisationTeamWidget from "../org-team-widget";
 import RoundedIcon from "../../atoms/rounded-icon";
 import TagTitle from "../../atoms/tag-title";
 import IconToggle from "../../atoms/icon-toggle";
+import helper from "../../../../../Common/Helper";
+import noImg from "../../../../../assets/images/noimg.jpg"
+import moment from "moment";
 
 import "./style.scss";
 
 function ProjectDetailMain(props) {
+  let projectDetails = props.projectDetails
+  let url = projectDetails?.video;
+  let videoid = url ? url.split("?v=")[1] : "";
+  let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
   return (
     <div className="project__detail-main">
       <div className="mb-4">
@@ -29,13 +36,13 @@ function ProjectDetailMain(props) {
           <div>
             <TagTitle>Project</TagTitle>
             <h1 className="project__detail-title mb-0 fw-bolder">
-              Hurricane X Relief
+              {projectDetails.name}
             </h1>
           </div>
           <div className="page__logo page__logo--org ms-auto">
             <img
               alt=""
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5ebcaf9c7fbd925df4f55956_output-onlinejpgtools%20copy%204.png"
+              src={projectDetails?.campaignDetails?.logo ? helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo : noImg}
             />
           </div>
         </div>
@@ -43,7 +50,7 @@ function ProjectDetailMain(props) {
         <div className="project__detail-meta d-flex align-items-center mb-2">
           <div className="d-flex align-items-center">
             <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-            December 27, 2018
+            {/* December 27, 2018 */} {moment(projectDetails.created_at).format('MMMM DD , YYYY')}
           </div>
           <div className="d-flex align-items-center ms-2">
             <FontAwesomeIcon
@@ -116,7 +123,7 @@ function ProjectDetailMain(props) {
           </Button>
         </div>
         <div className="iframe__wrapper">
-          <iframe
+          {/* <iframe
             className="embedly-embed"
             src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FdR0C1C0WaCA%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdR0C1C0WaCA&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FdR0C1C0WaCA%2Fhqdefault.jpg&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=youtube"
             width="854"
@@ -126,23 +133,26 @@ function ProjectDetailMain(props) {
             frameBorder="0"
             allow="autoplay; fullscreen"
             allowFullScreen
+          ></iframe> */}
+          <iframe src={embedlink} title="YouTube video player"
+            width="854"
+            height="480"
+            scrolling="no"
+            frameBorder="0"
+            allow="autoplay; fullscreen"
+            allowFullScreen
           ></iframe>
+
         </div>
         <ProjectGallery className="mb-3" title={false} />
 
-        <h5>Personal tents for the homeless in Alberta, Canada</h5>
+        <h5>{projectDetails.headline}</h5>
         <div className="page__paragraph lh-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {projectDetails.description}
         </div>
       </div>
       <div className="mb-4">
-        <OrganisationTeamWidget tagTitle="Project" showEmail={false} showContact/>
+        <OrganisationTeamWidget tagTitle="Project" showEmail={false} showContact />
       </div>
       <OrganisationWidget tagTitle="Project" />
     </div>

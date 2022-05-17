@@ -6,6 +6,7 @@ import FrontLoader from "../../Common/FrontLoader";
 import OrganisationDetail from "../../View/frontEnd/organisation-detail";
 import organizationApi from "../../Api/frontEnd/organization";
 import ProjectDetail from "../../View/frontEnd/project-detail";
+import projectApi from "../../Api/frontEnd/project";
 
 
 export default function ProjectDetailsController() {
@@ -14,24 +15,29 @@ export default function ProjectDetailsController() {
     const [loading, setLoading] = useState(false)
     const params = useParams();
     const navigate = useNavigate();
-    const [organizationDetails, setOrganizationDetails] = useState({})
+    const [projectDetails, setProjectDetails] = useState({})
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    const userAuthToken = localStorage.getItem('userAuthToken');
+    const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
 
     useEffect(() => {
         (async () => {
             setLoading(true)
             // console.log(params.name)
             let orgdata = {}
-            // const getOrganizationDetails = await organizationApi.details(params.name);
-            // if (getOrganizationDetails.data.success === true) {
-            //     if (getOrganizationDetails.data.data.length) {
-            //         orgdata = getOrganizationDetails.data.data[0]
-            //         setOrganizationDetails(orgdata)
-            //     } else {
-            //         navigate('/')
-            //     }
-            // } else {
-            //     navigate('/')
-            // }
+            const getProjectDetails = await projectApi.details(token, params.name);
+            if (getProjectDetails.data.success === true) {
+                console.log(getProjectDetails.data.data[0]) 
+                if (getProjectDetails.data.data.length) {
+                    orgdata = getProjectDetails.data.data[0]
+                    setProjectDetails(orgdata)
+                } else {
+                    navigate('/')
+                }
+            } else {
+                // navigate('/')
+                console.log('first')
+            }
             setLoading(false)
 
         })()
@@ -39,7 +45,9 @@ export default function ProjectDetailsController() {
     return (
         <>
             <FrontLoader loading={loading} />
-            <ProjectDetail />
+            <ProjectDetail
+                projectDetails={projectDetails}
+            />
             {/* <Index productList={productList} /> */}
         </>
     )

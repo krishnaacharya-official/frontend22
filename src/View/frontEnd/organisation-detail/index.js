@@ -58,6 +58,8 @@ import "./style.scss";
 
 const OrganisationDetail = (props) => {
   let organizationDetails = props.organizationDetails
+  let projectList = props.projectList
+
   // console.log(organizationDetails) 
   // console.log(Object.keys(organizationDetails).length)
   return (
@@ -90,7 +92,7 @@ const OrganisationDetail = (props) => {
       <Container fluid>
         <Row className="py-5">
           <Col md="6" className="mb-4 mb-0">
-            <OrganisationProjectsWidget />
+            <OrganisationProjectsWidget projectList={projectList} />
           </Col>
           <Col md="6"></Col>
         </Row>

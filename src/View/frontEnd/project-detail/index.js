@@ -59,7 +59,7 @@ import "./style.scss";
 //   }
 // }
 
-const ProjectDetail = () => {
+const ProjectDetail = (props) => {
   return (
     <>
       <HeaderController />
@@ -77,7 +77,7 @@ const ProjectDetail = () => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
-            <ProjectDetailMain progress={70} />
+            <ProjectDetailMain progress={70} projectDetails={props.projectDetails} />
           </Col>
           <Col md="5">
             <History tagTitle="Activity" title="User Log" />
