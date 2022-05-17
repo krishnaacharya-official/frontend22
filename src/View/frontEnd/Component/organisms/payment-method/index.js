@@ -417,7 +417,7 @@ const PaymentMethod = () => {
         rules = {
           firstName: 'required',
           lastName: 'required',
-          personalEmail: 'required',
+          personalEmail: 'required|email',
           dob: 'required',
           phoneNo: 'required',
           addLine1: 'required',
@@ -466,7 +466,7 @@ const PaymentMethod = () => {
 
         rules = {
           accountHolderName: 'required',
-          bankEmail: 'required',
+          bankEmail: 'required|email',
           routingNumber: 'required',
           accountNumber: 'required',
           confirmAccountNumber: 'required|same:accountNumber',
@@ -477,6 +477,7 @@ const PaymentMethod = () => {
         message = {
           'accountHolderName.required': 'Accountholder Name is Required.',
           'bankEmail.required': 'Email is Required.',
+          'bankEmail.email': 'Please Enter valid Email.',
           'routingNumber.required': 'Routing number is Required.',
           'accountNumber.required': 'Account number is Required.',
           'confirmAccountNumber.required': 'Confirm Account number is Required.',

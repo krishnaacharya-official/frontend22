@@ -43,7 +43,7 @@ function AccordionToggle({ children, eventKey, callback }) {
 
 
   return (
-    <div className="accordion__btn" onClick={decoratedOnClick}>
+    <div className="accordion__btn">
       <div className="d-flex aling-items-center">
         {children}
         <FontAwesomeIcon
@@ -91,7 +91,7 @@ const AddPost = (props) => {
   let videoid = url?.split("?v=")[1];
   let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
 
-// console.log(gallaryImages)
+  // console.log(gallaryImages)
 
 
 
@@ -107,7 +107,7 @@ const AddPost = (props) => {
 
 
 
-  
+
   return (
     <div className="add-post">
       <div className="d-flex align-items-center flex-grow-1 pb-20p mb-3 border-bottom">
@@ -161,14 +161,14 @@ const AddPost = (props) => {
       </div>
 
       <div>
-        <Accordion defaultActiveKey="2" className="mb-5 pb-5">
+        <Accordion className="mb-5 pb-5" alwaysOpen>
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle eventKey="0">
+              <AccordionToggle >
                 <span className="fs-3 fw-bolder text-dark">Post Location</span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse eventKey="0" className="py-5" >
+            <Accordion.Collapse className="py-5" >
               <Row className="mw-850 ml-5">
                 <Col lg="6">
                   <div className="post-location-wrap">
@@ -206,13 +206,13 @@ const AddPost = (props) => {
 
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle eventKey="1">
+              <AccordionToggle >
                 <span className="fs-3 fw-bolder text-dark">
                   Product Details
                 </span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse eventKey="1" className="py-5" >
+            <Accordion.Collapse className="py-5" >
               <>
                 <Row className="mw-850 ml-5 mb-5">
                   <div className="col-lg-6 mb-5 mb-sm-0">
@@ -259,7 +259,7 @@ const AddPost = (props) => {
                           className="form-control form-control-lg"
                           // id="brandInput"
                           placeholder="Slug"
-                          disabled={id ? true : false} name='slug' id="slug" value={slug} onChange={(e) => {changevalue(e) }}
+                          disabled={id ? true : false} name='slug' id="slug" value={slug} onChange={(e) => { changevalue(e) }}
                         />
                         {/* <p className="error">Required</p> */}
                         {error && error.slug && <p className="error">{error ? error.slug ? error.slug : "" : ""}</p>}
@@ -640,7 +640,7 @@ const AddPost = (props) => {
                       projectList.length > 0 &&
                       projectList.map((project, i) => {
                         return (
-                          <FeedTag data={project} name={project.name} onSelect={onSelectProject} checked={seletedProjectList.includes(project._id)}  />
+                          <FeedTag data={project} name={project.name} onSelect={onSelectProject} checked={seletedProjectList.includes(project._id)} />
 
                         )
                       })
@@ -665,11 +665,11 @@ const AddPost = (props) => {
 
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle eventKey="3">
+              <AccordionToggle >
                 <span className="fs-3 fw-bolder text-dark">Need Headline</span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse eventKey="3" className="py-5" >
+            <Accordion.Collapse className="py-5" >
               <Row className="mw-850 ml-5">
                 <Col lg="6">
                   <form className="profile-detail-form">

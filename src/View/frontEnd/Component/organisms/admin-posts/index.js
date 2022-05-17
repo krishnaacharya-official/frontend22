@@ -486,7 +486,7 @@ const AdminPosts = (props) => {
 
     }).catch(errors => {
       setLoading(false)
-      console.log(errors)
+      // console.log(errors)
       // const formaerrror = {};
       if (errors.length) {
         errors.forEach(element => {

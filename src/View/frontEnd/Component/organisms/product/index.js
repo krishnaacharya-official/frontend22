@@ -69,7 +69,7 @@ const Product = (props) => {
 
     })()
 
-  }, [user.isUpdateCart])
+  }, [!user.isUpdateCart])
 
 
 
