@@ -24,7 +24,7 @@ const Cart = (props) => {
 
 
   const onChange = (e) => {
-    console.log(e)
+    // console.log(e)
   }
 
   useEffect(() => {
@@ -156,7 +156,7 @@ const Cart = (props) => {
                             // onChange={()=>onChange(item._id)}
                             />
                           </span>
-                          <span className="fs-5 fw-bold text-success ms-3">{currencySymbol + priceFormat(getCalc.getData(item.productDetails?.price * item.quantity))}</span>
+                          <span className="fs-5 fw-bold text-success ms-3">{currencySymbol + priceFormat(getCalc.getData(item.productDetails?.price) * (item.quantity))}</span>
                         </div>
                       </li>
                     )

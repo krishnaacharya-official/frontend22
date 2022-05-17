@@ -8,7 +8,9 @@ import helper,{priceFormat} from "../../../../../Common/Helper";
 
 const SummaryContent = (props) => {
   let cartItem = props.cartItem
-  let total = props.CalculatedPrice.getData(props.total)
+  // let total = props.CalculatedPrice.getData(props.total)
+  let total = props.total
+
 
 
   // let transectionFee = props.pricingFees?.transectionFee
@@ -59,7 +61,7 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
-                  <span className="fs-5 fw-bold text-success ms-3">{props.currencySymbol + priceFormat(props.CalculatedPrice.getData(item.productDetails?.price * item.quantity))}</span>
+                  <span className="fs-5 fw-bold text-success ms-3">{props.currencySymbol + priceFormat(props.CalculatedPrice.getData(item.productDetails?.price) * (item.quantity))}</span>
                 </li>
               )
             })

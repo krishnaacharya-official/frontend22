@@ -105,7 +105,7 @@ export default function CheckoutController() {
                         // let totalCharge = Number(transectionFee) + Number(platformFee)
 
                         // let price = CalculatedPrice.getData(item.productDetails?.price) 
-                        let price = item.productDetails?.price
+                        let price = CalculatedPrice.getData(item.productDetails?.price)
                         // console.log('first',price)
 
                         tempPriceArray.push(price * item.quantity)
@@ -116,6 +116,7 @@ export default function CheckoutController() {
                     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
                     let sumSubTotal = tempProductPriceArray.reduce(function (a, b) { return a + b; }, 0);
                     setSubTotal(sumSubTotal)
+                    // console.log("sum",sum)
                     setTotal(sum)
                 } else {
                     navigate('/')
@@ -125,7 +126,7 @@ export default function CheckoutController() {
             setLoading(false)
 
         })()
-    }, [update])
+    }, [update, user.transectionFee])
 
     const pay = async () => {
 
@@ -170,7 +171,8 @@ export default function CheckoutController() {
             data.state = stateName
             data.line1 = line1
             data.country = country
-            data.amount = CalculatedPrice.getData(total)
+            // data.amount = CalculatedPrice.getData(total)
+            data.amount = total
             data.cardNumber = cardNumber
             data.cardExpMonth = cardExpMonth
             data.cardExpYear = cardExpYear
@@ -219,8 +221,8 @@ export default function CheckoutController() {
                     orderDetails.appliedTaxPercentage = Number(user.platformFee) + Number(user.transectionFee)
                     orderDetails.platformFees = user.platformFee
                     orderDetails.transectionFees = user.transectionFee
-                    orderDetails.tax = Number(CalculatedPrice.getData(total)) - Number(CalculatedPrice.priceWithoutTax(Number(subtotal)))
-                    orderDetails.total = CalculatedPrice.getData(total)
+                    orderDetails.tax = Number(total) - Number(CalculatedPrice.priceWithoutTax(Number(subtotal)))
+                    orderDetails.total = total
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
                     if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -253,7 +255,7 @@ export default function CheckoutController() {
                 ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
             }
         }).catch(errors => {
-            console.log(errors)
+            // console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {
@@ -302,6 +304,7 @@ export default function CheckoutController() {
 
     return (
         <>
+            {/* {console.log(total)} */}
             <FrontLoader loading={loading} />
             <Checkout
                 cartItem={cartItem}
