@@ -29,7 +29,7 @@ const Product = (props) => {
   let name = props.headline
   let sold = props.soldout
   let total = props.quantity
-  let location = props.cityDetails?.city
+  let location = props.cityDetails[0]?.city
   let progress = 60
 
   const getCalc = getCalculatedPrice();
