@@ -59,7 +59,7 @@ const PostsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 1 && "600px",minHeight: productList.length > 1 &&"600px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 0 && "600px",minHeight: productList.length > 0 &&"600px"}}>
           {
             productList.length > 0 ?
               productList.map((product, i) => {

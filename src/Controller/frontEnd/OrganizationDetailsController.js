@@ -6,6 +6,8 @@ import FrontLoader from "../../Common/FrontLoader";
 import OrganisationDetail from "../../View/frontEnd/organisation-detail";
 import organizationApi from "../../Api/frontEnd/organization";
 import projectApi from "../../Api/admin/project";
+// import adminCampaignApi from "../Api/admin/adminCampaign";
+import adminCampaignApi from "../../Api/admin/adminCampaign";
 
 
 export default function OrganizationDetailsController() {
@@ -13,7 +15,7 @@ export default function OrganizationDetailsController() {
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     const userAuthToken = localStorage.getItem('userAuthToken');
-
+    const [organizationList, setOrganizationList] = useState([])
     const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken
 
     const [loading, setLoading] = useState(false)
@@ -36,6 +38,13 @@ export default function OrganizationDetailsController() {
 
     }
 
+    const getOrganizationList = async () => {
+        const getOrganizationList = await adminCampaignApi.list(token)
+        if (getOrganizationList.data.success === true) {
+            setOrganizationList(getOrganizationList.data.data)
+        }
+    }
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -47,6 +56,7 @@ export default function OrganizationDetailsController() {
                     orgdata = getOrganizationDetails.data.data[0]
                     setOrganizationDetails(orgdata)
                     await orgProjectList(orgdata._id)
+                    await getOrganizationList()
                 } else {
                     navigate('/')
                 }
@@ -56,13 +66,14 @@ export default function OrganizationDetailsController() {
             setLoading(false)
 
         })()
-    }, [])
+    }, [params.name])
     return (
         <>
             <FrontLoader loading={loading} />
             <OrganisationDetail
                 organizationDetails={organizationDetails}
                 projectList={projectList}
+                organizationList={organizationList}
             />
             {/* <Index productList={productList} /> */}
         </>

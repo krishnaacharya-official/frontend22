@@ -65,7 +65,7 @@ const ProjectDetail = (props) => {
       <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
-          <ProjectSuggestionList />
+          <ProjectSuggestionList projectList={props.projectList} projectId={props.projectDetails?._id} />
           <div className="ms-auto d-flex align-items-center">
             <Button size="lg" className="fw-bold">
               Donate

@@ -10,7 +10,7 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -21,6 +21,8 @@ function ProjectDetailMain(props) {
   const getCalc = getCalculatedPrice();
   let price = getCalc.getData(productDetails?.price)
   let currencySymbol = getCalc.currencySymbol()
+
+  let per = productDetails.soldout / productDetails.quantity * 100
 
   // console.log(productDetails)
 
@@ -58,7 +60,7 @@ function ProjectDetailMain(props) {
         <div className="d-flex align-items-center flex-grow-1">
           <ProgressBar
             variant="success"
-            now={props.progress}
+            now={per}
             className="flex-grow-1 me-1"
           />
           {props.onGoing ? (
@@ -67,7 +69,7 @@ function ProjectDetailMain(props) {
             </span>
           ) : (
             <span className="fw-bold">
-              0 / 10 <span className="fs-9 fw-normal">sold</span>
+              {productDetails.soldout} / {productDetails.quantity} <span className="fs-9 fw-normal">sold</span>
             </span>
           )}
         </div>
@@ -200,7 +202,7 @@ function ProjectDetailMain(props) {
         </IconText>
       </div>
 
-      <ProjectGallery className="mt-5 mb-3" />
+      <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div>
   );
 }

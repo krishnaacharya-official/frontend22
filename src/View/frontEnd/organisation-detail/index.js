@@ -67,7 +67,7 @@ const OrganisationDetail = (props) => {
       <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
-          <SuggestedList />
+          <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} />
           <div className="ms-auto d-flex align-items-center">
             <Button size="lg" className="fw-bold">
               Donate

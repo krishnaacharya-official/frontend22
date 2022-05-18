@@ -20,9 +20,8 @@ import "./style.scss";
 function OrganisationDetailMain(props) {
   let organizationDetails = props.organizationDetails
   console.log(organizationDetails)
-  // console.log(Object.keys(organizationDetails).length)
   let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '')
-  // console.log(organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-',''))
+
   return (
     <div className="project__detail-main">
       <div className="mb-4">
@@ -115,7 +114,7 @@ function OrganisationDetailMain(props) {
         </div>
       </div>
 
-      <OrganisationWidget />
+      <OrganisationWidget tagTitle="Organization" productDetails={organizationDetails?.productsDetails} />
 
     </div>
   );

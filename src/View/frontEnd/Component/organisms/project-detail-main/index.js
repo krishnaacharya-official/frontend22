@@ -29,6 +29,32 @@ function ProjectDetailMain(props) {
   let url = projectDetails?.video;
   let videoid = url ? url.split("?v=")[1] : "";
   let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
+
+  const countProjectProcess = (data) => {
+    // console.log(data)
+    let totalQArray = []
+    let soldOutQArray = []
+    let per = 0
+
+    if (data?.length > 0) {
+      data.map((p, i) => {
+        // console.log(p.itemDetails)
+        totalQArray.push(Number(p.itemDetails.quantity))
+        soldOutQArray.push(Number(p.itemDetails.soldout))
+      })
+
+      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+      const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+      per = soldout / total * 100
+    } else {
+      per = 0;
+
+    }
+    return Math.round(per);
+
+  }
   return (
     <div className="project__detail-main">
       <div className="mb-4">
@@ -65,7 +91,7 @@ function ProjectDetailMain(props) {
           <div className="d-flex align-items-center w-310">
             <ProgressBar
               variant="success"
-              now={props.progress}
+              now={countProjectProcess(projectDetails.productDetails)}
               className="flex-grow-1 me-1"
             />
             {props.onGoing ? (
@@ -73,7 +99,7 @@ function ProjectDetailMain(props) {
                 <FontAwesomeIcon icon={regular("infinity")} />
               </span>
             ) : (
-              <span className="fw-bold">30%</span>
+              <span className="fw-bold">{countProjectProcess(projectDetails.productDetails)}%</span>
             )}
           </div>
           <div className="text-light d-flex align-items-center ms-3">
@@ -144,7 +170,11 @@ function ProjectDetailMain(props) {
           ></iframe>
 
         </div>
-        <ProjectGallery className="mb-3" title={false} />
+        {
+          projectDetails.images && projectDetails.images.length > 0 &&
+          <ProjectGallery className="mb-3" title={false} images={projectDetails.images} tagTitle="Project" />
+
+        }
 
         <h5>{projectDetails.headline}</h5>
         <div className="page__paragraph lh-lg">
@@ -154,7 +184,7 @@ function ProjectDetailMain(props) {
       <div className="mb-4">
         <OrganisationTeamWidget tagTitle="Project" showEmail={false} showContact />
       </div>
-      <OrganisationWidget tagTitle="Project" />
+      <OrganisationWidget tagTitle="Project" productDetails={projectDetails.productDetails} />
     </div>
   );
 }
