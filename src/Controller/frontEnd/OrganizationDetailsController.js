@@ -6,8 +6,10 @@ import FrontLoader from "../../Common/FrontLoader";
 import OrganisationDetail from "../../View/frontEnd/organisation-detail";
 import organizationApi from "../../Api/frontEnd/organization";
 import projectApi from "../../Api/admin/project";
-// import adminCampaignApi from "../Api/admin/adminCampaign";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
+import cartApi from "../../Api/frontEnd/cart";
+import ToastAlert from "../../Common/ToastAlert";
+
 
 
 export default function OrganizationDetailsController() {
@@ -45,10 +47,53 @@ export default function OrganizationDetailsController() {
         }
     }
 
+    const addToCart = async (id, quantity) => {
+
+        setLoading(true)
+        let data = {}
+        data.productId = id
+        data.quantity = quantity
+
+        const addItemToCart = await cartApi.add(userAuthToken, data);
+        if (addItemToCart) {
+            if (!addItemToCart.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+            } else {
+                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
+
+    const checkItemInCart = async (id) => {
+        setLoading(true)
+        let res;
+        const checkItemInCart = await cartApi.checkItemInCart(userAuthToken, id);
+        if (checkItemInCart) {
+            setLoading(false)
+            if (checkItemInCart.data.success) {
+                res = true
+            } else {
+                res = false
+            }
+
+        } else {
+            setLoading(false)
+            res = false
+        }
+        return res;
+    }
+
     useEffect(() => {
         (async () => {
             setLoading(true)
-            // console.log(params.name)
+
             let orgdata = {}
             const getOrganizationDetails = await organizationApi.details(params.name);
             if (getOrganizationDetails.data.success === true) {
@@ -74,8 +119,10 @@ export default function OrganizationDetailsController() {
                 organizationDetails={organizationDetails}
                 projectList={projectList}
                 organizationList={organizationList}
+                addToCart={addToCart}
+                checkItemInCart={checkItemInCart}
             />
-            {/* <Index productList={productList} /> */}
+
         </>
     )
 

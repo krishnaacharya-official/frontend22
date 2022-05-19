@@ -7,8 +7,9 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../../View/frontEnd/login";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage } from "../../user/user.action"
 import locationApi from "../../Api/frontEnd/location";
+import helper from "../../Common/Helper";
 
 
 
@@ -81,7 +82,10 @@ function SigninController() {
                                 localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
                                 navigate('/campaign/' + uselogin.data.slug + '/dashboard', { replace: true })
+                                dispatch(setProfileImage(helper.CampaignAdminLogoPath + uselogin.data.logo))
                             } else {
+                                dispatch(setProfileImage(helper.DonorImageResizePath + uselogin.data.image))
+
                                 // if user currency is already set
                                 if (uselogin.data?.currency && uselogin.data?.currency !== null && uselogin.data?.currency !== "") {
                                     let currencyData = {}

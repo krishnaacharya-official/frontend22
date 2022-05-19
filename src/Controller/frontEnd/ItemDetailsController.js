@@ -7,6 +7,9 @@ import OrganisationDetail from "../../View/frontEnd/organisation-detail";
 import organizationApi from "../../Api/frontEnd/organization";
 import ItemDetail from "../../View/frontEnd/item-detail";
 import productApi from "../../Api/frontEnd/product";
+import { useSelector, useDispatch } from "react-redux";
+import ToastAlert from "../../Common/ToastAlert";
+import cartApi from "../../Api/frontEnd/cart";
 
 
 export default function ItemDetailsController() {
@@ -17,6 +20,38 @@ export default function ItemDetailsController() {
     const params = useParams();
     const navigate = useNavigate();
     const [productDetails, setProductDetails] = useState({})
+    const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+    const userAuthToken = localStorage.getItem('userAuthToken');
+    const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken
+    const [categoryProducts, setCategoryProducts] = useState([])
+
+
+    const allProductList = async () => {
+        const getproductList = await productApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
+        if (getproductList.data.success === true) {
+            console.log(getproductList.data.data)
+            setProductList(getproductList.data.data)
+        }
+    }
+
+
+    const productListByCategory = async (id) => {
+
+        const getCategoryProducts = await productApi.listByCategory(token, id)
+        if (getCategoryProducts.data.success === true) {
+            if (getCategoryProducts.data.data.length > 0) {
+                let tempArray = []
+                getCategoryProducts.data.data.slice(0, 3).map((product, i) => {
+                    tempArray.push(product)
+
+                })
+                setCategoryProducts(tempArray)
+            }
+
+        }
+
+
+    }
 
     useEffect(() => {
         (async () => {
@@ -30,6 +65,8 @@ export default function ItemDetailsController() {
                 if (getproductDetails.data.data.length) {
                     mydata = getproductDetails.data.data[0]
                     setProductDetails(mydata)
+                    await productListByCategory(mydata.categoryDetails._id)
+                    await allProductList()
                 } else {
                     navigate('/')
                 }
@@ -39,14 +76,83 @@ export default function ItemDetailsController() {
             setLoading(false)
 
         })()
-    }, [])
+    }, [params.name])
+
+    const checkItemInCart = async (id) => {
+        setLoading(true)
+        let res;
+        const checkItemInCart = await cartApi.checkItemInCart(userAuthToken, id);
+        if (checkItemInCart) {
+            if (checkItemInCart.data.success) {
+                res = true
+                setLoading(false)
+
+            } else {
+                res = false
+                setLoading(false)
+
+
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            res = false
+        }
+        return res;
+    }
+
+    const addToCart = async (id, quantity) => {
+        setLoading(true)
+        let data = {}
+        data.productId = id
+        data.quantity = quantity === undefined ? 1 : quantity
+
+        const addItemToCart = await cartApi.add(userAuthToken, data);
+        if (addItemToCart) {
+            if (!addItemToCart.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+            } else {
+                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
+    const removeCartItem = async (id) => {
+        setLoading(true)
+        const removeCartItem = await cartApi.removeCartProduct(userAuthToken, id);
+        if (removeCartItem) {
+            if (!removeCartItem.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
+            } else {
+                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                setLoading(false)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
 
     return (
         <>
-            {/* {console.log(productDetails)} */}
             <FrontLoader loading={loading} />
             <ItemDetail
                 productDetails={productDetails}
+                categoryProducts={categoryProducts}
+                checkItemInCart={checkItemInCart}
+                addToCart={addToCart}
+                removeCartItem={removeCartItem}
+                productList={productList}
+
             />
         </>
     )

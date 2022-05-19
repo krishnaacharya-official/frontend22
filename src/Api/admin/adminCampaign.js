@@ -411,7 +411,7 @@ function adminCampaign() {
             res = response
 
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
             res = err
         });
         return res;

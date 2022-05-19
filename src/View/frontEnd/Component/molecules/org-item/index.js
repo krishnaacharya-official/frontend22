@@ -8,11 +8,15 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import helper from "../../../../../Common/Helper";
+import cartApi from "../../../../../Api/frontEnd/cart";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateCart } from "../../../../../user/user.action"
 
 import "./style.scss";
 
 function OrganisationItem(props) {
   let product = props.product
+  let productId = props.tagTitle === "Project" ? product?.itemDetails?._id : product?._id
   let productPrice = props.tagTitle === "Project" ? props.productPrice[product?.itemDetails?._id] : props.productPrice[product?._id]
   const setproductPrice = props.setproductPrice
   const [totalPrice, setTotalPrice] = useState(productPrice)
@@ -21,21 +25,71 @@ function OrganisationItem(props) {
   let created_at = props.tagTitle === "Project" ? product?.itemDetails?.created_at : product?.created_at
   let infinite = props.tagTitle === "Project" ? product?.itemDetails?.unlimited : product?.unlimited
   let image = props.tagTitle === "Project" ? product?.itemDetails?.image : product?.image
+  let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
+  let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
 
 
+  const [addedToCard, setAddedToCard] = useState(false)
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const cart_btn = addedToCard ? (
+    <Button
+      variant="success"
+      size="sm"
+      className="icon icon__pro"
+
+    >
+      <FontAwesomeIcon icon={solid("circle-check")} />
+    </Button>
+  ) : (
+    <Button
+      variant="primary"
+      size="sm"
+      className="icon icon__pro"
+      onClick={() => {
+        props.addToCart(productId, totalQuantity)
+        dispatch(setIsUpdateCart(!user.isUpdateCart))
+      }}
+    >
+      ${totalPrice}
+    </Button>
+  );
+
+  
+
+  const btn =
+    soldout === quantity ? (
+      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+    ) : (
+      cart_btn
+    );
 
 
 
   useEffect(() => {
-    setTotalPrice(productPrice)
-  }, [productPrice])
+    (async () => {
+      setTotalPrice(productPrice)
+      if (!CampaignAdminAuthToken) {
+        const checkItem = await props.checkItemInCart(productId)
+        if (checkItem === true) {
+          setAddedToCard(true)
+        } else {
+          setAddedToCard(false)
+
+        }
+      }
+
+    })()
+  }, [!user.isUpdateCart, productPrice])
 
   // console.log("product",product)
   return (
     <li className="org__item__item pt-12p pb-12p d-sm-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <a href="/" className="d-block">
-          <ListItemImg imgSrc={helper.CampaignProductImagePath+image} />
+          <ListItemImg imgSrc={helper.CampaignProductImagePath + image} />
         </a>
         <div className="org__item__main pl-12p flex-grow-1">
           <div className="org__item__title pr-12p">
@@ -68,7 +122,7 @@ function OrganisationItem(props) {
               }}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
               min={1}
-              max={10}
+              max={infinite ? 1 : 10}
 
               // onChange={(e) => setTotalPrice({
               //   ...props.productPrice,
@@ -81,7 +135,7 @@ function OrganisationItem(props) {
             />
           </div>
           <div className="org__item__count mt-3p">{infinite ?
-            <div className="tag tag--ongoing" style={{ height: "26px", width: "26px", backgroundColor: "#a976f0", borderRadius: "50%",display:"flex",justifyContent:"center",alignItems:"center" }}>
+            <div className="tag tag--ongoing" style={{ height: "26px", width: "26px", backgroundColor: "#a976f0", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
               {/* <div className="icon icon--unlimited"></div> */}
               <FontAwesomeIcon icon={solid("infinity")} className="icon icon--unlimited" />
             </div>
@@ -90,9 +144,10 @@ function OrganisationItem(props) {
         {/* <span className="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
           ${totalPrice}
         </span> */}
-        <Button className="ms-auto">
+        {/* <Button className="ms-auto" disabled={true}>
           <span className="fw-bold">${infinite ? productPrice : totalPrice}</span>
-        </Button>
+        </Button> */}
+        {!CampaignAdminAuthToken && btn}
       </div>
     </li>
   );

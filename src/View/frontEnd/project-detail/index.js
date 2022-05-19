@@ -77,7 +77,7 @@ const ProjectDetail = (props) => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
-            <ProjectDetailMain progress={70} projectDetails={props.projectDetails} />
+            <ProjectDetailMain progress={70} projectDetails={props.projectDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
             <History tagTitle="Activity" title="User Log" />

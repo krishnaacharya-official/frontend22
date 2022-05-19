@@ -28,11 +28,11 @@ function product() {
         return res;
     }
 
-    const listByOrganization = async (authToken,organizationId) => {
+    const listByCategory = async (authToken, categoryId) => {
         let res = {};
         await axios({
             method: 'post',
-            url: `${helper.ApiUrl}product/organization`,
+            url: `${helper.ApiUrl}product/category`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -42,9 +42,30 @@ function product() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:{
-                organizationId:organizationId
+            data: {
+                categoryId: categoryId
             }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const list = async (authToken) => {
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}product`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
 
         }).then((response) => {
             res = response
@@ -54,7 +75,8 @@ function product() {
 
     return {
         details,
-        // listByOrganization
+        listByCategory,
+        list
 
 
     }

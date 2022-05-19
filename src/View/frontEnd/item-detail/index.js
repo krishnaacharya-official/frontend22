@@ -75,21 +75,27 @@ const ItemDetail = (props) => {
     <>
       <HeaderController />
       <SuggestionWrapper>
-        <SuggestedList />
+        <SuggestedList itemTag="product" productList={props.productList} productId={productDetails?._id} productDetails={productDetails}  />
       </SuggestionWrapper>
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
-            <ItemDetailMain progress={70} productDetails={productDetails} />
+
+
+            <ItemDetailMain progress={70} productDetails={productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
             <div className="d-none d-sm-block project__detail-img mb-3">
               <img
                 className="img-fluid"
                 alt=""
-                src={helper.CampaignProductFullImagePath+productDetails?.image}
+                src={helper.CampaignProductFullImagePath + productDetails?.image}
               />
             </div>
+            {
+              productDetails.quantity === productDetails.soldout &&
+
+              <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item"></img>}
             <History />
           </Col>
         </Row>
@@ -97,7 +103,14 @@ const ItemDetail = (props) => {
       <Container fluid>
         <Row className="py-5 border-top">
           <Col md="6" className="mb-4 mb-0">
-            <SimilarItems />
+            <SimilarItems
+              productDetails={productDetails}
+              categoryProducts={props.categoryProducts}
+              removeCartItem={props.removeCartItem}
+              checkItemInCart={props.checkItemInCart}
+              pricingFees={props.pricingFees}
+              addToCart={props.addToCart}
+            />
           </Col>
           <Col md="6"></Col>
         </Row>

@@ -512,7 +512,7 @@ function ProductController() {
 
         }).catch(errors => {
             setLoading(false)
-            console.log(errors)
+            // console.log(errors)
             // const formaerrror = {};
             if (errors.length) {
                 errors.forEach(element => {
@@ -675,7 +675,7 @@ function ProductController() {
     };
 
     const handleTagClick = (index) => {
-        console.log("The tag at index " + index + " was clicked");
+        // console.log("The tag at index " + index + " was clicked");
     };
 
     const onClearAll = () => {

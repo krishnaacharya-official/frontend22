@@ -184,7 +184,7 @@ function ProjectDetailMain(props) {
       <div className="mb-4">
         <OrganisationTeamWidget tagTitle="Project" showEmail={false} showContact />
       </div>
-      <OrganisationWidget tagTitle="Project" productDetails={projectDetails.productDetails} />
+      <OrganisationWidget tagTitle="Project" productDetails={projectDetails.productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
     </div>
   );
 }

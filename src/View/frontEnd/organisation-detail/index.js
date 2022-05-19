@@ -60,14 +60,13 @@ const OrganisationDetail = (props) => {
   let organizationDetails = props.organizationDetails
   let projectList = props.projectList
 
-  // console.log(organizationDetails) 
-  // console.log(Object.keys(organizationDetails).length)
+
   return (
     <>
       <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
-          <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} />
+          <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} itemTag="organization" />
           <div className="ms-auto d-flex align-items-center">
             <Button size="lg" className="fw-bold">
               Donate
@@ -79,7 +78,7 @@ const OrganisationDetail = (props) => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4">
-            <OrganisationDetailMain progress={70} organizationDetails={organizationDetails} />
+            <OrganisationDetailMain organizationDetails={organizationDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
             <div className="mb-4">

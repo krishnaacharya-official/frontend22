@@ -28,7 +28,7 @@ function ProjectGallery(props) {
         <div className="gallery__container">
           {
             images?.length > 0 &&
-            images.map((img, i) => {
+            images.slice(0,5).map((img, i) => {
               return (
                 <GalleryImg
                   thumbImgSrc={ props.tagTitle==="Project" ? helper.ProjectImagePath + img.image : helper.CampaignProductImagePath+img.image}

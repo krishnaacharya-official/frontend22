@@ -446,7 +446,7 @@ function CampaignAdminController() {
 
 
         }).catch(errors => {
-            console.log(errors)
+            // console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {

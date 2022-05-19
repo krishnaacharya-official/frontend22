@@ -19,7 +19,7 @@ import "./style.scss";
 
 function OrganisationDetailMain(props) {
   let organizationDetails = props.organizationDetails
-  console.log(organizationDetails)
+  // console.log(organizationDetails)
   let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '')
 
   return (
@@ -114,7 +114,7 @@ function OrganisationDetailMain(props) {
         </div>
       </div>
 
-      <OrganisationWidget tagTitle="Organization" productDetails={organizationDetails?.productsDetails} />
+      <OrganisationWidget tagTitle="Organization" productDetails={organizationDetails?.productsDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
 
     </div>
   );

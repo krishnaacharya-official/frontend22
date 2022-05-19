@@ -20,9 +20,10 @@ function SuggestedItem({ sold, ...otherProps }) {
     sold,
     ...otherProps,
   };
+  let slug = sharedProps.itemTag === 'organization' ? "/organization/"+sharedProps.organization.slug : '/item/'+sharedProps.product.slug
   return (
     <li className="suggest__item">
-      <Link to={"/organization/"+sharedProps.organization.slug} className="d-block">
+      <Link to={slug} className="d-block">
         {sharedProps.sold ? (
           <div className="post__sold">
             <img

@@ -220,7 +220,7 @@ function SubCategoryController() {
     }
 
     const editSubCategory = async (categoryData) => {
-        console.log(categoryData)
+        // console.log(categoryData)
         setLoading(true)
         if ((categoryData) && categoryData !== null && categoryData !== '') {
             // setUpdateModalTitle(true);

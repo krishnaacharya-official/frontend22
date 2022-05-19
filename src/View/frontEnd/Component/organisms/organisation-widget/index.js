@@ -90,9 +90,11 @@ function OrganisationWidget(props) {
         {
           productDetails?.length > 0 ?
             productDetails.slice(0, loadMore ? productDetails.length : 3).map((product, i) => {
-   
+
               return (
-                <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i} />
+                <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i}
+                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} 
+                />
               )
             })
             : <p>product Not Found</p>
@@ -104,7 +106,7 @@ function OrganisationWidget(props) {
         !loadMore &&
         productDetails?.length > 3 &&
         <div className="more__log">
-          <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={()=>setLoadMore(true)}>Load More . . .</Button>
+          <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
         </div>
       }
     </>
