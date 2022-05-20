@@ -25,6 +25,7 @@ export default function OrganizationDetailsController() {
     const navigate = useNavigate();
     const [organizationDetails, setOrganizationDetails] = useState({})
     const [projectList, setProjectList] = useState([])
+    const [purchasedItemList, setPurchasedItemList] = useState([])
 
     const orgProjectList = async (orgId) => {
         let formData = {}
@@ -44,6 +45,12 @@ export default function OrganizationDetailsController() {
         const getOrganizationList = await adminCampaignApi.list(token)
         if (getOrganizationList.data.success === true) {
             setOrganizationList(getOrganizationList.data.data)
+        }
+    }
+    const getPurchasedItems = async (id) => {
+        const getPurchasedItems = await organizationApi.organizationPurchasedItemHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
+        if (getPurchasedItems.data.success === true) {
+            setPurchasedItemList(getPurchasedItems.data.data)
         }
     }
 
@@ -102,6 +109,7 @@ export default function OrganizationDetailsController() {
                     setOrganizationDetails(orgdata)
                     await orgProjectList(orgdata._id)
                     await getOrganizationList()
+                    await getPurchasedItems(orgdata._id)
                 } else {
                     navigate('/')
                 }
@@ -121,6 +129,7 @@ export default function OrganizationDetailsController() {
                 organizationList={organizationList}
                 addToCart={addToCart}
                 checkItemInCart={checkItemInCart}
+                purchasedItemList={purchasedItemList}
             />
 
         </>

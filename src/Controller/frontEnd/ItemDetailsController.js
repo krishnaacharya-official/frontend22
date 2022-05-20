@@ -24,12 +24,14 @@ export default function ItemDetailsController() {
     const userAuthToken = localStorage.getItem('userAuthToken');
     const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken
     const [categoryProducts, setCategoryProducts] = useState([])
+    const [purchasedItemList, setPurchasedItemList] = useState([])
+
 
 
     const allProductList = async () => {
         const getproductList = await productApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
         if (getproductList.data.success === true) {
-            console.log(getproductList.data.data)
+            // console.log(getproductList.data.data)
             setProductList(getproductList.data.data)
         }
     }
@@ -53,6 +55,14 @@ export default function ItemDetailsController() {
 
     }
 
+    const getPurchasedItems = async (id) => {
+        const getPurchasedItems = await productApi.itemPurchasedHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
+        if (getPurchasedItems.data.success === true) {
+            setPurchasedItemList(getPurchasedItems.data.data)
+        }
+    }
+
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -67,6 +77,7 @@ export default function ItemDetailsController() {
                     setProductDetails(mydata)
                     await productListByCategory(mydata.categoryDetails._id)
                     await allProductList()
+                    await getPurchasedItems(mydata._id)
                 } else {
                     navigate('/')
                 }
@@ -152,6 +163,7 @@ export default function ItemDetailsController() {
                 addToCart={addToCart}
                 removeCartItem={removeCartItem}
                 productList={productList}
+                purchasedItemList={purchasedItemList}
 
             />
         </>

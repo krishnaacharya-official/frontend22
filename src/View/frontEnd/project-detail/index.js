@@ -2,7 +2,7 @@
 import React from "react";
 
 // third party
-import { Col, Container, Row,Button } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 
 // app specific
 import Header from "../Component/organisms/header";
@@ -80,7 +80,7 @@ const ProjectDetail = (props) => {
             <ProjectDetailMain progress={70} projectDetails={props.projectDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
-            <History tagTitle="Activity" title="User Log" />
+            <History tagTitle="Activity" title="User Log" list={props.purchasedItemList} />
           </Col>
         </Row>
       </Container>

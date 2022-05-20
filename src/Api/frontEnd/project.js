@@ -49,9 +49,36 @@ function project() {
         return res;
     }
 
+    const projectItemPurchasedHistory = async (authToken, projectId) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}project/purchase_history`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                projectId: projectId
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
+
     return {
         details,
-        list
+        list,
+        projectItemPurchasedHistory
     }
 }
 const projectApi = project();

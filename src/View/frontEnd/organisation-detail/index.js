@@ -84,7 +84,7 @@ const OrganisationDetail = (props) => {
             <div className="mb-4">
               <OrganisationTeamWidget />
             </div>
-            <History />
+            <History list={props.purchasedItemList} />
           </Col>
         </Row>
       </Container>

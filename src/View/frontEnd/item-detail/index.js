@@ -96,7 +96,7 @@ const ItemDetail = (props) => {
               productDetails.quantity === productDetails.soldout &&
 
               <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item"></img>}
-            <History />
+            <History list={props.purchasedItemList} />
           </Col>
         </Row>
       </Container>

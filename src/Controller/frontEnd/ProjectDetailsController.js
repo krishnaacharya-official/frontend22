@@ -24,6 +24,8 @@ export default function ProjectDetailsController() {
     const userAuthToken = localStorage.getItem('userAuthToken');
     const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
     const [projectList, setProjectList] = useState([])
+    const [purchasedItemList, setPurchasedItemList] = useState([])
+
 
     const getAllProjectList = async () => {
         const getProjectList = await projectApi.list(token);
@@ -32,6 +34,15 @@ export default function ProjectDetailsController() {
         }
 
     }
+
+    const getPurchasedItems = async (id) => {
+        const getPurchasedItems = await projectApi.projectItemPurchasedHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
+        if (getPurchasedItems.data.success === true) {
+            setPurchasedItemList(getPurchasedItems.data.data)
+        }
+    }
+
+
 
     const addToCart = async (id, quantity) => {
 
@@ -81,14 +92,15 @@ export default function ProjectDetailsController() {
         (async () => {
             setLoading(true)
             // console.log(params.name)
-            let orgdata = {}
+            let projdata = {}
             const getProjectDetails = await projectApi.details(token, params.name);
             if (getProjectDetails.data.success === true) {
                 // console.log(getProjectDetails.data.data[0]) 
                 if (getProjectDetails.data.data.length) {
-                    orgdata = getProjectDetails.data.data[0]
-                    setProjectDetails(orgdata)
+                    projdata = getProjectDetails.data.data[0]
+                    setProjectDetails(projdata)
                     await getAllProjectList()
+                    await getPurchasedItems(projdata._id)
                 } else {
                     navigate('/')
                 }
@@ -108,8 +120,9 @@ export default function ProjectDetailsController() {
                 projectList={projectList}
                 addToCart={addToCart}
                 checkItemInCart={checkItemInCart}
+                purchasedItemList={purchasedItemList}
             />
-       
+
         </>
     )
 
