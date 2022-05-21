@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 function OrganisationItem(props) {
   let product = props.product
@@ -27,6 +28,8 @@ function OrganisationItem(props) {
   let image = props.tagTitle === "Project" ? product?.itemDetails?.image : product?.image
   let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
   let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
+  let slug = props.tagTitle === "Project" ? product?.itemDetails?.slug : product?.slug
+
 
 
   const [addedToCard, setAddedToCard] = useState(false)
@@ -93,12 +96,12 @@ function OrganisationItem(props) {
         </a>
         <div className="org__item__main pl-12p flex-grow-1">
           <div className="org__item__title pr-12p">
-            <a
-              href="/"
+            <Link
+              to={"/item/"+slug}
               className="org__item__name mb-3p text-dark d-inline-block"
             >
               {headline}
-            </a>
+            </Link>
             <div className="org__item__location mb-6p">{moment(created_at).fromNow()}</div>
           </div>
           <div className="org__item__price">${productPrice}</div>

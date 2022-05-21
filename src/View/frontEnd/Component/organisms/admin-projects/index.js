@@ -462,6 +462,7 @@ const AdminProjects = () => {
           onSelectProduct={onSelectProduct}
           submitProjectForm={submitProjectForm}
           discardProject={discardProject}
+          slug={data.slug}
 
         />}
     </>

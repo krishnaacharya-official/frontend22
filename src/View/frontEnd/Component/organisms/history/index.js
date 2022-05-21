@@ -46,7 +46,7 @@ function History(props) {
                   <HistoryItem categoryName="Fish" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.orderDetails?.userDetails?._id : false} />
                 )
               }) :
-              "Products Not Found"
+              "Records Not Found"
           }
           {/* <HistoryItem active />
           <HistoryItem

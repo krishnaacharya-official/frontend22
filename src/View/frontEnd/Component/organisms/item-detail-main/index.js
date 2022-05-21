@@ -231,7 +231,7 @@ function ProjectDetailMain(props) {
         </Button> */}
 
         {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
-        {btn}
+        {!CampaignAdminAuthToken && btn}
       </div>
 
       <div className="product__badge mt-5">

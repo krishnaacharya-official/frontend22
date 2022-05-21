@@ -93,7 +93,7 @@ function SimilarItem(props) {
           <div className="similar__item__price">${getCalc.getData(product.price)}</div>
         </div>
 
-        <div className="qty__tag ms-auto me-5">1</div>
+        {!CampaignAdminAuthToken &&<div className="qty__tag ms-auto me-5">1</div>}
       </div>
       <div className="similar__item__remove ms-auto">
         {/* <IconButton
@@ -104,7 +104,7 @@ function SimilarItem(props) {
           icon={<FontAwesomeIcon icon={regular("cart-shopping")} />}
           target="_blank"
         ></IconButton> */}
-        {btn}
+        {!CampaignAdminAuthToken && btn}
       </div>
     </li>
   );

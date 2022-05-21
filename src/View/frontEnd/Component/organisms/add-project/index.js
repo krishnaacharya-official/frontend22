@@ -12,10 +12,10 @@ import helper from "../../../../../Common/Helper";
 import noimg from '../../../../../assets/images/noimg.jpg'
 
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 const AddProject = (props) => {
-
-  const { id, status, name, headline, video, description, error, images, infinite } = props.stateData
+   const { id, status, name, headline, video, description, error, images, infinite } = props.stateData
 
   let url = video;
   let videoid = url.split("?v=")[1];
@@ -239,7 +239,8 @@ const AddProject = (props) => {
           Select Products
         </h3>
         <span className="d-flex align-items-center text-light me-2">(0)</span>
-        <Button variant="info">Create New</Button>
+        {/* <Button variant="info">Create New</Button> */}
+        <Link to={"/campaign/"+props.slug+"/posts"} className="btn btn-info">Create New</Link>
       </div>
       <div className="d-flex flex-wrap mb-3 p-20p border rounded-3">
 
@@ -248,7 +249,7 @@ const AddProject = (props) => {
           productList.map((product, i) => {
             return (
               <FeedTag
-                data={product} name={product.headline} onSelect={(e)=>onSelectProduct(e)} checked={seletedProductList.includes(product._id)}
+                data={product} name={product.headline} onSelect={(e) => onSelectProduct(e)} checked={seletedProductList.includes(product._id)}
                 icon={
                   <img
                     src={helper.CampaignProductImagePath + product.image}
@@ -259,7 +260,7 @@ const AddProject = (props) => {
             )
           })
         }
-        
+
 
         {/* <FeedTag
           border={true}
@@ -305,12 +306,12 @@ const AddProject = (props) => {
             variant="danger"
             size="lg"
             className="fw-bold fs-6 mb-2 mb-sm-0"
-            onClick={()=>discardProject()}
+            onClick={() => discardProject()}
           >
             Disregard
           </Button>
           <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProjectForm(1)}>
-            {!id ? "Create Project":"Update Project"}
+            {!id ? "Create Project" : "Update Project"}
           </Button>
         </div>
       </div>
