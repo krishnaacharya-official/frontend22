@@ -9,7 +9,7 @@ let BASE_URL = 'http://54.186.21.246:9000/'
 
 if (window.location.hostname === 'localhost') {
     Mode = "development"
-    BASE_URL = 'https://donorport.herokuapp.com/'
+    BASE_URL = 'http://localhost:8080/'
 
 }
 const AWS_S3_BUCKET_BASE_URL = "https://donorport.s3.us-west-2.amazonaws.com/"
