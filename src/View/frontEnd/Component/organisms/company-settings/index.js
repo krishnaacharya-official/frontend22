@@ -1,6 +1,6 @@
 import "./style.scss";
 import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import helper from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
@@ -9,11 +9,11 @@ import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
 import { Button } from "react-bootstrap";
 // import { UserContext } from '../../../../../App';
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateCart ,setIsUpdateOrganization} from "../../../../../user/user.action"
+import { setIsUpdateCart, setIsUpdateOrganization, setProfileImage } from "../../../../../user/user.action"
 
 const CompanySettings = () => {
-    const user = useSelector((state) => state.user);
-    // const user = useContext(UserContext)
+  const user = useSelector((state) => state.user);
+  // const user = useContext(UserContext)
   const dispatch = useDispatch();
   const [data, setData] = useOutletContext();
   const [loading, setLoading] = useState(false)
@@ -46,16 +46,16 @@ const CompanySettings = () => {
   const changevalue = (e) => {
     let value = e.target.value;
     setState({
-        ...state,
-        [e.target.name]: value
+      ...state,
+      [e.target.name]: value
     })
-    if(e.target.name === 'promoVideo'){
+    if (e.target.name === 'promoVideo') {
       let url = value;
       let id = url && url.split("?v=")[1];
       let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
       setEmbedlink(embedUrl)
     }
-}
+  }
 
   useEffect(() => {
     // console.log(data.description)
@@ -75,7 +75,7 @@ const CompanySettings = () => {
     setEmbedlink(embedUrl)
     setLoading(false)
 
-  }, [data._id,user.isUpdateOrg])
+  }, [data._id, user.isUpdateOrg])
 
   const updateProfile = () => {
     const rules = {
@@ -127,7 +127,9 @@ const CompanySettings = () => {
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateOrganization(!user.isUpdateOrg))
-
+          if (tempImg && tempImg !== "") {
+            dispatch(setProfileImage(tempImg))
+          }
           setData(state)
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'success' });
@@ -195,14 +197,14 @@ const CompanySettings = () => {
 
         <div className="input__wrap mb-3">
           <label className="input__label flex__1">
-            <input type="text" name="name" value={name} onChange={(e)=>changevalue(e)} />
+            <input type="text" name="name" value={name} onChange={(e) => changevalue(e)} />
             <span className="input__span">Organisation Name</span>
           </label>
         </div>
 
         <div className="input__wrap mb-3">
           <label className="input__label mb-2">
-            <input type="text"  name="headline" value={headline} onChange={(e)=>changevalue(e)} />
+            <input type="text" name="headline" value={headline} onChange={(e) => changevalue(e)} />
             <span className="input__span" >Headline</span>
           </label>
           <div className="helper__text fs-7 text-end text-subtext">
@@ -215,7 +217,7 @@ const CompanySettings = () => {
         </div>
         <div className="input__wrap mb-3">
           <label className="input__label mb-2">
-            <textarea rows="6" name="mission" value={mission} onChange={(e)=>changevalue(e)}></textarea>
+            <textarea rows="6" name="mission" value={mission} onChange={(e) => changevalue(e)}></textarea>
             <span className="input__span" >Mission</span>
           </label>
           <div className="helper__text fs-7 text-end text-subtext">
@@ -235,7 +237,7 @@ const CompanySettings = () => {
               className="input__text"
               type="text"
               name="promoVideo"
-              onChange={(e)=>changevalue(e)}
+              onChange={(e) => changevalue(e)}
               placeholder="Video URL"
               value={promoVideo}
             />

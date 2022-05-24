@@ -9,6 +9,7 @@ import UserSettingsList from "./user-settings-list";
 import { Link } from "react-router-dom";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
 import helper from "../../../../../Common/Helper";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style.scss";
 
@@ -18,6 +19,9 @@ const UserSettings = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const user = useSelector((state) => state.user);
+
 
 
   const [state, setState] = useState({
@@ -49,11 +53,12 @@ const UserSettings = () => {
     );
   });
 
+
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={UserButton}>
-          <Avatar avatarUrl={CampaignAdminAuthToken && CampaignAdmin ? helper.CampaignAdminLogoPath + CampaignAdmin.logo : AvatarImg} />
+          <Avatar avatarUrl={user.profileImage} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
@@ -78,7 +83,7 @@ const UserSettings = () => {
                 <div className="fw-bold">Organizations</div>
               ) : (
                 <div className="d-flex align-items-center w-100">
-                  <Avatar avatarUrl={CampaignAdminAuthToken && CampaignAdmin ? helper.CampaignAdminLogoPath + CampaignAdmin.logo : AvatarImg} />
+                  <Avatar avatarUrl={user.profileImage} />
 
                   {
                     CampaignAdmin?.name ?

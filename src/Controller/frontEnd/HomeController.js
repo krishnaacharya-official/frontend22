@@ -85,7 +85,9 @@ export default function HomeController() {
 
     const addToCart = async (id) => {
         setLoading(true)
-        const addItemToCart = await cartApi.add(userAuthToken, id);
+        let data = {}
+        data.productId = id
+        const addItemToCart = await cartApi.add(userAuthToken, data);
         if (addItemToCart) {
             if (!addItemToCart.data.success) {
                 setLoading(false)

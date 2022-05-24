@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import PlaceholderImg from "../../../../../assets/images/placeholder.png";
 
 import "./style.scss";
@@ -19,9 +20,10 @@ function SuggestedItem({ sold, ...otherProps }) {
     sold,
     ...otherProps,
   };
+  let slug = sharedProps.itemTag === 'organization' ? "/organization/"+sharedProps.organization.slug : '/item/'+sharedProps.product.slug
   return (
     <li className="suggest__item">
-      <a href={sharedProps.productLink} className="d-block">
+      <Link to={slug} className="d-block">
         {sharedProps.sold ? (
           <div className="post__sold">
             <img
@@ -37,7 +39,7 @@ function SuggestedItem({ sold, ...otherProps }) {
         <div className="product__thumb d-flex align-items-center">
           <img className="img-fluid mx-auto" alt="" src={sharedProps.imgUrl} />
         </div>
-      </a>
+      </Link>
     </li>
   );
 }

@@ -75,7 +75,17 @@ const AdminProjects = () => {
     const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, formData);
 
     if (getOrganizationProducts.data.success === true) {
-      setProductList(getOrganizationProducts.data.data)
+      let tempArray = []
+      if (getOrganizationProducts.data.data.length > 0) {
+        getOrganizationProducts.data.data.map((product, i) => {
+          if (product.status === 1) {
+            tempArray.push(product)
+          }
+        })
+        setProductList(tempArray)
+
+      }
+
     }
   }
 
@@ -151,6 +161,7 @@ const AdminProjects = () => {
 
       let tempArry = [...seletedProductList]
       const index = tempArry.indexOf(e.target.id);
+    
       if (index > -1) {
         tempArry.splice(index, 1);
       }
@@ -163,7 +174,7 @@ const AdminProjects = () => {
 
 
   const submitProjectForm = (s) => {
-
+    window.scrollTo(0, 0);
     const formaerrror = {}
 
     if (!id) {
@@ -241,6 +252,7 @@ const AdminProjects = () => {
               setLoading(false)
               setUpdate(!update)
               ToastAlert({ msg: addProject.data.message, msgType: 'success' });
+              window.scrollTo(0, 0);
             }
           }
         } else {
@@ -251,7 +263,7 @@ const AdminProjects = () => {
 
     }).catch(errors => {
       setLoading(false)
-      console.log(errors)
+      // console.log(errors)
       // const formaerrror = {};
       if (errors.length) {
         errors.forEach(element => {
@@ -367,7 +379,7 @@ const AdminProjects = () => {
 
 
   const publishProject = async (id) => {
-
+    setLoading(true)
     const publish = await projectApi.publishProject(CampaignAdminAuthToken, id)
     if (publish) {
       if (publish.data.success === false) {
@@ -450,6 +462,7 @@ const AdminProjects = () => {
           onSelectProduct={onSelectProduct}
           submitProjectForm={submitProjectForm}
           discardProject={discardProject}
+          slug={data.slug}
 
         />}
     </>

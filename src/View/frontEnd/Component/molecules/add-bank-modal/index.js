@@ -477,7 +477,7 @@ const AddBankModal = (props) => {
             <TabContainer >
               <div className="container">
                 <h1>Tell us more about your business</h1>
-                <span>Choose your location and business type to get started.</span>
+                {/* <span>Choose your location and business type to get started.</span> */}
 
                 <div className="mt-5">
 

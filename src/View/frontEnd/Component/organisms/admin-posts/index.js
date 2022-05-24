@@ -486,7 +486,7 @@ const AdminPosts = (props) => {
 
     }).catch(errors => {
       setLoading(false)
-      console.log(errors)
+      // console.log(errors)
       // const formaerrror = {};
       if (errors.length) {
         errors.forEach(element => {
@@ -549,7 +549,7 @@ const AdminPosts = (props) => {
   const editProduct = async (productData) => {
     setLoading(true)
     if ((productData) && productData !== null && productData !== '') {
-      console.log(productData)
+      // console.log(productData)
       // 
       setstate({
         id: productData._id,
@@ -640,7 +640,7 @@ const AdminPosts = (props) => {
   }
 
   const publishProduct = async (id) => {
-
+    setLoading(true)
     const publish = await productApi.publishProduct(CampaignAdminAuthToken, id)
     if (publish) {
       if (publish.data.success === false) {

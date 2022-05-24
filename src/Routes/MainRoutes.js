@@ -73,6 +73,8 @@ import HelpArticle from '../View/frontEnd/help-article';
 import HelpContact from '../View/frontEnd/help-contact';
 import Trust from '../View/frontEnd/trust';
 import PlansController from '../Controller/frontEnd/PlansController';
+import VerifiedDonors from '../View/frontEnd/verified-donors';
+import Terms from '../View/frontEnd/terms';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -142,6 +144,8 @@ export default function MainRoutes() {
                         <Route path="/ranks" element={<Ranks />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
+                        <Route path="/terms" element={<Terms />} />
+
                         {/* <Route exact path="/change-password" element={<ChangePassword />} /> */}
                         <Route exact path="/item/:name" element={<ItemDetailsController />} />
                         <Route exact path="/project/:name" element={<ProjectDetailsController />} />
@@ -232,6 +236,8 @@ export default function MainRoutes() {
                         <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
                         <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="/verified" element={<VerifiedDonors />} />
+                        <Route path="/terms" element={<Terms />} />
                         <Route path="user" element={<UserDetail />} >
                             <Route path="/user/:name/dashboard" element={<UserDashboard />} />
                             <Route path="/user/:name/items" element={<UserItems />} />

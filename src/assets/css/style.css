@@ -787,3 +787,14 @@ width: 100%;
 .ssnlable:hover .ssninstruction {
   display: block;
 }
+
+.sold--item{
+  position: absolute !important;
+  /* top: 50%; */
+  right: 81% !important;
+  -webkit-transform: translate(50%,-50%) !important;
+  -ms-transform: translate(50%,-50%) !important;
+  /* transform: translate(50%,-50%); */
+  bottom: 56% !important;
+  width: 90% !important;
+}

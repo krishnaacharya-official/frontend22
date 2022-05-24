@@ -1,8 +1,12 @@
 import { Button } from "react-bootstrap";
+import moment from "moment"
+import { Link } from "react-router-dom"
 
 import "./style.scss";
 
-function OrganisationProjectItem() {
+function OrganisationProjectItem(props) {
+  let project = props.project
+  // console.log(project)
   return (
     <li className="org__project__item pt-12p pb-12p d-sm-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
@@ -23,16 +27,17 @@ function OrganisationProjectItem() {
         </div>
         <div className="org__project_item__main pl-12p flex-grow-1">
           <div className="org__project__item__name mb-3p text-dark fw-bold">
-            David Abbott
+            {project.name}
           </div>
-          <div className="org__project__item__time fw-light">Today 9am</div>
+          <div className="org__project__item__time fw-light">{moment(project.created_at).fromNow()}</div>
         </div>
       </div>
 
       <div className="ms-auto">
-        <Button variant="danger">
+        {/* <Button variant="danger">
           Go to Project
-        </Button>
+        </Button> */}
+        <Link variant="danger" className="btn btn-danger" to={"/project/" + project.slug}>Go to Project</Link>
       </div>
     </li>
   );

@@ -10,16 +10,34 @@ import SimilarItem from "../../molecules/similar-item";
 
 import "./style.scss";
 
-function SimilarItems() {
+function SimilarItems(props) {
+  let productDetails = props.productDetails
+  let categoryProducts = props.categoryProducts
   return (
     <>
       <TagTitle>Similar Items</TagTitle>
-      <WidgetTitle href="/family">Family</WidgetTitle>
+      <WidgetTitle href="/family">{productDetails.categoryDetails?.name}</WidgetTitle>
 
       <ul className="similar__items list-unstyled mb-0">
-        <SimilarItem />
-        <SimilarItem />
-        <SimilarItem />
+        {
+          categoryProducts.length > 0 ?
+            categoryProducts.map((product, i) => {
+              return (
+                <SimilarItem product={product}
+                  removeCartItem={props.removeCartItem}
+                  checkItemInCart={props.checkItemInCart}
+                  pricingFees={props.pricingFees}
+                  addToCart={props.addToCart}
+
+                />
+
+              )
+            })
+            : "Products Not Found"
+        }
+        {/* <SimilarItem />
+         <SimilarItem />
+         <SimilarItem /> */}
       </ul>
     </>
   );

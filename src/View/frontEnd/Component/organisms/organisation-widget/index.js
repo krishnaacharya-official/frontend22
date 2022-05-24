@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
@@ -13,9 +13,41 @@ import ToggleSwitch from '../../atoms/toggle-switch'
 import OrganisationItem from "../../molecules/org-item";
 
 import "./style.scss";
+import helper, { getCalculatedPrice } from "../../../../../Common/Helper"
 
-function OrganisationWidget() {
+function OrganisationWidget(props) {
   const [check, setCheck] = useState(0);
+  const [loadMore, setLoadMore] = useState(false)
+
+  const [productPrice, setproductPrice] = useState({});
+  const getCalc = getCalculatedPrice()
+
+  let productDetails = props.productDetails
+
+  useEffect(() => {
+    (async () => {
+      if (productDetails?.length > 0) {
+        let obj = {}
+        if (props.tagTitle === 'Project') {
+          productDetails.map((product, i) => {
+            obj[product?.itemDetails?._id] = getCalc.getData(product?.itemDetails?.price)
+          })
+        } else {
+          productDetails.map((product, i) => {
+            // console.log(product)
+            obj[product._id] = getCalc.getData(product?.price)
+          })
+        }
+
+        setproductPrice(obj)
+        setLoadMore(false)
+      }
+    })()
+  }, [productDetails])
+
+  // console.log(productPrice)
+
+
   return (
     <>
       <TagTitle>Organisation</TagTitle>
@@ -55,10 +87,28 @@ function OrganisationWidget() {
         Item availability will be confirmed at checkout.
       </div>
       <ul className="list-unstyled mb-0">
-        <OrganisationItem />
-        <OrganisationItem />
-        <OrganisationItem />
+        {
+          productDetails?.length > 0 ?
+            productDetails.slice(0, loadMore ? productDetails.length : 3).map((product, i) => {
+
+              return (
+                <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i}
+                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} 
+                />
+              )
+            })
+            : <p>product Not Found</p>
+        }
+        {/* <OrganisationItem />
+        <OrganisationItem /> */}
       </ul>
+      {
+        !loadMore &&
+        productDetails?.length > 3 &&
+        <div className="more__log">
+          <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
+        </div>
+      }
     </>
   );
 }

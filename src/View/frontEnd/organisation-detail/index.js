@@ -58,14 +58,15 @@ import "./style.scss";
 
 const OrganisationDetail = (props) => {
   let organizationDetails = props.organizationDetails
-  // console.log(organizationDetails) 
-  // console.log(Object.keys(organizationDetails).length)
+  let projectList = props.projectList
+
+
   return (
     <>
       <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
-          <SuggestedList />
+          <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} itemTag="organization" />
           <div className="ms-auto d-flex align-items-center">
             <Button size="lg" className="fw-bold">
               Donate
@@ -77,20 +78,20 @@ const OrganisationDetail = (props) => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4">
-            <OrganisationDetailMain progress={70} organizationDetails={organizationDetails} />
+            <OrganisationDetailMain organizationDetails={organizationDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
             <div className="mb-4">
               <OrganisationTeamWidget />
             </div>
-            <History />
+            <History list={props.purchasedItemList} />
           </Col>
         </Row>
       </Container>
       <Container fluid>
         <Row className="py-5">
           <Col md="6" className="mb-4 mb-0">
-            <OrganisationProjectsWidget />
+            <OrganisationProjectsWidget projectList={projectList} />
           </Col>
           <Col md="6"></Col>
         </Row>

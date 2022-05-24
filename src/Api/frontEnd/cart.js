@@ -4,7 +4,7 @@ import helper from "../../Common/Helper";
 function cart() {
 
 
-    const add = async (authToken, productId) => {
+    const add = async (authToken, data) => {
 
         let res = {};
         await axios({
@@ -19,9 +19,7 @@ function cart() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data: {
-                productId: productId
-            }
+            data: data
 
         }).then((response) => {
             res = response

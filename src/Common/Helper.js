@@ -3,8 +3,8 @@ import CryptoJS from 'crypto-js';
 import { useSelector, useDispatch } from "react-redux";
 
 let Mode = "production"
-let BASE_URL = 'https://donorport.herokuapp.com/'
-// let BASE_URL = 'http://54.186.21.246:9000/'
+// let BASE_URL = 'https://donorport.herokuapp.com/'
+let BASE_URL = 'http://54.186.21.246:9000/'
 
 
 if (window.location.hostname === 'localhost') {
@@ -19,9 +19,11 @@ let helper = {
     CampaignAdminLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/resize/',
     CampaignProductImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/resize/',
     ProjectImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/project/resize/',
+    ProjectFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/project/',
+
     CampaignProductFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/',
     DonorImagePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/',
-    DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize'
+    DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize/'
 
 }
 

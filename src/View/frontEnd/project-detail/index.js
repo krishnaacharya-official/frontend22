@@ -2,7 +2,7 @@
 import React from "react";
 
 // third party
-import { Col, Container, Row,Button } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 
 // app specific
 import Header from "../Component/organisms/header";
@@ -59,13 +59,13 @@ import "./style.scss";
 //   }
 // }
 
-const ProjectDetail = () => {
+const ProjectDetail = (props) => {
   return (
     <>
       <HeaderController />
       <SuggestionWrapper>
         <div className="d-flex align-items-center">
-          <ProjectSuggestionList />
+          <ProjectSuggestionList projectList={props.projectList} projectId={props.projectDetails?._id} />
           <div className="ms-auto d-flex align-items-center">
             <Button size="lg" className="fw-bold">
               Donate
@@ -77,10 +77,10 @@ const ProjectDetail = () => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
-            <ProjectDetailMain progress={70} />
+            <ProjectDetailMain progress={70} projectDetails={props.projectDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
           </Col>
           <Col md="5">
-            <History tagTitle="Activity" title="User Log" />
+            <History tagTitle="Activity" title="User Log" list={props.purchasedItemList} />
           </Col>
         </Row>
       </Container>

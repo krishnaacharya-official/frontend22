@@ -10,9 +10,11 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateCart } from "../../../../../user/user.action"
 import "./style.scss";
 
 function ProjectDetailMain(props) {
@@ -21,6 +23,63 @@ function ProjectDetailMain(props) {
   const getCalc = getCalculatedPrice();
   let price = getCalc.getData(productDetails?.price)
   let currencySymbol = getCalc.currencySymbol()
+
+  let per = productDetails.soldout / productDetails.quantity * 100
+
+  const [quantity, setQuantity] = useState(1)
+
+  const [addedToCard, setAddedToCard] = useState(false)
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    (async () => {
+      if (!CampaignAdminAuthToken) {
+        const checkItem = await props.checkItemInCart(productDetails._id)
+        if (checkItem === true) {
+          setAddedToCard(true)
+        } else {
+          setAddedToCard(false)
+
+        }
+      }
+
+    })()
+  }, [!user.isUpdateCart])
+
+
+  const cart_btn = addedToCard ? (
+    <Button
+      variant="success"
+      size="lg"
+      className="icon icon__pro"
+
+    >
+      Added In cart &nbsp;
+      <FontAwesomeIcon icon={solid("circle-check")} />
+    </Button>
+  ) : (
+    <Button
+      variant="primary"
+      size="lg"
+      className="icon icon__pro"
+      onClick={() => {
+        props.addToCart(productDetails._id, quantity)
+        dispatch(setIsUpdateCart(!user.isUpdateCart))
+      }}
+    >
+      Add to cart ( {quantity} )
+    </Button>
+  );
+  const btn =
+  productDetails.soldout === productDetails.quantity ? (
+    <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
+  ) : (
+    cart_btn
+  );
 
   // console.log(productDetails)
 
@@ -58,7 +117,7 @@ function ProjectDetailMain(props) {
         <div className="d-flex align-items-center flex-grow-1">
           <ProgressBar
             variant="success"
-            now={props.progress}
+            now={per}
             className="flex-grow-1 me-1"
           />
           {props.onGoing ? (
@@ -67,7 +126,7 @@ function ProjectDetailMain(props) {
             </span>
           ) : (
             <span className="fw-bold">
-              0 / 10 <span className="fs-9 fw-normal">sold</span>
+              {productDetails.soldout} / {productDetails.quantity} <span className="fs-9 fw-normal">sold</span>
             </span>
           )}
         </div>
@@ -111,6 +170,7 @@ function ProjectDetailMain(props) {
               alt=""
               style={{ width: "30px" }}
               src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
+
             />
             {/* </div> */}
           </span>
@@ -142,7 +202,7 @@ function ProjectDetailMain(props) {
       <div className="project__calculate mt-4">
         <div className="sub__total">
           <div className="text-dark fw-bold me-2">Subtotal:</div>
-          <div className="price fs-4 fw-bold text-success">$0.00</div>
+          <div className="price fs-4 fw-bold text-success">${price * quantity}</div>
         </div>
         <div className="d-flex align-items-center fs-5 py-1 mb-3">
           <div className="project__count mt-3p">1</div>
@@ -154,16 +214,24 @@ function ProjectDetailMain(props) {
                 border: "none",
                 background: "#3596F3",
                 marginTop: "-10px",
+
+
               }}
+              min={1}
+              max={10}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
+              onChange={(e) => setQuantity(e)}
             />
           </div>
           <div className="project__count mt-3p">10</div>
         </div>
 
-        <Button size="lg" className="w-100">
-          <span className="fw-bold">Add to cart (0)</span>
-        </Button>
+        {/* <Button size="lg" className="w-100">
+          <span className="fw-bold">Add to cart ( {quantity} )</span>
+        </Button> */}
+
+        {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
+        {!CampaignAdminAuthToken && btn}
       </div>
 
       <div className="product__badge mt-5">
@@ -200,7 +268,7 @@ function ProjectDetailMain(props) {
         </IconText>
       </div>
 
-      <ProjectGallery className="mt-5 mb-3" />
+      <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div>
   );
 }

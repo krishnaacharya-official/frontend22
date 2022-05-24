@@ -1,27 +1,37 @@
 
+import { Link } from "react-router-dom";
 import "./style.scss";
+import helper from "../../../../../Common/Helper";
 
 function ProjectSuggestionItem(props) {
+  let project = props.project
+  // console.log(project.imageDetails[0].image)
+  let imgUrl = helper.ProjectImagePath + project.imageDetails[0].image 
+  // console.log(imgUrl)
+
   return (
-    <li className={`project__suggestion__item pt-12p pb-12p d-sm-flex align-items-center ${props.className}`}>
-      <div className="d-flex align-items-center flex-grow-1">
-        <div
-          className="circle__progress"
-          style={{
-            background:
-              "linear-gradient(0deg, #fff 50%, transparent 50%), linear-gradient(180deg, #45a3e4 50%, #fff 50%)",
-          }}
-        >
+    <Link to={"/project/" + project.slug}>
+      <li className={`project__suggestion__item pt-12p pb-12p d-sm-flex align-items-center ${props.className}`}>
+        <div className="d-flex align-items-center flex-grow-1">
           <div
-            className="circle__progress-img"
+            className="circle__progress"
             style={{
-              backgroundImage:
-                "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bcffaeab823417be2a23023_east_africa_crisis_appeal_disastersemergencycomittee_credit_colin-crowley_save-the-children_0.jpg",
+              background:
+                "linear-gradient(0deg, #fff 50%, transparent 50%), linear-gradient(180deg, #45a3e4 50%, #fff 50%)",
             }}
-          ></div>
+          >
+            <div
+              className="circle__progress-img"
+              style={{
+                backgroundImage:
+                  "url("+imgUrl+" ",
+              }}
+            ></div>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </Link >
+
   );
 }
 
