@@ -1,0 +1,131 @@
+.lottie__icon:not(.no-color-inherit) {
+  svg,
+  path {
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.lottie__icon {
+  height: 1em;
+  width: 1em;
+}
+
+.filter__dropdown {
+  &.dropdown-menu {
+    background-color: var(--bkg-shade);
+    width: 475px;
+  }
+
+  // .filter__dropdown-hd
+  &-hd {
+    padding: 2px 18px 12px;
+  }
+
+  &-bd {
+    background-color: #fff;
+  }
+
+  .filter__label {
+    margin-bottom: 10px;
+  }
+
+  .filter__checkboxes {
+    padding: 6px 0;
+  }
+}
+
+.tax__icon {
+  border: 2px solid;
+  font-size: calc(1em - 4px);
+  border-radius: 3px;
+}
+
+.filter__slider {
+  padding: 16px 40px 40px;
+  height: 95px;
+  display: flex;
+  align-items: end;
+  .rc-slider-mark-text {
+    color: #aaa9c2;
+    font-size: 10px;
+  }
+}
+
+.rc-tooltip {
+  .rc-tooltip-inner {
+    background: #727296;
+    padding: 3px 5px;
+    line-height: 1;
+  }
+
+  .rc-tooltip-arrow {
+    border-top-color: #727296;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .filter__slider {
+    background-color: var(--bkg-shade);
+    order: 1;
+  }
+  .filter__dropdown, .grab__dropdown {
+    flex-direction: column;
+    &.dropdown-menu {
+      --x: 0;
+      --y: 0;
+      --z: 0;
+      background: #fff;
+      padding: 0;
+      border-radius: 12px 12px 0 0;
+      display: flex !important;
+      position: fixed !important;
+      top: 150px !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      left: 0 !important;
+      transform: translate3d(var(--x), var(--y), var(--z)) !important;
+      transition: 0.35s cubic-bezier(0.33, 1, 0.53, 1) !important;
+      overflow: hidden;
+      .category__item {
+        width: 33.333%;
+      }
+
+      &:not(.show) {
+        --y: 150%;
+        transition: 0.5s cubic-bezier(0.33, 1, 0.53, 1) !important;
+      }
+    }
+
+    .filter__dropdown-hd {
+      order: 2;
+      padding-top: 12px;
+    }
+
+    .filter__dropdown-bd {
+      order: 3;
+    }
+  }
+
+  .grab__dropdown.show {
+    .dropdown__inner {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+  }
+
+  .selected__overlay:not(.hidden) {
+    visibility: visible;
+    background: rgb(0 0 0 / 28%);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: 0.2s cubic-bezier(0.33, 1, 0.53, 1);
+    opacity: 1;
+    z-index: 100;
+  }
+}

@@ -1,0 +1,49 @@
+.category__item {
+  position: relative;
+  display: flex;
+  width: 25%;
+  min-width: 25%;
+  margin-top: -1px;
+  margin-bottom: 0;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  border-top: 1px solid #f5f5f5;
+  border-right: 1px solid #f5f5f5;
+  border-left: 1px #f5f5f5;
+  text-align: center;
+
+  input {
+    visibility: hidden;
+    display: none;
+  }
+
+  .category__label {
+    cursor: pointer;
+    font-size: 12px;
+    height: 42px;
+    width: 100%;
+    &.active {
+      animation-name: bounce;
+      animation-duration: 175ms;
+      animation-iteration-count: 1;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    
+      .category__text {
+        color: rgb(255, 255, 255);
+      }
+    }
+  }
+
+  .category__icon {
+    height: 30px;
+    width: 30px;
+    margin: 8px;
+  }
+
+  .category__text {
+    font-weight: $font-weight-semibold;
+    color: var(--text-subtext);
+  }
+}
