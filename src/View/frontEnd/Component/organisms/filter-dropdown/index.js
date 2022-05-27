@@ -5,7 +5,8 @@ import React, { useRef, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import lottie from 'lottie-web/build/player/lottie_light';
+// import lottie from 'lottie-web/build/player/lottie_light';
+import Lottie from 'lottie-web';
 import Slider from 'rc-slider';
 
 // app specific
@@ -19,6 +20,8 @@ import sliderAnimationData from '../../../../../assets/lottie/slider.json';
 import './style.scss';
 
 const FilterDropdown = () => {
+  const lottie = Lottie
+
   const [hidden, setHidden] = useState(false);
   const sliderAnim = useRef(null);
 

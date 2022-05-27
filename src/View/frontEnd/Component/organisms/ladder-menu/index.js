@@ -13,16 +13,16 @@ const defaultProps = {
   items: ["Show All", "2020", "2021", "2022"],
 };
 
-const LadderMenu = ({ items }) => {
+const LadderMenu = ({ items,activeKey }) => {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="ladder__menu position-relative">
+    <div className="ladder__menu position-relative" style={{minWidth:"200px"}}>
       <div
         className="ladder__dropdown--selected"
         onClick={() => setActive(true)}
       >
-        <div className="ladder__selected">{items[0]}</div>
+        <div className="ladder__selected">{items[activeKey]}</div>
         <FontAwesomeIcon
           icon={solid("chevron-down")}
           className="icon chevron__icon"

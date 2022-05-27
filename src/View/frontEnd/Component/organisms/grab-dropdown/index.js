@@ -7,7 +7,8 @@ import RadioToggle from '../../atoms/radio-toggle';
 import GrabItem from '../../molecules/grab-item';
 import boxAnimationData from '../../../../../assets/lottie/box.json';
 import shuffleAnimationData from '../../../../../assets/lottie/shuffle.json';
-import lottie from 'lottie-web/build/player/lottie_light';
+// import lottie from 'lottie-web/build/player/lottie_light';
+import Lottie from 'lottie-web';
 
 import { ReactComponent as EmptyIcon } from '../../../../../assets/svg/crane.svg';
 
@@ -127,6 +128,7 @@ import './style.scss';
 // }
 
 const GrabDropdown = () => {
+  const lottie = Lottie
   const [state, setState] = useState({
     locked: false,
     empty: false
