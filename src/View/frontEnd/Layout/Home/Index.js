@@ -21,7 +21,10 @@ import HeaderController from "../../../../Controller/frontEnd/HeaderController";
 import React, { useState } from "react";
 
 export default function Index(props) {
-  const [selectedKey, setSelectedKey] = useState(3)
+  // const [selectedKey, setSelectedKey] = useState(3)
+  const selectedKey = props.selectedKey
+  const setSelectedKey = props.setSelectedKey
+
   let products;
   const title = {
     color: "#6b68f8"
@@ -47,7 +50,7 @@ export default function Index(props) {
   }
 
   const items = [
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(0)}>
+    <div className="fw-semibold text-dark"  >
       Price: Low to High
       <span className="ms-2">
         <FontAwesomeIcon icon={solid("dollar-sign")} />
@@ -55,7 +58,7 @@ export default function Index(props) {
       </span>
     </div>,
 
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(1)}>
+    <div className="fw-semibold text-dark"  >
       Price: High to Low
       <span className="ms-2">
         <FontAwesomeIcon icon={solid("dollar-sign")} />
@@ -63,15 +66,15 @@ export default function Index(props) {
       </span>
     </div>,
 
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(2)}>
+    <div className="fw-semibold text-dark"  >
       Oldest
     </div>,
 
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(3)}>
+    <div className="fw-semibold text-dark"  >
       Recently Listed
     </div>,
 
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(4)}>
+    <div className="fw-semibold text-dark"  >
       Least Funded
       <span className="ms-2">
         <FontAwesomeIcon icon={solid("percent")} />
@@ -79,7 +82,7 @@ export default function Index(props) {
       </span>
     </div>,
 
-    <div className="fw-semibold text-dark" onClick={() => setSelectedKey(5)}>
+    <div className="fw-semibold text-dark" >
       Most Funded
       <span className="ms-2">
         <FontAwesomeIcon icon={solid("percent")} />
@@ -87,6 +90,8 @@ export default function Index(props) {
       </span>
     </div>,
   ]
+
+  
 
   return (
     <>
@@ -96,7 +101,15 @@ export default function Index(props) {
         fluid
       >
         <div className="filter__dropdown-wrap mb-2 mb-sm-0 ">
-          <FilterDropdown />
+          <FilterDropdown organizationList={props.organizationList} categoryList={props.categoryList} seletedCategoryList={props.seletedCategoryList}
+            onSelectCategory={props.onSelectCategory}
+            setfilters={props.setfilters}
+            filters={props.filters}
+            onClickFilter={props.onClickFilter}
+            onChangePriceSlider={props.onChangePriceSlider}
+
+
+          />
         </div>
         <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
           <InputGroup className="input-group__alpha">
@@ -149,28 +162,41 @@ export default function Index(props) {
 
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">
-          <div className="mb-1 mb-sm-0">15 items</div>
+          <div className="mb-1 mb-sm-0">{props.productList.length} items</div>
           <div className="d-flex align-items-center flex__1 ms-sm-2 gap-1 mb-2 mb-sm-0">
-            <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
-              <span className="filter__item-icon">
-                <img
-                  alt=""
-                  className="img-fluid"
-                  src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68ae50b802debdff4ccd_family.svg"
-                />
-              </span>
-              <span className="flex__1 ms-1 fs-5 fw-semibold text-subtext">
-                Family
-              </span>
-              <Button variant="link" className="ms-2 p-0 fs-4 lh-1">
-                <FontAwesomeIcon
-                  icon={solid("close")}
-                  className="text-light"
-                />
-              </Button>
-            </div>
+            {
+              props.seletedCategoryList.length > 0 && props.categoryList.length > 0 &&
+              props.categoryList.map((c, i) => {
+                return (
+                  props.seletedCategoryList.includes(c._id) &&
+                  <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                    <span className="filter__item-icon">
+                      {/* <img
+                        alt=""
+                        className="img-fluid"
+                        src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68ae50b802debdff4ccd_family.svg"
+                      /> */}
+                      <i className={c.iconDetails[0].class} style={{ fontFamily: "fontAwesome", color: c.color, fontStyle: "normal", marginLeft: "1.5px" }}></i>
 
-            <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                    </span>
+                    <span className="flex__1 ms-1 fs-5 fw-semibold text-subtext">
+                      {c.name}
+                    </span>
+                    <Button variant="link" className="ms-2 p-0 fs-4 lh-1" onClick={() => props.removeCatFromFilter(c._id)}>
+                      <FontAwesomeIcon
+                        icon={solid("close")}
+                        className="text-light"
+                      />
+                    </Button>
+                  </div>
+
+                )
+              })
+
+            }
+
+
+            {/* <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
               <span className="filter__item-icon">
                 <img
                   alt=""
@@ -187,12 +213,15 @@ export default function Index(props) {
                   className="text-light"
                 />
               </Button>
-            </div>
+            </div> */}
+
           </div>
           <div>
             <LadderMenu
               items={items}
               activeKey={selectedKey}
+              // setSelectedKey={setSelectedKey}
+              onChangeFilterOption={props.onChangeFilterOption}
             />
           </div>
         </div>

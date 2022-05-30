@@ -14,36 +14,40 @@ const defaultProps = {
   activeColor: "",
 };
 
-function IconToggle({
-  checked,
-  icon,
-  checkedIcon,
-  activeColor,
-  ...otherProps
-}) {
-  const [_checked, setChecked] = useState(checked);
-
-  const sharedProps = {
-    checked,
+function IconToggle(props) {
+  const {
+    ischecked,
     icon,
     checkedIcon,
     activeColor,
-    ...otherProps,
-  };
+    name,
+    onClickFilter
+  } =props
+
+  const [_checked, setChecked] = useState(ischecked);
+
+  // const sharedProps = {
+  //   checked,
+  //   icon,
+  //   checkedIcon,
+  //   activeColor,
+  //   ischecked,
+  //   ...otherProps,
+  // };
   return (
-    <label className="icon__toggle-label" onClick={() => setChecked(!_checked)} >
-      <input type="checkbox" value={_checked} className="icon__toggle-input" />
+    <label className="icon__toggle-label" >
+      <input type="checkbox"  className="icon__toggle-input" checked={ischecked}  name={name}  onClick={(e) => onClickFilter(e)} />
       <span
         className="icon__toggle-icon d-flex align-items-center"
-        style={{ color: _checked ? sharedProps.activeColor : "" }}
+        style={{ color:ischecked ? activeColor :"" }}
       >
-        {_checked ? sharedProps.checkedIcon : sharedProps.icon}
+        {ischecked ? checkedIcon : icon}
       </span>
     </label>
   );
 }
 
-IconToggle.defaultProps = defaultProps;
-IconToggle.propTypes = propTypes;
+// IconToggle.defaultProps = defaultProps;
+// IconToggle.propTypes = propTypes;
 
 export default IconToggle;

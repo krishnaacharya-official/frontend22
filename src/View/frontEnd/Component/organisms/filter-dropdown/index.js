@@ -15,14 +15,19 @@ import { IconToggle, CategoryCheckbox } from '../../atoms';
 //import TooltipSlider from "../../molecules/tooltip-slider/index.tsx";
 
 import sliderAnimationData from '../../../../../assets/lottie/slider.json';
+import helper from '../../../../../Common/Helper';
 
 // component style
 import './style.scss';
 
-const FilterDropdown = () => {
+const FilterDropdown = (props) => {
   const lottie = Lottie
+  const organizationList = props.organizationList
+  const categoryList = props.categoryList
 
   const [hidden, setHidden] = useState(false);
+  const [categories, setCategories] = useState([]);
+
   const sliderAnim = useRef(null);
 
   const onDropdownToggle = (state) => {
@@ -43,94 +48,23 @@ const FilterDropdown = () => {
       renderer: 'svg'
     });
     sliderAnim.current.setSpeed(4);
-  }, []);
 
-  const categories = [
-    {
-      name: 'Family',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68ae50b802debdff4ccd_family.svg',
-      categoryColor: 'rgb(132, 200, 232)',
-      checked: false
-    },
-    {
-      name: 'Science',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b86975d011e33713edb0c_pp-science.svg',
-      categoryColor: 'rgb(44, 101, 160)',
-      checked: false
-    },
-    {
-      name: 'Micro-Farm',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bb2f969a87bf5b53418d5ef_pp-farm.svg',
-      categoryColor: 'rgb(175, 111, 69)',
-      checked: false
-    },
-    {
-      name: 'Lifestyle',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bb3ce2c76430074f4d7b8dc_pp-lifestyle.svg',
-      categoryColor: 'rgb(137, 190, 211)',
-      checked: false
-    },
-    {
-      name: 'Sports',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c9131888de2c9e9a25fc894_pp-sport.svg',
-      categoryColor: 'rgb(42, 131, 212)',
-      checked: false
-    },
-    {
-      name: 'Environment',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/59f2497a14619400018fe410_pp-environ.svg',
-      categoryColor: 'rgb(152, 212, 156)',
-      checked: false
-    },
-    {
-      name: 'Education',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5ca19e60f4c36e178a8122df_pp-school.svg',
-      categoryColor: 'rgb(69, 129, 149)',
-      checked: false
-    },
-    {
-      name: 'Animals',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5edf11f3c35437a331c6f5f3_pp-animal.svg',
-      categoryColor: 'rgb(77, 197, 158)',
-      checked: false
-    },
-    {
-      name: 'Supplies',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/59f2490b188b770001727b5b_pp-supplies.svg',
-      categoryColor: 'rgb(253, 127, 42)',
-      checked: false
-    },
-    {
-      name: 'Relief',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/59f247c4f42fff0001597616_pp-health.svg',
-      categoryColor: 'rgb(193, 62, 64)',
-      checked: false
-    },
-    {
-      name: 'Home',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b69535d8c1e5c675bc6f0_house.svg',
-      categoryColor: 'rgb(34, 144, 143)',
-      checked: false
-    },
-    {
-      name: 'Food',
-      imgUrl:
-        'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/59f8c2c978cc2d0001fd4a7d_pp-food.svg',
-      categoryColor: 'rgb(131, 118, 206)',
-      checked: false
+    if (categoryList.length > 0) {
+      let tempArray = []
+      categoryList.map((cat, i) => {
+        let tempObj = {}
+        tempObj.name = cat.name
+        tempObj.id = cat._id
+        tempObj.imgUrl = cat.iconDetails[0].class
+        tempObj.categoryColor = cat.color
+        tempObj.checked = props.seletedCategoryList.includes(cat._id);
+        tempObj.onSelectCategory = props.onSelectCategory
+        tempArray.push(tempObj)
+      })
+      setCategories(tempArray)
     }
-  ];
+  }, [categoryList, props.seletedCategoryList]);
+
 
   const marks = {
     140: 140,
@@ -146,6 +80,8 @@ const FilterDropdown = () => {
     2800: 2800
   };
 
+
+
   return (
     <>
       {/* this enables back drop on mobile kind of buggy need to fix */}
@@ -156,8 +92,8 @@ const FilterDropdown = () => {
 
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
         <Dropdown.Toggle variant="primary"
-        size="lg"
-        className="no-caret rounded-pill w-100">
+          size="lg"
+          className="no-caret rounded-pill w-100">
           <div className="d-flex align-items-center justify-content-center">
             <span className="fw-bold">Filters</span>
             <span
@@ -180,6 +116,11 @@ const FilterDropdown = () => {
                       <FontAwesomeIcon icon={regular('calculator-simple')} className="tax__icon" />
                     }
                     checkedIcon={<FontAwesomeIcon icon={solid('calculator-simple')} />}
+                    name="taxEligible"
+                    onClickFilter={props.onClickFilter}
+                    ischecked={props.filters?.taxEligible}
+
+
                   />
                 </div>
               </div>
@@ -192,6 +133,11 @@ const FilterDropdown = () => {
                     activeColor="#947ada"
                     icon={<FontAwesomeIcon icon={regular('tag')} />}
                     checkedIcon={<FontAwesomeIcon icon={solid('tag')} />}
+                    name="postTag"
+                    onClickFilter={props.onClickFilter}
+                    ischecked={props.filters?.postTag}
+
+
                   />
                 </div>
               </div>
@@ -204,18 +150,32 @@ const FilterDropdown = () => {
                     activeColor="#947ada"
                     icon={<FontAwesomeIcon icon={regular('infinity')} />}
                     checkedIcon={<FontAwesomeIcon icon={solid('infinity')} />}
+                    name="infinite"
+                    onClickFilter={props.onClickFilter}
+                    ischecked={props.filters?.infinite}
+
+
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="filter__slider bg-white">
-            <Slider range min={0} max={2800} defaultValue={[0, 2800]} marks={marks} />
+            <Slider range min={0} max={2800} defaultValue={[0, 2800]} marks={marks} onChange={(e)=>props.onChangePriceSlider(e)} />
           </div>
           <div className="filter__dropdown-bd">
             <div className="category__list flex-wrap d-flex align-items-center">
               {categories.map((item, idx) => (
-                <CategoryCheckbox key={`category_${idx}`} {...item} />
+                <CategoryCheckbox
+                  key={`category_${idx}`}
+                  ind={`category_${idx}`}
+                  id={item.id}
+                  name={item.name}
+                  imgUrl={item.imgUrl}
+                  categoryColor={item.categoryColor}
+                  checked={item.checked}
+                  onSelectCategory={item.onSelectCategory}
+                />
               ))}
             </div>
           </div>

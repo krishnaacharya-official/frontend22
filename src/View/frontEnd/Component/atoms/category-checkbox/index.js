@@ -13,32 +13,38 @@ const defaultProps = {
   checked: false,
 };
 
-function CategoryCheckbox({ checked, imgUrl, name, categoryColor }) {
+function CategoryCheckbox(props) {
+  const { checked, imgUrl, name, id, categoryColor, onSelectCategory,ind } = props
+  // console.log(categoryColor)
   const [_checked, setChecked] = useState(checked);
   return (
     <div className="category__item">
       <label
-        className={`category__label fw-semibold m-1 d-flex flex-column rounded align-items-center justify-content-center ${_checked ? 'active': ''}`}
+        className={`category__label fw-semibold m-1 d-flex flex-column rounded align-items-center justify-content-center ${_checked ? 'active' : ''}`}
         htmlFor={name.toLowerCase()}
         style={{
-          backgroundColor: _checked && categoryColor ? categoryColor : "",
+          backgroundColor: checked && categoryColor ? categoryColor : "",
         }}
       >
         <input
           className="filter__btn filter__btn--category"
           type="checkbox"
-          name="category"
-          checked={_checked}
+          name={ind}
+          checked={checked}
+          // id={id}
           id={name.toLowerCase()}
-          value={name.toLowerCase()}
-          onChange={() => setChecked(!_checked)}
+          value={id}
+          onClick={(e) =>onSelectCategory(e)}
+
         />
-        {_checked ? (
+        {checked ? (
           ""
         ) : (
-          <img className="category__icon" alt={name} src={imgUrl} />
+          // <img className="category__icon" alt={name} src={imgUrl} />
+          <i className={imgUrl} style={{ fontFamily: "fontAwesome", color: categoryColor, fontStyle: "normal", marginLeft: "1.5px" }}></i>
+
         )}
-        <div className="category__text lh-1">{name}</div>
+        <div className="category__text lh-1" style={{color:checked && "white"}}>{name}</div>
       </label>
     </div>
   );
