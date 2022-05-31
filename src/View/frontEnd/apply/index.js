@@ -5,6 +5,7 @@ import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./style.scss";
 import DefaultLayout from "../Component/templates/default-layout";
 import RadioToggle from "../Component/atoms/radio-toggle";
+import Select from "react-select"
 
 
 
@@ -22,6 +23,8 @@ const Apply = (props) => {
   const onValueChange = props.onValueChange
   const changevalue = props.changevalue
   const applyOrganization = props.apply
+  const countryList = props.countryList
+
 
 
 
@@ -101,6 +104,24 @@ const Apply = (props) => {
 
                   </div>
                   {error && error.name && <p className="error">{error ? error.name ? error.name : "" : ""}</p>}
+
+
+                  <div className="input__wrap d-flex">
+                    <label className="input__label flex__1">
+                      {/* <input type="text" value='' /> */}
+                      {/* {countrySelect.current} */}
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        value={props.defaultCountry}
+                        name="country"
+                        options={countryList}
+                        onChange={props.onChangeCountry}
+                      />
+                      <span className="input__span">Country</span>
+                    </label>
+                  </div>
+                  {error && error.country && <p className="error">{error.country}</p>}
 
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">

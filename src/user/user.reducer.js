@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE,SET_USER_COUNTRY } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -70,6 +70,13 @@ const userReducer = (state = userInitialState, action) => {
                 profileImage: action.payload
 
             }
+        case SET_USER_COUNTRY:
+
+            return {
+                ...state,
+                countryId: action.payload
+
+            }
 
         case LOGOUT:
             localStorage.clear();
@@ -84,7 +91,8 @@ const userReducer = (state = userInitialState, action) => {
                 currencySymbol: '$',
                 userLanguage: 'english',
                 pricePerCurrency: 0,
-                profileImage: ""
+                profileImage: "",
+                countryId: ""
 
             }
 

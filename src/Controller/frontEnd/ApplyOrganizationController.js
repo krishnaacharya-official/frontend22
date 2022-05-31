@@ -1,17 +1,22 @@
 import ToastAlert from "../../Common/ToastAlert";
 import { validateAll } from "indicative/validator";
 import { useParams, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import Apply from "../../View/frontEnd/apply";
 import FrontLoader from "../../Common/FrontLoader";
 import helper, { getCookie, setCookie, deleteCookie } from "../../Common/Helper";
+import locationApi from "../../Api/frontEnd/location";
+
 
 export default function ApplyOrganizationController() {
     const [selected, setSelected] = useState("charity");
     const [loading, setLoading] = useState(false)
     const params = useParams();
     const navigate = useNavigate();
+    const [countryList, setCountryList] = useState([])
+    const [defaultCountry, setDefaultCountry] = useState([])
+
 
 
     const [state, setstate] = useState({
@@ -22,16 +27,54 @@ export default function ApplyOrganizationController() {
         confirmEmail: "",
         password: "",
         cpassword: "",
+        country: "",
         error: [],
     })
 
     const {
-        error, name, organization, ein, email, confirmEmail, password, cpassword
+        error, name, organization, ein, email, confirmEmail, password, cpassword, country
     } = state;
 
     const inputStyle = {
         backgroundColor: "#f8fafd"
-      }
+    }
+    useEffect(() => {
+        (async () => {
+            await getCountryList()
+        })()
+
+    }, [])
+
+    const onChangeCountry = (e) => {
+        setstate({
+            ...state,
+            country: e.value,
+
+        })
+        setDefaultCountry(e)
+    }
+
+
+
+    const getCountryList = async () => {
+        let tempArray = []
+        const getCountryList = await locationApi.countryList();
+        if (getCountryList) {
+            if (getCountryList.data.success) {
+                if (getCountryList.data.data.length > 0) {
+                    getCountryList.data.data.map((country, i) => {
+                        let Obj = {}
+                        Obj.value = country.id
+                        Obj.label = country.country
+                        tempArray.push(Obj)
+
+
+                    })
+                    setCountryList(tempArray)
+                }
+            }
+        }
+    }
 
     const resetForm = () => {
         setstate({
@@ -43,8 +86,10 @@ export default function ApplyOrganizationController() {
             confirmEmail: "",
             password: "",
             cpassword: "",
+            country: "",
             error: [],
         })
+        setDefaultCountry([])
     }
 
     const changevalue = (e) => {
@@ -111,6 +156,7 @@ export default function ApplyOrganizationController() {
             name: 'required',
             organization: 'required',
             ein: 'required',
+            country: 'required',
             email: 'required|email',
             confirmEmail: 'required|same:email',
             password: 'required|min:6',
@@ -131,6 +177,8 @@ export default function ApplyOrganizationController() {
             'password.required': 'Password is Required.',
             'cpassword.required': 'Confirm Password is Required.',
             'cpassword.same': 'Password and ConfirmPassword Must be same.',
+            'country.required': 'Please Select Country.',
+
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -140,6 +188,7 @@ export default function ApplyOrganizationController() {
                 error: formaerrror
             })
             setLoading(true)
+
             let data = {}
             data.name = name
             data.email = email
@@ -147,7 +196,7 @@ export default function ApplyOrganizationController() {
             data.ein = ein
             data.organization = organization
             data.password = password
-
+            data.country = country
 
 
             const applyCampaignAdmin = await adminCampaignApi.applyCampaignAdmin(data)
@@ -202,7 +251,7 @@ export default function ApplyOrganizationController() {
 
             let data = {}
             data.otp = Number(finalCode)
-            
+
             setLoading(true)
             const verifyOtp = await adminCampaignApi.VerifyOtpCampaignAdmin(data)
             deleteCookie("code1")
@@ -248,6 +297,9 @@ export default function ApplyOrganizationController() {
                 onValueChange={onValueChange}
                 changevalue={changevalue}
                 apply={apply}
+                countryList={countryList}
+                onChangeCountry={onChangeCountry}
+                defaultCountry={defaultCountry}
 
 
 

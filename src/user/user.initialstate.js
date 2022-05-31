@@ -9,7 +9,8 @@ const userInitialState = {
     currencySymbol: '$',
     userLanguage: 'english',
     pricePerCurrency:0,
-    profileImage:""
+    profileImage:"",
+    countryId:""
 
 
 };

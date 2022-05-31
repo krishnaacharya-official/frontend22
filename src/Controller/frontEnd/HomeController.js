@@ -338,7 +338,7 @@ export default function HomeController() {
             setLoading(false)
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst,user])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search) => {
@@ -371,7 +371,18 @@ export default function HomeController() {
 
         const getFilteredProductList = await productApi.productFilter(token, data);
         if (getFilteredProductList.data.success === true) {
-            setProductList(getFilteredProductList.data.data)
+            if (getFilteredProductList.data.data.length > 0) {
+                let tempArray = []
+                getFilteredProductList.data.data.map((p, i) => {
+                    // if (p.campaignDetails.country_id === user.countryId) {
+               
+                        tempArray.push(p)
+                    // }
+
+                })
+                setProductList(tempArray)
+
+            }
         } else {
             // setLoading(false)
 

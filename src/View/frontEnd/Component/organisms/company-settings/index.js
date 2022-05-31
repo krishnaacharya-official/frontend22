@@ -10,6 +10,10 @@ import { Button } from "react-bootstrap";
 // import { UserContext } from '../../../../../App';
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart, setIsUpdateOrganization, setProfileImage } from "../../../../../user/user.action"
+import locationApi from "../../../../../Api/frontEnd/location";
+import Select from "react-select"
+
+
 
 const CompanySettings = () => {
   const user = useSelector((state) => state.user);
@@ -22,6 +26,15 @@ const CompanySettings = () => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const [update, setUpdate] = useState(false)
 
+  const [countryList, setCountryList] = useState([])
+  const [stateList, setStateList] = useState([])
+  const [cityList, setCityList] = useState([])
+
+
+  const [defaultCountry, setDefaultCountry] = useState([])
+  const [defaultState, setDefaultState] = useState([])
+  const [defaultCity, setDefaultCity] = useState([])
+
 
 
   const [state, setState] = useState({
@@ -30,9 +43,127 @@ const CompanySettings = () => {
     headline: "",
     mission: "",
     promoVideo: "",
+    city: "",
+    stateId: "",
+    country: "",
     error: []
   })
-  const { name, headline, mission, promoVideo, logo, error } = state
+  const { name, headline, mission, promoVideo, logo, city, stateId, country, error } = state
+
+
+  const getCountryStateList = async (countryId) => {
+    let tempArray = []
+    const getCountryStateList = await locationApi.stateListByCountry(CampaignAdminAuthToken, Number(countryId));
+    if (getCountryStateList) {
+      if (getCountryStateList.data.success) {
+        if (getCountryStateList.data.data.length > 0) {
+          getCountryStateList.data.data.map((state, i) => {
+            let Obj = {}
+            Obj.value = state.id
+            Obj.label = state.state
+            tempArray.push(Obj)
+          })
+          setDefaultState([])
+          setStateList(tempArray)
+        }
+      }
+    }
+  }
+
+  const getStateCityList = async (stateId) => {
+    let tempArray = []
+    const getStateCityList = await locationApi.cityListByState(CampaignAdminAuthToken, stateId);
+    if (getStateCityList) {
+      if (getStateCityList.data.success) {
+        if (getStateCityList.data.data.length > 0) {
+          getStateCityList.data.data.map((city, i) => {
+            let Obj = {}
+            Obj.value = city.id
+            Obj.label = city.city
+            tempArray.push(Obj)
+          })
+          setDefaultCity([])
+          setCityList(tempArray)
+        }
+      }
+    }
+  }
+
+  const getCountryList = async () => {
+    let tempArray = []
+
+    const getCountryList = await locationApi.countryList(CampaignAdminAuthToken);
+    if (getCountryList) {
+      if (getCountryList.data.success) {
+        if (getCountryList.data.data.length > 0) {
+          getCountryList.data.data.map((country, i) => {
+            let Obj = {}
+
+            Obj.value = country.id
+            Obj.label = country.country
+            tempArray.push(Obj)
+
+          })
+          setCountryList(tempArray)
+
+
+
+        }
+      }
+    }
+  }
+
+  const onChangeCountry = async (e) => {
+
+
+    setDefaultCountry(e)
+    setState({
+      ...state,
+      country: e.value,
+      stateId: "",
+      city: ""
+
+    })
+    setDefaultCity([])
+
+    await getCountryStateList(e.value)
+
+
+  }
+
+  const onChangeState = async (e) => {
+    setDefaultState(e)
+    setState({
+      ...state,
+      stateId: e.value,
+      city: ""
+
+    })
+    await getStateCityList(e.value)
+    // const getStateCityList = await locationApi.cityListByState(userAuthToken, e.value);
+    // if (getStateCityList) {
+    //   if (getStateCityList.data.success) {
+    //     if (getStateCityList.data.data.length > 0) {
+    //       getStateCityList.data.data.map((city, i) => {
+    //         let Obj = {}
+    //         Obj.value = city.id
+    //         Obj.label = city.city
+    //         tempArray.push(Obj)
+    //       })
+    //       setCityList(tempArray)
+    //     }
+    //   }
+    // }
+
+  }
+
+  const onClickCity = async (e) => {
+    setDefaultCity(e)
+    setState({
+      ...state,
+      city: e.value
+    })
+  }
 
   const changefile = (e) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
@@ -43,6 +174,7 @@ const CompanySettings = () => {
       logo: file
     })
   }
+
   const changevalue = (e) => {
     let value = e.target.value;
     setState({
@@ -58,36 +190,75 @@ const CompanySettings = () => {
   }
 
   useEffect(() => {
-    // console.log(data.description)
-    setLoading(true)
-    setState({
-      ...state,
-      name: data.name,
-      mission: data.description,
-      headline: data.headline,
-      promoVideo: data.promoVideo,
-      logo: data.logo,
+    (async () => {
 
-    })
-    let url = data.promoVideo;
-    let id = url && url.split("?v=")[1];
-    let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
-    setEmbedlink(embedUrl)
-    setLoading(false)
+      // console.log(data.description)
+      setLoading(true)
+      setState({
+        ...state,
+        name: data.name,
+        mission: data.description,
+        headline: data.headline,
+        promoVideo: data.promoVideo,
+        logo: data.logo,
+        city: data.city_id,
+        country: data.country_id,
+        stateId: data.state_id,
+
+      })
+      let url = data.promoVideo;
+      let id = url && url.split("?v=")[1];
+      let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
+      setEmbedlink(embedUrl)
+
+      if (data.country_id && data.country_id !== null) {
+        await getCountryStateList(data.country_id)
+      }
+      if (data.state_id && data.state_id !== null) {
+        await getStateCityList(data.state_id)
+
+      }
+      await getCountryList()
+      setLoading(false)
+    })()
 
   }, [data._id, user.isUpdateOrg])
+
+
+  useEffect(() => {
+    if (countryList.length > 0) {
+      setDefaultCountry(countryList.find(x => x.value === data.country_id));
+
+    }
+    if (stateList.length > 0) {
+      setDefaultState(stateList.find(x => x.value === data.state_id));
+
+    }
+    if (cityList.length > 0) {
+      setDefaultCity(cityList.find(x => x.value === data.city_id));
+
+    }
+
+  }, [countryList, data.country_id])
 
   const updateProfile = () => {
     const rules = {
       name: "required",
       mission: "required",
       promoVideo: "required",
+      city: "required",
+      stateId: "required",
+      country: "required",
     }
 
     const message = {
       'name.required': 'Name is Required.',
       'mission.required': 'mission is Required.',
       'promoVideo.required': 'Promo Video is Required.',
+      
+      'stateId.required': 'State is Required.',
+      'city.required': 'City is Required.',
+      'country.required': 'Country is Required.',
 
 
 
@@ -102,23 +273,27 @@ const CompanySettings = () => {
         ...state,
         error: formaerrror
       })
-      let data = {}
-      data.name = name
-      data.description = mission
-      data.headline = headline
-      data.promoVideo = promoVideo
+      let fdata = {}
+      fdata.name = name
+      fdata.description = mission
+      fdata.headline = headline
+      fdata.promoVideo = promoVideo
+
+      fdata.city_id = city
+      fdata.state_id = stateId
+      fdata.country_id = country
 
 
 
       // data.password = password
       if (logo) {
-        data.logo = logo
+        fdata.logo = logo
         // console.log(logo)
       }
 
 
       setLoading(true)
-      const addUser = await adminCampaignApi.saveCampaignDetails(CampaignAdminAuthToken, data)
+      const addUser = await adminCampaignApi.saveCampaignDetails(CampaignAdminAuthToken, fdata)
       if (addUser) {
         if (!addUser.data.success) {
           setLoading(false)
@@ -224,7 +399,61 @@ const CompanySettings = () => {
             240 chars remaining
           </div>
         </div>
-      </div>
+
+      
+      <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            {/* <input type="text" value='' /> */}
+            {/* {countrySelect.current} */}
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              value={defaultCountry}
+              // defaultValue={countrySelect.current}
+              name="country"
+              options={countryList}
+              onChange={onChangeCountry}
+            />
+            <span className="input__span">Country</span>
+          </label>
+        </div>
+        {error && error.country && <p className="error">{error.country}</p>}
+
+
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            {/* <input type="text" value='' /> */}
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              value={defaultState}
+              name="state"
+              options={stateList}
+              onChange={onChangeState}
+
+            />
+            <span className="input__span">State/Province</span>
+          </label>
+        </div>
+        {error && error.stateId && <p className="error">{error.stateId}</p>}
+
+
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              value={defaultCity}
+              name="city"
+              options={cityList}
+              onChange={onClickCity}
+
+            />
+            <span className="input__span">City</span>
+          </label>
+        </div>
+        {error && error.city && <p className="error">{error.city}</p>}
+        </div>
 
       <div className="mb-5 mw-400">
         <h4 className="fw-bolder">Promo Video</h4>
