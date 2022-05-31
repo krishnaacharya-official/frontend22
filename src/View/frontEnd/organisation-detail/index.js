@@ -1,5 +1,5 @@
 // core
-import React from "react";
+import React, {useState} from "react";
 
 // third party
 // import { Col, Container, Row } from "react-bootstrap";
@@ -17,6 +17,8 @@ import OrganisationTeamWidget from "../Component/organisms/org-team-widget";
 import OrganisationProjectsWidget from "../Component/organisms/org-projects-widget";
 import GrabDropdown from "../Component/organisms/grab-dropdown";
 import HeaderController from "../../../Controller/frontEnd/HeaderController";
+import DonateModal from '../Component/molecules/donate-modal';
+
 // style
 import "./style.scss";
 
@@ -59,7 +61,7 @@ import "./style.scss";
 const OrganisationDetail = (props) => {
   let organizationDetails = props.organizationDetails
   let projectList = props.projectList
-
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>
@@ -68,9 +70,11 @@ const OrganisationDetail = (props) => {
         <div className="d-flex align-items-center">
           <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} itemTag="organization" />
           <div className="ms-auto d-flex align-items-center">
-            <Button size="lg" className="fw-bold">
+            <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
               Donate
             </Button>
+            <DonateModal show={modalShow} onHide={() => setModalShow(false)} />
+
             <GrabDropdown />
           </div>
         </div>

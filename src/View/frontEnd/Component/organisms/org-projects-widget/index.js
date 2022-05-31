@@ -24,7 +24,7 @@ function OrganisationProjectsWidget(props) {
           projectList.length > 0 ?
             projectList.slice(0, loadMore ? projectList.length : 3).map((project, i) => {
               return (
-                <OrganisationProjectItem project={project} />
+                <OrganisationProjectItem project={project} key={i} />
 
               )
             })
