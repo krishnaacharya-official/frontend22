@@ -42,14 +42,19 @@ export default function HomeController() {
         highToLow: false,
         oldEst: false,
         newEst: false,
+        leastFunded: false,
+        mostFunded: false,
+
 
         HighPrice: 3000,
-        lowPrice: 0
+        lowPrice: 0,
+
+        search: "",
 
 
 
     })
-    const { taxEligible, postTag, infinite, lowToHigh, highToLow, oldEst, newEst,HighPrice,lowPrice } = filters
+    const { taxEligible, postTag, infinite, lowToHigh, highToLow, oldEst, newEst, leastFunded, mostFunded, HighPrice, lowPrice, search } = filters
 
 
 
@@ -58,6 +63,7 @@ export default function HomeController() {
         transectionFee: 0,
 
     })
+
     const { platformFee, transectionFee } = pricingFees
 
 
@@ -82,10 +88,10 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            const getproductList = await productApi.list(token);
-            if (getproductList.data.success === true) {
-                setProductList(getproductList.data.data)
-            }
+            // const getproductList = await productApi.list(token);
+            // if (getproductList.data.success === true) {
+            //     setProductList(getproductList.data.data)
+            // }
             setPricingFees({
                 ...pricingFees,
                 platformFee: user.platformFee,
@@ -224,6 +230,8 @@ export default function HomeController() {
                     highToLow: false,
                     oldEst: false,
                     newEst: false,
+                    leastFunded: false,
+                    mostFunded: false,
                 })
 
                 break;
@@ -235,6 +243,8 @@ export default function HomeController() {
                     highToLow: true,
                     oldEst: false,
                     newEst: false,
+                    leastFunded: false,
+                    mostFunded: false,
                 })
                 break;
             case 2:
@@ -245,6 +255,8 @@ export default function HomeController() {
                     highToLow: false,
                     oldEst: true,
                     newEst: false,
+                    leastFunded: false,
+                    mostFunded: false,
                 })
                 break;
             case 3:
@@ -255,6 +267,44 @@ export default function HomeController() {
                     highToLow: false,
                     oldEst: false,
                     newEst: true,
+                    leastFunded: false,
+                    mostFunded: false,
+                })
+                break;
+            case 4:
+                productList.sort(function (a, b) {
+                    let firstPer = a.soldout / a.quantity * 100;
+                    let secPer = b.soldout / b.quantity * 100;;
+                    return firstPer - secPer;
+                })
+
+                setfilters({
+                    ...filters,
+                    lowToHigh: false,
+                    highToLow: false,
+                    oldEst: false,
+                    newEst: false,
+                    leastFunded: true,
+                    mostFunded: false,
+                })
+                break;
+            case 5:
+
+
+                productList.sort(function (a, b) {
+                    let firstPer = a.soldout / a.quantity * 100;
+                    let secPer = b.soldout / b.quantity * 100;;
+                    return secPer - firstPer;
+                })
+
+                setfilters({
+                    ...filters,
+                    lowToHigh: false,
+                    highToLow: false,
+                    oldEst: false,
+                    newEst: false,
+                    leastFunded: false,
+                    mostFunded: true,
                 })
                 break;
             default:
@@ -271,26 +321,34 @@ export default function HomeController() {
 
     }
 
-    const onChangePriceSlider =(e)=>{
+    const onChangePriceSlider = async (e) => {
         setfilters({
             ...filters,
             HighPrice: e[1],
             lowPrice: e[0]
         })
-
+        await filterProduct(e[0], e[1], search)
     }
 
     useEffect(() => {
         (async () => {
-            await filterProduct()
+
+            setLoading(true)
+            await filterProduct(lowPrice, HighPrice, search)
+            setLoading(false)
+
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst,HighPrice,lowPrice])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst])
 
 
-    const filterProduct = async () => {
-        setLoading(true)
+    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search) => {
+
         let data = {}
+
+        data.search = search_product
+
         data.categoryId = seletedCategoryList
+
         data.tax = taxEligible
         data.postTag = postTag
         data.infinite = infinite
@@ -299,20 +357,37 @@ export default function HomeController() {
         data.highToLow = highToLow
         data.oldEst = oldEst
         data.newEst = newEst
+        // data.leastFunded = leastFunded
+        // data.mostFunded = mostFunded
 
-        data.HighPrice = HighPrice
-        data.lowPrice = lowPrice
+
+
+        data.HighPrice = high_price
+        data.lowPrice = low_price
+
+
 
 
 
         const getFilteredProductList = await productApi.productFilter(token, data);
-        setLoading(false)
         if (getFilteredProductList.data.success === true) {
             setProductList(getFilteredProductList.data.data)
         } else {
             // setLoading(false)
 
         }
+    }
+
+
+    const onSearchProduct = async (e) => {
+        let value = e.target.value
+        setfilters({
+            ...filters,
+            search: value
+        })
+
+        await filterProduct(lowPrice, HighPrice, value)
+
     }
 
     return (
@@ -338,6 +413,7 @@ export default function HomeController() {
                 setSelectedKey={setSelectedKey}
                 onChangeFilterOption={onChangeFilterOption}
                 onChangePriceSlider={onChangePriceSlider}
+                onSearchProduct={onSearchProduct}
 
 
 

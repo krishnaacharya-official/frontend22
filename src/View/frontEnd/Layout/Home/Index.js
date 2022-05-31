@@ -91,7 +91,7 @@ export default function Index(props) {
     </div>,
   ]
 
-  
+
 
   return (
     <>
@@ -119,7 +119,7 @@ export default function Index(props) {
                 className="zoom__icon fs-5"
               />
             </InputGroup.Text>
-            <FormControl placeholder="Search" />
+            <FormControl placeholder="Search" value={props.filters.search} onChange={props.onSearchProduct} />
           </InputGroup>
         </div>
 
