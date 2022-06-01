@@ -42,7 +42,8 @@ export default function ItemDetailsController() {
 
     const productListByCategory = async (id) => {
 
-        const getCategoryProducts = await productApi.listByCategory(token, id)
+        let userCountry = user.countryId
+        const getCategoryProducts = await productApi.listByCategory(token, id,userCountry)
         if (getCategoryProducts.data.success === true) {
             if (getCategoryProducts.data.data.length > 0) {
                 let tempArray = []

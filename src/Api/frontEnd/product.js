@@ -28,7 +28,7 @@ function product() {
         return res;
     }
 
-    const listByCategory = async (authToken, categoryId) => {
+    const listByCategory = async (authToken, categoryId,userCountry) => {
         let res = {};
         await axios({
             method: 'post',
@@ -43,7 +43,9 @@ function product() {
                 mode: 'no-cors',
             },
             data: {
-                categoryId: categoryId
+                categoryId: categoryId,
+                userCountry: userCountry
+
             }
 
         }).then((response) => {
