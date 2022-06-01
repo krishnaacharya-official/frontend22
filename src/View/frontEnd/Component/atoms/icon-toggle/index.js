@@ -36,7 +36,7 @@ function IconToggle(props) {
   // };
   return (
     <label className="icon__toggle-label" >
-      <input type="checkbox"  className="icon__toggle-input" checked={ischecked}  name={name}  onClick={(e) => onClickFilter(e)} />
+      <input type="checkbox"  className="icon__toggle-input" checked={ischecked}  name={name}  onChange={(e) => onClickFilter(e)} />
       <span
         className="icon__toggle-icon d-flex align-items-center"
         style={{ color:ischecked ? activeColor :"" }}

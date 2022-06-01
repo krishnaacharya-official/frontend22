@@ -135,11 +135,13 @@ function ProjectDetailMain(props) {
             activeColor="rgb(246, 100, 97)"
             icon={<FontAwesomeIcon icon={regular("heart")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
+            onClickFilter={() => {}}
           />
 
           <IconToggle
             icon={<FontAwesomeIcon icon={regular("bell")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
+            onClickFilter={() => {}}
           />
 
           <ShareWidget />
