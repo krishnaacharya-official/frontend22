@@ -4,6 +4,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Modal } from "react-bootstrap";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
+import helper from "../../../../../Common/Helper"
+import { useSelector, useDispatch } from "react-redux";
+
 
 import "./style.scss";
 
@@ -11,6 +14,12 @@ const DonateModal = (props) => {
   const [color, setColor] = useState("#5ac7b5");
   const [selectedValue, setSelectedValue] = useState(25);
   const [next, setNext] = useState(false);
+  const organizationDetails = props.organizationDetails
+  const user = useSelector((state) => state.user);
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
 
   const onValueChange = (clr, event) => {
     setSelectedValue(Number(event.target.value));
@@ -120,23 +129,23 @@ const DonateModal = (props) => {
             >
               <div className="d-flex align-items-center w-100 fs-6 fw-bold text-white">
                 <Avatar
-                  avatarUrl={AvatarImg}
+                  avatarUrl={user.profileImage}
                   border={0}
                   shadow={false}
                   size={45}
                 />
                 <div className="ms-2">
-                  <div>David Abbott</div>
-                  <div>$ 250</div>
+                  <div style={{textTransform:"capitalize"}}>{userAuthToken && userData.name}</div>
+                  <div>$ {selectedValue}</div>
                 </div>
 
                 <span className="ms-auto fs-7">
                   <FontAwesomeIcon icon={solid("up")} className="me-1" />
-                  <span className="mr-3p">2500</span> XP
+                  <span className="mr-3p">{selectedValue * 10}</span> XP
                 </span>
               </div>
             </div>
-            <div className="donation__type p-20p">
+            {/* <div className="donation__type p-20p">
               <div className="donation__radio donation__type-radio d-flex justify-content-center">
                 <div className="option__item fs-7">
                   <input
@@ -152,7 +161,7 @@ const DonateModal = (props) => {
                   <label className="pt-3p">Monthly</label>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
         ) : (
           <>
@@ -160,13 +169,13 @@ const DonateModal = (props) => {
               <img
                 alt=""
                 style={{ objectFit: "contain", maxHeight: "40px" }}
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5ebcb20504c5ea349df4c3e6_59f94b90269fd600013970e8_social-chain.svg"
+                src={ helper.CampaignAdminLogoPath+organizationDetails.logo}
               />
             </div>
             <div className="donation__review text-dark d-flex align-items-center justify-content-center">
               <span>${selectedValue}</span>
-              <span className="m-1">/</span>
-              <span>One-time</span>
+              {/* <span className="m-1">/</span>
+              <span>One-time</span> */}
             </div>
             <div className="note note--donation d-flex flex-column">
               <Button size="lg" variant="info" className="mb-4">

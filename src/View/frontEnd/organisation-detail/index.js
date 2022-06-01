@@ -73,7 +73,7 @@ const OrganisationDetail = (props) => {
             <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
               Donate
             </Button>
-            <DonateModal show={modalShow} onHide={() => setModalShow(false)} />
+            <DonateModal show={modalShow} onHide={() => setModalShow(false)} organizationDetails={organizationDetails} />
 
             <GrabDropdown />
           </div>
