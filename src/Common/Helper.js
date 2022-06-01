@@ -23,7 +23,8 @@ let helper = {
 
     CampaignProductFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/',
     DonorImagePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/',
-    DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize/'
+    DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize/',
+    GoogleKey:'AIzaSyD4CXzRpf7L9sFFJDIFzgSeoFOESqXaAuE'
 
 }
 

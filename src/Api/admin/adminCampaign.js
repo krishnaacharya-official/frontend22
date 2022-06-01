@@ -5,11 +5,11 @@ function adminCampaign() {
 
     //---------------LiST CAMPAIGN ADMIN----------------------
 
-    const list = async (authToken) => {
+    const list = async (authToken, data = []) => {
         let res = {};
         await axios({
-            method: 'get',
-            url: `${helper.ApiUrl}campaign_admin`,
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -19,6 +19,7 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data: data
 
         }).then((response) => {
             res = response

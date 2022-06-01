@@ -8,10 +8,9 @@ import settingApi from "../../Api/admin/setting";
 // import { UserContext } from '../../App';
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
-
-
+import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-// import { setFees, setIsUpdateCart } from "../../user/user.action";
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry } from "../../user/user.action"
 
 
 
@@ -30,7 +29,9 @@ export default function HomeController() {
     const [organizationList, setOrganizationList] = useState([])
     const [seletedCategoryList, setSeletedCategoryList] = useState([])
     const [selectedKey, setSelectedKey] = useState(3)
-
+    const dispatch = useDispatch()
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
 
 
     const [filters, setfilters] = useState({
@@ -82,11 +83,68 @@ export default function HomeController() {
         })
     }
 
+    function showError(error) {
+        if (error) {
+            if (userAuthToken) {
+                dispatch(setUserCountry(userData.country_id))
+            } else {
+                dispatch(setUserCountry(CampaignAdmin.country_id))
+
+            }
+        }
+
+    }
+
+
+
+    async function showPosition(position) {
+
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+        let type = 'country'
+        if (latitude && longitude) {
+
+            const getLocationByLatLong = await locationApi.getLocationByLatLong(latitude, longitude)
+            if (getLocationByLatLong && getLocationByLatLong.data.status === "OK") {
+                if (getLocationByLatLong.data.results.length > 0) {
+
+                    let jsObjects = getLocationByLatLong.data.results[0].address_components
+                    jsObjects.filter(async obj => {
+                        if (obj.types[0] === type) {
+                            let countryName = obj.long_name
+
+                            const getCountryData = await locationApi.currencyByCountry(token, countryName)
+                            if (getCountryData) {
+                                if (getCountryData.data.success) {
+                                    dispatch(setUserCountry(getCountryData.data.data.id))
+
+                                }
+                            }
+
+                        }
+                    })
+
+
+                }
+
+            }
+        }
+
+
+
+
+
+    }
+
 
 
 
     useEffect(() => {
         (async () => {
+
+            // function getLocation() {
+
+            //   }
             setLoading(true)
             // const getproductList = await productApi.list(token);
             // if (getproductList.data.success === true) {
@@ -332,16 +390,32 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
+            if (!user.countryId) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    if (userAuthToken) {
 
-            setLoading(true)
-            await filterProduct(lowPrice, HighPrice, search)
-            setLoading(false)
+                        dispatch(setUserCountry(userData.country_id))
+                    } else {
+                 
+
+                        dispatch(setUserCountry(CampaignAdmin.country_id))
+
+                    }
+                }
+            } else {
+                setLoading(true)
+                await filterProduct(lowPrice, HighPrice, search)
+                setLoading(false)
+            }
+
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst,user])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId])
 
 
-    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search) => {
+    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
 
         let data = {}
 
@@ -357,6 +431,11 @@ export default function HomeController() {
         data.highToLow = highToLow
         data.oldEst = oldEst
         data.newEst = newEst
+
+        data.userCountry = userCountry
+
+        
+
         // data.leastFunded = leastFunded
         // data.mostFunded = mostFunded
 
@@ -375,8 +454,8 @@ export default function HomeController() {
                 let tempArray = []
                 getFilteredProductList.data.data.map((p, i) => {
                     // if (p.campaignDetails.country_id === user.countryId) {
-               
-                        tempArray.push(p)
+
+                    tempArray.push(p)
                     // }
 
                 })

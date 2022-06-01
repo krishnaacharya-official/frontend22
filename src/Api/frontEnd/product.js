@@ -52,11 +52,11 @@ function product() {
         return res;
     }
 
-    const list = async (authToken) => {
+    const list = async (authToken,data) => {
         let res = {};
         await axios({
-            method: 'get',
-            url: `${helper.ApiUrl}product`,
+            method: 'post',
+            url: `${helper.ApiUrl}product/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -66,6 +66,7 @@ function product() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data:data
 
         }).then((response) => {
             res = response

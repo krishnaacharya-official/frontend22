@@ -9,6 +9,8 @@ import projectApi from "../../Api/admin/project";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import cartApi from "../../Api/frontEnd/cart";
 import ToastAlert from "../../Common/ToastAlert";
+import { useSelector, useDispatch } from "react-redux";
+
 
 
 
@@ -26,6 +28,7 @@ export default function OrganizationDetailsController() {
     const [organizationDetails, setOrganizationDetails] = useState({})
     const [projectList, setProjectList] = useState([])
     const [purchasedItemList, setPurchasedItemList] = useState([])
+    const user = useSelector((state) => state.user);
 
     const orgProjectList = async (orgId) => {
         let formData = {}
@@ -42,7 +45,9 @@ export default function OrganizationDetailsController() {
     }
 
     const getOrganizationList = async () => {
-        const getOrganizationList = await adminCampaignApi.list(token)
+        let data = {}
+        data.userCountry = user.countryId
+        const getOrganizationList = await adminCampaignApi.list(token, data)
         if (getOrganizationList.data.success === true) {
             setOrganizationList(getOrganizationList.data.data)
         }
@@ -106,6 +111,9 @@ export default function OrganizationDetailsController() {
             if (getOrganizationDetails.data.success === true) {
                 if (getOrganizationDetails.data.data.length) {
                     orgdata = getOrganizationDetails.data.data[0]
+                    if (orgdata.country_id !== user.countryId) {
+                        navigate('/')
+                    }
                     setOrganizationDetails(orgdata)
                     await orgProjectList(orgdata._id)
                     await getOrganizationList()
@@ -119,7 +127,7 @@ export default function OrganizationDetailsController() {
             setLoading(false)
 
         })()
-    }, [params.name])
+    }, [params.name,user])
     return (
         <>
             <FrontLoader loading={loading} />

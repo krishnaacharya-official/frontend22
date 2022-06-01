@@ -67,8 +67,8 @@ function product() {
     const list = async (authToken) => {
         let res = {};
         await axios({
-            method: 'get',
-            url: `${helper.ApiUrl}product`,
+            method: 'post',
+            url: `${helper.ApiUrl}product/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,

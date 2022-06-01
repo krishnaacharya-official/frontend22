@@ -144,7 +144,7 @@ function location() {
             url: 'https://api.apilayer.com/fixer/convert?to=' + currency + '&from=USD&amount=1',
             responseType: 'json',
             headers: {
-                "apikey":"NBRaEclusJ6YWpGZx2U84DQfSoz5X0F3",
+                "apikey": "NBRaEclusJ6YWpGZx2U84DQfSoz5X0F3",
                 // "x-access-token": authToken,
                 // "Access-Control-Allow-Origin": "*",
                 // 'Access-Control-Allow-Credentials': 'true',
@@ -160,6 +160,21 @@ function location() {
         return res;
     }
 
+    const getLocationByLatLong = async (lat,long) => {
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=`+lat+`,`+long+`&sensor=false&key=`+helper.GoogleKey,
+            responseType: 'json',
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
+
 
     return {
         countryList,
@@ -167,7 +182,8 @@ function location() {
         cityListByState,
         getUserCurrentLoaction,
         currencyByCountry,
-        convertCurrency
+        convertCurrency,
+        getLocationByLatLong
 
     }
 }

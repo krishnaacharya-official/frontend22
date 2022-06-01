@@ -8,8 +8,8 @@ function project() {
     const list = async (authToken) => {
         let res = {};
         await axios({
-            method: 'get',
-            url: `${helper.ApiUrl}project`,
+            method: 'post',
+            url: `${helper.ApiUrl}project/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
