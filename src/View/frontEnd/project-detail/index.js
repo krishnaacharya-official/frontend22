@@ -62,6 +62,8 @@ import './style.scss';
 
 const ProjectDetail = (props) => {
   const [modalShow, setModalShow] = useState(false);
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
   return (
     <>
       <HeaderController />
@@ -72,9 +74,13 @@ const ProjectDetail = (props) => {
             projectId={props.projectDetails?._id}
           />
           <div className="ms-auto d-flex align-items-center">
-            <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
-              Donate
-            </Button>
+            {
+              !CampaignAdminAuthToken &&
+
+              <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
+                Donate
+              </Button>
+            }
             <DonateModal show={modalShow} onHide={() => setModalShow(false)} type="project"
               projectDetails={props.projectDetails}
               selectedValue={props.selectedValue}
@@ -83,7 +89,7 @@ const ProjectDetail = (props) => {
               changevalue={props.changevalue}
               cardNumberWithSpace={props.cardNumberWithSpace}
               donate={props.donate}
-              
+
 
             />
             {/* <GrabDropdown /> */}
@@ -109,7 +115,7 @@ const ProjectDetail = (props) => {
             />
           </Col>
           <Col md="5">
-            <History tagTitle="Activity" title="User Log" list={props.purchasedItemList} donationList={props.donationList}/>
+            <History tagTitle="Activity" title="User Log" list={props.purchasedItemList} donationList={props.donationList} />
           </Col>
         </Row>
       </Container>
