@@ -14,5 +14,11 @@
 
   &.row {
     --bs-gutter-x: 0;
+
+    .col{
+        &-sm-12, &-12, &-md-12 {
+            padding: 0;
+        }
+    }
   }
 }
