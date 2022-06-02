@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress } from "../../user/user.action"
 
 
 
@@ -32,7 +32,13 @@ export default function HomeController() {
     const dispatch = useDispatch()
     const userData = JSON.parse(localStorage.getItem('userData'));
     const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-
+    const [address, setAddress] = useState({
+        stateName: "",
+        zip: "",
+        cityName: "",
+        area: "",
+        countryName: "",
+    })
 
     const [filters, setfilters] = useState({
         taxEligible: false,
@@ -101,7 +107,6 @@ export default function HomeController() {
 
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
-        let type = 'country'
         if (latitude && longitude) {
 
             const getLocationByLatLong = await locationApi.getLocationByLatLong(latitude, longitude)
@@ -109,9 +114,37 @@ export default function HomeController() {
                 if (getLocationByLatLong.data.results.length > 0) {
 
                     let jsObjects = getLocationByLatLong.data.results[0].address_components
+                    let tempObj = {}
+                    tempObj.stateName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name
+                    tempObj.zip = jsObjects.find(settings => settings.types[0] === 'postal_code').long_name
+                    tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name
+                    tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
+                    tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
+                    dispatch(setUserAddress(tempObj))
+
+                    // setAddress({
+                    //     ...address,
+                    //     stateName: jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name,
+                    //     zip: jsObjects.find(settings => settings.types[0] === 'postal_code').long_name,
+                    //     cityName: jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name,
+                    //     area: jsObjects.find(settings => settings.types[0] === 'route').long_name,
+                    //     countryName: jsObjects.find(settings => settings.types[0] === 'country').long_name,
+                    // })
+
                     jsObjects.filter(async obj => {
-                        if (obj.types[0] === type) {
+                        let tempObj = {}
+
+                        if (obj.types[0] === 'country') {
                             let countryName = obj.long_name
+                            tempObj.countryName = countryName
+
+                            // setAddress({
+                            //     ...address,
+                            //     countryName: countryName
+                            // })
+
+
+
 
                             const getCountryData = await locationApi.currencyByCountry(token, countryName)
                             if (getCountryData) {
@@ -122,6 +155,7 @@ export default function HomeController() {
                             }
 
                         }
+
                     })
 
 
@@ -385,7 +419,7 @@ export default function HomeController() {
             HighPrice: e[1],
             lowPrice: e[0]
         })
-        await filterProduct(e[0], e[1], search)
+        // await filterProduct(e[0], e[1], search)
     }
 
     useEffect(() => {
@@ -398,7 +432,7 @@ export default function HomeController() {
 
                         dispatch(setUserCountry(userData.country_id))
                     } else {
-                 
+
 
                         dispatch(setUserCountry(CampaignAdmin.country_id))
 
@@ -406,13 +440,13 @@ export default function HomeController() {
                 }
             } else {
                 setLoading(true)
-                await filterProduct(lowPrice, HighPrice, search)
+                await filterProduct(lowPrice, HighPrice, search, user.countryId)
                 setLoading(false)
             }
 
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
@@ -434,7 +468,7 @@ export default function HomeController() {
 
         data.userCountry = userCountry
 
-        
+
 
         // data.leastFunded = leastFunded
         // data.mostFunded = mostFunded
@@ -450,18 +484,19 @@ export default function HomeController() {
 
         const getFilteredProductList = await productApi.productFilter(token, data);
         if (getFilteredProductList.data.success === true) {
-            if (getFilteredProductList.data.data.length > 0) {
-                let tempArray = []
-                getFilteredProductList.data.data.map((p, i) => {
-                    // if (p.campaignDetails.country_id === user.countryId) {
+            setProductList(getFilteredProductList.data.data)
+            // if (getFilteredProductList.data.data.length > 0) {
+            //     let tempArray = []
+            //     getFilteredProductList.data.data.map((p, i) => {
+            //         // if (p.campaignDetails.country_id === user.countryId) {
 
-                    tempArray.push(p)
-                    // }
+            //         tempArray.push(p)
+            //         // }
 
-                })
-                setProductList(tempArray)
+            //     })
+            //     setProductList(tempArray)
 
-            }
+            // }
         } else {
             // setLoading(false)
 
@@ -482,6 +517,7 @@ export default function HomeController() {
 
     return (
         <>
+            {/* {console.log(user)} */}
 
             <FrontLoader loading={loading} />
             <Index

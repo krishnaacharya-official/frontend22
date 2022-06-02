@@ -55,11 +55,64 @@ function organization() {
 
     }
 
+    const donate = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/donate`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
+
+
+    const organizationDonatedItemHistory = async (authToken, organizationId) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/donate_history`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: {
+                organizationId: organizationId
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
+
 
 
     return {
         details,
-        organizationPurchasedItemHistory
+        organizationPurchasedItemHistory,
+        donate,
+        organizationDonatedItemHistory
 
     }
 }

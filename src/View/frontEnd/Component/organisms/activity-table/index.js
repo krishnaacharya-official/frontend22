@@ -79,18 +79,18 @@ const ActivityTable = (props) => {
                                   width={36}
                                   alt=""
                                   className="img-fluid"
-                                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg"
+                                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4c2ff23144db148fd45b43_wallet.svg"
                                 />
                               </span>
                               <div className="">
                                 <span className="text-dark fw-bold">Donation</span>
-                                <div className="d-flex text-light fs-7">
+                                {/* <div className="d-flex text-light fs-7">
                                   <FontAwesomeIcon
                                     icon={regular("calendar-clock")}
                                     className="small me-1 fs-6"
                                   />
                                   / Month
-                                </div>
+                                </div> */}
                               </div>
                             </>
                             : list.type === 'Share' ?
@@ -122,7 +122,29 @@ const ActivityTable = (props) => {
                                     <span className="text-dark fw-bold">Followed</span>
                                   </div>
                                 </>
-                                : <></>}
+                                : list.type === 'Donate'?
+                                <>
+                                <span className="p-2 mr-12p">
+                                  <img
+                                    width={36}
+                                    alt=""
+                                    className="img-fluid"
+                                    src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg"
+                                  />
+                                </span>
+                                <div className="">
+                                  <span className="text-dark fw-bold">Donation</span>
+                                  {/* <div className="d-flex text-light fs-7">
+                                    <FontAwesomeIcon
+                                      icon={regular("calendar-clock")}
+                                      className="small me-1 fs-6"
+                                    />
+                                    / Month
+                                  </div> */}
+                                </div>
+                              </>
+                              :<></>
+                              }
                       </div>
                     </div>
                   </li>

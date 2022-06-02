@@ -42,7 +42,7 @@ export default function Index(props) {
   } else {
     products = (
       <div className="container">
-        <h1 style={title} >Products Not Found</h1>
+        {/* <h1 style={title} >Products Not Found</h1> */}
       </div>
 
     )
@@ -125,13 +125,13 @@ export default function Index(props) {
 
         <div className="grab__info ms-auto d-flex align-items-center order-2 order-sm-3">
           <Button variant="link" className="p-1 fs-5 d-none d-sm-block">
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={regular("circle-question")}
               className="text-info"
-            />
+            /> */}
           </Button>
           <div className="grab__dropdown-wrap ms-sm-2 mb-2 mb-sm-0">
-            <GrabDropdown />
+            {/* <GrabDropdown /> */}
           </div>
         </div>
       </Container>

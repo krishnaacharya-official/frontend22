@@ -10,7 +10,14 @@ const userInitialState = {
     userLanguage: 'english',
     pricePerCurrency:0,
     profileImage:"",
-    countryId:""
+    countryId:"",
+    countryName:"",
+    stateName:"",
+    cityName:"",
+    zip:"",
+    area:""
+
+
 
 
 };

@@ -1,5 +1,5 @@
 // core
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 // third party
 // import { Col, Container, Row } from "react-bootstrap";
@@ -73,9 +73,18 @@ const OrganisationDetail = (props) => {
             <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
               Donate
             </Button>
-            <DonateModal show={modalShow} onHide={() => setModalShow(false)} organizationDetails={organizationDetails} />
+            <DonateModal show={modalShow} type="organization" onHide={() => setModalShow(false)} organizationDetails={organizationDetails}
+              stateData={props.stateData}
+              changevalue={props.changevalue}
+              cardNumberWithSpace={props.cardNumberWithSpace}
+              donate={props.donate}
+              selectedValue={props.selectedValue}
+              setSelectedValue={props.setSelectedValue}
 
-            <GrabDropdown />
+
+            />
+
+            {/* <GrabDropdown /> */}
           </div>
         </div>
       </SuggestionWrapper>
@@ -88,7 +97,7 @@ const OrganisationDetail = (props) => {
             <div className="mb-4">
               <OrganisationTeamWidget />
             </div>
-            <History list={props.purchasedItemList} />
+            <History list={props.purchasedItemList} donationList={props.donationList} />
           </Col>
         </Row>
       </Container>

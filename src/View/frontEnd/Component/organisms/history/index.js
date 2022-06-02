@@ -16,6 +16,11 @@ function History(props) {
 
 
   let list = props.list
+  let donationList = props.donationList
+
+  // console.log("donationList", donationList)
+  // console.log("list", list)
+
 
   return (
     <>
@@ -40,13 +45,22 @@ function History(props) {
         </div>
         <ul className="list-unstyled">
           {
-            list.length > 0 ?
+            list?.length > 0 &&
               list.slice(0, loadMore ? list.length : 3).map((item, i) => {
                 return (
-                  <HistoryItem categoryName="Fish" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.orderDetails?.userDetails?._id : false} />
+                  <HistoryItem categoryName="Fish" type="order" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.orderDetails?.userDetails?._id : false} />
                 )
-              }) :
-              "Records Not Found"
+              })
+
+          }
+          {
+            donationList?.length > 0 &&
+            donationList.map((item, i) => {
+              return (
+                <HistoryItem categoryName="Fish" type="donation" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.userDetails?._id : false} />
+              )
+            })
+
           }
           {/* <HistoryItem active />
           <HistoryItem
@@ -55,13 +69,13 @@ function History(props) {
           />
           <HistoryItem categoryName="Captain" categoryColor="#000" /> */}
         </ul>
-        {
+        {/* {
           !loadMore && list.length > 3 &&
 
           <div className="more__log">
             <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
           </div>
-        }
+        } */}
       </div>
     </>
   );

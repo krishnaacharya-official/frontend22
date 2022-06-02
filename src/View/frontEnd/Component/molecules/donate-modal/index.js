@@ -12,14 +12,21 @@ import "./style.scss";
 
 const DonateModal = (props) => {
   const [color, setColor] = useState("#5ac7b5");
-  const [selectedValue, setSelectedValue] = useState(25);
+  // const [selectedValue, setSelectedValue] = useState(25);
   const [next, setNext] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const stateData = props.stateData
   const organizationDetails = props.organizationDetails
   const user = useSelector((state) => state.user);
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const userData = JSON.parse(localStorage.getItem('userData'));
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+
+  const selectedValue = props.selectedValue
+  const setSelectedValue = props.setSelectedValue
+
+  let type = props.type
 
   const onValueChange = (clr, event) => {
     setSelectedValue(Number(event.target.value));
@@ -36,7 +43,10 @@ const DonateModal = (props) => {
         {next ? (
           <Button
             variant="link"
-            onClick={() => setNext(false)}
+            onClick={() => {
+              setNext(false)
+              setShowPaymentForm(false)
+            }}
             className="donate__prev-btn p-0 ms-auto"
           >
             <FontAwesomeIcon
@@ -63,7 +73,7 @@ const DonateModal = (props) => {
         </Button>
       </Modal.Header>
       <Modal.Body>
-        {!next ? (
+        {!next && !showPaymentForm ? (
           <>
             <div className="donation__options mb-2">
               <div className="donation__radio d-flex flex-wrap p-6 fs-4">
@@ -135,7 +145,7 @@ const DonateModal = (props) => {
                   size={45}
                 />
                 <div className="ms-2">
-                  <div style={{textTransform:"capitalize"}}>{userAuthToken && userData.name}</div>
+                  <div style={{ textTransform: "capitalize" }}>{userAuthToken && userData.name}</div>
                   <div>$ {selectedValue}</div>
                 </div>
 
@@ -163,14 +173,20 @@ const DonateModal = (props) => {
               </div>
             </div> */}
           </>
-        ) : (
+        ) : next && !showPaymentForm ? (
           <>
             <div className="donation__logo pt-3 pb-1 text-center">
-              <img
-                alt=""
-                style={{ objectFit: "contain", maxHeight: "40px" }}
-                src={ helper.CampaignAdminLogoPath+organizationDetails.logo}
-              />
+              {
+                type === 'project' ?
+                  <span>{props.projectDetails.name}</span>
+                  :
+                  <img
+                    alt=""
+                    style={{ objectFit: "contain", maxHeight: "40px" }}
+                    src={helper.CampaignAdminLogoPath + organizationDetails.logo}
+                  />
+              }
+
             </div>
             <div className="donation__review text-dark d-flex align-items-center justify-content-center">
               <span>${selectedValue}</span>
@@ -178,7 +194,7 @@ const DonateModal = (props) => {
               <span>One-time</span> */}
             </div>
             <div className="note note--donation d-flex flex-column">
-              <Button size="lg" variant="info" className="mb-4">
+              <Button size="lg" variant="info" className="mb-4" onClick={() => setShowPaymentForm(true)}>
                 Credit Card
               </Button>
               <Button
@@ -214,12 +230,71 @@ const DonateModal = (props) => {
               </div>
             </div>
           </>
-        )}
+        ) : showPaymentForm
+        && (
+
+          <>
+            <div className="sleeve">
+              <div className="credit-card selected" style={{ background: "#555" }}>
+                <div className="card-company"></div>
+                <div className="card-number" style={{ marginTop: "74px" }}>
+
+                  <div className="digit-group">{props.cardNumberWithSpace ? props.cardNumberWithSpace : "XXXX XXXX XXXX XXXX"}</div>
+                </div>
+                <div className="card-expire"><span className="card-text" style={{ color: "darkgrey" }}>CVV &nbsp;</span> <p className="card-p-text"></p> <span className="card-text" style={{ color: "darkgrey" }}>Expires &nbsp;</span> {stateData.month ? stateData.month : "MM"}/{stateData.year ? stateData.year : "YY"}</div>
+                <div className="card-holder">{stateData.name ? stateData.name : "e.g. John Doe"}</div>
+                {/* <div className="card-type">Debit card</div> */}
+              </div>
+            </div>
+
+            <div className="container">
+              <div className="checkout__input">
+                <p>Name on card<span>*</span></p>
+                <input type="text" name='name' value={stateData.name ? stateData.name : ""} className={stateData.error.name ? "inputerror form-control " : "form-control "} placeholder="Card holder name" onChange={(e) => props.changevalue(e)} />
+                <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>
+
+              </div>
+              <div className="checkout__input">
+                <p>Card number<span>*</span></p>
+                <input type="text" name='cardNumber' value={stateData.cardNumber ? stateData.cardNumber : ""} className={stateData.error.cardNumber ? "inputerror form-control " : "form-control "} placeholder="Card Number" onChange={(e) => props.changevalue(e)} maxLength={16} />
+                <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>
+
+              </div>
+              <div className="row">
+                <div className="col-lg-3">
+                  <div className="checkout__input">
+                    <p>Month<span>*</span></p>
+                    <input type="text" name='month' value={stateData.month ? stateData.month : ""} className={stateData.error.month ? "inputerror form-control " : "form-control "} placeholder="MM" onChange={(e) => props.changevalue(e)} />
+                    <p className="error">{stateData.error ? stateData.error.month ? stateData.error.month : "" : ""}</p>
+
+                  </div>
+                </div>
+                <div className="col-lg-3">
+                  <div className="checkout__input">
+                    <p>Year<span>*</span></p>
+                    <input type="text" name='year' value={stateData.year ? stateData.year : ""} className={stateData.error.year ? "inputerror form-control " : "form-control "} placeholder="YY" onChange={(e) => props.changevalue(e)} />
+                    <p className="error">{stateData.error ? stateData.error.year ? stateData.error.year : "" : ""}</p>
+
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="checkout__input">
+                    <p>CVV<span>*</span></p>
+                    <input type="password" name='cvv' value={stateData.cvv ? stateData.cvv : ""} className={stateData.error.cvv ? "inputerror form-control " : "form-control "} placeholder="CVV" onChange={(e) => props.changevalue(e)} maxLength={3} />
+                    <p className="error">{stateData.error ? stateData.error.cvv ? stateData.error.cvv : "" : ""}</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )
+        }
       </Modal.Body>
       <Modal.Footer className="border-0 overflow-hidden justify-content-center">
-        {next ? (
+        {next && !showPaymentForm ? (
           <div className="text-dark fs-7">100% of your donation goes to the Organization ♥</div>
-        ) : (
+        ) : !next && !showPaymentForm ? (
           <Button
             variant="primary"
             onClick={() => setNext(true)}
@@ -229,7 +304,18 @@ const DonateModal = (props) => {
             Next
             <FontAwesomeIcon icon={solid("arrow-right")} className="ms-1" />
           </Button>
-        )}
+        ) : showPaymentForm && (
+          <Button
+            variant="primary"
+            onClick={() => props.donate()}
+            className="d-flex flex__1 fw-bold justify-content-center fs-6"
+            size="lg"
+          >
+            Donate ${selectedValue}
+            {/* <FontAwesomeIcon icon={solid("arrow-right")} className="ms-1" /> */}
+          </Button>
+        )
+        }
       </Modal.Footer>
     </Modal>
   );
