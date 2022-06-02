@@ -777,7 +777,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 USD Coin
               </span>
-              <ToggleSwitch />
+              <ToggleSwitch checked={true} changevalue={() => {}}/>
             </li>
             <li className="list__item d-flex align-items-center py-1">
               <span className="crypto__icon">
@@ -790,7 +790,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 Bitcoin
               </span>
-              <ToggleSwitch />
+              <ToggleSwitch checked={false} changevalue={() => {}}/>
             </li>
             <li className="list__item d-flex align-items-center py-1">
               <span className="crypto__icon">
@@ -803,7 +803,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 Ethereum
               </span>
-              <ToggleSwitch />
+              <ToggleSwitch checked={false} changevalue={() => {}}/>
             </li>
           </ul>
         </div>

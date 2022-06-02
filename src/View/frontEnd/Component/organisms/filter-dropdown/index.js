@@ -21,9 +21,9 @@ import helper from '../../../../../Common/Helper';
 import './style.scss';
 
 const FilterDropdown = (props) => {
-  const lottie = Lottie
-  const organizationList = props.organizationList
-  const categoryList = props.categoryList
+  const lottie = Lottie;
+  const organizationList = props.organizationList;
+  const categoryList = props.categoryList;
 
   const [hidden, setHidden] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -48,23 +48,24 @@ const FilterDropdown = (props) => {
       renderer: 'svg'
     });
     sliderAnim.current.setSpeed(4);
+  }, []);
 
+  React.useEffect(() => {
     if (categoryList.length > 0) {
-      let tempArray = []
+      let tempArray = [];
       categoryList.map((cat, i) => {
-        let tempObj = {}
-        tempObj.name = cat.name
-        tempObj.id = cat._id
-        tempObj.imgUrl = cat.iconDetails[0].class
-        tempObj.categoryColor = cat.color
+        let tempObj = {};
+        tempObj.name = cat.name;
+        tempObj.id = cat._id;
+        tempObj.imgUrl = cat.iconDetails[0].class;
+        tempObj.categoryColor = cat.color;
         tempObj.checked = props.seletedCategoryList.includes(cat._id);
-        tempObj.onSelectCategory = props.onSelectCategory
-        tempArray.push(tempObj)
-      })
-      setCategories(tempArray)
+        tempObj.onSelectCategory = props.onSelectCategory;
+        tempArray.push(tempObj);
+      });
+      setCategories(tempArray);
     }
   }, [categoryList, props.seletedCategoryList]);
-
 
   const marks = {
     140: 140,
@@ -80,8 +81,6 @@ const FilterDropdown = (props) => {
     2800: 2800
   };
 
-
-
   return (
     <>
       {/* this enables back drop on mobile kind of buggy need to fix */}
@@ -91,9 +90,7 @@ const FilterDropdown = (props) => {
       ></div>
 
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
-        <Dropdown.Toggle variant="primary"
-          size="lg"
-          className="no-caret rounded-pill w-100">
+        <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
           <div className="d-flex align-items-center justify-content-center">
             <span className="fw-bold">Filters</span>
             <span
@@ -119,8 +116,6 @@ const FilterDropdown = (props) => {
                     name="taxEligible"
                     onClickFilter={props.onClickFilter}
                     ischecked={props.filters?.taxEligible}
-
-
                   />
                 </div>
               </div>
@@ -136,8 +131,6 @@ const FilterDropdown = (props) => {
                     name="postTag"
                     onClickFilter={props.onClickFilter}
                     ischecked={props.filters?.postTag}
-
-
                   />
                 </div>
               </div>
@@ -153,15 +146,20 @@ const FilterDropdown = (props) => {
                     name="infinite"
                     onClickFilter={props.onClickFilter}
                     ischecked={props.filters?.infinite}
-
-
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="filter__slider bg-white">
-            <Slider range min={0} max={2800} defaultValue={[0, 2800]} marks={marks} onChange={(e)=>props.onChangePriceSlider(e)} />
+            <Slider
+              range
+              min={0}
+              max={2800}
+              defaultValue={[0, 2800]}
+              marks={marks}
+              onChange={(e) => props.onChangePriceSlider(e)}
+            />
           </div>
           <div className="filter__dropdown-bd">
             <div className="category__list flex-wrap d-flex align-items-center">
