@@ -72,11 +72,9 @@ const ProjectDetail = (props) => {
             projectId={props.projectDetails?._id}
           />
           <div className="ms-auto d-flex align-items-center">
-            <Button
-              size="lg"
-              className="fw-bold me-2 rounded-pill"
-              onClick={() => setModalShow(true)}
-            ></Button>
+          <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
+              Donate
+            </Button>
             <DonateModal show={modalShow} onHide={() => setModalShow(false)} />
             <GrabDropdown />
           </div>
@@ -84,11 +82,11 @@ const ProjectDetail = (props) => {
       </SuggestionWrapper>
 
       <div className="ms-auto d-flex mt-2 flex-column d-sm-none align-items-center px-3">
-        <Button size="lg" className="fw-bold mb-1 w-100" onClick={() => setModalShow(true)}>
-          Donate
+        {/* <Button size="lg" className="fw-bold mb-1 w-100" onClick={() => setModalShow(true)}>
+          Donatehhhh
         </Button>
-        <DonateModal show={modalShow} onHide={() => setModalShow(false)} />
-        <GrabDropdown />
+        <DonateModal show={modalShow} onHide={() => setModalShow(false)} /> */}
+        {/* <GrabDropdown /> */}
       </div>
       <Container fluid className="py-5">
         <Row>

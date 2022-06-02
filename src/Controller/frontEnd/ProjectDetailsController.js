@@ -9,6 +9,7 @@ import ProjectDetail from "../../View/frontEnd/project-detail";
 import projectApi from "../../Api/frontEnd/project";
 import cartApi from "../../Api/frontEnd/cart";
 import ToastAlert from "../../Common/ToastAlert";
+import { useSelector, useDispatch } from "react-redux";
 
 
 
@@ -25,10 +26,13 @@ export default function ProjectDetailsController() {
     const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
     const [projectList, setProjectList] = useState([])
     const [purchasedItemList, setPurchasedItemList] = useState([])
+    const user = useSelector((state) => state.user);
 
 
     const getAllProjectList = async () => {
-        const getProjectList = await projectApi.list(token);
+        let data = {}
+        data.userCountry = user.countryId
+        const getProjectList = await projectApi.list(token, data);
         if (getProjectList.data.success === true) {
             setProjectList(getProjectList.data.data)
         }
@@ -98,6 +102,9 @@ export default function ProjectDetailsController() {
                 // console.log(getProjectDetails.data.data[0]) 
                 if (getProjectDetails.data.data.length) {
                     projdata = getProjectDetails.data.data[0]
+                    if (projdata.campaignDetails.country_id !== user.countryId) {
+                        navigate('/')
+                    }
                     setProjectDetails(projdata)
                     await getAllProjectList()
                     await getPurchasedItems(projdata._id)

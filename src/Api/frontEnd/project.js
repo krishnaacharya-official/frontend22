@@ -28,11 +28,11 @@ function project() {
         return res;
     }
 
-    const list = async (authToken) => {
+    const list = async (authToken, data) => {
         let res = {};
         await axios({
-            method: 'get',
-            url: `${helper.ApiUrl}project`,
+            method: 'post',
+            url: `${helper.ApiUrl}project/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -42,6 +42,7 @@ function project() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data: data
 
         }).then((response) => {
             res = response

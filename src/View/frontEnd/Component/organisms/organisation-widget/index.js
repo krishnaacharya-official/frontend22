@@ -68,10 +68,8 @@ function OrganisationWidget(props) {
           <div className="d-flex align-items-center ms-auto">
             <span className="fs-7 me-1">Tax Receipt?</span>
             <ToggleSwitch
-              isOn={check}
-              handleToggle={() => setCheck(!check)}
-              colorOne="#06D6A0"
-              colorTwo="#efefef"
+              checked={check}
+              changevalue={() => setCheck(!check)}
             />
           </div>
         </div>
