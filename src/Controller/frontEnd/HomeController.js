@@ -92,9 +92,22 @@ export default function HomeController() {
     function showError(error) {
         if (error) {
             if (userAuthToken) {
-                dispatch(setUserCountry(userData.country_id))
+                if (userData.country_id && userData.country_id !== null && userData.country_id > 0) {
+                    dispatch(setUserCountry(userData.country_id))
+                } else {
+                    dispatch(setUserCountry(0))
+
+                }
+
             } else {
-                dispatch(setUserCountry(CampaignAdmin.country_id))
+                if (CampaignAdmin.country_id && CampaignAdmin.country_id !== null && CampaignAdmin.country_id > 0) {
+                    dispatch(setUserCountry(CampaignAdmin.country_id))
+                } else {
+                    dispatch(setUserCountry(0))
+
+                }
+
+                // dispatch(setUserCountry(CampaignAdmin.country_id))
 
             }
         }
@@ -424,7 +437,9 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-            if (!user.countryId) {
+            if ( user.countryId === null || user.countryId === undefined || user.countryId === "") {
+                // console.log("user.countryId",user.countryId)
+
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition, showError);
                 } else {
@@ -439,6 +454,8 @@ export default function HomeController() {
                     }
                 }
             } else {
+                // console.log(user.countryId)
+
                 setLoading(true)
                 await filterProduct(lowPrice, HighPrice, search, user.countryId)
                 setLoading(false)
