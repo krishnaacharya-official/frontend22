@@ -251,9 +251,12 @@ export default function OrganizationDetailsController() {
             if (getOrganizationDetails.data.success === true) {
                 if (getOrganizationDetails.data.data.length) {
                     orgdata = getOrganizationDetails.data.data[0]
-                    if (orgdata.country_id !== user.countryId) {
-                        navigate('/')
+                    if (user.countryId && user.countryId > 0) {
+                        if (orgdata.country_id !== user.countryId) {
+                            navigate('/')
+                        }
                     }
+
                     setOrganizationDetails(orgdata)
                     await orgProjectList(orgdata._id)
                     await getOrganizationList()

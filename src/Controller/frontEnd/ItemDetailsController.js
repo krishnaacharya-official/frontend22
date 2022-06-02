@@ -43,7 +43,7 @@ export default function ItemDetailsController() {
     const productListByCategory = async (id) => {
 
         let userCountry = user.countryId
-        const getCategoryProducts = await productApi.listByCategory(token, id,userCountry)
+        const getCategoryProducts = await productApi.listByCategory(token, id, userCountry)
         if (getCategoryProducts.data.success === true) {
             if (getCategoryProducts.data.data.length > 0) {
                 let tempArray = []
@@ -79,9 +79,12 @@ export default function ItemDetailsController() {
                 if (getproductDetails.data.data.length) {
                     mydata = getproductDetails.data.data[0]
                     // console.log(mydata)
-                    if (mydata.campaignDetails.country_id !== user.countryId) {
-                        navigate('/')
+                    if (user.countryId && user.countryId > 0) {
+                        if (mydata.campaignDetails.country_id !== user.countryId) {
+                            navigate('/')
+                        }
                     }
+
                     setProductDetails(mydata)
                     await productListByCategory(mydata.categoryDetails._id)
                     await allProductList()

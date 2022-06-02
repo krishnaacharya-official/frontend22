@@ -243,8 +243,11 @@ export default function ProjectDetailsController() {
                 // console.log(getProjectDetails.data.data[0]) 
                 if (getProjectDetails.data.data.length) {
                     projdata = getProjectDetails.data.data[0]
-                    if (projdata.campaignDetails.country_id !== user.countryId) {
-                        navigate('/')
+                    if (user.countryId && user.countryId > 0) {
+
+                        if (projdata.campaignDetails.country_id !== user.countryId) {
+                            navigate('/')
+                        }
                     }
                     setProjectDetails(projdata)
                     await getAllProjectList()
