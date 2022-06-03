@@ -199,7 +199,7 @@ export default function NavSection({ navConfig, ...other }) {
       <List disablePadding>
         {navConfig.map((item) => (
           // console.log(item)
-          hasPermission(adminData?.roleName, item.name) &&
+          // hasPermission(adminData?.roleName, item.name) &&
           <NavItem key={item.title} item={item} active={match} />
         ))}
       </List>

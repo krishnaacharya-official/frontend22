@@ -35,6 +35,7 @@ import CmsController from '../Controller/admin/CmsController';
 import PartnershipInquiryController from '../Controller/admin/PartnershipInquiryController';
 import VerificationInquiryController from '../Controller/admin/VerificationInquiryController';
 import Aws from '../View/admin/Setting/Aws';
+import DonationController from '../Controller/admin/DonationController';
 
 // ----------------------------------------------------------------------
 
@@ -95,6 +96,8 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/cms" element={<CmsController/>} />
                     <Route exact path="/admin/partnership" element={<PartnershipInquiryController/>} />
                     <Route exact path="/admin/verified" element={<VerificationInquiryController/>} />
+                    <Route exact path="/admin/donation" element={<DonationController/>} />
+
                 </Routes>
             </MainStyle>
         </RootStyle>

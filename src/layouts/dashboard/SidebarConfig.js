@@ -66,6 +66,12 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
     },
     {
+      title: 'donation',
+      path: '/admin/donation/',
+      icon: getIcon('iconoir:donate'),
+      name:'DONATION'
+    },
+    {
       title: 'cms',
       path: '/admin/cms/',
       icon: getIcon('iconoir:page-flip'),
@@ -86,18 +92,19 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
       name:'VERIFIED'
 
     },
-    {
-      title: 'profile',
-      path: '/admin/profile/',
-      icon: getIcon(peopleFill),
-      name:'PROFILE'
-    },
+    // {
+    //   title: 'profile',
+    //   path: '/admin/profile/',
+    //   icon: getIcon(peopleFill),
+    //   name:'PROFILE'
+    // },
     {
       title: 'setting',
       path: '/admin/setting/',
       icon: getIcon('ci:settings-filled'),
       name:'SETTING'
     },
+
 
   ];
 

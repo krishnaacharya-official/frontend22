@@ -88,7 +88,7 @@ const Partnership = () => {
 
 
 
-      const applyPartership = await userApi.applyPartership(userAuthToken, data)
+      const applyPartership = await userApi.applyPartership(data)
       if (applyPartership) {
         if (!applyPartership.data.success) {
           setLoading(false)

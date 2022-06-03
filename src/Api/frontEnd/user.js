@@ -172,7 +172,7 @@ function user() {
         return res;
     }
 
-    const applyPartership = async (authToken, data) => {
+    const applyPartership = async (data) => {
 
         let res = {};
         await axios({
@@ -180,7 +180,7 @@ function user() {
             url: `${helper.ApiUrl}partnership`,
             responseType: 'json',
             headers: {
-                "x-access-token": authToken,
+                // "x-access-token": authToken,
                 "Access-Control-Allow-Origin": "*",
                 'Access-Control-Allow-Credentials': 'true',
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",

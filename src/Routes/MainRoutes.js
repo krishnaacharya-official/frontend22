@@ -180,6 +180,8 @@ export default function MainRoutes() {
                             <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
                             <Route exact path="/otp/:email" element={<ResetPasswordController />} />
                             <Route exact path="/apply" element={<ApplyOrganizationController />} />
+                            <Route path="/sponsors" element={<Sponsors />} />
+                            <Route path="/partnership" element={<Partnership />} />
                             <Route exact path="*" element={<SigninController />} />
                         </Routes>
                     </>
