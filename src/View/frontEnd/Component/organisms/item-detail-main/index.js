@@ -268,6 +268,15 @@ function ProjectDetailMain(props) {
         >
           These items are tax deductible.
         </IconText>
+        <IconText
+          className="pt-12p pb-12p"
+          icon={
+            // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
+            <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+          }
+        >
+          These items are tax deductible.
+        </IconText>
       </div>
 
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />

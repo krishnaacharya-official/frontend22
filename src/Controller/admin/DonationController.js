@@ -54,25 +54,18 @@ export default function DonationController() {
         })()
     }, [])
 
-    const viewOrderDetails = (data) => {
-        setOrderDetails(data)
-        setModal(true)
-        // console.log(data)
-    }
-
     return (
         <>
 
             <FrontLoader loading={loading} />
             <Index
                 orderList={orderList}
-                viewOrderDetails={viewOrderDetails}
                 handleChange={handleChange}
                 value={value}
                 projectDonationList={projectDonationList}
                 organizationDonationList={organizationDonationList}
             />
-            {/* <OrderDetails modal={modal} setModal={setModal} orderDetails={orderDetails} orderItemList={orderItemList} /> */}
+         
 
 
         </>

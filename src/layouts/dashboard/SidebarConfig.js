@@ -16,97 +16,103 @@ import React, { useEffect } from 'react';
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 
- const  sidebarConfig = [
+const sidebarConfig = [
 
-    {
-      title: 'dashboard',
-      path: '/admin/dashboard/',
-      icon: getIcon(pieChart2Fill),
-      name:'DASHBOARD'
-    },
-    {
-      title: 'donors',
-      path: '/admin/user/',
-      icon: getIcon(peopleFill),
-      name:'DONORS'
-    },
-    {
-      title: 'campaign admin',
-      path: '/admin/campaign_admin/',
-      icon: getIcon('codicon:organization'),
-      name:'CAMPAIGN_ADMIN'
+  {
+    title: 'dashboard',
+    path: '/admin/dashboard/',
+    icon: getIcon(pieChart2Fill),
+    name: 'DASHBOARD'
+  },
+  {
+    title: 'donors',
+    path: '/admin/user/',
+    icon: getIcon(peopleFill),
+    name: 'DONORS'
+  },
+  {
+    title: 'campaign admin',
+    path: '/admin/campaign_admin/',
+    icon: getIcon('codicon:organization'),
+    name: 'CAMPAIGN_ADMIN'
 
-    },
-    {
-      title: 'category',
-      path: '/admin/category/',
-      icon: getIcon('carbon:category'),
-      name:'CAMPAIGN_ADMIN'
+  },
+  {
+    title: 'category',
+    path: '/admin/category/',
+    icon: getIcon('carbon:category'),
+    name: 'CAMPAIGN_ADMIN'
 
-    },
-    {
-      title: 'products',
-      path: '/admin/products/',
-      icon: getIcon('mdi:alpha-p-circle'),
-      name:'PRODUCT'
+  },
+  {
+    title: 'products',
+    path: '/admin/products/',
+    icon: getIcon('mdi:alpha-p-circle'),
+    name: 'PRODUCT'
 
-    },
-    {
-      title: 'projects',
-      path: '/admin/projects/',
-      icon: getIcon('fontisto:ampproject'),
-      name:'PROJECT'
+  },
+  {
+    title: 'projects',
+    path: '/admin/projects/',
+    icon: getIcon('fontisto:ampproject'),
+    name: 'PROJECT'
 
-    },
-    {
-      title: 'orders',
-      path: '/admin/orders/',
-      icon: getIcon('eos-icons:products'),
-      name:'ORDERS'
+  },
+  {
+    title: 'orders',
+    path: '/admin/orders/',
+    icon: getIcon('eos-icons:products'),
+    name: 'ORDERS'
 
-    },
-    {
-      title: 'donation',
-      path: '/admin/donation/',
-      icon: getIcon('iconoir:donate'),
-      name:'DONATION'
-    },
-    {
-      title: 'cms',
-      path: '/admin/cms/',
-      icon: getIcon('iconoir:page-flip'),
-      name:'CMS'
+  },
+  {
+    title: 'donation',
+    path: '/admin/donation/',
+    icon: getIcon('iconoir:donate'),
+    name: 'DONATION'
+  },
+  {
+    title: 'sponcership ad',
+    path: '/admin/advertisement/',
+    icon: getIcon('fa6-solid:rectangle-ad'),
+    name: 'AD'
+  },
+  {
+    title: 'cms',
+    path: '/admin/cms/',
+    icon: getIcon('iconoir:page-flip'),
+    name: 'CMS'
 
-    },
-    {
-      title: 'partnership',
-      path: '/admin/partnership/',
-      icon: getIcon('teenyicons:question-circle-solid'),
-      name:'PARTNERSHIP'
+  },
+  {
+    title: 'partnership',
+    path: '/admin/partnership/',
+    icon: getIcon('teenyicons:question-circle-solid'),
+    name: 'PARTNERSHIP'
 
-    },
-    {
-      title: 'verified',
-      path: '/admin/verified/',
-      icon: getIcon('codicon:unverified'),
-      name:'VERIFIED'
+  },
+  {
+    title: 'verified',
+    path: '/admin/verified/',
+    icon: getIcon('codicon:unverified'),
+    name: 'VERIFIED'
 
-    },
-    // {
-    //   title: 'profile',
-    //   path: '/admin/profile/',
-    //   icon: getIcon(peopleFill),
-    //   name:'PROFILE'
-    // },
-    {
-      title: 'setting',
-      path: '/admin/setting/',
-      icon: getIcon('ci:settings-filled'),
-      name:'SETTING'
-    },
+  },
+  // {
+  //   title: 'profile',
+  //   path: '/admin/profile/',
+  //   icon: getIcon(peopleFill),
+  //   name:'PROFILE'
+  // },
+  {
+    title: 'setting',
+    path: '/admin/setting/',
+    icon: getIcon('ci:settings-filled'),
+    name: 'SETTING'
+  },
 
 
-  ];
+];
 
 
 
