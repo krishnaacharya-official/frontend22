@@ -23,7 +23,7 @@ export default function CreateAdForm(props) {
             >
                 <Modal.Header >
                     <Modal.Title id="example-modal-sizes-title-lg">
-                        {stateData?.id ? "Update Category" : "Add Category"}
+                        {stateData?.id ? "Update Advertise" : "Create Advertise"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

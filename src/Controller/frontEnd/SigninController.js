@@ -247,7 +247,7 @@ function SigninController() {
 
         <>
         
-        {console.log(user.countryId)}
+        {/* {console.log(user.countryId)} */}
             {/* <Signin
                 signIn={signIn}
                 changevalue={changevalue}

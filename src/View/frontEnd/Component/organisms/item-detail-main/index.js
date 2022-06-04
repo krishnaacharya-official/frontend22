@@ -19,7 +19,6 @@ import "./style.scss";
 
 function ProjectDetailMain(props) {
   let productDetails = props.productDetails
-
   const getCalc = getCalculatedPrice();
   let price = getCalc.getData(productDetails?.price)
   let currencySymbol = getCalc.currencySymbol()
@@ -75,11 +74,11 @@ function ProjectDetailMain(props) {
     </Button>
   );
   const btn =
-  productDetails.soldout === productDetails.quantity ? (
-    <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
-  ) : (
-    cart_btn
-  );
+    productDetails.soldout === productDetails.quantity ? (
+      <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
+    ) : (
+      cart_btn
+    );
 
   // console.log(productDetails)
 
@@ -135,13 +134,13 @@ function ProjectDetailMain(props) {
             activeColor="rgb(246, 100, 97)"
             icon={<FontAwesomeIcon icon={regular("heart")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
-            onClickFilter={() => {}}
+            onClickFilter={() => { }}
           />
 
           <IconToggle
             icon={<FontAwesomeIcon icon={regular("bell")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
-            onClickFilter={() => {}}
+            onClickFilter={() => { }}
           />
 
           <ShareWidget />
@@ -268,19 +267,31 @@ function ProjectDetailMain(props) {
         >
           These items are tax deductible.
         </IconText>
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
-            <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
-          }
-        >
-          These items are tax deductible.
-        </IconText>
+        {
+          productDetails?.advertisements?.length > 0 &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
+              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+            }
+          >
+            {
+              productDetails?.advertisements.map((ad, i) => {
+                return (
+                  <a href={ad.advertisementsData?.website} target="_blank" rel="noreferrer" key={i}>
+                    <img src={helper.sponsorLogoResizePath + ad.advertisementsData?.logo} alt='sponsor' className="p-1" style={{ width: "50px" }}></img>
+                  </a>
+                )
+              })
+            }
+          </IconText>
+        }
       </div>
 
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
-    </div>
+    </div >
   );
 }
 

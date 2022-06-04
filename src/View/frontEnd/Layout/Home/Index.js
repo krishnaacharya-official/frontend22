@@ -19,6 +19,8 @@ import {
 import "./style.scss";
 import HeaderController from "../../../../Controller/frontEnd/HeaderController";
 import React, { useState } from "react";
+import IconText from "../../Component/molecules/icon-text";
+import helper from "../../../../Common/Helper";
 
 export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
@@ -216,7 +218,41 @@ export default function Index(props) {
             </div> */}
 
           </div>
+          {
+            props.advertisementList.length > 0 &&
+            <div>
+              <IconText
+                className="pt-12p pb-12p"
+                icon={
+                  // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
+                  <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+                }
+
+              >
+                {
+                  props.advertisementList.map((ad, i) => {
+                    return (
+                      <a href={ad.website} target="_blank" rel="noreferrer" key={i}>
+                        <img src={helper.sponsorLogoResizePath + ad.logo} alt='sponsor' className="p-1" style={{ width: "50px" }}></img>
+                      </a>
+                    )
+                  })
+                }
+
+              </IconText>
+
+            </div>
+          }
           <div>
+            {/* <IconText
+              className=""
+              icon={
+                // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
+                <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+              }
+            >
+              These items are tax deductible.
+            </IconText> */}
             <LadderMenu
               items={items}
               activeKey={selectedKey}

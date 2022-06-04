@@ -38,6 +38,8 @@ const AdvertiseSetting = (props) => {
     let advertisementDetails = {}
     advertisementDetails = props.advertisementDetails
 
+    const productList = props.productList
+
 
     const [value, setValue] = useState('1');
 
@@ -78,7 +80,7 @@ const AdvertiseSetting = (props) => {
                     </Toolbar>
                 </AppBar>
 
-                <div className="invoice invoice-content  px-5 pt-5" style={{ overflow: "auto" }}>
+                <div className="invoice invoice-content  px-5 pt-5" >
                     <div className="row">
 
                         <div className="col-sm-6">
@@ -98,7 +100,7 @@ const AdvertiseSetting = (props) => {
 
                         <div className="col-sm-6">
                             <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
-                                <input type="checkbox" id="prioritySupport" name="BASIC" />
+                                <input type="checkbox" id="prioritySupport" name="BASIC" checked={props.home} onChange={(e) => props.onChangeHome(e, advertisementDetails._id)} />
                                 <span className="--slider">
                                     <i className="fa fa-check"></i>
                                     <i className="fa fa-times"></i>
@@ -121,10 +123,110 @@ const AdvertiseSetting = (props) => {
                             </TabList>
                         </Box>
                         <TabPanel value="1">
-                            {/* <OrganizationDonation organizationDonationList={props.organizationDonationList} /> */}
+                            {/* <div>
+                                <input type="text" className='form-control' placeholder='Search product' />
+                            </div> */}
+
+                            <div style={{ overflow: "auto", height: "450px" }}>
+
+                                {props.publisedProductList.length > 0 &&
+                                    props.publisedProductList.map((product, i) => {
+                                        return (
+                                            <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
+                                                    <div className="col-sm-3">
+
+                                                        <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
+
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+                                                        <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+
+                                                        <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+                                                        <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                            <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
+                                                            <span className="--slider">
+                                                                <i className="fa fa-check"></i>
+                                                                <i className="fa fa-times"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        )
+                                    })
+                                }
+
+
+
+
+
+                            </div>
+
                         </TabPanel>
                         <TabPanel value="2">
-                            {/* <ProjectDonation projectDonationList={props.projectDonationList} /> */}
+
+                            <div>
+                                <input type="text" className='form-control mb-2' name='allSearch' value={props.allSearch} onChange={(e) => props.onSearch(e)} placeholder='Search product' />
+                            </div>
+
+                            <div style={{ overflow: "auto", height: "450px" }}>
+
+                                {productList.length > 0 &&
+                                    productList.map((product, i) => {
+                                        // console.log(product)
+                                        return (
+                                            <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
+                                                    <div className="col-sm-3">
+
+                                                        <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
+
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+                                                        <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+
+                                                        <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+                                                        <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                            <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
+                                                            <span className="--slider">
+                                                                <i className="fa fa-check"></i>
+                                                                <i className="fa fa-times"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        )
+                                    })
+                                }
+
+
+
+
+
+                            </div>
+
                         </TabPanel>
 
                     </TabContext>

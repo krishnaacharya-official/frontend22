@@ -11,6 +11,7 @@ import advertisementApi from "../../Api/admin/advertisement";
 import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import AdvertiseSetting from "../../View/admin/Advertisement/AdvertiseSetting";
+import productApi from "../../Api/frontEnd/product";
 
 
 export default function AdvertisementController() {
@@ -24,11 +25,23 @@ export default function AdvertisementController() {
     const [Img, setImg] = useState('')
     const [advertisementDetails, setAdvertisementDetails] = useState({})
     const [settingModal, setSettingModal] = useState(false)
+    const [productList, setProductList] = useState([])
+    const [publisedProductList, setPublisedProductList] = useState([])
+    const [publisedProductIds, setPublisedProductIds] = useState([])
+
+
+
 
     const params = useParams();
     const navigate = useNavigate();
-
-
+    const [searchState, setSearchState] = useState({
+        allSearch: '',
+        MySearch: '',
+        home: false,
+    })
+    const {
+        allSearch, MySearch, home
+    } = searchState;
 
 
     const [state, setstate] = useState({
@@ -48,9 +61,127 @@ export default function AdvertisementController() {
         if (donationList) {
             if (donationList.data.success === true) {
                 setDonationList(donationList.data.data)
+
             }
         }
     }
+    const onSearch = async (e) => {
+        let value = e.target.value
+        setSearchState({
+            ...searchState,
+            allSearch: value
+        })
+        await filterProduct(value)
+    }
+
+    const filterProduct = async (val) => {
+
+        let data = {}
+        data.search = val
+
+        if (val !== "") {
+
+
+
+            const getFilteredProductList = await productApi.productFilter(adminAuthToken, data);
+            if (getFilteredProductList.data.success === true) {
+                // console.log(getFilteredProductList.data.data)
+                setProductList(getFilteredProductList.data.data)
+            }
+        } else {
+            setProductList([])
+        }
+    }
+
+    const publishOrRemoveAdFromProduct = async (productId, advertisementId) => {
+        setLoading(true)
+        let data = {}
+        data.productId = productId
+        data.advertisementId = advertisementId
+
+        await advertisementApi.publishAdd(adminAuthToken, data)
+        if (advertisementApi) {
+            await listPublishedAdProduct(advertisementId)
+
+        }
+
+        setLoading(false)
+
+    }
+
+    const listPublishedAdProduct = async (advertisementId) => {
+        let data = {}
+        data.advertisementId = advertisementId
+
+        const getListPublishedAdProduct = await advertisementApi.listPublishedAdd(adminAuthToken, data)
+        if (getListPublishedAdProduct) {
+            if (getListPublishedAdProduct.data.success === true) {
+             
+                if (getListPublishedAdProduct.data.data.length > 0) {
+                    let tempArr = []
+                    getListPublishedAdProduct.data.data.map((p, i) => {
+                        tempArr.push(p.productId)
+                    })
+                    await getPublishedProducts(tempArr)
+                    setPublisedProductIds(tempArr)
+                } else {
+                    setPublisedProductIds([])
+                    setPublisedProductList([])
+
+                }
+            }
+        }
+    }
+
+    const getPublishedProducts = async (arry) => {
+        let data = {}
+        const getFilteredProductList = await productApi.productFilter(adminAuthToken, data);
+        if (getFilteredProductList.data.success === true) {
+            if (getFilteredProductList.data.data.length > 0) {
+                let temp = []
+                getFilteredProductList.data.data.map((p, i) => {
+                    if (arry.includes(p._id)) {
+                        temp.push(p)
+                    }
+                })
+                setPublisedProductList(temp)
+            }
+
+
+        }
+    }
+
+    const onChangeHome = async (e, id) => {
+        setLoading(true)
+        let data = {}
+        data.home = e.target.checked
+        setSearchState({
+            ...searchState,
+            home: e.target.checked
+        })
+        const up = await advertisementApi.updatehome(adminAuthToken, data, id)
+
+        if (up) {
+
+            if (up.data.success === true) {
+                await getDonationList()
+                // setAdvertisementDetails(up.data.data)
+                // console.log(up.data.data)
+
+            }
+
+        }
+        setLoading(false)
+
+
+    }
+
+
+
+
+
+
+
 
 
     useEffect(() => {
@@ -65,6 +196,8 @@ export default function AdvertisementController() {
                 navigate('/admin/login')
             }
             await getDonationList()
+
+
 
             setLoading(false)
 
@@ -265,8 +398,18 @@ export default function AdvertisementController() {
     }
 
 
-    const adSetting = (data) => {
+    const adSetting = async (data) => {
         setAdvertisementDetails(data)
+        setLoading(true)
+        await listPublishedAdProduct(data._id)
+        setSearchState({
+            ...searchState,
+            home: data.home,
+            allSearch: '',
+            MySearch: '',
+        })
+        setLoading(false)
+        setProductList([])
         setSettingModal(true)
     }
 
@@ -298,6 +441,15 @@ export default function AdvertisementController() {
                 advertisementDetails={advertisementDetails}
                 settingModal={settingModal}
                 setSettingModal={setSettingModal}
+                onSearch={onSearch}
+                productList={productList}
+                publishOrRemoveAdFromProduct={publishOrRemoveAdFromProduct}
+                publisedProductIds={publisedProductIds}
+                publisedProductList={publisedProductList}
+                allSearch={allSearch}
+                onChangeHome={onChangeHome}
+                home={home}
+
             />
 
 

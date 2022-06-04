@@ -78,7 +78,6 @@ export default function ItemDetailsController() {
             if (getproductDetails.data.success === true) {
                 if (getproductDetails.data.data.length) {
                     mydata = getproductDetails.data.data[0]
-                    // console.log(mydata)
                     if (user.countryId && user.countryId > 0) {
                         if (mydata.campaignDetails.country_id !== user.countryId) {
                             navigate('/')

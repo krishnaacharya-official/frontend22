@@ -11,11 +11,13 @@ import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress } from "../../user/user.action"
+import advertisementApi from "../../Api/admin/advertisement";
 
 
 
 export default function HomeController() {
     const [productList, setProductList] = useState([])
+    const [advertisementList, setAdvertisementList] = useState([])
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
@@ -184,6 +186,16 @@ export default function HomeController() {
 
     }
 
+    const getHomePageAdList = async () => {
+        const adList = await advertisementApi.listHomeAd(token)
+        if (adList) {
+            if (adList.data.success === true) {
+                setAdvertisementList(adList.data.data)
+            }
+
+        }
+    }
+
 
 
 
@@ -215,6 +227,7 @@ export default function HomeController() {
             //         ...data
             //     })
             // }
+            await getHomePageAdList()
 
             const getCategoryList = await categoryApi.listCategory(token);
             if (getCategoryList.data.success === true) {
@@ -558,6 +571,7 @@ export default function HomeController() {
                 onChangeFilterOption={onChangeFilterOption}
                 onChangePriceSlider={onChangePriceSlider}
                 onSearchProduct={onSearchProduct}
+                advertisementList={advertisementList}
 
 
 
