@@ -5,8 +5,9 @@ import helper from "../../../../../Common/Helper";
 
 function ProjectSuggestionItem(props) {
   let project = props.project
+  // console.log(project)
   // console.log(project.imageDetails[0].image)
-  let imgUrl = helper.ProjectImagePath + project.imageDetails[0].image 
+  let imgUrl = project.imageDetails.length > 0 ? helper.ProjectImagePath + project.imageDetails[0].image :""
   // console.log(imgUrl)
 
   return (

@@ -4,7 +4,7 @@ import "./style.scss";
 
 function SuggestionWrapper(props) {
   return (
-    <div className="suggested__list-wrap py-2">
+    <div className="suggested__list-wrap py-2" style={{minHeight:"100px"}}>
       <Container fluid>
           {props.children}
       </Container>

@@ -55,6 +55,8 @@ function ProjectDetailMain(props) {
     return Math.round(per);
 
   }
+
+  // console.log(projectDetails)
   return (
     <div className="project__detail-main">
       <div className="mb-4">
@@ -171,8 +173,8 @@ function ProjectDetailMain(props) {
 
         </div>
         {
-          projectDetails.images && projectDetails.images.length > 0 &&
-          <ProjectGallery className="mb-3" title={false} images={projectDetails.images} tagTitle="Project" />
+          projectDetails?.images && projectDetails?.images.length > 0 &&
+          <ProjectGallery className="mb-3" title={false} images={projectDetails?.images} tagTitle="Project" />
 
         }
 

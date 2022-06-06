@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-
 import IconButton from "../icon-button";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
@@ -36,9 +35,7 @@ function HistoryItem({ active, ...otherProps }) {
   let date = type === "donation" ? item?.created_at : item?.orderDetails?.created_at
   let currencySymbol = type === "donation" ? item?.currencySymbol : item?.orderDetails?.currencySymbol
 
-
-
-
+  // console.log(avatar)
 
   return (
     <li
