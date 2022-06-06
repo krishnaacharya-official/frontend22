@@ -203,7 +203,7 @@ export default function HomeController() {
         (async () => {
 
             // function getLocation() {
-
+// console.log(user.xp)
             //   }
             setLoading(true)
             // const getproductList = await productApi.list(token);

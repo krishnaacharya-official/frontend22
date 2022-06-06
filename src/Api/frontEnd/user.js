@@ -5,7 +5,7 @@ function user() {
 
     const updateProfile = async (authToken, cdata) => {
 
-        
+
         const data = new FormData();
         data.append('name', cdata.name);
         data.append('street', cdata.street);
@@ -196,6 +196,31 @@ function user() {
     }
 
 
+    const userXpEarnlist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}user/xp`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+
 
     return {
         updateProfile,
@@ -204,7 +229,8 @@ function user() {
         getUserOrderDetails,
         userOrderItemslist,
         userTaxlist,
-        applyPartership
+        applyPartership,
+        userXpEarnlist
 
     }
 }

@@ -11,6 +11,7 @@ import cartApi from "../../Api/frontEnd/cart";
 import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
+import { setUserXp } from "../../user/user.action"
 
 
 
@@ -31,6 +32,7 @@ export default function ProjectDetailsController() {
     const [selectedValue, setSelectedValue] = useState(25);
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [donationList, setDonationList] = useState([])
+    const dispatch = useDispatch()
 
 
 
@@ -188,6 +190,7 @@ export default function ProjectDetailsController() {
             data.currency = user.currency
             data.currencySymbol = user.currencySymbol
             data.projectId = projectDetails._id
+            data.organizationId = projectDetails?.campaignDetails?._id
 
 
 
@@ -197,6 +200,9 @@ export default function ProjectDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: donateToProject.data.message, msgType: 'error' });
                 } else {
+                    let addXp = Number(selectedValue * 10)
+                    dispatch(setUserXp(user.xp + addXp))
+
                     ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
                     setLoading(false)
                     navigate('/')

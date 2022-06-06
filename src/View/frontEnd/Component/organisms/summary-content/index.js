@@ -70,7 +70,7 @@ const SummaryContent = (props) => {
           </div>
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
-            <span className="fw-bold text-info">246 xp</span>
+            <span className="fw-bold text-info">{props.xp} xp</span>
           </div>
         </div>
       </div>

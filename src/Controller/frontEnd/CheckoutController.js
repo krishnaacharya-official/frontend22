@@ -11,6 +11,7 @@ import { validateAll } from "indicative/validator";
 import settingApi from "../../Api/admin/setting";
 import helper, { getCalculatedPrice } from "../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
+import { setUserXp } from "../../user/user.action"
 
 
 export default function CheckoutController() {
@@ -20,9 +21,13 @@ export default function CheckoutController() {
     const [update, setIsUpdate] = useState(false)
     const [subtotal, setSubTotal] = useState(0)
     const [total, setTotal] = useState(0)
+    const [xp, setXp] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
     const currencySymbol = CalculatedPrice.currencySymbol()
     const getPricewithoutTax = CalculatedPrice.priceWithoutTax()
+    const [xpForeEachItem, setXpForeEachItem] = useState(0)
+    const dispatch = useDispatch()
+
 
 
     const user = useSelector((state) => state.user);
@@ -34,6 +39,22 @@ export default function CheckoutController() {
 
     // })
     // const { platformFee, transectionFee } = pricingFees
+
+
+    const getSettingsValue = async () => {
+        const getSettingsValue = await settingApi.list(userAuthToken, ['forEachItem']);
+        if (getSettingsValue.data.data.length > 0) {
+            let data = {}
+
+            getSettingsValue.data.data.map((d, i) => {
+                data[d.name] = d.value
+            })
+            // console.log(data.forEachItem)
+            setXpForeEachItem(Number(data.forEachItem))
+
+
+        }
+    }
 
     const params = useParams();
     const navigate = useNavigate();
@@ -70,6 +91,7 @@ export default function CheckoutController() {
                     navigate('/login')
                 }
             }
+            await getSettingsValue()
             let data = {}
             // const getSettingsValue = await settingApi.list(userAuthToken, Object.keys(pricingFees));
 
@@ -96,10 +118,11 @@ export default function CheckoutController() {
 
                 let tempPriceArray = []
                 let tempProductPriceArray = []
+                let ProductItems = [] // for count xp
 
                 if (getCartList.data.data.length > 0) {
                     getCartList.data.data.map((item, i) => {
-
+                        ProductItems.push(1 * item.quantity)
                         // let transectionFee = data.transectionFee
                         // let platformFee = data.platformFee
                         // let totalCharge = Number(transectionFee) + Number(platformFee)
@@ -115,6 +138,9 @@ export default function CheckoutController() {
 
                     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
                     let sumSubTotal = tempProductPriceArray.reduce(function (a, b) { return a + b; }, 0);
+
+                    let xpSum = ProductItems.reduce(function (a, b) { return a + b; }, 0);
+                    setXp(xpSum * xpForeEachItem)
                     setSubTotal(sumSubTotal)
                     // console.log("sum",sum)
                     setTotal(sum)
@@ -126,7 +152,7 @@ export default function CheckoutController() {
             setLoading(false)
 
         })()
-    }, [update, user.transectionFee])
+    }, [update, user.transectionFee, xpForeEachItem])
 
     const pay = async () => {
 
@@ -225,6 +251,8 @@ export default function CheckoutController() {
                     orderDetails.total = total
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
+                    orderDetails.xpToadd = xp
+
                     if (cartItem.find(e => e.productDetails.tax === true)) {
                         orderDetails.taxRecipt = true
                     } else {
@@ -237,6 +265,7 @@ export default function CheckoutController() {
                         setLoading(false)
                         ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'error' });
                     } else {
+                        dispatch(setUserXp(user.xp + xp))
                         const clearCart = await cartApi.clearCart(userAuthToken);
                         if (clearCart.data.success) {
                             navigate('/thankyou')
@@ -315,6 +344,7 @@ export default function CheckoutController() {
                 removeCartItem={removeCartItem}
                 CalculatedPrice={CalculatedPrice}
                 currencySymbol={currencySymbol}
+                xp={xp}
             // pricingFees={pricingFees}
 
             />

@@ -7,7 +7,7 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../../View/frontEnd/login";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp } from "../../user/user.action"
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 
@@ -115,7 +115,8 @@ function SigninController() {
                             } else {
 
                                 dispatch(setProfileImage(helper.DonorImageResizePath + uselogin.data.image))
-
+                                // console.log('xp',uselogin.data.xp)
+                                dispatch(setUserXp(uselogin.data.xp))
                                 // if(uselogin.data.country_id && uselogin.data.country_id !== "" && uselogin.data.country_id !==0  ){
                                 //     dispatch(setUserCountry(uselogin.data.country_id))
                                 // }else{
@@ -246,8 +247,8 @@ function SigninController() {
     return (
 
         <>
-        
-        {/* {console.log(user.countryId)} */}
+
+            {/* {console.log(user.countryId)} */}
             {/* <Signin
                 signIn={signIn}
                 changevalue={changevalue}

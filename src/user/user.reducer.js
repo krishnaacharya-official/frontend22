@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY,SET_USER_ADDRESS } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -87,6 +87,14 @@ const userReducer = (state = userInitialState, action) => {
                 zip: action.payload.zip,
                 area: action.payload.area
             }
+        case UPDATE_XP:
+
+            return {
+                ...state,
+                xp: action.payload
+
+            }
+
 
         case LOGOUT:
             localStorage.clear();
@@ -107,7 +115,8 @@ const userReducer = (state = userInitialState, action) => {
                 stateName: "",
                 cityName: "",
                 zip: "",
-                area: ""
+                area: "",
+                xp:0
 
             }
 
