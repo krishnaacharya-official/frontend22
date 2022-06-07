@@ -10,6 +10,8 @@ export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
 export const SET_USER_COUNTRY = "SET_USER_COUNTRY";
 export const SET_USER_ADDRESS = "SET_USER_ADDRESS";
 export const UPDATE_XP = "UPDATE_XP";
+export const UPDATE_RANK = "UPDATE_RANK";
+
 
 
 

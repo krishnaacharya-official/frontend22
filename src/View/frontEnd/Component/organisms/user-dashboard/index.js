@@ -15,7 +15,7 @@ import AreaChart from "../../../../../assets/images/area-chart.jpg"
 import BarChart from "../../../../../assets/images/bar-chart.jpg"
 import PieChart from "../../../../../assets/images/piechart.jpg"
 import { useSelector, useDispatch } from "react-redux";
-import helper,{priceFormat} from "../../../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 
 
 import { Col, Row, Button } from "react-bootstrap";
@@ -26,19 +26,22 @@ import "./style.scss";
 
 const UserDashboard = () => {
   const user = useSelector((state) => state.user);
-
+  const getC = getCalculatedPrice()
   return (
     <>
       <header className="d-none d-sm-flex py-2 mb-3 w-100 d-flex align-items-center border-bottom">
         <h1 className="page__title mb-0 fs-3 fw-bolder me-2">Dashboard</h1>
+        <span className="me-2">
+        {getC.getUserRank(user.xp)}
 
-        <IconButton
+        </span>
+        {/* <IconButton
           bgColor="#a278fc"
           className="btn__xs rounded-pill me-2"
           icon={<FontAwesomeIcon icon={solid("narwhal")} />}
         >
           Norwhal
-        </IconButton>
+        </IconButton> */}
         <span className="text-info fw-bold fs-5">{priceFormat(user.xp)} xp</span>
       </header>
       <div className="text-light text-center text-sm-left page__sub-title py-3 mb-12p">

@@ -4,7 +4,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import IconButton from "../icon-button";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
-import helper, { priceFormat } from "../../../../../Common/Helper";
+import helper, { priceFormat,getCalculatedPrice } from "../../../../../Common/Helper";
 import moment from "moment";
 
 import "./style.scss";
@@ -22,6 +22,7 @@ const defaultProps = {
 };
 
 function HistoryItem({ active, ...otherProps }) {
+  const getC = getCalculatedPrice()
   const sharedProps = {
     active,
     ...otherProps,
@@ -34,6 +35,7 @@ function HistoryItem({ active, ...otherProps }) {
   let amount = type === "donation" ? item?.amount : item?.orderDetails?.total
   let date = type === "donation" ? item?.created_at : item?.orderDetails?.created_at
   let currencySymbol = type === "donation" ? item?.currencySymbol : item?.orderDetails?.currencySymbol
+  let xp = type === "donation" ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp
 
   // console.log(avatar)
 
@@ -50,7 +52,7 @@ function HistoryItem({ active, ...otherProps }) {
             <span className="text-info fs-5">
               <FontAwesomeIcon icon={solid("badge-check")} />
             </span>
-            <IconButton
+            {/* <IconButton
               bgColor={sharedProps.categoryColor}
               className="btn__xs rounded-pill"
               icon={
@@ -58,7 +60,11 @@ function HistoryItem({ active, ...otherProps }) {
               }
             >
               {sharedProps.categoryName}
-            </IconButton>
+            </IconButton> */}
+            <span className="btn-sm">
+            {getC.getUserRank(xp)}
+
+            </span>
           </div>
           <div className="text-lighter fs-8">
             {

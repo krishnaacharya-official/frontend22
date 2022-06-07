@@ -8,7 +8,7 @@ import FollowingList from "../wishlist/index";
 import UserSettingsList from "./user-settings-list";
 import { Link } from "react-router-dom";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
-import helper from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style.scss";
@@ -21,7 +21,7 @@ const UserSettings = () => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const userAuthToken = localStorage.getItem('userAuthToken');
   const user = useSelector((state) => state.user);
-
+  const getC = getCalculatedPrice()
 
 
   const [state, setState] = useState({
@@ -107,14 +107,13 @@ const UserSettings = () => {
                     userData &&
                     <a
                       href="/leaderboard"
-                      className="btn btn__xs rounded-pill btn__purple ms-auto"
+                      className="btn btn__xs  ms-auto"
                     >
 
 
-                      <>
-                        <FontAwesomeIcon className="mr-3p" icon={solid("narwhal")} />
-                        <span className="text text__badge">Narwhal</span>
-                      </>
+                      <span className="mr-3p">
+                        {getC.getUserRank(user.xp) }
+                      </span>
 
                     </a>
                   }

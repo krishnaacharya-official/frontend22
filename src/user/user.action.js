@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP,UPDATE_RANK } from "./user.types"
 
 export const setCurrency = (data) => ({
     type: UPDATE_CURRENCY,
@@ -51,6 +51,12 @@ export const setUserAddress = (data) => ({
 });
 export const setUserXp = (val) => ({
     type: UPDATE_XP,
+    payload: val,
+});
+
+
+export const setUserRank = (val) => ({
+    type: UPDATE_RANK,
     payload: val,
 });
 

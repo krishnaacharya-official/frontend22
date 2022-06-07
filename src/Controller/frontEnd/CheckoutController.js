@@ -11,7 +11,8 @@ import { validateAll } from "indicative/validator";
 import settingApi from "../../Api/admin/setting";
 import helper, { getCalculatedPrice } from "../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserXp } from "../../user/user.action"
+import { setUserXp ,setUserRank} from "../../user/user.action"
+import userApi from "../../Api/frontEnd/user";
 
 
 export default function CheckoutController() {
@@ -28,7 +29,14 @@ export default function CheckoutController() {
     const [xpForeEachItem, setXpForeEachItem] = useState(0)
     const dispatch = useDispatch()
 
-
+    const getUserRank = async () => {
+        const getRank = await userApi.getUserRank(userAuthToken)
+        if (getRank) {
+            if (getRank.data.success) {
+                dispatch(setUserRank(getRank.data.rank))
+            }
+        }
+    }
 
     const user = useSelector((state) => state.user);
 
@@ -265,6 +273,7 @@ export default function CheckoutController() {
                         setLoading(false)
                         ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'error' });
                     } else {
+                        // await getUserRank()
                         dispatch(setUserXp(user.xp + xp))
                         const clearCart = await cartApi.clearCart(userAuthToken);
                         if (clearCart.data.success) {

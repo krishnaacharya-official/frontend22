@@ -11,7 +11,8 @@ import cartApi from "../../Api/frontEnd/cart";
 import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
-import { setUserXp } from "../../user/user.action"
+import { setUserXp,setUserRank } from "../../user/user.action"
+import userApi from "../../Api/frontEnd/user";
 
 
 
@@ -59,6 +60,16 @@ export default function OrganizationDetailsController() {
     } = state;
 
     const [cardNumberWithSpace, setCardNumberWithSpace] = useState("")
+
+
+    const getUserRank = async () => {
+        const getRank = await userApi.getUserRank(userAuthToken)
+        if (getRank) {
+            if (getRank.data.success) {
+                dispatch(setUserRank(getRank.data.rank))
+            }
+        }
+    }
 
 
     const changevalue = (e) => {
@@ -209,6 +220,9 @@ export default function OrganizationDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: donateToOrganization.data.message, msgType: 'error' });
                 } else {
+                    if(userAuthToken){
+                    //    await getUserRank()
+                    }
                     let addXp = Number(selectedValue * 10)
                     dispatch(setUserXp(user.xp + addXp))
                     ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });

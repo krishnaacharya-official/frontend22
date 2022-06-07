@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
-import helper, { priceFormat } from "../../../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 
 import "./style.scss";
 
@@ -31,7 +31,7 @@ const UserXp = () => {
   const [listBy, setListBy] = useState("ALL");
   const [urlIcon, seturlIcon] = useState("");
 
-
+  const getC = getCalculatedPrice()
 
 
 
@@ -111,14 +111,19 @@ const UserXp = () => {
           />
 
           <span className="fs-7 text-light mr-2">Your Rank</span>
-
-          <IconButton
+          <span className="ms-2">
+          {
+            getC.getUserRank(user.xp)
+          }
+          </span>
+         
+          {/* <IconButton
             bgColor="#a278fc"
             className="btn__xs rounded-pill ms-2"
             icon={<FontAwesomeIcon icon={solid("narwhal")} />}
           >
             Norwhal
-          </IconButton>
+          </IconButton> */}
           <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
             {priceFormat(user.xp)} xp
           </a>

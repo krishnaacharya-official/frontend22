@@ -16,7 +16,8 @@ const userInitialState = {
     cityName:"",
     zip:"",
     area:"",
-    xp:0
+    xp:0,
+    rank:""
 
 
 

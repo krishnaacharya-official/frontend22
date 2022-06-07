@@ -10,12 +10,16 @@ import ListItemImg from "../Component/atoms/list-item-img";
 import settingApi from "../../../Api/admin/setting"
 import FrontLoader from "../../../Common/FrontLoader"
 import "./style.scss";
+import { useSelector, useDispatch } from "react-redux";
+import helper, { priceFormat, getCalculatedPrice } from "../../../Common/Helper";
+import { Link } from "react-router-dom";
 
 const Ranks = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-
+  const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false)
+  const getC = getCalculatedPrice()
   const [state, setState] = useState({
     captian: "",
     admiral: "",
@@ -23,31 +27,31 @@ const Ranks = () => {
     narwhal: "",
     beluga: "",
     fish: "",
-})
-const { captian, admiral, pirate, narwhal, beluga, fish } = state
+  })
+  const { captian, admiral, pirate, narwhal, beluga, fish } = state
 
-useEffect(() => {
-  (async () => {
- 
+  useEffect(() => {
+    (async () => {
+
       setLoading(true)
-      const getSettingsValue = await settingApi.list(userAuthToken ?userAuthToken: CampaignAdminAuthToken, Object.keys(state));
+      const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
       if (getSettingsValue.data.data.length > 0) {
-          let data = {}
+        let data = {}
 
-          getSettingsValue.data.data.map((d, i) => {
-              data[d.name] = d.value
-          })
+        getSettingsValue.data.data.map((d, i) => {
+          data[d.name] = d.value
+        })
 
-          setState({
-              ...data
-          })
+        setState({
+          ...data
+        })
       }
       setLoading(false)
 
 
 
-  })()
-}, [])
+    })()
+  }, [])
   return (
     <>
       <FrontLoader loading={loading} />
@@ -56,23 +60,25 @@ useEffect(() => {
           <div className="d-flex align-items-center py-3 border-bottom">
             <Avatar
               size={35}
-              avatarUrl={AvatarImg}
+              avatarUrl={user.profileImage}
               border={0}
               shadow={false}
               className="mr-12p"
             />
 
             <span className="fs-7 text-light me-2">Your Rank</span>
-
-            <IconButton
+            {
+              getC.getUserRank(user.xp)
+            }
+            {/* <IconButton
               bgColor="#a278fc"
               className="btn__xs rounded-pill"
               icon={<FontAwesomeIcon icon={solid("narwhal")} />}
             >
               Norwhal
-            </IconButton>
+            </IconButton> */}
             <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-              3,340 xp
+              {priceFormat(user.xp)} xp
             </a>
           </div>
           <div className="py-20p">
@@ -80,9 +86,9 @@ useEffect(() => {
               <div className="mb-12p">
                 Learn how to earn XP through your interactions on Donorport
               </div>
-              <a href="/" className="text-dark fw-bolder">
+              <Link to="/xp" className="text-dark fw-bolder">
                 Earn XP
-              </a>
+              </Link>
             </div>
           </div>
 

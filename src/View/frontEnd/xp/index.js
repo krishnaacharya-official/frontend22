@@ -10,12 +10,15 @@ import IconButton from "../Component/molecules/icon-button";
 import ListItemImg from "../Component/atoms/list-item-img";
 import settingApi from "../../../Api/admin/setting"
 import FrontLoader from "../../../Common/FrontLoader"
+import { useSelector, useDispatch } from "react-redux";
+import helper, { priceFormat } from "../../../Common/Helper";
 
 import "./style.scss";
 
 const Xp = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const user = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
@@ -62,7 +65,7 @@ const Xp = () => {
           <div className="d-flex align-items-center py-3 border-bottom">
             <Avatar
               size={35}
-              avatarUrl={AvatarImg}
+              avatarUrl={user.profileImage}
               border={0}
               shadow={false}
               className="mr-12p"
@@ -78,7 +81,7 @@ const Xp = () => {
               Norwhal
             </IconButton>
             <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-              3,340 xp
+            { priceFormat(user.xp)} xp
             </a>
           </div>
           <div className="py-20p">

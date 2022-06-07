@@ -11,6 +11,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import settingApi from "../../Api/admin/setting";
 import { useSelector, useDispatch } from "react-redux";
 import { setFees, setIsUpdateCart } from "../../user/user.action";
+import { setSettings } from "../../user/setting.action";
 
 
 
@@ -33,6 +34,12 @@ export default function HeaderController() {
     const [pricingFees, setPricingFees] = useState({
         platformFee: 0,
         transectionFee: 0,
+        captian: "",
+        admiral: "",
+        pirate: "",
+        narwhal: "",
+        beluga: "",
+        fish: "",
 
     })
     const { platformFee, transectionFee } = pricingFees
@@ -68,26 +75,39 @@ export default function HeaderController() {
         (async () => {
             setLoading(true)
             if (token) {
-            const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
+                const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 
-            if (getSettingsValue.data.success) {
-                let data = {}
+                if (getSettingsValue.data.success) {
+                    let data = {}
 
-                getSettingsValue.data.data.map((d, i) => {
-                    data[d.name] = d.value
-                })
+                    getSettingsValue.data.data.map((d, i) => {
+                        data[d.name] = d.value
+                    })
 
-                setPricingFees({
-                    ...data
-                })
-                dispatch(setFees(data))
+                    setPricingFees({
+                        ...data
+                    })
+                    let feesData = {}
+                    feesData.platformFee = data.platformFee
+                    feesData.transectionFee = data.transectionFee
+                    dispatch(setFees(feesData))
 
-                // user.setTransectionFee(data.transectionFee)
-                // user.setPlatformFee(data.platformFee)
+                    let rankData = {}
+
+                    rankData.captian = data.captian
+                    rankData.admiral = data.admiral
+                    rankData.pirate = data.pirate
+                    rankData.narwhal = data.narwhal
+                    rankData.beluga = data.beluga
+                    rankData.fish = data.fish
+                    dispatch(setSettings(rankData))
+
+                    // user.setTransectionFee(data.transectionFee)
+                    // user.setPlatformFee(data.platformFee)
 
 
+                }
             }
-        }
             setLoading(false)
 
         })()

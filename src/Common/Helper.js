@@ -1,6 +1,9 @@
 import Permissions from './Permissions'
 import CryptoJS from 'crypto-js';
 import { useSelector, useDispatch } from "react-redux";
+import IconButton from "../View/frontEnd/Component/molecules/icon-button"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 let Mode = "production"
 // let BASE_URL = 'https://donorport.herokuapp.com/'
@@ -135,6 +138,8 @@ export function decryptData(val) {
 export function getCalculatedPrice() {
 
     const user = useSelector((state) => state.user);
+    const setting = useSelector((state) => state.setting);
+
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     // console.log('first', user.pricePerCurrency)
 
@@ -202,11 +207,208 @@ export function getCalculatedPrice() {
     }
 
 
+    // const getUserRank = () => {
+
+    //     let rank;
+    //     switch (user.rank) {
+    //         case 'fish':
+
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
+    //                     className="rounded-pill"
+    //                     icon={<FontAwesomeIcon icon={solid("fish")} />}
+    //                 >
+    //                     Fish
+    //                 </IconButton>)
+    //             break;
+
+    //         case 'beluga':
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="#78bafc"
+    //                     className="rounded-pill"
+    //                     icon={<FontAwesomeIcon icon={solid("whale")} />}
+    //                 >
+    //                     Beluga
+    //                 </IconButton>
+    //             )
+    //             break;
+
+    //         case 'narwhal':
+
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="#a278fc"
+    //                     className="rounded-pill me-2"
+    //                     icon={<FontAwesomeIcon icon={solid("narwhal")} />}
+    //                 >
+    //                     Narwhal
+    //                 </IconButton>
+    //             )
+
+    //             break;
+
+    //         case 'pirate':
+
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="#fc8c63"
+    //                     className="rounded-pill"
+    //                     icon={<FontAwesomeIcon icon={solid("swords")} />}
+    //                 >
+    //                     Pirate
+    //                 </IconButton>
+    //             )
+    //             break;
+
+    //         case 'admiral':
+
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="#95dbb0"
+    //                     className="rounded-pill"
+    //                     icon={<FontAwesomeIcon icon={solid("ship")} />}
+    //                 >
+    //                     Admiral
+    //                 </IconButton>
+    //             )
+
+    //             break;
+
+    //         case 'captian':
+
+    //             rank = (
+    //                 <IconButton
+    //                     bgColor="#000"
+    //                     className="rounded-pill"
+    //                     icon={<FontAwesomeIcon icon={solid("anchor")} />}
+    //                 >
+    //                     Captain
+    //                 </IconButton>
+    //             )
+    //             break;
+    //         default:
+    //             <>
+    //             </>
+    //             break;
+
+    //     }
+    //     return rank;
+
+    // }
+
+    const getUserRank = (UserXp) => {
+
+
+        const captian = setting.captian && setting.captian !== "" ? Number(setting.captian) : 100000
+        const admiral = setting.admiral && setting.admiral !== "" ? Number(setting.admiral) : 10000
+        const pirate = setting.pirate && setting.pirate !== "" ? Number(setting.pirate) : 5000
+        const narwhal = setting.narwhal && setting.narwhal !== "" ? Number(setting.narwhal) : 2500
+        const beluga = setting.beluga && setting.beluga !== "" ? Number(setting.beluga) : 1000
+        const fish = setting.fish && setting.fish !== "" ? Number(setting.fish) : 500
+        let rank;
+
+
+        switch (true) {
+
+            case (UserXp < fish):
+                rank = <></>
+                break;
+
+            case (UserXp >= fish && UserXp < beluga):
+                rank = (
+                    <IconButton
+                        bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
+                        className="rounded-pill"
+                        icon={<FontAwesomeIcon icon={solid("fish")} />}
+                    >
+                        Fish
+                    </IconButton>)
+
+                break;
+
+            case (UserXp >= beluga && UserXp < narwhal):
+                rank = (
+                    <IconButton
+                        bgColor="#78bafc"
+                        className="rounded-pill"
+                        icon={<FontAwesomeIcon icon={solid("whale")} />}
+                    >
+                        Beluga
+                    </IconButton>
+                )
+
+                break;
+
+            case (UserXp >= narwhal && UserXp < pirate):
+                rank = (
+                    <IconButton
+                        bgColor="#a278fc"
+                        className="rounded-pill me-2"
+                        icon={<FontAwesomeIcon icon={solid("narwhal")} />}
+                    >
+                        Narwhal
+                    </IconButton>
+                )
+
+                break;
+
+            case (UserXp >= pirate && UserXp < admiral):
+                rank = (
+                    <IconButton
+                        bgColor="#fc8c63"
+                        className="rounded-pill"
+                        icon={<FontAwesomeIcon icon={solid("swords")} />}
+                    >
+                        Pirate
+                    </IconButton>
+                )
+
+                break;
+
+            case (UserXp >= admiral && UserXp < captian):
+                rank = (
+                    <IconButton
+                        bgColor="#95dbb0"
+                        className="rounded-pill"
+                        icon={<FontAwesomeIcon icon={solid("ship")} />}
+                    >
+                        Admiral
+                    </IconButton>
+                )
+
+
+                break;
+
+            case (UserXp >= captian):
+                rank = (
+                    <IconButton
+                        bgColor="#000"
+                        className="rounded-pill"
+                        icon={<FontAwesomeIcon icon={solid("anchor")} />}
+                    >
+                        Captain
+                    </IconButton>
+                )
+
+                break;
+                default:
+                    <></>
+                break;
+
+
+        }
+        return rank
+    }
+
+
     return {
         getData,
         currencySymbol,
         priceWithoutTax,
-        priceWithTax
+        priceWithTax,
+        getUserRank
     }
 }
 
