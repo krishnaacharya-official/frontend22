@@ -66,11 +66,13 @@ export default function Index(props) {
             name: "Actions",
             cell: (row) => <>
                 <button className="btn btn-danger btn-sm" onClick={(e) => props.deleteCampaignAdmin(row._id)}><Icon icon={trash} /></button>&nbsp;
-                <button className="btn btn-sm btn-primary" onClick={() => props.getUserRecord(row)}><Icon icon={editfill} /></button>
+                <button className="btn btn-sm btn-primary" onClick={() => props.getUserRecord(row)}><Icon icon={editfill} /></button>&nbsp;
+                <button className="btn btn-sm btn-info" onClick={() => props.payoutToAdmin(row)}><Icon icon='material-symbols:payments-outline-sharp' /></button>
+
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
-            button: true,
+            // button: true,
         },
     ];
     const data = [];

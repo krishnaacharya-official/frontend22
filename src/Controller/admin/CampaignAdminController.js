@@ -11,6 +11,7 @@ import { fa } from "faker/lib/locales";
 import categoryApi from "../../Api/admin/category";
 import authApi from "../../Api/admin/auth";
 import { hasPermission } from "../../Common/Helper";
+import Payout from "../../View/admin/CampaignAdmin/Payout";
 
 
 function CampaignAdminController() {
@@ -22,6 +23,10 @@ function CampaignAdminController() {
     const [Img, setImg] = useState('')
     const [categoryList, setCategoryList] = useState([])
     const [campaignAdminList, setCampaignAdminList] = useState([])
+    const [payoutModal, setPayoutModal] = useState(false)
+    const [organizationDetails, setOrganizationDetails] = useState({})
+
+
     const [state, setState] = useState({
         id: "",
         name: "",
@@ -531,6 +536,10 @@ function CampaignAdminController() {
 
 
     }
+    const payoutToAdmin = async (data) => {
+        setPayoutModal(true)
+        setOrganizationDetails(data)
+    }
 
 
     return (
@@ -557,8 +566,10 @@ function CampaignAdminController() {
                 setOpenModal={setOpenModal}
                 deleteCampaignAdmin={deleteCampaignAdmin}
                 getUserRecord={getUserRecord}
+                payoutToAdmin={payoutToAdmin}
 
             />
+            <Payout payoutModal={payoutModal} setPayoutModal={setPayoutModal} organizationDetails={organizationDetails} />
         </>
     )
 

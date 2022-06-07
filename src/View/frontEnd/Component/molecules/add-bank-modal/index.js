@@ -228,7 +228,7 @@ const AddBankModal = (props) => {
             orientation="vertical"
             variant="scrollable"
             value={value}
-            onChange={handleChange}
+            // onChange={handleChange}
             aria-label="Vertical tabs example"
             sx={{ borderRight: 1, borderColor: 'divider' }}
           >
