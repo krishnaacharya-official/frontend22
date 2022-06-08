@@ -25,6 +25,9 @@ function CampaignAdminController() {
     const [campaignAdminList, setCampaignAdminList] = useState([])
     const [payoutModal, setPayoutModal] = useState(false)
     const [organizationDetails, setOrganizationDetails] = useState({})
+    const [bankDetails, setBankDetailsDetails] = useState({})
+    const [orgTransectionHistory, setOrgTransectionHistory] = useState([])
+
 
 
     const [state, setState] = useState({
@@ -47,11 +50,15 @@ function CampaignAdminController() {
         slug: "",
         headline: "",
         promoVideo: "",
-        status: 1
+        status: 1,
+        account: "",
+        amount: ""
+
+
     })
 
     const {
-        name, error, email, promoVideo, slug, password, id, status, headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo
+        name, error, email, promoVideo, slug, password, id, status, headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo, amount
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -474,7 +481,6 @@ function CampaignAdminController() {
 
     const changevalue = async (e) => {
         let value = e.target.value;
-
         if (e.target.name === "country") {
             setLoading(true)
             const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
@@ -527,6 +533,9 @@ function CampaignAdminController() {
             }
 
         } else {
+            if (e.target.name === 'amount') {
+                value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+            }
             setState({
                 ...state,
                 [e.target.name]: value
@@ -537,8 +546,118 @@ function CampaignAdminController() {
 
     }
     const payoutToAdmin = async (data) => {
+        await transectionHistory(data._id)
         setPayoutModal(true)
         setOrganizationDetails(data)
+        setBankDetailsDetails({})
+        setState({
+            ...state,
+            account: '',
+            amount: '',
+            error: [],
+
+
+        })
+    }
+
+    const onSelectBank = async (e, data) => {
+        setBankDetailsDetails(data)
+        setState({
+            ...state,
+            account: e.target.value
+        })
+
+    }
+
+    const payToOrganization = () => {
+
+        const rules = {
+            account: "required",
+            amount: "required",
+        }
+
+        const message = {
+            'account.required': 'Please select account.',
+            'amount.required': 'Please Enter amount to pay.',
+        }
+
+        validateAll(state, rules, message).then(async () => {
+            const formaerrror = {};
+            setState({
+                ...state,
+                error: formaerrror
+            })
+            if (Number(amount) > organizationDetails?.organizationaccount?.pending_amount) {
+                ToastAlert({ msg: 'Amount can not be bigger then Payable amount', msgType: 'info' });
+
+            } else {
+                let data = {}
+                data.organizationId = organizationDetails._id
+                data.amount = Number(amount)
+                data.accountId = bankDetails.stripeAccountId
+
+
+                setLoading(true)
+                const pay = await adminCampaignApi.payToCampaignAdmin(adminAuthToken, data)
+                if (pay) {
+                    if (!pay.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: pay.data.message, msgType: 'error' });
+                    } else {
+                        setUpdate(!update)
+                        setLoading(false)
+                        ToastAlert({ msg: pay.data.message, msgType: 'success' });
+                        setPayoutModal(false)
+                        // resetForm()
+
+                    }
+
+                } else {
+                    setLoading(false)
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
+
+            }
+
+
+        }).catch(errors => {
+
+            setLoading(false)
+            const formaerrror = {};
+            if (errors.length) {
+                errors.forEach(element => {
+                    formaerrror[element.field] = element.message
+                });
+            } else {
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
+
+            setState({
+                ...state,
+                error: formaerrror
+            })
+
+        });
+
+    }
+
+    const transectionHistory = async (organizationId) => {
+        let data = {}
+        data.organizationId = organizationId
+        const history = await adminCampaignApi.CampaignAdminPayHistory(adminAuthToken, data)
+        if (history) {
+            if (!history.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: history.data.message, msgType: 'error' });
+            } else {
+                setOrgTransectionHistory(history.data.data)
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+
     }
 
 
@@ -569,7 +688,8 @@ function CampaignAdminController() {
                 payoutToAdmin={payoutToAdmin}
 
             />
-            <Payout payoutModal={payoutModal} setPayoutModal={setPayoutModal} organizationDetails={organizationDetails} />
+
+            <Payout payoutModal={payoutModal} setPayoutModal={setPayoutModal} organizationDetails={organizationDetails} stateData={state} onSelectBank={onSelectBank} payToOrganization={payToOrganization} changevalue={changevalue} orgTransectionHistory={orgTransectionHistory} />
         </>
     )
 

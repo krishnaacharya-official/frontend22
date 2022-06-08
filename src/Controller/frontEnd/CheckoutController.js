@@ -118,6 +118,7 @@ export default function CheckoutController() {
 
 
             // }
+        
 
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
@@ -242,6 +243,8 @@ export default function CheckoutController() {
                             tempObj.postTag = item.productDetails.postTag
                             tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
                             tempObj.organizationId = item.productDetails.organizationId
+                            tempObj.organizationCountryId = item.productDetails?.organizationDetails?.country_id
+
 
                             productDetails.push(tempObj)
                         })
@@ -340,9 +343,11 @@ export default function CheckoutController() {
         }
     }
 
+   
+
     return (
         <>
-            {/* {console.log(total)} */}
+            {/* {console.log(cartItem)} */}
             <FrontLoader loading={loading} />
             <Checkout
                 cartItem={cartItem}

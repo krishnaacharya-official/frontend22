@@ -23,6 +23,7 @@ const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
   const [bankAccountList, setBankAccountList] = useState([]);
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(false)
   const [defaultCountry, setDefaultCountry] = useState([])
@@ -561,6 +562,7 @@ const PaymentMethod = () => {
         data.identityDocumentType = identity
         data.identityDocumentImage = identityDocumentImage
         data.status = status
+        data.countryId = CampaignAdmin.country_id
 
 
         const addBank = await adminCampaignApi.addBankAccount(CampaignAdminAuthToken, data)
@@ -613,6 +615,7 @@ const PaymentMethod = () => {
 
   return (
     <>
+
       <FrontLoader loading={loading} />
       <div className="mw-600">
         <div className="mb-5">
@@ -777,7 +780,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 USD Coin
               </span>
-              <ToggleSwitch checked={true} changevalue={() => {}}/>
+              <ToggleSwitch checked={true} changevalue={() => { }} />
             </li>
             <li className="list__item d-flex align-items-center py-1">
               <span className="crypto__icon">
@@ -790,7 +793,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 Bitcoin
               </span>
-              <ToggleSwitch checked={false} changevalue={() => {}}/>
+              <ToggleSwitch checked={false} changevalue={() => { }} />
             </li>
             <li className="list__item d-flex align-items-center py-1">
               <span className="crypto__icon">
@@ -803,7 +806,7 @@ const PaymentMethod = () => {
               <span className="fs-5 fw-semibold text-subtext flex__1">
                 Ethereum
               </span>
-              <ToggleSwitch checked={false} changevalue={() => {}}/>
+              <ToggleSwitch checked={false} changevalue={() => { }} />
             </li>
           </ul>
         </div>

@@ -392,6 +392,8 @@ function adminCampaign() {
         data.append('identityDocumentType', fromdata.identityDocumentType);
         data.append('identityDocumentImage', fromdata.identityDocumentImage);
         data.append('status', fromdata.status);
+        data.append('countryId', fromdata.countryId);
+
 
 
         let res = {};
@@ -485,6 +487,48 @@ function adminCampaign() {
         });
         return res;
     }
+    const payToCampaignAdmin = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}campaign_admin/payout`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+    const CampaignAdminPayHistory = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}campaign_admin/payout/list`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
 
 
     return {
@@ -503,7 +547,9 @@ function adminCampaign() {
         addBankAccount,
         listBankAccount,
         deleteBankAccount,
-        activityList
+        activityList,
+        payToCampaignAdmin,
+        CampaignAdminPayHistory
 
     }
 }
