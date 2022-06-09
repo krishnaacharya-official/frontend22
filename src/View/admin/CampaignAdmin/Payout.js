@@ -125,7 +125,7 @@ const Payout = (props) => {
 
     const columns = [
 
-        // { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+        { id: 'name', name: "Account Holder", selector: "bankDetails.accountHolderName", sortable: true },
 
         // { id: 'orgName', name: "Organization", selector: "organizationDetails.name", sortable: true },
 
@@ -176,9 +176,9 @@ const Payout = (props) => {
             id: 'transactionid',
             name: "Transection Id",
             cell: (row) => <>
-      
-                    {row.transactionId}
-           
+
+                {row.transactionId}
+
 
             </>,
             ignoreRowClick: true,
@@ -276,28 +276,15 @@ const Payout = (props) => {
                             <TabContainer style={{ width: "100%" }} >
 
                                 <div className="row">
-                                    {/* <div className="col-md-6 col-lg-3 col-xl">
-                                        <div className="card">
-                                            <div className="card-body" style={cardBody}>
-                                                <div className="row">
-                                                    <div className="col mt-0">
-                                                        <h5 className="card-title">Total Products</h5>
-                                                   
-                                                    </div>
-                                                    <div className="col-auto">
-                                                        <div className="avatar" style={avatar}>
-                                                            <div className="avatar-title rounded-circle">
-                                                          
-                                                                <img src={helper.CampaignAdminLogoPath + organizationDetails.logo} alt='sponsor' />
-                                                            </div>
+                                    <div className="col-md-6 col-lg-4 col-xl">
+                                        <div className="card shadow" style={{ minHeight: "100%" }}>
+                                            <div className="card-body" style={{ ...cardBody, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                <img src={helper.CampaignAdminLogoPath + organizationDetails.logo} alt='sponsor' style={{ width: "100px" }} />
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <h1 className="display-5 mt-1 mb-3">3</h1>
+                                                {/* <h1 className="display-5 mt-1 mb-3">3</h1> */}
                                             </div>
                                         </div>
-                                    </div> */}
+                                    </div>
                                     {/* <div className="col-md-6 col-lg-3 col-xl">
                                         <div className="card">
                                             <div className="card-body" style={cardBody}>
@@ -321,8 +308,8 @@ const Payout = (props) => {
                                             </div>
                                         </div>
                                     </div> */}
-                                    <div className="col-md-6 col-lg-6 col-xl">
-                                        <div className="card">
+                                    <div className="col-md-6 col-lg-4 col-xl">
+                                        <div className="card shadow">
                                             <div className="card-body" style={cardBody}>
                                                 <div className="row">
                                                     <div className="col mt-0">
@@ -341,8 +328,8 @@ const Payout = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-lg-6 col-xl">
-                                        <div className="card">
+                                    <div className="col-md-6 col-lg-4 col-xl">
+                                        <div className="card shadow">
                                             <div className="card-body" style={cardBody}>
                                                 <div className="row">
                                                     <div className="col mt-0">

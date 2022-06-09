@@ -55,13 +55,13 @@ const ItemsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"500px",minHeight:"500px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "500px", minHeight: "500px" }}>
           {
             orderItemList.length > 0 &&
             orderItemList.map((item, key) => {
               // console.log(item)
-          // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
-          let price =priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
+              // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
+              let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
 
               return (
                 <li className="table__list-item p-2" key={key} >
@@ -72,7 +72,7 @@ const ItemsTable = (props) => {
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start"
                     >
                       <div className="me-2">
-                        <div className="text-success fw-bold fs-5">${price}</div>
+                        <div className="text-success fw-bold fs-5">{calculatedPrice.currencySymbol()}{price}</div>
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>
                       <div className="position-relative">
@@ -80,7 +80,7 @@ const ItemsTable = (props) => {
                         <span className="badge list__img-badge" style={{ position: "absolute" }}>{item.quantity}</span>
                       </div>
                       <div className="ms-2">
-                        <div className="fw-bolder fs-5 mb-3p" style={{maxWidth:"300px",minWidth:"300px"}}>{item.itemDetails?.headline}</div>
+                        <div className="fw-bolder fs-5 mb-3p" style={{ maxWidth: "300px", minWidth: "300px" }}>{item.itemDetails?.headline}</div>
                         <div className="fs-7 text-light">{item.itemDetails?.brand}</div>
                       </div>
                     </Button>
@@ -92,10 +92,10 @@ const ItemsTable = (props) => {
                           </span>
                           <ProgressBar
                             variant="success"
-                            now={item.itemDetails?.soldout / item.itemDetails?.quantity * 100}
+                            now={Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}
                             className="flex-grow-1"
                           />
-                          <span className="text-light ms-1 fw-bold">{item.itemDetails?.soldout / item.itemDetails?.quantity * 100}%</span>
+                          <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
                         </div>
                         <Button
                           variant="link"

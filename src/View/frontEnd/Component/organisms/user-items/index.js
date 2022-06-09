@@ -39,6 +39,8 @@ const UserItems = () => {
   const [order, setOrder] = useState("asc");
   const [orderItemList, setOrderItemList] = useState([])
   const calculatedPrice = getCalculatedPrice()
+  const [totalPurchase, setTotalPurchase] = useState(0)
+
 
   const getOrderItemList = async (page, field, type) => {
     setLoading(true)
@@ -56,6 +58,17 @@ const UserItems = () => {
       setOrderItemList(getOrderItem.data.data)
       setTotalPages(getOrderItem.data.totalPages)
       setTotalRecord(getOrderItem.data.totalRecord)
+      // if (getOrderItem.data.data.length > 0) {
+      //   let tempPriceArray = []
+      //   getOrderItem.data.data.map((item, i) => {
+      //     let purchasedPrice = (Math.round(calculatedPrice.priceWithTax(Number(item.productPrice))))
+      //     tempPriceArray.push(purchasedPrice)
+      //   })
+      //   let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
+      setTotalPurchase(priceFormat(Math.round(calculatedPrice.priceWithTax(Number(getOrderItem.data.totalPurchase)))))
+      // }
+
+
     }
     setLoading(false)
 
@@ -109,12 +122,12 @@ const UserItems = () => {
                 icon={solid("money-bills-simple")}
                 className="text-dark mr-12p fs-4"
               />
-              USD $1,309.00
+              {calculatedPrice.currencySymbol()}{totalPurchase}
             </span>
 
-            <div className="ms-sm-auto">
+            {/* <div className="ms-sm-auto">
               <LadderMenuItems />
-            </div>
+            </div> */}
           </header>
 
           <ItemsTable
@@ -173,10 +186,10 @@ const UserItems = () => {
                       </span>
                       <ProgressBar
                         variant="success"
-                        now={item.itemDetails?.soldout / item.itemDetails?.quantity * 100}
+                        now={Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}
                         className="flex-grow-1"
                       />
-                      <span className="text-light ms-1 fw-bold">{item.itemDetails?.soldout / item.itemDetails?.quantity * 100}%</span>
+                      <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
                     </div>
                   </div>
                 </div>
@@ -207,7 +220,7 @@ const UserItems = () => {
                     <h5 className="project__detail-sublabel">Product</h5>
                     <div className="project__detail-subtitle mb-12p">Eureka ™</div>
                     <div className="project__detail-price fs-2 text-success">
-                      $ {price}
+                      {calculatedPrice.currencySymbol()} {price}
                     </div>
                     <div className="project__detail-meta d-flex align-items-center mb-4">
                       <div className="d-flex align-items-center">
@@ -276,7 +289,7 @@ const UserItems = () => {
                       </div>
                       <div className="ms-2 flex__1 fw-bolder">
                         <div className="mb-3p">{item.itemDetails?.headline}</div>
-                        <div className="text-success ">{item.currencySymbol ? item.currencySymbol :"$" }{priceFormat(purchasedPrice)}</div>
+                        <div className="text-success ">{item.currencySymbol ? item.currencySymbol : "$"}{priceFormat(purchasedPrice)}</div>
                       </div>
                       <div>
                         qty <span className="fw-bolder ml-3p">{item.quantity}</span>
@@ -286,7 +299,7 @@ const UserItems = () => {
                     <div className="py-3 border-top border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">Subtotal:</span>
-                        <span className="text-success">{item.currencySymbol ? item.currencySymbol :"$"} {priceFormat(Number(purchasedPrice)*Number(item.quantity))}</span>
+                        <span className="text-success">{item.currencySymbol ? item.currencySymbol : "$"} {priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
                       </div>
                       <div className="d-flex align-items-center ">
                         <span className="fw-bolder flex__1">XP</span>
@@ -295,7 +308,7 @@ const UserItems = () => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">{item.currencySymbol ? item.currencySymbol :"$"} {priceFormat(Number(purchasedPrice)*Number(item.quantity))}</span>
+                      <span className="text-success fw-bold fs-4">{item.currencySymbol ? item.currencySymbol : "$"} {priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
                     </div>
                     <div className="bg-lighter d-flex align-items-center p-20p rounded">
                       <div className="order__logo me-2">
