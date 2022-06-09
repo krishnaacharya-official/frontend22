@@ -200,9 +200,9 @@ export function getCalculatedPrice() {
     const currencySymbol = () => {
 
         let currencySymbol = '$'
-        if (!CampaignAdminAuthToken) {
+        // if (!CampaignAdminAuthToken) {
             currencySymbol = user.currencySymbol
-        }
+        // }
         return currencySymbol
     }
 

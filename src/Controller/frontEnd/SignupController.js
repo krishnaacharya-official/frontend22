@@ -6,12 +6,17 @@ import ToastAlert from "../../Common/ToastAlert";
 import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Register from "../../View/frontEnd/register";
+import locationApi from "../../Api/frontEnd/location";
+
 
 function SignupController() {
 
     const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showCPassword, setShowCPassword] = useState(false)
+    const [countryList, setCountryList] = useState([])
+    const [defaultCountry, setDefaultCountry] = useState([])
+
 
     const [state, setstate] = useState({
         // username: "",
@@ -19,21 +24,61 @@ function SignupController() {
         email: "",
         password: "",
         cpassword: "",
-        // role: "",
+        country: "",
         error: [],
     })
     const navigate = useNavigate();
 
     const {
-        username, name, error, email, password, role, cpassword,
+        username, name, error, email, password, cpassword, country
     } = state;
 
+
+    const getCountryList = async () => {
+        let tempArray = []
+        const getCountryList = await locationApi.countryList();
+        if (getCountryList) {
+            if (getCountryList.data.success) {
+                if (getCountryList.data.data.length > 0) {
+                    getCountryList.data.data.map((country, i) => {
+                        let Obj = {}
+                        Obj.value = country.id
+                        Obj.label = country.country
+                        tempArray.push(Obj)
+
+
+                    })
+                    setCountryList(tempArray)
+                }
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        (async () => {
+            await getCountryList()
+        })()
+
+    }, [])
+
+    const onChangeCountry = (e) => {
+        setstate({
+            ...state,
+            country: e.value,
+
+        })
+        setDefaultCountry(e)
+    }
+
     const signUp = () => {
+
         const rules = {
             name: "required",
             email: 'required|email',
             password: 'required|min:6',
             cpassword: 'required|same:password',
+            country: 'required',
 
         }
 
@@ -45,7 +90,7 @@ function SignupController() {
             'password.required': 'Password is Required.',
             'cpassword.required': 'Confirm Password is Required.',
             'cpassword.same': 'Password and Confirm Password Must be Same',
-    
+            'country.required': 'Please Select Country.',
 
         }
         validateAll(state, rules, message).then(async () => {
@@ -58,6 +103,8 @@ function SignupController() {
             data.name = name
             data.email = email
             data.password = password
+            data.country_id = Number(country)
+
 
             setLoading(true)
             const userSignup = await userAuthApi.register(data)
@@ -118,7 +165,8 @@ function SignupController() {
     }
     return (
         <>
-            {/* <SignUp
+
+            <Register
                 stateData={state}
                 changevalue={changevalue}
                 signUp={signUp}
@@ -126,15 +174,10 @@ function SignupController() {
                 setShowPassword={setShowPassword}
                 showCPassword={showCPassword}
                 setShowCPassword={setShowCPassword}
-            /> */}
-            <Register
-               stateData={state}
-               changevalue={changevalue}
-               signUp={signUp}
-               showPassword={showPassword}
-               setShowPassword={setShowPassword}
-               showCPassword={showCPassword}
-               setShowCPassword={setShowCPassword}
+                countryList={countryList}
+                defaultCountry={defaultCountry}
+                onChangeCountry={onChangeCountry}
+
             />
             <FrontLoader loading={loading} />
 

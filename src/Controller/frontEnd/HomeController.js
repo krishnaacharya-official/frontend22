@@ -97,8 +97,13 @@ export default function HomeController() {
             if (userAuthToken) {
                 if (userData.country_id && userData.country_id !== null && userData.country_id > 0) {
                     dispatch(setUserCountry(userData.country_id))
+                    let currencyData = {}
+                    currencyData.currency = userData.currency
+                    currencyData.currencySymbol = userData.symbol
+                    dispatch(setCurrency(currencyData))
                 } else {
-                    dispatch(setUserCountry(0))
+                    dispatch(setUserCountry(233))
+
 
                 }
 
@@ -106,7 +111,7 @@ export default function HomeController() {
                 if (CampaignAdmin.country_id && CampaignAdmin.country_id !== null && CampaignAdmin.country_id > 0) {
                     dispatch(setUserCountry(CampaignAdmin.country_id))
                 } else {
-                    dispatch(setUserCountry(0))
+                    dispatch(setUserCountry(233))
 
                 }
 
@@ -138,15 +143,6 @@ export default function HomeController() {
                     tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
                     dispatch(setUserAddress(tempObj))
 
-                    // setAddress({
-                    //     ...address,
-                    //     stateName: jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name,
-                    //     zip: jsObjects.find(settings => settings.types[0] === 'postal_code').long_name,
-                    //     cityName: jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name,
-                    //     area: jsObjects.find(settings => settings.types[0] === 'route').long_name,
-                    //     countryName: jsObjects.find(settings => settings.types[0] === 'country').long_name,
-                    // })
-
                     jsObjects.filter(async obj => {
                         let tempObj = {}
 
@@ -166,6 +162,11 @@ export default function HomeController() {
                             if (getCountryData) {
                                 if (getCountryData.data.success) {
                                     dispatch(setUserCountry(getCountryData.data.data.id))
+
+                                    let currencyData = {}
+                                    currencyData.currency = getCountryData.data.data.currency
+                                    currencyData.currencySymbol = getCountryData.data.data.symbol
+                                    dispatch(setCurrency(currencyData))
 
                                 }
                             }
@@ -203,7 +204,7 @@ export default function HomeController() {
         (async () => {
 
             // function getLocation() {
-// console.log(user.xp)
+            // console.log(user.xp)
             //   }
             setLoading(true)
             // const getproductList = await productApi.list(token);

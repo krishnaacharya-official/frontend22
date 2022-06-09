@@ -8,11 +8,14 @@ import { Link } from 'react-router-dom';
 
 import Logo from '../Component/atoms/logo';
 import Footer from '../Component/organisms/footer';
+import Select from "react-select"
 
 import "./style.scss";
 
 const Register = (props) => {
   let stateData = props.stateData;
+  const countryList = props.countryList
+
 
   const [showPassword, togglePassword] = useState(false);
   return (
@@ -73,6 +76,28 @@ const Register = (props) => {
               <form className="login__form">
                 <div className="login-header">Sign Up</div>
                 <div className="mb-3">
+
+                  <div className="input__wrap d-flex">
+                    {/* <label className="input__label flex__1"> */}
+                    {/* <input type="text" value='' /> */}
+                    {/* {countrySelect.current} */}
+                    <Select
+                      className="basic-single"
+                      // classNamePrefix="select"
+                      value={props.defaultCountry}
+                      name="country"
+                      options={countryList}
+                      onChange={props.onChangeCountry}
+                      placeholder="Select Country"
+                    />
+                    {/* <span className="input__span">Country</span>
+                    </label> */}
+                  </div>
+                </div>
+
+                <div className="mb-3">
+
+                  {stateData.error && stateData.error.country && <p className="error">{stateData.error.country}</p>}
                   <input type="text" className="form-control" name="name" id="name" value={stateData.name} onChange={(e) => props.changevalue(e)} placeholder="Name" />
                   {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                 </div>
@@ -112,7 +137,7 @@ const Register = (props) => {
                 <InputGroup className="input-group__alpha mt-3 ">
                   <FormControl
                     // type={!showPassword ? "password" : "text"}
-                   type={!props.showCPassword ? "password" : "text"}
+                    type={!props.showCPassword ? "password" : "text"}
                     placeholder="Confirm Password"
                     className="bg-white pl-12p"
                     name="cpassword"

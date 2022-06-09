@@ -114,7 +114,8 @@ const userReducer = (state = userInitialState, action) => {
                 isUpdateUserDetails: false,
                 transectionFee: 0,
                 platformFee: 0,
-                currencySymbol: '$',
+                currency: '',
+                currencySymbol: '',
                 userLanguage: 'english',
                 pricePerCurrency: 0,
                 profileImage: "",
@@ -125,7 +126,7 @@ const userReducer = (state = userInitialState, action) => {
                 zip: "",
                 area: "",
                 xp: 0,
-                rank:""
+                rank: ""
 
             }
 

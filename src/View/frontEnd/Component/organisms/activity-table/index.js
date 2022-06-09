@@ -10,7 +10,7 @@ import "./style.scss";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg"
 import ListItemImg from "../../atoms/list-item-img";
-import helper,{priceFormat} from "../../../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from "moment";
@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 
 const ActivityTable = (props) => {
   let activityList = props.activityList
+  const getC = getCalculatedPrice()
 
   return (
     <>
@@ -46,7 +47,7 @@ const ActivityTable = (props) => {
             </Button>
           </div>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight:activityList.length > 0 ? "600px":"", minHeight:activityList.length > 0?  "600px":"" }}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: activityList.length > 0 ? "600px" : "", minHeight: activityList.length > 0 ? "600px" : "" }}>
           {
             activityList.length > 0 ?
               activityList.map((list, i) => {
@@ -56,7 +57,7 @@ const ActivityTable = (props) => {
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center me-sm-2 flex__1">
                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (list.currencySymbol?list.currencySymbol :"$")  +  priceFormat(list.amount) : ""}</div>
+                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (getC.currencySymbol()) + priceFormat(list.amount) : ""}</div>
                           <div className="text-light fs-8">{moment(list.created_at).fromNow()}</div>
                         </div>
                         <div className="position-relative d-flex">
@@ -122,29 +123,29 @@ const ActivityTable = (props) => {
                                     <span className="text-dark fw-bold">Followed</span>
                                   </div>
                                 </>
-                                : list.type === 'Donate'?
-                                <>
-                                <span className="p-2 mr-12p">
-                                  <img
-                                    width={36}
-                                    alt=""
-                                    className="img-fluid"
-                                    src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg"
-                                  />
-                                </span>
-                                <div className="">
-                                  <span className="text-dark fw-bold">Donation</span>
-                                  {/* <div className="d-flex text-light fs-7">
+                                : list.type === 'Donate' ?
+                                  <>
+                                    <span className="p-2 mr-12p">
+                                      <img
+                                        width={36}
+                                        alt=""
+                                        className="img-fluid"
+                                        src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg"
+                                      />
+                                    </span>
+                                    <div className="">
+                                      <span className="text-dark fw-bold">Donation</span>
+                                      {/* <div className="d-flex text-light fs-7">
                                     <FontAwesomeIcon
                                       icon={regular("calendar-clock")}
                                       className="small me-1 fs-6"
                                     />
                                     / Month
                                   </div> */}
-                                </div>
-                              </>
-                              :<></>
-                              }
+                                    </div>
+                                  </>
+                                  : <></>
+                        }
                       </div>
                     </div>
                   </li>
@@ -221,12 +222,12 @@ const ActivityTable = (props) => {
 
         {props.totalPages > 1 ? <div className="mt-5 d-flex justify-content-center mb-5">
 
-        
-            < Stack spacing={2} >
-              <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
-            </Stack>
-         
-        </div>   : <></>}
+
+          < Stack spacing={2} >
+            <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+          </Stack>
+
+        </div> : <></>}
       </div>
     </>
   );

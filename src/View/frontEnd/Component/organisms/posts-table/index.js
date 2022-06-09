@@ -5,7 +5,7 @@ import Avatar from "../../atoms/avatar";
 import ListItemImg from "../../atoms/list-item-img";
 import "./style.scss";
 import React, { useEffect } from "react";
-import helper from "../../../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from "moment";
@@ -15,7 +15,7 @@ const PostsTable = (props) => {
   // let organizationDetails = props.organizationDetails
   // getProductList={props.getProductList}
   let productList = props.productList
-
+  const getC = getCalculatedPrice()
   // useEffect(() => {
   //   (async () => {
   //     props.getProductList(organizationDetails._id)
@@ -59,7 +59,7 @@ const PostsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 0 && "600px",minHeight: productList.length > 0 &&"600px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: productList.length > 0 && "600px", minHeight: productList.length > 0 && "600px" }}>
           {
             productList.length > 0 ?
               productList.map((product, i) => {
@@ -69,7 +69,7 @@ const PostsTable = (props) => {
                     <div className="d-xl-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                          <div className="text-success fw-bold fs-5">${product.price}</div>
+                          <div className="text-success fw-bold fs-5">{getC.currencySymbol()}{priceFormat(product.price)}</div>
                           <div className="text-light fs-8">{moment(product.created_at).fromNow()}</div>
                         </div>
                         <ListItemImg
@@ -81,7 +81,7 @@ const PostsTable = (props) => {
                           <div className="fs-7 text-light mb-6p">
                             {product.brand}
                           </div>
-                          <Link variant="link" className="text-light p-0 fw-normal" to={'/item/'+product.slug}>
+                          <Link variant="link" className="text-light p-0 fw-normal" to={'/item/' + product.slug}>
                             <FontAwesomeIcon
                               icon={regular("square-up-right")}
                               className="me-1"
@@ -243,15 +243,15 @@ const PostsTable = (props) => {
 
         </ul>
         {props.totalPages > 1 ?
-        <div className="mt-5 d-flex justify-content-center mb-5">
+          <div className="mt-5 d-flex justify-content-center mb-5">
 
-      
+
             < Stack spacing={2} >
               <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
-           
-        </div>
-         : <></>}
+
+          </div>
+          : <></>}
       </div>
     </>
   );

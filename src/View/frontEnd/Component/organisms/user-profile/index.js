@@ -343,8 +343,8 @@ const UserProfile = () => {
       city: "required",
       stateId: "required",
       country: "required",
-      language: "required",
-      currency: "required",
+      // language: "required",
+      // currency: "required",
 
     }
 
@@ -378,8 +378,8 @@ const UserProfile = () => {
       fdata.state_id = stateId
       fdata.country_id = country
 
-      fdata.language = language
-      fdata.currency = currency
+      // fdata.language = language
+      // fdata.currency = currency
 
 
 
@@ -396,10 +396,10 @@ const UserProfile = () => {
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
 
-          let currencyData = {}
-          currencyData.currency = currency.split('=')[0]
-          currencyData.currencySymbol = currency.split('=')[1]
-          dispatch(setCurrency(currencyData))
+          // let currencyData = {}
+          // currencyData.currency = currency.split('=')[0]
+          // currencyData.currencySymbol = currency.split('=')[1]
+          // dispatch(setCurrency(currencyData))
           if(tempImg && tempImg!== "" ){
             dispatch(setProfileImage(tempImg))
           }
@@ -594,14 +594,14 @@ const UserProfile = () => {
         {error && error.zip && <p className="error">{error.zip}</p>}
 
       </div>
-      <div className="mb-5">
+      {/* <div className="mb-5">
         <h4 className="fw-bolder">Language & Currency</h4>
         <div className="text-subtext mb-3">
           Set and change your default location, language and currency
         </div>
         <div className="w-400">
           <div className="mb-2">
-            {/* <LadderMenu items={["English", "French", "Manderin"]} /> */}
+    
             <Select
               className="basic-single"
               classNamePrefix="select"
@@ -614,17 +614,16 @@ const UserProfile = () => {
           </div>
           {error && error.language && <p className="error">{error.language}</p>}
 
-          {/* <LadderMenu items={["USD", "CAD", "Yen"]} /> */}
+      
           <Select
             className="basic-single"
             classNamePrefix="select"
             value={defaultCurrency}
-            // defaultValue={countrySelect.current}
             name="currency"
             options={currencyList}
             getOptionLabel={e => (
               <div style={{ display: '', alignItems: 'center' }}>
-                {/* {e.icon} */}
+           
                 <span className="" style={{ float: "right" }}>{e.icon}</span>
                 <span >{e.label}</span>
 
@@ -636,7 +635,8 @@ const UserProfile = () => {
         </div>
         {error && error.currency && <p className="error">{error.currency}</p>}
 
-      </div>
+      </div> */}
+
       <Button variant="info" className="mb-3" onClick={() => updateProfile()}>Save Details</Button>
 
       <div className="mb-5">

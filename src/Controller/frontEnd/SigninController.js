@@ -122,6 +122,11 @@ function SigninController() {
                                 //         }
                                 //     }
                                 // }
+                                let currencyData = {}
+                                currencyData.currency = uselogin.data.currency
+                                currencyData.currencySymbol = uselogin.data.symbol
+                                dispatch(setCurrency(currencyData))
+                                
                                 dispatch(setProfileImage(helper.CampaignAdminLogoPath + uselogin.data.logo))
                                 localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
@@ -162,10 +167,15 @@ function SigninController() {
 
                                 // if user currency is already set
                                 if (uselogin.data?.currency && uselogin.data?.currency !== null && uselogin.data?.currency !== "") {
+                                    // let currencyData = {}
+                                    // currencyData.currency = uselogin.data.currency.split('=')[0]
+                                    // currencyData.currencySymbol = uselogin.data.currency.split('=')[1]
+                                    // dispatch(setCurrency(currencyData))
+
                                     let currencyData = {}
-                                    currencyData.currency = uselogin.data.currency.split('=')[0]
-                                    currencyData.currencySymbol = uselogin.data.currency.split('=')[1]
-                                    dispatch(setCurrency(currencyData))
+                                    currencyData.currency = uselogin.data.currency
+                                    currencyData.currencySymbol = uselogin.data.symbol
+                                    // dispatch(setCurrency(currencyData))
                                     // await convertCurrency(uselogin.data.currency.split('=')[0])
                                 } else {
 
