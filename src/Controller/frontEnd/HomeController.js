@@ -501,7 +501,6 @@ export default function HomeController() {
         data.userCountry = userCountry
 
 
-
         // data.leastFunded = leastFunded
         // data.mostFunded = mostFunded
 

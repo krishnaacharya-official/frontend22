@@ -72,7 +72,7 @@ const ItemsTable = (props) => {
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start"
                     >
                       <div className="me-2">
-                        <div className="text-success fw-bold fs-5">{calculatedPrice.currencySymbol()}{price}</div>
+                        <div className="text-success fw-bold fs-5">{item.currencySymbol}{price}</div>
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>
                       <div className="position-relative">

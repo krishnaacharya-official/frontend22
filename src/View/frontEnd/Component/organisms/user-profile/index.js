@@ -16,7 +16,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
 // import { useSelector, useDispatch } from "react-redux";
 // import { setCurrency,setUserLanguage, setCurrencyPrice } from "../../../../../user/user.action";
@@ -46,6 +46,9 @@ const UserProfile = () => {
 
   const [defaultLanguage, setDefaultLanguage] = useState([])
   const [defaultCurrency, setDefaultCurrency] = useState([])
+
+  const [countryCurrency, setCountryCurrency] = useState([])
+
 
 
 
@@ -109,7 +112,7 @@ const UserProfile = () => {
   const getCountryList = async () => {
     let tempArray = []
     let tempCurrencyArray = []
-
+    let tempCountryCurrencyArray = []
 
     const getCountryList = await locationApi.countryList(userAuthToken);
     if (getCountryList) {
@@ -118,20 +121,29 @@ const UserProfile = () => {
           getCountryList.data.data.map((country, i) => {
             let Obj = {}
             let currencyObj = {}
+
+            let countryCurrencyObj = {}
+
+
+
             currencyObj.value = country.currency + "=" + country.symbol
             currencyObj.label = country.currency
             currencyObj.icon = country.symbol
 
+            countryCurrencyObj.label = country.currency
+            countryCurrencyObj.icon = country.symbol
+            countryCurrencyObj.id = country.id
 
+            tempCountryCurrencyArray.push(countryCurrencyObj)
 
             Obj.value = country.id
             Obj.label = country.country
             tempArray.push(Obj)
-            tempCurrencyArray.push(currencyObj)
+            // tempCurrencyArray.push(tempCountryCurrencyArray)
 
           })
           setCountryList(tempArray)
-
+          setCountryCurrency(tempCountryCurrencyArray)
           const currencyLable = tempCurrencyArray.map(o => o.label)
           const filteredLabels = tempCurrencyArray.filter(({ label }, index) => !currencyLable.includes(label, index + 1))
 
@@ -305,6 +317,10 @@ const UserProfile = () => {
   ]
   // const countrySelect = useRef(null)
   useEffect(() => {
+    // console.log(data.country_id)
+
+    dispatch(setUserCountry(data.country_id))
+
     if (countryList.length > 0) {
       setDefaultCountry(countryList.find(x => x.value === data.country_id));
 
@@ -319,17 +335,23 @@ const UserProfile = () => {
     }
     setDefaultLanguage(options.find(x => x.value === data.language))
     let tempCurrencyObj = {}
-    let userCurrency = data.currency ? data.currency : ''
-    if (userCurrency) {
-      tempCurrencyObj.value = data.currency
-      tempCurrencyObj.label = userCurrency.split('=')[0]
-      tempCurrencyObj.icon = userCurrency.split('=')[1]
-      setDefaultCurrency(tempCurrencyObj)
-      // let currencyData ={}
-      // currencyData.currency = userCurrency.split('=')[0]
-      // currencyData.currencySymbol = userCurrency.split('=')[1]
-      // dispatch(setCurrency(currencyData))
-    }
+    // console.log(countryCurrency.find(x => x.id === data.country_id))
+    let temp = countryCurrency.find(x => x.id === data.country_id)
+    let UsercountryObj = {}
+    UsercountryObj.currency = temp?.label
+    UsercountryObj.currencySymbol = temp?.icon
+    dispatch(setCurrency(UsercountryObj))
+    // let userCurrency = data.currency ? data.currency : ''
+    // if (userCurrency) {
+    //   tempCurrencyObj.value = data.currency
+    //   tempCurrencyObj.label = userCurrency.split('=')[0]
+    //   tempCurrencyObj.icon = userCurrency.split('=')[1]
+    //   setDefaultCurrency(tempCurrencyObj)
+    //   // let currencyData ={}
+    //   // currencyData.currency = userCurrency.split('=')[0]
+    //   // currencyData.currencySymbol = userCurrency.split('=')[1]
+    //   // dispatch(setCurrency(currencyData))
+    // }
 
   }, [countryList, data.country_id])
 
@@ -400,7 +422,7 @@ const UserProfile = () => {
           // currencyData.currency = currency.split('=')[0]
           // currencyData.currencySymbol = currency.split('=')[1]
           // dispatch(setCurrency(currencyData))
-          if(tempImg && tempImg!== "" ){
+          if (tempImg && tempImg !== "") {
             dispatch(setProfileImage(tempImg))
           }
 
