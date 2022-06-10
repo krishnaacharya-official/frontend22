@@ -18,6 +18,7 @@ import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
+import cartApi from "../../../../../Api/frontEnd/cart";
 // import { useSelector, useDispatch } from "react-redux";
 // import { setCurrency,setUserLanguage, setCurrencyPrice } from "../../../../../user/user.action";
 
@@ -267,6 +268,24 @@ const UserProfile = () => {
     }
   }
 
+  const clearCart = async () => {
+    setLoading(true)
+    const clearCart = await cartApi.clearCart(userAuthToken);
+    if (clearCart) {
+      if (!clearCart.data.success) {
+        setLoading(false)
+        // ToastAlert({ msg: clearCart.data.message, msgType: 'error' });
+
+      } else {
+        setLoading(false)
+      }
+
+    } else {
+      setLoading(false)
+      // ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+    }
+  }
+
 
   useEffect(() => {
     (async () => {
@@ -336,11 +355,12 @@ const UserProfile = () => {
     setDefaultLanguage(options.find(x => x.value === data.language))
     let tempCurrencyObj = {}
     // console.log(countryCurrency.find(x => x.id === data.country_id))
-    let temp = countryCurrency.find(x => x.id === data.country_id)
-    let UsercountryObj = {}
-    UsercountryObj.currency = temp?.label
-    UsercountryObj.currencySymbol = temp?.icon
-    dispatch(setCurrency(UsercountryObj))
+    // let temp = countryCurrency.find(x => x.id === data.country_id)
+  
+    // let UsercountryObj = {}
+    // UsercountryObj.currency = temp?.label
+    // UsercountryObj.currencySymbol = temp?.icon
+    // dispatch(setCurrency(UsercountryObj))
     // let userCurrency = data.currency ? data.currency : ''
     // if (userCurrency) {
     //   tempCurrencyObj.value = data.currency
@@ -417,7 +437,15 @@ const UserProfile = () => {
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
+          await clearCart()
+          dispatch(setUserCountry(data.country_id))
 
+          let temp = countryCurrency.find(x => x.id === data.country_id)
+  
+          let UsercountryObj = {}
+          UsercountryObj.currency = temp?.label
+          UsercountryObj.currencySymbol = temp?.icon
+          dispatch(setCurrency(UsercountryObj))
           // let currencyData = {}
           // currencyData.currency = currency.split('=')[0]
           // currencyData.currencySymbol = currency.split('=')[1]
