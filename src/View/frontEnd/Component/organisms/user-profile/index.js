@@ -319,7 +319,7 @@ const UserProfile = () => {
   useEffect(() => {
     // console.log(data.country_id)
 
-    dispatch(setUserCountry(data.country_id))
+    // dispatch(setUserCountry(data.country_id))
 
     if (countryList.length > 0) {
       setDefaultCountry(countryList.find(x => x.value === data.country_id));
