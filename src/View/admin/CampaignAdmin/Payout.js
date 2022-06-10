@@ -36,6 +36,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import BankIcon from '../../../assets/images/bank.png'
 
 const Transition = React.forwardRef(function Transition(propss, ref) {
     return <Slide direction="up" {...propss} />;
@@ -121,7 +122,7 @@ const Payout = (props) => {
     }
     let organizationDetails = props.organizationDetails
 
-    console.log(props.orgTransectionHistory)
+
 
     const columns = [
 
@@ -355,26 +356,52 @@ const Payout = (props) => {
                                     </div>
                                 </div>
                                 <div className='mt-2'>
-                                    {organizationDetails.bankaccounts && organizationDetails.bankaccounts.length > 0 ?
-                                        <h1>Select Bank Account</h1> : <h1>Bank Account Not found</h1>
-                                    }
-                                    {stateData.error && stateData.error.account && <p className="error">{stateData.error.account}</p>}
-
-                                    {
-                                        organizationDetails.bankaccounts && organizationDetails.bankaccounts.length > 0 &&
-                                        organizationDetails.bankaccounts.map((account, i) => {
-                                            return (
-
-                                                <div className="form-check mb-3">
-                                                    <input className="form-check-input" type="radio" data-label={account.accountHolderName} name="account" id={account._id} value={account._id} style={{ marginTop: "revert" }} onClick={(e) => props.onSelectBank(e, account)} checked={stateData.account === account._id} />
-                                                    <label className="form-check-label" htmlFor={account._id} style={{ paddingLeft: "initial" }}>
-                                                        {account.accountHolderName}
-                                                    </label>
+                                    <div className="plans">
+                                        {/* <label className="plan basic-plan" htmlFor="basic">
+                                            <input checked type="radio" name="plan" id="basic" />
+                                            <div className="plan-content">
+                                                <img loading="lazy" src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/life-saver-img.svg" alt="" />
+                                                <div className="plan-details">
+                                                    <span>Basic</span>
+                                                    <p>For smaller business, with simple salaries and pay schedules.</p>
                                                 </div>
-                                            )
-                                        })
+                                            </div>
+                                        </label> */}
 
-                                    }
+
+                                        {organizationDetails.bankaccounts && organizationDetails.bankaccounts.length > 0 ?
+                                            <h1>Select Bank Account</h1> : <h1>Bank Account Not found</h1>
+                                        }
+                                        {stateData.error && stateData.error.account && <p className="error">{stateData.error.account}</p>}
+
+                                        {
+                                            organizationDetails.bankaccounts && organizationDetails.bankaccounts.length > 0 &&
+                                            organizationDetails.bankaccounts.map((account, i) => {
+                                                return (
+
+                                                    <label className="plan basic-plan p-2" htmlFor={account._id}>
+                                                        <input type="radio" nname="account" id={account._id} value={account._id} checked={stateData.account === account._id} onClick={(e) => props.onSelectBank(e, account)} />
+                                                        <div className="plan-content">
+                                                            <img loading="lazy" src={BankIcon} alt="" />
+                                                            <div className="plan-details">
+                                                                <span>{account.accountNumber.replace(/\d(?=\d{4})/g, "*")}</span>
+                                                                <p>{account.accountHolderName}</p>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+
+                                                    // <div className="form-check mb-3">
+                                                    //     <input className="form-check-input" type="radio" data-label={account.accountHolderName} name="account" id={account._id} value={account._id} style={{ marginTop: "revert" }} onClick={(e) => props.onSelectBank(e, account)} checked={stateData.account === account._id} />
+                                                    //     <label className="form-check-label" htmlFor={account._id} style={{ paddingLeft: "initial" }}>
+                                                    //         {account.accountHolderName}
+                                                    //     </label>
+                                                    // </div>
+                                                )
+                                            })
+
+                                        }
+                                    </div>
+
                                     {
                                         organizationDetails.bankaccounts && organizationDetails.bankaccounts.length > 0 &&
 

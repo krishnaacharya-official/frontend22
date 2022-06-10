@@ -182,6 +182,19 @@ export default function MainRoutes() {
                             <Route exact path="/apply" element={<ApplyOrganizationController />} />
                             <Route path="/sponsors" element={<Sponsors />} />
                             <Route path="/partnership" element={<Partnership />} />
+                            <Route path="/about-us" element={<AboutController />} />
+                            <Route path="/verified" element={<VerifiedDonors />} />
+                            <Route path="/terms" element={<Terms />} />
+                            <Route path="/media" element={<Media />} />
+                            <Route path="/ranks" element={<Ranks />} />
+                            <Route path="/trust" element={<Trust />} />
+                            <Route path="/xp" element={<Xp />} />
+                            <Route path="/help" element={<Help />} />
+                            <Route path="/help-category" element={<HelpCategory />} />
+                            <Route path="/help-article" element={<HelpArticle />} />
+                            <Route path="/help-contact" element={<HelpContact />} />
+                            <Route path="/verified" element={<VerifiedDonors />} />
+                            <Route path="/item-tags" element={<ItemTags />} />
                             <Route exact path="*" element={<SigninController />} />
                         </Routes>
                     </>
@@ -210,6 +223,22 @@ export default function MainRoutes() {
                         <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
                         <Route exact path="/otp/:email" element={<ResetPasswordController />} />
                         <Route exact path="/apply" element={<ApplyOrganizationController />} />
+                        <Route path="/sponsors" element={<Sponsors />} />
+                        <Route path="/partnership" element={<Partnership />} />
+                        <Route path="/about-us" element={<AboutController />} />
+                        <Route path="/verified" element={<VerifiedDonors />} />
+                        <Route path="/terms" element={<Terms />} />
+                        <Route path="/media" element={<Media />} />
+                        <Route path="/ranks" element={<Ranks />} />
+                        <Route path="/trust" element={<Trust />} />
+                        <Route path="/xp" element={<Xp />} />
+                        <Route path="/help" element={<Help />} />
+                        <Route path="/help-category" element={<HelpCategory />} />
+                        <Route path="/help-article" element={<HelpArticle />} />
+                        <Route path="/help-contact" element={<HelpContact />} />
+                        <Route path="/verified" element={<VerifiedDonors />} />
+                        <Route path="/item-tags" element={<ItemTags />} />
+                        <Route exact path="*" element={<SigninController />} />
                     </Routes>
 
             }

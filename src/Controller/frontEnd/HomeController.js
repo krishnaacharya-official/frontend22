@@ -125,7 +125,7 @@ export default function HomeController() {
 
 
     async function showPosition(position) {
-
+        // console.log('show')
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         if (latitude && longitude) {
@@ -499,7 +499,7 @@ export default function HomeController() {
         data.newEst = newEst
 
         data.userCountry = userCountry
-
+        // console.log(userCountry)
 
         // data.leastFunded = leastFunded
         // data.mostFunded = mostFunded

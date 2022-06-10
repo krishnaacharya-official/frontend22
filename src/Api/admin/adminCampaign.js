@@ -95,7 +95,10 @@ function adminCampaign() {
         data.append('city_id', cdata.city_id);
         data.append('state_id', cdata.state_id);
         data.append('address', cdata.address);
-        data.append('category_id', cdata.category_id);
+        if (cdata.category_id) {
+            data.append('category_id', cdata.category_id);
+        }
+        // data.append('category_id', cdata.category_id);
         data.append('headline', cdata.headline);
         data.append('promoVideo', cdata.promoVideo);
 

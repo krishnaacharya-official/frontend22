@@ -34,18 +34,22 @@ const Ranks = () => {
     (async () => {
 
       setLoading(true)
-      const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
-      if (getSettingsValue.data.data.length > 0) {
-        let data = {}
+      // if (userAuthToken || CampaignAdminAuthToken) {
 
-        getSettingsValue.data.data.map((d, i) => {
-          data[d.name] = d.value
-        })
 
-        setState({
-          ...data
-        })
-      }
+        const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
+        if (getSettingsValue.data.data.length > 0) {
+          let data = {}
+
+          getSettingsValue.data.data.map((d, i) => {
+            data[d.name] = d.value
+          })
+
+          setState({
+            ...data
+          })
+        }
+      // }
       setLoading(false)
 
 
@@ -57,30 +61,31 @@ const Ranks = () => {
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">
-          <div className="d-flex align-items-center py-3 border-bottom">
-            <Avatar
-              size={35}
-              avatarUrl={user.profileImage}
-              border={0}
-              shadow={false}
-              className="mr-12p"
-            />
+          {userAuthToken &&
+            <div className="d-flex align-items-center py-3 border-bottom">
+              <Avatar
+                size={35}
+                avatarUrl={user.profileImage}
+                border={0}
+                shadow={false}
+                className="mr-12p"
+              />
 
-            <span className="fs-7 text-light me-2">Your Rank</span>
-            {
-              getC.getUserRank(user.xp)
-            }
-            {/* <IconButton
+              <span className="fs-7 text-light me-2">Your Rank</span>
+              {
+                getC.getUserRank(user.xp)
+              }
+              {/* <IconButton
               bgColor="#a278fc"
               className="btn__xs rounded-pill"
               icon={<FontAwesomeIcon icon={solid("narwhal")} />}
             >
               Norwhal
             </IconButton> */}
-            <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-              {priceFormat(user.xp)} xp
-            </a>
-          </div>
+              <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
+                {priceFormat(user.xp)} xp
+              </a>
+            </div>}
           <div className="py-20p">
             <div className="note text-dark fs-7 mw-600">
               <div className="mb-12p">

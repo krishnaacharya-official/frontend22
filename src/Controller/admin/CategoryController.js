@@ -89,7 +89,7 @@ function CategoryController() {
             ...state,
             categoryHdnID: '',
             status: 1,
-            categoryName: '',
+            name: '',
             icon: '',
             error: [],
             color: '#ff0000',

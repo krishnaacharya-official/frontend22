@@ -37,6 +37,7 @@ const Xp = () => {
     (async () => {
 
       setLoading(true)
+    
       const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken :CampaignAdminAuthToken, Object.keys(state));
       if (getSettingsValue.data.data.length > 0) {
         let data = {}
@@ -62,6 +63,7 @@ const Xp = () => {
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">
+          {userAuthToken &&
           <div className="d-flex align-items-center py-3 border-bottom">
             <Avatar
               size={35}
@@ -83,7 +85,7 @@ const Xp = () => {
             <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
             { priceFormat(user.xp)} xp
             </a>
-          </div>
+          </div>}
           <div className="py-20p">
             <div className="note text-dark fs-7 mw-600">
               <div className="mb-12p">

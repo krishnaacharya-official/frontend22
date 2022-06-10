@@ -17,6 +17,8 @@ const ItemsTable = (props) => {
   const calculatedPrice = getCalculatedPrice()
 
   let orderItemList = props.orderItemList
+
+  const totalPriceArray= props.totalPriceArray
   // console.log(orderItemList)
   return (
     <>

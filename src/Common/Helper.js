@@ -201,7 +201,7 @@ export function getCalculatedPrice() {
 
         let currencySymbol = '$'
         // if (!CampaignAdminAuthToken) {
-            currencySymbol = user.currencySymbol
+        currencySymbol = user.currencySymbol
         // }
         return currencySymbol
     }
@@ -393,8 +393,8 @@ export function getCalculatedPrice() {
                 )
 
                 break;
-                default:
-                    <></>
+            default:
+                <></>
                 break;
 
 
@@ -412,3 +412,14 @@ export function getCalculatedPrice() {
     }
 }
 
+export function purchasedPriceWithTax(price, totalCharge) {
+    // let transectionFee = TF
+    // let platformFee = PF
+
+    // let totalCharge = Number(transectionFee) + Number(platformFee)
+
+
+    let taxPrice = Math.round(price + (Number(totalCharge) / 100) * price)
+    return taxPrice;
+
+}

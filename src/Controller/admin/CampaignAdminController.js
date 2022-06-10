@@ -371,7 +371,7 @@ function CampaignAdminController() {
             // country: "required",
             // city: "required",
             // stateid: "required",
-            category: "required",
+            // category: "required",
             // headline: 'required',
             // promoVideo: 'required'
 

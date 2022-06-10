@@ -17,7 +17,7 @@ import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax } from "../../../../../Common/Helper";
 
 
 
@@ -40,6 +40,8 @@ const UserItems = () => {
   const [orderItemList, setOrderItemList] = useState([])
   const calculatedPrice = getCalculatedPrice()
   const [totalPurchase, setTotalPurchase] = useState(0)
+  const [totalPriceArray, setTotalPriceArray] = useState([])
+
 
 
   const getOrderItemList = async (page, field, type) => {
@@ -58,6 +60,8 @@ const UserItems = () => {
       setOrderItemList(getOrderItem.data.data)
       setTotalPages(getOrderItem.data.totalPages)
       setTotalRecord(getOrderItem.data.totalRecord)
+      // setTotalPriceArray(getOrderItem.data.totalPriceArray)
+      // console.log(getOrderItem.data.totalPriceArray)
       // if (getOrderItem.data.data.length > 0) {
       //   let tempPriceArray = []
       //   getOrderItem.data.data.map((item, i) => {
@@ -65,7 +69,9 @@ const UserItems = () => {
       //     tempPriceArray.push(purchasedPrice)
       //   })
       //   let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
-      setTotalPurchase(priceFormat(Math.round(calculatedPrice.priceWithTax(Number(getOrderItem.data.totalPurchase)))))
+      setTotalPriceArray(Object.entries(getOrderItem.data.totalPurchase))
+      // console.log(getOrderItem.data.totalPurchase)
+      // setTotalPurchase(priceFormat(Math.round(calculatedPrice.priceWithTax(Number(getOrderItem.data.totalPurchase)))))
       // }
 
 
@@ -77,7 +83,7 @@ const UserItems = () => {
 
   useEffect(() => {
     (async () => {
-
+      // console.log(totalPriceArray)
       await getOrderItemList(pageNo, sortField, order)
 
     })()
@@ -116,14 +122,21 @@ const UserItems = () => {
               My Items
             </h1>
             <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
+            {
+              totalPriceArray.length > 0 &&
+              totalPriceArray.map((val, key) => {
+                return (
+                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3">
+                    <FontAwesomeIcon
+                      icon={solid("money-bills-simple")}
+                      className="text-dark mr-12p fs-4"
+                    />
+                    {val[0]} {val[1]}
+                  </span>
+                )
+              })
+            }
 
-            <span className="d-none d-sm-flex item__total-wrap d-flex ms-3">
-              <FontAwesomeIcon
-                icon={solid("money-bills-simple")}
-                className="text-dark mr-12p fs-4"
-              />
-              {calculatedPrice.currencySymbol()}{totalPurchase}
-            </span>
 
             {/* <div className="ms-sm-auto">
               <LadderMenuItems />
@@ -140,15 +153,17 @@ const UserItems = () => {
             order={order}
             sortField={sortField}
             orderItemList={orderItemList}
+            totalPriceArray={totalPriceArray}
           />
         </div>
       ) : (
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
+          // console.log(item)
           // console.log(item.appliedTaxPer)
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
           let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
-          let purchasedPrice = (Math.round(calculatedPrice.priceWithTax(Number(item.productPrice))))
+          let purchasedPrice = (Math.round(purchasedPriceWithTax(Number(item.productPrice), item.appliedTaxPer)))
 
           // console.log(purchasedPrice)
 
@@ -220,7 +235,7 @@ const UserItems = () => {
                     <h5 className="project__detail-sublabel">Product</h5>
                     <div className="project__detail-subtitle mb-12p">Eureka ™</div>
                     <div className="project__detail-price fs-2 text-success">
-                      {calculatedPrice.currencySymbol()} {price}
+                      {item.currencySymbol} {price}
                     </div>
                     <div className="project__detail-meta d-flex align-items-center mb-4">
                       <div className="d-flex align-items-center">
