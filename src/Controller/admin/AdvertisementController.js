@@ -16,7 +16,7 @@ import productApi from "../../Api/frontEnd/product";
 
 export default function AdvertisementController() {
 
-    const [donationList, setDonationList] = useState([])
+    const [advertiseList, setAdvertiseList] = useState([])
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [loading, setLoading] = useState(false)
@@ -56,11 +56,11 @@ export default function AdvertisementController() {
         id, status, name, website, logo, error
     } = state;
 
-    const getDonationList = async () => {
-        const donationList = await advertisementApi.list(adminAuthToken)
-        if (donationList) {
-            if (donationList.data.success === true) {
-                setDonationList(donationList.data.data)
+    const getAdVertiseList = async () => {
+        const AdList = await advertisementApi.list(adminAuthToken)
+        if (AdList) {
+            if (AdList.data.success === true) {
+                setAdvertiseList(AdList.data.data)
 
             }
         }
@@ -116,7 +116,7 @@ export default function AdvertisementController() {
         const getListPublishedAdProduct = await advertisementApi.listPublishedAdd(adminAuthToken, data)
         if (getListPublishedAdProduct) {
             if (getListPublishedAdProduct.data.success === true) {
-             
+
                 if (getListPublishedAdProduct.data.data.length > 0) {
                     let tempArr = []
                     getListPublishedAdProduct.data.data.map((p, i) => {
@@ -164,7 +164,7 @@ export default function AdvertisementController() {
         if (up) {
 
             if (up.data.success === true) {
-                await getDonationList()
+                await getAdVertiseList()
                 // setAdvertisementDetails(up.data.data)
                 // console.log(up.data.data)
 
@@ -195,7 +195,7 @@ export default function AdvertisementController() {
                 localStorage.clear()
                 navigate('/admin/login')
             }
-            await getDonationList()
+            await getAdVertiseList()
 
 
 
@@ -308,7 +308,8 @@ export default function AdvertisementController() {
                     if (createAd.data.success === true) {
                         setModal(false)
                         resetForm()
-                        await getDonationList()
+                        // await getDonationList()
+                        await getAdVertiseList()
                         setLoading(false)
                         ToastAlert({ msg: createAd.data.message, msgType: 'success' });
                     }
@@ -378,6 +379,7 @@ export default function AdvertisementController() {
                                     if (deleteAd.data.success === true) {
                                         setLoading(false)
                                         ToastAlert({ msg: deleteAd.data.message, msgType: 'success' });
+                                        await getAdVertiseList()
                                     }
                                 }
                             } else {
@@ -418,7 +420,7 @@ export default function AdvertisementController() {
 
             <FrontLoader loading={loading} />
             <Index
-                donationList={donationList}
+                advertiseList={advertiseList}
                 openModel={openModel}
                 editAd={editAd}
                 deleteAd={deleteAd}

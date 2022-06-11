@@ -255,7 +255,7 @@ const CompanySettings = () => {
       'name.required': 'Name is Required.',
       'mission.required': 'mission is Required.',
       'promoVideo.required': 'Promo Video is Required.',
-      
+
       'stateId.required': 'State is Required.',
       'city.required': 'City is Required.',
       'country.required': 'Country is Required.',
@@ -400,8 +400,8 @@ const CompanySettings = () => {
           </div>
         </div>
 
-      
-      <div className="input__wrap d-flex">
+
+        <div className="input__wrap d-flex">
           <label className="input__label flex__1">
             {/* <input type="text" value='' /> */}
             {/* {countrySelect.current} */}
@@ -413,6 +413,7 @@ const CompanySettings = () => {
               name="country"
               options={countryList}
               onChange={onChangeCountry}
+              isDisabled
             />
             <span className="input__span">Country</span>
           </label>
@@ -453,7 +454,7 @@ const CompanySettings = () => {
           </label>
         </div>
         {error && error.city && <p className="error">{error.city}</p>}
-        </div>
+      </div>
 
       <div className="mb-5 mw-400">
         <h4 className="fw-bolder">Promo Video</h4>

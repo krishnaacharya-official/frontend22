@@ -84,8 +84,8 @@ export default function Index(props) {
 
     ];
     const data = [];
-    if (props.donationList && props.donationList.length > 0) {
-        props.donationList.map((order) => {
+    if (props.advertiseList && props.advertiseList.length > 0) {
+        props.advertiseList.map((order) => {
             data.push(order);
         },
         );
