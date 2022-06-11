@@ -12,6 +12,8 @@ import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import AdvertiseSetting from "../../View/admin/Advertisement/AdvertiseSetting";
 import productApi from "../../Api/frontEnd/product";
+import locationApi from "../../Api/frontEnd/location";
+import categoryApi from "../../Api/admin/category";
 
 
 export default function AdvertisementController() {
@@ -28,6 +30,11 @@ export default function AdvertisementController() {
     const [productList, setProductList] = useState([])
     const [publisedProductList, setPublisedProductList] = useState([])
     const [publisedProductIds, setPublisedProductIds] = useState([])
+    const [countryList, setCountryList] = useState([])
+    const [stateList, setStateList] = useState([])
+    const [defaultCountry, setDefaultCountry] = useState([])
+    const [category, setCategory] = useState([])
+    const [publisedCatIds, setPublisedCatIds] = useState([])
 
 
 
@@ -38,9 +45,10 @@ export default function AdvertisementController() {
         allSearch: '',
         MySearch: '',
         home: false,
+        country: ''
     })
     const {
-        allSearch, MySearch, home
+        allSearch, MySearch, home, country
     } = searchState;
 
 
@@ -177,9 +185,104 @@ export default function AdvertisementController() {
     }
 
 
+    const getCountryList = async () => {
+        let tempArray = []
+
+        const getCountryList = await locationApi.countryList();
+        if (getCountryList) {
+            if (getCountryList.data.success) {
+                if (getCountryList.data.data.length > 0) {
+                    getCountryList.data.data.map((country, i) => {
+                        let Obj = {}
+
+                        Obj.value = country.id
+                        Obj.label = country.country
+                        tempArray.push(Obj)
+
+                    })
+                    setCountryList(tempArray)
 
 
 
+                }
+            }
+        }
+    }
+
+
+    const getCountryStateList = async (countryId) => {
+        const getCountryStateList = await locationApi.stateListByCountry(adminAuthToken, Number(countryId));
+        if (getCountryStateList) {
+            if (getCountryStateList.data.success) {
+                if (getCountryStateList.data.data.length > 0) {
+                    setStateList(getCountryStateList.data.data)
+                }
+            }
+        }
+    }
+
+    const getCategoryList = async () => {
+        const categoryList = await categoryApi.listCategory(adminAuthToken);
+        if (categoryList.data.success === true) {
+            setCategory(categoryList.data.data)
+        }
+    }
+
+    const onChangeCountry = async (e) => {
+
+
+        setDefaultCountry(e)
+        setSearchState({
+            ...searchState,
+            country: e.value,
+
+
+        })
+        await getCountryStateList(e.value)
+
+
+    }
+
+
+    const publishOrRemoveAdFromCategory = async (categoryId, advertisementId) => {
+        setLoading(true)
+        let data = {}
+        data.categoryId = categoryId
+        data.advertisementId = advertisementId
+
+        await advertisementApi.publishAddToCategory(adminAuthToken, data)
+        if (advertisementApi) {
+            await listPublishedAddToCategory(advertisementId)
+        }
+
+        setLoading(false)
+
+    }
+
+
+    const listPublishedAddToCategory = async (advertisementId) => {
+
+
+        let data = {}
+        data.advertisementId = advertisementId
+
+        const getListPublishedAdCategory = await advertisementApi.listCategoryAdvertisement(adminAuthToken, data)
+        if (getListPublishedAdCategory) {
+            if (getListPublishedAdCategory.data.success === true) {
+
+                if (getListPublishedAdCategory.data.data.length > 0) {
+                    let tempArr = []
+                    getListPublishedAdCategory.data.data.map((cat, i) => {
+                        tempArr.push(cat.categoryId)
+                    })
+
+                    setPublisedCatIds(tempArr)
+                } else {
+                    setPublisedCatIds([])
+                }
+            }
+        }
+    }
 
 
 
@@ -196,7 +299,7 @@ export default function AdvertisementController() {
                 navigate('/admin/login')
             }
             await getAdVertiseList()
-
+            await getCountryList()
 
 
             setLoading(false)
@@ -404,20 +507,25 @@ export default function AdvertisementController() {
         setAdvertisementDetails(data)
         setLoading(true)
         await listPublishedAdProduct(data._id)
+        await listPublishedAddToCategory(data._id)
+        await getCategoryList()
         setSearchState({
             ...searchState,
             home: data.home,
             allSearch: '',
             MySearch: '',
+            country: ''
         })
         setLoading(false)
         setProductList([])
         setSettingModal(true)
+        setDefaultCountry([])
+        setStateList([])
+
     }
 
     return (
         <>
-
             <FrontLoader loading={loading} />
             <Index
                 advertiseList={advertiseList}
@@ -451,6 +559,13 @@ export default function AdvertisementController() {
                 allSearch={allSearch}
                 onChangeHome={onChangeHome}
                 home={home}
+                countryList={countryList}
+                onChangeCountry={onChangeCountry}
+                defaultCountry={defaultCountry}
+                stateList={stateList}
+                category={category}
+                publishOrRemoveAdFromCategory={publishOrRemoveAdFromCategory}
+                publisedCatIds={publisedCatIds}
 
             />
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ProgressBar, Button } from "react-bootstrap";
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
 import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.svg";
-import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import IconToggle from "../../atoms/icon-toggle";
@@ -39,6 +39,7 @@ const Product = (props) => {
 
 
   let theme_color = props.categoryDetails?.color
+  let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
   let organisation = props.campaignDetails?.logo
   let img = props.image
@@ -136,12 +137,23 @@ const Product = (props) => {
   return (
     <div className="product">
       <Link
-        to={"/item/" + props.slug}
+        to={"/categories/" + categorySlug}
+        // params={{ testvalue: "hello" }}
+        // to={{ pathname: "/categories/" + categorySlug, state: {key:props.categoryDetails?._id} }}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
+        state={{ id: props.categoryDetails?._id }}
       >
         &nbsp;
       </Link>
+      {/* <button
+        className="product__header d-block"
+        style={{ backgroundColor: theme_color }}
+        onClick={()=>alert('k')}
+        variant='link'
+      >
+        &nbsp;
+      </button> */}
 
       <div className="product__top border-bottom d-flex align-items-center">
         <div className="wish me-1">

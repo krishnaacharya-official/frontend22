@@ -75,6 +75,7 @@ import Trust from '../View/frontEnd/trust';
 import PlansController from '../Controller/frontEnd/PlansController';
 import VerifiedDonors from '../View/frontEnd/verified-donors';
 import Terms from '../View/frontEnd/terms';
+import CategoryProductsController from '../Controller/frontEnd/CategoryProductsController';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -248,6 +249,7 @@ export default function MainRoutes() {
                 <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
+                        <Route path="/categories/:slug" element={<CategoryProductsController />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route path="/xp" element={<Xp />} />
                         <Route path="/partnership" element={<Partnership />} />

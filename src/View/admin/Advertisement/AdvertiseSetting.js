@@ -25,6 +25,7 @@ import plusFill from '@iconify/icons-eva/plus-fill';
 import trash from '@iconify/icons-eva/trash-2-fill';
 import editfill from '@iconify/icons-eva/edit-fill';
 // import Label from '../../../components/Label';
+import Select from "react-select"
 
 
 const Transition = React.forwardRef(function Transition(propss, ref) {
@@ -39,14 +40,31 @@ const AdvertiseSetting = (props) => {
     advertisementDetails = props.advertisementDetails
 
     const productList = props.productList
+    const countryList = props.countryList
+    const stateList = props.stateList
+    const categoryList = props.category
+
+
+
 
 
     const [value, setValue] = useState('1');
 
+    const [Homevalue, setHomeValue] = useState('1');
+
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const handleChangeHome = (event, newValue) => {
+        setHomeValue(newValue);
+    };
 
+    const [productValue, setProductValue] = useState('1');
+
+    const handleChangeProduct = (event, newValue) => {
+        setProductValue(newValue);
+    };
 
 
     return (
@@ -92,144 +110,294 @@ const AdvertiseSetting = (props) => {
                     </div>
 
                 </div>
-                <div className="px-5 pt-3 mt-0 mb-2">
-                    <div className="row" style={{ height: "5rem", border: "1px solid rgba(189, 193, 200, 0.5)" }}>
-                        <div className="col-sm-6">
-                            <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>HomePage</h6>
-                        </div>
+                <hr />
 
-                        <div className="col-sm-6">
-                            <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
-                                <input type="checkbox" id="prioritySupport" name="BASIC" checked={props.home} onChange={(e) => props.onChangeHome(e, advertisementDetails._id)} />
-                                <span className="--slider">
-                                    <i className="fa fa-check"></i>
-                                    <i className="fa fa-times"></i>
-                                </span>
-                            </label>
-                        </div>
-
-                    </div>
-
-
-                </div>
 
                 <Box sx={{ width: '100%', typography: 'body1' }} className="px-5">
+
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} aria-label="lab API tabs example">
-                                <Tab label="Selected" value="1" />
-                                <Tab label="All" value="2" />
+                                <Tab label="Products" value="1" />
+                                <Tab label="HomePage" value="2" />
+
+
 
                             </TabList>
                         </Box>
                         <TabPanel value="1">
-                            {/* <div>
+
+                            <TabContext value={productValue}>
+                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                    <TabList onChange={handleChangeProduct} aria-label="lab API tabs example">
+                                        <Tab label="Selected Products" value="1" />
+                                        <Tab label="All Products" value="2" />
+
+                                    </TabList>
+                                </Box>
+                                <TabPanel value="1">
+                                    {/* <div>
                                 <input type="text" className='form-control' placeholder='Search product' />
                             </div> */}
 
-                            <div style={{ overflow: "auto", height: "450px" }}>
+                                    <div style={{ overflow: "auto", height: "450px" }}>
 
-                                {props.publisedProductList.length > 0 &&
-                                    props.publisedProductList.map((product, i) => {
-                                        return (
-                                            <div className="px-5 pt-3 mt-0 mb-2" key={i}>
-                                                <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
-                                                    <div className="col-sm-3">
+                                        {props.publisedProductList.length > 0 &&
+                                            props.publisedProductList.map((product, i) => {
+                                                return (
+                                                    <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                        <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
+                                                            <div className="col-sm-3">
 
-                                                        <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
+                                                                <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
+
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+                                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+
+                                                                <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+                                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
+                                                                    <span className="--slider">
+                                                                        <i className="fa fa-check"></i>
+                                                                        <i className="fa fa-times"></i>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+
 
                                                     </div>
+                                                )
+                                            })
+                                        }
 
-                                                    <div className="col-sm-3">
-                                                        <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+
+
+
+
+                                    </div>
+
+                                </TabPanel>
+                                <TabPanel value="2">
+
+                                    <div>
+                                        <input type="text" className='form-control mb-2' name='allSearch' value={props.allSearch} onChange={(e) => props.onSearch(e)} placeholder='Search product' />
+                                    </div>
+
+                                    <div style={{ overflow: "auto", height: "450px" }}>
+
+                                        {productList.length > 0 &&
+                                            productList.map((product, i) => {
+                                                // console.log(product)
+                                                return (
+                                                    <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                        <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
+                                                            <div className="col-sm-3">
+
+                                                                <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
+
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+                                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+
+                                                                <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
+                                                            </div>
+
+                                                            <div className="col-sm-3">
+                                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
+                                                                    <span className="--slider">
+                                                                        <i className="fa fa-check"></i>
+                                                                        <i className="fa fa-times"></i>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+
+
                                                     </div>
-
-                                                    <div className="col-sm-3">
-
-                                                        <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
-                                                    </div>
-
-                                                    <div className="col-sm-3">
-                                                        <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
-                                                            <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
-                                                            <span className="--slider">
-                                                                <i className="fa fa-check"></i>
-                                                                <i className="fa fa-times"></i>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-
-
-                                            </div>
-                                        )
-                                    })
-                                }
+                                                )
+                                            })
+                                        }
 
 
 
 
 
-                            </div>
+                                    </div>
+
+                                </TabPanel>
+
+                            </TabContext>
+
 
                         </TabPanel>
                         <TabPanel value="2">
 
-                            <div>
-                                <input type="text" className='form-control mb-2' name='allSearch' value={props.allSearch} onChange={(e) => props.onSearch(e)} placeholder='Search product' />
-                            </div>
-
-                            <div style={{ overflow: "auto", height: "450px" }}>
-
-                                {productList.length > 0 &&
-                                    productList.map((product, i) => {
-                                        // console.log(product)
-                                        return (
-                                            <div className="px-5 pt-3 mt-0 mb-2" key={i}>
-                                                <div className="row" style={{ height: "5rem", border: "1px solid " + product.categoryDetails.color }}>
-                                                    <div className="col-sm-3">
-
-                                                        <img src={helper.CampaignProductImagePath + product.image} alt='sponsor' style={{ width: "35px", marginTop: "14px", }}></img>
-
-                                                    </div>
-
-                                                    <div className="col-sm-3">
-                                                        <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
-                                                    </div>
-
-                                                    <div className="col-sm-3">
-
-                                                        <img src={helper.CampaignAdminLogoPath + product.campaignDetails?.logo} alt='sponsor' style={{ width: "45px", marginTop: "21px", }}></img>
-                                                    </div>
-
-                                                    <div className="col-sm-3">
-                                                        <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
-                                                            <input type="checkbox" checked={props.publisedProductIds.includes(product._id)} id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(product._id, advertisementDetails._id)} />
-                                                            <span className="--slider">
-                                                                <i className="fa fa-check"></i>
-                                                                <i className="fa fa-times"></i>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-
-                                                </div>
+                            <TabContext value={Homevalue}>
+                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                    <TabList onChange={handleChangeHome} aria-label="lab API tabs example">
+                                        <Tab label="All" value="1" />
+                                        <Tab label="Country" value="2" />
+                                        <Tab label="Category" value="3" />
 
 
+                                    </TabList>
+                                </Box>
+                                <TabPanel value="1">
+
+                                    <div className="px-5 pt-3 mt-0 mb-2">
+                                        <div className="row" style={{ height: "5rem", border: "1px solid rgba(189, 193, 200, 0.5)" }}>
+                                            <div className="col-sm-6">
+                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>HomePage</h6>
                                             </div>
-                                        )
-                                    })
-                                }
+
+                                            <div className="col-sm-6">
+                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                    <input type="checkbox" id="prioritySupport" name="BASIC" checked={props.home} onChange={(e) => props.onChangeHome(e, advertisementDetails._id)} />
+                                                    <span className="--slider">
+                                                        <i className="fa fa-check"></i>
+                                                        <i className="fa fa-times"></i>
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </TabPanel>
+                                <TabPanel value="2">
+                                    {/* <div>
+                                        <input type="text" className='form-control mb-2' name='countrySearch' value={props.countrySearch} onChange={(e) => props.onSearch(e,'COUNTRY')} placeholder='Search Country' />
+                                    </div> */}
+
+                                    <div className="input__wrap d-flex mb-2">
+
+                                        <Select
+                                            className="basic-single"
+                                            classNamePrefix="select"
+                                            value={props.defaultCountry}
+                                            name="country"
+                                            options={countryList}
+                                            onChange={props.onChangeCountry}
+                                            placeholder="Select Country"
+                                        />
+
+                                    </div>
+
+                                    <div style={{ overflow: "auto", height: "450px" }}>
+
+                                        {stateList.length > 0 &&
+                                            stateList.map((state, i) => {
+                                                return (
+                                                    <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                        <div className="row" style={{ height: "5rem", border: "1px solid rgba(189, 193, 200, 0.5) " }}>
+
+
+                                                            <div className="col-sm-6">
+                                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{state.state}</h6>
+                                                            </div>
+
+
+
+                                                            <div className="col-sm-6">
+                                                                {/* <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(state.id, advertisementDetails._id)} />
+                                                                    <span className="--slider">
+                                                                        <i className="fa fa-check"></i>
+                                                                        <i className="fa fa-times"></i>
+                                                                    </span>
+                                                                </label> */}
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                )
+                                            })
+                                        }
 
 
 
 
 
-                            </div>
+                                    </div>
+
+                                </TabPanel>
+
+                                <TabPanel value="3">
+                                    <div style={{ overflow: "auto", height: "450px" }}>
+
+                                        {categoryList.length > 0 &&
+                                            categoryList.map((category, i) => {
+                                                console.log(category)
+                                                return (
+                                                    <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                        <div className="row" style={{ height: "5rem", border: "1px solid " + category.color }}>
+
+
+                                                            <div className="col-sm-4">
+                                                                <h6 style={{ lineHeight: '5rem', color: category.color, letterSpacing: ' 3.32px', fontWeight: '700' }}>{category.name}</h6>
+                                                            </div>
+
+                                                            <div className="col-sm-4">
+                                                                <i className={category.iconDetails[0]?.class} style={{ lineHeight: '5rem', fontFamily: "fontAwesome", color: category.color, fontStyle: "normal" }}></i>
+                                                            </div>
+
+
+
+                                                            <div className="col-sm-4">
+                                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" id="prioritySupport" checked={props.publisedCatIds.includes(category._id)} name="BASIC" onChange={() => props.publishOrRemoveAdFromCategory(category._id, advertisementDetails._id)} />
+                                                                    <span className="--slider">
+                                                                        <i className="fa fa-check"></i>
+                                                                        <i className="fa fa-times"></i>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                )
+                                            })
+                                        }
+
+
+
+
+
+                                    </div>
+
+                                </TabPanel>
+
+                            </TabContext>
 
                         </TabPanel>
 
                     </TabContext>
+
+
+
                 </Box>
 
 
