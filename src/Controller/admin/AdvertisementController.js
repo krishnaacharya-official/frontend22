@@ -35,6 +35,8 @@ export default function AdvertisementController() {
     const [defaultCountry, setDefaultCountry] = useState([])
     const [category, setCategory] = useState([])
     const [publisedCatIds, setPublisedCatIds] = useState([])
+    const [publisedStateIds, setPublisedStateIds] = useState([])
+
 
 
 
@@ -107,8 +109,8 @@ export default function AdvertisementController() {
         data.productId = productId
         data.advertisementId = advertisementId
 
-        await advertisementApi.publishAdd(adminAuthToken, data)
-        if (advertisementApi) {
+        const advertisementPublish = await advertisementApi.publishAdd(adminAuthToken, data)
+        if (advertisementPublish) {
             await listPublishedAdProduct(advertisementId)
 
         }
@@ -228,7 +230,7 @@ export default function AdvertisementController() {
         }
     }
 
-    const onChangeCountry = async (e) => {
+    const onChangeCountry = async (e, advertisementId) => {
 
 
         setDefaultCountry(e)
@@ -239,6 +241,7 @@ export default function AdvertisementController() {
 
         })
         await getCountryStateList(e.value)
+        await listPublishedAdToCountry(advertisementId, e.value)
 
 
     }
@@ -250,8 +253,8 @@ export default function AdvertisementController() {
         data.categoryId = categoryId
         data.advertisementId = advertisementId
 
-        await advertisementApi.publishAddToCategory(adminAuthToken, data)
-        if (advertisementApi) {
+        const advertisementPublish = await advertisementApi.publishAddToCategory(adminAuthToken, data)
+        if (advertisementPublish) {
             await listPublishedAddToCategory(advertisementId)
         }
 
@@ -283,6 +286,53 @@ export default function AdvertisementController() {
             }
         }
     }
+
+    const listPublishedAdToCountry = async (advertisementId, countryId) => {
+
+
+        let data = {}
+        data.advertisementId = advertisementId
+        data.countryId = countryId
+
+
+        const getListPublishedAdCountry = await advertisementApi.listCountryAdvertisement(adminAuthToken, data)
+        if (getListPublishedAdCountry) {
+            if (getListPublishedAdCountry.data.success === true) {
+                // console.log(getListPublishedAdCountry.data.data)
+                if (getListPublishedAdCountry.data.data.length > 0) {
+                    // console.log(getListPublishedAdCountry.data.data.length)
+
+                    let tempArr = []
+                    getListPublishedAdCountry.data.data.map((item, i) => {
+                        tempArr.push(item.stateId)
+                    })
+
+                    setPublisedStateIds(tempArr)
+                }else{
+                    setPublisedStateIds([])
+                }
+            }
+        }
+    }
+
+
+    const publishOrRemoveAdFromCountry = async (countryId, stateId, advertisementId) => {
+        setLoading(true)
+        let data = {}
+        data.countryId = countryId
+        data.stateId = stateId
+        data.advertisementId = advertisementId
+
+        const advertisementPublish = await advertisementApi.publishAddToCountry(adminAuthToken, data)
+        if (advertisementPublish) {
+            await listPublishedAdToCountry(advertisementId, countryId)
+        }
+
+        setLoading(false)
+
+    }
+
+
 
 
 
@@ -508,6 +558,7 @@ export default function AdvertisementController() {
         setLoading(true)
         await listPublishedAdProduct(data._id)
         await listPublishedAddToCategory(data._id)
+        // await listPublishedAdToCountry(data._id)
         await getCategoryList()
         setSearchState({
             ...searchState,
@@ -566,6 +617,8 @@ export default function AdvertisementController() {
                 category={category}
                 publishOrRemoveAdFromCategory={publishOrRemoveAdFromCategory}
                 publisedCatIds={publisedCatIds}
+                publisedStateIds={publisedStateIds}
+                publishOrRemoveAdFromCountry={publishOrRemoveAdFromCountry}
 
             />
 

@@ -423,3 +423,17 @@ export function purchasedPriceWithTax(price, totalCharge) {
     return taxPrice;
 
 }
+
+
+
+export function arrayUnique(array) {
+    let a = array.concat();
+    for (let i = 0; i < a.length; ++i) {
+        for (let j = i + 1; j < a.length; ++j) {
+            if (a[i].name === a[j].name)
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
+}

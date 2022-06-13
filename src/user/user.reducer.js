@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -78,6 +78,14 @@ const userReducer = (state = userInitialState, action) => {
 
             }
 
+        case UPDATE_STATEID:
+
+            return {
+                ...state,
+                stateId: action.payload
+
+            }
+
         case SET_USER_ADDRESS:
             return {
                 ...state,
@@ -120,6 +128,7 @@ const userReducer = (state = userInitialState, action) => {
                 pricePerCurrency: 0,
                 profileImage: "",
                 countryId: "",
+                stateId: "",
                 countryName: "",
                 stateName: "",
                 cityName: "",

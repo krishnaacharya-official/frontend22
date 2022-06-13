@@ -296,11 +296,37 @@ const AdvertiseSetting = (props) => {
                                             value={props.defaultCountry}
                                             name="country"
                                             options={countryList}
-                                            onChange={props.onChangeCountry}
+                                            onChange={(e) => props.onChangeCountry(e, advertisementDetails._id)}
                                             placeholder="Select Country"
                                         />
 
                                     </div>
+                                    {stateList.length > 0 &&
+                                        <div className="px-5 pt-3 mt-0 mb-2" >
+                                            <div className="row" style={{ height: "5rem", border: "1px solid rgba(189, 193, 200, 0.5) " }}>
+
+
+                                                <div className="col-sm-6">
+                                                    <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>All</h6>
+                                                </div>
+
+
+
+                                                <div className="col-sm-6">
+                                                    <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                        <input type="checkbox" id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct()} />
+                                                        <span className="--slider">
+                                                            <i className="fa fa-check"></i>
+                                                            <i className="fa fa-times"></i>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    }
 
                                     <div style={{ overflow: "auto", height: "450px" }}>
 
@@ -318,13 +344,14 @@ const AdvertiseSetting = (props) => {
 
 
                                                             <div className="col-sm-6">
-                                                                {/* <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
-                                                                    <input type="checkbox" id="prioritySupport" name="BASIC" onChange={() => props.publishOrRemoveAdFromProduct(state.id, advertisementDetails._id)} />
+                                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" id="prioritySupport" checked={props.publisedStateIds.includes(state.id)} name="BASIC" onChange={() => props.publishOrRemoveAdFromCountry(state.
+                                                                        country_id, state.id, advertisementDetails._id)} />
                                                                     <span className="--slider">
                                                                         <i className="fa fa-check"></i>
                                                                         <i className="fa fa-times"></i>
                                                                     </span>
-                                                                </label> */}
+                                                                </label>
                                                             </div>
 
                                                         </div>
@@ -348,7 +375,7 @@ const AdvertiseSetting = (props) => {
 
                                         {categoryList.length > 0 &&
                                             categoryList.map((category, i) => {
-                                                console.log(category)
+                                                // console.log(category)
                                                 return (
                                                     <div className="px-5 pt-3 mt-0 mb-2" key={i}>
                                                         <div className="row" style={{ height: "5rem", border: "1px solid " + category.color }}>

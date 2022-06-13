@@ -13,11 +13,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { arrayUnique } from "../../Common/Helper";
 
 
 export default function CategoryProductsController(props) {
     const [productList, setProductList] = useState([])
     const [advertisementList, setAdvertisementList] = useState([])
+    const [homeadvertisementList, setHomeAdvertisementList] = useState([])
+    const [categoryadvertisementList, setCategoryAdvertisementList] = useState([])
+    const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
+
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
@@ -36,7 +41,11 @@ export default function CategoryProductsController(props) {
     const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
     const params = useParams();
     const location = useLocation();
-
+    const [categoryDetails, setCategoryDetails] = useState({
+        name: "",
+        color: "",
+        icon: ""
+    })
 
 
     const [filters, setfilters] = useState({
@@ -93,11 +102,51 @@ export default function CategoryProductsController(props) {
         const adList = await advertisementApi.listHomeAd(token)
         if (adList) {
             if (adList.data.success === true) {
-                setAdvertisementList(adList.data.data)
+                setHomeAdvertisementList(adList.data.data)
             }
 
         }
     }
+
+    const getCategoryAdList = async (catId) => {
+        let data = {}
+        data.categoryId = catId
+        const adList = await advertisementApi.listCategoryAdvertisement(token, data)
+        if (adList) {
+
+            if (adList.data.success === true) {
+                if (adList.data.data.length > 0) {
+                    let tempArray = []
+                    adList.data.data.map((ad, i) => {
+
+                        if (ad.advertisementsDetails.length > 0) {
+                            ad.advertisementsDetails.map((a, i) => {
+                                tempArray.push(a)
+
+                            })
+                        }
+                        // setAdvertisementList([...advertisementList, ad.advertisementsDetails])
+                    })
+                    setCategoryAdvertisementList(tempArray)
+
+                }
+                // setAdvertisementList(adList.data.data)
+            }
+
+        }
+    }
+
+    // function arrayUnique(array) {
+    //     let a = array.concat();
+    //     for (let i = 0; i < a.length; ++i) {
+    //         for (let j = i + 1; j < a.length; ++j) {
+    //             if (a[i].name === a[j].name)
+    //                 a.splice(j--, 1);
+    //         }
+    //     }
+
+    //     return a;
+    // }
 
 
 
@@ -108,20 +157,29 @@ export default function CategoryProductsController(props) {
 
             setLoading(true)
 
+            setCategoryDetails({
+                ...categoryDetails,
+                name: location.state.catName,
+                color: location.state.theme_color,
+                icon: location.state.catIcon
+            })
+
             setPricingFees({
                 ...pricingFees,
                 platformFee: user.platformFee,
                 transectionFee: user.transectionFee
             })
 
-            // await getHomePageAdList()
+            await getCategoryAdList(location.state.id)
+            await getHomePageAdList()
+
 
 
             setLoading(false)
 
 
         })()
-    }, [user])
+    }, [user, location])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -298,20 +356,22 @@ export default function CategoryProductsController(props) {
             HighPrice: e[1],
             lowPrice: e[0]
         })
+
     }
 
     useEffect(() => {
         (async () => {
             // console.log(params)
             // console.log(location.state.id)
-     
+
             setLoading(true)
             await filterProduct(lowPrice, HighPrice, search, user.countryId)
             setLoading(false)
 
-
+            let arr = arrayUnique(categoryadvertisementList.concat(homeadvertisementList))
+            setAdvertisementList(arr);
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, homeadvertisementList])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
@@ -332,7 +392,7 @@ export default function CategoryProductsController(props) {
         data.highToLow = highToLow
         data.oldEst = oldEst
         data.newEst = newEst
-  
+
         data.userCountry = userCountry
         // console.log(userCountry)
 
@@ -383,7 +443,9 @@ export default function CategoryProductsController(props) {
 
     return (
         <>
-
+            {
+                // console.log(advertisementList)
+            }
             <FrontLoader loading={loading} />
             <Index
                 productList={productList}
@@ -403,6 +465,9 @@ export default function CategoryProductsController(props) {
                 onChangePriceSlider={onChangePriceSlider}
                 onSearchProduct={onSearchProduct}
                 advertisementList={advertisementList}
+                module='CATEGORY'
+                categoryDetails={categoryDetails}
+
 
 
 

@@ -36,7 +36,7 @@ export default function Index(props) {
         {
             name: "Logo",
             cell: (row) => <>
-                <img src={helper.sponsorLogoResizePath + row.logo} alt='sponsor' style={{ width: "100px" }}></img>
+                <img src={helper.sponsorLogoResizePath + row.logo} alt='sponsor' style={{ width: "50px" }}></img>
             </>,
             ignoreRowClick: true,
             allowOverflow: true,

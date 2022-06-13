@@ -10,14 +10,19 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress, setUserState } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
+import { arrayUnique } from "../../Common/Helper";
 
 
 
 export default function HomeController() {
     const [productList, setProductList] = useState([])
     const [advertisementList, setAdvertisementList] = useState([])
+    const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
+    const [homeadvertisementList, setHomeAdvertisementList] = useState([])
+
+
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
@@ -106,12 +111,25 @@ export default function HomeController() {
 
 
                 }
+                if (userData.state_id && userData.state_id !== null && userData.state_id > 0) {
+                    dispatch(setUserState(userData.state_id))
+
+                } else {
+                    dispatch(setUserState(3830))
+                }
 
             } else {
                 if (CampaignAdmin.country_id && CampaignAdmin.country_id !== null && CampaignAdmin.country_id > 0) {
                     dispatch(setUserCountry(CampaignAdmin.country_id))
                 } else {
                     dispatch(setUserCountry(233))
+
+                }
+
+                if (CampaignAdmin.state_id && CampaignAdmin.state_id !== null && CampaignAdmin.state_id > 0) {
+                    dispatch(setUserCountry(CampaignAdmin.state_id))
+                } else {
+                    dispatch(setUserCountry(3830))
 
                 }
 
@@ -122,10 +140,22 @@ export default function HomeController() {
 
     }
 
+    const getStateDetailsByName = async (Name) => {
+        let data = {}
+        data.name = Name
+        const getStateDetails = await locationApi.stateDetailsByName(token, data)
+        if (getStateDetails) {
+            if (getStateDetails.data.success) {
+                dispatch(setUserState(getStateDetails.data.data.id))
+            }
+        }
+
+    }
+
 
 
     async function showPosition(position) {
-        // console.log('show')
+        console.log('show')
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         if (latitude && longitude) {
@@ -142,6 +172,7 @@ export default function HomeController() {
                     tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
                     tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
                     dispatch(setUserAddress(tempObj))
+                    // console.log(jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name)
 
                     jsObjects.filter(async obj => {
                         let tempObj = {}
@@ -173,7 +204,9 @@ export default function HomeController() {
 
                         }
 
+
                     })
+                    await getStateDetailsByName(jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name)
 
 
                 }
@@ -191,7 +224,7 @@ export default function HomeController() {
         const adList = await advertisementApi.listHomeAd(token)
         if (adList) {
             if (adList.data.success === true) {
-                setAdvertisementList(adList.data.data)
+                setHomeAdvertisementList(adList.data.data)
             }
 
         }
@@ -229,6 +262,7 @@ export default function HomeController() {
             //     })
             // }
             await getHomePageAdList()
+            await getCountryAdvertisement(user.countryId, user.stateId)
 
             const getCategoryList = await categoryApi.listCategory(token);
             if (getCategoryList.data.success === true) {
@@ -240,7 +274,7 @@ export default function HomeController() {
 
 
         })()
-    }, [user])
+    }, [user, user.countryId, user.stateId])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -453,7 +487,6 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
             if (user.countryId === null || user.countryId === undefined || user.countryId === "") {
-                // console.log("user.countryId",user.countryId)
 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -470,15 +503,19 @@ export default function HomeController() {
                 }
             } else {
                 // console.log(user.countryId)
+                // await getCountryAdvertisement(user.countryId,user.stateId)
 
                 setLoading(true)
                 await filterProduct(lowPrice, HighPrice, search, user.countryId)
                 setLoading(false)
             }
 
+            let arr = arrayUnique(countryAdvertisementList.concat(homeadvertisementList))
+            setAdvertisementList(arr);
+
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice,countryAdvertisementList])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
@@ -546,6 +583,33 @@ export default function HomeController() {
 
     }
 
+    const getCountryAdvertisement = async (countryId, stateId) => {
+        let data = {}
+        data.countryId = countryId
+        data.stateId = stateId
+        const getCountryAdvertisementList = await advertisementApi.listCountryAdvertisement(token, data)
+
+        if (getCountryAdvertisementList) {
+            if (getCountryAdvertisementList.data.success) {
+                if (getCountryAdvertisementList.data.data.length > 0) {
+                    let tempArray = []
+                    getCountryAdvertisementList.data.data.map((ad, i) => {
+                        if (ad.advertisementsDetails.length > 0) {
+                            ad.advertisementsDetails.map((a, i) => {
+                                tempArray.push(a)
+
+                            })
+                        }
+
+                    })
+                    setCountryAdvertisementList(tempArray)
+                }
+            }
+        }
+    }
+
+
+
     return (
         <>
             {/* {console.log(user)} */}
@@ -572,6 +636,7 @@ export default function HomeController() {
                 onChangePriceSlider={onChangePriceSlider}
                 onSearchProduct={onSearchProduct}
                 advertisementList={advertisementList}
+                module='HOME'
 
 
 

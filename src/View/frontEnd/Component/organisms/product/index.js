@@ -142,7 +142,7 @@ const Product = (props) => {
         // to={{ pathname: "/categories/" + categorySlug, state: {key:props.categoryDetails?._id} }}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
-        state={{ id: props.categoryDetails?._id }}
+        state={{ id: props.categoryDetails?._id, catIcon: catIcon, theme_color: theme_color, catName: props.categoryDetails?.name }}
       >
         &nbsp;
       </Link>

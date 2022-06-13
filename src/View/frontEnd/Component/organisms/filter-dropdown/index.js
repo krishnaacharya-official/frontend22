@@ -24,6 +24,8 @@ const FilterDropdown = (props) => {
   const lottie = Lottie;
   const organizationList = props.organizationList;
   const categoryList = props.categoryList;
+  const module = props.module
+  const categoryDetails = props.categoryDetails
 
   const [hidden, setHidden] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -90,8 +92,37 @@ const FilterDropdown = (props) => {
       ></div>
 
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
-        <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
+        {
+          module === 'HOME' ?
+            <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
+              <div className="d-flex align-items-center justify-content-center">
+
+                <span className="fw-bold">Filters</span>
+                <span
+                  id="filter__icon"
+                  className="lottie__icon ms-1 d-flex align-items-center fs-4"
+                  ref={sliderAnim}
+                />
+              </div>
+            </Dropdown.Toggle>
+            :
+            <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100" style={{ backgroundColor: categoryDetails?.color, borderColor: categoryDetails?.color }}>
+              <div className="d-flex align-items-center justify-content-center">
+                {/* <div className="avatar__small avatar__small--main"style={{width:"29px",height:"29px"}}>
+                  <img src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/59f2490b188b770001727b5b_pp-supplies.svg" alt="" />
+                  </div> */}
+                <span className="fw-bold">{categoryDetails?.name}</span>
+                <span
+                  id="filter__icon"
+                  className="lottie__icon ms-1 d-flex align-items-center fs-4"
+                  ref={sliderAnim}
+                />
+              </div>
+            </Dropdown.Toggle>
+        }
+        {/* <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
           <div className="d-flex align-items-center justify-content-center">
+            
             <span className="fw-bold">Filters</span>
             <span
               id="filter__icon"
@@ -99,7 +130,8 @@ const FilterDropdown = (props) => {
               ref={sliderAnim}
             />
           </div>
-        </Dropdown.Toggle>
+        </Dropdown.Toggle> */}
+
         <Dropdown.Menu renderOnMount className="filter__dropdown">
           <div className="filter__dropdown-hd border-bottom">
             <div className="filter__checkboxes d-flex align-items-center">

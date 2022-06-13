@@ -14,6 +14,7 @@ export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
   const selectedKey = props.selectedKey;
   const setSelectedKey = props.setSelectedKey;
+  const module = props.module
 
   let products;
   const title = {
@@ -93,6 +94,8 @@ export default function Index(props) {
               filters={props.filters}
               onClickFilter={props.onClickFilter}
               onChangePriceSlider={props.onChangePriceSlider}
+              module={module}
+              categoryDetails={props.categoryDetails}
             />
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">

@@ -16,7 +16,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry, setUserState } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
 import cartApi from "../../../../../Api/frontEnd/cart";
 // import { useSelector, useDispatch } from "react-redux";
@@ -356,7 +356,7 @@ const UserProfile = () => {
     let tempCurrencyObj = {}
     // console.log(countryCurrency.find(x => x.id === data.country_id))
     // let temp = countryCurrency.find(x => x.id === data.country_id)
-  
+
     // let UsercountryObj = {}
     // UsercountryObj.currency = temp?.label
     // UsercountryObj.currencySymbol = temp?.icon
@@ -438,14 +438,18 @@ const UserProfile = () => {
           ToastAlert({ msg: addUser.data.message, msgType: 'error' });
         } else {
           await clearCart()
-          dispatch(setUserCountry(data.country_id))
+          // console.log(country,country)
+          dispatch(setUserCountry(country))
 
-          let temp = countryCurrency.find(x => x.id === data.country_id)
-  
+          let temp = countryCurrency.find(x => x.id ===country)
+
           let UsercountryObj = {}
           UsercountryObj.currency = temp?.label
           UsercountryObj.currencySymbol = temp?.icon
           dispatch(setCurrency(UsercountryObj))
+          dispatch(setUserState(stateId))
+
+
           // let currencyData = {}
           // currencyData.currency = currency.split('=')[0]
           // currencyData.currencySymbol = currency.split('=')[1]
