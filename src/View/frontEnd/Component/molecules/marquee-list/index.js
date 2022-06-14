@@ -9,7 +9,7 @@ const MarqueeList = (props) => {
       <div className="collection__list">
 
         {
-          campaignAdminList.length > 0 &&
+          campaignAdminList && campaignAdminList.length > 0 &&
           campaignAdminList.map((list, i) => {
             return (
               <div className="icon__item" key={i}>

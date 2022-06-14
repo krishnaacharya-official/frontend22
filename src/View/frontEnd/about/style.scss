@@ -1,8 +1,4 @@
 .about {
-  .about__title {
-    line-height: 0.875;
-  }
-
   .crypto__icon {
     height: 36px;
     width: 36px;
@@ -43,8 +39,8 @@
 }
 
 .page__circle {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 
   img {
     width: 100%;
@@ -56,3 +52,142 @@
   border: 2px dashed #e6e6e6;
 }
 
+.about-hero {
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    left: 0;
+    height: 100%;
+    width: 150%;
+    background: var(--bkg-shade);
+    transform: rotate(315deg);
+    transform-origin: bottom;
+  }
+
+  .content__2 {
+    max-width: 650px;
+    padding-top: 2.3rem;
+    margin: auto;
+  }
+}
+
+.about__content-1 {
+  max-width: 500px;
+  padding-right: 3%;
+}
+
+.services__img img {
+  max-height: 600px;
+}
+
+.services__text {
+  max-width: 460px;
+
+  .circle {
+    background: var(--bkg-shade);
+    position: absolute;
+    left: auto;
+    top: 0;
+    right: 8%;
+    bottom: auto;
+    z-index: -1;
+    width: 154px;
+    height: 154px;
+    border-radius: 50%;
+  }
+}
+
+.bigcircle {
+  background: var(--bkg-shade);
+  display: flex;
+  width: 190px;
+  height: 190px;
+  padding: 35px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.bigcircle._2 {
+  @include media-breakpoint-up(sm) {
+    transform: translate(0, 50%);
+  }
+}
+
+.tag__item {
+  background: var(--bkg-shade);
+}
+
+.how-it-works {
+  padding: 72px 0;
+  position: relative;
+}
+
+.how-it-works-bg {
+  position: absolute;
+  left: 0;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0.03;
+}
+
+.how-it-works__content {
+  position: relative;
+  z-index: 1;
+}
+
+.ourbrand__lists {
+  padding: 52px 0;
+
+  @include media-breakpoint-down(sm) {
+    padding: 24px 0;
+  }
+
+  .image-2 {
+    max-height: 50%;
+  }
+
+  .ourbrand__item {
+    width: 120px;
+    height: 160px;
+
+    @include media-breakpoint-down(sm) {
+      height: 80px;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.blob {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: -6%;
+  bottom: -35%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: #f0f0f0;
+}
+.blob.blob--2 {
+  right: 19%;
+  bottom: 88%;
+  width: 120px;
+  height: 120px;
+
+  @include media-breakpoint-down(sm) {
+    bottom: 92%;
+  }
+}
+
+.about h2 {
+  font-size: 42px;
+}

@@ -57,7 +57,7 @@ $width: (60, 150, 200, 310, 350, 400);
 }
 
 // max-width utility
-$mwidth: (200, 240, 300, 400, 600, 800, 850, 960, 1280);
+$mwidth: (200, 240, 300, 400, 460, 600, 800, 850, 960, 1280);
 
 @each $val in $mwidth {
   // loop each properties

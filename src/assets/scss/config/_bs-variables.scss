@@ -213,3 +213,13 @@ $modal-xl:                          1140px !default;
 
 $modal-content-border-width:        0;
 $modal-content-border-radius:       8px;
+
+// scss-docs-start display-headings
+$display-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 2.875rem,
+  6: 2.5rem
+) !default;
