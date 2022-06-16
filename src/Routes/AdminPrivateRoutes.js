@@ -37,6 +37,7 @@ import VerificationInquiryController from '../Controller/admin/VerificationInqui
 import Aws from '../View/admin/Setting/Aws';
 import DonationController from '../Controller/admin/DonationController';
 import AdvertisementController from '../Controller/admin/AdvertisementController';
+import SalesTax from '../View/admin/Setting/SalesTax';
 
 // ----------------------------------------------------------------------
 
@@ -92,7 +93,7 @@ export default function AdminPrivateRoutes() {
                     <Route exact path="/admin/setting/email" element={<Email />} />
                     <Route exact path="/admin/setting/social" element={<FooterLinks />} />
                     <Route exact path="/admin/setting/aws" element={<Aws />} />
-
+                    <Route exact path="/admin/setting/sales-tax" element={<SalesTax />} />
                     <Route exact path="/admin/orders" element={<OrderController />} />
                     <Route exact path="/admin/cms" element={<CmsController />} />
                     <Route exact path="/admin/partnership" element={<PartnershipInquiryController />} />

@@ -123,6 +123,13 @@ export default function Settings() {
 
                                 <div className="sw-settings-item__label">Aws S3</div>
                             </Link>
+                            <Link to="/admin/setting/sales-tax" className="sw-settings-item" id="sw-settings-customer-group">
+                                <div className="sw-settings-item__icon background--enabled">
+                                    <FontAwesomeIcon icon={solid("percent")} />
+                                </div>
+
+                                <div className="sw-settings-item__label">Sales Tax</div>
+                            </Link>
                             {/*  <a href="#/sw/settings/delivery/time/index" className="sw-settings-item" id="sw-settings-delivery-time">
                                 <div className="sw-settings-item__icon background--enabled">
                                     <span className="sw-icon icon--default-time-clock sw-icon--fill">

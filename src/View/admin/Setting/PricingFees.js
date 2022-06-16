@@ -30,7 +30,7 @@ import { validateAll } from "indicative/validator";
 import Select from 'react-select'
 import adminCampaignApi from "../../../Api/admin/adminCampaign"
 import { CleanHands } from '@mui/icons-material';
-import pricingFeesApi from '../../../Api/admin/pricingFees';
+// import pricingFeesApi from '../../../Api/admin/pricingFees';
 
 export default function PricingFees(props) {
     const navigate = useNavigate();
@@ -179,25 +179,25 @@ export default function PricingFees(props) {
         }
     }
 
-    const onChangeCountry = async (e) => {
-        let tempD = {}
-        tempD.countryId = e.value
-        setCountry(e.value)
-        const getSettingsValue = await pricingFeesApi.list(adminAuthToken, tempD);
-        if (getSettingsValue.data.success) {
+    // const onChangeCountry = async (e) => {
+    //     let tempD = {}
+    //     tempD.countryId = e.value
+    //     setCountry(e.value)
+    //     const getSettingsValue = await pricingFeesApi.list(adminAuthToken, tempD);
+    //     if (getSettingsValue.data.success) {
 
-            setState({
-                ...state,
-                platformFee: getSettingsValue.data.data.platformFee,
-                transectionFee: getSettingsValue.data.data.transectionFee
-            })
-            setPf(getSettingsValue.data.data.platformFee)
-            setTf(getSettingsValue.data.data.transectionFee)
-            setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
+    //         setState({
+    //             ...state,
+    //             platformFee: getSettingsValue.data.data.platformFee,
+    //             transectionFee: getSettingsValue.data.data.transectionFee
+    //         })
+    //         setPf(getSettingsValue.data.data.platformFee)
+    //         setTf(getSettingsValue.data.data.transectionFee)
+    //         setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
 
 
-        }
-    }
+    //     }
+    // }
 
 
     useEffect(() => {

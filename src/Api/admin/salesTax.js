@@ -1,14 +1,14 @@
 import axios from "axios";
 import helper from "../../Common/Helper";
 
-function pricingFees() {
+function salesTax() {
 
-    const list = async (authToken, data) => {
+    const list = async (authToken) => {
 
         let res = {};
         await axios({
-            method: 'post',
-            url: `${helper.ApiUrl}pricingfees/list`,
+            method: 'get',
+            url: `${helper.ApiUrl}salestax/country/list`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -18,7 +18,7 @@ function pricingFees() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data: data
+    
 
         }).then((response) => {
             res = response
@@ -57,5 +57,5 @@ function pricingFees() {
 
     }
 }
-const pricingFeesApi = pricingFees();
-export default pricingFeesApi;
+const salesTaxApi = salesTax();
+export default salesTaxApi;
