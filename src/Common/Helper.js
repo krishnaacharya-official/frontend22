@@ -206,97 +206,15 @@ export function getCalculatedPrice() {
         return currencySymbol
     }
 
+    const calculateSalesTax = (amount) => {
+        
+        const salesTax = Number(user.salesTax)
+        let taxAmount =  Math.round((salesTax/ 100) * amount)
+        return taxAmount
+  
 
-    // const getUserRank = () => {
+    }
 
-    //     let rank;
-    //     switch (user.rank) {
-    //         case 'fish':
-
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
-    //                     className="rounded-pill"
-    //                     icon={<FontAwesomeIcon icon={solid("fish")} />}
-    //                 >
-    //                     Fish
-    //                 </IconButton>)
-    //             break;
-
-    //         case 'beluga':
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="#78bafc"
-    //                     className="rounded-pill"
-    //                     icon={<FontAwesomeIcon icon={solid("whale")} />}
-    //                 >
-    //                     Beluga
-    //                 </IconButton>
-    //             )
-    //             break;
-
-    //         case 'narwhal':
-
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="#a278fc"
-    //                     className="rounded-pill me-2"
-    //                     icon={<FontAwesomeIcon icon={solid("narwhal")} />}
-    //                 >
-    //                     Narwhal
-    //                 </IconButton>
-    //             )
-
-    //             break;
-
-    //         case 'pirate':
-
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="#fc8c63"
-    //                     className="rounded-pill"
-    //                     icon={<FontAwesomeIcon icon={solid("swords")} />}
-    //                 >
-    //                     Pirate
-    //                 </IconButton>
-    //             )
-    //             break;
-
-    //         case 'admiral':
-
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="#95dbb0"
-    //                     className="rounded-pill"
-    //                     icon={<FontAwesomeIcon icon={solid("ship")} />}
-    //                 >
-    //                     Admiral
-    //                 </IconButton>
-    //             )
-
-    //             break;
-
-    //         case 'captian':
-
-    //             rank = (
-    //                 <IconButton
-    //                     bgColor="#000"
-    //                     className="rounded-pill"
-    //                     icon={<FontAwesomeIcon icon={solid("anchor")} />}
-    //                 >
-    //                     Captain
-    //                 </IconButton>
-    //             )
-    //             break;
-    //         default:
-    //             <>
-    //             </>
-    //             break;
-
-    //     }
-    //     return rank;
-
-    // }
 
     const getUserRank = (UserXp) => {
 
@@ -408,16 +326,12 @@ export function getCalculatedPrice() {
         currencySymbol,
         priceWithoutTax,
         priceWithTax,
-        getUserRank
+        getUserRank,
+        calculateSalesTax
     }
 }
 
 export function purchasedPriceWithTax(price, totalCharge) {
-    // let transectionFee = TF
-    // let platformFee = PF
-
-    // let totalCharge = Number(transectionFee) + Number(platformFee)
-
 
     let taxPrice = Math.round(price + (Number(totalCharge) / 100) * price)
     return taxPrice;

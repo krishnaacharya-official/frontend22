@@ -11,7 +11,7 @@ import { validateAll } from "indicative/validator";
 import settingApi from "../../Api/admin/setting";
 import helper, { getCalculatedPrice } from "../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserXp ,setUserRank} from "../../user/user.action"
+import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
 
 
@@ -21,7 +21,11 @@ export default function CheckoutController() {
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const [subtotal, setSubTotal] = useState(0)
+    const [subtotalWithTax, setSubtotalWithTax] = useState(0)
+
     const [total, setTotal] = useState(0)
+    const [salesTax, setSalesTax] = useState(0);
+
     const [xp, setXp] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
     const currencySymbol = CalculatedPrice.currencySymbol()
@@ -118,7 +122,7 @@ export default function CheckoutController() {
 
 
             // }
-        
+
 
             const getCartList = await cartApi.list(userAuthToken);
             if (getCartList.data.success === true) {
@@ -148,11 +152,15 @@ export default function CheckoutController() {
                     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
                     let sumSubTotal = tempProductPriceArray.reduce(function (a, b) { return a + b; }, 0);
 
+                    console.log(sumSubTotal)
+
                     let xpSum = ProductItems.reduce(function (a, b) { return a + b; }, 0);
                     setXp(xpSum * xpForeEachItem)
-                    setSubTotal(sumSubTotal)
-                    // console.log("sum",sum)
-                    setTotal(sum)
+                    setSubtotalWithTax(sumSubTotal)
+                    let salesTax = CalculatedPrice.calculateSalesTax(sum)
+                    setSalesTax(salesTax)
+                    setTotal(sum + salesTax)
+                    setSubTotal(sum)
                 } else {
                     navigate('/')
                 }
@@ -254,15 +262,19 @@ export default function CheckoutController() {
                     orderDetails.currencySymbol = user.currencySymbol
                     orderDetails.transactionId = payment.data.data.id
                     orderDetails.paymentResponse = JSON.stringify(payment.data)
-                    orderDetails.subtotal = CalculatedPrice.priceWithoutTax(Number(subtotal))
+                    orderDetails.subtotal = Number(subtotalWithTax)
                     orderDetails.appliedTaxPercentage = Number(user.platformFee) + Number(user.transectionFee)
                     orderDetails.platformFees = user.platformFee
                     orderDetails.transectionFees = user.transectionFee
-                    orderDetails.tax = Number(total) - Number(CalculatedPrice.priceWithoutTax(Number(subtotal)))
+                    orderDetails.tax = Number(subtotal) - Number(Number(subtotalWithTax))
                     orderDetails.total = total
                     orderDetails.transactionStatus = payment.data.data.status
                     orderDetails.products = productDetails
                     orderDetails.xpToadd = xp
+                    orderDetails.salesTaxPer = user.salesTax
+                    orderDetails.salesTax = salesTax
+
+
 
                     if (cartItem.find(e => e.productDetails.tax === true)) {
                         orderDetails.taxRecipt = true
@@ -343,7 +355,7 @@ export default function CheckoutController() {
         }
     }
 
-   
+
 
     return (
         <>
@@ -359,6 +371,8 @@ export default function CheckoutController() {
                 CalculatedPrice={CalculatedPrice}
                 currencySymbol={currencySymbol}
                 xp={xp}
+                salesTax={salesTax}
+                subtotal={subtotal}
             // pricingFees={pricingFees}
 
             />

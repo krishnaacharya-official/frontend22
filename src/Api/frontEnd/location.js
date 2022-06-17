@@ -197,6 +197,30 @@ function location() {
         return res;
     }
 
+    const getSalesTaxRate = async (authToken,data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}salestax`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:data
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
     return {
         countryList,
@@ -206,7 +230,8 @@ function location() {
         currencyByCountry,
         convertCurrency,
         getLocationByLatLong,
-        stateDetailsByName
+        stateDetailsByName,
+        getSalesTaxRate
 
     }
 }

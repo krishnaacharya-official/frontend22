@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress, setUserState } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique } from "../../Common/Helper";
 
@@ -153,9 +153,24 @@ export default function HomeController() {
     }
 
 
+    const getSalestax = async (country, state) => {
+        let data = {}
+        data.countryId = Number(country)
+        data.stateId = Number(state)
+        const getSalestax = await locationApi.getSalesTaxRate(userAuthToken, data)
+        if (getSalestax) {
+            if (getSalestax.data.success) {
+                // console.log(getSalestax.data.salesTax)
+                dispatch(setSalesTax(getSalestax.data.salesTax))
+
+            }
+        }
+    }
+
+
 
     async function showPosition(position) {
-        console.log('show')
+        // console.log('show')
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         if (latitude && longitude) {
@@ -263,6 +278,10 @@ export default function HomeController() {
             // }
             await getHomePageAdList()
             await getCountryAdvertisement(user.countryId, user.stateId)
+            // if (user.countryId && user.stateId) {
+            // }
+                await getSalestax(user.countryId, user.stateId)
+
 
             const getCategoryList = await categoryApi.listCategory(token);
             if (getCategoryList.data.success === true) {
@@ -274,7 +293,7 @@ export default function HomeController() {
 
 
         })()
-    }, [user, user.countryId, user.stateId])
+    }, [ user.countryId, user.stateId])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -515,7 +534,7 @@ export default function HomeController() {
 
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice,countryAdvertisementList])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, countryAdvertisementList])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {

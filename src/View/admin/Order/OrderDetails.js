@@ -29,7 +29,7 @@ const OrderDetails = (props) => {
 
     let orderDetails = {}
     orderDetails = props.orderDetails
-    // console.log(orderDetails)
+    console.log(orderDetails)
     // console.log(Object.keys(orderDetails).length)
 
 
@@ -169,6 +169,12 @@ const OrderDetails = (props) => {
                                     <td colSpan="3"></td>
                                     <td colSpan="2">PLATFORM FEES ( {orderDetails.platformFees ? orderDetails.platformFees : 0} %)</td>
                                     <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.platformFees ? orderDetails.platformFees : 0) / 100) * Number(orderDetails.subtotal)))}</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="3"></td>
+                                    <td colSpan="2">SALES TAX ( {orderDetails.salesTaxPer ? orderDetails.salesTaxPer : 0} %)</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.salesTax?orderDetails.salesTax:0)))
+                                    )}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>

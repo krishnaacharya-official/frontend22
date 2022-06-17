@@ -59,7 +59,7 @@ const Checkout = (props) => {
             }}
           >
             <div ref={summaryElementRef} className="summary__section pe-4 pt-0">
-              <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} />
+              <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal} />
             </div>
           </div>
         </>
@@ -316,7 +316,7 @@ const Checkout = (props) => {
           ""
         ) : (
           <div className="summary__section">
-            <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp}  />
+            <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal}  />
           </div>
         )}
       </Container>

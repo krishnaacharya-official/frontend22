@@ -14,6 +14,9 @@ const Cart = (props) => {
   // console.log(props.cartItem)
   let cartItem = props.cartItem;
   const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [salesTax, setSalesTax] = useState(0);
+
 
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
@@ -38,7 +41,10 @@ const Cart = (props) => {
       let sum = tempPriceArray.reduce(function (a, b) {
         return a + b;
       }, 0);
-      setTotal(sum);
+      setSubTotal(sum)
+      let salesTax = getCalc.calculateSalesTax(sum)
+      setSalesTax(getCalc.calculateSalesTax(sum))
+      setTotal(sum + salesTax);
     }
   }, [props.cartItem]);
   return (
@@ -148,7 +154,13 @@ const Cart = (props) => {
             <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Subtotal:</span>
               <span className="fw-bold text-success fs-5">
-                {currencySymbol + priceFormat(total)}
+                {currencySymbol + priceFormat(subTotal)}
+              </span>
+            </div>
+            <div className="d-flex align-items-center py-3 border-bottom">
+              <span className="fw-bolder flex__1">Sales Tax:</span>
+              <span className="fw-bold text-success fs-5">
+                {currencySymbol + priceFormat(salesTax)}
               </span>
             </div>
           </div>

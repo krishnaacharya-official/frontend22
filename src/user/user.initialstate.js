@@ -18,7 +18,8 @@ const userInitialState = {
     zip:"",
     area:"",
     xp:0,
-    rank:""
+    rank:"",
+    salesTax:""
 
 
 

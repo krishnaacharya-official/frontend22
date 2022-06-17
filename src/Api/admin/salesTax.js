@@ -18,7 +18,7 @@ function salesTax() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-    
+
 
         }).then((response) => {
             res = response
@@ -31,7 +31,54 @@ function salesTax() {
         let res = {};
         await axios({
             method: 'post',
-            url: `${helper.ApiUrl}pricingfees/save`,
+            url: `${helper.ApiUrl}salestax/country/save/`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const listStateTaxlist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}salestax/state/list`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const saveStateTaxlist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}salestax/state/save/`,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -51,7 +98,9 @@ function salesTax() {
 
     return {
         list,
-        save
+        save,
+        listStateTaxlist,
+        saveStateTaxlist
 
 
 

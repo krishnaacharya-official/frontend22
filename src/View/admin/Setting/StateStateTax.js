@@ -19,7 +19,7 @@ import editfill from '@iconify/icons-eva/edit-fill';
 import Label from '../../../components/Label';
 
 import { Icon } from '@iconify/react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useLocation, useParams } from 'react-router-dom';
 import Page from '../../../components/Page';
 import backfill from '@iconify/icons-eva/arrow-left-fill';
 import settingApi from '../../../Api/admin/setting';
@@ -33,42 +33,42 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 
 
-
-
-
-
-//   const Field = ({ value,name,className, onChange }) => (
-//     <input defaultValue={value} name={name} className={className} onChange={onChange} />
-//   );
-
-export default function SalesTax(props) {
+export default function StateSalesTax(props) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     const [taxList, setTaxList] = useState([])
-    const [editCountryId, setEditCountryId] = useState(0)
-    const [editCountryTax, setEditCountryTax] = useState(0)
+    const location = useLocation();
+    const params = useParams();
+
+    const [countryName, setCountryName] = useState('')
+
+    const [editStateId, setEditStateId] = useState(0)
+
 
 
     const [selectedCountryData, setSelectedCountryData] = useState({
         salesTax: '',
-        all: false,
-        countryId: 0
+        countryId: Number(params.countryId),
+        stateId: 0
+
 
     })
     const Field = (value, name, className) => {
         return (
             <input
-                 value={value} 
-                name={name} className={className} onChange={(e) => onChange(e)} type="text" autoFocus  />
+                value={value}
+                name={name} className={className} onChange={(e) => onChange(e)} type="text" autoFocus />
 
         )
     }
 
 
-    const getCountryTaxList = async () => {
-        const getTaxList = await salesTaxApi.list(adminAuthToken)
+    const getCountryStateTaxList = async () => {
+        let data = {}
+        data.countryId = Number(params.countryId)
+        const getTaxList = await salesTaxApi.listStateTaxlist(adminAuthToken, data)
         if (getTaxList) {
             if (getTaxList.data.success) {
                 setTaxList(getTaxList.data.data)
@@ -81,10 +81,10 @@ export default function SalesTax(props) {
         setSelectedCountryData({
             ...selectedCountryData,
             salesTax: data.salesTax,
-            all: data.all,
-            countryId: data.countryId
+            stateId: data.stateId
         })
-        setEditCountryId(data.countryId)
+    
+        setEditStateId(data.stateId)
         // setEditCountryTax(data.salesTax)
 
     }
@@ -111,7 +111,7 @@ export default function SalesTax(props) {
 
     }
 
-    const updateCountrySalesTax = async () => {
+    const updateStateSalesTax = async () => {
         if (selectedCountryData.salesTax === '') {
             ToastAlert({ msg: 'SalesTax is required', msgType: 'error' });
 
@@ -122,7 +122,7 @@ export default function SalesTax(props) {
             // data.all = selectedCountryData.all
             // data.countryId = selectedCountryData.countryId
 
-            const updateValue = await salesTaxApi.save(adminAuthToken, selectedCountryData)
+            const updateValue = await salesTaxApi.saveStateTaxlist(adminAuthToken, selectedCountryData)
             if (updateValue) {
 
                 if (updateValue.data.success) {
@@ -130,11 +130,11 @@ export default function SalesTax(props) {
                     setSelectedCountryData({
                         ...selectedCountryData,
                         salesTax: '',
-                        all: false,
-                        countryId: 0
+                        StateId: 0
+
                     })
-                    setEditCountryId(0)
-                    await getCountryTaxList()
+                    setEditStateId(0)
+                    await getCountryStateTaxList()
                     setLoading(false)
                 } else {
                     setLoading(false)
@@ -154,30 +154,25 @@ export default function SalesTax(props) {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            await getCountryTaxList()
+            await getCountryStateTaxList()
             setLoading(false)
-
+            setCountryName(location.state.countryName)
         })()
     }, [])
 
     const columns = [
 
-        { name: "Country", selector: "countryDetails.country", sortable: true },
+        { name: "State", selector: "stateDetails.state", sortable: true },
 
         {
             name: "Salex Tax",
             // sortable: true,
             cell: (row) => <>
                 {
-                    editCountryId === row.countryId ?
-                        // <input type='text' value={selectedCountryData.salesTax} name="salesTax" className="form-control" onChange={(e) => onChange(e)} />
+                    editStateId === row.stateId ?
+                     
                         Field(selectedCountryData.salesTax, "salesTax", "form-control",)
-                        // <Field
-                        //     value={selectedCountryData.salesTax}
-                        //     name="salesTax"
-                        //     className="form-control"
-                        //     onChange={(e) => onChange(e)}
-                        // />
+               
 
                         :
                         <span>{row.salesTax} %</span>
@@ -187,55 +182,24 @@ export default function SalesTax(props) {
             ignoreRowClick: true,
             allowOverflow: true,
         },
-        {
-            name: "Apply to all state",
-            // sortable: true,
-            cell: (row) => <>
 
-                {
-                    editCountryId === row.countryId ?
-                        <div className='p-2'>
-                            <label className="--switch mt-1">
-                                <input type="checkbox" id="dashboardStats" checked={selectedCountryData.all} name="all" onClick={(e) => onChange(e)} />
-                                <span className="--slider">
-                                    <i className="fa fa-check"></i>
-                                    <i className="fa fa-times"></i>
-                                </span>
-                            </label>
-                        </div>
-                        :
-                        <Label
-                            variant="ghost"
-                            color={(row.all && 'success') || 'error'}
-                        >
-                            {row.all ? "Yes" : "No"}
-                        </Label>
-                }
-
-
-            </>,
-            ignoreRowClick: true,
-            allowOverflow: true,
-        },
 
 
         {
             name: "Actions",
             cell: (row) => <>
                 {
-                    editCountryId !== row.countryId ?
+                    editStateId !== row.stateId ?
                         <>
                             <button className="btn btn-sm btn-primary" onClick={() => editData(row)}><Icon icon={editfill} /></button>&nbsp;
                         </>
 
                         :
                         <>
-                            <button className="btn btn-sm btn-primary" onClick={() => updateCountrySalesTax()}><Icon icon='fa-solid:save' /></button>&nbsp;
+                            <button className="btn btn-sm btn-primary" onClick={() => updateStateSalesTax()}><Icon icon='fa-solid:save' /></button>&nbsp;
                         </>
 
                 }
-
-                <button className="btn btn-info btn-sm" onClick={(e) => navigate('/admin/setting/sales-tax/'+row.countryId, { state: { countryName: row.countryDetails.country, } })}>State</button>
 
             </>,
             ignoreRowClick: true,
@@ -266,18 +230,19 @@ export default function SalesTax(props) {
 
     return (
         <>
+
             <FrontLoader loading={loading} />
             <Page title="Setting |Sales-Tax">
 
                 <Container>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                         <Typography variant="h4" gutterBottom>
-                            Sales Tax
+                            Sales Tax : {countryName}
                         </Typography>
                         <Button
                             variant="contained"
                             startIcon={<Icon icon={backfill} />}
-                            onClick={() => navigate('/admin/setting')}
+                            onClick={() => navigate('/admin/setting/sales-tax')}
                         >
                             Back
                         </Button>

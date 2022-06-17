@@ -9,6 +9,9 @@ const SummaryContent = (props) => {
   let cartItem = props.cartItem;
   // let total = props.CalculatedPrice.getData(props.total)
   let total = props.total;
+  let salesTax=props.salesTax
+  let subtotal=props.subtotal
+
 
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
@@ -65,7 +68,13 @@ const SummaryContent = (props) => {
           <div className="d-flex align-items-center pb-20p">
             <span className="fw-bolder flex__1">Subtotal:</span>
             <span className="fw-bold text-success fs-5">
-              {props.currencySymbol + priceFormat(total)}
+              {props.currencySymbol + priceFormat(subtotal)}
+            </span>
+          </div>
+          <div className="d-flex align-items-center pb-20p">
+            <span className="fw-bolder flex__1">SalesTax:</span>
+            <span className="fw-bold text-success fs-5">
+              {props.currencySymbol + priceFormat(salesTax)}
             </span>
           </div>
           <div className="d-flex align-items-center">
