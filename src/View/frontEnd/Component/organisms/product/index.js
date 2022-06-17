@@ -159,7 +159,7 @@ const Product = (props) => {
         <div className="wish me-1">
           <IconToggle
             activeColor="rgb(246, 100, 97)"
-            // checked={false}
+            // ischecked={true}
             icon={<FontAwesomeIcon icon={regular("heart")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
           />

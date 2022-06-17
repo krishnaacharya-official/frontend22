@@ -161,7 +161,7 @@ export default function HeaderController() {
 
     return (
         <>
-            {/* {console.log(cartItem)} */}
+         
             <FrontLoader loading={loading} />
             <Header
                 cartItem={cartItem}

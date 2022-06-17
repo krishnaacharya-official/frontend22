@@ -203,7 +203,7 @@ function ProjectDetailMain(props) {
       <div className="project__calculate mt-4">
         <div className="sub__total">
           <div className="text-dark fw-bold me-2">Subtotal:</div>
-          <div className="price fs-4 fw-bold text-success">${price * quantity}</div>
+          <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
         </div>
         <div className="d-flex align-items-center fs-5 py-1 mb-3">
           <div className="project__count mt-3p">1</div>
