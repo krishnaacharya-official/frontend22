@@ -97,9 +97,10 @@ const Product = (props) => {
     // alert(props._id)
     // user.setCart(true)
     // user.setCart(!user.isUpdateCart)
-    dispatch(setIsUpdateCart(!user.isUpdateCart))
+
     await props.addToCart(props._id)
     setState({ added_to_cart: true })
+    dispatch(setIsUpdateCart(!user.isUpdateCart))
   };
 
   const removeFromCart = async () => {
@@ -108,6 +109,10 @@ const Product = (props) => {
     await props.removeCartItem(props._id)
     setState({ added_to_cart: false })
   };
+
+  const onClickFilter = async(e) =>{
+    await props.addProductToWishlist(props._id)
+  }
 
   const cart_btn = added_to_cart ? (
     <Button
@@ -159,9 +164,11 @@ const Product = (props) => {
         <div className="wish me-1">
           <IconToggle
             activeColor="rgb(246, 100, 97)"
-            // ischecked={true}
+            ischecked={props.wishListproductIds.includes(props._id)}
             icon={<FontAwesomeIcon icon={regular("heart")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
+            name={props._id}
+            onClickFilter={onClickFilter}
           />
         </div>
         <div className="flex-grow-1">

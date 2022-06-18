@@ -10,7 +10,8 @@ import productApi from "../../Api/frontEnd/product";
 import { useSelector, useDispatch } from "react-redux";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
-
+import wishlistApi from "../../Api/frontEnd/wishlist";
+import { setCurrency, setUserLanguage, setCurrencyPrice,setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 
 export default function ItemDetailsController() {
 
@@ -26,6 +27,8 @@ export default function ItemDetailsController() {
     const [categoryProducts, setCategoryProducts] = useState([])
     const [purchasedItemList, setPurchasedItemList] = useState([])
     const user = useSelector((state) => state.user);
+    const [wishListproductIds, setWishListProductIds] = useState([])
+    const dispatch = useDispatch()
 
 
 
@@ -65,6 +68,63 @@ export default function ItemDetailsController() {
             setPurchasedItemList(getPurchasedItems.data.data)
         }
     }
+
+    const getWishListProductList = async () => {
+        const list = await wishlistApi.list(token)
+        if (list) {
+            if (list.data.success) {
+                
+                // setWishListProductList(list.data.data)
+                if(list.data.data.length > 0){
+                    let temp = []
+                    list.data.data.map((item,i)=>{
+                        temp.push(item.productDetails._id)
+                    })
+                    // console.log(temp)
+                    setWishListProductIds(temp)
+
+                }else{
+                    setWishListProductIds([])
+
+                }
+            }
+        }
+
+    }
+
+    const addProductToWishlist = async (productId) => {
+        let data = {}
+        data.productId = productId
+        setLoading(true)
+        const add = await wishlistApi.add(token,data)
+        if(add){
+            if (add.data.success) {
+                setLoading(false)
+                // await getWishListProductList()
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
+            }else{
+            setLoading(false)
+           
+            ToastAlert({ msg: add.data.message, msgType: 'error' });
+
+            }
+
+        }else{
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
+    
+    useEffect(() => {
+        (async () => {
+
+            await getWishListProductList()
+            setLoading(false)
+
+
+        })()
+    }, [user.isUpdateCart])
 
 
     useEffect(() => {
@@ -165,6 +225,7 @@ export default function ItemDetailsController() {
 
     return (
         <>
+        {/* {console.log(wishListproductIds)} */}
             <FrontLoader loading={loading} />
             <ItemDetail
                 productDetails={productDetails}
@@ -174,6 +235,8 @@ export default function ItemDetailsController() {
                 removeCartItem={removeCartItem}
                 productList={productList}
                 purchasedItemList={purchasedItemList}
+                addProductToWishlist={addProductToWishlist}
+                wishListproductIds={wishListproductIds}
 
             />
         </>

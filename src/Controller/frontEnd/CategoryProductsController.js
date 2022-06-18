@@ -10,11 +10,12 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { arrayUnique } from "../../Common/Helper";
-
+import wishlistApi from "../../Api/frontEnd/wishlist";
+import { zip } from "lodash";
 
 export default function CategoryProductsController(props) {
     const [productList, setProductList] = useState([])
@@ -22,6 +23,10 @@ export default function CategoryProductsController(props) {
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
     const [categoryadvertisementList, setCategoryAdvertisementList] = useState([])
     const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
+
+
+    const [wishListproductList, setWishListProductList] = useState([])
+    const [wishListproductIds, setWishListProductIds] = useState([])
 
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
@@ -148,8 +153,59 @@ export default function CategoryProductsController(props) {
     //     return a;
     // }
 
+    const getWishListProductList = async () => {
+        const list = await wishlistApi.list(token)
+        if (list) {
+            if (list.data.success) {
+                setWishListProductList(list.data.data)
+                if (list.data.data.length > 0) {
+                    let temp = []
+                    list.data.data.map((item, i) => {
+                        temp.push(item.productDetails._id)
+                    })
+                    setWishListProductIds(temp)
+
+                } else {
+                    setWishListProductIds([])
+
+                }
+            }
+        }
+
+    }
 
 
+
+    const addProductToWishlist = async (productId) => {
+        let data = {}
+        data.productId = productId
+        setLoading(true)
+        const add = await wishlistApi.add(token, data)
+        if (add) {
+            if (add.data.success) {
+                setLoading(false)
+                await getWishListProductList()
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
+            } else {
+                setLoading(false)
+                ToastAlert({ msg: add.data.message, msgType: 'error' });
+
+            }
+
+        } else {
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+    useEffect(() => {
+        (async () => {
+
+            await getWishListProductList()
+            setLoading(false)
+
+
+        })()
+    }, [user.isUpdateCart])
 
     useEffect(() => {
         (async () => {
@@ -172,7 +228,7 @@ export default function CategoryProductsController(props) {
 
             await getCategoryAdList(location.state.id)
             await getHomePageAdList()
-
+            // await getWishListProductList()
 
 
             setLoading(false)
@@ -443,9 +499,7 @@ export default function CategoryProductsController(props) {
 
     return (
         <>
-            {
-                // console.log(advertisementList)
-            }
+
             <FrontLoader loading={loading} />
             <Index
                 productList={productList}
@@ -467,6 +521,8 @@ export default function CategoryProductsController(props) {
                 advertisementList={advertisementList}
                 module='CATEGORY'
                 categoryDetails={categoryDetails}
+                addProductToWishlist={addProductToWishlist}
+                wishListproductIds={wishListproductIds}
 
 
 

@@ -12,6 +12,7 @@ import settingApi from "../../Api/admin/setting";
 import { useSelector, useDispatch } from "react-redux";
 import { setFees, setIsUpdateCart } from "../../user/user.action";
 import { setSettings } from "../../user/setting.action";
+import wishlistApi from "../../Api/frontEnd/wishlist";
 
 
 
@@ -20,6 +21,7 @@ export default function HeaderController() {
     const userAuthToken = localStorage.getItem('userAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
+    const [wishListproductList, setWishListProductList] = useState([])
 
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
@@ -44,6 +46,40 @@ export default function HeaderController() {
     })
     const { platformFee, transectionFee } = pricingFees
 
+    const getWishListProductList = async () => {
+        const list = await wishlistApi.list(token)
+        if (list) {
+            if (list.data.success) {
+                // console.log(list.data.data)
+                setWishListProductList(list.data.data)
+            }
+        }
+
+    }
+
+    const addProductToWishlist = async (productId) => {
+        let data = {}
+        data.productId = productId
+        setLoading(true)
+        const add = await wishlistApi.add(token,data)
+        if(add){
+            if (add.data.success) {
+                setLoading(false)
+                await getWishListProductList()
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
+            }else{
+            setLoading(false)
+           
+            ToastAlert({ msg: add.data.message, msgType: 'error' });
+
+            }
+
+        }else{
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -60,13 +96,14 @@ export default function HeaderController() {
                     setCartItem(getCartList.data.data)
                     // console.log(getCartList.data.data)
                 }
+                await getWishListProductList()
             }
             setLoading(false)
 
             // console.log(user.isUpdateCart)
 
         })()
-    }, [token, update, user.isUpdateCart])
+    }, [token, update, !user.isUpdateCart])
 
 
 
@@ -167,6 +204,8 @@ export default function HeaderController() {
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
                 updateCartItem={updateCartItem}
+                wishListproductList={wishListproductList}
+                addProductToWishlist={addProductToWishlist}
 
 
 

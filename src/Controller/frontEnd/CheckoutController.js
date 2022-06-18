@@ -152,7 +152,7 @@ export default function CheckoutController() {
                     let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
                     let sumSubTotal = tempProductPriceArray.reduce(function (a, b) { return a + b; }, 0);
 
-                    console.log(sumSubTotal)
+                    // console.log(sumSubTotal)
 
                     let xpSum = ProductItems.reduce(function (a, b) { return a + b; }, 0);
                     setXp(xpSum * xpForeEachItem)

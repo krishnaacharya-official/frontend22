@@ -82,7 +82,9 @@ const ItemDetail = (props) => {
           <Col md="7" className="mb-4 mb-0">
 
 
-            <ItemDetailMain progress={70} productDetails={productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
+            <ItemDetailMain progress={70} productDetails={productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart}
+            addProductToWishlist={props.addProductToWishlist} wishListproductIds={props.wishListproductIds}
+             />
           </Col>
           <Col md="5">
             <div className="d-none d-sm-block project__detail-img mb-3">

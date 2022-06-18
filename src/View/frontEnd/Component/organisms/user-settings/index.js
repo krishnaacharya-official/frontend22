@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./style.scss";
 
 
-const UserSettings = () => {
+const UserSettings = (props) => {
 
   const userData = JSON.parse(localStorage.getItem('userData'));
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
@@ -123,7 +123,7 @@ const UserSettings = () => {
 
             <div className="activity__dropdown-body">
               {state.wishlist ? (
-                <FollowingList />
+                <FollowingList  wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist}/>
               ) : state.linked_org ? (
                 <LinkedOrg />
               ) : (

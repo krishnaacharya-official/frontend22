@@ -276,7 +276,7 @@ export default function ProjectDetailsController() {
                 }
             } else {
                 // navigate('/')
-                console.log('first')
+                // console.log('first')
             }
             setLoading(false)
 

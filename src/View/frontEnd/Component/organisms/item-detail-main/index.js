@@ -50,6 +50,11 @@ function ProjectDetailMain(props) {
   }, [!user.isUpdateCart])
 
 
+  const onClickFilter = async(e) =>{
+    await props.addProductToWishlist(productDetails._id)
+  }
+
+
   const cart_btn = addedToCard ? (
     <Button
       variant="success"
@@ -80,7 +85,7 @@ function ProjectDetailMain(props) {
       cart_btn
     );
 
-  // console.log(productDetails)
+  // console.log(props.wishListproductIds)
 
   return (
     <div className="project__detail-main">
@@ -133,8 +138,10 @@ function ProjectDetailMain(props) {
           <IconToggle
             activeColor="rgb(246, 100, 97)"
             icon={<FontAwesomeIcon icon={regular("heart")} />}
+            ischecked={props.wishListproductIds.includes(productDetails._id)}
             checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
-            onClickFilter={() => { }}
+            onClickFilter={onClickFilter}
+
           />
 
           <IconToggle

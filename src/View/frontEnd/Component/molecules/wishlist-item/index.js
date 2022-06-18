@@ -5,23 +5,28 @@ import { ListItemImg } from "../../atoms";
 import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+import helper,{getCalculatedPrice,priceFormat} from "../../../../../Common/Helper";
 
-function WishlistItem() {
+function WishlistItem(props) {
+  let item = props.item
+  const getCalc = getCalculatedPrice()
+  let price =getCalc.getData(item.productDetails.price)  
+ 
   return (
     <li className="wishlist__item p-1 d-flex align-items-center border-bottom">
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c2478bda7359714d93fec_image%20(2).png" />
+        <ListItemImg imgSrc={helper.CampaignProductImagePath+ item.productDetails.image}/>
 
         <div className="wishlist__item__main pl-12p">
           <div className="wishlist__item__title pr-12p">
-            <div className="wishlist__item__name">Backpacks</div>
-            <div className="wishlist__item__location">Canada</div>
+            <div className="wishlist__item__name">{item.productDetails.headline}</div>
+            {/* <div className="wishlist__item__location">Canada</div> */}
           </div>
-          <div className="wishlist__item__price">$14</div>
+          <div className="wishlist__item__price">{ getCalc.currencySymbol()}{priceFormat(price)}</div>
         </div>
       </div>
       <div className="wishlist__item__remove ms-auto">
-        <Button variant="link" className="text-decoration-none">
+        <Button variant="link" className="text-decoration-none" onClick={()=>props.addProductToWishlist(item.productDetails._id)}>
           <FontAwesomeIcon icon={regular('heart')} style={{ color: "#f66461" }} className="fs-4" />
         </Button>
       </div>

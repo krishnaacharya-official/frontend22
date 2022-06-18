@@ -10,10 +10,10 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice,setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique } from "../../Common/Helper";
-
+import wishlistApi from "../../Api/frontEnd/wishlist";
 
 
 export default function HomeController() {
@@ -21,6 +21,9 @@ export default function HomeController() {
     const [advertisementList, setAdvertisementList] = useState([])
     const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
+    const [wishListproductList, setWishListProductList] = useState([])
+    const [wishListproductIds, setWishListProductIds] = useState([])
+
 
 
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
@@ -245,6 +248,61 @@ export default function HomeController() {
         }
     }
 
+    const getWishListProductList = async () => {
+        const list = await wishlistApi.list(token)
+        if (list) {
+            if (list.data.success) {
+                setWishListProductList(list.data.data)
+                if(list.data.data.length > 0){
+                    let temp = []
+                    list.data.data.map((item,i)=>{
+                        temp.push(item.productDetails._id)
+                    })
+                    setWishListProductIds(temp)
+
+                }else{
+                    setWishListProductIds([])
+
+                }
+            }
+        }
+
+    }
+
+    const addProductToWishlist = async (productId) => {
+        let data = {}
+        data.productId = productId
+        setLoading(true)
+        const add = await wishlistApi.add(token,data)
+        if(add){
+            if (add.data.success) {
+                setLoading(false)
+                // await getWishListProductList()
+                dispatch(setIsUpdateCart(!user.isUpdateCart))
+            }else{
+            setLoading(false)
+           
+            ToastAlert({ msg: add.data.message, msgType: 'error' });
+
+            }
+
+        }else{
+            setLoading(false)
+            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+    }
+
+    useEffect(() => {
+        (async () => {
+
+            await getWishListProductList()
+            setLoading(false)
+
+
+        })()
+    }, [user.isUpdateCart])
+
+
 
 
 
@@ -280,7 +338,7 @@ export default function HomeController() {
             await getCountryAdvertisement(user.countryId, user.stateId)
             // if (user.countryId && user.stateId) {
             // }
-                await getSalestax(user.countryId, user.stateId)
+            await getSalestax(user.countryId, user.stateId)
 
 
             const getCategoryList = await categoryApi.listCategory(token);
@@ -289,11 +347,12 @@ export default function HomeController() {
                 setCategoryList(getCategoryList.data.data)
             }
             // await getOrganizationList()
+            // await getWishListProductList()
             setLoading(false)
 
 
         })()
-    }, [ user.countryId, user.stateId])
+    }, [user.countryId, user.stateId])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -656,6 +715,8 @@ export default function HomeController() {
                 onSearchProduct={onSearchProduct}
                 advertisementList={advertisementList}
                 module='HOME'
+                addProductToWishlist={addProductToWishlist}
+                wishListproductIds={wishListproductIds}
 
 
 
