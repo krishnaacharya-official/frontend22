@@ -106,13 +106,68 @@ function organization() {
 
     }
 
+    const organizatationTaxlist = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}organization/tax`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const organizatationTaxUpload = async (authToken, cdata) => {
+
+        
+        const data = new FormData();
+        data.append('image', cdata.image);
+        data.append('orderId', cdata.orderId);
+
+
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}organization/receipt/upload`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
     return {
         details,
         organizationPurchasedItemHistory,
         donate,
-        organizationDonatedItemHistory
+        organizationDonatedItemHistory,
+        organizatationTaxlist,
+        organizatationTaxUpload
 
     }
 }

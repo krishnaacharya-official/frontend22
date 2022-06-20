@@ -29,6 +29,7 @@ const UserTax = () => {
     formData.sortType = type
     const getTaxDataList = await userApi.userTaxlist(userAuthToken, formData);
     if (getTaxDataList.data.success === true) {
+      // console.log(getTaxDataList.data.data_temp)
       setTaxList(getTaxDataList.data.data)
       setTotalPages(getTaxDataList.data.totalPages)
       setTotalRecord(getTaxDataList.data.totalRecord)
@@ -79,7 +80,7 @@ const UserTax = () => {
           </p>
         </div>
         <div className="ms-sm-auto">
-          <LadderMenu />
+          {/* <LadderMenu /> */}
         </div>
       </header>
 

@@ -153,7 +153,7 @@ function user() {
 
         let res = {};
         await axios({
-            method: 'get',
+            method: 'post',
             url: `${helper.ApiUrl}user/tax`,
             responseType: 'json',
             headers: {

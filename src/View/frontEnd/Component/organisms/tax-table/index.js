@@ -7,6 +7,7 @@ import "./style.scss";
 import moment from "moment";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import helper, { priceFormat } from "../../../../../Common/Helper";
 
 const TaxTable = (props) => {
   return (
@@ -46,7 +47,7 @@ const TaxTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{maxHeight:"550px",minHeight:"550px"}}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "550px", minHeight: "550px" }}>
 
           {
             props.taxList.length > 0 ?
@@ -56,35 +57,35 @@ const TaxTable = (props) => {
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center flex__1 mb-2">
                         <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">${item.amount}</div>
+                          <div className="text-success fw-bold fs-5">{item.currencySymbol}{priceFormat(item.amount)}</div>
                           <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                         </div>
                         <div className="order-1 order-sm-2 d-flex align-items-center text-dark flex__1">
                           <div className="position-relative">
-                            <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ef61d975395ccef43cbb71f_top.svg" />
+                            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} />
                           </div>
                           <div className="d-sm-flex align-items-center flex__1 ms-2">
                             <div style={{ maxWidth: "300px", minWidth: "300px" }}>
                               <div className="fw-bold fs-5 billing__name mb-6p">
-                                Top Donor
+                                {item.organizationDetails.name}
                               </div>
                               <div className="text-light">#{item.orderId}</div>
                             </div>
 
                             <span className="text-light fw-semibold flex__1">
                               {
-                                item.type === 1 ?
+                                item.type === 'Purchased' ?
                                   <>
                                     <FontAwesomeIcon
-                                      icon={regular("heart")}
+                                      icon={regular("wallet")}
                                       className="small me-1"
                                     />
-                                    Donated
+                                    Purchased
                                   </>
                                   :
                                   <>
                                     <FontAwesomeIcon
-                                      icon={regular("wallet")}
+                                      icon={regular("heart")}
                                       className="small me-1"
                                     />
                                     Donated
@@ -107,16 +108,18 @@ const TaxTable = (props) => {
 
                         {
                           item.receipt ?
-                            <Button
+                            <a href={helper.recieptPath+ item.receipt} download
                               variant="info"
-                              className="text-white fs-7 rounded-pill flex-grow-1"
+                              className="text-white fs-7 rounded-pill flex-grow-1 btn btn-info"
                             >
                               Download
-                            </Button> :
+                            </a>
+                            :
                             <Button
                               variant="link"
                               className="text-decoration-none ms-2 p-0"
                             >
+
                               <FontAwesomeIcon
                                 icon={solid("clock")}
                                 className="fs-3 text-warning"

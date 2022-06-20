@@ -29,7 +29,10 @@ let helper = {
     DonorImageResizePath: AWS_S3_BUCKET_BASE_URL + 'images/donor/resize/',
     GoogleKey: 'AIzaSyD4CXzRpf7L9sFFJDIFzgSeoFOESqXaAuE',
     sponsorLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/',
-    sponsorLogoResizePath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/resize/'
+    sponsorLogoResizePath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/resize/',
+
+    recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/resize/'
+
 
 
 
