@@ -130,6 +130,7 @@ export default function MainRoutes() {
                 <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
+                        <Route path="/categories/:slug" element={<CategoryProductsController />} />
                         <Route path="/xp" element={<Xp />} />
                         <Route exact path="/change-password" element={<ChangePassword />} />
                         <Route path="/partnership" element={<Partnership />} />

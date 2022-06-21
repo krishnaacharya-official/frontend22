@@ -53,7 +53,19 @@ export default function ProjectDonation(props) {
             ignoreRowClick: true,
             allowOverflow: true,
         },
-        { id: 'orgName', name: "Project", selector: "projectDetails.name", sortable: true },
+        // { id: 'orgName', name: "Project", selector: "projectDetails.name", sortable: true },
+
+
+        {
+            id: 'projectName',
+            name: "Project",
+            cell: (row) => <>
+
+                {row?.projectDetails?.name ? row?.projectDetails?.name :row.typeId }
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
 
         {
             id: 'transactionStatus',

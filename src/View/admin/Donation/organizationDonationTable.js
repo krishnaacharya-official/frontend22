@@ -54,7 +54,19 @@ export default function OrganizationDonation(props) {
             allowOverflow: true,
         },
 
-        { id: 'orgName', name: "Organization", selector: "organizationDetails.name", sortable: true },
+        // { id: 'orgName', name: "Organization", selector: "organizationDetails.name", sortable: true },
+
+
+        {
+            id: 'orgName',
+            name: "Organization",
+            cell: (row) => <>
+
+                {row?.organizationDetails?.name ? row?.organizationDetails?.name :row.typeId }
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
 
         {
             id: 'transactionStatus',
