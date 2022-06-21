@@ -130,9 +130,9 @@ export default function HomeController() {
                 }
 
                 if (CampaignAdmin.state_id && CampaignAdmin.state_id !== null && CampaignAdmin.state_id > 0) {
-                    dispatch(setUserCountry(CampaignAdmin.state_id))
+                    dispatch(setUserState(CampaignAdmin.state_id))
                 } else {
-                    dispatch(setUserCountry(3830))
+                    dispatch(setUserState(3830))
 
                 }
 

@@ -42,7 +42,17 @@ export default function OrganizationDonation(props) {
 
     const columns = [
 
-        { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+        // { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+        {
+            id: 'name',
+            name: "Name",
+            cell: (row) => <>
+
+                {row?.userDetails?.name ? row?.userDetails?.name :row.userId }
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
 
         { id: 'orgName', name: "Organization", selector: "organizationDetails.name", sortable: true },
 
@@ -93,9 +103,9 @@ export default function OrganizationDonation(props) {
             id: 'transactionid',
             name: "Transection Id",
             cell: (row) => <>
-      
-                    {row.transactionId}
-           
+
+                {row.transactionId}
+
 
             </>,
             ignoreRowClick: true,

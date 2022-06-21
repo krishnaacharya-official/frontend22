@@ -42,7 +42,17 @@ export default function ProjectDonation(props) {
 
     const columns = [
 
-        { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+        // { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+        {
+            id: 'name',
+            name: "Name",
+            cell: (row) => <>
+
+                {row?.userDetails?.name ? row?.userDetails?.name :row.userId }
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
         { id: 'orgName', name: "Project", selector: "projectDetails.name", sortable: true },
 
         {
