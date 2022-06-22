@@ -13,9 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { arrayUnique } from "../../Common/Helper";
+import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
-import { zip } from "lodash";
+
 
 export default function CategoryProductsController(props) {
     const [productList, setProductList] = useState([])
@@ -23,7 +23,7 @@ export default function CategoryProductsController(props) {
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
     const [categoryadvertisementList, setCategoryAdvertisementList] = useState([])
     const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
-
+    const getCalc = getCalculatedPrice();
 
     const [wishListproductList, setWishListProductList] = useState([])
     const [wishListproductIds, setWishListProductIds] = useState([])
@@ -51,7 +51,8 @@ export default function CategoryProductsController(props) {
         color: "",
         icon: ""
     })
-
+    const [price, setPrice] = useState()
+    const [cartProductList, setCartProductList] = useState([])
 
     const [filters, setfilters] = useState({
         taxEligible: false,
@@ -497,6 +498,105 @@ export default function CategoryProductsController(props) {
 
     }
 
+
+    const onChangeDonatePrice = async (e) => {
+        let value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        setPrice(value)
+        if (Number(value) > 0) {
+
+
+            let cart = [];
+            let cartTotal = 0;
+            let p = productList.filter(e => getCalc.getData(e.price) < value)
+
+
+
+            if (p.length > 0) {
+                p.map((itm, key) => {
+
+                    if (value > cartTotal + getCalc.getData(itm.price)) {
+                        cart.push(itm._id)
+                        setCartProductList(cart)
+                        cartTotal += getCalc.getData(itm.price)
+                    }
+
+                })
+
+                if (value - cartTotal > 0) {
+
+                    while (p.length > 0) {
+                        p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+
+
+                        if (p.length > 0) {
+                            p.map((itm, key) => {
+
+                                if (value > cartTotal + getCalc.getData(itm.price)) {
+                                    cart.push(itm._id)
+                                    setCartProductList(cart)
+                                    cartTotal += getCalc.getData(itm.price)
+
+                                }
+
+                            })
+                        }
+                    }
+
+                }
+
+
+            }
+        } else {
+            setCartProductList([])
+        }
+
+    }
+
+    const onClickAddToCart = async () => {
+        if (cartProductList.length > 0) {
+            let data = {}
+            let tempArray = []
+            cartProductList.map((itm, i) => {
+                let tempobj = {}
+                if (tempArray.some(e => e.productId === itm)) {
+                    let objIndex = tempArray.findIndex((obj => obj.productId === itm));
+                    tempArray[objIndex].qty += 1
+                } else {
+                    tempobj.productId = itm
+                    tempobj.qty = 1
+                    tempArray.push(tempobj)
+                }
+
+
+            })
+
+
+            data.productIds = tempArray
+            setLoading(false)
+            const addMultiple = await cartApi.addMultiple(token, data)
+
+            if (addMultiple) {
+                if (!addMultiple.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
+                } else {
+                    setIsUpdate(!update)
+                    dispatch(setIsUpdateCart(!user.isUpdateCart))
+                    setCartProductList([])
+                    setPrice('')
+                    ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
+            } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
+        }
+
+
+    }
+
     return (
         <>
 
@@ -523,6 +623,10 @@ export default function CategoryProductsController(props) {
                 categoryDetails={categoryDetails}
                 addProductToWishlist={addProductToWishlist}
                 wishListproductIds={wishListproductIds}
+                price={price}
+                onChangeDonatePrice={onChangeDonatePrice}
+                cartProductList={cartProductList}
+                onClickAddToCart={onClickAddToCart}
 
 
 

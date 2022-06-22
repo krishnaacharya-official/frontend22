@@ -10,10 +10,11 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice,setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
-import { arrayUnique } from "../../Common/Helper";
+import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
+
 
 
 export default function HomeController() {
@@ -23,7 +24,7 @@ export default function HomeController() {
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
     const [wishListproductList, setWishListProductList] = useState([])
     const [wishListproductIds, setWishListProductIds] = useState([])
-
+    const getCalc = getCalculatedPrice();
 
 
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
@@ -42,6 +43,10 @@ export default function HomeController() {
     const dispatch = useDispatch()
     const userData = JSON.parse(localStorage.getItem('userData'));
     const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+    const [price, setPrice] = useState()
+    const [cartProductList, setCartProductList] = useState([])
+
+
     const [address, setAddress] = useState({
         stateName: "",
         zip: "",
@@ -253,14 +258,14 @@ export default function HomeController() {
         if (list) {
             if (list.data.success) {
                 setWishListProductList(list.data.data)
-                if(list.data.data.length > 0){
+                if (list.data.data.length > 0) {
                     let temp = []
-                    list.data.data.map((item,i)=>{
+                    list.data.data.map((item, i) => {
                         temp.push(item.productDetails._id)
                     })
                     setWishListProductIds(temp)
 
-                }else{
+                } else {
                     setWishListProductIds([])
 
                 }
@@ -273,20 +278,20 @@ export default function HomeController() {
         let data = {}
         data.productId = productId
         setLoading(true)
-        const add = await wishlistApi.add(token,data)
-        if(add){
+        const add = await wishlistApi.add(token, data)
+        if (add) {
             if (add.data.success) {
                 setLoading(false)
                 // await getWishListProductList()
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-            }else{
-            setLoading(false)
-           
-            ToastAlert({ msg: add.data.message, msgType: 'error' });
+            } else {
+                setLoading(false)
+
+                ToastAlert({ msg: add.data.message, msgType: 'error' });
 
             }
 
-        }else{
+        } else {
             setLoading(false)
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
@@ -686,6 +691,104 @@ export default function HomeController() {
         }
     }
 
+    const onChangeDonatePrice = async (e) => {
+        let value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        setPrice(value)
+        if (Number(value) > 0) {
+
+
+            let cart = [];
+            let cartTotal = 0;
+            let p = productList.filter(e => getCalc.getData(e.price) < value)
+
+
+
+            if (p.length > 0) {
+                p.map((itm, key) => {
+
+                    if (value > cartTotal + getCalc.getData(itm.price)) {
+                        cart.push(itm._id)
+                        setCartProductList(cart)
+                        cartTotal += getCalc.getData(itm.price)
+                    }
+
+                })
+
+                if (value - cartTotal > 0) {
+
+                    while (p.length > 0) {
+                        p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+
+
+                        if (p.length > 0) {
+                            p.map((itm, key) => {
+
+                                if (value > cartTotal + getCalc.getData(itm.price)) {
+                                    cart.push(itm._id)
+                                    setCartProductList(cart)
+                                    cartTotal += getCalc.getData(itm.price)
+
+                                }
+
+                            })
+                        }
+                    }
+
+                }
+
+
+            }
+        } else {
+            setCartProductList([])
+        }
+
+    }
+
+    const onClickAddToCart = async () => {
+        if (cartProductList.length > 0) {
+            let data = {}
+            let tempArray = []
+            cartProductList.map((itm, i) => {
+                let tempobj = {}
+                if (tempArray.some(e => e.productId === itm)) {
+                    let objIndex = tempArray.findIndex((obj => obj.productId === itm));
+                    tempArray[objIndex].qty += 1
+                } else {
+                    tempobj.productId = itm
+                    tempobj.qty = 1
+                    tempArray.push(tempobj)
+                }
+
+
+            })
+
+
+            data.productIds = tempArray
+            setLoading(false)
+            const addMultiple = await cartApi.addMultiple(token, data)
+
+            if (addMultiple) {
+                if (!addMultiple.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
+                } else {
+                    setIsUpdate(!update)
+                    dispatch(setIsUpdateCart(!user.isUpdateCart))
+                    setCartProductList([])
+                    setPrice('')
+                    ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
+            } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
+        }
+
+
+    }
+
 
 
     return (
@@ -717,6 +820,10 @@ export default function HomeController() {
                 module='HOME'
                 addProductToWishlist={addProductToWishlist}
                 wishListproductIds={wishListproductIds}
+                price={price}
+                onChangeDonatePrice={onChangeDonatePrice}
+                cartProductList={cartProductList}
+                onClickAddToCart={onClickAddToCart}
 
 
 

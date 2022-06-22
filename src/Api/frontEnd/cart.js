@@ -171,6 +171,29 @@ function cart() {
         return res;
     }
 
+    const addMultiple = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}cart/multiple`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
     return {
         add,
         list,
@@ -178,7 +201,8 @@ function cart() {
         updateCart,
         removeCartProduct,
         checkItemInCart,
-        clearCart
+        clearCart,
+        addMultiple
     }
 }
 const cartApi = cart();

@@ -88,6 +88,8 @@
     "jsx-a11y/no-static-element-interactions":0,
     "no-useless-concat":0,
     "jsx-a11y/no-autofocus":0,
+    "no-loop-func":0,
+
 
 
 

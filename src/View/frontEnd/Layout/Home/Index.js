@@ -8,13 +8,15 @@ import './style.scss';
 import HeaderController from '../../../../Controller/frontEnd/HeaderController';
 import React, { useState } from 'react';
 import IconText from '../../Component/molecules/icon-text';
-import helper from '../../../../Common/Helper';
+import helper, { getCalculatedPrice } from '../../../../Common/Helper';
 
 export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
   const selectedKey = props.selectedKey;
   const setSelectedKey = props.setSelectedKey;
   const module = props.module
+  const getCalc = getCalculatedPrice();
+  let currencySymbol = getCalc.currencySymbol()
 
   let products;
   const title = {
@@ -131,14 +133,14 @@ export default function Index(props) {
             <span className="me-1">I want to donate up to</span>
             <InputGroup className="donate-value-control">
               <InputGroup.Text id="btnGroupAddon" className="">
-                $
+                {currencySymbol}
               </InputGroup.Text>
-              <FormControl type="number" />
+              <FormControl type="text" value={props.price} onChange={(e) => props.onChangeDonatePrice(e)} />
             </InputGroup>
             <span className="d-none d-sm-inline-block mx-1">to these items:</span>
           </div>
-          <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0">
-            Add to Cart (0)
+          <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0" onClick={() => props.onClickAddToCart()}>
+            Add to Cart ({props.cartProductList.length})
           </Button>
         </div>
       </Container>
