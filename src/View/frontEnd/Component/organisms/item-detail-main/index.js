@@ -10,7 +10,7 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat,isIframe } from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,6 +31,10 @@ function ProjectDetailMain(props) {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  // let substring = "<iframe";
+  // console.log(productDetails.galleryUrl.startsWith(substring))
+  // console.log(productDetails?.galleryUrl?.indexOf(substring)===0)
+  // console.log(productDetails?.galleryUrl)
 
 
 
@@ -202,9 +206,9 @@ function ProjectDetailMain(props) {
         </Button>
       </div>
       {
-        productDetails.galleryUrl &&
+        productDetails.galleryUrl && isIframe(productDetails.galleryUrl) &&
 
-        <div className="project-video-wrap mb-4" style={{ width: "50px", height: "20px" }} dangerouslySetInnerHTML={{ __html: productDetails.galleryUrl }} >
+        <div className="project-video-wrap mb-4"  dangerouslySetInnerHTML={{ __html: productDetails.galleryUrl }} >
 
         </div>
 

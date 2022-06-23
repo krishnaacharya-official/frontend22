@@ -18,9 +18,10 @@ import OrganisationTeamWidget from "../org-team-widget";
 import RoundedIcon from "../../atoms/rounded-icon";
 import TagTitle from "../../atoms/tag-title";
 import IconToggle from "../../atoms/icon-toggle";
-import helper from "../../../../../Common/Helper";
+// import helper from "../../../../../Common/Helper";
 import noImg from "../../../../../assets/images/noimg.jpg"
 import moment from "moment";
+import helper, { getCalculatedPrice, priceFormat,isIframe } from "../../../../../Common/Helper";
 
 import "./style.scss";
 
@@ -183,7 +184,7 @@ function ProjectDetailMain(props) {
         }
 
         {
-          video &&
+          video && isIframe(video) &&
 
           <div className="project-video-wrap mb-4" style={{ width: "500px", height: "200px" }} dangerouslySetInnerHTML={{ __html: video }} >
 

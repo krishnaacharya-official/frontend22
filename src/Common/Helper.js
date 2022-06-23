@@ -210,11 +210,11 @@ export function getCalculatedPrice() {
     }
 
     const calculateSalesTax = (amount) => {
-        
+
         const salesTax = Number(user.salesTax)
-        let taxAmount =  Math.round((salesTax/ 100) * amount)
+        let taxAmount = Math.round((salesTax / 100) * amount)
         return taxAmount
-  
+
 
     }
 
@@ -354,3 +354,9 @@ export function arrayUnique(array) {
 
     return a;
 }
+
+export function isIframe(url) {
+    let substring = "<iframe";
+    return url.indexOf(substring) === 0
+}
+
