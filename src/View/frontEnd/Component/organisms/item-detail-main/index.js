@@ -50,7 +50,7 @@ function ProjectDetailMain(props) {
   }, [!user.isUpdateCart])
 
 
-  const onClickFilter = async(e) =>{
+  const onClickFilter = async (e) => {
     await props.addProductToWishlist(productDetails._id)
   }
 
@@ -201,6 +201,15 @@ function ProjectDetailMain(props) {
           <span className="fs-6">Shelter</span>
         </Button>
       </div>
+      {
+        productDetails.galleryUrl &&
+
+        <div className="project-video-wrap mb-4" style={{ width: "50px", height: "20px" }} dangerouslySetInnerHTML={{ __html: productDetails.galleryUrl }} >
+
+        </div>
+
+      }
+
 
       <h5>Personal tents for the homeless in Alberta, Canada</h5>
       <div className="page__paragraph lh-lg">

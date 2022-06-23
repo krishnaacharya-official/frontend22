@@ -28,7 +28,10 @@ function product() {
         data.append('headline', cdata.headline);
 
         data.append('needheadline', cdata.needheadline);
-        data.append('galleryUrl', cdata.galleryUrl);
+        if(cdata.galleryUrl){
+            data.append('galleryUrl', cdata.galleryUrl);
+
+        }
 
         data.append('status', cdata.status);
         data.append('image', cdata.image);
@@ -137,7 +140,10 @@ function product() {
 
 
         data.append('needheadline', cdata.needheadline);
-        data.append('galleryUrl', cdata.galleryUrl);
+        if(cdata.galleryUrl){
+            data.append('galleryUrl', cdata.galleryUrl);
+
+        }
 
         data.append('status', cdata.status);
         if (cdata.image) {

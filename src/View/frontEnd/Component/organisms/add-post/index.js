@@ -86,10 +86,10 @@ const AddPost = (props) => {
   let gallaryTempImages = props.gallaryTempImages
   let gallaryImages = props.gallaryImages
 
-
-  let url = galleryUrl;
-  let videoid = url?.split("?v=")[1];
-  let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
+  console.log(galleryUrl)
+  // let url = galleryUrl;
+  // let videoid = url ?url?.split("?v=")[1] :"";
+  // let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
 
   // console.log(gallaryImages)
 
@@ -715,7 +715,7 @@ const AddPost = (props) => {
                   <form className="video-detail-form">
                     <div className="form-group mb-2">
                       <label htmlFor="videoInput" className="form__label">
-                        Need Gallery
+                        Need Gallery (iframe)&nbsp;
                         <span className="post-type-text">(optional)</span>
                       </label>
                       <input
@@ -726,8 +726,10 @@ const AddPost = (props) => {
                         name='galleryUrl' id="galleryUrl" value={galleryUrl} onChange={(e) => { changevalue(e) }}
                       />
                     </div>
-                    <div className="project-video-wrap mb-4">
-                      <iframe src={embedlink} title="YouTube video player"></iframe>
+
+                    <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{__html: galleryUrl}} >
+                      {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
+                     
                     </div>
                     <div className="">
                       <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>

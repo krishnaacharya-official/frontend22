@@ -26,9 +26,9 @@ import "./style.scss";
 
 function ProjectDetailMain(props) {
   let projectDetails = props.projectDetails
-  let url = projectDetails?.video;
-  let videoid = url ? url.split("?v=")[1] : "";
-  let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
+  let video = projectDetails?.video;
+  // let videoid = url ? url.split("?v=")[1] : "";
+  // let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
 
   const countProjectProcess = (data) => {
     // console.log(data)
@@ -162,20 +162,32 @@ function ProjectDetailMain(props) {
             allow="autoplay; fullscreen"
             allowFullScreen
           ></iframe> */}
-          <iframe src={embedlink} title="YouTube video player"
+          {/* <iframe src={embedlink} title="YouTube video player"
             width="854"
             height="480"
             scrolling="no"
             frameBorder="0"
             allow="autoplay; fullscreen"
             allowFullScreen
-          ></iframe>
+          ></iframe> */}
+
+
 
         </div>
+
+
         {
           projectDetails?.images && projectDetails?.images.length > 0 &&
           <ProjectGallery className="mb-3" title={false} images={projectDetails?.images} tagTitle="Project" />
 
+        }
+
+        {
+          video &&
+
+          <div className="project-video-wrap mb-4" style={{ width: "500px", height: "200px" }} dangerouslySetInnerHTML={{ __html: video }} >
+
+          </div>
         }
 
         <h5>{projectDetails.headline}</h5>

@@ -342,7 +342,7 @@ const AdminPosts = (props) => {
       rules = {
         brand: 'required',
         needheadline: 'required',
-        galleryUrl: 'required',
+        // galleryUrl: 'required',
         status: 'required',
         headline: 'required',
         category: 'required',
@@ -357,7 +357,7 @@ const AdminPosts = (props) => {
       rules = {
         brand: 'required',
         needheadline: 'required',
-        galleryUrl: 'required',
+        // galleryUrl: 'required',
         status: 'required',
         headline: 'required',
         category: 'required',
@@ -405,7 +405,10 @@ const AdminPosts = (props) => {
 
       formData.brand = brand
       formData.needheadline = needheadline
-      formData.galleryUrl = galleryUrl
+      if (galleryUrl && galleryUrl !== '') {
+        formData.galleryUrl = galleryUrl
+
+      }
       formData.headline = headline
       formData.unlimited = unlimited
       formData.tax = tax

@@ -17,9 +17,9 @@ import { Link } from "react-router-dom";
 const AddProject = (props) => {
    const { id, status, name, headline, video, description, error, images, infinite } = props.stateData
 
-  let url = video;
-  let videoid = url.split("?v=")[1];
-  let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
+  // let url = video;
+  // let videoid = url.split("?v=")[1];
+  // let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
 
 
   let tempImages = props.tempImages
@@ -169,7 +169,7 @@ const AddProject = (props) => {
           <form className="video-detail-form">
             <div className="form-group mb-2">
               <label htmlFor="videoInput" className="form__label">
-                Pictures & Video
+                Pictures & Video (iframe)
               </label>
               <input
                 type="text"
@@ -180,8 +180,9 @@ const AddProject = (props) => {
               />
               {error && error.video && <p className="error">{error ? error.video ? error.video : "" : ""}</p>}
             </div>
-            <div className="project-video-wrap mb-4">
-              <iframe src={embedlink} title="YouTube video player"></iframe>
+            {/* <div className="project-video-wrap mb-4"> */}
+            <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{__html: video}} >
+              {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
             </div>
             {/* <div className="">
               <div className="upload-picture-video-block mb-2">
