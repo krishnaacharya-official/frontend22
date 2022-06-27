@@ -13,6 +13,9 @@ export const UPDATE_XP = "UPDATE_XP";
 export const UPDATE_RANK = "UPDATE_RANK";
 export const UPDATE_STATEID = "UPDATE_STATEID";
 export const UPDATE_SALES_TAX = "UPDATE_SALES_TAX";
+export const ACTIVE_ORGANIZATION = "ACTIVE_ORGANIZATION";
+
+
 
 
 

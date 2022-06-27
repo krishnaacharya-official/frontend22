@@ -28,7 +28,6 @@ function organization() {
         return res;
     }
 
-
     const organizationPurchasedItemHistory = async (authToken, organizationId) => {
 
         let res = {};
@@ -78,7 +77,6 @@ function organization() {
         return res;
 
     }
-
 
     const organizationDonatedItemHistory = async (authToken, organizationId) => {
 
@@ -159,6 +157,122 @@ function organization() {
         return res;
     }
 
+    const inviteTeamMember = async (authToken, data) => {
+
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}team_member/invite`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const listTeamMember = async (authToken) => {
+
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}team_member/list`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const removeTeamMember = async (authToken,id) => {
+
+
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}team_member/remove/`+id,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const teamMemberOrganizationList = async (authToken) => {
+
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}team_member/organization/list`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const teamMemberActivation = async (authToken,data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}team_member/activate`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
     return {
@@ -167,7 +281,12 @@ function organization() {
         donate,
         organizationDonatedItemHistory,
         organizatationTaxlist,
-        organizatationTaxUpload
+        organizatationTaxUpload,
+        inviteTeamMember,
+        listTeamMember,
+        removeTeamMember,
+        teamMemberOrganizationList,
+        teamMemberActivation
 
     }
 }

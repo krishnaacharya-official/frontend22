@@ -59,6 +59,7 @@ function AdminDetail() {
   const location = useLocation()
   let currentOption = location.pathname.split('/')[3]
   const [logoImg, setlogoImg] = useState("");
+  
 
 
 

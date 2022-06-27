@@ -89,6 +89,8 @@
     "no-useless-concat":0,
     "jsx-a11y/no-autofocus":0,
     "no-loop-func":0,
+    "no-useless-escape":0,
+
 
 
 

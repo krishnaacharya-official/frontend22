@@ -360,3 +360,17 @@ export function isIframe(url) {
     return url.indexOf(substring) === 0
 }
 
+export function isValidEmail(email) {
+    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let RESPONCE;
+
+    if (email.match(mailformat)) {
+        RESPONCE = true
+    } else {
+        RESPONCE = false
+    }
+    return RESPONCE
+
+}
+
+

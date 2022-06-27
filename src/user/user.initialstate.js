@@ -3,6 +3,7 @@ const userInitialState = {
     isUpdateCart: false,
     isUpdateOrg: false,
     isUpdateUserDetails: false,
+    isActiveOrg: false,
     transectionFee: 0,
     platformFee: 0,
     currency: '',

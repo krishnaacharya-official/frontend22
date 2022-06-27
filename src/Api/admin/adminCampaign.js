@@ -295,6 +295,29 @@ function adminCampaign() {
         return res;
     }
 
+    const getCampaignDetailsBySlug = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/details/slug`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
     const saveCampaignDetails = async (authToken, cdata) => {
         const data = new FormData();
         data.append('name', cdata.name);
@@ -552,7 +575,8 @@ function adminCampaign() {
         deleteBankAccount,
         activityList,
         payToCampaignAdmin,
-        CampaignAdminPayHistory
+        CampaignAdminPayHistory,
+        getCampaignDetailsBySlug
 
     }
 }
