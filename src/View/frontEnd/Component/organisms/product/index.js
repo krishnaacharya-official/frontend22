@@ -110,7 +110,7 @@ const Product = (props) => {
     setState({ added_to_cart: false })
   };
 
-  const onClickFilter = async(e) =>{
+  const onClickFilter = async (e) => {
     await props.addProductToWishlist(props._id)
   }
 
@@ -264,10 +264,11 @@ const Product = (props) => {
       </div>
 
       <div className="product__category d-flex align-items-center flex-grow-1">
-        <a
-          href="/categories/family"
+        <Link
+          to={"/categories/" + categorySlug}
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
+          state={{ id: props.categoryDetails?._id, catIcon: catIcon, theme_color: theme_color, catName: props.categoryDetails?.name }}
         >
           <i className={catIcon} style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal", marginLeft: "1.5px" }}></i>
           {/* <img
@@ -275,7 +276,7 @@ const Product = (props) => {
               className="img-fluid"
               alt=""
             /> */}
-        </a>
+        </Link>
         <div className="product__subcategory small d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-3p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
