@@ -12,11 +12,11 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const PostsTable = (props) => {
-  // let organizationDetails = props.organizationDetails
+  let organizationDetails = props.organizationDetails
   // getProductList={props.getProductList}
   let productList = props.productList
   const getC = getCalculatedPrice()
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  // const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
 
   // useEffect(() => {
   //   (async () => {
@@ -71,7 +71,7 @@ const PostsTable = (props) => {
                     <div className="d-xl-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                          <div className="text-success fw-bold fs-5">{CampaignAdmin.symbol}{priceFormat(product.price)}</div>
+                          <div className="text-success fw-bold fs-5">{organizationDetails.symbol}{priceFormat(product.price)}</div>
                           <div className="text-light fs-8">{moment(product.created_at).fromNow()}</div>
                         </div>
                         <ListItemImg

@@ -9,7 +9,8 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
-import { Outlet, useOutletContext } from 'react-router-dom';
+// import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet,useOutletContext, Link, useLocation } from "react-router-dom";
 
 
 import "./style.scss";
@@ -17,6 +18,11 @@ import "./style.scss";
 const AdminProjects = () => {
   const [data, setData] = useOutletContext();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+  const location = useLocation()
+
   const [viewProject, createProject] = useState(false);
   const [loading, setLoading] = useState(false)
   const [productList, setProductList] = useState([])
@@ -51,12 +57,12 @@ const AdminProjects = () => {
   const getProjectList = async (page, field, type) => {
 
     let formData = {}
-    // formData.organizationId = data._id
+    formData.organizationId = data._id
     formData.pageNo = page
     formData.sortField = field
     formData.sortType = type
     formData.filter = true
-    const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken, formData)
+    const getProjectList = await projectApi.projectListByOrganization(token, formData)
     if (getProjectList.data.success) {
       // console.log(getProjectList.data.data)
       setProjectList(getProjectList.data.data)
@@ -72,7 +78,7 @@ const AdminProjects = () => {
     formData.filter = false
     formData.sortField = 'created_at'
     formData.sortType = 'asc'
-    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, formData);
+    const getOrganizationProducts = await productApi.listByOrganization(token, formData);
 
     if (getOrganizationProducts.data.success === true) {
       let tempArray = []
@@ -96,6 +102,7 @@ const AdminProjects = () => {
       await getProductList()
       await getProjectList(pageNo, sortField, order)
       setLoading(false)
+      console.log(location?.state?.type)
 
     })()
   }, [data._id, update])
@@ -210,18 +217,19 @@ const AdminProjects = () => {
         error: formaerrror
       })
 
-      let data = {}
+      let formData = {}
 
-      data.name = name
-      data.headline = headline
-      data.video = video
-      data.description = description
-      data.products = seletedProductList
-      data.infinity = infinite
+      formData.name = name
+      formData.headline = headline
+      formData.video = video
+      formData.description = description
+      formData.products = seletedProductList
+      formData.infinity = infinite
+      formData.organizationId = data._id
 
-      data.status = s
+      formData.status = s
       if (images?.length) {
-        data.images = images
+        formData.images = images
       }
 
 
@@ -234,9 +242,9 @@ const AdminProjects = () => {
 
         setLoading(true)
         if (id !== '') {
-          addProject = await projectApi.updateProject(CampaignAdminAuthToken, data, id)
+          addProject = await projectApi.updateProject(token, formData, id)
         } else {
-          addProject = await projectApi.add(CampaignAdminAuthToken, data)
+          addProject = await projectApi.add(token, formData)
         }
 
 

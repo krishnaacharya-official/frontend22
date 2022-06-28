@@ -96,11 +96,36 @@ function userAuth() {
         return res;
     }
 
+    const getAuthTokenById = async (id) => {
+        let res = {};
+
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}auth/getToken`,
+            responseType: 'json',
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                mode: 'no-cors',
+
+            },
+            data: {
+                'id': id,
+            }
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
     return {
         login,
         register,
         sendOtp,
-        verifyOtp
+        verifyOtp,
+        getAuthTokenById
 
     }
 }

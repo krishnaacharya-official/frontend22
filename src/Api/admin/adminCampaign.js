@@ -328,6 +328,8 @@ function adminCampaign() {
         data.append('country_id', cdata.country_id);
         data.append('city_id', cdata.city_id);
         data.append('state_id', cdata.state_id);
+        data.append('organizationId', cdata.organizationId);
+
         // if (cdata.password) {
         //     data.append('password', cdata.password);
         // }

@@ -7,7 +7,7 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../../View/frontEnd/login";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp, setUserRank } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp, setUserRank, setUserRole } from "../../user/user.action"
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
@@ -86,13 +86,15 @@ function SigninController() {
                     setLoading(false)
                     ToastAlert({ msg: uselogin.data.message, msgType: 'error' });
                 } else {
-                    if (uselogin.data.roleName === "USER" || uselogin.data.roleName === "CAMPAIGN_ADMIN") {
+                    if (uselogin.data.roleName === "USER" || uselogin.data.roleName === "CAMPAIGN_ADMIN" || uselogin.data.roleName === 'TEAM_MEMBER') {
 
                         if (uselogin.data.roleName === "CAMPAIGN_ADMIN" && uselogin.data.otp_status !== 1) {
                             setLoading(false)
                             ToastAlert({ msg: 'Campaign Admin not Active.', msgType: 'error' });
                         } else {
                             localStorage.clear()
+
+                            dispatch(setUserRole(uselogin.data.roleName))
 
 
                             if (uselogin.data.roleName === "CAMPAIGN_ADMIN") {
@@ -126,7 +128,7 @@ function SigninController() {
                                 currencyData.currency = uselogin.data.currency
                                 currencyData.currencySymbol = uselogin.data.symbol
                                 dispatch(setCurrency(currencyData))
-                                
+
                                 dispatch(setProfileImage(helper.CampaignAdminLogoPath + uselogin.data.logo))
                                 localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
@@ -202,9 +204,17 @@ function SigninController() {
                                     //     }
                                     // }
                                 }
-                                if (uselogin.data?.language && uselogin.data?.language !== null) {
-                                    dispatch(setUserLanguage(uselogin.data.language))
-                                }
+                                // if (uselogin.data?.language && uselogin.data?.language !== null) {
+                                //     dispatch(setUserLanguage(uselogin.data.language))
+                                // }
+
+                                // if (uselogin.data.roleName === 'TEAM_MEMBER') {
+                                //     localStorage.setItem('teamMemberAuthToken', uselogin.data.accessToken)
+                                //     localStorage.setItem('teamMemberData', JSON.stringify(uselogin.data))
+                                // } else {
+                                //     localStorage.setItem('userAuthToken', uselogin.data.accessToken)
+                                //     localStorage.setItem('userData', JSON.stringify(uselogin.data))
+                                // }
 
                                 localStorage.setItem('userAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('userData', JSON.stringify(uselogin.data))

@@ -10,16 +10,25 @@ import "./style.scss";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import FrontLoader from "../../../../../Common/FrontLoader";
+import { Outlet, useOutletContext } from 'react-router-dom';
 
 const AdminAdmin = () => {
   const [email, setEmail] = useState()
   const [isValid, setisValid] = useState(false)
   const [loading, setLoading] = useState(false)
   const [teamMemberList, setTeamMemberList] = useState([])
-
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+  const [data, setData] = useOutletContext();
 
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id
+  // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
+  // console.log(userData.id)
 
 
 
@@ -43,9 +52,9 @@ const AdminAdmin = () => {
     setLoading(true)
     let data = {}
     data.email = email
-    data.organizationName = CampaignAdmin.name
+    data.organizationName = data.name
 
-    const invite = await organizationApi.inviteTeamMember(CampaignAdminAuthToken, data)
+    const invite = await organizationApi.inviteTeamMember(token, data)
     if (invite) {
       if (invite.data.success === false) {
         setLoading(false)
@@ -67,7 +76,7 @@ const AdminAdmin = () => {
 
 
   const listTeamMembers = async () => {
-    const list = await organizationApi.listTeamMember(CampaignAdminAuthToken)
+    const list = await organizationApi.listTeamMember(token)
     if (list) {
       if (list.data.success) {
         setTeamMemberList(list.data.data)
@@ -90,7 +99,7 @@ const AdminAdmin = () => {
           onClick: (async () => {
             setLoading(true)
             if (id !== '') {
-              const deleteAd = await organizationApi.removeTeamMember(CampaignAdminAuthToken, id)
+              const deleteAd = await organizationApi.removeTeamMember(token, id)
               if (deleteAd) {
                 if (deleteAd.data.success === false) {
                   setLoading(false)
@@ -137,7 +146,7 @@ const AdminAdmin = () => {
               icon={regular("link")}
               className="text-subtext me-1 ms-2"
             />
-            {CampaignAdmin.name}
+            {data.name}
           </div>
 
           <div className="d-flex align-items-center gap-2 mb-3">
@@ -176,10 +185,12 @@ const AdminAdmin = () => {
             {
               teamMemberList.length > 0 &&
               teamMemberList.map((member, i) => {
+                // console.log(member)
                 return (
                   <OrganisationTeamItem
                     showEmail={true}
                     member={member}
+                    isCurrent={member.typeId === currentId}
                     removeTeamMember={removeTeamMember}
                     rightElement={
                       <FontAwesomeIcon

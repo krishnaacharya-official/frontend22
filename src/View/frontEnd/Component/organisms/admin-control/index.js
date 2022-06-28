@@ -10,7 +10,12 @@ import "./style.scss";
 const AdminControl = () => {
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
 
   const [controls, setControls] = useState({
     _id: "",
@@ -43,7 +48,7 @@ const AdminControl = () => {
   useEffect(() => {
     (async () => {
       setLoading(true)
-      const getControlSetting = await controlsApi.organizationControlsList(CampaignAdminAuthToken)
+      const getControlSetting = await controlsApi.organizationControlsList(token)
       if (getControlSetting.data.success) {
         setControls({
           ...getControlSetting.data.data
@@ -72,7 +77,7 @@ const AdminControl = () => {
     data.keep_profile_private = keep_profile_private
 
 
-    const saveControls = await controlsApi.saveOrganizationControls(CampaignAdminAuthToken, data, _id)
+    const saveControls = await controlsApi.saveOrganizationControls(token, data, _id)
     if (saveControls.data.success === true) {
       setLoading(false)
       setUpdate(!update)

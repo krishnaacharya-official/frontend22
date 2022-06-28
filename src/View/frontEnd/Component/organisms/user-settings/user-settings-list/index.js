@@ -66,6 +66,12 @@ function UserSettingsList(props) {
           :
           <>
             <UserSettingsItem
+              icon={<FontAwesomeIcon icon={solid("signature")} />}
+              nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
+              label="Linked Organisations"
+              onClick={props.onOrgClick}
+            />
+            <UserSettingsItem
               icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
               label="Sign out"
               onClick={() => logout()}

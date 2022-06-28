@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 import ListItemImg from "../../atoms/list-item-img";
 import ToggleSwitch from "../../atoms/toggle-switch";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AddBankModal from "../../molecules/add-bank-modal";
 import "./style.scss";
 import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
@@ -18,16 +18,23 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
+import { Link ,Outlet, useOutletContext } from 'react-router-dom';
+
 
 const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
   const [bankAccountList, setBankAccountList] = useState([]);
+  // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(false)
   const [defaultCountry, setDefaultCountry] = useState([])
   const [defaultHomeCountry, setDefaultHomeCountry] = useState([])
+  const [data, setData] = useOutletContext();
 
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
@@ -82,7 +89,7 @@ const PaymentMethod = () => {
 
 
       setLoading(true)
-      const getAccountList = await adminCampaignApi.listBankAccount(CampaignAdminAuthToken);
+      const getAccountList = await adminCampaignApi.listBankAccount(token);
       if (getAccountList.data.success === true) {
         // console.log(getAccountList)
         setBankAccountList(getAccountList.data.data)
@@ -110,7 +117,7 @@ const PaymentMethod = () => {
 
   const getCountryList = async () => {
     let tempArray = []
-    const getCountryList = await locationApi.countryList(CampaignAdminAuthToken);
+    const getCountryList = await locationApi.countryList(token);
     if (getCountryList) {
       if (getCountryList.data.success) {
         if (getCountryList.data.data.length > 0) {
@@ -130,7 +137,7 @@ const PaymentMethod = () => {
 
   const getCountryStateList = async (countryId) => {
     let tempArray = []
-    const getCountryStateList = await locationApi.stateListByCountry(CampaignAdminAuthToken, Number(countryId));
+    const getCountryStateList = await locationApi.stateListByCountry(token, Number(countryId));
     if (getCountryStateList) {
       if (getCountryStateList.data.success) {
         if (getCountryStateList.data.data.length > 0) {
@@ -310,7 +317,7 @@ const PaymentMethod = () => {
 
       // Api Call for update Profile
       setLoading(true)
-      const addBank = await adminCampaignApi.addBankAccount(CampaignAdminAuthToken, data)
+      const addBank = await adminCampaignApi.addBankAccount(token, data)
 
 
       if (addBank) {
@@ -362,7 +369,7 @@ const PaymentMethod = () => {
           onClick: (async () => {
             setLoading(true)
             if (id !== '') {
-              const removeBank = await adminCampaignApi.deleteBankAccount(CampaignAdminAuthToken, id)
+              const removeBank = await adminCampaignApi.deleteBankAccount(token, id)
               if (removeBank) {
                 if (removeBank.data.success === false) {
                   setLoading(false)
@@ -535,37 +542,37 @@ const PaymentMethod = () => {
 
       } else {
 
-        let data = {}
-        data.registerdBusinessAddress = registerdBusinessAddress
-        data.typeOfBusiness = typeOfBusiness
-        data.firstName = firstName
-        data.lastName = lastName
-        data.personalEmail = personalEmail
-        data.dob = dob
-        data.phoneNo = phoneNo
-        data.ssn = ssn
-        data.homeCountry = homeCountry
-        data.addLine1 = addLine1
-        data.addLine2 = addLine2
-        data.city = city
-        data.stateName = stateName
-        data.zip = zip
-        data.personalIdNumber = personalIdNumber
-        data.businessName = businessName
-        data.businessWebsite = businessWebsite
-        data.mcc = mcc
-        data.accountHolderName = accountHolderName
-        data.accountHolderType = accountHolderType
-        data.routingNumber = routingNumber
-        data.accountNumber = accountNumber
-        data.bankEmail = bankEmail
-        data.identityDocumentType = identity
-        data.identityDocumentImage = identityDocumentImage
-        data.status = status
-        data.countryId = CampaignAdmin.country_id
+        let fdata = {}
+        fdata.registerdBusinessAddress = registerdBusinessAddress
+        fdata.typeOfBusiness = typeOfBusiness
+        fdata.firstName = firstName
+        fdata.lastName = lastName
+        fdata.personalEmail = personalEmail
+        fdata.dob = dob
+        fdata.phoneNo = phoneNo
+        fdata.ssn = ssn
+        fdata.homeCountry = homeCountry
+        fdata.addLine1 = addLine1
+        fdata.addLine2 = addLine2
+        fdata.city = city
+        fdata.stateName = stateName
+        fdata.zip = zip
+        fdata.personalIdNumber = personalIdNumber
+        fdata.businessName = businessName
+        fdata.businessWebsite = businessWebsite
+        fdata.mcc = mcc
+        fdata.accountHolderName = accountHolderName
+        fdata.accountHolderType = accountHolderType
+        fdata.routingNumber = routingNumber
+        fdata.accountNumber = accountNumber
+        fdata.bankEmail = bankEmail
+        fdata.identityDocumentType = identity
+        fdata.identityDocumentImage = identityDocumentImage
+        fdata.status = status
+        fdata.countryId = data.country_id
 
 
-        const addBank = await adminCampaignApi.addBankAccount(CampaignAdminAuthToken, data)
+        const addBank = await adminCampaignApi.addBankAccount(token, fdata)
         // console.log(addBank)
 
         if (addBank) {
@@ -589,7 +596,7 @@ const PaymentMethod = () => {
       setLoading(false)
 
     }).catch(errors => {
-      // console.log(errors)
+      console.log(errors)
       setLoading(false)
       const formaerrror = {};
       if (errors && errors.length) {

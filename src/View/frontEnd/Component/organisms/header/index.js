@@ -40,7 +40,8 @@ const Header = (props) => {
                   <Activity />
                 </>
               }
-              <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist} />
+              <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist}                 getAuthToken={props.getAuthToken}
+ />
             </div> : <></>
         }
       </Container>

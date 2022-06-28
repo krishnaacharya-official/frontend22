@@ -33,6 +33,9 @@ const AdminPosts = (props) => {
   // const [projectList, setProjectList] = useState([])
   // const [loading, setLoading] = useState(false)
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const [data, setData] = useOutletContext();
   // const [update, setUpdate] = useState(false)
 
@@ -105,7 +108,7 @@ const AdminPosts = (props) => {
   useEffect(() => {
     (async () => {
       setLoading(true)
-      const getcategoryList = await categoryApi.listCategory(CampaignAdminAuthToken);
+      const getcategoryList = await categoryApi.listCategory(token);
       if (getcategoryList.data.success === true) {
         setCategoryList(getcategoryList.data.data)
       }
@@ -122,7 +125,7 @@ const AdminPosts = (props) => {
     formData.sortField = 'created_at'
     formData.sortType = 'asc'
 
-    const getProjectList = await projectApi.projectListByOrganization(CampaignAdminAuthToken, formData)
+    const getProjectList = await projectApi.projectListByOrganization(token, formData)
     if (getProjectList.data.success) {
       setProjectList(getProjectList.data.data)
     }
@@ -193,7 +196,7 @@ const AdminPosts = (props) => {
 
       //get subCategory List on Category Change
 
-      const getsubCategoryList = await categoryApi.listSubCategory(CampaignAdminAuthToken, value);
+      const getsubCategoryList = await categoryApi.listSubCategory(token, value);
       if (getsubCategoryList.data.success === true) {
         setSubCategoryList(getsubCategoryList.data.data)
       }
@@ -644,7 +647,7 @@ const AdminPosts = (props) => {
 
   const publishProduct = async (id) => {
     setLoading(true)
-    const publish = await productApi.publishProduct(CampaignAdminAuthToken, id)
+    const publish = await productApi.publishProduct(token, id)
     if (publish) {
       if (publish.data.success === false) {
         setLoading(false)
@@ -674,10 +677,10 @@ const AdminPosts = (props) => {
     formData.sortField = field
     formData.sortType = type
     formData.filter = true
+    // console.log(data._id)
 
 
-
-    const getOrganizationProducts = await productApi.listByOrganization(CampaignAdminAuthToken, formData);
+    const getOrganizationProducts = await productApi.listByOrganization(token, formData);
     if (getOrganizationProducts.data.success === true) {
       setProductList(getOrganizationProducts.data.data)
       setTotalPages(getOrganizationProducts.data.totalPages)
@@ -692,6 +695,7 @@ const AdminPosts = (props) => {
     (async () => {
 
       await getProductList(pageNo, sortField, order)
+      console.log(data)
 
     })()
   }, [data._id, update])
@@ -743,6 +747,7 @@ const AdminPosts = (props) => {
             handleSortingChange={handleSortingChange}
             order={order}
             sortField={sortField}
+            organizationDetails={data}
 
           />
         </div>

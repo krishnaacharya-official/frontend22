@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, } from "react";
 import { Tab, Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -51,7 +51,15 @@ function AdminDetail() {
 
 
   const [selectedTabKey, setSelectedTabKey] = useState("");
+  // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  // const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+
+
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+
   const [dropdown, setDropdown] = useState(false);
   const isMobile = useWindowSize() <= 575;
   const [loading, setLoading] = useState(false)
@@ -59,25 +67,28 @@ function AdminDetail() {
   const location = useLocation()
   let currentOption = location.pathname.split('/')[3]
   const [logoImg, setlogoImg] = useState("");
-  
+
 
 
 
   useEffect(() => {
     (async () => {
+
+      // console.log(location?.state?.type)
       setLoading(true)
-      const getCampaignDetails = await adminCampaignApi.getCampaignDetails(CampaignAdminAuthToken);
+      const getCampaignDetails = await adminCampaignApi.getCampaignDetails(token);
       if (getCampaignDetails.data.success) {
         // console.log(getCampaignDetails.data.data.description)
-        setlogoImg((helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo) ? helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo : noimg) 
+        setlogoImg((helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo) ? helper.CampaignAdminLogoPath + getCampaignDetails.data.data?.logo : noimg)
+        // console.log(getCampaignDetails.data.data)
         setData(getCampaignDetails.data.data)
       }
- 
+
       setLoading(false)
 
     })()
 
-  }, [user.isUpdateOrg])
+  }, [user.isUpdateOrg,location])
 
   // let data ={}
   return (

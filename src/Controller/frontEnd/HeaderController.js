@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setFees, setIsUpdateCart } from "../../user/user.action";
 import { setSettings } from "../../user/setting.action";
 import wishlistApi from "../../Api/frontEnd/wishlist";
+// import {userAuth as frontEndAuthApi} from "../../Api/frontEnd/auth"
+import userAuthApi from "../../Api/frontEnd/auth";
 
 
 
@@ -61,20 +63,20 @@ export default function HeaderController() {
         let data = {}
         data.productId = productId
         setLoading(true)
-        const add = await wishlistApi.add(token,data)
-        if(add){
+        const add = await wishlistApi.add(token, data)
+        if (add) {
             if (add.data.success) {
                 setLoading(false)
                 await getWishListProductList()
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-            }else{
-            setLoading(false)
-           
-            ToastAlert({ msg: add.data.message, msgType: 'error' });
+            } else {
+                setLoading(false)
+
+                ToastAlert({ msg: add.data.message, msgType: 'error' });
 
             }
 
-        }else{
+        } else {
             setLoading(false)
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
@@ -195,10 +197,19 @@ export default function HeaderController() {
         }
     }
 
+    const getAuthToken = async (id, slug) => {
+        const getToken = await userAuthApi.getAuthTokenById(id)
+        localStorage.setItem('tempCampaignAdminAuthToken', getToken.data.token)
+        localStorage.setItem('type', 'temp')
+
+        navigate('/campaign/' + slug + '/dashboard',{state:{type:'temp'}}, { replace: true })
+
+    }
+
 
     return (
         <>
-         
+
             <FrontLoader loading={loading} />
             <Header
                 cartItem={cartItem}
@@ -206,6 +217,7 @@ export default function HeaderController() {
                 updateCartItem={updateCartItem}
                 wishListproductList={wishListproductList}
                 addProductToWishlist={addProductToWishlist}
+                getAuthToken={getAuthToken}
 
 
 

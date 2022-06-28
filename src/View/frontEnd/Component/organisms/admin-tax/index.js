@@ -12,6 +12,9 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 const AdminTax = () => {
   const [data, setData] = useOutletContext();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const [taxList, setTaxList] = useState([])
   const [loading, setLoading] = useState(false)
   const [pageNo, setPageNo] = useState(1)
@@ -27,7 +30,7 @@ const AdminTax = () => {
     formData.sortField = field
     formData.sortType = type
 
-    const taxList = await organizationApi.organizatationTaxlist(CampaignAdminAuthToken, formData)
+    const taxList = await organizationApi.organizatationTaxlist(token, formData)
     if (taxList.data.success === true) {
       setTaxList(taxList.data.data)
       setTotalPages(taxList.data.totalPages)

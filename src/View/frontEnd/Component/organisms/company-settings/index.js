@@ -23,7 +23,11 @@ const CompanySettings = () => {
   const [loading, setLoading] = useState(false)
   const [embedlink, setEmbedlink] = useState('')
   const [tempImg, setTempImg] = useState('')
+  // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const [update, setUpdate] = useState(false)
 
   const [countryList, setCountryList] = useState([])
@@ -53,7 +57,7 @@ const CompanySettings = () => {
 
   const getCountryStateList = async (countryId) => {
     let tempArray = []
-    const getCountryStateList = await locationApi.stateListByCountry(CampaignAdminAuthToken, Number(countryId));
+    const getCountryStateList = await locationApi.stateListByCountry(token, Number(countryId));
     if (getCountryStateList) {
       if (getCountryStateList.data.success) {
         if (getCountryStateList.data.data.length > 0) {
@@ -72,7 +76,7 @@ const CompanySettings = () => {
 
   const getStateCityList = async (stateId) => {
     let tempArray = []
-    const getStateCityList = await locationApi.cityListByState(CampaignAdminAuthToken, stateId);
+    const getStateCityList = await locationApi.cityListByState(token, stateId);
     if (getStateCityList) {
       if (getStateCityList.data.success) {
         if (getStateCityList.data.data.length > 0) {
@@ -92,7 +96,7 @@ const CompanySettings = () => {
   const getCountryList = async () => {
     let tempArray = []
 
-    const getCountryList = await locationApi.countryList(CampaignAdminAuthToken);
+    const getCountryList = await locationApi.countryList(token);
     if (getCountryList) {
       if (getCountryList.data.success) {
         if (getCountryList.data.data.length > 0) {
@@ -282,6 +286,7 @@ const CompanySettings = () => {
       fdata.city_id = city
       fdata.state_id = stateId
       fdata.country_id = country
+      fdata.organizationId = data._id
 
 
 
@@ -293,7 +298,7 @@ const CompanySettings = () => {
 
 
       setLoading(true)
-      const addUser = await adminCampaignApi.saveCampaignDetails(CampaignAdminAuthToken, fdata)
+      const addUser = await adminCampaignApi.saveCampaignDetails(token, fdata)
       if (addUser) {
         if (!addUser.data.success) {
           setLoading(false)
@@ -302,9 +307,9 @@ const CompanySettings = () => {
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateOrganization(!user.isUpdateOrg))
-          if (tempImg && tempImg !== "") {
-            dispatch(setProfileImage(tempImg))
-          }
+          // if (tempImg && tempImg !== "") {
+          //   dispatch(setProfileImage(tempImg))
+          // }
           setData(state)
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'success' });

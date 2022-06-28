@@ -42,6 +42,7 @@ function project() {
         data.append('video', cdata.video);
         data.append('status', cdata.status);
         data.append('infinity', cdata.infinity);
+        data.append('organizationId', cdata.organizationId);
 
 
         if (cdata.products && cdata.products.length > 0) {
@@ -109,6 +110,8 @@ function project() {
         data.append('video', cdata.video);
         data.append('status', cdata.status);
         data.append('infinity', cdata.infinity);
+        data.append('organizationId', cdata.organizationId);
+
 
         if (cdata.products && cdata.products.length > 0) {
             data.append('products', JSON.stringify(cdata.products));

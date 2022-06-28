@@ -9,14 +9,17 @@ import FrontLoader from "../../../../../Common/FrontLoader";
 import ToastAlert from "../../../../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 
-function LinkedOrg() {
-  const userAuthToken = localStorage.getItem('userAuthToken');
+function LinkedOrg(props) {
+  // const userAuthToken = localStorage.getItem('userAuthToken');
   const user = useSelector((state) => state.user);
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
 
   const [orgList, setorgList] = useState([])
   const [loading, setLoading] = useState(false)
   const list = async () => {
-    const list = await organizationApi.teamMemberOrganizationList(userAuthToken)
+    const list = await organizationApi.teamMemberOrganizationList(token)
     if (list) {
       if (list.data.success) {
         // console.log(list.data.data)
@@ -28,7 +31,7 @@ function LinkedOrg() {
 
   useEffect(() => {
     (async () => {
-      if (userAuthToken) {
+      if (token) {
         await list()
       }
     })()
@@ -37,7 +40,7 @@ function LinkedOrg() {
 
   const removeTeamMember = async (id) => {
     setLoading(true)
-    const deleteAd = await organizationApi.removeTeamMember(userAuthToken, id)
+    const deleteAd = await organizationApi.removeTeamMember(token, id)
     if (deleteAd) {
       if (deleteAd.data.success === false) {
         setLoading(false)
@@ -118,7 +121,7 @@ function LinkedOrg() {
       let data = {}
       data.otp = Number(finalCode)
 
-      const verifyOtp = await organizationApi.teamMemberActivation(userAuthToken, data)
+      const verifyOtp = await organizationApi.teamMemberActivation(token, data)
       deleteCookie("code1")
       deleteCookie("code2")
       deleteCookie("code3")
@@ -175,7 +178,8 @@ function LinkedOrg() {
                 <li className="linked__item py-2 d-flex align-items-center" key={i}>
                   <Button
                     variant="link"
-                    href={'/campaign/' + org?.organizationDetails?.slug + '/dashboard'}
+                    // href={'/campaign/' + org?.organizationDetails?.slug + '/dashboard'}
+                    onClick={()=>props.getAuthToken(org?.organizationDetails?._id, org?.organizationDetails?.slug)}
                     className="linked__item-link py-0 d-flex align-items-center flex-grow-1 text-decoration-none"
                   >
                     <div className="linked__item-img-wrap">

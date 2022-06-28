@@ -1,11 +1,11 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX,ACTIVE_ORGANIZATION } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
 
 const userReducer = (state = userInitialState, action) => {
 
- 
+
     switch (action.type) {
 
         case UPDATE_CURRENCY:
@@ -121,12 +121,19 @@ const userReducer = (state = userInitialState, action) => {
 
             }
 
-            case ACTIVE_ORGANIZATION:
-                return {
-                    ...state,
-                    isActiveOrg: action.payload
-    
-                }
+        case ACTIVE_ORGANIZATION:
+            return {
+                ...state,
+                isActiveOrg: action.payload
+
+            }
+
+        case SET_USER_ROLE:
+            return {
+                ...state,
+                role: action.payload
+
+            }
 
         case LOGOUT:
             localStorage.clear();
@@ -136,7 +143,7 @@ const userReducer = (state = userInitialState, action) => {
                 isUpdateCart: false,
                 isUpdateOrg: false,
                 isUpdateUserDetails: false,
-                isActiveOrg:false,
+                isActiveOrg: false,
                 transectionFee: 0,
                 platformFee: 0,
                 currency: '',
@@ -153,7 +160,9 @@ const userReducer = (state = userInitialState, action) => {
                 area: "",
                 xp: 0,
                 rank: "",
-                salesTax: ""
+                salesTax: "",
+                role: '',
+
 
             }
 

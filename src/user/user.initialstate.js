@@ -7,6 +7,7 @@ const userInitialState = {
     transectionFee: 0,
     platformFee: 0,
     currency: '',
+    role: '',
     currencySymbol: '',
     userLanguage: 'english',
     pricePerCurrency:0,

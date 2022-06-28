@@ -94,6 +94,10 @@ export default function MainRoutes() {
     const adminAuthToken = localStorage.getItem('adminAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     const userAuthToken = localStorage.getItem('userAuthToken');
+    const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+
+    const token = tempCampaignAdminAuthToken ? tempCampaignAdminAuthToken : CampaignAdminAuthToken
+
     const location = useLocation();
 
 
@@ -103,7 +107,7 @@ export default function MainRoutes() {
 
         <>
             {
-                CampaignAdminAuthToken && location.pathname.startsWith('/campaign') &&
+                token && location.pathname.startsWith('/campaign') &&
 
                 <Routes>
                     <Route path="/" element={<AdminDetail />} >

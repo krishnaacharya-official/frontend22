@@ -6,10 +6,12 @@ import Avatar from "../../atoms/avatar";
 import LinkedOrg from "../../molecules/linked-org";
 import FollowingList from "../wishlist/index";
 import UserSettingsList from "./user-settings-list";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg";
 import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+
 
 import "./style.scss";
 
@@ -22,6 +24,7 @@ const UserSettings = (props) => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const user = useSelector((state) => state.user);
   const getC = getCalculatedPrice()
+  const navigate = useNavigate();
 
 
   const [state, setState] = useState({
@@ -52,6 +55,12 @@ const UserSettings = (props) => {
       </Button>
     );
   });
+
+  const onClickOrg = () => {
+    localStorage.setItem('type', 'main')
+    navigate('/campaign/' + CampaignAdmin?.slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })
+
+  }
 
 
   return (
@@ -87,13 +96,16 @@ const UserSettings = (props) => {
 
                   {
                     CampaignAdmin?.name ?
-                      <Link
-                        to={'/campaign/' + CampaignAdmin?.slug + '/dashboard'}
+                      <Button
+                        onClick={() => onClickOrg()}
+                        // to={'/campaign/' + CampaignAdmin?.slug + '/dashboard'}
                         variant="link"
                         className="p-0 ms-2 btn__link-dark text-decoration-none"
+                      // state={{ type: "main" }}
+
                       >
                         {CampaignAdmin?.name}
-                      </Link> :
+                      </Button> :
                       <Button
                         href="#"
                         variant="link"
@@ -112,7 +124,7 @@ const UserSettings = (props) => {
 
 
                       <span className="mr-3p">
-                        {getC.getUserRank(user.xp) }
+                        {getC.getUserRank(user.xp)}
                       </span>
 
                     </a>
@@ -123,9 +135,10 @@ const UserSettings = (props) => {
 
             <div className="activity__dropdown-body">
               {state.wishlist ? (
-                <FollowingList  wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist}/>
+                <FollowingList wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist} />
               ) : state.linked_org ? (
-                <LinkedOrg />
+                <LinkedOrg getAuthToken={props.getAuthToken}
+                />
               ) : (
                 <UserSettingsList
                   onWishlistClick={() => showWishList()}

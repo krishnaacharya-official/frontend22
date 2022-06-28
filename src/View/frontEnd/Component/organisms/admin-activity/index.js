@@ -14,6 +14,9 @@ import "./style.scss";
 
 const AdminActivity = () => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const type = localStorage.getItem('type');
+  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const [data, setData] = useOutletContext();
   const [loading, setLoading] = useState(false)
   const [activityList, setActivityList] = useState([])
@@ -35,7 +38,7 @@ const AdminActivity = () => {
 
 
 
-    const getOrganizationActivities = await adminCampaignApi.activityList(CampaignAdminAuthToken, formData);
+    const getOrganizationActivities = await adminCampaignApi.activityList(token, formData);
     if (getOrganizationActivities.data.success === true) {
       setActivityList(getOrganizationActivities.data.data)
       setTotalPages(getOrganizationActivities.data.totalPages)
