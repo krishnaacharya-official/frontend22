@@ -157,7 +157,7 @@ export default function CampaignAdminForm(props) {
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
                                 <option selected disabled value=" ">Select Category</option>
                                 {props.categoryList.length > 0 &&
-                                    props.categoryList.map((cat, i) => {
+                                    props.categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
 
                                         return (
                                             cat.status === 1 &&

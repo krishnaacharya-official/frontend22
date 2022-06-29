@@ -301,7 +301,7 @@ const AdvertiseSetting = (props) => {
                                         />
 
                                     </div>
-                                    {stateList.length > 0 &&
+                                    {/* {stateList.length > 0 &&
                                         <div className="px-5 pt-3 mt-0 mb-2" >
                                             <div className="row" style={{ height: "5rem", border: "1px solid rgba(189, 193, 200, 0.5) " }}>
 
@@ -326,7 +326,7 @@ const AdvertiseSetting = (props) => {
 
 
                                         </div>
-                                    }
+                                    } */}
 
                                     <div style={{ overflow: "auto", height: "450px" }}>
 

@@ -250,9 +250,13 @@ function LinkedOrg(props) {
           </Button>
         </li> */}
         </ul>
-        <div className="menu__title">
-          <h6 className="mb-0">Team</h6>
-        </div>
+        {
+          teamMemberList.length > 0 &&
+
+          <div className="menu__title">
+            <h6 className="mb-0">Team</h6>
+          </div>
+        }
         <ul className="linked-list list-unstyled mb-0">
           {
             teamMemberList.length > 0 &&
@@ -272,7 +276,7 @@ function LinkedOrg(props) {
                     />
                     <div className="linked__item-label fs-7 fw-bold pl-12p">
                       <div className="mb-3p">{name}</div>
-                      <div className="team__role fs-7 fw-normal">{member.status ? 'Active':'InActive'}</div>
+                      <div className="team__role fs-7 fw-normal">{member.status ? 'Active' : 'InActive'}</div>
                       <div className="org__team__item__price fs-8 text-light">{member?.campaignadminDetails?.name}</div>
                     </div>
                   </div>

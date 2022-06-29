@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 const ActivityTable = (props) => {
   let activityList = props.activityList
   const getC = getCalculatedPrice()
+  const data=props.data
 
   return (
     <>
@@ -57,7 +58,7 @@ const ActivityTable = (props) => {
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center me-sm-2 flex__1">
                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (getC.currencySymbol()) + priceFormat(list.amount) : ""}</div>
+                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (data.symbol) + priceFormat(list.amount) : ""}</div>
                           <div className="text-light fs-8">{moment(list.created_at).fromNow()}</div>
                         </div>
                         <div className="position-relative d-flex">

@@ -102,7 +102,7 @@ const AdminProjects = () => {
       await getProductList()
       await getProjectList(pageNo, sortField, order)
       setLoading(false)
-      console.log(location?.state?.type)
+      // console.log(location?.state?.type)
 
     })()
   }, [data._id, update])
@@ -226,6 +226,7 @@ const AdminProjects = () => {
       formData.products = seletedProductList
       formData.infinity = infinite
       formData.organizationId = data._id
+      formData.organizationCountryId = data.country_id
 
       formData.status = s
       if (images?.length) {

@@ -1,12 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import { Button } from "react-bootstrap";
 import ListItemImg from "../../atoms/list-item-img";
+import helper from "../../../../../Common/Helper";
+import moment from "moment";
 
-function ActivityItem() {
-  const [active, setActive] = useState(0);
+function ActivityItem(props) {
+
+  const countProjectProcess = (data) => {
+    // console.log(data)
+    let totalQArray = []
+    let soldOutQArray = []
+    let per = 0
+
+    if (data.length > 0) {
+      data.map((p, i) => {
+        // console.log(p.itemDetails)
+        totalQArray.push(Number(p.itemDetails.quantity))
+        soldOutQArray.push(Number(p.itemDetails.soldout))
+      })
+
+      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+      const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+      per = soldout / total * 100
+    } else {
+      per = 0;
+
+    }
+    return Math.round(per);
+
+  }
+
+
+  const [active, setActive] = useState(false);
+  let notification = props.notification
+  // console.log(notification)
+  let name = notification.type === 'PRODUCT' ? notification?.productDetails?.headline : notification?.projectDetails?.name
+  let image = notification.type === 'PRODUCT' ? helper.CampaignProductImagePath + notification?.productDetails?.image : helper.CampaignAdminLogoPath + notification?.campaignadminDetails?.logo
+  let organizationName = notification?.campaignadminDetails?.name
+
+  let watched = notification.watched
+
+
+
+  useEffect(() => {
+    setActive(watched)
+  }, [watched])
+
+
+
 
   return (
     <li
@@ -14,20 +60,24 @@ function ActivityItem() {
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c2478bda7359714d93fec_image%20(2).png" />
+        <ListItemImg imgSrc={image} />
         <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">
-            <div className="ad__activity__name">Backpacks</div>
-            <div className="ad__activity__sub-name">Harambe's Construction</div>
-            <div className="ad__activity__title fs-7">100% Funded</div>
-            <div className="ad__activity__sub-name">1h ago</div>
+            <div className="ad__activity__name">{name}</div>
+            <div className="ad__activity__sub-name">{organizationName}</div>
+            {
+              notification.type === 'PROJECT' &&
+              <div className="ad__activity__title fs-7">{countProjectProcess(notification.productDetails)}% Funded</div>
+
+            }
+            <div className="ad__activity__sub-name">{moment(notification.created_at).fromNow()}</div>
           </div>
         </div>
         <div className="ad__activity__right d-flex align-items-center">
           <Button
             variant="link"
             className="text-decoration-none"
-            onClick={() => setActive(!active)}
+            onClick={() => props.setWatchNotification(!active, notification._id)}
           >
             {active ? (
               <FontAwesomeIcon icon={solid("circle")} />
@@ -38,7 +88,7 @@ function ActivityItem() {
         </div>
       </div>
       <div className="ad__activity__remove ms-auto">
-        <Button variant="link" className="btn__link-light text-decoration-none">
+        <Button variant="link" className="btn__link-light text-decoration-none" onClick={()=>props.removeNotification(notification._id)}>
           <FontAwesomeIcon icon={solid("xmark")} />
         </Button>
       </div>

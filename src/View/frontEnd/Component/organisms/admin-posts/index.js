@@ -107,6 +107,7 @@ const AdminPosts = (props) => {
 
   useEffect(() => {
     (async () => {
+      // console.log(data.country_id)
       setLoading(true)
       const getcategoryList = await categoryApi.listCategory(token);
       if (getcategoryList.data.success === true) {
@@ -448,7 +449,7 @@ const AdminPosts = (props) => {
 
 
 
-
+      formData.organizationCountryId = data.country_id
       formData.price = price
       formData.description = description
       formData.category_id = category
@@ -464,9 +465,9 @@ const AdminPosts = (props) => {
         // Api Call for update Profile
         setLoading(true)
         if (id !== '') {
-          addProduct = await productApi.updateProduct(CampaignAdminAuthToken, formData, id)
+          addProduct = await productApi.updateProduct(token, formData, id)
         } else {
-          addProduct = await productApi.add(CampaignAdminAuthToken, formData)
+          addProduct = await productApi.add(token, formData)
         }
 
 
@@ -695,7 +696,7 @@ const AdminPosts = (props) => {
     (async () => {
 
       await getProductList(pageNo, sortField, order)
-      console.log(data)
+      // console.log(data)
 
     })()
   }, [data._id, update])

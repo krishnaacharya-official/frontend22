@@ -86,7 +86,7 @@ const AddPost = (props) => {
   let gallaryTempImages = props.gallaryTempImages
   let gallaryImages = props.gallaryImages
 
-  console.log(galleryUrl)
+  // console.log(galleryUrl)
   // let url = galleryUrl;
   // let videoid = url ?url?.split("?v=")[1] :"";
   // let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
@@ -428,7 +428,7 @@ const AddPost = (props) => {
                               <select className="form-control" onChange={(e) => { changevalue(e) }} id="category" name="category">
                                 <option selected disabled value=" ">Select Category</option>
                                 {categoryList.length > 0 &&
-                                  categoryList.map((cat, i) => {
+                                  categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
 
                                     return (
                                       cat.status === 1 &&
@@ -452,7 +452,7 @@ const AddPost = (props) => {
                               <select className="form-control" onChange={(e) => { changevalue(e) }} id="subcategory" name="subcategory">
                                 <option selected disabled value=" ">Select SubCategory</option>
                                 {subcategoryList.length > 0 &&
-                                  subcategoryList.map((cat, i) => {
+                                  subcategoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
 
                                     return (
                                       cat.status === 1 &&

@@ -21,6 +21,8 @@ function product() {
             data.append('projects', JSON.stringify(cdata.prjects));
         }
         data.append('unlimited', cdata.unlimited);
+        data.append('organizationCountryId', cdata.organizationCountryId);
+
         data.append('tax', cdata.tax);
         data.append('postTag', cdata.postTag);
 

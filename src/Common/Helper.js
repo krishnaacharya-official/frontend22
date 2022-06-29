@@ -31,7 +31,7 @@ let helper = {
     sponsorLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/',
     sponsorLogoResizePath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/resize/',
 
-    recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/resize/'
+    recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/'
 
 
 

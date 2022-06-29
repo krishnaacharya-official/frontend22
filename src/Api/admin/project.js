@@ -43,6 +43,9 @@ function project() {
         data.append('status', cdata.status);
         data.append('infinity', cdata.infinity);
         data.append('organizationId', cdata.organizationId);
+        data.append('organizationCountryId', cdata.organizationCountryId);
+
+
 
 
         if (cdata.products && cdata.products.length > 0) {

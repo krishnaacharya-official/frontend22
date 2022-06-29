@@ -10,23 +10,23 @@ import "./style.scss";
 
 
 
-const Activity = () =>{
+const Activity = (props) => {
   const [state, setState] = useState({
     empty: false,
     following: false,
     settings: false,
   })
 
-const  moreClick = () => {
-    setState({...state, following: true });
+  const moreClick = () => {
+    setState({ ...state, following: true });
   };
 
   const goBack = () => {
-    setState({...state,  following: false, settings: false });
+    setState({ ...state, following: false, settings: false });
   };
 
   const showSettings = () => {
-    setState({...state,settings: true });
+    setState({ ...state, settings: true });
   };
 
   const ActivityButton = React.forwardRef(({ children, onClick }, ref) => {
@@ -48,9 +48,15 @@ const  moreClick = () => {
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
+        {
+          props.notificationList.length > 0 &&
+
+          <div className="c__badge" style={{ width: "12px", height: "12px", background: '#cb6f74', }}>
+          </div>
+        }
         <Dropdown.Toggle as={ActivityButton} id="dropdown-custom-components">
           <span className="icon activity-icon d-flex align-items-center">
-    
+
             <FontAwesomeIcon icon={solid("bell")} />
           </span>
         </Dropdown.Toggle>
@@ -62,9 +68,10 @@ const  moreClick = () => {
                 <Button
                   variant="link"
                   className="btn__link-light px-6p text-decoration-none"
-                  onClick={()=>goBack()}
+                  onClick={() => goBack()}
                 >
-                  <i className="fa-solid fa-chevron-left"></i>
+                  {/* <i className="fa-solid fa-chevron-left"></i> */}
+                  <FontAwesomeIcon icon={solid("chevron-left")} />
                 </Button>
               ) : (
                 ""
@@ -74,17 +81,18 @@ const  moreClick = () => {
                 {state.following
                   ? "Following"
                   : state.settings
-                  ? "Notification Settings"
-                  : "Activity"}
+                    ? "Notification Settings"
+                    : "Activity"}
               </div>
 
               {!(state.following || state.settings) ? (
                 <Button
                   variant="link"
                   className="ms-auto view__more-activity btn__link-light px-6p text-decoration-none"
-                  onClick={()=>moreClick()}
+                  onClick={() => moreClick()}
                 >
                   <i className="fa-regular fa-ellipsis-stroke-vertical"></i>
+
                 </Button>
               ) : (
                 ""
@@ -100,19 +108,20 @@ const  moreClick = () => {
                   >
                     Mark all read
                   </Button>
-                  <Button
+                  {/* <Button
                     variant="link"
                     className="btn__link-light activity__settings ms-auto px-0"
                     onClick={()=>showSettings()}
                   >
-                    <i className="fa-solid fa-gear"></i>
-                  </Button>
+                   
+                    <FontAwesomeIcon icon={solid("gear")} />
+                  </Button> */}
                 </div>
               ) : (
                 ""
               )}
 
-              {state.following ? <FollowingList /> : state.settings ? <NotificationSettings /> : <ActivityList />}
+              {state.following ? <FollowingList /> : state.settings ? <NotificationSettings /> : <ActivityList notificationList={props.notificationList} setWatchNotification={props.setWatchNotification} removeNotification={props.removeNotification} />}
             </div>
 
             <div className="activity__dropdown-footer"></div>

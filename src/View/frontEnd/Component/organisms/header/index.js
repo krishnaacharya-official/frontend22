@@ -37,7 +37,10 @@ const Header = (props) => {
 
                   <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem}  />
 
-                  <Activity />
+                  <Activity notificationList={props.notificationList} setWatchNotification={props.setWatchNotification}
+                removeNotification={props.removeNotification}
+
+                   />
                 </>
               }
               <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist}                 getAuthToken={props.getAuthToken}

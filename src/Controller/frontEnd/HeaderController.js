@@ -15,6 +15,7 @@ import { setSettings } from "../../user/setting.action";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 // import {userAuth as frontEndAuthApi} from "../../Api/frontEnd/auth"
 import userAuthApi from "../../Api/frontEnd/auth";
+import notificationApi from "../../Api/frontEnd/notification";
 
 
 
@@ -24,6 +25,8 @@ export default function HeaderController() {
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
     const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
     const [wishListproductList, setWishListProductList] = useState([])
+    const [notificationList, setNotificationList] = useState([])
+
 
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
@@ -82,9 +85,28 @@ export default function HeaderController() {
         }
     }
 
+    const getNotificationList = async () => {
+
+        const getList = await notificationApi.list(userAuthToken)
+
+        if (getList) {
+
+            if (getList.data.success) {
+                setNotificationList(getList.data.data)
+            }
+        }
+
+    }
+
     useEffect(() => {
         (async () => {
             setLoading(true)
+
+            if (userAuthToken) {
+                // console.log('token')
+                await getNotificationList()
+
+            }
             if (token) {
                 const verifyUser = await authApi.verifyToken(token)
                 if (!verifyUser.data.success) {
@@ -100,12 +122,13 @@ export default function HeaderController() {
                 }
                 await getWishListProductList()
             }
+
             setLoading(false)
 
             // console.log(user.isUpdateCart)
 
         })()
-    }, [token, update, !user.isUpdateCart])
+    }, [token, userAuthToken, update, !user.isUpdateCart])
 
 
 
@@ -201,9 +224,35 @@ export default function HeaderController() {
         const getToken = await userAuthApi.getAuthTokenById(id)
         localStorage.setItem('tempCampaignAdminAuthToken', getToken.data.token)
         localStorage.setItem('type', 'temp')
-        navigate('/campaign/' + slug + '/dashboard',{state:{type:'temp'}}, { replace: true })
+        navigate('/campaign/' + slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })
 
     }
+
+
+    const setWatchNotification = async (watched, id) => {
+        let data = {}
+        data.watched = watched
+        data.id = id
+        const setWatch = await notificationApi.setWatch(userAuthToken, data)
+        if (setWatch) {
+            if (setWatch.data.success) {
+                await getNotificationList()
+            }
+        }
+    }
+
+
+    const removeNotification = async (id) => {
+        const removeNotification = await notificationApi.removeNotification(userAuthToken, id)
+        if (removeNotification) {
+            if (removeNotification.data.success) {
+                await getNotificationList()
+            }
+        }
+    }
+
+
+
 
 
     return (
@@ -217,6 +266,9 @@ export default function HeaderController() {
                 wishListproductList={wishListproductList}
                 addProductToWishlist={addProductToWishlist}
                 getAuthToken={getAuthToken}
+                notificationList={notificationList}
+                setWatchNotification={setWatchNotification}
+                removeNotification={removeNotification}
 
 
 

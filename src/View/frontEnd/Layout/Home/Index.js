@@ -17,6 +17,7 @@ export default function Index(props) {
   const module = props.module
   const getCalc = getCalculatedPrice();
   let currencySymbol = getCalc.currencySymbol()
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
   let products;
   const title = {
@@ -126,24 +127,27 @@ export default function Index(props) {
           </div>
         </Container>
       </div>
+      {
+        !CampaignAdminAuthToken &&
 
-      <Container className="d-flex align-items-center" fluid>
-        <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
-          <div className="d-flex align-items-center d-sm-inline-bock">
-            <span className="me-1">I want to donate up to</span>
-            <InputGroup className="donate-value-control">
-              <InputGroup.Text id="btnGroupAddon" className="">
-                {currencySymbol}
-              </InputGroup.Text>
-              <FormControl type="text" value={props.price} onChange={(e) => props.onChangeDonatePrice(e)} />
-            </InputGroup>
-            <span className="d-none d-sm-inline-block mx-1">to these items:</span>
+        <Container className="d-flex align-items-center" fluid>
+          <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
+            <div className="d-flex align-items-center d-sm-inline-bock">
+              <span className="me-1">I want to donate up to</span>
+              <InputGroup className="donate-value-control">
+                <InputGroup.Text id="btnGroupAddon" className="">
+                  {currencySymbol}
+                </InputGroup.Text>
+                <FormControl type="text" value={props.price} onChange={(e) => props.onChangeDonatePrice(e)} />
+              </InputGroup>
+              <span className="d-none d-sm-inline-block mx-1">to these items:</span>
+            </div>
+            <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0" onClick={() => props.onClickAddToCart()}>
+              Add to Cart ({props.cartProductList.length})
+            </Button>
           </div>
-          <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0" onClick={() => props.onClickAddToCart()}>
-            Add to Cart ({props.cartProductList.length})
-          </Button>
-        </div>
-      </Container>
+        </Container>
+      }
 
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">

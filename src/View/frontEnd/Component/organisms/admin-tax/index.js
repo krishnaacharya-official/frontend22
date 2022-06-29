@@ -29,10 +29,14 @@ const AdminTax = () => {
     formData.pageNo = page
     formData.sortField = field
     formData.sortType = type
+    formData.organizationId = data._id
+
+
 
     const taxList = await organizationApi.organizatationTaxlist(token, formData)
     if (taxList.data.success === true) {
       setTaxList(taxList.data.data)
+      // console.log(taxList.data.data)
       setTotalPages(taxList.data.totalPages)
       setTotalRecord(taxList.data.totalRecord)
     }
