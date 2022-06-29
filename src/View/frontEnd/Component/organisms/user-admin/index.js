@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { regular,solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import OrganisationTeamItem from "../../molecules/org-team-item";
 import helper, { getCookie, setCookie, deleteCookie } from "../../../../../Common/Helper";
 import React, { useState, useEffect } from "react";
@@ -10,12 +10,23 @@ import ToastAlert from "../../../../../Common/ToastAlert";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsActiveOrg } from "../../../../../user/user.action";
+import { confirmAlert } from "react-confirm-alert"
 
 const UserAdmin = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id
+  // const type = localStorage.getItem('type');
+  // const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  // const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+
+
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [teamMemberList, setTeamMemberList] = useState([])
 
   const elemRefs = [];
   const inputStyle = {
@@ -111,6 +122,72 @@ const UserAdmin = () => {
 
   }
 
+  useEffect(() => {
+    (async () => {
+      await listTeamMembers()
+
+    })()
+
+  }, [])
+
+  const listTeamMembers = async () => {
+  
+
+    const list = await organizationApi.listUserTeamMember(userAuthToken)
+    if (list) {
+      if (list.data.success) {
+        setTeamMemberList(list.data.data)
+      } else {
+        setTeamMemberList([])
+      }
+    }
+
+  }
+
+  const removeTeamMember = async (id) => {
+
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to Remove Member.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: (async () => {
+            setLoading(true)
+            if (id !== '') {
+              const deleteAd = await organizationApi.removeTeamMember(userAuthToken, id)
+              if (deleteAd) {
+                if (deleteAd.data.success === false) {
+                  setLoading(false)
+                  ToastAlert({ msg: deleteAd.data.message, msgType: 'error' });
+                } else {
+                  if (deleteAd.data.success === true) {
+                    // setEmail('')
+                    // setisValid(false)
+                    ToastAlert({ msg: deleteAd.data.message, msgType: 'success' });
+                    await listTeamMembers()
+                    setLoading(false)
+
+                  }
+                }
+              } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Member not Removed', msgType: 'error' });
+              }
+            } else {
+              setLoading(false)
+              ToastAlert({ msg: 'Member not delete id Not found', msgType: 'error' });
+            }
+          })
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+
+  }
+
 
   return (
     <>
@@ -164,6 +241,27 @@ const UserAdmin = () => {
             </a>
           </div> */}
             <ul className="list-unstyeld flex__1 ps-0">
+
+            {
+              teamMemberList.length > 0 &&
+              teamMemberList.map((member, i) => {
+                // console.log(member)
+                return (
+                  <OrganisationTeamItem
+                    showEmail={true}
+                    member={member}
+                    isCurrent={member.typeId === currentId}
+                    removeTeamMember={removeTeamMember}
+                    rightElement={
+                      <FontAwesomeIcon
+                        icon={solid("shield-halved")}
+                        className="text-info fs-4 ms-auto"
+                      />
+                    }
+                  />
+                )
+              })
+            }
               {/* <OrganisationTeamItem
               showEmail={true}
               rightElement={

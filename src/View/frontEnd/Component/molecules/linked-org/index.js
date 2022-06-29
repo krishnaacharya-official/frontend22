@@ -4,7 +4,7 @@ import Avatar from "../../atoms/avatar";
 import "./style.scss";
 import organizationApi from "../../../../../Api/frontEnd/organization";
 import React, { useState, useEffect } from "react";
-import helper,{ getCookie, setCookie, deleteCookie } from "../../../../../Common/Helper";
+import helper, { getCookie, setCookie, deleteCookie } from "../../../../../Common/Helper";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import ToastAlert from "../../../../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,15 +15,34 @@ function LinkedOrg(props) {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
+  const [teamMemberList, setTeamMemberList] = useState([])
+
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id
 
   const [orgList, setorgList] = useState([])
   const [loading, setLoading] = useState(false)
+
   const list = async () => {
     const list = await organizationApi.teamMemberOrganizationList(token)
     if (list) {
       if (list.data.success) {
-        // console.log(list.data.data)
         setorgList(list.data.data)
+      }
+    }
+
+  }
+
+  const listTeamMembers = async () => {
+
+
+    const list = await organizationApi.listUserTeamMember(token)
+    if (list) {
+      if (list.data.success) {
+        setTeamMemberList(list.data.data)
+      } else {
+        setTeamMemberList([])
       }
     }
 
@@ -33,6 +52,8 @@ function LinkedOrg(props) {
     (async () => {
       if (token) {
         await list()
+        await listTeamMembers()
+
       }
     })()
 
@@ -49,6 +70,7 @@ function LinkedOrg(props) {
         if (deleteAd.data.success === true) {
           ToastAlert({ msg: deleteAd.data.message, msgType: 'success' });
           await list()
+          await listTeamMembers()
           setLoading(false)
 
         }
@@ -138,7 +160,7 @@ function LinkedOrg(props) {
           ToastAlert({ msg: verifyOtp.data.message, msgType: 'success' });
           // dispatch(setIsActiveOrg(!user.isActiveOrg))
           await list()
-     
+
         }
       } else {
         setLoading(false)
@@ -179,7 +201,7 @@ function LinkedOrg(props) {
                   <Button
                     variant="link"
                     // href={'/campaign/' + org?.organizationDetails?.slug + '/dashboard'}
-                    onClick={()=>props.getAuthToken(org?.organizationDetails?._id, org?.organizationDetails?.slug)}
+                    onClick={() => props.getAuthToken(org?.organizationDetails?._id, org?.organizationDetails?.slug)}
                     className="linked__item-link py-0 d-flex align-items-center flex-grow-1 text-decoration-none"
                   >
                     <div className="linked__item-img-wrap">
@@ -232,20 +254,36 @@ function LinkedOrg(props) {
           <h6 className="mb-0">Team</h6>
         </div>
         <ul className="linked-list list-unstyled mb-0">
-          <li className="linked__item py-2">
-            <div className="linked__item-link px-12p d-flex align-items-center flex-grow-1">
-              <Avatar
-                size={50}
-                border={0}
-                shadow={false}
-                avatarUrl="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d3f994a03c3fe76a42633a6_1.jpg"
-              />
-              <div className="linked__item-label fs-7 fw-bold pl-12p">
-                <div className="mb-3p">Lindsey Rouche</div>
-                <div className="team__role fs-7 fw-normal">active</div>
-              </div>
-            </div>
-          </li>
+          {
+            teamMemberList.length > 0 &&
+            teamMemberList.map((member, i) => {
+              let image = member.type === 'USER' ? helper.DonorImageResizePath + member?.userDetails?.image : helper.CampaignAdminLogoPath + member?.orgDetails?.logo
+              let name = member.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name
+              // console.log(member)
+              return (
+                member.typeId !== currentId &&
+                <li className="linked__item py-2">
+                  <div className="linked__item-link px-12p d-flex align-items-center flex-grow-1">
+                    <Avatar
+                      size={50}
+                      border={0}
+                      shadow={false}
+                      avatarUrl={image}
+                    />
+                    <div className="linked__item-label fs-7 fw-bold pl-12p">
+                      <div className="mb-3p">{name}</div>
+                      <div className="team__role fs-7 fw-normal">{member.status ? 'Active':'InActive'}</div>
+                      <div className="org__team__item__price fs-8 text-light">{member?.campaignadminDetails?.name}</div>
+                    </div>
+                  </div>
+                </li>
+              )
+
+            })
+
+          }
+
+
         </ul>
         <div className="menu__title">
           <h6 className="mb-0 fs-7">Add an Organization</h6>
@@ -287,11 +325,11 @@ function LinkedOrg(props) {
               className="activate__input"
               name="verifyCode5"
             /> */}
-             {
-                blocks
-              }
+            {
+              blocks
+            }
           </div>
-          <Button variant="info" className="ms-auto" onClick={()=>activateCode()}>
+          <Button variant="info" className="ms-auto" onClick={() => activateCode()}>
             Activate
           </Button>
         </div>

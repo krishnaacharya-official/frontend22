@@ -201,7 +201,6 @@ export default function HeaderController() {
         const getToken = await userAuthApi.getAuthTokenById(id)
         localStorage.setItem('tempCampaignAdminAuthToken', getToken.data.token)
         localStorage.setItem('type', 'temp')
-
         navigate('/campaign/' + slug + '/dashboard',{state:{type:'temp'}}, { replace: true })
 
     }

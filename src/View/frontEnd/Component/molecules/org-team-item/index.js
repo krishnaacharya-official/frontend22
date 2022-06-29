@@ -40,6 +40,8 @@ function OrganisationTeamItem(props) {
           )}
         </div>
         <div className="org__team__item__price fs-8 text-light">{moment(member?.created_at).format('MMMM DD, YYYY')}</div>
+        <div className="org__team__item__price fs-8 text-light">{member?.campaignadminDetails?.name}</div>
+
       </div>
       {props.showContact ? (
         <Button variant="outline-info" size="lg" className="ms-auto fw-bold">

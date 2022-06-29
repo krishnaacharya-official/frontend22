@@ -273,6 +273,29 @@ function organization() {
         return res;
     }
 
+    const listUserTeamMember = async (authToken) => {
+
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}user/team_member/list`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
     return {
@@ -286,7 +309,8 @@ function organization() {
         listTeamMember,
         removeTeamMember,
         teamMemberOrganizationList,
-        teamMemberActivation
+        teamMemberActivation,
+        listUserTeamMember
 
     }
 }
