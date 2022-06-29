@@ -50,11 +50,11 @@ const AdminAdmin = () => {
 
   const inviteTeamMember = async () => {
     setLoading(true)
-    let data = {}
-    data.email = email
-    data.organizationName = data.name
+    let fdata = {}
+    fdata.email = email
+    fdata.organizationName = data.name
 
-    const invite = await organizationApi.inviteTeamMember(token, data)
+    const invite = await organizationApi.inviteTeamMember(token, fdata)
     if (invite) {
       if (invite.data.success === false) {
         setLoading(false)
