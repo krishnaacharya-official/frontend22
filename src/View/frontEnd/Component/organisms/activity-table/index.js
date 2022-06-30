@@ -85,7 +85,7 @@ const ActivityTable = (props) => {
                                 />
                               </span>
                               <div className="">
-                                <span className="text-dark fw-bold">Donation</span>
+                                <span className="text-dark fw-bold">Bought</span>
                                 {/* <div className="d-flex text-light fs-7">
                                   <FontAwesomeIcon
                                     icon={regular("calendar-clock")}

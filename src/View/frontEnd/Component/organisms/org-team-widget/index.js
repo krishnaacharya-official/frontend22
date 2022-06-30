@@ -26,8 +26,8 @@ function OrganisationTeamWidget(props) {
       </WidgetTitle>
 
       <ul className="list-unstyled mb-0 mt-12p">
-        <OrganisationTeamItem showEmail={props.showEmail} showContact={props.showContact}/>
-        <OrganisationTeamItem showEmail={props.showEmail} showContact={props.showContact} />
+        {/* <OrganisationTeamItem showEmail={props.showEmail} showContact={props.showContact}/>
+        <OrganisationTeamItem showEmail={props.showEmail} showContact={props.showContact} /> */}
       </ul>
     </>
   );

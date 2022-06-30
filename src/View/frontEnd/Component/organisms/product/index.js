@@ -56,21 +56,26 @@ const Product = (props) => {
   useEffect(() => {
     (async () => {
       if (!CampaignAdminAuthToken) {
-        const checkItem = await props.checkItemInCart(props._id)
-        if (checkItem === true) {
-          setState({
-            added_to_cart: true
-          })
-        } else {
-          setState({
-            added_to_cart: false
-          })
-        }
+
+        setState({
+          added_to_cart: props.cartProductIds.includes(props._id)
+        })
+
+        // const checkItem = await props.checkItemInCart(props._id)
+        // if (checkItem === true) {
+        //   setState({
+        //     added_to_cart: true
+        //   })
+        // } else {
+        //   setState({
+        //     added_to_cart: false
+        //   })
+        // }
       }
 
     })()
 
-  }, [!user.isUpdateCart])
+  }, [!user.isUpdateCart, props.cartProductIds])
 
 
 

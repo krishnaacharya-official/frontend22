@@ -86,8 +86,9 @@ export default function HeaderController() {
     }
 
     const getNotificationList = async () => {
-
-        const getList = await notificationApi.list(userAuthToken)
+        let data = {}
+        data.countryId = user.countryId
+        const getList = await notificationApi.list(userAuthToken, data)
 
         if (getList) {
 
@@ -102,7 +103,7 @@ export default function HeaderController() {
         (async () => {
             setLoading(true)
 
-            if (userAuthToken) {
+            if (userAuthToken && user.countryId) {
                 // console.log('token')
                 await getNotificationList()
 
@@ -128,7 +129,7 @@ export default function HeaderController() {
             // console.log(user.isUpdateCart)
 
         })()
-    }, [token, userAuthToken, update, !user.isUpdateCart])
+    }, [token, userAuthToken, update, !user.isUpdateCart, user.countryId])
 
 
 
@@ -232,6 +233,7 @@ export default function HeaderController() {
     const setWatchNotification = async (watched, id) => {
         let data = {}
         data.watched = watched
+        data.type = 'watched'
         data.id = id
         const setWatch = await notificationApi.setWatch(userAuthToken, data)
         if (setWatch) {
@@ -243,12 +245,22 @@ export default function HeaderController() {
 
 
     const removeNotification = async (id) => {
-        const removeNotification = await notificationApi.removeNotification(userAuthToken, id)
-        if (removeNotification) {
-            if (removeNotification.data.success) {
+        let data = {}
+        data.removed = true
+        data.type = 'removed'
+        data.id = id
+        const setWatch = await notificationApi.setWatch(userAuthToken, data)
+        if (setWatch) {
+            if (setWatch.data.success) {
                 await getNotificationList()
             }
         }
+        // const removeNotification = await notificationApi.removeNotification(userAuthToken, id)
+        // if (removeNotification) {
+        //     if (removeNotification.data.success) {
+        //         await getNotificationList()
+        //     }
+        // }
     }
 
 

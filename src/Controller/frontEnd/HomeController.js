@@ -45,6 +45,8 @@ export default function HomeController() {
     const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
     const [price, setPrice] = useState()
     const [cartProductList, setCartProductList] = useState([])
+    const [cartProductIds, setCartProductIds] = useState([])
+
 
 
     const [address, setAddress] = useState({
@@ -181,6 +183,8 @@ export default function HomeController() {
         // console.log('show')
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
+
+        console.log(latitude, longitude)
         if (latitude && longitude) {
 
             const getLocationByLatLong = await locationApi.getLocationByLatLong(latitude, longitude)
@@ -204,6 +208,8 @@ export default function HomeController() {
                             let countryName = obj.long_name
                             tempObj.countryName = countryName
 
+                            console.log(countryName)
+
                             // setAddress({
                             //     ...address,
                             //     countryName: countryName
@@ -215,6 +221,7 @@ export default function HomeController() {
                             const getCountryData = await locationApi.currencyByCountry(token, countryName)
                             if (getCountryData) {
                                 if (getCountryData.data.success) {
+
                                     dispatch(setUserCountry(getCountryData.data.data.id))
 
                                     let currencyData = {}
@@ -299,13 +306,15 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-
+            if (userAuthToken) {
+                await getCartList()
+            }
             await getWishListProductList()
             setLoading(false)
 
 
         })()
-    }, [user.isUpdateCart])
+    }, [user.isUpdateCart, userAuthToken])
 
 
 
@@ -339,6 +348,7 @@ export default function HomeController() {
             //         ...data
             //     })
             // }
+
             await getHomePageAdList()
             await getCountryAdvertisement(user.countryId, user.stateId)
             // if (user.countryId && user.stateId) {
@@ -379,6 +389,23 @@ export default function HomeController() {
             res = false
         }
         return res;
+    }
+
+    const getCartList = async () => {
+        const getCartList = await cartApi.list(userAuthToken);
+        if (getCartList.data.success === true) {
+            if (getCartList.data.data.length > 0) {
+                let productIds = []
+                getCartList.data.data.map((p, i) => {
+                    productIds.push(p.productId)
+                })
+                setCartProductIds(productIds)
+            } else {
+                setCartProductIds([])
+
+            }
+
+        }
     }
 
     const addToCart = async (id) => {
@@ -824,6 +851,7 @@ export default function HomeController() {
                 onChangeDonatePrice={onChangeDonatePrice}
                 cartProductList={cartProductList}
                 onClickAddToCart={onClickAddToCart}
+                cartProductIds={cartProductIds}
 
 
 

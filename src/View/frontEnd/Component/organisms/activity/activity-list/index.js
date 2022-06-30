@@ -10,7 +10,9 @@ function ActivityList(props) {
       {
         notificationList.length > 0 &&
         notificationList.map((notification, i) => {
+          let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
           return (
+            !isRemoved &&
             <ActivityItem notification={notification} setWatchNotification={props.setWatchNotification} removeNotification={props.removeNotification} />
 
           )

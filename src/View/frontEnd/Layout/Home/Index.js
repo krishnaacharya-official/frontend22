@@ -37,6 +37,7 @@ export default function Index(props) {
               pricingFees={props.pricingFees}
               addProductToWishlist={props.addProductToWishlist}
               wishListproductIds={props.wishListproductIds}
+              cartProductIds={props.cartProductIds}
             />
           </Col>
         )

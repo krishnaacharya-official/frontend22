@@ -3,11 +3,11 @@ import helper from "../../Common/Helper";
 
 function notification() {
 
-    const list = async (authToken) => {
+    const list = async (authToken,data) => {
 
         let res = {};
         await axios({
-            method: 'get',
+            method: 'post',
             url: `${helper.ApiUrl}notification`,
             responseType: 'json',
             headers: {
@@ -18,7 +18,7 @@ function notification() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-
+            data:data
 
         }).then((response) => {
             res = response

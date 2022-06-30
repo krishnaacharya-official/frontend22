@@ -44,12 +44,18 @@ const Activity = (props) => {
       </Button>
     );
   });
+// let len = !props.notificationList.filter(e => e?.userNotificationDetails) ? props.notificationList :
+// props.notificationList.filter(e => e?.userNotificationDetails?.removed === false)
+  // console.log(props.notificationList)
+  // console.log(props.notificationList.find(e => e.userNotificationDetails.removed === true))
+  // console.log(props.notificationList.filter(e => e.userNotificationDetails.removed === true).length)
+
 
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
         {
-          props.notificationList.length > 0 &&
+          // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false).length > 0 &&
 
           <div className="c__badge" style={{ width: "12px", height: "12px", background: '#cb6f74', }}>
           </div>
@@ -121,7 +127,11 @@ const Activity = (props) => {
                 ""
               )}
 
-              {state.following ? <FollowingList /> : state.settings ? <NotificationSettings /> : <ActivityList notificationList={props.notificationList} setWatchNotification={props.setWatchNotification} removeNotification={props.removeNotification} />}
+              {state.following ? <FollowingList /> : state.settings ? <NotificationSettings /> :
+                <ActivityList
+                  notificationList={props.notificationList}
+                  setWatchNotification={props.setWatchNotification}
+                  removeNotification={props.removeNotification} />}
             </div>
 
             <div className="activity__dropdown-footer"></div>

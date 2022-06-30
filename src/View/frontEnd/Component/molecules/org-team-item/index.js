@@ -8,9 +8,9 @@ import moment from "moment";
 function OrganisationTeamItem(props) {
   const member = props.member
 
-  let image = member.type === 'USER' ? helper.DonorImageResizePath + member?.userDetails?.image : helper.CampaignAdminLogoPath + member?.orgDetails?.logo
-  let name = member.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name
-  let email = member.type === 'USER' ? member.userDetails?.email : member?.orgDetails?.email
+  let image = member?.type === 'USER' ? helper.DonorImageResizePath + member?.userDetails?.image : helper.CampaignAdminLogoPath + member?.orgDetails?.logo
+  let name = member?.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name
+  let email = member?.type === 'USER' ? member.userDetails?.email : member?.orgDetails?.email
 
   return (
     // <li className="org__team__item pt-12p pb-12p d-sm-flex align-items-center">

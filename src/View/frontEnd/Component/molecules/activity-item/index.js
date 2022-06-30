@@ -43,12 +43,22 @@ function ActivityItem(props) {
   let image = notification.type === 'PRODUCT' ? helper.CampaignProductImagePath + notification?.productDetails?.image : helper.CampaignAdminLogoPath + notification?.campaignadminDetails?.logo
   let organizationName = notification?.campaignadminDetails?.name
 
-  let watched = notification.watched
+  // let watched = notification.watched
+  let watched = notification?.userNotificationDetails?.watched ? notification?.userNotificationDetails?.watched : false
+
+  let date = notification.type === 'PRODUCT' ? notification?.productDetails?.created_at : notification?.projectDetails?.created_at
+
 
 
 
   useEffect(() => {
+    // if(notification?.userNotificationDetails){
+
+    // }else{
+
+    // }
     setActive(watched)
+
   }, [watched])
 
 
@@ -70,7 +80,7 @@ function ActivityItem(props) {
               <div className="ad__activity__title fs-7">{countProjectProcess(notification.productDetails)}% Funded</div>
 
             }
-            <div className="ad__activity__sub-name">{moment(notification.created_at).fromNow()}</div>
+            <div className="ad__activity__sub-name">{moment(date).fromNow()}</div>
           </div>
         </div>
         <div className="ad__activity__right d-flex align-items-center">
