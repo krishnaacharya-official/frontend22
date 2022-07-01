@@ -54,14 +54,18 @@ const AdminTax = () => {
   }, [data._id, update])
 
 
-  const uploadImage = async (e, orderId) => {
+  const uploadImage = async (e, orderId, email, name) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
 
     let fdata = {}
     fdata.image = file
     fdata.orderId = orderId
+    fdata.email = email
+    fdata.name = name
+    fdata.organizationName = data.name
+
     setLoading(true)
-    const uploadTax = await organizationApi.organizatationTaxUpload(CampaignAdminAuthToken, fdata)
+    const uploadTax = await organizationApi.organizatationTaxUpload(token, fdata)
     if (uploadTax) {
       if (uploadTax.data.success === false) {
         setLoading(false)
@@ -72,7 +76,7 @@ const AdminTax = () => {
         ToastAlert({ msg: uploadTax.data.message, msgType: 'success' });
       }
 
-    }else{
+    } else {
       setLoading(false)
       ToastAlert({ msg: 'something Went wrong', msgType: 'error' });
     }

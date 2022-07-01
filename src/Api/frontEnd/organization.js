@@ -128,11 +128,14 @@ function organization() {
     }
 
     const organizatationTaxUpload = async (authToken, cdata) => {
-
-        
         const data = new FormData();
         data.append('image', cdata.image);
         data.append('orderId', cdata.orderId);
+        data.append('email', cdata.email);
+        data.append('name', cdata.name);
+        data.append('organizationName', cdata.organizationName);
+
+
 
 
 

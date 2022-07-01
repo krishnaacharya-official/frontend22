@@ -25,7 +25,8 @@ const AdminActivity = () => {
   const [totalRecord, setTotalRecord] = useState(1)
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
-
+  const [listBy, setListBy] = useState("ALL");
+  const [urlIcon, seturlIcon] = useState("");
 
   const getActivityList = async (page, field, type) => {
     setLoading(true)
@@ -35,6 +36,8 @@ const AdminActivity = () => {
     formData.sortField = field
     formData.sortType = type
     formData.filter = true
+    formData.type = listBy
+
 
 
 
@@ -55,7 +58,7 @@ const AdminActivity = () => {
       await getActivityList(pageNo, sortField, order)
 
     })()
-  }, [data._id])
+  }, [data._id,listBy])
 
   const handleClick = async (e, v) => {
 
@@ -74,6 +77,14 @@ const AdminActivity = () => {
 
 
   };
+
+
+  const onChangeDropdown = async (type, url) => {
+    // console.log(type, url)
+    setListBy(type)
+    seturlIcon(url)
+  }
+
   return (
     <>
       <header className="py-sm-2 pb-2 w-100 d-sm-flex align-items-center">
@@ -84,7 +95,11 @@ const AdminActivity = () => {
           <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
         </div>
         <div className="ms-sm-auto">
-          <LadderMenuXp />
+          <LadderMenuXp
+            onChangeDropdown={onChangeDropdown}
+            listBy={listBy}
+            urlIcon={urlIcon}
+          />
         </div>
       </header>
 

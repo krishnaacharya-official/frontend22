@@ -198,6 +198,8 @@ export default function HomeController() {
                     tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name
                     tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
                     tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
+                    console.log(tempObj)
+
                     dispatch(setUserAddress(tempObj))
                     // console.log(jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name)
 
@@ -208,7 +210,6 @@ export default function HomeController() {
                             let countryName = obj.long_name
                             tempObj.countryName = countryName
 
-                            console.log(countryName)
 
                             // setAddress({
                             //     ...address,

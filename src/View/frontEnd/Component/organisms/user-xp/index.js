@@ -112,11 +112,11 @@ const UserXp = () => {
 
           <span className="fs-7 text-light mr-2">Your Rank</span>
           <span className="ms-2">
-          {
-            getC.getUserRank(user.xp)
-          }
+            {
+              getC.getUserRank(user.xp)
+            }
           </span>
-         
+
           {/* <IconButton
             bgColor="#a278fc"
             className="btn__xs rounded-pill ms-2"
@@ -131,7 +131,8 @@ const UserXp = () => {
         </div>
         <div className="ms-sm-auto">
 
-          <LadderMenuXp onChangeDropdown={onChangeDropdown}
+          <LadderMenuXp
+            onChangeDropdown={onChangeDropdown}
             listBy={listBy}
             urlIcon={urlIcon}
           />

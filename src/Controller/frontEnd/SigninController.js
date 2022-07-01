@@ -11,6 +11,7 @@ import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUse
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
+import defaultAvatar from "../../assets/images/avatar_default.jpg"
 
 
 
@@ -128,14 +129,24 @@ function SigninController() {
                                 currencyData.currency = uselogin.data.currency
                                 currencyData.currencySymbol = uselogin.data.symbol
                                 dispatch(setCurrency(currencyData))
+                                if (uselogin.data.logo) {
+                                    dispatch(setProfileImage(helper.CampaignAdminLogoPath + uselogin.data.logo))
 
-                                dispatch(setProfileImage(helper.CampaignAdminLogoPath + uselogin.data.logo))
+                                } else {
+                                    dispatch(setProfileImage(defaultAvatar))
+
+                                }
                                 localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
                                 navigate('/campaign/' + uselogin.data.slug + '/dashboard', { replace: true })
                             } else {
+                                if (uselogin.data.image) {
+                                    dispatch(setProfileImage(helper.DonorImageResizePath + uselogin.data.image))
 
-                                dispatch(setProfileImage(helper.DonorImageResizePath + uselogin.data.image))
+                                } else {
+                                    dispatch(setProfileImage(defaultAvatar))
+
+                                }
                                 // console.log('xp',uselogin.data.xp)
                                 dispatch(setUserXp(uselogin.data.xp))
                                 // await getUserRank(uselogin.data.accessToken)

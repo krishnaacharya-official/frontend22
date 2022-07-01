@@ -39,12 +39,22 @@ const TaxTable = (props) => {
           <Button
             variant="link"
             className="btn__sort px-0 text-decoration-none"
+            onClick={() => props.handleSortingChange('receipt')}
+
           >
             Status
-            <FontAwesomeIcon
-              icon={solid("angle-down")}
-              className="small ml-6p"
-            />
+            {
+              props.sortField === 'receipt' && props.order === 'asc' ?
+                <FontAwesomeIcon
+                  icon={solid("angle-up")}
+                  className="small ml-6p"
+                />
+                :
+                <FontAwesomeIcon
+                  icon={solid("angle-down")}
+                  className="small ml-6p"
+                />
+            }
           </Button>
         </div>
         <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "550px", minHeight: "550px" }}>
@@ -108,7 +118,7 @@ const TaxTable = (props) => {
 
                         {
                           item.receipt ?
-                            <a href={helper.recieptPath+ item.receipt} download
+                            <a href={helper.recieptPath + item.receipt} download
                               variant="info"
                               className="text-white fs-7 rounded-pill flex-grow-1 btn btn-info"
                             >

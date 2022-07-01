@@ -58,7 +58,7 @@ const ActivityTable = (props) => {
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center me-sm-2 flex__1">
                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">{list.type === 'Bought' || list.type === 'Donate' ? (data.symbol) + priceFormat(list.amount) : ""}</div>
+                          <div className="text-success fw-bold fs-5">{list.type === 'BOUGHT' || list.type === 'DONATED' ? (data.symbol) + priceFormat(list.amount) : ""}</div>
                           <div className="text-light fs-8">{moment(list.created_at).fromNow()}</div>
                         </div>
                         <div className="position-relative d-flex">
@@ -74,7 +74,7 @@ const ActivityTable = (props) => {
                       </div>
                       <div className="w-200 d-flex align-items-center ms-sm-2">
                         {
-                          list.type === 'Bought' ?
+                          list.type === 'BOUGHT' ?
                             <>
                               <span className="p-2 mr-12p">
                                 <img
@@ -110,7 +110,7 @@ const ActivityTable = (props) => {
                                 </div>
                               </>
 
-                              : list.type === 'Followed' ?
+                              : list.type === 'FOLLOWED' ?
                                 <>
                                   <span className="p-2 mr-12p">
                                     <img
@@ -124,7 +124,7 @@ const ActivityTable = (props) => {
                                     <span className="text-dark fw-bold">Followed</span>
                                   </div>
                                 </>
-                                : list.type === 'Donate' ?
+                                : list.type === 'DONATED' ?
                                   <>
                                     <span className="p-2 mr-12p">
                                       <img
