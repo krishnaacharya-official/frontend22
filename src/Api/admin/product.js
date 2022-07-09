@@ -30,7 +30,7 @@ function product() {
         data.append('headline', cdata.headline);
 
         data.append('needheadline', cdata.needheadline);
-        if(cdata.galleryUrl){
+        if (cdata.galleryUrl) {
             data.append('galleryUrl', cdata.galleryUrl);
 
         }
@@ -142,7 +142,7 @@ function product() {
 
 
         data.append('needheadline', cdata.needheadline);
-        if(cdata.galleryUrl){
+        if (cdata.galleryUrl) {
             data.append('galleryUrl', cdata.galleryUrl);
 
         }
@@ -229,6 +229,29 @@ function product() {
     }
 
 
+    const productDetailsById = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}product/details/id`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
     return {
         add,
         list,
@@ -236,6 +259,7 @@ function product() {
         updateProduct,
         listByOrganization,
         publishProduct,
+        productDetailsById
 
 
 

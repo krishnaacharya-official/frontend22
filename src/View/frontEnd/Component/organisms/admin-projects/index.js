@@ -10,7 +10,7 @@ import { confirmAlert } from "react-confirm-alert"
 import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
 // import { Outlet, useOutletContext } from 'react-router-dom';
-import { Outlet,useOutletContext, Link, useLocation } from "react-router-dom";
+import { Outlet, useOutletContext, Link, useLocation } from "react-router-dom";
 
 
 import "./style.scss";
@@ -44,7 +44,7 @@ const AdminProjects = () => {
   })
 
   const { id, status, name, headline, video, description, error, images, infinite } = state
-
+  const validExtensions = ['jpg', 'png', 'jpeg'];
   const [pageNo, setPageNo] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [totalRecord, setTotalRecord] = useState(1)
@@ -136,20 +136,33 @@ const AdminProjects = () => {
 
     let tempArry = []
     let tempObj = []
+    let tempFileArry = []
+
+    // 
+    // if (e.target.files.filter(e => e.name.substr(req.files.images.name.lastIndexOf('.') + 1).length > 0)) {
+    //   console.log('wrong')
+    // }
 
 
     if (e.target.files && e.target.files.length > 0) {
       tempObj.push(e.target.files)
       for (let i = 0; i < tempObj[0].length; i++) {
-        tempArry.push(URL.createObjectURL(tempObj[0][i]))
+        // console.log(tempObj[0][i])
+        let extension = tempObj[0][i].name.substr(tempObj[0][i].name.lastIndexOf('.') + 1)
+        if (validExtensions.includes(extension)) {
+          // console.log(extension)
+          tempFileArry.push(tempObj[0][i])
+          tempArry.push(URL.createObjectURL(tempObj[0][i]))
+        }
       }
+      setstate({
+        ...state,
+        images: tempFileArry
+      })
       setTempImages(tempArry)
 
     }
-    setstate({
-      ...state,
-      images: e.target.files
-    })
+
 
   }
 
@@ -168,7 +181,7 @@ const AdminProjects = () => {
 
       let tempArry = [...seletedProductList]
       const index = tempArry.indexOf(e.target.id);
-    
+
       if (index > -1) {
         tempArry.splice(index, 1);
       }
@@ -232,6 +245,8 @@ const AdminProjects = () => {
       if (images?.length) {
         formData.images = images
       }
+
+      // console.log(formData)
 
 
 

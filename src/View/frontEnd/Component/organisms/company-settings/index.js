@@ -2,7 +2,7 @@ import "./style.scss";
 import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
-import helper from "../../../../../Common/Helper";
+import helper, { isIframe } from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
@@ -187,9 +187,9 @@ const CompanySettings = () => {
     })
     if (e.target.name === 'promoVideo') {
       let url = value;
-      let id = url && url.split("?v=")[1];
-      let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
-      setEmbedlink(embedUrl)
+      // let id = url && url.split("?v=")[1];
+      // let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
+      setEmbedlink(url)
     }
   }
 
@@ -211,9 +211,9 @@ const CompanySettings = () => {
 
       })
       let url = data.promoVideo;
-      let id = url && url.split("?v=")[1];
-      let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
-      setEmbedlink(embedUrl)
+      // let id = url && url.split("?v=")[1];
+      // let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
+      setEmbedlink(url)
 
       if (data.country_id && data.country_id !== null) {
         await getCountryStateList(data.country_id)
@@ -462,7 +462,7 @@ const CompanySettings = () => {
       </div>
 
       <div className="mb-5 mw-400">
-        <h4 className="fw-bolder">Promo Video</h4>
+        <h4 className="fw-bolder">Promo Video (Iframe)</h4>
         <div className="text-subtext mb-3">
           This video appears on your organization's page:
         </div>
@@ -478,14 +478,22 @@ const CompanySettings = () => {
             />
           </label>
         </div>
-        <div className="post__video minh-120 border bg-lighter mb-3">
+        {
+          embedlink && isIframe(embedlink) &&
+
+          <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: embedlink }} >
+
+          </div>
+
+        }
+        {/* <div className="post__video minh-120 border bg-lighter mb-3">
           <iframe
             title="post-video"
             width="200"
             height="200"
             src={embedlink}
           ></iframe>
-        </div>
+        </div> */}
         <Button variant="info" className="mt-3 mb-3" onClick={() => updateProfile()}>Save Details</Button>
         <div className="fw-bolder mb-3">Account Deactivation</div>
         <div className="deactivate">

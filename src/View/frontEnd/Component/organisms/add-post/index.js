@@ -501,7 +501,7 @@ const AddPost = (props) => {
                             className="icon-cloud"
                           /> */}
                           {Img || tempImg ?
-                            <img src={tempImg ? tempImg : Img ? Img !== "" ? helper.CampaignProductImagePath + Img : noimg : noimg} alt="lk" className="" style={{ objectFit: "contain" }} />
+                            <img src={tempImg ? tempImg : Img ? Img !== "" ? helper.CampaignProductFullImagePath + Img : noimg : noimg} alt="lk" className="" style={{ objectFit: "contain" }} />
                             :
                             <FontAwesomeIcon
                               icon={solid("cloud-arrow-up")}

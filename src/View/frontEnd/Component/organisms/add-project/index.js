@@ -200,7 +200,7 @@ const AddProject = (props) => {
                   className="icon-cloud"
                 />
                 <label >
-                  <input name='moreImg[]' id='moreImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
+                  <input name='moreImg[]' id='moreImg' type="file"  multiple onChange={(e) => { props.changefile(e) }} />
                 </label>
               </div>
               {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}

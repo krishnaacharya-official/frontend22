@@ -28,6 +28,7 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 
 const AdminPosts = (props) => {
+  const validExtensions = ['jpg', 'png', 'jpeg'];
   const [viewPost, createPost] = useState(false);
   // const [productList, setProductList] = useState([])
   // const [projectList, setProjectList] = useState([])
@@ -114,17 +115,19 @@ const AdminPosts = (props) => {
         setCategoryList(getcategoryList.data.data)
       }
 
-      await orgProjectList()
+      if (data._id) await orgProjectList()
       setLoading(false)
 
     })()
-  }, [])
+  }, [data._id])
 
   const orgProjectList = async () => {
     let formData = {}
     formData.filter = false
     formData.sortField = 'created_at'
     formData.sortType = 'asc'
+    formData.organizationId = data._id
+
 
     const getProjectList = await projectApi.projectListByOrganization(token, formData)
     if (getProjectList.data.success) {
@@ -245,48 +248,84 @@ const AdminPosts = (props) => {
     // console.log('kkk')
     if (e.target.id === 'mainImg') {
       let file = e.target.files[0] ? e.target.files[0] : '';
-      setTempImg(URL.createObjectURL(file))
+
+      if (file) {
+        let extension = file.name.substr(file.name.lastIndexOf('.') + 1)
+        if (validExtensions.includes(extension)) {
+          setTempImg(URL.createObjectURL(file))
+          setstate({
+            ...state,
+            image: file
+          })
+
+        } else {
+          setstate({
+            ...state,
+            image: ''
+          })
+        }
+
+      } else {
+        setstate({
+          ...state,
+          image: ''
+        })
+        setTempImg('')
+      }
       // console.log(URL.createObjectURL(file))
-      setstate({
-        ...state,
-        image: file
-      })
+
     } else if (e.target.id === 'galleryImg') {
 
       let gImgtempArry = []
       let gImgtempObj = []
+      let tempGallaryFileArry = []
+
 
       if (e.target.files && e.target.files.length > 0) {
         gImgtempObj.push(e.target.files)
         for (let i = 0; i < gImgtempObj[0].length; i++) {
-          gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+          let extension = gImgtempObj[0][i].name.substr(gImgtempObj[0][i].name.lastIndexOf('.') + 1)
+          if (validExtensions.includes(extension)) {
+
+            tempGallaryFileArry.push(gImgtempObj[0][i])
+            gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+          }
         }
         setGallaryTempImages(gImgtempArry)
+        setstate({
+          ...state,
+          galleryImg: tempGallaryFileArry
+        })
 
       }
 
-      setstate({
-        ...state,
-        galleryImg: e.target.files
-      })
+
 
     } else {
 
       let mImgtempArry = []
       let mImgtempObj = []
+      let tempMainFileArry = []
+
 
       if (e.target.files && e.target.files.length > 0) {
         mImgtempObj.push(e.target.files)
         for (let i = 0; i < mImgtempObj[0].length; i++) {
-          mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+          let extension = mImgtempObj[0][i].name.substr(mImgtempObj[0][i].name.lastIndexOf('.') + 1)
+          if (validExtensions.includes(extension)) {
+            tempMainFileArry.push(mImgtempObj[0][i])
+            mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+
+          }
         }
         setMoreTempImages(mImgtempArry)
+        setstate({
+          ...state,
+          moreImg: tempMainFileArry
+        })
 
       }
-      setstate({
-        ...state,
-        moreImg: e.target.files
-      })
+
     }
 
   }
@@ -554,90 +593,112 @@ const AdminPosts = (props) => {
   }
 
   const editProduct = async (productData) => {
+
     setLoading(true)
-    if ((productData) && productData !== null && productData !== '') {
+    let formData = {}
+    formData.productId = productData._id
+
+    const getProductDetails = await productApi.productDetailsById(token, formData);
+    if (getProductDetails.data.success === true) {
+      setLoading(false)
+
+      productData = getProductDetails.data.data[0]
+
       // console.log(productData)
-      // 
-      setstate({
-        id: productData._id,
-        status: productData.status,
-        headline: productData.headline,
-        brand: productData.brand,
-        category: productData.categoryId,
-        subcategory: productData.subcategoryId,
-        description: productData.description,
-        price: productData.price,
-        quantity: productData.quantity,
-        organization: productData.organizationId,
-        slug: productData.slug,
-        needheadline: productData.needheadline,
-        galleryUrl: productData.galleryUrl,
+    
 
-        unlimited: productData.unlimited,
-        tax: productData.tax,
-        postTag: productData.postTag,
+      if ((productData) && productData !== null && productData !== '') {
+        // console.log(productData)
+        // 
+        setstate({
+          id: productData._id,
+          status: productData.status,
+          headline: productData.headline,
+          brand: productData.brand,
+          category: productData.categoryId,
+          subcategory: productData.subcategoryId,
+          description: productData.description,
+          price: productData.price,
+          quantity: productData.quantity,
+          organization: productData.organizationId,
+          slug: productData.slug,
+          needheadline: productData.needheadline,
+          galleryUrl: productData.galleryUrl,
+          unlimited: productData.unlimited,
+          tax: productData.tax,
+          postTag: productData.postTag,
 
 
 
-      });
+        });
 
-      let tempProjectArray = [];
-      if (productData.projectDetails.length > 0) {
-        productData.projectDetails.map((project, i) => {
-          tempProjectArray.push(project.projectId)
+        let tempProjectArray = [];
+        if (productData.projectDetails.length > 0) {
+          productData.projectDetails.map((project, i) => {
+            tempProjectArray.push(project.projectId)
+          })
+          setSeletedProjectList(tempProjectArray)
+        } else {
+          setSeletedProjectList([])
+
+        }
+
+        let tempMImgArray = []
+
+        if (productData.imageDetails.length > 0) {
+          productData.imageDetails.map((img, i) => {
+            if (img.type === 'moreImage') {
+              tempMImgArray.push(img.image)
+            }
+
+          })
+          setMoreImages(tempMImgArray)
+        } else {
+          setMoreImages([])
+
+        }
+
+
+        let tempGImgArray = []
+
+        if (productData.imageDetails.length > 0) {
+          productData.imageDetails.map((img, i) => {
+            if (img.type === 'galleryImage') {
+              tempGImgArray.push(img.image)
+            }
+
+          })
+          setGallaryImages(tempGImgArray)
+        } else {
+          setGallaryImages([])
+
+        }
+
+        let mytags = []
+        let addedTags = [];
+        if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
+          addedTags = productData.tags.split(',');
+        }
+        addedTags.map((aadedTag, i) => {
+          let tagsObj = {}
+          tagsObj.id = aadedTag
+          tagsObj.text = aadedTag
+          mytags.push(tagsObj)
         })
-        setSeletedProjectList(tempProjectArray)
+        setTags(mytags)
+        setImg(productData.image)
+
+        const getsubCategoryList = await categoryApi.listSubCategory(CampaignAdminAuthToken, productData.categoryId);
+        if (getsubCategoryList.data.success === true) {
+          setSubCategoryList(getsubCategoryList.data.data)
+        }
+        createPost(true);
+        setLoading(false)
+
+      } else {
+        setLoading(false)
+        ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
       }
-
-      let tempMImgArray = []
-
-      if (productData.imageDetails.length > 0) {
-        productData.imageDetails.map((img, i) => {
-          if (img.type === 'moreImage') {
-            tempMImgArray.push(img.image)
-          }
-
-        })
-        setMoreImages(tempMImgArray)
-      }
-
-
-      let tempGImgArray = []
-
-      if (productData.imageDetails.length > 0) {
-        productData.imageDetails.map((img, i) => {
-          if (img.type === 'galleryImage') {
-            tempGImgArray.push(img.image)
-          }
-
-        })
-        setGallaryImages(tempGImgArray)
-      }
-
-      let mytags = []
-      let addedTags = [];
-      if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
-        addedTags = productData.tags.split(',');
-      }
-      addedTags.map((aadedTag, i) => {
-        let tagsObj = {}
-        tagsObj.id = aadedTag
-        tagsObj.text = aadedTag
-        mytags.push(tagsObj)
-      })
-      setTags(mytags)
-      setImg(productData.image)
-
-      const getsubCategoryList = await categoryApi.listSubCategory(CampaignAdminAuthToken, productData.categoryId);
-      if (getsubCategoryList.data.success === true) {
-        setSubCategoryList(getsubCategoryList.data.data)
-      }
-      createPost(true);
-      setLoading(false)
-
-    } else {
-      setLoading(false)
-      ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
     }
   }
 
