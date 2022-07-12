@@ -33,15 +33,15 @@ import { SearchBox } from "@mapbox/search-js-react";
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // require('mapbox-gl/dist/mapbox-gl.css');
 
-
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 const Map = ReactMapboxGl({
   accessToken:
     helper.MapBoxPrimaryKey
 });
-
 
 
 
@@ -74,11 +74,13 @@ function AccordionToggle({ children, eventKey, callback }) {
 }
 
 const AddPost = (props) => {
+ 
+
   let organizationDetails = props.organizationDetails
   let stateData = props.stateData
   const user = useSelector((state) => state.user);
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address,  lat, lng
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng
   } = props.stateData;
 
   let submitProductForm = props.submitProductForm
@@ -143,7 +145,7 @@ const AddPost = (props) => {
       lng: lng ? Number(lng) : 0
     })
 
-  }, [props.data,stateData])
+  }, [props.data, stateData])
 
 
 
