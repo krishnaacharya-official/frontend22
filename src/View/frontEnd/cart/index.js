@@ -28,6 +28,21 @@ const Cart = (props) => {
     console.log(e);
   };
 
+  const minusValue = async (value,id) => {
+    if (value > 1) {
+      value--;
+      await props.updateCartItem(value, id)
+    }
+    // setQuantity(value)
+
+
+  }
+  const plusValue = async (value,id) => {
+    value++;
+    // setQuantity(value)
+    await props.updateCartItem(value, id)
+  }
+
   useEffect(() => {
     if (props.cartItem.length > 0) {
       let tempPriceArray = [];
@@ -133,6 +148,14 @@ const Cart = (props) => {
 
                       <span className="d-flex align-items-center ms-2 fw-bold text-subtext">
                         <span className="mr-6p d-none d-sm-block">Qty:</span>{' '}
+
+                        <Button
+                          variant="link"
+                          className="text-decoration-none btn__link-light p-0 m-2"
+                          onClick={() => minusValue(item?.quantity,item._id)}
+                        >
+                          <FontAwesomeIcon icon={regular("angle-down")} />
+                        </Button>
                         <input
                           type="text"
                           className="qty__input"
@@ -140,6 +163,13 @@ const Cart = (props) => {
                           value={item?.quantity}
                           onChange={() => onQtyChange(item._id)}
                         />
+                        <Button
+                          variant="link"
+                          className="btn__link-light text-decoration-none p-0 m-2"
+                          onClick={() => plusValue(item?.quantity,item._id)}
+                        >
+                          <FontAwesomeIcon icon={regular("angle-up")} />
+                        </Button>
                       </span>
                       <span className="fs-5 fw-bold text-success ms-3">
                         {currencySymbol +

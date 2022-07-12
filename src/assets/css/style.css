@@ -1056,5 +1056,60 @@ width: 100%;
   }
 }
 
+li.search__tag {
+  flex: 0;
+  white-space: nowrap;
+  background: #6f6e91;
+  position: relative;
+  height: 48px;
+  font-weight: 600;
+  padding: 6px 16px;
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5rem;
+  border-radius: 5px;
+  list-style: none;
+  background-image: none;
+  box-shadow: none;
+  color: white;
+}
+.search__tag span {
+  text-transform: lowercase;
+}
+.search__container li a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0);
+  
+}
+.search__container {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  /* position: absolute; */
+  width: 100%;
+  overflow: hidden;
+
+}
+
+
+
+.search__container li a:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    background-image: url(http://svgshare.com/i/3yv.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 

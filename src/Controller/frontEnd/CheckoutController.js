@@ -167,6 +167,7 @@ export default function CheckoutController() {
 
             }
             setLoading(false)
+            // console.log(salesTax,user.salesTax)
 
         })()
     }, [update, user.transectionFee, xpForeEachItem])
@@ -252,12 +253,14 @@ export default function CheckoutController() {
                             tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
                             tempObj.organizationId = item.productDetails.organizationId
                             tempObj.organizationCountryId = item.productDetails?.organizationDetails?.country_id
+                            tempObj.productXp = item.quantity * Number(xpForeEachItem)
 
 
                             productDetails.push(tempObj)
                         })
                     }
                     orderDetails.email = userData.email
+                    orderDetails.name = userData.name
                     orderDetails.currency = user.currency
                     orderDetails.currencySymbol = user.currencySymbol
                     orderDetails.transactionId = payment.data.data.id
@@ -273,7 +276,6 @@ export default function CheckoutController() {
                     orderDetails.xpToadd = xp
                     orderDetails.salesTaxPer = user.salesTax
                     orderDetails.salesTax = salesTax
-
 
 
                     if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -373,6 +375,8 @@ export default function CheckoutController() {
                 xp={xp}
                 salesTax={salesTax}
                 subtotal={subtotal}
+                salesTaxPer={user.salesTax}
+                transectionFee={user.transectionFee}
             // pricingFees={pricingFees}
 
             />

@@ -13,15 +13,15 @@ const UserControl = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [controls, setControls] = useState({
     _id: "",
-    push: false,
-    email: false,
-    project: false,
-    order_updates: false,
-    media_updates: false,
-    hide_sold_items: false,
-    collapse_order_history: false,
-    notify_payment_issues: false,
-    show_only_tax_deductible_items: false,
+    push: true,
+    email: true,
+    project: true,
+    order_updates: true,
+    media_updates: true,
+    hide_sold_items: true,
+    collapse_order_history: true,
+    notify_payment_issues: true,
+    show_only_tax_deductible_items: true,
   })
 
   const { _id, push, email, project, order_updates, media_updates, hide_sold_items, collapse_order_history, notify_payment_issues, show_only_tax_deductible_items } = controls
@@ -32,6 +32,7 @@ const UserControl = () => {
       setLoading(true)
       const getControlSetting = await controlsApi.list(userAuthToken)
       if (getControlSetting.data.success) {
+        console.log(getControlSetting.data.data)
         setControls({
           ...getControlSetting.data.data
         })

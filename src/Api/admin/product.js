@@ -35,6 +35,22 @@ function product() {
 
         }
 
+
+        if (cdata.address) {
+            data.append('address', cdata.address);
+
+        }
+
+        if (cdata.lat) {
+            data.append('lat', cdata.lat);
+
+        }
+
+        if (cdata.lng) {
+            data.append('lng', cdata.lng);
+
+        }
+
         data.append('status', cdata.status);
         data.append('image', cdata.image);
         data.append('organizationId', cdata.organizationId);
@@ -144,6 +160,21 @@ function product() {
         data.append('needheadline', cdata.needheadline);
         if (cdata.galleryUrl) {
             data.append('galleryUrl', cdata.galleryUrl);
+
+        }
+
+        if (cdata.address) {
+            data.append('address', cdata.address);
+
+        }
+
+        if (cdata.lat) {
+            data.append('lat', cdata.lat);
+
+        }
+
+        if (cdata.lng) {
+            data.append('lng', cdata.lng);
 
         }
 

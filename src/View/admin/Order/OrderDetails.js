@@ -29,7 +29,7 @@ const OrderDetails = (props) => {
 
     let orderDetails = {}
     orderDetails = props.orderDetails
-    console.log(orderDetails)
+    // console.log(orderDetails)
     // console.log(Object.keys(orderDetails).length)
 
 
@@ -68,7 +68,7 @@ const OrderDetails = (props) => {
                     </Toolbar>
                 </AppBar>
 
-                <div className="invoice invoice-content  px-5 pt-5" style={{overflow:"auto"}}>
+                <div className="invoice invoice-content  px-5 pt-5" style={{ overflow: "auto" }}>
                     <div className="row">
                         <div className="col-3">
                             <h5 className="almost-gray mb-3">Invoiced to:</h5>
@@ -95,7 +95,9 @@ const OrderDetails = (props) => {
                                 color="info"
                                 className="mb-2"
                             >
-                                {orderDetails.transactionId}
+                                {/* {orderDetails.transactionId} */}
+                                {orderDetails.uniqueTransactionId ? orderDetails.uniqueTransactionId : orderDetails.transactionId}
+
                             </Label>
 
                             <h5 className="almost-gray">Transection Status:</h5>
@@ -173,7 +175,7 @@ const OrderDetails = (props) => {
                                 <tr>
                                     <td colSpan="3"></td>
                                     <td colSpan="2">SALES TAX ( {orderDetails.salesTaxPer ? orderDetails.salesTaxPer : 0} %)</td>
-                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.salesTax?orderDetails.salesTax:0)))
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.salesTax ? orderDetails.salesTax : 0)))
                                     )}</td>
                                 </tr>
                                 <tr>

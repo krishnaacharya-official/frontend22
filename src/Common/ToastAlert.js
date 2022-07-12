@@ -7,8 +7,9 @@ function ToastAlert(props) {
         case 'success':
 
             toast.success(props.msg, {
-                position: "top-right",
-                autoClose: 3000,
+                position: "bottom-center",
+                closeButton: false,
+                autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: false,
@@ -20,10 +21,11 @@ function ToastAlert(props) {
         case 'info':
 
             toast.info(props.msg, {
-                position: "top-right",
-                autoClose: 3000,
+                position: "bottom-center",
+                closeButton: false,
+                autoClose: 4000,
                 hideProgressBar: false,
-                closeOnClick: true,
+                closeOnClick: false,
                 pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
@@ -33,10 +35,11 @@ function ToastAlert(props) {
         case 'warn':
 
             toast.warn(props.msg, {
-                position: "top-right",
-                autoClose: 3000,
+                position: "bottom-center",
+                closeButton: false,
+                autoClose: 4000,
                 hideProgressBar: false,
-                closeOnClick: true,
+                closeOnClick: false,
                 pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
@@ -46,8 +49,9 @@ function ToastAlert(props) {
         case 'error':
 
             toast.error(props.msg, {
-                position: "top-right",
-                autoClose: 3000,
+                position: "bottom-center",
+                closeButton: false,
+                autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: false,
@@ -59,8 +63,9 @@ function ToastAlert(props) {
         default:
 
             toast(props.msg, {
-                position: "top-right",
-                autoClose: 3000,
+                position: "bottom-center",
+                closeButton: false,
+                autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,

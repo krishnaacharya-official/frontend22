@@ -3,7 +3,7 @@ import { Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
-import helper, { getCalculatedPrice,priceFormat } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
 import EmptyCart from "../../atoms/empty-cart";
 import CartList from "./cart-list";
 
@@ -15,7 +15,8 @@ const ShoppingCart = (props) => {
   // console.log(props.cartItem)
   const [state, setState] = useState({
     empty: false,
-    subTotal: ""
+    subTotal: "",
+    totalQuantity:0
   })
 
 
@@ -47,19 +48,27 @@ const ShoppingCart = (props) => {
     } else {
 
       let tempPriceArray = []
+      let tempQuantityArray = []
+
+      
       props.cartItem.map((item, i) => {
         let price = CalculatePrice.getData(item.productDetails?.price)
 
         tempPriceArray.push(price * item.quantity)
-      
+        tempQuantityArray.push( item.quantity)
+
+
       })
 
       let sum = tempPriceArray.reduce(function (a, b) { return a + b; }, 0);
+      let quantitySum = tempQuantityArray.reduce(function (a, b) { return a + b; }, 0);
+
 
       setState({
         ...state,
         empty: false,
-        subTotal: Number(sum)
+        subTotal: Number(sum),
+        totalQuantity:Number(quantitySum)
       })
     }
 
@@ -71,9 +80,13 @@ const ShoppingCart = (props) => {
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={CartButton}>
-          <div className="c__badge">
-            <span className="c__badge__count">{props.cartItem?.length}</span>
-          </div>
+          {
+            state.totalQuantity > 0 &&
+
+            <div className="c__badge">
+              <span className="c__badge__count">{state.totalQuantity}</span>
+            </div>
+          }
           <span className="d-flex align-items-center icon">
             <FontAwesomeIcon icon={solid("bag-shopping")} />
           </span>

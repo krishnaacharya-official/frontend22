@@ -9,8 +9,11 @@ const SummaryContent = (props) => {
   let cartItem = props.cartItem;
   // let total = props.CalculatedPrice.getData(props.total)
   let total = props.total;
-  let salesTax=props.salesTax
-  let subtotal=props.subtotal
+  let salesTax = props.salesTax
+  let subtotal = props.subtotal
+  let salesTaxPer =props.salesTaxPer
+  let transectionFee =props.transectionFee
+
 
 
   // let transectionFee = props.pricingFees?.transectionFee
@@ -19,6 +22,14 @@ const SummaryContent = (props) => {
 
   return (
     <div className="summary__content">
+
+      <div className="note note--info mb-3">
+      You have selected a credit card as your payment method. Your credit card company charges a {transectionFee}% transaction fee which will be added to the subtotal of your donation{" "}
+        {/* <a href="#">
+          <span className="text-subtext">Terms and Conditions.</span>
+        </a> */}
+        .
+      </div>
       <div className="pt-20p pb-12p">
         <ul className="list-unstyled pb-1 border-bottom mb-0">
           {cartItem &&

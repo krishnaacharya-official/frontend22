@@ -19,16 +19,16 @@ const AdminControl = () => {
 
   const [controls, setControls] = useState({
     _id: "",
-    notifications: false,
-    email: false,
-    items_are_funded: false,
-    you_receive_donation: false,
-    someone_follows_profile: false,
-    sales_on_your_post: false,
-    your_item_funded: false,
-    your_order_ready_to_purchase: false,
-    problem_with_your_deposit: false,
-    keep_profile_private: false,
+    notifications: true,
+    email: true,
+    items_are_funded: true,
+    you_receive_donation: true,
+    someone_follows_profile: true,
+    sales_on_your_post: true,
+    your_item_funded: true,
+    your_order_ready_to_purchase: true,
+    problem_with_your_deposit: true,
+    keep_profile_private: true,
 
   })
 

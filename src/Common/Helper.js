@@ -32,7 +32,10 @@ let helper = {
     sponsorLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/',
     sponsorLogoResizePath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/resize/',
 
-    recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/'
+    recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/',
+
+
+    MapBoxPrimaryKey:'pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ'
 
 
 

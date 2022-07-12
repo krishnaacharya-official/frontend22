@@ -28,12 +28,12 @@ const calculatedPrice = getCalculatedPrice()
   // }
   return (
     <>
-      <ul className="history__list list-unstyled mb-0" style={{maxHeight:"550px",minHeight:"550px"}}>
+      <ul className="history__list list-unstyled mb-0">
 
         {
           orderList.length > 0 ?
             orderList.map((order, i) => {
-              // console.log(order)
+              // console.log(order.uniqueTransactionId)
               let totalCharge = Number(order.appliedTaxPercentage)
               // 
 

@@ -19,6 +19,8 @@ const userInitialState = {
     cityName:"",
     zip:"",
     area:"",
+    lat:"",
+    lng:"",
     xp:0,
     rank:"",
     salesTax:""

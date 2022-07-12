@@ -111,17 +111,30 @@ export default function OrganizationDonation(props) {
             sortable: true,
             accessor: '',
         },
+        // {
+        //     id: 'transactionid',
+        //     name: "Transection Id",
+        //     cell: (row) => <>
+
+        //         {row.transactionId}
+
+
+        //     </>,
+        //     ignoreRowClick: true,
+        //     // allowOverflow: true,
+        // },
+
         {
-            id: 'transactionid',
+            id: 'trsansection_id',
             name: "Transection Id",
             cell: (row) => <>
 
-                {row.transactionId}
-
-
+                <span>
+                    {row.uniqueTransactionId ? row.uniqueTransactionId : row.transactionId}
+                </span>
             </>,
             ignoreRowClick: true,
-            // allowOverflow: true,
+            allowOverflow: true,
         },
 
 

@@ -24,7 +24,7 @@ import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import moment from 'moment';
-import helper ,{priceFormat} from '../../../Common/Helper';
+import helper, { priceFormat } from '../../../Common/Helper';
 
 
 import Page from '../../../components/Page';
@@ -34,6 +34,20 @@ export default function Index(props) {
     const columns = [
 
         { id: 'name', name: "Name", selector: "userDetails.name", sortable: true },
+
+        {
+            id: 'trsansection_id',
+            name: "Transection Id",
+            cell: (row) => <>
+
+                <span>
+                    {row.uniqueTransactionId ? row.uniqueTransactionId : row.transactionId}
+                </span>
+            </>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+        },
+
         {
             id: 'transactionStatus',
             name: "Payment Status",
@@ -53,7 +67,7 @@ export default function Index(props) {
             id: 'amount',
             name: "Amount",
             cell: (row) => <>
-                <span>{(row.currencySymbol ? row.currencySymbol : "$" )+  priceFormat(row.total)}</span>
+                <span>{(row.currencySymbol ? row.currencySymbol : "$") + priceFormat(row.total)}</span>
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -87,7 +101,7 @@ export default function Index(props) {
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
-            button: true,
+            // button: true,
         },
 
 

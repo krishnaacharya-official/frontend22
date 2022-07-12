@@ -24,6 +24,12 @@ export default function HomeController() {
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
     const [wishListproductList, setWishListProductList] = useState([])
     const [wishListproductIds, setWishListProductIds] = useState([])
+    const [productTags, setProductTags] = useState([])
+    const [searchTag, setSearchTag] = useState([])
+    const [suggestionTag, setSuggestionTag] = useState('')
+
+
+
     const getCalc = getCalculatedPrice();
 
 
@@ -198,6 +204,8 @@ export default function HomeController() {
                     tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name
                     tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
                     tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
+                    tempObj.lat = latitude
+                    tempObj.lng = longitude
                     console.log(tempObj)
 
                     dispatch(setUserAddress(tempObj))
@@ -310,9 +318,12 @@ export default function HomeController() {
             if (userAuthToken) {
                 await getCartList()
             }
+            setLoading(true)
             await getWishListProductList()
             setLoading(false)
 
+
+            // console.log(Math.floor(10000000 + Math.random() * 90000000))
 
         })()
     }, [user.isUpdateCart, userAuthToken])
@@ -664,6 +675,35 @@ export default function HomeController() {
         const getFilteredProductList = await productApi.productFilter(token, data);
         if (getFilteredProductList.data.success === true) {
             setProductList(getFilteredProductList.data.data)
+            if (getFilteredProductList.data.data.length > 0) {
+                let productTagsArray = []
+                getFilteredProductList.data.data.map((p, i) => {
+                    // console.log(p)
+
+                    let tempObj = {}
+                    tempObj.color = p.categoryDetails.color
+                    // console.log(p.tags.split(','))
+                    p.tags.split(',').map((value, i) => {
+                        if (productTagsArray.indexOf(value) === -1) {
+
+                            tempObj.tag = value
+                            productTagsArray.push(tempObj);
+                        }
+
+
+                    })
+                })
+                productTagsArray = productTagsArray.filter((value, index, self) =>
+                    index === self.findIndex((t) => (
+                        t.tag === value.tag
+                    ))
+                )
+                setProductTags(productTagsArray)
+
+            } else {
+                setProductTags([])
+            }
+
             // if (getFilteredProductList.data.data.length > 0) {
             //     let tempArray = []
             //     getFilteredProductList.data.data.map((p, i) => {
@@ -683,15 +723,98 @@ export default function HomeController() {
     }
 
 
-    const onSearchProduct = async (e) => {
+    const onSearchProduct = async (e, type) => {
+        // if(type ==='onchange'){
+
+        // }
+        setSuggestionTag('')
         let value = e.target.value
         setfilters({
             ...filters,
             search: value
         })
+        // console.log(productTags)
 
-        await filterProduct(lowPrice, HighPrice, value)
 
+
+        // console.log(productTags.sort(function (a, b) {
+        //     if (a.tag < b.tag) { return -1; }
+        //     if (a.tag > b.tag) { return 1; }
+        //     return 0;
+        // }).filter(option => option.tag.startsWith(value))[0])
+
+
+        // if (value) {
+        //     let tag = productTags.sort(function (a, b) {
+        //         if (a.tag < b.tag) { return -1; }
+        //         if (a.tag > b.tag) { return 1; }
+        //         return 0;
+        //     }).filter(option => option.tag.startsWith(value))[0]
+
+        //     setSuggestionTag(tag)
+
+        //     console.log(tag)
+
+
+        //     let t = tag ? [...searchTag, tag] : [...searchTag]
+
+        //     t = t.filter((value, index, self) =>
+        //         index === self.findIndex((t) => (
+        //             t.tag === value.tag
+        //         ))
+        //     )
+
+        //     if (type === 'keydown') {
+               
+        //         if (e.key === 'Enter') {
+        //             setSearchTag(t)
+        //             setfilters({
+        //                 ...filters,
+        //                 search: ''
+        //             })
+        //         }
+        //         let finalArray = []
+        //         if (t.length > 0) {
+        //             t.map((t1, key) => {
+        //                 finalArray.push(t1.tag)
+        //             })
+        //         }
+        //         // console.log(finalArray)
+
+        //         setLoading(true)
+        //         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
+        //         setLoading(false)
+
+        //     }
+        // }
+
+
+
+
+
+
+        // setSearchTag(productTags.sort(function (a, b) {
+        //     if (a.tag < b.tag) { return -1; }
+        //     if (a.tag > b.tag) { return 1; }
+        //     return 0;
+        // }).filter(option => option.tag.startsWith(value))[0])
+
+        // console.log(productTags.startsWith(value))
+        // console.log(productList.filter(e => e.tags.includes('car')))
+
+        // await filterProduct(lowPrice, HighPrice, value, user.countryId)
+
+    }
+
+    const deSelectTag = async (id) => {
+
+        const findIndex = searchTag.findIndex(a => a.tag === id)
+        let tags = [...searchTag]
+        if (findIndex !== -1) tags.splice(findIndex, 1)
+        setSearchTag(tags)
+        setLoading(true)
+        await filterProduct(lowPrice, HighPrice, tags, user.countryId)
+        setLoading(false)
     }
 
     const getCountryAdvertisement = async (countryId, stateId) => {
@@ -853,6 +976,9 @@ export default function HomeController() {
                 cartProductList={cartProductList}
                 onClickAddToCart={onClickAddToCart}
                 cartProductIds={cartProductIds}
+                searchTag={searchTag}
+                deSelectTag={deSelectTag}
+                suggestionTag={suggestionTag}
 
 
 

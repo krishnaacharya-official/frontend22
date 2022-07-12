@@ -91,6 +91,9 @@ const AdminPosts = (props) => {
     moreImg: [],
     galleryUrl: '',
     needheadline: '',
+    address: '',
+    lat: '',
+    lng: '',
     unlimited: false,
     tax: false,
     postTag: false,
@@ -98,7 +101,7 @@ const AdminPosts = (props) => {
 
   })
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng
   } = state;
 
   const [tags, setTags] = useState([]);
@@ -108,6 +111,8 @@ const AdminPosts = (props) => {
 
   useEffect(() => {
     (async () => {
+
+      console.log(data)
       // console.log(data.country_id)
       setLoading(true)
       const getcategoryList = await categoryApi.listCategory(token);
@@ -329,7 +334,7 @@ const AdminPosts = (props) => {
     }
 
   }
-  const resetForm = (e) => {
+  const resetForm = async(e) => {
     // setModal(false);
     setTags([])
     setTempImg('')
@@ -351,6 +356,9 @@ const AdminPosts = (props) => {
       image: '',
       quantity: '',
       slug: '',
+      address: '',
+      lat: '',
+      lng: '',
       unlimited: false,
       tax: false,
       postTag: false,
@@ -486,6 +494,19 @@ const AdminPosts = (props) => {
 
       }
 
+      if (address) {
+        formData.address = address
+      }
+
+      if (lat) {
+        formData.lat = lat
+
+      }
+
+      if (lng) {
+        formData.lng = lng
+
+      }
 
 
       formData.organizationCountryId = data.country_id
@@ -593,7 +614,7 @@ const AdminPosts = (props) => {
   }
 
   const editProduct = async (productData) => {
-
+    
     setLoading(true)
     let formData = {}
     formData.productId = productData._id
@@ -605,7 +626,7 @@ const AdminPosts = (props) => {
       productData = getProductDetails.data.data[0]
 
       // console.log(productData)
-    
+
 
       if ((productData) && productData !== null && productData !== '') {
         // console.log(productData)
@@ -627,6 +648,9 @@ const AdminPosts = (props) => {
           unlimited: productData.unlimited,
           tax: productData.tax,
           postTag: productData.postTag,
+          address: productData.address ? productData.address :"",
+          lat: productData.lat ? productData.lat :"" ,
+          lng: productData.lng ? productData.lng :"" ,
 
 
 
@@ -840,6 +864,8 @@ const AdminPosts = (props) => {
           seletedProjectList={seletedProjectList}
           gallaryTempImages={gallaryTempImages}
           gallaryImages={gallaryImages}
+          setstate={setstate}
+          data={data}
 
         />}
     </>

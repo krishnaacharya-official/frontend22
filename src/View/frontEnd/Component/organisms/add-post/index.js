@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./style.scss";
 import {
   Button,
@@ -27,6 +27,23 @@ import helper from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
+import styled from "styled-components";
+// import styles from "../../../../../Common/MapBoxStyles"
+import { SearchBox } from "@mapbox/search-js-react";
+import MapboxAutocomplete from 'react-mapbox-autocomplete';
+import { useSelector, useDispatch } from "react-redux";
+import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+// require('mapbox-gl/dist/mapbox-gl.css');
+
+
+const Map = ReactMapboxGl({
+  accessToken:
+    helper.MapBoxPrimaryKey
+});
+
+
+
 
 
 
@@ -59,9 +76,9 @@ function AccordionToggle({ children, eventKey, callback }) {
 const AddPost = (props) => {
   let organizationDetails = props.organizationDetails
   let stateData = props.stateData
-
+  const user = useSelector((state) => state.user);
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address,  lat, lng
   } = props.stateData;
 
   let submitProductForm = props.submitProductForm
@@ -86,6 +103,15 @@ const AddPost = (props) => {
   let gallaryTempImages = props.gallaryTempImages
   let gallaryImages = props.gallaryImages
 
+
+  const [location, setLocation] = useState({
+    organizationLocation: "",
+    locationName: "",
+    lat: 0,
+    lng: 0
+
+  })
+
   // console.log(galleryUrl)
   // let url = galleryUrl;
   // let videoid = url ?url?.split("?v=")[1] :"";
@@ -95,9 +121,55 @@ const AddPost = (props) => {
 
 
 
+  const mapStyles = {
+    "londonCycle": "mapbox://styles/mapbox/light-v9",
+    "light": "mapbox://styles/mapbox/light-v9",
+    "dark": "mapbox://styles/mapbox/dark-v9",
+    "basic": "mapbox://styles/mapbox/basic-v9",
+    "outdoor": "mapbox://styles/mapbox/outdoors-v10"
+
+  };
+
+  useEffect(() => {
+    // console.log(user)
+    // console.log(props.data)
+    // console.log(lat, lng)
+
+    setLocation({
+      ...location,
+      organizationLocation: props.data.iso2,
+      locationName: address ? address : props.data.country,
+      lat: lat ? Number(lat) : 0,
+      lng: lng ? Number(lng) : 0
+    })
+
+  }, [props.data,stateData])
 
 
 
+
+  const sugg = (result, lat, lng, text) => {
+    // console.log("result", result)
+    // console.log("lat", lat)
+    // console.log("lng", lng)
+    // console.log("text", text)
+
+    props.setstate({
+      ...stateData,
+      address: result,
+      lat: lat,
+      lng: lng,
+
+    })
+
+    setLocation({
+      ...location,
+      locationName: result,
+      lat: lat,
+      lng: lng
+    })
+
+  }
 
 
 
@@ -110,6 +182,8 @@ const AddPost = (props) => {
 
   return (
     <div className="add-post">
+
+      {/* {console.log(location)} */}
       <div className="d-flex align-items-center flex-grow-1 pb-20p mb-3 border-bottom">
         <Button variant="link" className="me-sm-2 me-1" onClick={() => props.createPost(false)}>
           <FontAwesomeIcon
@@ -171,10 +245,33 @@ const AddPost = (props) => {
             <Accordion.Collapse className="py-5" >
               <Row className="mw-850 ml-5">
                 <Col lg="6">
+                  {/* <SearchBox accessToken={helper.MapBoxPrimaryKey} /> */}
+                  {/* <SearchBox
+                    accessToken={helper.MapBoxPrimaryKey}
+                    options={{
+                      language: 'en',
+                      country: 'US',
+                    }}>
+              
+
+                  </SearchBox> */}
+
+
+                  <MapboxAutocomplete
+                    publicKey={helper.MapBoxPrimaryKey}
+                    inputClass='form-control search'
+                    query={location.locationName}
+                    defaultValue={location.locationName}
+                    onSuggestionSelect={sugg}
+                    country={location.organizationLocation}
+                    resetSearch={false} />
+
+
                   <div className="post-location-wrap">
                     <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
                       <div className="d-flex align-items-center">
                         <div className="icon-wrap mr-20p">
+
                           <FontAwesomeIcon
                             icon={solid("location-dot")}
                             className="fs-3 text-primary"
@@ -184,7 +281,7 @@ const AddPost = (props) => {
                           <div className="fs-6 mb-3p">
                             Your post will be posted in
                           </div>
-                          <h3 className="mb-0 fs-4 fw-bolder">New York, NY</h3>
+                          <h3 className="mb-0 fs-4 fw-bolder">{location.locationName}</h3>
                         </div>
                       </div>
                     </div>
@@ -199,6 +296,28 @@ const AddPost = (props) => {
                       </span>
                     </div>
                   </div>
+                </Col>
+                <Col lg="6">
+                  <Map
+                    style={mapStyles.outdoor}
+                    // onMove={false}
+                    zoom={[12]}
+                    containerStyle={{
+                      height: '300px',
+                      width: '400px'
+                    }}
+                    center={[location.lng, location.lat]}
+
+                  >
+                    <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
+                      <Feature coordinates={[location.lng, location.lat]} />
+                    </Layer>
+
+                    {/* <Marker coordinates={[72.6563128, 23.0001899]} anchor="bottom">
+                      <h1>marker</h1>
+                    </Marker> */}
+                  </Map>
+
                 </Col>
               </Row>
             </Accordion.Collapse>
@@ -428,7 +547,7 @@ const AddPost = (props) => {
                               <select className="form-control" onChange={(e) => { changevalue(e) }} id="category" name="category">
                                 <option selected disabled value=" ">Select Category</option>
                                 {categoryList.length > 0 &&
-                                  categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
+                                  categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })).map((cat, i) => {
 
                                     return (
                                       cat.status === 1 &&
@@ -452,7 +571,7 @@ const AddPost = (props) => {
                               <select className="form-control" onChange={(e) => { changevalue(e) }} id="subcategory" name="subcategory">
                                 <option selected disabled value=" ">Select SubCategory</option>
                                 {subcategoryList.length > 0 &&
-                                  subcategoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
+                                  subcategoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })).map((cat, i) => {
 
                                     return (
                                       cat.status === 1 &&
@@ -727,9 +846,9 @@ const AddPost = (props) => {
                       />
                     </div>
 
-                    <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{__html: galleryUrl}} >
+                    <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: galleryUrl }} >
                       {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
-                     
+
                     </div>
                     <div className="">
                       <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
@@ -854,7 +973,7 @@ const AddPost = (props) => {
           <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(1)}>Post Ad</Button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

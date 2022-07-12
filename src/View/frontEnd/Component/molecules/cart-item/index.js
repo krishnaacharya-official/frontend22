@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
@@ -10,6 +10,7 @@ import "./style.scss";
 function CartItem(props) {
   let cartItem = props.cartItem
   const [quantity, setQuantity] = useState(cartItem?.quantity)
+
 
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
@@ -32,6 +33,12 @@ function CartItem(props) {
     await props.updateCartItem(value, cartItem?._id)
   }
   // console.log(props.cartItem)
+
+
+  useEffect(() => {
+    setQuantity(cartItem?.quantity)
+  }, [cartItem])
+
 
   return (
     <li className="cd__cart__item px-1 py-2 d-flex align-items-center border-bottom">
@@ -56,7 +63,7 @@ function CartItem(props) {
             variant="link"
             className="btn__link-light text-decoration-none p-0"
           >
-            <FontAwesomeIcon icon={regular("angle-up")} onClick={() =>  !cartItem?.productDetails?.unlimited && plusValue(quantity) } />
+            <FontAwesomeIcon icon={regular("angle-up")} onClick={() => !cartItem?.productDetails?.unlimited && plusValue(quantity)} />
           </Button>
         </div>
       </div>

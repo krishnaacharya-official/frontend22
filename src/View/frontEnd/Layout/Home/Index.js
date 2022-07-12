@@ -105,16 +105,40 @@ export default function Index(props) {
             />
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
-            <InputGroup className="input-group__alpha">
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={regular('magnifying-glass')} className="zoom__icon fs-5" />
-              </InputGroup.Text>
-              <FormControl
-                placeholder="Search"
-                value={props.filters.search}
-                onChange={props.onSearchProduct}
-              />
-            </InputGroup>
+            <div className="search__container">
+              <ul style={{ display: "flex",listStyle:"none" }}>
+                {
+                  props.searchTag.length > 0 &&
+                  props.searchTag.map((tag, i) => {
+                    return (
+                      <li className="search__tag" onClick={() => props.deSelectTag(tag.tag)} style={{ backgroundColor: tag.color, marginRight: "10px" }}><span>{tag.tag}</span><a href="javascript:void(0)">x</a></li>
+                    )
+                  })
+
+
+                }
+                {/* <li className="search__tag" onClick={() => alert('k')} style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>blankets</span><a href="javascript:void(0)">x</a></li>
+                <li className="search__tag " style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>designlab</span><a href="javascript:void(0)">x</a></li> */}
+
+                <li>
+                  <InputGroup className="input-group__alpha">
+                    <InputGroup.Text>
+                      <FontAwesomeIcon icon={regular('magnifying-glass')} className="zoom__icon fs-5" />
+                    </InputGroup.Text>
+                    <FormControl
+                      placeholder="Search"
+                      value={props.filters.search}
+                      onChange={(e)=>props.onSearchProduct(e,'onchange')}
+                      onKeyDown={(e)=>props.onSearchProduct(e,'keydown')}
+                    />
+                    
+                  </InputGroup>
+
+                </li>
+              </ul>
+
+            </div>
+
           </div>
 
           <div className="grab__info ms-auto d-flex align-items-center order-2 order-sm-3">

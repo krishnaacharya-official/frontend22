@@ -48,7 +48,7 @@ export default function ProjectDonation(props) {
             name: "Name",
             cell: (row) => <>
 
-                {row?.userDetails?.name ? row?.userDetails?.name :row.userId }
+                {row?.userDetails?.name ? row?.userDetails?.name : row.userId}
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -61,7 +61,7 @@ export default function ProjectDonation(props) {
             name: "Project",
             cell: (row) => <>
 
-                {row?.projectDetails?.name ? row?.projectDetails?.name :row.typeId }
+                {row?.projectDetails?.name ? row?.projectDetails?.name : row.typeId}
             </>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -110,17 +110,30 @@ export default function ProjectDonation(props) {
             sortable: true,
             accessor: '',
         },
+        // {
+        //     id: 'transactionid',
+        //     name: "Transection Id",
+        //     cell: (row) => <>
+
+        //         {row.transactionId}
+
+
+        //     </>,
+        //     ignoreRowClick: true,
+        //     // allowOverflow: true,
+        // },
+
         {
-            id: 'transactionid',
+            id: 'trsansection_id',
             name: "Transection Id",
             cell: (row) => <>
 
-                {row.transactionId}
-
-
+                <span>
+                    {row.uniqueTransactionId ? row.uniqueTransactionId : row.transactionId}
+                </span>
             </>,
             ignoreRowClick: true,
-            // allowOverflow: true,
+            allowOverflow: true,
         },
 
 

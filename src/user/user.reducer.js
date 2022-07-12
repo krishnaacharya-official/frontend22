@@ -94,6 +94,8 @@ const userReducer = (state = userInitialState, action) => {
                 stateName: action.payload.stateName,
                 cityName: action.payload.cityName,
                 zip: action.payload.zip,
+                lat: action.payload.lat,
+                lng: action.payload.lng,
                 area: action.payload.area
             }
 
