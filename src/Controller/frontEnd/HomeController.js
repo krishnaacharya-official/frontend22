@@ -263,7 +263,7 @@ export default function HomeController() {
     }
 
     const getHomePageAdList = async () => {
-        const adList = await advertisementApi.listHomeAd(token)
+        const adList = await advertisementApi.listHomeAd()
         if (adList) {
             if (adList.data.success === true) {
                 setHomeAdvertisementList(adList.data.data)
@@ -676,12 +676,28 @@ export default function HomeController() {
                 setLoading(false)
             }
 
-            let arr = arrayUnique(countryAdvertisementList.concat(homeadvertisementList))
-            setAdvertisementList(arr);
+            console.log('advertisement starts')
+
+            if (countryAdvertisementList.length > 0 && homeadvertisementList.length > 0) {
+                let arr = arrayUnique(countryAdvertisementList.concat(homeadvertisementList))
+                console.log('arr', arr)
+                setAdvertisementList(arr);
+            } else if (countryAdvertisementList.length > 0 && homeadvertisementList.length === 0) {
+                setAdvertisementList(countryAdvertisementList);
+                console.log('countryAdvertisementList', countryAdvertisementList)
+
+            } else if (countryAdvertisementList.length === 0 && homeadvertisementList.length > 0) {
+                setAdvertisementList(homeadvertisementList);
+                console.log('homeadvertisementList', homeadvertisementList)
+
+
+            }
+
+
 
 
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, countryAdvertisementList])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, countryAdvertisementList, homeadvertisementList])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = resultTags, userCountry = user.countryId) => {
@@ -893,7 +909,7 @@ export default function HomeController() {
         let data = {}
         data.countryId = countryId
         data.stateId = stateId
-        const getCountryAdvertisementList = await advertisementApi.listCountryAdvertisement(token, data)
+        const getCountryAdvertisementList = await advertisementApi.listCountryAdvertisement(data)
 
         if (getCountryAdvertisementList) {
             if (getCountryAdvertisementList.data.success) {

@@ -702,19 +702,20 @@ const AdminPosts = (props) => {
 
         let mytags = []
         let addedTags = [];
-        if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
+        if (productData.tags.length > 0) {
           addedTags = productData.tags
+
+          addedTags.map((aadedTag, i) => {
+            let tagsObj = {}
+            tagsObj.id = aadedTag
+            tagsObj.text = aadedTag
+            mytags.push(tagsObj)
+          })
+          setTags(mytags)
         }
-        addedTags.map((aadedTag, i) => {
-          let tagsObj = {}
-          tagsObj.id = aadedTag
-          tagsObj.text = aadedTag
-          mytags.push(tagsObj)
-        })
-        setTags(mytags)
         setImg(productData.image)
 
-        const getsubCategoryList = await categoryApi.listSubCategory(CampaignAdminAuthToken, productData.categoryId);
+        const getsubCategoryList = await categoryApi.listSubCategory(token, productData.categoryId);
         if (getsubCategoryList.data.success === true) {
           setSubCategoryList(getsubCategoryList.data.data)
         }

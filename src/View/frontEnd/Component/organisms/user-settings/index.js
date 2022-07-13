@@ -67,7 +67,7 @@ const UserSettings = (props) => {
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={UserButton}>
-          <Avatar avatarUrl={user.profileImage} />
+          <Avatar avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
@@ -105,14 +105,22 @@ const UserSettings = (props) => {
 
                       >
                         {CampaignAdmin?.name}
-                      </Button> :
-                      <Button
-                        href="#"
-                        variant="link"
-                        className="p-0 ms-2 btn__link-dark text-decoration-none"
-                      >
-                        {userData?.name ? userData.name : CampaignAdmin?.name}
-                      </Button>
+                      </Button> : userData ?
+                        <Button
+                          href="#"
+                          variant="link"
+                          className="p-0 ms-2 btn__link-dark text-decoration-none"
+                        >
+                          {userData?.name ? userData.name : CampaignAdmin?.name}
+                        </Button>
+                        :
+                        <Button
+                          href="#"
+                          variant="link"
+                          className="p-0 ms-2 btn__link-dark text-decoration-none"
+                        >
+                          Welcome User
+                        </Button>
                   }
 
                   {

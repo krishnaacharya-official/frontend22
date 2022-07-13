@@ -41,7 +41,10 @@ const Product = (props) => {
   let theme_color = props.categoryDetails?.color
   let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
-  let organisation = props.campaignDetails?.logo
+
+  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62a2a55e87f6544c42fa0e73_2022%20Logo%20Icon%20(2).svg')
+
+  // console.log(props.campaignDetails?.logo)
   let img = props.image
   let date = moment(props.created_at).format('MMM DD');
   let catIcon = props.categoryDetails?.iconDetails?.class;
@@ -142,7 +145,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold === total ? (
+    sold > total ? (
       <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -216,7 +219,7 @@ const Product = (props) => {
               <img
                 alt=""
                 className="img-fluid org__img"
-                src={helper.CampaignAdminLogoPath + organisation}
+                src={organisation}
               />
             </Link>
           </div>

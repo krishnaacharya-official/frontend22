@@ -439,15 +439,15 @@ const UserProfile = () => {
         } else {
           await clearCart()
           // console.log(country,country)
-          dispatch(setUserCountry(country))
+          // dispatch(setUserCountry(country))
 
           let temp = countryCurrency.find(x => x.id ===country)
 
           let UsercountryObj = {}
           UsercountryObj.currency = temp?.label
           UsercountryObj.currencySymbol = temp?.icon
-          dispatch(setCurrency(UsercountryObj))
-          dispatch(setUserState(stateId))
+          // dispatch(setCurrency(UsercountryObj))
+          // dispatch(setUserState(stateId))
 
 
           // let currencyData = {}

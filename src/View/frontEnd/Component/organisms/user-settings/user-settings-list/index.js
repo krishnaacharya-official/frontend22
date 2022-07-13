@@ -9,6 +9,10 @@ import { setLogout } from "../../../../../../user/user.action"
 
 
 function UserSettingsList(props) {
+  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken;
   const navigate = useNavigate();
   const dispatch = useDispatch()
   let userData = props.userData
@@ -28,7 +32,7 @@ function UserSettingsList(props) {
   return (
     <ul className="user__settings__list list-unstyled mb-0">
       {
-        userData ?
+        userAuthToken ?
           <>
             <Link to={'/user/' + newSlug + '/dashboard/'} >
               <UserSettingsItem
@@ -63,20 +67,34 @@ function UserSettingsList(props) {
               onClick={() => logout()}
             />
           </>
-          :
-          <>
-            <UserSettingsItem
-              icon={<FontAwesomeIcon icon={solid("signature")} />}
-              nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
-              label="Linked Organisations"
-              onClick={props.onOrgClick}
-            />
-            <UserSettingsItem
-              icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
-              label="Sign out"
-              onClick={() => logout()}
-            />
-          </>
+          : CampaignAdminAuthToken ?
+            <>
+              <UserSettingsItem
+                icon={<FontAwesomeIcon icon={solid("signature")} />}
+                nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
+                label="Linked Organisations"
+                onClick={props.onOrgClick}
+              />
+              <UserSettingsItem
+                icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
+                label="Sign out"
+                onClick={() => logout()}
+              />
+            </>
+            :
+            <>
+              {/* <UserSettingsItem
+                icon={<FontAwesomeIcon icon={solid("signature")} />}
+                nextIcon={<FontAwesomeIcon icon={solid("chevron-right")} />}
+                label="Linked Organisations"
+                onClick={props.onOrgClick}
+              /> */}
+              <UserSettingsItem
+                icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}
+                label="Sign In"
+                onClick={() => navigate('/signIn')}
+              />
+            </>
       }
 
     </ul>
