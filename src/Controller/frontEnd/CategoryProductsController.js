@@ -17,16 +17,22 @@ import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 
 
-export default function CategoryProductsController(props) {
+export default function CategoryProductsController() {
     const [productList, setProductList] = useState([])
     const [advertisementList, setAdvertisementList] = useState([])
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
     const [categoryadvertisementList, setCategoryAdvertisementList] = useState([])
     const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
     const getCalc = getCalculatedPrice();
+    const navigate = useNavigate()
 
     const [wishListproductList, setWishListProductList] = useState([])
     const [wishListproductIds, setWishListProductIds] = useState([])
+
+
+    const [productTags, setProductTags] = useState([])
+    const [searchTag, setSearchTag] = useState([])
+    const [suggestionTag, setSuggestionTag] = useState('')
 
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
@@ -53,6 +59,9 @@ export default function CategoryProductsController(props) {
     })
     const [price, setPrice] = useState()
     const [cartProductList, setCartProductList] = useState([])
+    const [cartProductIds, setCartProductIds] = useState([])
+    const [resultTags, setresultTags] = useState([])
+
 
     const [filters, setfilters] = useState({
         taxEligible: false,
@@ -175,7 +184,22 @@ export default function CategoryProductsController(props) {
 
     }
 
+    const getCartList = async () => {
+        const getCartList = await cartApi.list(userAuthToken);
+        if (getCartList.data.success === true) {
+            if (getCartList.data.data.length > 0) {
+                let productIds = []
+                getCartList.data.data.map((p, i) => {
+                    productIds.push(p.productId)
+                })
+                setCartProductIds(productIds)
+            } else {
+                setCartProductIds([])
 
+            }
+
+        }
+    }
 
     const addProductToWishlist = async (productId) => {
         let data = {}
@@ -200,11 +224,14 @@ export default function CategoryProductsController(props) {
     }
     useEffect(() => {
         (async () => {
+            if (userAuthToken) {
+                await getCartList()
 
-            await getWishListProductList()
-            setLoading(false)
 
+                await getWishListProductList()
+                setLoading(false)
 
+            }
         })()
     }, [user.isUpdateCart])
 
@@ -213,6 +240,41 @@ export default function CategoryProductsController(props) {
 
 
             setLoading(true)
+            let obj = {}
+            obj.userCountry = user.countryId
+            const getproductList = await productApi.list(token, obj);
+            if (getproductList.data.success === true) {
+
+                if (getproductList.data.data.length > 0) {
+                    let productTagsArray = []
+                    await Promise.all(getproductList.data.data.map(async (p, i) => {
+
+
+
+
+                        await Promise.all(p.tags.map((value, i) => {
+                            let tempObj = {}
+                            tempObj.color = p.categoryDetails.color ? p.categoryDetails.color : 'red'
+
+                            tempObj.tag = value
+                            productTagsArray.push(tempObj);
+
+
+
+                        }))
+                    }))
+                    productTagsArray = productTagsArray.filter((value, index, self) =>
+                        index === self.findIndex((t) => (
+                            t.tag === value.tag
+                        ))
+                    )
+
+                    setProductTags(productTagsArray)
+
+                } else {
+                    setProductTags([])
+                }
+            }
 
             setCategoryDetails({
                 ...categoryDetails,
@@ -261,23 +323,29 @@ export default function CategoryProductsController(props) {
     }
 
     const addToCart = async (id) => {
-        setLoading(true)
-        let data = {}
-        data.productId = id
-        const addItemToCart = await cartApi.add(userAuthToken, data);
-        if (addItemToCart) {
-            if (!addItemToCart.data.success) {
-                setLoading(false)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
-            } else {
-                setIsUpdate(!update)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
-                setLoading(false)
-            }
+        if (token) {
 
+
+            setLoading(true)
+            let data = {}
+            data.productId = id
+            const addItemToCart = await cartApi.add(userAuthToken, data);
+            if (addItemToCart) {
+                if (!addItemToCart.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+                } else {
+                    setIsUpdate(!update)
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
+            } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
         } else {
-            setLoading(false)
-            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            navigate('/signin')
         }
     }
 
@@ -422,7 +490,7 @@ export default function CategoryProductsController(props) {
             // console.log(location.state.id)
 
             setLoading(true)
-            await filterProduct(lowPrice, HighPrice, search, user.countryId)
+            await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
             setLoading(false)
 
             let arr = arrayUnique(categoryadvertisementList.concat(homeadvertisementList))
@@ -431,7 +499,7 @@ export default function CategoryProductsController(props) {
     }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, homeadvertisementList])
 
 
-    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
+    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = resultTags, userCountry = user.countryId) => {
 
         let data = {}
 
@@ -440,6 +508,7 @@ export default function CategoryProductsController(props) {
         temp.push(location.state.id)
         // console.log(temp)
         data.categoryId = temp
+        // console.log(temp)
 
         data.tax = taxEligible
         data.postTag = postTag
@@ -487,14 +556,81 @@ export default function CategoryProductsController(props) {
     }
 
 
-    const onSearchProduct = async (e) => {
+    const onSearchProduct = async (e, type) => {
+        setSuggestionTag('')
+
         let value = e.target.value
+
         setfilters({
             ...filters,
             search: value
         })
+        // console.log(value)
 
-        await filterProduct(lowPrice, HighPrice, value)
+        // console.log(productTags)
+
+        if (value) {
+
+            let tempPtag = [...productTags]
+            let tags = tempPtag.sort(function (a, b) {
+                if (a.tag < b.tag) { return -1; }
+                if (a.tag > b.tag) { return 1; }
+                return 0;
+            }).filter(option => option.tag.startsWith(value))
+
+            // console.log(tags)
+
+
+
+            if (tags.length > 0) {
+
+                let tag = tags[0];
+                // console.log(tag)
+
+                setSuggestionTag(tag.tag)
+
+
+
+                let t = tag ? [...searchTag, tag] : [...searchTag]
+
+                t = t.filter((value, index, self) =>
+                    index === self.findIndex((t) => (
+                        t.tag === value.tag
+                    ))
+                )
+
+                if (type === 'keydown') {
+
+                    if (e.key === 'Enter') {
+                        setSearchTag(t)
+                        setfilters({
+                            ...filters,
+                            search: ''
+                        })
+                        setSuggestionTag('')
+
+                        let finalArray = []
+                        if (t.length > 0) {
+                            t.map((t1, key) => {
+                                finalArray.push(t1.tag)
+                            })
+                        }
+                        setresultTags(finalArray)
+                        // console.log(finalArray)
+
+                        setLoading(true)
+                        await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
+                        setLoading(false)
+                    }
+                }
+            } else {
+                setSuggestionTag('')
+
+            }
+        } else {
+            setSuggestionTag('')
+
+        }
 
     }
 
@@ -553,50 +689,78 @@ export default function CategoryProductsController(props) {
     }
 
     const onClickAddToCart = async () => {
-        if (cartProductList.length > 0) {
-            let data = {}
-            let tempArray = []
-            cartProductList.map((itm, i) => {
-                let tempobj = {}
-                if (tempArray.some(e => e.productId === itm)) {
-                    let objIndex = tempArray.findIndex((obj => obj.productId === itm));
-                    tempArray[objIndex].qty += 1
-                } else {
-                    tempobj.productId = itm
-                    tempobj.qty = 1
-                    tempArray.push(tempobj)
-                }
+        if (token) {
+            if (cartProductList.length > 0) {
+                let data = {}
+                let tempArray = []
+                cartProductList.map((itm, i) => {
+                    let tempobj = {}
+                    if (tempArray.some(e => e.productId === itm)) {
+                        let objIndex = tempArray.findIndex((obj => obj.productId === itm));
+                        tempArray[objIndex].qty += 1
+                    } else {
+                        tempobj.productId = itm
+                        tempobj.qty = 1
+                        tempArray.push(tempobj)
+                    }
 
 
-            })
+                })
 
 
-            data.productIds = tempArray
-            setLoading(false)
-            const addMultiple = await cartApi.addMultiple(token, data)
-
-            if (addMultiple) {
-                if (!addMultiple.data.success) {
-                    setLoading(false)
-                    ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
-                } else {
-                    setIsUpdate(!update)
-                    dispatch(setIsUpdateCart(!user.isUpdateCart))
-                    setCartProductList([])
-                    setPrice('')
-                    ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
-                    setLoading(false)
-                }
-
-            } else {
+                data.productIds = tempArray
                 setLoading(false)
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                const addMultiple = await cartApi.addMultiple(token, data)
+
+                if (addMultiple) {
+                    if (!addMultiple.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
+                    } else {
+                        setIsUpdate(!update)
+                        dispatch(setIsUpdateCart(!user.isUpdateCart))
+                        setCartProductList([])
+                        setPrice('')
+                        ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                        setLoading(false)
+                    }
+
+                } else {
+                    setLoading(false)
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
             }
+        } else {
+            navigate('/signin')
         }
 
 
     }
+    const deSelectTag = async (id) => {
+        // console.log(searchTag)
+        const findIndex = searchTag.findIndex(a => a.tag === id)
+        let tags = [...searchTag]
+        if (findIndex !== -1) tags.splice(findIndex, 1)
+        // console.log(tags)
+        setfilters({
+            ...filters,
+            search: ''
+        })
+        setSuggestionTag('')
+        setSearchTag(tags)
 
+        let finalArray = []
+        if (tags.length > 0) {
+            tags.map((t1, key) => {
+                finalArray.push(t1.tag)
+            })
+        }
+        setresultTags(finalArray)
+
+        setLoading(true)
+        await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
+        setLoading(false)
+    }
     return (
         <>
 
@@ -627,6 +791,12 @@ export default function CategoryProductsController(props) {
                 onChangeDonatePrice={onChangeDonatePrice}
                 cartProductList={cartProductList}
                 onClickAddToCart={onClickAddToCart}
+                cartProductIds={cartProductIds}
+
+                searchTag={searchTag}
+                deSelectTag={deSelectTag}
+                suggestionTag={suggestionTag}
+
 
 
 

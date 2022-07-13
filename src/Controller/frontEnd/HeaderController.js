@@ -108,7 +108,7 @@ export default function HeaderController() {
                 await getNotificationList()
 
             }
-            if (token) {
+            if (token && token !== '') {
                 const verifyUser = await authApi.verifyToken(token)
                 if (!verifyUser.data.success) {
                     localStorage.clear()
@@ -121,6 +121,7 @@ export default function HeaderController() {
                     setCartItem(getCartList.data.data)
                     // console.log(getCartList.data.data)
                 }
+                // console.log('first')
                 await getWishListProductList()
             }
 

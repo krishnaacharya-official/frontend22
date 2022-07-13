@@ -104,8 +104,11 @@ const Product = (props) => {
     // user.setCart(!user.isUpdateCart)
 
     await props.addToCart(props._id)
-    setState({ added_to_cart: true })
-    dispatch(setIsUpdateCart(!user.isUpdateCart))
+    if (!CampaignAdminAuthToken) {
+      setState({ added_to_cart: true })
+
+      dispatch(setIsUpdateCart(!user.isUpdateCart))
+    }
   };
 
   const removeFromCart = async () => {
@@ -195,7 +198,7 @@ const Product = (props) => {
             </div>
           </div>
           {
-            !CampaignAdminAuthToken &&
+            // !CampaignAdminAuthToken &&
             <div className="mt-auto mb-12p">{btn}</div>
 
           }

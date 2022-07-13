@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
 import wishlistApi from "../../Api/frontEnd/wishlist";
-import { setCurrency, setUserLanguage, setCurrencyPrice,setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 
 export default function ItemDetailsController() {
 
@@ -73,17 +73,17 @@ export default function ItemDetailsController() {
         const list = await wishlistApi.list(token)
         if (list) {
             if (list.data.success) {
-                
+
                 // setWishListProductList(list.data.data)
-                if(list.data.data.length > 0){
+                if (list.data.data.length > 0) {
                     let temp = []
-                    list.data.data.map((item,i)=>{
+                    list.data.data.map((item, i) => {
                         temp.push(item.productDetails._id)
                     })
                     // console.log(temp)
                     setWishListProductIds(temp)
 
-                }else{
+                } else {
                     setWishListProductIds([])
 
                 }
@@ -96,31 +96,33 @@ export default function ItemDetailsController() {
         let data = {}
         data.productId = productId
         setLoading(true)
-        const add = await wishlistApi.add(token,data)
-        if(add){
+        const add = await wishlistApi.add(token, data)
+        if (add) {
             if (add.data.success) {
                 setLoading(false)
                 // await getWishListProductList()
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-            }else{
-            setLoading(false)
-           
-            ToastAlert({ msg: add.data.message, msgType: 'error' });
+            } else {
+                setLoading(false)
+
+                ToastAlert({ msg: add.data.message, msgType: 'error' });
 
             }
 
-        }else{
+        } else {
             setLoading(false)
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
     }
 
-    
+
     useEffect(() => {
         (async () => {
-
-            await getWishListProductList()
-            setLoading(false)
+            if (token) {
+                setLoading(true)
+                await getWishListProductList()
+                setLoading(false)
+            }
 
 
         })()
@@ -149,9 +151,12 @@ export default function ItemDetailsController() {
                     await allProductList()
                     await getPurchasedItems(mydata._id)
                 } else {
+                    // console.log('first1')
                     navigate('/')
                 }
             } else {
+                // console.log('first2')
+
                 navigate('/')
             }
             setLoading(false)
@@ -184,24 +189,29 @@ export default function ItemDetailsController() {
     }
 
     const addToCart = async (id, quantity) => {
-        setLoading(true)
-        let data = {}
-        data.productId = id
-        data.quantity = quantity === undefined ? 1 : quantity
+        if (token) {
+            setLoading(true)
+            let data = {}
+            data.productId = id
+            data.quantity = quantity === undefined ? 1 : quantity
 
-        const addItemToCart = await cartApi.add(userAuthToken, data);
-        if (addItemToCart) {
-            if (!addItemToCart.data.success) {
-                setLoading(false)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+            const addItemToCart = await cartApi.add(userAuthToken, data);
+            if (addItemToCart) {
+                if (!addItemToCart.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+                } else {
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
             } else {
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
                 setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
             }
-
         } else {
-            setLoading(false)
-            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            navigate('/signin')
+
         }
     }
 
@@ -225,7 +235,7 @@ export default function ItemDetailsController() {
 
     return (
         <>
-        {/* {console.log(wishListproductIds)} */}
+            {/* {console.log(wishListproductIds)} */}
             <FrontLoader loading={loading} />
             <ItemDetail
                 productDetails={productDetails}

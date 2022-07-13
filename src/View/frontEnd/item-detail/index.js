@@ -71,6 +71,10 @@ import HeaderController from "../../../Controller/frontEnd/HeaderController";
 const ItemDetail = (props) => {
   let productDetails = props.productDetails
 
+  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken
+
   return (
     <>
       <HeaderController />

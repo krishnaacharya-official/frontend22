@@ -56,7 +56,7 @@ function OrganisationItem(props) {
         dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
-      ${totalPrice}
+      {props.currencySymbol}{totalPrice}
     </Button>
   );
 
@@ -104,11 +104,11 @@ function OrganisationItem(props) {
             </Link>
             <div className="org__item__location mb-6p">{moment(created_at).fromNow()}</div>
           </div>
-          <div className="org__item__price">${productPrice}</div>
+          <div className="org__item__price">{props.currencySymbol}{productPrice}</div>
         </div>
 
         <span className="org__item-subtotal d-sm-none text-success fw-bolder">
-          ${productPrice}
+          {props.currencySymbol}{productPrice}
         </span>
       </div>
       <div className="d-flex align-items-center">

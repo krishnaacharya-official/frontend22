@@ -22,7 +22,7 @@ function SimilarItem(props) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-
+  let currencySymbol = getCalc.currencySymbol()
 
 
   useEffect(() => {
@@ -90,7 +90,7 @@ function SimilarItem(props) {
             </Link>
             <div className="similar__item__location mb-6p">{moment(product.created_at).fromNow()}</div>
           </div>
-          <div className="similar__item__price">${getCalc.getData(product.price)}</div>
+          <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div>
         </div>
 
         {!CampaignAdminAuthToken &&<div className="qty__tag ms-auto me-5">1</div>}

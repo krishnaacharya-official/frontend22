@@ -60,7 +60,7 @@ function product() {
         data.append('subcategory_id', cdata.subcategory_id);
         data.append('quantity', cdata.quantity);
         data.append('productSlug', cdata.productSlug);
-        data.append('tags', cdata.tags);
+        data.append('tags', JSON.stringify(cdata.tags));
 
         // console.log(data)
 
@@ -188,7 +188,7 @@ function product() {
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
         data.append('quantity', cdata.quantity);
-        data.append('tags', cdata.tags);
+        data.append('tags', JSON.stringify(cdata.tags));
 
         let res = {};
         await axios({

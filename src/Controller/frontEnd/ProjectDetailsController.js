@@ -115,25 +115,29 @@ export default function ProjectDetailsController() {
 
 
     const addToCart = async (id, quantity) => {
+        if (token) {
 
-        setLoading(true)
-        let data = {}
-        data.productId = id
-        data.quantity = quantity
+            setLoading(true)
+            let data = {}
+            data.productId = id
+            data.quantity = quantity
 
-        const addItemToCart = await cartApi.add(userAuthToken, data);
-        if (addItemToCart) {
-            if (!addItemToCart.data.success) {
-                setLoading(false)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+            const addItemToCart = await cartApi.add(userAuthToken, data);
+            if (addItemToCart) {
+                if (!addItemToCart.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+                } else {
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
             } else {
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
                 setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
             }
-
         } else {
-            setLoading(false)
-            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            navigate('/signin')
         }
     }
 
@@ -159,93 +163,97 @@ export default function ProjectDetailsController() {
 
 
     const donate = async () => {
-        const rules = {
-            name: 'required',
-            cardNumber: 'required|number',
-            month: 'required',
-            year: 'required',
-            cvv: 'required|number',
+        if (token) {
+            const rules = {
+                name: 'required',
+                cardNumber: 'required|number',
+                month: 'required',
+                year: 'required',
+                cvv: 'required|number',
 
 
-        }
-        const message = {
-            'name.required': 'Card holder name is Required.',
-            'cardNumber.required': 'Card number is Required.',
-            'cardNumber.number': 'Card number can not be string.',
-            'month.required': 'Month is Required.',
-            'year.required': 'Year number is Required.',
-            'cvv.required': 'cvv is Required.',
-            'cvv.number': 'cvv can not be string.',
+            }
+            const message = {
+                'name.required': 'Card holder name is Required.',
+                'cardNumber.required': 'Card number is Required.',
+                'cardNumber.number': 'Card number can not be string.',
+                'month.required': 'Month is Required.',
+                'year.required': 'Year number is Required.',
+                'cvv.required': 'cvv is Required.',
+                'cvv.number': 'cvv can not be string.',
 
-        }
-        validateAll(state, rules, message).then(async () => {
-            const formaerrror = {};
-            setstate({
-                ...state,
-                error: formaerrror
-            })
-            setLoading(true)
-            let data = {}
-            data.name = userData.name
-            data.email = userData.email
-            data.city = user.cityName
-            data.state = user.stateName
-            data.line1 = user.area
-            data.country = user.countryName
-            data.amount = selectedValue
-            data.cardNumber = cardNumber
-            data.cardExpMonth = month
-            data.cardExpYear = year
-            data.cardCVC = cvv
-            data.postalCode = user.zip
-            data.currency = user.currency
-            data.currencySymbol = user.currencySymbol
-            data.projectId = projectDetails._id
-            data.organizationId = projectDetails?.campaignDetails?._id
+            }
+            validateAll(state, rules, message).then(async () => {
+                const formaerrror = {};
+                setstate({
+                    ...state,
+                    error: formaerrror
+                })
+                setLoading(true)
+                let data = {}
+                data.name = userData.name
+                data.email = userData.email
+                data.city = user.cityName
+                data.state = user.stateName
+                data.line1 = user.area
+                data.country = user.countryName
+                data.amount = selectedValue
+                data.cardNumber = cardNumber
+                data.cardExpMonth = month
+                data.cardExpYear = year
+                data.cardCVC = cvv
+                data.postalCode = user.zip
+                data.currency = user.currency
+                data.currencySymbol = user.currencySymbol
+                data.projectId = projectDetails._id
+                data.organizationId = projectDetails?.campaignDetails?._id
 
 
 
-            const donateToProject = await projectApi.donate(userAuthToken, data);
-            if (donateToProject) {
-                if (!donateToProject.data.success) {
-                    setLoading(false)
-                    ToastAlert({ msg: donateToProject.data.message, msgType: 'error' });
+                const donateToProject = await projectApi.donate(userAuthToken, data);
+                if (donateToProject) {
+                    if (!donateToProject.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: donateToProject.data.message, msgType: 'error' });
+                    } else {
+                        let addXp = Number(selectedValue * 10)
+                        dispatch(setUserXp(user.xp + addXp))
+                        // await getUserRank()
+                        ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
+                        setLoading(false)
+                        navigate('/')
+                    }
+
                 } else {
-                    let addXp = Number(selectedValue * 10)
-                    dispatch(setUserXp(user.xp + addXp))
-                    // await getUserRank()
-                    ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
                     setLoading(false)
-                    navigate('/')
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
                 }
 
-            } else {
+
+
+
+
+
+            }).catch(errors => {
                 setLoading(false)
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
+                const formaerrror = {};
+                if (errors.length) {
+                    errors.forEach(element => {
+                        formaerrror[element.field] = element.message
+                    });
+                } else {
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
 
+                setstate({
+                    ...state,
+                    error: formaerrror
+                })
 
-
-
-
-
-        }).catch(errors => {
-            setLoading(false)
-            const formaerrror = {};
-            if (errors.length) {
-                errors.forEach(element => {
-                    formaerrror[element.field] = element.message
-                });
-            } else {
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
-
-            setstate({
-                ...state,
-                error: formaerrror
-            })
-
-        });
+            });
+        } else {
+            navigate('/signin')
+        }
 
     }
 

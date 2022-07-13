@@ -106,7 +106,7 @@ export default function Index(props) {
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
             <div className="search__container">
-              <ul style={{ display: "flex",listStyle:"none" }}>
+              <ul style={{ display: "flex", listStyle: "none" }}>
                 {
                   props.searchTag.length > 0 &&
                   props.searchTag.map((tag, i) => {
@@ -128,11 +128,26 @@ export default function Index(props) {
                     <FormControl
                       placeholder="Search"
                       value={props.filters.search}
-                      onChange={(e)=>props.onSearchProduct(e,'onchange')}
-                      onKeyDown={(e)=>props.onSearchProduct(e,'keydown')}
+                      onChange={(e) => props.onSearchProduct(e, 'onchange')}
+                      onKeyDown={(e) => props.onSearchProduct(e, 'keydown')}
+                      style={{zIndex:"9"}}
+
                     />
-                    
+                    <span id="suggestion">{props.suggestionTag}</span>
+
+
+
+{/* 
+                    <FormControl
+                      placeholder=""
+                      value={props.suggestionTag}
+                      style={{zIndex:"1"}}
+
+                      // disabled
+                    /> */}
+
                   </InputGroup>
+                  {/* <input type="text" className="autofill__bg" disabled="" value={props.suggestionTag} style={{ color: "rgb(214, 215, 220)", top: " -4px", outline: "none", width: "88px" }}></input> */}
 
                 </li>
               </ul>

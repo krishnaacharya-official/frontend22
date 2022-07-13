@@ -1110,6 +1110,24 @@ li.search__tag {
     background-repeat: no-repeat;
     background-position: center;
 }
-
+#suggestion {
+	width: inherit;
+	height: inherit;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0 18px;
+  font-size: 16px;
+  color: #d1c7c7;
+  margin-left: 29px;
+  margin-top: 8px;
+}
 
 

@@ -23,7 +23,7 @@ function OrganisationWidget(props) {
   const getCalc = getCalculatedPrice()
 
   let productDetails = props.productDetails
-
+  let currencySymbol = getCalc.currencySymbol()
   useEffect(() => {
     (async () => {
       if (productDetails?.length > 0) {
@@ -91,7 +91,7 @@ function OrganisationWidget(props) {
 
               return (
                 <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i}
-                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} 
+                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart}  currencySymbol={currencySymbol}
                 />
               )
             })

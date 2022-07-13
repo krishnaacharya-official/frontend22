@@ -11,7 +11,7 @@ import cartApi from "../../Api/frontEnd/cart";
 import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
-import { setUserXp,setUserRank } from "../../user/user.action"
+import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
 
 
@@ -126,25 +126,30 @@ export default function OrganizationDetailsController() {
     }
 
     const addToCart = async (id, quantity) => {
+        if (token) {
 
-        setLoading(true)
-        let data = {}
-        data.productId = id
-        data.quantity = quantity
 
-        const addItemToCart = await cartApi.add(userAuthToken, data);
-        if (addItemToCart) {
-            if (!addItemToCart.data.success) {
-                setLoading(false)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+            setLoading(true)
+            let data = {}
+            data.productId = id
+            data.quantity = quantity
+
+            const addItemToCart = await cartApi.add(userAuthToken, data);
+            if (addItemToCart) {
+                if (!addItemToCart.data.success) {
+                    setLoading(false)
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+                } else {
+                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    setLoading(false)
+                }
+
             } else {
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
                 setLoading(false)
+                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
             }
-
         } else {
-            setLoading(false)
-            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            navigate('/signin')
         }
     }
 
@@ -169,94 +174,99 @@ export default function OrganizationDetailsController() {
     }
 
     const donate = async () => {
-        const rules = {
-            name: 'required',
-            cardNumber: 'required|number',
-            month: 'required',
-            year: 'required',
-            cvv: 'required|number',
+        if (token) {
+            const rules = {
+                name: 'required',
+                cardNumber: 'required|number',
+                month: 'required',
+                year: 'required',
+                cvv: 'required|number',
 
 
-        }
-        const message = {
-            'name.required': 'Card holder name is Required.',
-            'cardNumber.required': 'Card number is Required.',
-            'cardNumber.number': 'Card number can not be string.',
-            'month.required': 'Month is Required.',
-            'year.required': 'Year number is Required.',
-            'cvv.required': 'cvv is Required.',
-            'cvv.number': 'cvv can not be string.',
+            }
+            const message = {
+                'name.required': 'Card holder name is Required.',
+                'cardNumber.required': 'Card number is Required.',
+                'cardNumber.number': 'Card number can not be string.',
+                'month.required': 'Month is Required.',
+                'year.required': 'Year number is Required.',
+                'cvv.required': 'cvv is Required.',
+                'cvv.number': 'cvv can not be string.',
 
-        }
-        validateAll(state, rules, message).then(async () => {
-            const formaerrror = {};
-            setstate({
-                ...state,
-                error: formaerrror
-            })
-            setLoading(true)
-            let data = {}
-            data.name = userData.name
-            data.email = userData.email
-            data.city = user.cityName
-            data.state = user.stateName
-            data.line1 = user.area
-            data.country = user.countryName
-            data.amount = selectedValue
-            data.cardNumber = cardNumber
-            data.cardExpMonth = month
-            data.cardExpYear = year
-            data.cardCVC = cvv
-            data.postalCode = user.zip
-            data.currency = user.currency
-            data.currencySymbol = user.currencySymbol
-            data.organizationId = organizationDetails._id
+            }
+            validateAll(state, rules, message).then(async () => {
+                const formaerrror = {};
+                setstate({
+                    ...state,
+                    error: formaerrror
+                })
+                setLoading(true)
+                let data = {}
+                data.name = userData.name
+                data.email = userData.email
+                data.city = user.cityName
+                data.state = user.stateName
+                data.line1 = user.area
+                data.country = user.countryName
+                data.amount = selectedValue
+                data.cardNumber = cardNumber
+                data.cardExpMonth = month
+                data.cardExpYear = year
+                data.cardCVC = cvv
+                data.postalCode = user.zip
+                data.currency = user.currency
+                data.currencySymbol = user.currencySymbol
+                data.organizationId = organizationDetails._id
 
 
 
-            const donateToOrganization = await organizationApi.donate(userAuthToken, data);
-            if (donateToOrganization) {
-                if (!donateToOrganization.data.success) {
-                    setLoading(false)
-                    ToastAlert({ msg: donateToOrganization.data.message, msgType: 'error' });
-                } else {
-                    if(userAuthToken){
-                    //    await getUserRank()
+                const donateToOrganization = await organizationApi.donate(userAuthToken, data);
+                if (donateToOrganization) {
+                    if (!donateToOrganization.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: donateToOrganization.data.message, msgType: 'error' });
+                    } else {
+                        if (userAuthToken) {
+                            //    await getUserRank()
+                        }
+                        let addXp = Number(selectedValue * 10)
+                        dispatch(setUserXp(user.xp + addXp))
+                        ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });
+                        setLoading(false)
+                        navigate('/')
                     }
-                    let addXp = Number(selectedValue * 10)
-                    dispatch(setUserXp(user.xp + addXp))
-                    ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });
+
+                } else {
                     setLoading(false)
-                    navigate('/')
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
                 }
 
-            } else {
+
+
+
+
+
+            }).catch(errors => {
                 setLoading(false)
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
+                const formaerrror = {};
+                if (errors.length) {
+                    errors.forEach(element => {
+                        formaerrror[element.field] = element.message
+                    });
+                } else {
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
 
+                setstate({
+                    ...state,
+                    error: formaerrror
+                })
 
+            });
+        } else {
+            navigate('/signin')
 
-
-
-
-        }).catch(errors => {
-            setLoading(false)
-            const formaerrror = {};
-            if (errors.length) {
-                errors.forEach(element => {
-                    formaerrror[element.field] = element.message
-                });
-            } else {
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-            }
-
-            setstate({
-                ...state,
-                error: formaerrror
-            })
-
-        });
+        }
 
     }
 

@@ -14,6 +14,7 @@ import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setPro
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -27,12 +28,14 @@ export default function HomeController() {
     const [productTags, setProductTags] = useState([])
     const [searchTag, setSearchTag] = useState([])
     const [suggestionTag, setSuggestionTag] = useState('')
+    const [resultTags, setresultTags] = useState([])
+
 
 
 
     const getCalc = getCalculatedPrice();
 
-
+    const navigate = useNavigate()
     // const adminAuthToken = localStorage.getItem('adminAuthToken');
     const [loading, setLoading] = useState(false)
     const userAuthToken = localStorage.getItem('userAuthToken');
@@ -317,11 +320,11 @@ export default function HomeController() {
         (async () => {
             if (userAuthToken) {
                 await getCartList()
-            }
-            setLoading(true)
-            await getWishListProductList()
-            setLoading(false)
 
+                setLoading(true)
+                await getWishListProductList()
+                setLoading(false)
+            }
 
             // console.log(Math.floor(10000000 + Math.random() * 90000000))
 
@@ -339,10 +342,41 @@ export default function HomeController() {
             // console.log(user.xp)
             //   }
             setLoading(true)
-            // const getproductList = await productApi.list(token);
-            // if (getproductList.data.success === true) {
-            //     setProductList(getproductList.data.data)
-            // }
+            let obj = {}
+            obj.userCountry = user.countryId
+            const getproductList = await productApi.list(token, obj);
+            if (getproductList.data.success === true) {
+
+                if (getproductList.data.data.length > 0) {
+                    let productTagsArray = []
+                    await Promise.all(getproductList.data.data.map(async (p, i) => {
+
+
+
+
+                        await Promise.all(p.tags.map((value, i) => {
+                            let tempObj = {}
+                            tempObj.color = p.categoryDetails.color ? p.categoryDetails.color : 'red'
+
+                            tempObj.tag = value
+                            productTagsArray.push(tempObj);
+
+
+
+                        }))
+                    }))
+                    productTagsArray = productTagsArray.filter((value, index, self) =>
+                        index === self.findIndex((t) => (
+                            t.tag === value.tag
+                        ))
+                    )
+
+                    setProductTags(productTagsArray)
+
+                } else {
+                    setProductTags([])
+                }
+            }
             setPricingFees({
                 ...pricingFees,
                 platformFee: user.platformFee,
@@ -421,23 +455,33 @@ export default function HomeController() {
     }
 
     const addToCart = async (id) => {
-        setLoading(true)
-        let data = {}
-        data.productId = id
-        const addItemToCart = await cartApi.add(userAuthToken, data);
-        if (addItemToCart) {
-            if (!addItemToCart.data.success) {
-                setLoading(false)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
-            } else {
-                setIsUpdate(!update)
-                ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
-                setLoading(false)
-            }
+        if (token) {
+            if (userAuthToken) {
 
+                setLoading(true)
+                let data = {}
+                data.productId = id
+                const addItemToCart = await cartApi.add(userAuthToken, data);
+                if (addItemToCart) {
+                    if (!addItemToCart.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
+                    } else {
+                        setIsUpdate(!update)
+                        ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                        setLoading(false)
+                    }
+
+                } else {
+                    setLoading(false)
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
+            } else {
+                setLoading(false)
+                ToastAlert({ msg: 'Please Login as a User', msgType: 'error' });
+            }
         } else {
-            setLoading(false)
-            ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            navigate('/signin')
         }
     }
 
@@ -628,7 +672,7 @@ export default function HomeController() {
                 // await getCountryAdvertisement(user.countryId,user.stateId)
 
                 setLoading(true)
-                await filterProduct(lowPrice, HighPrice, search, user.countryId)
+                await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
                 setLoading(false)
             }
 
@@ -640,8 +684,8 @@ export default function HomeController() {
     }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, countryAdvertisementList])
 
 
-    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = search, userCountry = user.countryId) => {
-
+    const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = resultTags, userCountry = user.countryId) => {
+        // console.log('first')
         let data = {}
 
         data.search = search_product
@@ -663,7 +707,7 @@ export default function HomeController() {
         // data.leastFunded = leastFunded
         // data.mostFunded = mostFunded
 
-
+        // console.log(search_product)
 
         data.HighPrice = high_price
         data.lowPrice = low_price
@@ -674,35 +718,36 @@ export default function HomeController() {
 
         const getFilteredProductList = await productApi.productFilter(token, data);
         if (getFilteredProductList.data.success === true) {
+            // console.log(getFilteredProductList.data.data)
             setProductList(getFilteredProductList.data.data)
-            if (getFilteredProductList.data.data.length > 0) {
-                let productTagsArray = []
-                getFilteredProductList.data.data.map((p, i) => {
-                    // console.log(p)
+            // if (getFilteredProductList.data.data.length > 0) {
+            //     let productTagsArray = []
+            //     getFilteredProductList.data.data.map((p, i) => {
+            //         // console.log(p)
 
-                    let tempObj = {}
-                    tempObj.color = p.categoryDetails.color
-                    // console.log(p.tags.split(','))
-                    p.tags.split(',').map((value, i) => {
-                        if (productTagsArray.indexOf(value) === -1) {
+            //         let tempObj = {}
+            //         tempObj.color = p.categoryDetails.color
+            //         // console.log(p.tags.split(','))
+            //         p.tags.split(',').map((value, i) => {
+            //             if (productTagsArray.indexOf(value) === -1) {
 
-                            tempObj.tag = value
-                            productTagsArray.push(tempObj);
-                        }
+            //                 tempObj.tag = value
+            //                 productTagsArray.push(tempObj);
+            //             }
 
 
-                    })
-                })
-                productTagsArray = productTagsArray.filter((value, index, self) =>
-                    index === self.findIndex((t) => (
-                        t.tag === value.tag
-                    ))
-                )
-                setProductTags(productTagsArray)
+            //         })
+            //     })
+            //     productTagsArray = productTagsArray.filter((value, index, self) =>
+            //         index === self.findIndex((t) => (
+            //             t.tag === value.tag
+            //         ))
+            //     )
+            //     setProductTags(productTagsArray)
 
-            } else {
-                setProductTags([])
-            }
+            // } else {
+            //     setProductTags([])
+            // }
 
             // if (getFilteredProductList.data.data.length > 0) {
             //     let tempArray = []
@@ -724,69 +769,81 @@ export default function HomeController() {
 
 
     const onSearchProduct = async (e, type) => {
-        // if(type ==='onchange'){
 
-        // }
         setSuggestionTag('')
+
         let value = e.target.value
+
         setfilters({
             ...filters,
             search: value
         })
+        // console.log(value)
+
         // console.log(productTags)
 
+        if (value) {
+
+            let tempPtag = [...productTags]
+            let tags = tempPtag.sort(function (a, b) {
+                if (a.tag < b.tag) { return -1; }
+                if (a.tag > b.tag) { return 1; }
+                return 0;
+            }).filter(option => option.tag.startsWith(value))
+
+            // console.log(tags)
 
 
-        // console.log(productTags.sort(function (a, b) {
-        //     if (a.tag < b.tag) { return -1; }
-        //     if (a.tag > b.tag) { return 1; }
-        //     return 0;
-        // }).filter(option => option.tag.startsWith(value))[0])
+
+            if (tags.length > 0) {
+
+                let tag = tags[0];
+                // console.log(tag)
+
+                setSuggestionTag(tag.tag)
 
 
-        // if (value) {
-        //     let tag = productTags.sort(function (a, b) {
-        //         if (a.tag < b.tag) { return -1; }
-        //         if (a.tag > b.tag) { return 1; }
-        //         return 0;
-        //     }).filter(option => option.tag.startsWith(value))[0]
 
-        //     setSuggestionTag(tag)
+                let t = tag ? [...searchTag, tag] : [...searchTag]
 
-        //     console.log(tag)
+                t = t.filter((value, index, self) =>
+                    index === self.findIndex((t) => (
+                        t.tag === value.tag
+                    ))
+                )
 
+                if (type === 'keydown') {
 
-        //     let t = tag ? [...searchTag, tag] : [...searchTag]
+                    if (e.key === 'Enter') {
+                        setSearchTag(t)
+                        setfilters({
+                            ...filters,
+                            search: ''
+                        })
+                        setSuggestionTag('')
 
-        //     t = t.filter((value, index, self) =>
-        //         index === self.findIndex((t) => (
-        //             t.tag === value.tag
-        //         ))
-        //     )
+                        let finalArray = []
+                        if (t.length > 0) {
+                            t.map((t1, key) => {
+                                finalArray.push(t1.tag)
+                            })
+                        }
+                        setresultTags(finalArray)
+                        // console.log(finalArray)
 
-        //     if (type === 'keydown') {
-               
-        //         if (e.key === 'Enter') {
-        //             setSearchTag(t)
-        //             setfilters({
-        //                 ...filters,
-        //                 search: ''
-        //             })
-        //         }
-        //         let finalArray = []
-        //         if (t.length > 0) {
-        //             t.map((t1, key) => {
-        //                 finalArray.push(t1.tag)
-        //             })
-        //         }
-        //         // console.log(finalArray)
+                        setLoading(true)
+                        await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
+                        setLoading(false)
+                    }
+                }
+            } else {
+                setSuggestionTag('')
 
-        //         setLoading(true)
-        //         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
-        //         setLoading(false)
+            }
+        } else {
+            setSuggestionTag('')
 
-        //     }
-        // }
+        }
 
 
 
@@ -811,9 +868,24 @@ export default function HomeController() {
         const findIndex = searchTag.findIndex(a => a.tag === id)
         let tags = [...searchTag]
         if (findIndex !== -1) tags.splice(findIndex, 1)
+
+        setfilters({
+            ...filters,
+            search: ''
+        })
+        setSuggestionTag('')
         setSearchTag(tags)
+
+        let finalArray = []
+        if (tags.length > 0) {
+            tags.map((t1, key) => {
+                finalArray.push(t1.tag)
+            })
+        }
+        setresultTags(finalArray)
+
         setLoading(true)
-        await filterProduct(lowPrice, HighPrice, tags, user.countryId)
+        await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
         setLoading(false)
     }
 
@@ -896,45 +968,51 @@ export default function HomeController() {
     }
 
     const onClickAddToCart = async () => {
-        if (cartProductList.length > 0) {
-            let data = {}
-            let tempArray = []
-            cartProductList.map((itm, i) => {
-                let tempobj = {}
-                if (tempArray.some(e => e.productId === itm)) {
-                    let objIndex = tempArray.findIndex((obj => obj.productId === itm));
-                    tempArray[objIndex].qty += 1
-                } else {
-                    tempobj.productId = itm
-                    tempobj.qty = 1
-                    tempArray.push(tempobj)
-                }
+        if (token) {
 
 
-            })
+            if (cartProductList.length > 0) {
+                let data = {}
+                let tempArray = []
+                cartProductList.map((itm, i) => {
+                    let tempobj = {}
+                    if (tempArray.some(e => e.productId === itm)) {
+                        let objIndex = tempArray.findIndex((obj => obj.productId === itm));
+                        tempArray[objIndex].qty += 1
+                    } else {
+                        tempobj.productId = itm
+                        tempobj.qty = 1
+                        tempArray.push(tempobj)
+                    }
 
 
-            data.productIds = tempArray
-            setLoading(false)
-            const addMultiple = await cartApi.addMultiple(token, data)
+                })
 
-            if (addMultiple) {
-                if (!addMultiple.data.success) {
-                    setLoading(false)
-                    ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
-                } else {
-                    setIsUpdate(!update)
-                    dispatch(setIsUpdateCart(!user.isUpdateCart))
-                    setCartProductList([])
-                    setPrice('')
-                    ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
-                    setLoading(false)
-                }
 
-            } else {
+                data.productIds = tempArray
                 setLoading(false)
-                ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                const addMultiple = await cartApi.addMultiple(token, data)
+
+                if (addMultiple) {
+                    if (!addMultiple.data.success) {
+                        setLoading(false)
+                        ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
+                    } else {
+                        setIsUpdate(!update)
+                        dispatch(setIsUpdateCart(!user.isUpdateCart))
+                        setCartProductList([])
+                        setPrice('')
+                        ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                        setLoading(false)
+                    }
+
+                } else {
+                    setLoading(false)
+                    ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+                }
             }
+        } else {
+            navigate('/signin')
         }
 
 

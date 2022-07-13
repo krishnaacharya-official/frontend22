@@ -334,7 +334,7 @@ const AdminPosts = (props) => {
     }
 
   }
-  const resetForm = async(e) => {
+  const resetForm = async (e) => {
     // setModal(false);
     setTags([])
     setTempImg('')
@@ -517,6 +517,8 @@ const AdminPosts = (props) => {
       formData.quantity = quantity
       formData.tags = tagsArray
 
+      console.log(tagsArray)
+
       if (Object.keys(formaerrror).length === 0) {
 
         // }
@@ -614,7 +616,7 @@ const AdminPosts = (props) => {
   }
 
   const editProduct = async (productData) => {
-    
+
     setLoading(true)
     let formData = {}
     formData.productId = productData._id
@@ -648,9 +650,9 @@ const AdminPosts = (props) => {
           unlimited: productData.unlimited,
           tax: productData.tax,
           postTag: productData.postTag,
-          address: productData.address ? productData.address :"",
-          lat: productData.lat ? productData.lat :"" ,
-          lng: productData.lng ? productData.lng :"" ,
+          address: productData.address ? productData.address : "",
+          lat: productData.lat ? productData.lat : "",
+          lng: productData.lng ? productData.lng : "",
 
 
 
@@ -701,7 +703,7 @@ const AdminPosts = (props) => {
         let mytags = []
         let addedTags = [];
         if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
-          addedTags = productData.tags.split(',');
+          addedTags = productData.tags
         }
         addedTags.map((aadedTag, i) => {
           let tagsObj = {}

@@ -180,7 +180,11 @@ export default function MainRoutes() {
 
                     <>
                         <Routes>
-                            <Route exact path="/" element={<SigninController />} />
+                            <Route path="/" element={<HomeController />} />
+                            <Route path="/categories/:slug" element={<CategoryProductsController />} />
+                            <Route exact path="/organization/:name" element={<OrganizationDetailsController />} />
+                            <Route exact path="/item/:name" element={<ItemDetailsController />} />
+                            <Route exact path="/project/:name" element={<ProjectDetailsController />} />
                             <Route exact path="/signin" element={<SigninController />} />
                             <Route exact path="/signup" element={<SignupController />} />
                             <Route exact path="/forgot-password" element={<ForgotPasswordController />} />

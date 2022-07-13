@@ -63,7 +63,8 @@ const OrganisationDetail = (props) => {
   let projectList = props.projectList
   const [modalShow, setModalShow] = useState(false);
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken
 
   return (
     <>
@@ -74,11 +75,12 @@ const OrganisationDetail = (props) => {
           <div className="ms-auto d-flex align-items-center">
             {
               !CampaignAdminAuthToken &&
-              <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
+              <Button size="lg" className="fw-bold" onClick={() => { setModalShow(true) }}>
                 Donate
               </Button>
             }
-            <DonateModal show={modalShow} type="organization" onHide={() => setModalShow(false)} organizationDetails={organizationDetails}
+            <DonateModal
+              show={modalShow} type="organization" onHide={() => setModalShow(false)} organizationDetails={organizationDetails}
               stateData={props.stateData}
               changevalue={props.changevalue}
               cardNumberWithSpace={props.cardNumberWithSpace}
