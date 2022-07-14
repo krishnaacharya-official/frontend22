@@ -232,6 +232,7 @@ const Checkout = (props) => {
                     value={stateData.cardNumber}
                     name="cardNumber"
                     onChange={(e)=>props.changevalue(e)}
+                    maxLength={16}
                   />
                     {stateData.error && stateData.error.cardNumber && <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>}
                 </Form.Group>

@@ -118,9 +118,9 @@ export default function CartController() {
     }
 
 
-    const updateCartItem = async (quentity, id) => {
+    const updateCartItem = async (quentity, id, productId, type) => {
         setLoading(true)
-        const updateCartItem = await cartApi.updateCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken, quentity, id);
+        const updateCartItem = await cartApi.updateCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken, quentity, id, productId, type);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
                 setLoading(false)

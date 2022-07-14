@@ -28,19 +28,19 @@ const Cart = (props) => {
     console.log(e);
   };
 
-  const minusValue = async (value,id) => {
+  const minusValue = async (value, id, productId) => {
     if (value > 1) {
       value--;
-      await props.updateCartItem(value, id)
+      await props.updateCartItem(value, id, productId,'minus')
     }
     // setQuantity(value)
 
 
   }
-  const plusValue = async (value,id) => {
+  const plusValue = async (value, id, productId) => {
     value++;
     // setQuantity(value)
-    await props.updateCartItem(value, id)
+    await props.updateCartItem(value, id, productId,'plus')
   }
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const Cart = (props) => {
                         <Button
                           variant="link"
                           className="text-decoration-none btn__link-light p-0 m-2"
-                          onClick={() => minusValue(item?.quantity,item._id)}
+                          onClick={() => minusValue(item?.quantity, item._id, item?.productDetails?._id)}
                         >
                           <FontAwesomeIcon icon={regular("angle-down")} />
                         </Button>
@@ -166,7 +166,7 @@ const Cart = (props) => {
                         <Button
                           variant="link"
                           className="btn__link-light text-decoration-none p-0 m-2"
-                          onClick={() => plusValue(item?.quantity,item._id)}
+                          onClick={() => plusValue(item?.quantity, item._id, item?.productDetails?._id)}
                         >
                           <FontAwesomeIcon icon={regular("angle-up")} />
                         </Button>

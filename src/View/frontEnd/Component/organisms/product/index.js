@@ -145,7 +145,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold > total ? (
+    sold >= total ? (
       <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
     ) : (
       cart_btn

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
@@ -21,16 +21,16 @@ function CartItem(props) {
   const minusValue = async (value) => {
     if (value > 1) {
       value--;
-      await props.updateCartItem(value, cartItem?._id)
+      await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'minus')
     }
-    setQuantity(value)
+    // setQuantity(value)
 
 
   }
   const plusValue = async (value) => {
     value++;
-    setQuantity(value)
-    await props.updateCartItem(value, cartItem?._id)
+    // setQuantity(value)
+    await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'plus')
   }
   // console.log(props.cartItem)
 

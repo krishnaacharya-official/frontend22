@@ -200,16 +200,16 @@ export default function HeaderController() {
         }
     }
 
-    const updateCartItem = async (quentity, id) => {
+    const updateCartItem = async (quentity, id,productId,type) => {
         setLoading(true)
-        const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id);
+        const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id,productId,type);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
                 setLoading(false)
                 ToastAlert({ msg: updateCartItem.data.message, msgType: 'error' });
 
             } else {
-                setIsUpdate(!update)
+                // setIsUpdate(!update)
                 // user.setCart(!user.isUpdateCart)
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
                 ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });

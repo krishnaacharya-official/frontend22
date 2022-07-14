@@ -20,7 +20,8 @@ function SimilarItems(props) {
       <ul className="similar__items list-unstyled mb-0">
         {categoryProducts.length > 0
           ? categoryProducts.map((product, i) => {
-              return (
+            return (
+              <div key={i}>
                 <SimilarItem
                   product={product}
                   key={i}
@@ -29,8 +30,10 @@ function SimilarItems(props) {
                   pricingFees={props.pricingFees}
                   addToCart={props.addToCart}
                 />
-              );
-            })
+              </div>
+
+            );
+          })
           : 'Products Not Found'}
         {/* <SimilarItem />
          <SimilarItem />

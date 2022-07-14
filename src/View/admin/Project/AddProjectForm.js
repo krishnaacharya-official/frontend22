@@ -4,7 +4,7 @@ import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
 import { Modal } from "react-bootstrap"
 import { Button, Card } from '@mui/material';
-import helper from '../../../Common/Helper';
+import helper, { isIframe } from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
 
 const productv = {
@@ -39,6 +39,9 @@ export default function AddProjectForm(props) {
     let id = url.split("?v=")[1];
     let embedlink = "http://www.youtube.com/embed/" + id;
 
+
+    console.log('stateData',stateData)
+
     return (
         <>
             <Modal
@@ -56,6 +59,31 @@ export default function AddProjectForm(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">Organization</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="organization" name="organization">
+                                <option selected disabled value="">Select Organization</option>
+                                {
+                                    props.campaignAdminList.length > 0 &&
+                                    props.campaignAdminList.map((admin, i) => {
+                                        // console.log(admin)
+                                        let obj = {}
+                                        obj.id = admin._id
+                                        obj.country_id = admin.country_id
+
+                                        return (
+                                            admin.status === 1 &&
+                                            <option value={JSON.stringify(obj)} selected={stateData.organization === admin._id}>{admin.name}</option>
+                                        )
+                                    })
+
+                                }
+                            </select>
+
+                            {stateData.error && stateData.error.organization && <p className="error">{stateData.error ? stateData.error.organization ? stateData.error.organization : "" : ""}</p>}
+                        </div>
+                    </div>
 
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
@@ -91,14 +119,33 @@ export default function AddProjectForm(props) {
                     </div>
 
                     <div className="form-group row">
-                        <label htmlFor="name" className="col-sm-2 col-form-label">Pictures & Video</label>
+                        <label htmlFor="isInfinity" className="col-sm-2 col-form-label">Ongoing Need</label>
+                        <div className="col-sm-10">
+
+                            <label className="--switch mt-1">
+                                <input type="checkbox" id="isInfinity" checked={stateData.isInfinity} name="isInfinity" onChange={(e) => props.changevalue(e)} />
+                                <span className="--slider">
+                                    <i className="fa fa-check"></i>
+                                    <i className="fa fa-times"></i>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Pictures & Video (Iframe)</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control " name='video' id="video" value={stateData.video} onChange={(e) => { props.changevalue(e) }} />
                             {
 
-                                stateData.video &&
+                                stateData.video && isIframe(stateData.video) &&
 
-                                <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
+                                <div className="project-video-wrap mb-4 mt-4" dangerouslySetInnerHTML={{ __html: stateData.video }} >
+
+                                </div>
+
+                                // <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
                                 // <iframe id="video1" width="520" title="myFrame" height="360" src={stateData.video} frameBorder="0" allowtransparency="true" ></iframe>
                             }
 
@@ -110,8 +157,8 @@ export default function AddProjectForm(props) {
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">Images</label>
                         <div className="col-sm-10">
-                            <input className='custom-file-input form-control' name='Iamges[]' id='Iamges' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
-                            <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
+                            <input className='custom-file-input form-control ' title=" " name='Iamges[]' id='Iamges' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }}  />
+                            {/* <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label> */}
                             <div className='grid mt-3 mb-3'>
                                 {props.tempImages?.length ?
                                     props.tempImages.map((img, key) => {

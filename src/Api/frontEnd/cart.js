@@ -69,7 +69,7 @@ function cart() {
         return res;
     }
 
-    const updateCart = async (authToken, quantity, id) => {
+    const updateCart = async (authToken, quantity, id, productId,type) => {
 
 
         let res = {};
@@ -86,7 +86,11 @@ function cart() {
                 mode: 'no-cors',
             },
             data: {
-                quantity: quantity
+                quantity: quantity,
+                productId: productId,
+                type: type,
+
+
             }
 
         }).then((response) => {

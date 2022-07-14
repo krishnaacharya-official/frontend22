@@ -226,6 +226,22 @@ export default function CheckoutController() {
             data.currency = user.currency
 
 
+            let productIds = []
+
+            if (cartItem && cartItem.length > 0) {
+                cartItem.map((item, i) => {
+                    let tempObj = {}
+                    tempObj.id = item.productDetails._id
+                    tempObj.quantity = item.quantity
+                    productIds.push(tempObj)
+                })
+                data.productIds = productIds
+
+
+            }
+
+
+
 
 
             const payment = await orderApi.payment(userAuthToken, data);

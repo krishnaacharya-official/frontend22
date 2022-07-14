@@ -137,7 +137,7 @@ export default function HomeController() {
                     dispatch(setUserState(3830))
                 }
 
-            } else {
+            } else if (CampaignAdminAuthToken) {
                 if (CampaignAdmin.country_id && CampaignAdmin.country_id !== null && CampaignAdmin.country_id > 0) {
                     dispatch(setUserCountry(CampaignAdmin.country_id))
                 } else {
@@ -154,6 +154,9 @@ export default function HomeController() {
 
                 // dispatch(setUserCountry(CampaignAdmin.country_id))
 
+            } else {
+                dispatch(setUserCountry(233))
+                dispatch(setUserState(3830))
             }
         }
 

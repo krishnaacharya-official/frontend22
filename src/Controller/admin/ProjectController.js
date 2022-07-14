@@ -10,6 +10,7 @@ import AddProjectForm from "../../View/admin/Project/AddProjectForm";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
+import adminCampaignApi from "../../Api/admin/adminCampaign";
 
 
 function ProjectController() {
@@ -24,20 +25,27 @@ function ProjectController() {
     const [seletedProductList, setSeletedProductList] = useState([])
     const [tempImages, setTempImages] = useState([])
     const [projectImages, setProjectImages] = useState([])
+    const [campaignAdminList, setCampaignAdminList] = useState([])
+    const validExtensions = ['jpg', 'png', 'jpeg'];
+
 
 
     const [state, setstate] = useState({
+        isInfinity: false,
         id: '',
         status: 1,
         name: '',
         headline: '',
         video: '',
         description: '',
+        organization: '',
+        organizationCountryId: '',
         error: [],
         images: [],
+
     })
 
-    const { id, status, name, headline, video, description, error, images } = state
+    const { id, status, name, headline, video, description, error, images, organization, organizationCountryId, isInfinity } = state
 
 
     useEffect(() => {
@@ -58,12 +66,15 @@ function ProjectController() {
 
             //Product List
             //----------------------------------
-            const getproductList = await productApi.list(adminAuthToken);
-            if (getproductList.data.success === true) {
-                setProductList(getproductList.data.data)
-            }
+            // const getproductList = await productApi.list(adminAuthToken);
+            // if (getproductList.data.success === true) {
+            //     setProductList(getproductList.data.data)
+            // }
             // setUpdate(true) 
-
+            // const getcampaignAdminList = await adminCampaignApi.list(adminAuthToken)
+            // if (getcampaignAdminList.data.success) {
+            //     setCampaignAdminList(getcampaignAdminList.data.data)
+            // }
 
 
             //Project List
@@ -78,6 +89,21 @@ function ProjectController() {
         })()
     }, [update])
 
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true)
+
+            const getcampaignAdminList = await adminCampaignApi.list(adminAuthToken)
+            if (getcampaignAdminList.data.success) {
+                setCampaignAdminList(getcampaignAdminList.data.data)
+            }
+
+            setLoading(false)
+
+        })()
+    }, [])
+
     const openModel = () => {
         setModal(true);
         resetForm()
@@ -87,13 +113,17 @@ function ProjectController() {
         setSeletedProductList([])
         setProjectImages([])
         setTempImages([])
+        setProductList([])
         setstate({
+            ...state,
             id: '',
             status: 1,
             name: '',
             headline: '',
             video: '',
             description: '',
+            organization: '',
+            isInfinity: false,
             error: [],
             images: [],
         });
@@ -104,20 +134,29 @@ function ProjectController() {
 
         let tempArry = []
         let tempObj = []
-      
+        let tempFileArry = []
 
-       if(e.target.files && e.target.files.length > 0)  {
-        tempObj.push(e.target.files)
-        for (let i = 0; i < tempObj[0].length; i++) {
-            tempArry.push(URL.createObjectURL(tempObj[0][i]))
+
+
+
+        if (e.target.files && e.target.files.length > 0) {
+            tempObj.push(e.target.files)
+            for (let i = 0; i < tempObj[0].length; i++) {
+
+                let extension = tempObj[0][i].name.substr(tempObj[0][i].name.lastIndexOf('.') + 1)
+                if (validExtensions.includes(extension)) {
+
+                    tempFileArry.push(tempObj[0][i])
+                    tempArry.push(URL.createObjectURL(tempObj[0][i]))
+                }
+            }
+            setstate({
+                ...state,
+                images: tempFileArry
+            })
+            setTempImages(tempArry)
+
         }
-        setTempImages(tempArry)
-
-       }
-        setstate({
-            ...state,
-            images: e.target.files
-        })
 
     }
 
@@ -152,9 +191,9 @@ function ProjectController() {
         const formaerrror = {}
 
         if (!id) {
-            if (images.length <= 1) {
-                formaerrror['images'] = "Please select more then one Image"
-            }
+            // if (images.length <= 1) {
+            //     formaerrror['images'] = "Please select more then one Image"
+            // }
         }
 
         if (seletedProductList.length === 0) {
@@ -167,6 +206,8 @@ function ProjectController() {
             headline: 'required',
             video: 'required',
             description: 'required',
+            organization: 'required',
+
         }
 
         const message = {
@@ -175,6 +216,8 @@ function ProjectController() {
             'headline.required': 'Headline is Required',
             'description.required': 'Description is Required',
             'video.required': 'video is Required',
+            'organization.required': 'organization is Required',
+
         }
 
         validateAll(state, rules, message).then(async () => {
@@ -191,6 +234,14 @@ function ProjectController() {
             data.video = video
             data.description = description
             data.products = seletedProductList
+            data.organizationId = organization
+            data.organizationCountryId = organizationCountryId
+            data.status = status
+            data.infinity = isInfinity
+
+
+            console.log(status)
+
             if (images?.length) {
                 data.images = images
             }
@@ -295,15 +346,38 @@ function ProjectController() {
 
     const changevalue = async (e) => {
         let value = e.target.value;
-        setstate({
-            ...state,
-            [e.target.name]: value
-        })
+        if (e.target.name === 'organization') {
+
+            let obj = JSON.parse(e.target.value)
+
+            setstate({
+                ...state,
+                organization: obj.id,
+                organizationCountryId: obj.country_id,
+            })
+
+            await getProductList(obj.id)
+
+
+        } else {
+            if (e.target.name === 'isInfinity') {
+                value = e.target.checked;
+
+            }
+            console.log(value)
+            setstate({
+                ...state,
+                [e.target.name]: value
+            })
+        }
+
+
+
 
     }
 
     const editProject = async (projectData) => {
-    
+
         // setLoading(true)
         setModal(true);
         if ((projectData) && projectData !== null && projectData !== '') {
@@ -313,9 +387,17 @@ function ProjectController() {
                 headline: projectData.headline,
                 name: projectData.name,
                 description: projectData.description,
+                organization: projectData.organizationId,
                 video: projectData.video,
+                isInfinity: projectData.infinity,
+                status: projectData.status,
 
             });
+
+            if (projectData.organizationId) {
+                await getProductList(projectData.organizationId)
+
+            }
 
             let tempProductArray = [];
             if (projectData.productDetails.length > 0) {
@@ -338,6 +420,29 @@ function ProjectController() {
         // setModal(false);
     }
 
+
+    const getProductList = async (organizationId) => {
+        let formData = {}
+        formData.organizationId = organizationId
+        formData.filter = false
+        formData.sortField = 'created_at'
+        formData.sortType = 'asc'
+        const getOrganizationProducts = await productApi.listByOrganization(adminAuthToken, formData);
+
+        if (getOrganizationProducts.data.success === true) {
+            let tempArray = []
+            if (getOrganizationProducts.data.data.length > 0) {
+                getOrganizationProducts.data.data.map((product, i) => {
+                    if (product.status === 1) {
+                        tempArray.push(product)
+                    }
+                })
+                setProductList(tempArray)
+
+            }
+
+        }
+    }
 
 
 
@@ -363,6 +468,7 @@ function ProjectController() {
                 changevalue={changevalue}
                 tempImages={tempImages}
                 projectImages={projectImages}
+                campaignAdminList={campaignAdminList}
 
             />
         </>
