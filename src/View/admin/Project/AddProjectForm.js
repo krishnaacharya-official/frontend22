@@ -40,7 +40,7 @@ export default function AddProjectForm(props) {
     let embedlink = "http://www.youtube.com/embed/" + id;
 
 
-    console.log('stateData',stateData)
+    // console.log('stateData',stateData)
 
     return (
         <>
