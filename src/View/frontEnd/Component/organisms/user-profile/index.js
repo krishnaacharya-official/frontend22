@@ -441,7 +441,7 @@ const UserProfile = () => {
           // console.log(country,country)
           // dispatch(setUserCountry(country))
 
-          let temp = countryCurrency.find(x => x.id ===country)
+          let temp = countryCurrency.find(x => x.id === country)
 
           let UsercountryObj = {}
           UsercountryObj.currency = temp?.label
@@ -594,6 +594,7 @@ const UserProfile = () => {
               name="country"
               options={countryList}
               onChange={onChangeCountry}
+              isDisabled
             />
             <span className="input__span">Country</span>
           </label>

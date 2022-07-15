@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
 import { Modal } from "react-bootstrap"
 import { Button, Card } from '@mui/material';
-import helper from '../../../Common/Helper';
+import helper, { isIframe } from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
 import { unescape } from 'lodash';
 
@@ -23,14 +23,32 @@ import Slide from '@mui/material/Slide';
 import { WithContext as ReactTags } from "react-tag-input";
 // import helper from '../../../Common/Helper';
 import Chip from '@mui/material/Chip';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+
+import MapboxAutocomplete from 'react-mapbox-autocomplete';
+// import { useSelector, useDispatch } from "react-redux";
+import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
+// import 'mapbox-gl/dist/mapbox-gl.css';
+import mapboxgl from 'mapbox-gl';
+// require('mapbox-gl/dist/mapbox-gl.css');
 
 
-// const Transition = React.forwardRef(function Transition(propss, ref) {
-//     return <Slide direction="up" {...propss} />;
-// });
-// const DialogTransition = (props) => {
-//     return <Slide direction='up' {...props} />;
-// };
+
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
+
+const Map = ReactMapboxGl({
+    accessToken:
+        helper.MapBoxPrimaryKey
+});
+
+
+const Transition = React.forwardRef(function Transition(propss, ref) {
+    return <Slide direction="up" {...propss} />;
+});
+const DialogTransition = (props) => {
+    return <Slide direction='up' {...props} />;
+};
 const productv = {
     cursor: 'pointer',
     display: 'block',
@@ -63,52 +81,194 @@ let variantStyle = {
     marginBottom: "5px"
 }
 
+
+
+
 export default function AddProductForm(props) {
+
+    const mapStyles = {
+        "londonCycle": "mapbox://styles/mapbox/light-v9",
+        "light": "mapbox://styles/mapbox/light-v9",
+        "dark": "mapbox://styles/mapbox/dark-v9",
+        "basic": "mapbox://styles/mapbox/basic-v9",
+        "outdoor": "mapbox://styles/mapbox/outdoors-v10"
+
+    };
+
+
+
     let stateData = props.stateData
+
+    // console.log(stateData)
+
+
+    const sugg = (result, lat, lng, text) => {
+        // console.log("result", result)
+        // console.log("lat", lat)
+        // console.log("lng", lng)
+        // console.log("text", text)
+
+        props.setstate({
+            ...stateData,
+            address: result,
+            locationName: result,
+            lat: lat,
+            lng: lng,
+
+        })
+
+        // setLocation({
+        //   ...location,
+        //   locationName: result,
+        //   lat: lat,
+        //   lng: lng
+        // })
+
+    }
+
+
+
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     let url = stateData.galleryUrl;
     let id = url?.split("?v=")[1];
     let embedlink = "http://www.youtube.com/embed/" + id;
     return (
         <>
-            <Modal
-                size="lg"
-                show={props.modal}
-                onHide={() => props.setModal(false)}
-                aria-labelledby="example-modal-sizes-title-lg"
-                animation={false}
-                style={{ zIndex: "999999" }}
+
+
+
+
+            <Dialog
+                fullScreen
+                open={props.modal}
+                onClose={() => props.setModal(false)}
+                TransitionComponent={Transition}
 
             >
-                <Modal.Header >
-                    <Modal.Title id="example-modal-sizes-title-lg">
-                        {stateData?.id ? "Update Product" : "Add Product"}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {adminData.roleName === 'ADMIN' &&
+
+
+
+                <AppBar sx={{ position: 'relative' }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={() => props.setModal(false)}
+                            aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                            {stateData?.id ? "Update Product" : "Add Product"}
+                        </Typography>
+                        <Button autoFocus color="inherit" onClick={() => props.submitProductForm()}>
+                            save
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+
+                <div className="container mt-5" style={{ overflow: "auto" }}>
+
+                    <div className="form-group row">
+                        <label className="col-form-label col-sm-2 ">Organization</label>
+                        <div className="col-sm-10">
+                            <select className="form-control" disabled={stateData.id ? true : false} onChange={(e) => { props.changevalue(e) }} id="organization" name="organization">
+                                <option selected disabled value="">Select Organization</option>
+                                {
+                                    props.campaignAdminList.length > 0 &&
+                                    props.campaignAdminList.map((admin, i) => {
+
+                                        // console.log(admin)
+
+                                        let obj = {}
+                                        obj.id = admin._id
+                                        obj.country_id = admin.country_id
+                                        obj.locationName = admin.countryDetails?.country
+                                        obj.organizationLocation = admin.countryDetails.iso2
+
+                                        return (
+                                            admin.status === 1 &&
+                                            <option value={JSON.stringify(obj)} selected={stateData.organization === admin._id}>{admin.name}</option>
+                                        )
+                                    })
+
+                                }
+                            </select>
+
+                            {stateData.error && stateData.error.organization && <p className="error">{stateData.error ? stateData.error.organization ? stateData.error.organization : "" : ""}</p>}
+                        </div>
+                    </div>
+                    {
+                        stateData.organization &&
+
                         <div className="form-group row">
-                            <label className="col-form-label col-sm-2 ">Organization</label>
-                            <div className="col-sm-10">
-                                <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="organization" name="organization">
-                                    <option selected disabled value="">Select Organization</option>
-                                    {
-                                        props.campaignAdminList.length > 0 &&
-                                        props.campaignAdminList.map((admin, i) => {
-                                            return (
-                                                admin.status === 1 &&
-                                                <option value={admin._id} selected={stateData.organization === admin._id}>{admin.name}</option>
-                                            )
-                                        })
+                            <label className="col-form-label col-sm-2 ">Product Post In</label>
+                            <div className="col-sm-4">
+                                <MapboxAutocomplete
+                                    publicKey={helper.MapBoxPrimaryKey}
+                                    inputClass='form-control search'
+                                    query={stateData.address}
+                                    // defaultValue={stateData.locationName}
+                                    onSuggestionSelect={sugg}
+                                    country={stateData.organizationLocation}
+                                    resetSearch={false} />
 
-                                    }
-                                </select>
+                                <div className="post-location-wrap">
+                                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                                        <div className="d-flex align-items-center">
+                                            <div className="icon-wrap mr-20p">
 
-                                {stateData.error && stateData.error.organization && <p className="error">{stateData.error ? stateData.error.organization ? stateData.error.organization : "" : ""}</p>}
+                                                <FontAwesomeIcon
+                                                    icon={solid("location-dot")}
+                                                    className="fs-3 text-primary"
+                                                />
+                                            </div>
+                                            <div className="info-wrap">
+                                                <div className="fs-6 mb-3p">
+                                                    Your post will be posted in
+                                                </div>
+                                                <h3 className="mb-0 fs-4 fw-bolder">{stateData.address}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="note note--clear">
+                                        <FontAwesomeIcon
+                                            icon={regular("circle-info")}
+                                            className="text-info mr-3p"
+                                        />
+                                        <span>
+                                            Not the city you want to post in? Try using the search
+                                            bar to choose another location.
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
+                            <div className="col-sm-1">
+                            </div>
+
+                            <div className="col-sm-4">
+                                <Map
+                                    style={mapStyles.outdoor}
+                                    // onMove={false}
+                                    zoom={[12]}
+                                    containerStyle={{
+                                        height: '300px',
+                                        width: '400px'
+                                    }}
+                                    center={[stateData.lng, stateData.lat]}
+
+                                >
+                                    <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
+                                        <Feature coordinates={[stateData.lng, stateData.lat]} />
+                                    </Layer>
+                                </Map>
+                            </div>
+
+
                         </div>
 
                     }
+
 
 
                     <div className="form-group row">
@@ -143,7 +303,7 @@ export default function AddProductForm(props) {
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">Main Image</label>
                         <div className="col-sm-10">
                             <input type="file" className={stateData.error?.image ? "inputerror custom-file-input form-control" : " custom-file-input form-control"} id="mainImg" name='mainImg' accept="image/*" onChange={(e) => { props.changefile(e) }} />
-                            <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose file </label>
+                            {/* <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose file </label> */}
                             <p className='error'>{stateData.error ? stateData.error.image ? stateData.error.image : "" : ""}</p>
                             {props.Img || props.tempImg ? <img src={props.tempImg ? props.tempImg : props.Img ? props.Img !== "" ? helper.CampaignProductImagePath + props.Img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> : ""}
 
@@ -152,14 +312,12 @@ export default function AddProductForm(props) {
 
 
 
-
-
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">More of Product
                             (optional)</label>
                         <div className="col-sm-10">
                             <input className='custom-file-input form-control' name='moreImg[]' id='moreImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
-                            <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
+                            {/* <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label> */}
 
                             <div className='grid mt-3 mb-3'>
                                 {props.moreTempImages?.length ?
@@ -218,6 +376,7 @@ export default function AddProductForm(props) {
 
                         </div>
                     </div>
+
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label"><i className="fa fa-tag" aria-hidden="true"></i></label>
                         <div className="col-sm-10">
@@ -375,15 +534,17 @@ export default function AddProductForm(props) {
                     </div>
 
                     <div className="form-group row">
-                        <label htmlFor="name" className="col-sm-2 col-form-label">Need Gallery <small>(optional)</small></label>
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Need Gallery <small>(optional)</small> <small>(Iframe)</small></label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control " name='galleryUrl' id="galleryUrl" value={stateData.galleryUrl} onChange={(e) => { props.changevalue(e) }} />
 
                             {
 
-                                stateData.galleryUrl &&
+                                stateData.galleryUrl && isIframe(stateData.galleryUrl) &&
+                                <div className="project-video-wrap mb-4 mt-4" style={{ height: "200px", width: "500px" }} dangerouslySetInnerHTML={{ __html: stateData.galleryUrl }} >
 
-                                <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
+                                </div>
+                                // <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>
                                 // <iframe id="video1" width="520" title="myFrame" height="360" src={stateData.video} frameBorder="0" allowtransparency="true" ></iframe>
                             }
 
@@ -406,11 +567,12 @@ export default function AddProductForm(props) {
 
                         </div>
                     </div>
+
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2" htmlFor="inputstock">Gallery Iamges</label>
                         <div className="col-sm-10">
                             <input className='custom-file-input form-control' name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { props.changefile(e) }} />
-                            <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label>
+                            {/* <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose files </label> */}
 
                             <div className='grid mt-3 mb-3'>
                                 {props.gallaryTempImages?.length ?
@@ -450,135 +612,10 @@ export default function AddProductForm(props) {
                             {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
                         </div>
                     </div>
+                </div>
 
+            </Dialog>
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="btnWarning" className='btnDanger' onClick={() => props.setModal(false)}>Close</Button>&nbsp;
-                    <Button variant="contained" onClick={() => props.submitProductForm()}>Save</Button>
-                </Modal.Footer>
-            </Modal>
-
-
-
-            {/* <Dialog
-                fullScreen
-                open={props.modal}
-                onClose={() => props.setModal(false)}
-                TransitionComponent={Transition}
-     
-            >
-
-
-
-                <AppBar sx={{ position: 'relative' }}>
-                    <Toolbar>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            onClick={() => props.setModal(false)}
-                            aria-label="close"
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            {stateData?.id ? "Update Product" : "Add Product"}
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={() => props.setModal(false)}>
-                            save
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-    
-
-               <div className='container-fluid pt-5'>
-
-                    <div className="form-group row">
-                        <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
-
-                            {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Image</label>
-                        <div className="col-sm-10">
-                            <input type="file" className={stateData.error.image ? "inputerror custom-file-input form-control" : " custom-file-input form-control"} id="image" accept="image/*" onChange={(e) => { props.changefile(e) }} />
-                            <label className="custom-file-label" htmlFor="customFile" style={{ margin: "0px 10px 0px 10px" }}> Choose file </label>
-                            <p className='error'>{stateData.error ? stateData.error.image ? stateData.error.image : "" : ""}</p>
-
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="name" className="col-sm-2 col-form-label">Price</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control " name='price' id="price" value={stateData.price} onChange={(e) => { props.changevalue(e) }} />
-
-                            {stateData.error && stateData.error.price && <p className="error">{stateData.error ? stateData.error.price ? stateData.error.price : "" : ""}</p>}
-                        </div>
-                    </div>
-
-
-                   <div className="form-group row">
-                        <label className="col-form-label col-sm-2" htmlFor="inputstock">Description</label>
-                        <div className="col-sm-10">
-                            <ReactQuill
-                                theme='snow'
-                                value={stateData.description}
-                                onChange={(e) =>console.log(e)}
-                                style={{ height: '240px', marginBottom: "50px" }}
-                                name="description"
-                            />
-                            <p className='error'>{stateData.error ? stateData.error.description ? stateData.error.description : "" : ""}</p>
-
-                        </div>
-                    </div>
-
-
-                     <div className="form-group row">
-                        <div className="col-sm-2">
-                            <label htmlFor="category">Category & SubCategory :</label>
-                        </div>
-                        <div className="col-sm-5">
-                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
-                                <option selected={stateData ? stateData.status === 1 ? "selected" : "" : ""} value="1">Active</option>
-                                <option selected={stateData ? stateData.status === 0 ? "selected" : "" : ""} value="0">InActive</option>
-                            </select>
-                            <p className='error'>{stateData.error ? stateData.error.category ? stateData.error.category : "" : ""}</p>
-
-                        </div>
-                        <div className="col-sm-5">
-                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="subcategory" name="subcategory">
-                                <option selected={stateData ? stateData.status === 1 ? "selected" : "" : ""} value="1">Active</option>
-                                <option selected={stateData ? stateData.status === 0 ? "selected" : "" : ""} value="0">InActive</option>
-                            </select>
-                            <p className='error'>{stateData.error ? stateData.error.subcategory ? stateData.error.subcategory : "" : ""}</p>
-
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div className="form-group row">
-                        <label className="col-form-label col-sm-2 ">Status</label>
-                        <div className="col-sm-10">
-                            <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="status" name="status">
-                                <option selected={stateData ? stateData.status === 1 ? "selected" : "" : ""} value="1">Active</option>
-                                <option selected={stateData ? stateData.status === 0 ? "selected" : "" : ""} value="0">InActive</option>
-                            </select>
-
-                            {stateData.error && stateData.error.status && <p className="error">{stateData.error ? stateData.error.status ? stateData.error.status : "" : ""}</p>}
-                        </div>
-                    </div>
-
-
-                </div> 
-                {/* </Card> */}
 
         </>
     )

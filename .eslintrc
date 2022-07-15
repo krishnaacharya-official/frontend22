@@ -90,6 +90,10 @@
     "jsx-a11y/no-autofocus":0,
     "no-loop-func":0,
     "no-useless-escape":0,
+    "import/no-webpack-loader-syntax":0,
+    "no-webpack-loader-syntax":0,
+
+
 
 
 

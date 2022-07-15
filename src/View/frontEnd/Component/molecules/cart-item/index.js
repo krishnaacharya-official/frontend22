@@ -19,6 +19,7 @@ function CartItem(props) {
   let currencySymbol = props.currencySymbol
 
   const minusValue = async (value) => {
+    console.log('minusValue', value)
     if (value > 1) {
       value--;
       await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'minus')
@@ -28,6 +29,7 @@ function CartItem(props) {
 
   }
   const plusValue = async (value) => {
+    console.log('plusValue', value)
     value++;
     // setQuantity(value)
     await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'plus')
@@ -63,7 +65,7 @@ function CartItem(props) {
             variant="link"
             className="btn__link-light text-decoration-none p-0"
           >
-            <FontAwesomeIcon icon={regular("angle-up")} onClick={() => !cartItem?.productDetails?.unlimited && plusValue(quantity)} />
+            <FontAwesomeIcon icon={regular("angle-up")} onClick={() => plusValue(quantity)} />
           </Button>
         </div>
       </div>

@@ -18,6 +18,8 @@ import projectApi from "../../Api/admin/project"
 
 
 function ProductController() {
+    const validExtensions = ['jpg', 'png', 'jpeg'];
+
     const [modal, setModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [categoryList, setCategoryList] = useState([])
@@ -66,13 +68,20 @@ function ProductController() {
         unlimited: false,
         tax: false,
         postTag: false,
+        organizationCountryId: "",
         galleryImg: [],
+
+        organizationLocation: "",
+        locationName: "",
+        address: "",
+        lat: 0,
+        lng: 0
 
 
 
     })
     const {
-        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag
+        id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, organizationCountryId, address, lat, lng, locationName
     } = state;
 
     const [tags, setTags] = useState([]);
@@ -134,15 +143,32 @@ function ProductController() {
 
             //Project List
             //--------------------------------------
-            const getProjectList = await projectApi.list(adminAuthToken)
-            if (getProjectList.data.success) {
-                setProjectList(getProjectList.data.data)
-            }
+            // const getProjectList = await projectApi.list(adminAuthToken)
+            // if (getProjectList.data.success) {
+            //     setProjectList(getProjectList.data.data)
+            // }
 
             setLoading(false)
 
         })()
     }, [update])
+
+
+
+    const orgProjectList = async (organizationId) => {
+        let formData = {}
+        formData.filter = false
+        formData.sortField = 'created_at'
+        formData.sortType = 'asc'
+        formData.organizationId = organizationId
+
+
+        const getProjectList = await projectApi.projectListByOrganization(adminAuthToken, formData)
+        if (getProjectList.data.success) {
+            setProjectList(getProjectList.data.data)
+        }
+
+    }
 
 
     const changevalue = async (e) => {
@@ -151,11 +177,39 @@ function ProductController() {
         if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag') {
             value = e.target.checked
         }
-        if(e.target.name === 'price' || e.target.name === 'quantity' ){
-            value =  e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        if (e.target.name === 'price' || e.target.name === 'quantity') {
+            value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
         }
 
-        if (e.target.name === "category") {
+        if (e.target.name === 'organization') {
+
+            // setstate({
+            //     ...state,
+            //     organization: obj.id,
+            //     organizationCountryId: obj.country_id,
+            //     organizationLocation: obj.organizationLocation,
+            //     locationName: obj.locationName,
+            // })
+
+            let obj = JSON.parse(e.target.value)
+
+
+            setstate({
+                ...state,
+                organization: obj.id,
+                organizationCountryId: obj.country_id,
+                organizationLocation: obj.organizationLocation,
+                locationName: obj.locationName,
+                address: obj.locationName,
+                lat: 0,
+                lng: 0
+
+            })
+
+            await orgProjectList(obj.id)
+
+
+        } else if (e.target.name === "category") {
 
             //get subCategory List on Category Change
 
@@ -203,51 +257,137 @@ function ProductController() {
 
     }
 
+    // const changefile = (e) => {
+    //     if (e.target.id === 'mainImg') {
+    //         let file = e.target.files[0] ? e.target.files[0] : '';
+    //         setTempImg(URL.createObjectURL(file))
+
+    //         setstate({
+    //             ...state,
+    //             image: file
+    //         })
+    //     } else if (e.target.id === 'galleryImg') {
+
+    //         let gImgtempArry = []
+    //         let gImgtempObj = []
+
+    //         if (e.target.files && e.target.files.length > 0) {
+    //             gImgtempObj.push(e.target.files)
+    //             for (let i = 0; i < gImgtempObj[0].length; i++) {
+    //                 gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+    //             }
+    //             setGallaryTempImages(gImgtempArry)
+
+    //         }
+
+    //         setstate({
+    //             ...state,
+    //             galleryImg: e.target.files
+    //         })
+
+    //     } else {
+
+    //         let mImgtempArry = []
+    //         let mImgtempObj = []
+
+    //         if (e.target.files && e.target.files.length > 0) {
+    //             mImgtempObj.push(e.target.files)
+    //             for (let i = 0; i < mImgtempObj[0].length; i++) {
+    //                 mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+    //             }
+    //             setMoreTempImages(mImgtempArry)
+
+    //         }
+    //         setstate({
+    //             ...state,
+    //             moreImg: e.target.files
+    //         })
+    //     }
+
+    // }
+
     const changefile = (e) => {
+        // console.log('kkk')
         if (e.target.id === 'mainImg') {
             let file = e.target.files[0] ? e.target.files[0] : '';
-            setTempImg(URL.createObjectURL(file))
 
-            setstate({
-                ...state,
-                image: file
-            })
+            if (file) {
+                let extension = file.name.substr(file.name.lastIndexOf('.') + 1)
+                if (validExtensions.includes(extension)) {
+                    setTempImg(URL.createObjectURL(file))
+                    setstate({
+                        ...state,
+                        image: file
+                    })
+
+                } else {
+                    setstate({
+                        ...state,
+                        image: ''
+                    })
+                }
+
+            } else {
+                setstate({
+                    ...state,
+                    image: ''
+                })
+                setTempImg('')
+            }
+            // console.log(URL.createObjectURL(file))
+
         } else if (e.target.id === 'galleryImg') {
 
             let gImgtempArry = []
             let gImgtempObj = []
+            let tempGallaryFileArry = []
+
 
             if (e.target.files && e.target.files.length > 0) {
                 gImgtempObj.push(e.target.files)
                 for (let i = 0; i < gImgtempObj[0].length; i++) {
-                    gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+                    let extension = gImgtempObj[0][i].name.substr(gImgtempObj[0][i].name.lastIndexOf('.') + 1)
+                    if (validExtensions.includes(extension)) {
+
+                        tempGallaryFileArry.push(gImgtempObj[0][i])
+                        gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+                    }
                 }
                 setGallaryTempImages(gImgtempArry)
+                setstate({
+                    ...state,
+                    galleryImg: tempGallaryFileArry
+                })
 
             }
 
-            setstate({
-                ...state,
-                galleryImg: e.target.files
-            })
+
 
         } else {
 
             let mImgtempArry = []
             let mImgtempObj = []
+            let tempMainFileArry = []
+
 
             if (e.target.files && e.target.files.length > 0) {
                 mImgtempObj.push(e.target.files)
                 for (let i = 0; i < mImgtempObj[0].length; i++) {
-                    mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+                    let extension = mImgtempObj[0][i].name.substr(mImgtempObj[0][i].name.lastIndexOf('.') + 1)
+                    if (validExtensions.includes(extension)) {
+                        tempMainFileArry.push(mImgtempObj[0][i])
+                        mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
+
+                    }
                 }
                 setMoreTempImages(mImgtempArry)
+                setstate({
+                    ...state,
+                    moreImg: tempMainFileArry
+                })
 
             }
-            setstate({
-                ...state,
-                moreImg: e.target.files
-            })
+
         }
 
     }
@@ -270,51 +410,78 @@ function ProductController() {
         setGallaryImages([])
 
         setstate({
+            ...state,
             id: '',
             status: 1,
             title: '',
-            sub_title: '',
-            category_id: '',
-            subcategory_id: '',
+            subtitle: '',
+            headline: '',
+            brand: '',
+            category: '',
+            subcategory: '',
             description: '',
             price: '',
             image: '',
             quantity: '',
+            organization: '',
             slug: '',
+            error: [],
+            moreImg: [],
+            galleryUrl: '',
+            needheadline: '',
             unlimited: false,
             tax: false,
             postTag: false,
-            error: [],
+            organizationCountryId: "",
+            galleryImg: [],
+            address: "",
+            organizationLocation: "",
+            locationName: "",
+            lat: 0,
+            lng: 0
         });
 
     }
     const openModel = () => {
+        setTags([]);
         setTempImg('')
         setSeletedProjectList([])
-
         setMoreTempImages([])
         setMoreImages([])
         setGallaryTempImages([])
         setGallaryImages([])
-
+        setProjectList([])
         setImg('')
         setModal(true);
         setstate({
             id: '',
             status: 1,
             title: '',
-            sub_title: '',
-            category_id: '',
-            subcategory_id: '',
+            subtitle: '',
+            headline: '',
+            brand: '',
+            category: '',
+            subcategory: '',
             description: '',
             price: '',
             image: '',
             quantity: '',
+            organization: '',
             slug: '',
+            error: [],
+            moreImg: [],
+            galleryUrl: '',
+            needheadline: '',
             unlimited: false,
             tax: false,
             postTag: false,
-            error: [],
+            organizationCountryId: "",
+            galleryImg: [],
+            organizationLocation: "",
+            locationName: "",
+            address: "",
+            lat: 0,
+            lng: 0
         });
 
     }
@@ -327,15 +494,15 @@ function ProductController() {
         }
         if (!id) {
 
-            if (moreImg?.length > 0 && moreImg.length <= 1) {
-                formaerrror['moreImg'] = "Please select more then one image"
-            }
-            if (!galleryImg?.length) {
-                formaerrror['galleryImg'] = "Please select more then one image"
-            }
-            if (galleryImg?.length <= 1) {
-                formaerrror['galleryImg'] = "Please select more then one image"
-            }
+            // if (moreImg?.length > 0 && moreImg.length <= 1) {
+            //     formaerrror['moreImg'] = "Please select more then one image"
+            // }
+            // if (!galleryImg?.length) {
+            //     formaerrror['galleryImg'] = "Please select more then one image"
+            // }
+            // if (galleryImg?.length <= 1) {
+            //     formaerrror['galleryImg'] = "Please select more then one image"
+            // }
 
         }
 
@@ -468,8 +635,24 @@ function ProductController() {
             }
 
 
+            if (address) {
+                data.address = address
+            }
+
+            if (lat) {
+                data.lat = lat
+
+            }
+
+            if (lng) {
+                data.lng = lng
+            }
 
 
+
+
+
+            data.organizationCountryId = organizationCountryId
             data.price = price
             data.description = description
             data.category_id = category
@@ -595,9 +778,22 @@ function ProductController() {
                 tax: productData.tax,
                 postTag: productData.postTag,
 
+                address: productData.address ? productData.address : "",
+                lat: productData.lat ? productData.lat : "",
+                lng: productData.lng ? productData.lng : "",
+                // address: productData.address ? productData.address : "",
+
+
 
 
             });
+
+            if (productData.organizationId) {
+                await orgProjectList(productData.organizationId)
+
+            }
+
+
 
             let tempProjectArray = [];
             if (productData.projectDetails.length > 0) {
@@ -632,18 +828,32 @@ function ProductController() {
                 setGallaryImages(tempGImgArray)
             }
 
+            // let mytags = []
+            // let addedTags = [];
+            // if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
+            //     addedTags = productData.tags.split(',');
+            // }
+            // addedTags.map((aadedTag, i) => {
+            //     let tagsObj = {}
+            //     tagsObj.id = aadedTag
+            //     tagsObj.text = aadedTag
+            //     mytags.push(tagsObj)
+            // })
+            // setTags(mytags)
+
             let mytags = []
             let addedTags = [];
-            if (productData.tags !== null && productData.tags !== '' && productData.tags !== undefined) {
-                addedTags = productData.tags.split(',');
+            if (productData.tags.length > 0) {
+                addedTags = productData.tags
+
+                addedTags.map((aadedTag, i) => {
+                    let tagsObj = {}
+                    tagsObj.id = aadedTag
+                    tagsObj.text = aadedTag
+                    mytags.push(tagsObj)
+                })
+                setTags(mytags)
             }
-            addedTags.map((aadedTag, i) => {
-                let tagsObj = {}
-                tagsObj.id = aadedTag
-                tagsObj.text = aadedTag
-                mytags.push(tagsObj)
-            })
-            setTags(mytags)
             setImg(productData.image)
 
             const getsubCategoryList = await categoryApi.listSubCategory(adminAuthToken, productData.categoryId);
@@ -751,6 +961,8 @@ function ProductController() {
 
                 gallaryImages={gallaryImages}
                 moreImages={moreImages}
+
+                setstate={setstate}
 
 
             />

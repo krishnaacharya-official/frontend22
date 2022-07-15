@@ -13,7 +13,8 @@ import helper from "../../../../../Common/Helper";
 import Avatar from "../../atoms/avatar";
 import AvatarImg from "../../../../../assets/images/avatar.jpeg"
 import moment from "moment";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import "./style.scss";
 
 const AdminTaxTable = (props) => {
@@ -173,7 +174,7 @@ const AdminTaxTable = (props) => {
                             :
                             <Button variant="warning" className="d-flex align-items-center ms-auto text-white" >
                               <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-                              <input type="file" size="60" style={{ position: "absolute", opacity: "0" }} onChange={(e) => props.uploadImage(e, item[0].orderId, item[0].userDetails?.email,item[0].userDetails?.name)} />
+                              <input type="file" size="60" style={{ position: "absolute", opacity: "0" }} onChange={(e) => props.uploadImage(e, item[0].orderId, item[0].userDetails?.email, item[0].userDetails?.name)} />
                               Upload
                             </Button>
                         }
@@ -233,13 +234,33 @@ const AdminTaxTable = (props) => {
                     }
 
                   </div>
+
                   <hr />
 
+
+
+
                 </>
+
+
               )
             })
 
+
+
           }
+          <>
+            {props.totalPages > 1 ?
+              <div className="mt-5 d-flex justify-content-center mb-5">
+
+
+                < Stack spacing={2} >
+                  <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+                </Stack>
+
+              </div>
+              : <></>}
+          </>
           {/* <li className="table__list-item p-2">
             <div className="d-sm-flex align-items-center flex-grow-1">
               <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">

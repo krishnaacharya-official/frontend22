@@ -8,7 +8,7 @@ import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./style.scss";
 
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar.jpeg"
+import AvatarImg from "../../../../../assets/images/avatar_default.jpg"
 import ListItemImg from "../../atoms/list-item-img";
 import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';
@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 const ActivityTable = (props) => {
   let activityList = props.activityList
   const getC = getCalculatedPrice()
-  const data=props.data
+  const data = props.data
 
   return (
     <>
@@ -64,7 +64,7 @@ const ActivityTable = (props) => {
                         <div className="position-relative d-flex">
                           <Avatar
                             size={62}
-                            avatarUrl={helper.DonorImagePath + list.userDetails?.image}
+                            avatarUrl={list.userDetails?.image ? helper.DonorImagePath + list.userDetails?.image : AvatarImg}
                             border={0}
                             shadow={false}
                             className="mr-12p"

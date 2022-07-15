@@ -200,9 +200,16 @@ export default function HeaderController() {
         }
     }
 
-    const updateCartItem = async (quentity, id,productId,type) => {
+    const updateCartItem = async (quentity, id, productId, type) => {
+        // console.log('type',type)
+        // console.log('quentity',quentity)
+        // console.log('id',id)
+        // console.log('productId',productId)
+
+
+
         setLoading(true)
-        const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id,productId,type);
+        const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id, productId, type);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
                 setLoading(false)

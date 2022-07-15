@@ -517,7 +517,7 @@ const AdminPosts = (props) => {
       formData.quantity = quantity
       formData.tags = tagsArray
 
-      console.log(tagsArray)
+      // console.log(tagsArray)
 
       if (Object.keys(formaerrror).length === 0) {
 

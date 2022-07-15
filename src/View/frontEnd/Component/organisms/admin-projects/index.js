@@ -471,6 +471,7 @@ const AdminProjects = () => {
             handleSortingChange={handleSortingChange}
             order={order}
             sortField={sortField}
+            data={data}
           />
         </div>
       ) :

@@ -13,6 +13,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 import "./style.scss";
+import helper from "../../../../../Common/Helper";
 
 
 
@@ -38,6 +39,33 @@ const ProjectsTable = (props) => {
 
 
       per = soldout / total * 100
+    } else {
+      per = 0;
+
+    }
+    return Math.round(per);
+
+  }
+
+
+  const countProjectAmount = (data) => {
+    // console.log(data)
+    let totalQArray = []
+    let soldOutQArray = []
+    let per = 0
+
+    if (data.length > 0) {
+      data.map((p, i) => {
+        // console.log(p.itemDetails)
+        totalQArray.push(Number(p.itemDetails?.price))
+        // soldOutQArray.push(Number(p.itemDetails.soldout))
+      })
+
+      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+      // const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+      per = total
     } else {
       per = 0;
 
@@ -83,25 +111,25 @@ const ProjectsTable = (props) => {
             />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: projectList.length > 1 ? "550px" :"", minHeight: projectList.length > 1 ? "550px" :"" }}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: projectList.length > 1 ? "550px" : "", minHeight: projectList.length > 1 ? "550px" : "" }}>
 
           {
             projectList.length > 0 ?
               projectList.map((project, i) => {
-                // console.log(project.productDetails)
+                // console.log(project)
                 return (
                   <li className="table__list-item p-2" key={i}>
                     <div className="d-xl-flex align-items-center flex-grow-1">
                       <div className="billing__main d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                          <div className="text-success fw-bold fs-5">$175</div>
+                          <div className="text-success fw-bold fs-5">{props.data?.symbol}{countProjectAmount(project.productDetails)}</div>
                           <div className="text-light fs-8">{moment(project.created_at).fromNow()}</div>
                         </div>
                         <Avatar
                           size={62}
                           border={0}
                           shadow={false}
-                          avatarUrl="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg"
+                          avatarUrl={project.imageDetails.length > 0 ? helper.ProjectImagePath + project.imageDetails[0].image : "https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg"}
                         />
                         <div className="ms-2">
                           <div className="fw-bolder fs-5 mb-3p">{project.name}</div>

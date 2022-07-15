@@ -84,6 +84,13 @@ const AdminTax = () => {
 
   }
 
+
+  const handleClick = async (e, v) => {
+
+    setPageNo(Number(v))
+    await getTaxList(Number(v), sortField, order)
+  }
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -103,6 +110,10 @@ const AdminTax = () => {
       <AdminTaxTable
         taxList={taxList}
         uploadImage={uploadImage}
+        totalPages={totalPages}
+        totalRecord={totalRecord}
+        pageNo={pageNo}
+        handleClick={handleClick}
       />
     </>
   );
