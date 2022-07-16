@@ -21,6 +21,7 @@ const AWS_S3_BUCKET_BASE_URL = "https://donorport.s3.us-west-2.amazonaws.com/"
 let helper = {
     ApiUrl: BASE_URL + 'api/',
     CampaignAdminLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/resize/',
+    CampaignAdminLogoFullPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/',
     CampaignProductImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/resize/',
     ProjectImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/project/resize/',
     ProjectFullImagePath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/project/',
