@@ -10,7 +10,7 @@ import { ReactComponent as CategoryIcon } from "../../../../../assets/svg/child.
 import IconText from "../../molecules/icon-text";
 import ProjectGallery from "../project-gallery";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat,isIframe } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, isIframe } from "../../../../../Common/Helper";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,6 +31,7 @@ function ProjectDetailMain(props) {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  let maxQuentity = productDetails.unlimited ? 1000 : productDetails.quantity - productDetails.soldout
   // let substring = "<iframe";
   // console.log(productDetails.galleryUrl.startsWith(substring))
   // console.log(productDetails?.galleryUrl?.indexOf(substring)===0)
@@ -208,14 +209,14 @@ function ProjectDetailMain(props) {
       {
         productDetails.galleryUrl && isIframe(productDetails.galleryUrl) &&
 
-        <div className="project-video-wrap mb-4"  dangerouslySetInnerHTML={{ __html: productDetails.galleryUrl }} >
+        <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: productDetails.galleryUrl }} >
 
         </div>
 
       }
 
 
-      <h5>Personal tents for the homeless in Alberta, Canada</h5>
+      <h5>{productDetails.needheadline}</h5>
       <div className="page__paragraph lh-lg">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
@@ -239,12 +240,12 @@ function ProjectDetailMain(props) {
 
               }}
               min={1}
-              max={10}
+              max={maxQuentity}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
               onChange={(e) => setQuantity(e)}
             />
           </div>
-          <div className="project__count mt-3p">10</div>
+          <div className="project__count mt-3p">{maxQuentity}</div>
         </div>
 
         {/* <Button size="lg" className="w-100">

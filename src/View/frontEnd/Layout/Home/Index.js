@@ -44,7 +44,19 @@ export default function Index(props) {
       );
     });
   } else {
-    products = <div className="container">{/* <h1 style={title} >Products Not Found</h1> */}</div>;
+    products =
+      <div className="container">
+        <div className="empty__modal">
+          <div id="noSlider" className="empty__block"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e611cf546e6b8a2c0d1ad3b_tag.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results in this range</text></div><div className="empty__text"><p>Try broadening your search.</p></div></div></div></div>
+{/* 
+          <div id="noFilter" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4af73f9963441ad99d98ef_023-setting.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results with these filters</text></div><div className="empty__text"><p>Try removing some toggles.</p></div></div></div></div>
+
+          <div id="noButton" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4b07b4c980734faa9e452a_blend.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">No matches in this category</text></div><div className="empty__text"><p>Try removing your search or checking another category.</p></div></div></div></div>
+
+          <div id="noData" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4a25127a18113aa8c6cd10_qr-code.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results matching your search</text></div><div className="empty__text"><p>Try broadening your search.</p></div></div></div></div> */}
+        </div>
+
+      </div>;
   }
 
   const items = [
@@ -130,14 +142,14 @@ export default function Index(props) {
                       value={props.filters.search}
                       onChange={(e) => props.onSearchProduct(e, 'onchange')}
                       onKeyDown={(e) => props.onSearchProduct(e, 'keydown')}
-                      style={{zIndex:"9"}}
+                      style={{ zIndex: "9" }}
 
                     />
                     <span id="suggestion">{props.suggestionTag}</span>
 
 
 
-{/* 
+                    {/* 
                     <FormControl
                       placeholder=""
                       value={props.suggestionTag}

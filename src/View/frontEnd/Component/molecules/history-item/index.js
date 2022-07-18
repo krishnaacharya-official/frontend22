@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import IconButton from "../icon-button";
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar.jpeg";
-import helper, { priceFormat,getCalculatedPrice } from "../../../../../Common/Helper";
+import AvatarImg from "../../../../../assets/images/avatar_default.jpg";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import moment from "moment";
 
 import "./style.scss";
@@ -27,15 +27,31 @@ function HistoryItem({ active, ...otherProps }) {
     active,
     ...otherProps,
   };
+
+  const getAvatarImage = (img) => {
+    let image;
+    if (img && img !== "") {
+      image = helper.DonorImagePath + img
+    } else {
+      image = AvatarImg
+    }
+    return image;
+
+  }
   let item = sharedProps.item
   let type = sharedProps.type
+  let avatar = type === "donation" ? item?.userDetails?.image : item?.orderDetails?.userDetails?.image
 
-  let avatar = type === "donation" ? helper.DonorImagePath + item?.userDetails?.image : helper.DonorImagePath + item?.orderDetails?.userDetails?.image
+
+
+
+
   let name = type === "donation" ? item?.userDetails?.name : item?.orderDetails?.userDetails?.name
   let amount = type === "donation" ? item?.amount : item?.orderDetails?.total
   let date = type === "donation" ? item?.created_at : item?.orderDetails?.created_at
   let currencySymbol = type === "donation" ? item?.currencySymbol : item?.orderDetails?.currencySymbol
   let xp = type === "donation" ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp
+  let isDeleted = type === "donation" ? item?.userDetails?.isDeleted : item?.orderDetails?.userDetails?.isDeleted
 
   // console.log(avatar)
 
@@ -45,10 +61,12 @@ function HistoryItem({ active, ...otherProps }) {
         }`}
     >
       <div className="d-flex align-items-center w-100">
-        <Avatar size={46} avatarUrl={avatar} border={0} shadow={false} />
+        <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} />
         <div className="ms-2 flex-grow-1">
           <div className="d-flex align-items-center justify-content-between me-3">
             <div className="text-dark fw-bold">{name}</div>
+
+
             <span className="text-info fs-5">
               <FontAwesomeIcon icon={solid("badge-check")} />
             </span>
@@ -62,11 +80,16 @@ function HistoryItem({ active, ...otherProps }) {
               {sharedProps.categoryName}
             </IconButton> */}
             <span className="btn-sm">
-            {getC.getUserRank(xp)}
+              {getC.getUserRank(xp)}
 
             </span>
           </div>
           <div className="text-lighter fs-8">
+            {
+              isDeleted &&
+
+              <div className="text-lighter fs-8">Deleted User</div>
+            }
             {
               type === "donation" ?
                 <>

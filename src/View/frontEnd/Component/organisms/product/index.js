@@ -30,7 +30,13 @@ const Product = (props) => {
   let sold = props.soldout
   let total = props.quantity
   let location = props.cityDetails?.length > 0 && props.cityDetails[0]?.city
-  let progress = 60
+
+  // 30/40*100 = 75.
+  let unlimited = props.unlimited
+
+  let progress = unlimited ? 100 : Math.round(sold / total * 100)
+
+
 
   const getCalc = getCalculatedPrice();
 
@@ -130,7 +136,7 @@ const Product = (props) => {
       variant="success"
       size="sm"
       className="icon icon__pro"
-      onClick={removeFromCart}
+    // onClick={removeFromCart}
     >
       <FontAwesomeIcon icon={solid("cart-shopping")} />
     </Button>
@@ -183,9 +189,21 @@ const Product = (props) => {
           />
         </div>
         <div className="flex-grow-1">
-          <ProgressBar variant="success" now={progress} />
+          <ProgressBar variant={unlimited ? 'warning' : 'success'} now={progress} />
         </div>
-        <span className="ms-1">{progress}%</span>
+        {
+          !unlimited ?
+
+            <span className="ms-1">{progress}%</span>
+            :
+            <div className="unlimited unlimited--home" style={{marginLeft:"10px"}}>
+              <div className="tag tag--ongoing _2">
+                <div className="icon icon--unlimited">
+                  <FontAwesomeIcon icon={solid("infinity")} className="" />
+                </div>
+              </div>
+            </div>
+        }
       </div>
 
       <div className="product__columns border-bottom d-flex align-items-center">

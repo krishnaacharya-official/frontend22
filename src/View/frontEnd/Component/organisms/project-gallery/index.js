@@ -13,6 +13,8 @@ import './style.scss';
 
 function ProjectGallery(props) {
   let images = props.images;
+
+  // console.log(images)
   return (
     <div className={`${props.className}`}>
       {props.title ? (
@@ -26,22 +28,31 @@ function ProjectGallery(props) {
       <Fancybox>
         <div className="gallery__container">
           {images?.length > 0 &&
-            images.slice(0, 5).map((img, i) => {
-              return (
-                <GalleryImg
-                  key={i}
-                  thumbImgSrc={
-                    props.tagTitle === 'Project'
-                      ? helper.ProjectImagePath + img.image
-                      : helper.CampaignProductImagePath + img.image
-                  }
-                  bigImgSrc={
-                    props.tagTitle === 'Project'
-                      ? helper.ProjectFullImagePath + img.image
-                      : helper.CampaignProductFullImagePath + img.image
-                  }
-                />
-              );
+            images.map((img, i) => {
+              // console.log(img)
+              if (props.tagTitle === 'Project' || img.type === 'galleryImage') {
+
+                return (
+                  <GalleryImg
+                    key={i}
+                    thumbImgSrc={
+                      props.tagTitle === 'Project'
+                        ? helper.ProjectImagePath + img.image
+
+                        :
+                        img.type === 'galleryImage' &&
+                        helper.CampaignProductImagePath + img.image
+                    }
+                    bigImgSrc={
+                      props.tagTitle === 'Project'
+                        ? helper.ProjectFullImagePath + img.image
+                        :
+                        img.type === 'galleryImage' &&
+                        helper.CampaignProductFullImagePath + img.image
+                    }
+                  />
+                );
+              }
             })}
           {/* <GalleryImg
             thumbImgSrc="https://lipsum.app/id/33/200x150"
