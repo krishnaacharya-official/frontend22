@@ -95,15 +95,23 @@ const PostsTable = (props) => {
                       <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                         <div className="d-flex align-items-center flex__1">
                           <div className="d-flex align-items-center progress__wrap me-2 flex__1">
-                            <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
-                              {product.soldout}/{product.quantity}
-                            </span>
+                            {
+                              !product.unlimited &&
+
+                              < span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
+                                {product.soldout}/{product.quantity}
+                              </span>
+                            }
                             <ProgressBar
-                              variant="success"
-                              now={Math.round(product.soldout / product.quantity * 100)}
+                              variant={!product.unlimited ? "success" : "info"}
+                              now={!product.unlimited ? Math.round(product.soldout / product.quantity * 100) : 100}
                               className="flex__1"
                             />
-                            <span className="text-light ms-1 fw-bold">{Math.round(product.soldout / product.quantity * 100)}%</span>
+                            {
+                              !product.unlimited &&
+                              <span className="text-light ms-1 fw-bold">{Math.round(product.soldout / product.quantity * 100)}%</span>
+
+                            }
                           </div>
                         </div>
                       </div>
@@ -150,7 +158,7 @@ const PostsTable = (props) => {
                           }
 
                           {
-                            product.quantity === product.soldout &&
+                            product.quantity <= product.soldout && !product.unlimited &&
                             <Button variant="success" className="rounded-pill fw-bold">
                               Fulfil Order
                             </Button>

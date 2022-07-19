@@ -76,7 +76,7 @@ function AccordionToggle({ children, eventKey, callback }) {
 }
 
 const AddPost = (props) => {
- 
+
 
   let organizationDetails = props.organizationDetails
   let stateData = props.stateData
@@ -950,9 +950,12 @@ const AddPost = (props) => {
             <input
               type="checkbox"
               className="form-check-input"
-              id="fulfillingCheck"
+              name="policy"
+              id="policy"
+              checked={stateData.policy}
+              onChange={(e) => { changevalue(e) }}
             />
-            <label className="form-check-label" htmlFor="fulfillingCheck">
+            <label className="form-check-label" htmlFor="policy">
               By posting your ad, you are agreeing to our{" "}
               <a href="#" target="_blank">
                 <strong>terms of use</strong>
@@ -971,7 +974,10 @@ const AddPost = (props) => {
               the post will be closed.
             </label>
           </div>
+          
         </div>
+        {error && error.policy && <p className='error'>{error ? error.policy ? error.policy : "" : ""}</p>}
+
         <div className="products-detial-footer py-5">
           <Button variant="info" size="lg" className="fw-bold fs-6">Preview</Button>
           <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(1)}>Post Ad</Button>

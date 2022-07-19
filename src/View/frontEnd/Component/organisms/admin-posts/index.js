@@ -97,11 +97,12 @@ const AdminPosts = (props) => {
     unlimited: false,
     tax: false,
     postTag: false,
+    policy: false,
     galleryImg: [],
 
   })
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy
   } = state;
 
   const [tags, setTags] = useState([]);
@@ -112,7 +113,7 @@ const AdminPosts = (props) => {
   useEffect(() => {
     (async () => {
 
-      console.log(data)
+      // console.log(data)
       // console.log(data.country_id)
       setLoading(true)
       const getcategoryList = await categoryApi.listCategory(token);
@@ -193,9 +194,10 @@ const AdminPosts = (props) => {
   const changevalue = async (e) => {
     let value = e.target.value;
     // console.log(value)
-    if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag') {
+    if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag' || e.target.name === 'policy') {
       value = e.target.checked
-      // console.log(value)
+
+
     }
     if (e.target.name === 'price' || e.target.name === 'quantity') {
       value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
@@ -241,10 +243,21 @@ const AdminPosts = (props) => {
       }
 
     } else {
-      setstate({
-        ...state,
-        [e.target.name]: value
-      })
+      if (e.target.name === 'unlimited' && value === true) {
+        // console.log('first') 
+        setstate({
+          ...state,
+          quantity: '',
+          [e.target.name]: value
+        })
+      } else {
+
+
+        setstate({
+          ...state,
+          [e.target.name]: value
+        })
+      }
     }
 
   }
@@ -362,6 +375,7 @@ const AdminPosts = (props) => {
       unlimited: false,
       tax: false,
       postTag: false,
+      policy: false,
       error: [],
     });
 
@@ -374,6 +388,18 @@ const AdminPosts = (props) => {
     if (tags.length === 0) {
       formaerrror['tags'] = "Please Enter Tags"
     }
+
+    if (!unlimited && !quantity) {
+      formaerrror['quantity'] = "Quantity is required"
+
+    }
+
+    if (!policy) {
+      formaerrror['policy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
+
+    }
+    // console.log(formaerrror)
+
     if (!id) {
 
       // if (moreImg?.length > 0 && moreImg.length <= 1) {
@@ -400,8 +426,10 @@ const AdminPosts = (props) => {
         subcategory: 'required',
         description: 'required',
         price: 'required',
-        quantity: 'required',
+        // quantity: 'required',
         organization: 'required',
+        // policy: 'boolean',
+
         // slug: 'required'
       }
     } else {
@@ -416,8 +444,10 @@ const AdminPosts = (props) => {
         description: 'required',
         price: 'required',
         image: 'required',
-        quantity: 'required',
-        slug: 'required'
+        // quantity: 'required',
+        slug: 'required',
+        // policy: 'boolean',
+
       }
 
     }
@@ -447,6 +477,7 @@ const AdminPosts = (props) => {
         ...state,
         error: formaerrror
       })
+
 
       let formData = {}
 
@@ -514,10 +545,14 @@ const AdminPosts = (props) => {
       formData.description = description
       formData.category_id = category
       formData.subcategory_id = subcategory
-      formData.quantity = quantity
+
+      if (quantity) {
+        formData.quantity = quantity
+      }
+
       formData.tags = tagsArray
 
-      // console.log(tagsArray)
+      console.log(formData)
 
       if (Object.keys(formaerrror).length === 0) {
 
@@ -653,6 +688,8 @@ const AdminPosts = (props) => {
           address: productData.address ? productData.address : "",
           lat: productData.lat ? productData.lat : "",
           lng: productData.lng ? productData.lng : "",
+          policy: true,
+
 
 
 

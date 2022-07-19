@@ -58,7 +58,9 @@ function product() {
         data.append('description', cdata.description);
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
-        data.append('quantity', cdata.quantity);
+        if (cdata.quantity) {
+            data.append('quantity', cdata.quantity);
+        }
         data.append('productSlug', cdata.productSlug);
         data.append('tags', JSON.stringify(cdata.tags));
 
@@ -187,7 +189,9 @@ function product() {
         data.append('description', cdata.description);
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
-        data.append('quantity', cdata.quantity);
+        if (cdata.quantity) {
+            data.append('quantity', cdata.quantity);
+        }
         data.append('tags', JSON.stringify(cdata.tags));
 
         let res = {};
