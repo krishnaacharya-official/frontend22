@@ -82,8 +82,8 @@ const CompanySettings = () => {
         if (getStateCityList.data.data.length > 0) {
           getStateCityList.data.data.map((city, i) => {
             let Obj = {}
-            Obj.value = city.id
-            Obj.label = city.city
+            Obj.value = city._id.id
+            Obj.label = city._id.city
             tempArray.push(Obj)
           })
           setDefaultCity([])

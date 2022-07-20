@@ -552,7 +552,7 @@ const AdminPosts = (props) => {
 
       formData.tags = tagsArray
 
-      console.log(formData)
+      // console.log(formData)
 
       if (Object.keys(formaerrror).length === 0) {
 

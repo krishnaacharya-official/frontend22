@@ -12,7 +12,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
-
+import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
 
 
@@ -207,6 +207,9 @@ export default function ProjectDetailsController() {
                 data.currencySymbol = user.currencySymbol
                 data.projectId = projectDetails._id
                 data.organizationId = projectDetails?.campaignDetails?._id
+                data.organizationLogo = helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo
+                data.projectName = projectDetails?.name
+
 
 
 

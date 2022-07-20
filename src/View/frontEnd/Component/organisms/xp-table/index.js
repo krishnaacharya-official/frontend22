@@ -7,22 +7,25 @@ import "./style.scss";
 import moment from "moment";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import helper from "../../../../../Common/Helper";
 
 const XpTable = (props) => {
   let ItemList = props.ItemList
 
 
-  function getData(type, xp) {
+  function getData(type, xp, data) {
+    // console.log(data)
     let Res;
     switch (type) {
       case 'DONATED':
+        // let Image = data.organizationDetails.logo;
         Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
           <div className="position-relative">
-            <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg" />
+            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
           </div>
 
           <div className="d-sm-flex align-items-center flex__1 ms-2">
-            <div className="fw-bold fs-5 billing__name">Donated</div>
+            <div className="fw-bold fs-5 billing__name">{data?.organizationDetails?.name}</div>
             <span className="text-light fw-semibold flex__1">
               <FontAwesomeIcon
                 icon={regular("heart")}
@@ -31,27 +34,28 @@ const XpTable = (props) => {
             </span>
           </div>
           <div className="d-flex align-items-center">
-            <span className="text-success fw-bold fs-5">{xp} xp</span>
+            <span className="text-success fw-bold fs-5">{data.currencySymbol} {data.amount}</span>
           </div>
         </div>)
         break;
+
       case 'BOUGHT':
         Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
           <div className="position-relative">
-            <ListItemImg imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4c2ff23144db148fd45b43_wallet.svg" />
+            <ListItemImg imgSrc={helper.CampaignProductImagePath + data?.productDetails?.image} />
           </div>
 
           <div className="d-sm-flex align-items-center flex__1 ms-2">
-            <div className="fw-bold fs-5 billing__name">Bought</div>
+            <div className="fw-bold fs-5 billing__name">{data?.productDetails?.headline}</div>
             <span className="text-light fw-semibold flex__1">
               <FontAwesomeIcon
                 icon={regular("bag-shopping")}
                 className="small me-1"
-              />Bought
+              />Bought {data.quantity}
             </span>
           </div>
           <div className="d-flex align-items-center">
-            <span className="text-success fw-bold fs-5">{xp} xp</span>
+            <span className="text-success fw-bold fs-5">{data.currencySymbol}{data.amount}</span>
           </div>
         </div>)
         break;
@@ -92,11 +96,11 @@ const XpTable = (props) => {
           <Button
             variant="link"
             className="btn__sort px-0 text-decoration-none"
-            onClick={() => props.handleSortingChange('xp')}
+            onClick={() => props.handleSortingChange('amount')}
           >
             XP Earned
             {
-              props.sortField === 'xp' && props.order === 'asc' ?
+              props.sortField === 'amount' && props.order === 'asc' ?
 
                 <FontAwesomeIcon
                   icon={solid("angle-up")}
@@ -119,10 +123,10 @@ const XpTable = (props) => {
                   <li className="table__list-item p-2">
                     <div className="d-flex align-items-center flex-grow-1">
                       <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
-                        {/* <div className="text-info fw-bold fs-5">{item.xp} XP</div> */}
+                        <div className="text-info fw-bold fs-5">{item.xp}XP</div>
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>
-                      {getData(item.type, item.xp)}
+                      {getData(item.type, item.xp, item)}
 
                       {/* <div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
                         <div className="position-relative">

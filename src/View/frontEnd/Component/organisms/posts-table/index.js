@@ -24,6 +24,8 @@ const PostsTable = (props) => {
   //   })()
   // }, [organizationDetails])
 
+  // console.log(productList)
+
   return (
     <>
       <div className="list__table mb-5">
@@ -108,28 +110,44 @@ const PostsTable = (props) => {
                               className="flex__1"
                             />
                             {
-                              !product.unlimited &&
-                              <span className="text-light ms-1 fw-bold">{Math.round(product.soldout / product.quantity * 100)}%</span>
+                              !product.unlimited ?
+                                <span className="text-light ms-1 fw-bold">{Math.round(product.soldout / product.quantity * 100)}%</span>
+                                :
+                                <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                                  <div className="tag tag--ongoing _2">
+                                    <div className="icon icon--unlimited">
+                                      <FontAwesomeIcon icon={solid("infinity")} className="" />
+                                    </div>
+                                  </div>
+                                </div>
 
                             }
                           </div>
                         </div>
                       </div>
                       <div className="billing__buttons d-flex align-items-center">
-                        <Button
-                          variant="info"
-                          className="me-auto rounded-pill pt-6p pb-6p pl-6p pr-12p"
-                        >
-                          <div className="d-flex align-items-center justify-content-center">
-                            <Avatar
-                              size={26}
-                              border={0}
-                              shadow={false}
-                              avatarUrl="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d3f994a03c3fe76a42633a6_1.jpg"
-                            />
-                            <span className="ms-1 fs-7">Colorado Food Drive</span>
-                          </div>
-                        </Button>
+                        {
+                          product.projectDetails.length > 0 &&
+                          <Button
+                            variant="info"
+                            className="me-auto rounded-pill pt-6p pb-6p pl-6p pr-12p"
+                          >
+
+                            <div className="d-flex align-items-center justify-content-center">
+                              {
+                                product.projectDetails[0].projectMainDetails.projectImages.length > 0 &&
+
+                                <Avatar
+                                  size={26}
+                                  border={0}
+                                  shadow={false}
+                                  avatarUrl={helper.ProjectImagePath + product.projectDetails[0].projectMainDetails.projectImages[0].image}
+                                />
+                              }
+                              <span className="ms-1 fs-7">{product.projectDetails[0].projectMainDetails.name}</span>
+                            </div>
+                          </Button>
+                        }
                         <div className="ms-auto">
                           <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
                             <FontAwesomeIcon

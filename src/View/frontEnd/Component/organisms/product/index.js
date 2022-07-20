@@ -196,7 +196,7 @@ const Product = (props) => {
 
             <span className="ms-1">{progress}%</span>
             :
-            <div className="unlimited unlimited--home" style={{marginLeft:"10px"}}>
+            <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
               <div className="tag tag--ongoing _2">
                 <div className="icon icon--unlimited">
                   <FontAwesomeIcon icon={solid("infinity")} className="" />
@@ -220,7 +220,7 @@ const Product = (props) => {
           </div>
           {
             // !CampaignAdminAuthToken &&
-            <div className="mt-auto mb-12p">{btn}</div>
+            <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
 
           }
         </div>
@@ -327,9 +327,17 @@ const Product = (props) => {
           </div>
           <span>{category}</span>
         </div>
-        <div className="product__count d-flex align-items-center ms-auto text-dark">
-          <span>{sold}/{total} sold</span>
-        </div>
+        {
+          unlimited ?
+            <div className="product__count d-flex align-items-center ms-auto text-dark">
+              <span>{sold} sold</span>
+            </div>
+            :
+            <div className="product__count d-flex align-items-center ms-auto text-dark">
+              <span>{sold}/{total} sold</span>
+            </div>
+        }
+
       </div>
 
       <div

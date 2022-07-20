@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
+import helper from "../../Common/Helper";
 
 
 
@@ -217,6 +218,14 @@ export default function OrganizationDetailsController() {
                 data.currency = user.currency
                 data.currencySymbol = user.currencySymbol
                 data.organizationId = organizationDetails._id
+                data.organizationLogo = helper.CampaignAdminLogoPath + organizationDetails.logo
+                data.organizationName = organizationDetails.name
+
+
+                // console.log(data)
+
+
+
 
 
 
@@ -226,14 +235,14 @@ export default function OrganizationDetailsController() {
                         setLoading(false)
                         ToastAlert({ msg: donateToOrganization.data.message, msgType: 'error' });
                     } else {
-                        if (userAuthToken) {
-                            //    await getUserRank()
-                        }
+                        // if (userAuthToken) {
+                        //     //    await getUserRank()
+                        // }
                         let addXp = Number(selectedValue * 10)
                         dispatch(setUserXp(user.xp + addXp))
                         ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });
                         setLoading(false)
-                        navigate('/')
+                        navigate('/thankyou')
                     }
 
                 } else {

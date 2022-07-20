@@ -36,7 +36,7 @@ let helper = {
     recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/',
 
 
-    MapBoxPrimaryKey:'pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ'
+    MapBoxPrimaryKey: 'pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ'
 
 
 
@@ -375,6 +375,53 @@ export function isValidEmail(email) {
         RESPONCE = false
     }
     return RESPONCE
+
+}
+
+
+export function getCardIcon(card) {
+
+    let img;
+
+
+    switch (card) {
+
+        case ('visa'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/visa.png'
+            break;
+
+
+        case ('mastercard'):
+            img = 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e656493af1e0441cd892a_mc_vrt_pos.svg';
+            break;
+
+        case ('amex'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/american.png'
+            break;
+
+        case ('discover'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/discover.png'
+            break;
+
+        case ('diners'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/dinersclub.png'
+            break;
+
+        case ('jcb'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/jcb.png'
+            break;
+
+        case ('union'):
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/unionpay.png'
+            break;
+
+        default:
+            img = AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/visa.png'
+            break;
+
+
+    }
+    return img;
 
 }
 

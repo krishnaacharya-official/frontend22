@@ -5,7 +5,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { useState, useEffect } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper from "../../../../../Common/Helper";
+import helper,{getCardIcon} from "../../../../../Common/Helper";
 
 import "./style.scss";
 
@@ -106,13 +106,13 @@ const UserBilling = () => {
                     <div className="billing__tag">
                       <div className="billing__payment">
                         <div className="billing__icon ml-12p mr-12p">
-                          {/* <img
+                          <img
                             width="26"
                             height="26"
-                            src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                            src={getCardIcon(CardType)}
                             loading="lazy"
                             alt=""
-                          /> */}
+                          />
                           {/* {cardIcon} */}
                         </div>
                         <div className="billing__card fs-7">
