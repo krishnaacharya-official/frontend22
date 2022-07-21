@@ -159,7 +159,7 @@ const UserItems = () => {
       ) : (
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
-          // console.log(item)
+          console.log(item)
           // console.log(item.appliedTaxPer)
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
           let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
@@ -196,7 +196,34 @@ const UserItems = () => {
                 <div className="d-none d-sm-flex align-items-center flex__1">
                   <div className="d-flex align-items-center flex__1">
                     <div className="d-flex align-items-center progress__wrap me-2 flex__1">
-                      <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
+
+                      {
+                        !item.itemDetails?.unlimited ?
+
+                          < span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
+                            {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
+                          </span>
+                          :
+                          <></>
+                      }
+                      <ProgressBar
+                        variant={!item.itemDetails?.unlimited ? "success" : "info"}
+                        now={!item.itemDetails?.unlimited ? Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100) : 100}
+                        className="flex-grow-1"
+                      />
+                      {
+                        !item.itemDetails?.unlimited ?
+                          <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
+                          :
+                          <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                            <div className="tag tag--ongoing _2">
+                              <div className="icon icon--unlimited">
+                                <FontAwesomeIcon icon={solid("infinity")} className="" />
+                              </div>
+                            </div>
+                          </div>
+                      }
+                      {/* <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
                         {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
                       </span>
                       <ProgressBar
@@ -204,7 +231,7 @@ const UserItems = () => {
                         now={Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}
                         className="flex-grow-1"
                       />
-                      <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
+                      <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span> */}
                     </div>
                   </div>
                 </div>
@@ -230,10 +257,10 @@ const UserItems = () => {
                   <div className="project__detail-main me-sm-3">
                     <h6 className="project__detail-label mb-3p">Item</h6>
                     <h1 className="project__detail-title mb-0">
-                      Personal Shelters
+                      {item.itemDetails?.headline}
                     </h1>
                     <h5 className="project__detail-sublabel">Product</h5>
-                    <div className="project__detail-subtitle mb-12p">Eureka ™</div>
+                    <div className="project__detail-subtitle mb-12p">{item.itemDetails?.brand} ™</div>
                     <div className="project__detail-price fs-2 text-success">
                       {item.currencySymbol} {price}
                     </div>
@@ -251,23 +278,16 @@ const UserItems = () => {
                       </div>
                     </div>
 
-                    <h5>Personal tents for the homeless in Alberta, Canada</h5>
+                    <h5>{item.itemDetails?.needheadline}</h5>
                     <div className="page__paragraph mb-3">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                      laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                      irure dolor in reprehenderit in voluptate velit esse cillum
-                      dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                      cupidatat non proident, sunt in culpa qui officia deserunt
-                      mollit anim id est laborum.
+                      {item.itemDetails?.descriptions}
                     </div>
-                    <a href="/item/water-tabs" className="text-subtext">
+                    <a href={helper.websitePath+item.itemDetails?.slug} className="text-subtext">
                       <span className="url__icon me-1">
                         <FontAwesomeIcon icon={regular("square-up-right")} />
                       </span>
                       <span className="date__name date__name--url">
-                        www.donorport.com/linktopost
+                        {helper.websitePath+item.itemDetails?.slug}
                       </span>
                     </a>
 
@@ -318,7 +338,7 @@ const UserItems = () => {
                       </div>
                       <div className="d-flex align-items-center ">
                         <span className="fw-bolder flex__1">XP</span>
-                        <span className="text-info fw-semibold">10 xp</span>
+                        <span className="text-info fw-semibold">{item.xp} xp</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">

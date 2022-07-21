@@ -415,7 +415,7 @@ const AddPost = (props) => {
                             className="form-control form-control-lg studio__input--quantity"
                             // id="quantityInput"
                             placeholder="12"
-                            name='quantity' id="quantity" value={quantity} onChange={(e) => { changevalue(e) }}
+                            name='quantity' id="quantity" disabled={unlimited} value={quantity} onChange={(e) => { changevalue(e) }}
                           />
                           {error && error.quantity && <p className="error">{error ? error.quantity ? error.quantity : "" : ""}</p>}
                         </div>

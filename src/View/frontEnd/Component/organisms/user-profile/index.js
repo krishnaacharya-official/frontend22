@@ -7,7 +7,7 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 // import { LadderMenu } from "@components/organisms";
 import ToggleSwitch from "../../atoms/toggle-switch";
 import LadderMenu from "../ladder-menu";
-import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import { Outlet, Link, useLocation, useOutletContext, useNavigate } from "react-router-dom";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import Select from "react-select"
 import locationApi from "../../../../../Api/frontEnd/location";
@@ -16,12 +16,12 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry, setUserState } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry, setUserState, setLogout } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
 import cartApi from "../../../../../Api/frontEnd/cart";
 // import { useSelector, useDispatch } from "react-redux";
 // import { setCurrency,setUserLanguage, setCurrencyPrice } from "../../../../../user/user.action";
-
+import { confirmAlert } from "react-confirm-alert"
 
 
 import "./style.scss";
@@ -31,7 +31,7 @@ const UserProfile = () => {
   // const user = useContext(UserContext)
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [update, setUpdate] = useState(false)
   const [data, setData] = useOutletContext();
@@ -98,8 +98,10 @@ const UserProfile = () => {
         if (getStateCityList.data.data.length > 0) {
           getStateCityList.data.data.map((city, i) => {
             let Obj = {}
-            Obj.value = city.id
-            Obj.label = city.city
+            // Obj.value = city.id
+            // Obj.label = city.city
+            Obj.value = city._id.id
+            Obj.label = city._id.city
             tempArray.push(Obj)
           })
           setDefaultCity([])
@@ -290,6 +292,7 @@ const UserProfile = () => {
   useEffect(() => {
     (async () => {
       setLoading(true)
+      // console.log(data)
       // if (data.country_id && data.country_id !== null ) {
       //   await getCountryStateList(data.country_id)
       // }
@@ -493,6 +496,47 @@ const UserProfile = () => {
       })
 
     });
+
+  }
+
+  const deleteUser = (id) => {
+
+    confirmAlert({
+      title: 'Deactivate Account',
+      message: "Are you sure to want to deactivate this account? If you will do this then you won't be able to do login again...",
+      buttons: [
+        {
+          label: 'Yes',
+
+          onClick: async () => {
+            setLoading(true)
+            const deleteUser = await userApi.deleteUser(userAuthToken, id)
+            if (deleteUser) {
+              if (!deleteUser.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: deleteUser.data.message, msgType: 'error' });
+              } else {
+                dispatch(setLogout())
+                navigate('/signin')
+                // 
+                setLoading(false)
+                ToastAlert({ msg: deleteUser.data.message, msgType: 'success' });
+
+              }
+
+            } else {
+              setLoading(false)
+              ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
+
+          }
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+
 
   }
 
@@ -716,9 +760,12 @@ const UserProfile = () => {
                 <div>This cannot be undone.</div>
               </li>
             </ul>
-            <a href="#" className="btn btn--deactivate">
+            {/* <a href="#" className="btn btn--deactivate">
               Deactivate
-            </a>
+            </a> */}
+            <button className="btn btn--deactivate" onClick={() => deleteUser(data._id)}>
+              Deactivate
+            </button>
           </div>
         </div>
       </div>

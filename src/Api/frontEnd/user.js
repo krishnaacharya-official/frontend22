@@ -265,6 +265,28 @@ function user() {
         return res;
     }
 
+    const deleteUser = async (authToken, id) => {
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}user/${id}`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
 
@@ -278,7 +300,8 @@ function user() {
         applyPartership,
         userXpEarnlist,
         getUserRank,
-        getUserPaymentHistory
+        getUserPaymentHistory,
+        deleteUser
 
     }
 }

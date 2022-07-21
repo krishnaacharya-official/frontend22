@@ -207,13 +207,13 @@ function organization() {
         return res;
     }
 
-    const removeTeamMember = async (authToken,id) => {
+    const removeTeamMember = async (authToken, id) => {
 
 
         let res = {};
         await axios({
             method: 'delete',
-            url: `${helper.ApiUrl}team_member/remove/`+id,
+            url: `${helper.ApiUrl}team_member/remove/` + id,
             responseType: 'json',
             headers: {
                 "x-access-token": authToken,
@@ -253,7 +253,7 @@ function organization() {
         return res;
     }
 
-    const teamMemberActivation = async (authToken,data) => {
+    const teamMemberActivation = async (authToken, data) => {
 
         let res = {};
         await axios({
@@ -268,7 +268,7 @@ function organization() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
@@ -299,6 +299,29 @@ function organization() {
         return res;
     }
 
+    const getPaymentHistory = async (authToken,data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}campaign_admin/payment_history`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
 
     return {
@@ -313,7 +336,8 @@ function organization() {
         removeTeamMember,
         teamMemberOrganizationList,
         teamMemberActivation,
-        listUserTeamMember
+        listUserTeamMember,
+        getPaymentHistory
 
     }
 }

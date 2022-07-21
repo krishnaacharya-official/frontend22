@@ -18,7 +18,7 @@ const ItemsTable = (props) => {
 
   let orderItemList = props.orderItemList
 
-  const totalPriceArray= props.totalPriceArray
+  const totalPriceArray = props.totalPriceArray
   // console.log(orderItemList)
   return (
     <>
@@ -89,15 +89,33 @@ const ItemsTable = (props) => {
                     <div className="d-flex align-items-center flex__1">
                       <div className="d-flex align-items-center flex__1">
                         <div className="d-flex align-items-center progress__wrap me-2 flex__1">
-                          <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
-                            {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
-                          </span>
+                          {
+                            !item.itemDetails?.unlimited ?
+
+                              < span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
+                                {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
+                              </span>
+                              :
+                              <></>
+                          }
                           <ProgressBar
-                            variant="success"
-                            now={Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}
+                            variant={!item.itemDetails?.unlimited ? "success" : "info"}
+                            now={!item.itemDetails?.unlimited ? Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100) : 100}
                             className="flex-grow-1"
                           />
-                          <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
+                          {
+                            !item.itemDetails?.unlimited ?
+                              <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span>
+                              :
+                              <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                                <div className="tag tag--ongoing _2">
+                                  <div className="icon icon--unlimited">
+                                    <FontAwesomeIcon icon={solid("infinity")} className="" />
+                                  </div>
+                                </div>
+                              </div>
+                          }
+
                         </div>
                         <Button
                           variant="link"

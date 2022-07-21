@@ -24,7 +24,7 @@ function SettingsTabs({ activeKey, data, _onClick, ...otherProps }) {
   const location = useLocation()
   let currentOption = location.pathname.split('/')[4]
   const userData = JSON.parse(localStorage.getItem('userData')) ;
-  let newSlug =userData.name.split(/\s/).join('');
+  let newSlug =userData?.name.split(/\s/).join('');
 
   // let userName = data?.name
   // let newSlug =userName?.split(/\s/).join('');

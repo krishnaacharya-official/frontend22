@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { Nav } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import {
   DashboardIcon,
@@ -24,6 +24,9 @@ const navItemStyle = {
 
 function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   const location = useLocation()
+  const navigate = useNavigate()
+  const userAuthToken = localStorage.getItem('userAuthToken');
+
   const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[3])
 
   // let currentOption = location.pathname.split('/')[3]
@@ -31,12 +34,18 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   // let newSlug =userName?.split(/\s/).join('');
 
   useEffect(() => {
+
+    if (!userAuthToken) {
+      navigate('/signin')
+    }
+
+
     setCurrentOption(location.pathname.split('/')[3])
   }, [location.pathname])
-  
 
-  const userData = JSON.parse(localStorage.getItem('userData')) ;
-  let newSlug =userData.name.split(/\s/).join('');
+
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  let newSlug = userData?.name.split(/\s/).join('');
   // console.log(currentOption)
   return (
     <>
