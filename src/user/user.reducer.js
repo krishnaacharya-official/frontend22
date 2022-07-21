@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE ,SET_CURRENT_COUNTRY_SORT} from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -96,7 +96,9 @@ const userReducer = (state = userInitialState, action) => {
                 zip: action.payload.zip,
                 lat: action.payload.lat,
                 lng: action.payload.lng,
-                area: action.payload.area
+                area: action.payload.area,
+                countrySortName: action.payload.countrySortName
+
             }
 
         case UPDATE_XP:
@@ -106,7 +108,13 @@ const userReducer = (state = userInitialState, action) => {
                 xp: action.payload
 
             }
+        case SET_CURRENT_COUNTRY_SORT:
 
+            return {
+                ...state,
+                countrySortName: action.payload
+
+            }
         case UPDATE_RANK:
 
             return {

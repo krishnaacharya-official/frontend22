@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { ReactComponent as SearchIcon } from "../../../../../assets/svg/search.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,10 +9,11 @@ import "rc-slider/assets/index.css";
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker, Source, ScaleControl,ZoomControl  } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker, Source, ScaleControl, ZoomControl } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
+import { useSelector, useDispatch } from "react-redux";
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
@@ -27,6 +28,9 @@ const Map = ReactMapboxGl({
 
 
 const GeoLocation = () => {
+
+  const user = useSelector((state) => state.user);
+
 
   const mapStyles = {
     "londonCycle": "mapbox://styles/mapbox/light-v9",
@@ -103,6 +107,18 @@ const GeoLocation = () => {
 
   }
 
+  useEffect(() => {
+
+
+    setLocation({
+      ...location,
+      organizationLocation: user.countrySortName,
+      lat: user.lat ? Number(user.lat) : 0,
+      lng: user.lng ? Number(user.lng) : 0
+    })
+
+  }, [user])
+
 
 
 
@@ -124,13 +140,13 @@ const GeoLocation = () => {
                 </InputGroup.Text>
                 {/* <FormControl placeholder="Search" /> */}
                 <MapboxAutocomplete
-                    publicKey={helper.MapBoxPrimaryKey}
-                    inputClass='form-control search'
-                    // query={location.locationName}
-                    // defaultValue={location.locationName}
-                    onSuggestionSelect={sugg}
-                    country='in'
-                    resetSearch={false} />
+                  publicKey={helper.MapBoxPrimaryKey}
+                  inputClass='form-control search'
+                  // query={location.locationName}
+                  // defaultValue={location.locationName}
+                  onSuggestionSelect={sugg}
+                  country={location.organizationLocation}
+                  resetSearch={false} />
               </InputGroup>
 
               <div className="geo__distance">

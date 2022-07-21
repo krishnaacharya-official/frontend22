@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
@@ -118,6 +118,7 @@ export default function HomeController() {
     function showError(error) {
         if (error) {
             console.log(error)
+            dispatch(setUserCountrySort('us'))
             if (userAuthToken) {
                 if (userData.country_id && userData.country_id !== null && userData.country_id > 0) {
                     dispatch(setUserCountry(userData.country_id))
@@ -196,13 +197,13 @@ export default function HomeController() {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
 
-        console.log(latitude, longitude)
+        // console.log(latitude, longitude)
         if (latitude && longitude) {
 
             const getLocationByLatLong = await locationApi.getLocationByLatLong(latitude, longitude)
             if (getLocationByLatLong && getLocationByLatLong.data.status === "OK") {
                 if (getLocationByLatLong.data.results.length > 0) {
-
+                    console.log(getLocationByLatLong.data.results[0])
                     let jsObjects = getLocationByLatLong.data.results[0].address_components
                     let tempObj = {}
                     tempObj.stateName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name
@@ -210,11 +211,18 @@ export default function HomeController() {
                     tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name
                     tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
                     tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
+                    tempObj.countrySortName = jsObjects.find(settings => settings.types[0] === 'country').short_name
+
                     tempObj.lat = latitude
                     tempObj.lng = longitude
-                    console.log(tempObj)
+                    // console.log(tempObj)
 
                     dispatch(setUserAddress(tempObj))
+
+                    dispatch(setUserCountrySort(jsObjects.find(settings => settings.types[0] === 'country').short_name))
+
+
+
                     // console.log(jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name)
 
                     jsObjects.filter(async obj => {
@@ -236,9 +244,8 @@ export default function HomeController() {
                             const getCountryData = await locationApi.currencyByCountry(token, countryName)
                             if (getCountryData) {
                                 if (getCountryData.data.success) {
-
+                                    dispatch(setUserCountrySort(getCountryData.data.data.iso2))
                                     dispatch(setUserCountry(getCountryData.data.data.id))
-
                                     let currencyData = {}
                                     currencyData.currency = getCountryData.data.data.currency
                                     currencyData.currencySymbol = getCountryData.data.data.symbol

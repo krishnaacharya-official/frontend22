@@ -14,6 +14,7 @@ const userInitialState = {
     profileImage:"",
     countryId:"",
     countryName:"",
+    countrySortName:"",
     stateId:"",
     stateName:"",
     cityName:"",
