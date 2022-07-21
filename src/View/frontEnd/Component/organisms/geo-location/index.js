@@ -8,112 +8,52 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 import "./style.scss";
+import helper from "../../../../../Common/Helper";
+import ReactMapboxGl, { Layer, Feature, Marker, Source, ScaleControl,ZoomControl  } from 'react-mapbox-gl';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import MapboxAutocomplete from 'react-mapbox-autocomplete';
 
-// class GeoLocation extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       locked: false,
-//     };
-//   }
+// require('mapbox-gl/dist/mapbox-gl.css');
 
-//   toggleState = () => {
-//     this.state.locked
-//       ? this.setState({ locked: false })
-//       : this.setState({ locked: true });
-//   };
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
 
-//   render() {
-//     const ToggleButton = React.forwardRef(({ children, onClick }, ref) => {
-//       return (
-//         <Button
-//           ref={ref}
-//           variant="link"
-//           onClick={(e) => {
-//             e.preventDefault();
-//             onClick(e);
-//           }}
-//           className="p-0 icon__btn text-decoration-none"
-//         >
-//           {children}
-//         </Button>
-//       );
-//     });
-//     return (
-//       <>
-//         <Dropdown className="d-flex" autoClose="outside">
-//           <Dropdown.Toggle as={ToggleButton}>
-//             <span className="d-flex align-items-center icon">
-//               <i className="fa-solid fa-circle-location-arrow"></i>
-//             </span>
-//           </Dropdown.Toggle>
 
-//           <Dropdown.Menu className="geo__dropdown dropdown-top-arrow w-310">
-//             <div className="dropdown__inner position-relative">
-//               <div className="geo_dropdown-top d-flex align-items-center">
-//                 <InputGroup className="input-group__alpha">
-//                   <InputGroup.Text>
-//                     <SearchIcon />
-//                   </InputGroup.Text>
-//                   <FormControl placeholder="Search" />
-//                 </InputGroup>
+const Map = ReactMapboxGl({
+  accessToken:
+    helper.MapBoxPrimaryKey
+});
 
-//                 <div className="geo__distance">
-//                   <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1">
-//                     200 m
-//                   </div>
-//                 </div>
-
-//                 <div className="geo__lock d-flex align-items-center">
-//                   <Button
-//                     variant="link"
-//                     className="p-0 text-decoration-none mx-auto"
-//                     onClick={this.toggleState}
-//                   >
-//                     <span className="d-flex align-items-center icon">
-//                       {this.state.locked ? (
-//                         <i className="fa-light fa-lock-open"></i>
-//                       ) : (
-//                         <i className="fa-solid fa-lock text-success"></i>
-//                       )}
-//                     </span>
-//                   </Button>
-//                 </div>
-//               </div>
-//               <div className="mapboxgl-map"></div>
-
-//               <div className="geo__slider">
-//                 <Slider
-//                   handleStyle={{
-//                     width: "26px",
-//                     height: "26px",
-//                     border: "none",
-//                     background: "#3596F3",
-//                     marginTop: "-10px",
-//                   }}
-//                   railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
-//                 />
-//               </div>
-
-//               <div className="d-grid gap-2 p-2">
-//                 <Button variant="success">
-//                   Update Results (12)
-//                 </Button>
-//               </div>
-//             </div>
-//           </Dropdown.Menu>
-//         </Dropdown>
-//       </>
-//     );
-//   }
-// }
 
 
 const GeoLocation = () => {
 
+  const mapStyles = {
+    "londonCycle": "mapbox://styles/mapbox/light-v9",
+    "light": "mapbox://styles/mapbox/light-v9",
+    "dark": "mapbox://styles/mapbox/dark-v9",
+    "basic": "mapbox://styles/mapbox/basic-v9",
+    "outdoor": "mapbox://styles/mapbox/outdoors-v10"
+
+  };
+
+
+
   const [state, setState] = useState({
-    locked: false
+    locked: true
   })
+
+
+  const [location, setLocation] = useState({
+    organizationLocation: "",
+    locationName: "",
+    lng: 72.6562418,
+    lat: 23.0002656,
+    zoomlevel: 12
+
+  })
+
+
 
   const ToggleButton = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -132,20 +72,46 @@ const GeoLocation = () => {
   });
 
   const toggleState = () => {
-    if(state.locked){
-      setState({...state, locked: false })
-    }else{
-      setState({...state, locked: true });
+    if (state.locked) {
+      setState({ ...state, locked: false })
+    } else {
+      setState({ ...state, locked: true });
     }
-   
+
   };
+
+  const sugg = (result, lat, lng, text) => {
+    // console.log("result", result)
+    // console.log("lat", lat)
+    // console.log("lng", lng)
+    // console.log("text", text)
+
+    // setLocation({
+    //   ...stateData,
+    //   address: result,
+    //   lat: lat,
+    //   lng: lng,
+
+    // })
+
+    setLocation({
+      ...location,
+      locationName: result,
+      lat: lat,
+      lng: lng
+    })
+
+  }
+
+
+
 
   return (
     <>
-      <Dropdown className="d-flex" autoClose="outside">
+      <Dropdown className="d-flex" autoClose="outside" >
         <Dropdown.Toggle as={ToggleButton}>
           <span className="d-flex align-items-center icon">
-          <FontAwesomeIcon icon={solid("circle-location-arrow")} />
+            <FontAwesomeIcon icon={solid("circle-location-arrow")} />
           </span>
         </Dropdown.Toggle>
 
@@ -156,7 +122,15 @@ const GeoLocation = () => {
                 <InputGroup.Text>
                   <SearchIcon />
                 </InputGroup.Text>
-                <FormControl placeholder="Search" />
+                {/* <FormControl placeholder="Search" /> */}
+                <MapboxAutocomplete
+                    publicKey={helper.MapBoxPrimaryKey}
+                    inputClass='form-control search'
+                    // query={location.locationName}
+                    // defaultValue={location.locationName}
+                    onSuggestionSelect={sugg}
+                    country='in'
+                    resetSearch={false} />
               </InputGroup>
 
               <div className="geo__distance">
@@ -169,7 +143,7 @@ const GeoLocation = () => {
                 <Button
                   variant="link"
                   className="p-0 text-decoration-none mx-auto"
-                  onClick={()=>toggleState()}
+                  onClick={() => toggleState()}
                 >
                   <span className="d-flex align-items-center icon">
                     {state.locked ? (
@@ -181,7 +155,30 @@ const GeoLocation = () => {
                 </Button>
               </div>
             </div>
-            <div className="mapboxgl-map"></div>
+            <div className="mapboxgl-map">
+              <Map
+                style={mapStyles.outdoor}
+                zoom={[location.zoomlevel]}
+                containerStyle={{
+                  height: '300px',
+                  width: '310px'
+                }}
+                center={[location.lng, location.lat]}
+
+              >
+                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
+                  <Feature coordinates={[location.lng, location.lat]} />
+                </Layer>
+
+                <Marker
+                  coordinates={[location.lng, location.lat]}
+                  anchor="bottom">
+                  <div className="mapboxgl-user-location-dot"></div>
+                </Marker>
+
+              </Map>
+
+            </div>
 
             <div className="geo__slider">
               <Slider
@@ -192,7 +189,11 @@ const GeoLocation = () => {
                   background: "#3596F3",
                   marginTop: "-10px",
                 }}
+                min={2}
+                value={location.zoomlevel}
                 railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
+                disabled={!state.locked}
+                onChange={(e) => setLocation({ ...location, zoomlevel: e })}
               />
             </div>
 

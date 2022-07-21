@@ -1167,3 +1167,37 @@ li.search__tag {
   font-size: 9px;
   font-weight: 700;
 }
+
+.geo__dropdown {
+    transform: translate(-28px, 39px) !important;
+    inset: 0px  0px auto auto  !important;
+    /* transform: unset !important; */
+
+    /* transform:  translate(0px, 39px) !important */
+}
+
+.mapboxgl-user-location-dot:after {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  content: "";
+  height: 19px;
+  left: -2px;
+  position: absolute;
+  top: -2px;
+  width: 19px;
+  box-sizing: border-box;
+  box-shadow: 0 0 3px rgb(0 0 0 / 35%);
+}
+
+.mapboxgl-user-location-dot:before {
+  content: "";
+  position: absolute;
+  animation: mapboxgl-user-location-dot-pulse 2s infinite;
+}
+
+.mapboxgl-user-location-dot, .mapboxgl-user-location-dot:before {
+  background-color: #1da1f2;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
