@@ -9,7 +9,7 @@ import "rc-slider/assets/index.css";
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker, Source, ScaleControl, ZoomControl } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker,Cluster  } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
@@ -51,8 +51,8 @@ const GeoLocation = () => {
   const [location, setLocation] = useState({
     organizationLocation: "",
     locationName: "",
-    lng: 72.6562418,
-    lat: 23.0002656,
+    lng: 0,
+    lat: 0,
     zoomlevel: 12
 
   })
@@ -175,6 +175,7 @@ const GeoLocation = () => {
               <Map
                 style={mapStyles.outdoor}
                 zoom={[location.zoomlevel]}
+                onZoomEnd={(e)=>console.log(e)}
                 containerStyle={{
                   height: '300px',
                   width: '310px'

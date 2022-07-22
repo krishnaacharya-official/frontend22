@@ -30,6 +30,13 @@ const Header = (props) => {
 
           <div className="ms-auto header__right d-flex">
             {
+              userAuthToken || CampaignAdminAuthToken ?
+                <GeoLocation />
+                :
+                <></>
+
+            }
+            {
               userAuthToken ?
                 <>
                   {/* <GeoLocation /> */}
@@ -45,13 +52,7 @@ const Header = (props) => {
                 :
                 <></>
             }
-            {
-              userAuthToken || CampaignAdminAuthToken ?
-                <GeoLocation />
-                :
-                <></>
 
-            }
             <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist} getAuthToken={props.getAuthToken}
             />
           </div>

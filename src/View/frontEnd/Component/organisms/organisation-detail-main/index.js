@@ -49,7 +49,7 @@ function OrganisationDetailMain(props) {
               icon={regular("circle-location-arrow")}
               className="me-1"
             />
-           {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
+            {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
           </div>
           <div className="text-light d-flex align-items-center ms-2">
             <IconToggle
@@ -95,11 +95,11 @@ function OrganisationDetailMain(props) {
             variant="secondary"
             className=" text-decoration-none"
           >
-            <span className="fs-6"style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
+            <span className="fs-6" style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
           </Button>
         </div>
 
-        <h5>Personal tents for the homeless in Alberta, Canada</h5>
+        <h5>{organizationDetails?.headline}</h5>
         <div className="page__paragraph lh-lg">
           {organizationDetails?.description}
         </div>

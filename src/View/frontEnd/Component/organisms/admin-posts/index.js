@@ -205,17 +205,42 @@ const AdminPosts = (props) => {
 
     if (e.target.name === "category") {
 
+      // setstate({
+      //   ...state,
+      //   'subcategory': ''
+      // })
+
+      // console.log(value)
+
       //get subCategory List on Category Change
 
       const getsubCategoryList = await categoryApi.listSubCategory(token, value);
       if (getsubCategoryList.data.success === true) {
         setSubCategoryList(getsubCategoryList.data.data)
+        if (getsubCategoryList.data.data.length > 0) {
+          setstate({
+            ...state,
+            subcategory: getsubCategoryList.data.data[0]._id,
+            [e.target.name]: value
+          })
+        } else {
+          setstate({
+            ...state,
+            subcategory: '',
+            [e.target.name]: value
+          })
+        }
+      } else {
+        setstate({
+          ...state,
+          subcategory: '',
+          [e.target.name]: value
+        })
       }
 
-      setstate({
-        ...state,
-        [e.target.name]: value
-      })
+
+
+
 
     } else if (e.target.name === "headline") {
       if (id === "") {

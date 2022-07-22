@@ -180,6 +180,8 @@ function product() {
 
         }
 
+
+
         data.append('status', cdata.status);
         if (cdata.image) {
             data.append('image', cdata.image);
@@ -187,8 +189,8 @@ function product() {
         data.append('organizationId', cdata.organizationId);
         data.append('price', cdata.price);
         data.append('description', cdata.description);
-        data.append('category_id', cdata.category_id);
-        data.append('subcategory_id', cdata.subcategory_id);
+        data.append('categoryId', cdata.category_id);
+        data.append('subcategoryId', cdata.subcategory_id);
         if (cdata.quantity) {
             data.append('quantity', cdata.quantity);
         }
