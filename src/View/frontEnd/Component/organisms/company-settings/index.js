@@ -1,5 +1,5 @@
 import "./style.scss";
-import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import { Outlet, Link, useLocation, useOutletContext, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import helper, { isIframe } from "../../../../../Common/Helper";
@@ -9,14 +9,17 @@ import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
 import { Button } from "react-bootstrap";
 // import { UserContext } from '../../../../../App';
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateCart, setIsUpdateOrganization, setProfileImage } from "../../../../../user/user.action"
+import { setIsUpdateCart, setIsUpdateOrganization, setProfileImage, setLogout } from "../../../../../user/user.action"
 import locationApi from "../../../../../Api/frontEnd/location";
 import Select from "react-select"
+import { confirmAlert } from "react-confirm-alert"
 
 
 
 const CompanySettings = () => {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate()
+
   // const user = useContext(UserContext)
   const dispatch = useDispatch();
   const [data, setData] = useOutletContext();
@@ -342,6 +345,47 @@ const CompanySettings = () => {
     });
 
   }
+
+
+  const deleteAccount = (id) => {
+
+    confirmAlert({
+      title: 'Deactivate Account',
+      message: "Are you sure to want to deactivate this account? If you will do this then you won't be able to do login again...",
+      buttons: [
+        {
+          label: 'Yes',
+
+          onClick: async () => {
+            setLoading(true)
+            const deleteUser = await adminCampaignApi.deleteCampaignAdmin(token, id)
+            if (deleteUser) {
+              if (!deleteUser.data.success) {
+                setLoading(false)
+                ToastAlert({ msg: deleteUser.data.message, msgType: 'error' });
+              } else {
+                dispatch(setLogout())
+                navigate('/signin')
+                // 
+                setLoading(false)
+                ToastAlert({ msg: deleteUser.data.message, msgType: 'success' });
+
+              }
+
+            } else {
+              setLoading(false)
+              ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+            }
+
+          }
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+
+  }
   return (
     <>
       <FrontLoader loading={loading} />
@@ -512,9 +556,13 @@ const CompanySettings = () => {
               <div>This cannot be undone.</div>
             </li>
           </ul>
-          <a href="#" className="btn btn--deactivate">
+          {/* <a href="#" className="btn btn--deactivate">
             Deactivate
-          </a>
+          </a> */}
+
+          <button className="btn btn--deactivate" onClick={() => deleteAccount(data._id)}>
+            Deactivate
+          </button>
         </div>
       </div>
     </>

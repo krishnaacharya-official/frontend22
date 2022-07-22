@@ -12,6 +12,8 @@ import "./style.scss";
 import { Outlet, useOutletContext, Link } from 'react-router-dom';
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
+import helper,{getCardIcon} from "../../../../../Common/Helper";
+
 
 const AdminBilling = () => {
   const [historyList, setHistoryList] = useState([])
@@ -99,22 +101,24 @@ const AdminBilling = () => {
                 All transactions related to your Admin account
               </div>
             </div>
-            <Button variant="info" size="lg" className="btn__export">
+            {/* <Button variant="info" size="lg" className="btn__export">
               <span className="fw-bold fs-6">Export</span>
-            </Button>
+            </Button> */}
           </div>
           <div className="billing__list mb-3">
             {
               historyList.length > 0 &&
-              historyList.map((list, i) => {
+              historyList.slice(0, loadMore ? historyList.length : 2).map((list, i) => {
 
-                console.log(list)
+                // console.log(list)
                 let amount = list.type === 'ORDER' ? list.totalPrice : list.amount
-                let currencySymbole = list.currencySymbol
+                let currencySymbole = list.type === 'ORDER' ? list.orderDetails.currencySymbol : list.currencySymbol
                 let date = moment(list.created_at).format('DD/MM/YYYY')
                 let donate = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donate'
                 let PurchaseIcon = list.type === 'ORDER' ? <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-3p" /> : <FontAwesomeIcon icon={solid("heart")} className="mr-3p" />
-
+                let userName = list.type === 'ORDER' ? list.orderDetails.userDetails.name : list.userDetails.name
+                let CardType = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
+                let lastFourDigits = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.last4 : JSON.parse(list.paymentResponse).payment_method_details?.card?.last4
 
                 return (
                   <div className="billing__item p-2 border-bottom border-bottom-sm-none">
@@ -128,11 +132,11 @@ const AdminBilling = () => {
                           className="admin__avatar mr-12p"
                         />
                         <div className="admin__billing__value flex__1">
-                          <div className="text-danger fw-bold fs-5 mb-3p">- {currencySymbole} {amount}</div>
+                          <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole} {amount}</div>
                           <div className="fw-bold text-subtext fs-8">{date}</div>
                         </div>
                         <div className="admin__billing__details pr-3 ms-2 flex__1">
-                          <div className="fw-bold mb-3p">userName</div>
+                          <div className="fw-bold mb-3p">{userName}</div>
                           <div className="text-subtext">
                             {PurchaseIcon}
                             {donate}
@@ -146,13 +150,13 @@ const AdminBilling = () => {
                             <img
                               width="26"
                               height="26"
-                              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                              src={getCardIcon(CardType)}
                               alt=""
                             />
                           </div>
                           <div className="billing__card fs-7">
-                            <div>Mastercard</div>
-                            <div className="linked__date">7709</div>
+                            <div style={{textTransform:"capitalize"}}>{CardType}</div>
+                            <div className="linked__date">{lastFourDigits}</div>
                           </div>
                         </div>
                       </div>
@@ -205,12 +209,19 @@ const AdminBilling = () => {
                 </div>
               </div>
             </div> */}
+            {
+            !loadMore &&
+            historyList.length > 2 &&
+            <div className="more__log">
+              <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
+            </div>
+          }
 
-            <div className="more__bills mt-3">
+            {/* <div className="more__bills mt-3">
               <Button variant="info" className="fs-6 pt-12p pb-12p w-100">
                 Load More . . .
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

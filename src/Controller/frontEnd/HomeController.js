@@ -986,6 +986,8 @@ export default function HomeController() {
                 }
 
 
+            }else{
+            setCartProductList([])
             }
         } else {
             setCartProductList([])

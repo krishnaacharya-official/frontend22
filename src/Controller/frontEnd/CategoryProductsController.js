@@ -681,6 +681,8 @@ export default function CategoryProductsController() {
                 }
 
 
+            }else{
+            setCartProductList([])
             }
         } else {
             setCartProductList([])

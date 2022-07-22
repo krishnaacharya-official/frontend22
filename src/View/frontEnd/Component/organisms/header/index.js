@@ -18,7 +18,7 @@ const Header = (props) => {
   const adminAuthToken = localStorage.getItem('adminAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const userAuthToken = localStorage.getItem('userAuthToken');
-  
+
 
 
   return (
@@ -28,27 +28,32 @@ const Header = (props) => {
         {
           // adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
 
-            <div className="ms-auto header__right d-flex">
-              {
-                userAuthToken ?
+          <div className="ms-auto header__right d-flex">
+            {
+              userAuthToken ?
                 <>
-                  <GeoLocation />
+                  {/* <GeoLocation /> */}
 
 
-                  <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem}  />
+                  <ShoppingCart cartItem={props.cartItem} removeCartItem={props.removeCartItem} updateCartItem={props.updateCartItem} />
 
                   <Activity notificationList={props.notificationList} setWatchNotification={props.setWatchNotification}
-                removeNotification={props.removeNotification}
+                    removeNotification={props.removeNotification}
 
-                   />
+                  />
                 </>
                 :
                 <></>
-              }
-              <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist}                 getAuthToken={props.getAuthToken}
- />
-            </div>
-            //  : <></>
+            }
+            {
+              userAuthToken !== '' || CampaignAdminAuthToken !== '' &&
+              <GeoLocation />
+
+            }
+            <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist} getAuthToken={props.getAuthToken}
+            />
+          </div>
+          //  : <></>
         }
       </Container>
     </header>
