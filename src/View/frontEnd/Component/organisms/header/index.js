@@ -46,8 +46,10 @@ const Header = (props) => {
                 <></>
             }
             {
-              userAuthToken !== '' || CampaignAdminAuthToken !== '' &&
-              <GeoLocation />
+              userAuthToken || CampaignAdminAuthToken ?
+                <GeoLocation />
+                :
+                <></>
 
             }
             <UserSettings wishListproductList={props.wishListproductList} addProductToWishlist={props.addProductToWishlist} getAuthToken={props.getAuthToken}
