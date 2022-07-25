@@ -15,11 +15,13 @@ import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 import { useNavigate } from "react-router-dom";
-
+import { getDistance } from 'geolib';
 
 
 export default function HomeController() {
     const [productList, setProductList] = useState([])
+    const [allProductList, setAllProductList] = useState([])
+
     const [advertisementList, setAdvertisementList] = useState([])
     const [countryAdvertisementList, setCountryAdvertisementList] = useState([])
     const [homeadvertisementList, setHomeAdvertisementList] = useState([])
@@ -203,7 +205,7 @@ export default function HomeController() {
             const getLocationByLatLong = await locationApi.getLocationByLatLong(latitude, longitude)
             if (getLocationByLatLong && getLocationByLatLong.data.status === "OK") {
                 if (getLocationByLatLong.data.results.length > 0) {
-                    console.log(getLocationByLatLong.data.results[0])
+                    // console.log(getLocationByLatLong.data.results[0])
                     let jsObjects = getLocationByLatLong.data.results[0].address_components
                     let tempObj = {}
                     tempObj.stateName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name
@@ -341,6 +343,41 @@ export default function HomeController() {
         })()
     }, [user.isUpdateCart, userAuthToken])
 
+    useEffect(() => {
+        (async () => {
+
+            console.log(user.distance)
+            // console.log(user.lat)
+            // console.log(user.lng)
+            if (user.distance && user.distance.split(" ").length > 0) {
+                let d = Number(user.distance.split(" ")[0])
+                // console.log(d)
+
+                let productArray = []
+
+                if (d > 1) {
+                    allProductList.map((p, i) => {
+                        if (p.lat && p.lng) {
+                            let dis = getDistance(
+                                { latitude: user.lat, longitude: user.lng },
+                                { latitude: p.lat, longitude: p.lng },
+                            );
+                            // console.log('dis', dis / 1000)
+                            if (d > dis / 1000) {
+                                productArray.push(p)
+                            }
+                            //   console.log(dis/1000)
+                        }
+                    })
+                    setProductList(productArray)
+                }
+            }
+
+            // let p = productList.filter(e => getCalc.getData(e.price) < value)
+            // console.log(Math.floor(10000000 + Math.random() * 90000000))
+
+        })()
+    }, [user.distance])
 
 
 
@@ -356,8 +393,9 @@ export default function HomeController() {
             obj.userCountry = user.countryId
             const getproductList = await productApi.list(token, obj);
             if (getproductList.data.success === true) {
-
                 if (getproductList.data.data.length > 0) {
+                    setAllProductList(getproductList.data.data)
+
                     let productTagsArray = []
                     await Promise.all(getproductList.data.data.map(async (p, i) => {
 
@@ -686,19 +724,19 @@ export default function HomeController() {
                 setLoading(false)
             }
 
-            console.log('advertisement starts')
+            // console.log('advertisement starts')
 
             if (countryAdvertisementList.length > 0 && homeadvertisementList.length > 0) {
                 let arr = arrayUnique(countryAdvertisementList.concat(homeadvertisementList))
-                console.log('arr', arr)
+                // console.log('arr', arr)
                 setAdvertisementList(arr);
             } else if (countryAdvertisementList.length > 0 && homeadvertisementList.length === 0) {
                 setAdvertisementList(countryAdvertisementList);
-                console.log('countryAdvertisementList', countryAdvertisementList)
+                // console.log('countryAdvertisementList', countryAdvertisementList)
 
             } else if (countryAdvertisementList.length === 0 && homeadvertisementList.length > 0) {
                 setAdvertisementList(homeadvertisementList);
-                console.log('homeadvertisementList', homeadvertisementList)
+                // console.log('homeadvertisementList', homeadvertisementList)
 
 
             }
@@ -986,8 +1024,8 @@ export default function HomeController() {
                 }
 
 
-            }else{
-            setCartProductList([])
+            } else {
+                setCartProductList([])
             }
         } else {
             setCartProductList([])

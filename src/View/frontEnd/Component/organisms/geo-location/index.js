@@ -9,11 +9,12 @@ import "rc-slider/assets/index.css";
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker,Cluster  } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker, Cluster, ScaleControl } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
+import { setDistance, setLatLong } from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
@@ -27,9 +28,11 @@ const Map = ReactMapboxGl({
 
 
 
+
 const GeoLocation = () => {
 
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch()
 
 
   const mapStyles = {
@@ -47,15 +50,28 @@ const GeoLocation = () => {
     locked: true
   })
 
+  const [objectVal, setObjectVal] = useState()
 
   const [location, setLocation] = useState({
     organizationLocation: "",
     locationName: "",
     lng: 0,
     lat: 0,
-    zoomlevel: 12
+    zoomlevel: 13
 
   })
+  // const scale = new mapboxgl.ScaleControl({
+  //   unit: "imperial"
+  // });
+  // scale.setUnit("metric");
+  // Map.addControl(scale)
+  // scale.setUnit('metric')
+  // console.log(scale)
+  // document.getElementById("scale").appendChild(scale.onAdd(Map));
+  // scale.onAdd(Map)
+  // 
+
+
 
 
 
@@ -105,6 +121,11 @@ const GeoLocation = () => {
       lng: lng
     })
 
+    let locationData = {}
+    locationData.lat = lat
+    locationData.lng = lng
+    dispatch(setLatLong(locationData))
+
   }
 
   useEffect(() => {
@@ -117,7 +138,17 @@ const GeoLocation = () => {
       lng: user.lng ? Number(user.lng) : 0
     })
 
+
+
   }, [user])
+
+  useEffect(() => {
+
+    // console.log(objectVal)
+    dispatch(setDistance(objectVal))
+
+  }, [objectVal])
+
 
 
 
@@ -149,9 +180,9 @@ const GeoLocation = () => {
                   resetSearch={false} />
               </InputGroup>
 
-              <div className="geo__distance">
-                <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1">
-                  200 m
+              <div className="geo__distance" id="scale">
+                <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1" style={{ fontSize: 'small' }}>
+                  {objectVal}
                 </div>
               </div>
 
@@ -175,7 +206,7 @@ const GeoLocation = () => {
               <Map
                 style={mapStyles.outdoor}
                 zoom={[location.zoomlevel]}
-                onZoomEnd={(e)=>console.log(e)}
+                onRender={(e) => setObjectVal(e.boxZoom._container.outerText)} //boxZoom._container.outerText
                 containerStyle={{
                   height: '300px',
                   width: '310px'
@@ -186,6 +217,7 @@ const GeoLocation = () => {
                 <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
                   <Feature coordinates={[location.lng, location.lat]} />
                 </Layer>
+                <ScaleControl />
 
                 <Marker
                   coordinates={[location.lng, location.lat]}
@@ -198,6 +230,7 @@ const GeoLocation = () => {
             </div>
 
             <div className="geo__slider">
+
               <Slider
                 handleStyle={{
                   width: "26px",
@@ -206,11 +239,12 @@ const GeoLocation = () => {
                   background: "#3596F3",
                   marginTop: "-10px",
                 }}
-                min={2}
-                value={location.zoomlevel}
+                min={1}
+                max={150}
+                value={location.zoomlevel * 10}
                 railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
                 disabled={!state.locked}
-                onChange={(e) => setLocation({ ...location, zoomlevel: e })}
+                onChange={(e) => setLocation({ ...location, zoomlevel: e / 10 })}
               />
             </div>
 

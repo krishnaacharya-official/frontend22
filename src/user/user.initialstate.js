@@ -24,7 +24,8 @@ const userInitialState = {
     lng:"",
     xp:0,
     rank:"",
-    salesTax:""
+    salesTax:"",
+    distance:""
 
 
 
