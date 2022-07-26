@@ -61,7 +61,9 @@ const UserSettings = (props) => {
     navigate('/campaign/' + CampaignAdmin?.slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })
 
   }
-
+const onClickLeaderBoard = ()=> {
+  navigate('/leaderboard');
+}
 
   return (
     <>
@@ -152,6 +154,7 @@ const UserSettings = (props) => {
                   onWishlistClick={() => showWishList()}
                   onOrgClick={() => showOrg()}
                   userData={userData}
+                  onClickLeaderBoard={onClickLeaderBoard}
                 />
               )}
             </div>

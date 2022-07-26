@@ -11,7 +11,7 @@ import ListItemImg from "../Component/atoms/list-item-img";
 import settingApi from "../../../Api/admin/setting"
 import FrontLoader from "../../../Common/FrontLoader"
 import { useSelector, useDispatch } from "react-redux";
-import helper, { priceFormat } from "../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../Common/Helper";
 
 import "./style.scss";
 
@@ -19,7 +19,7 @@ const Xp = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
-
+  const getC = getCalculatedPrice()
   const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
     topDonator: "",
@@ -37,8 +37,8 @@ const Xp = () => {
     (async () => {
 
       setLoading(true)
-    
-      const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken :CampaignAdminAuthToken, Object.keys(state));
+
+      const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
       if (getSettingsValue.data.data.length > 0) {
         let data = {}
 
@@ -64,28 +64,31 @@ const Xp = () => {
       <DefaultLayout>
         <Container fluid className="pt-5">
           {userAuthToken &&
-          <div className="d-flex align-items-center py-3 border-bottom">
-            <Avatar
-              size={35}
-              avatarUrl={user.profileImage}
-              border={0}
-              shadow={false}
-              className="mr-12p"
-            />
+            <div className="d-flex align-items-center py-3 border-bottom">
+              <Avatar
+                size={35}
+                avatarUrl={user.profileImage}
+                border={0}
+                shadow={false}
+                className="mr-12p"
+              />
 
-            <span className="fs-7 text-light mr-2">Your Rank</span>
+              <span className="fs-7 text-light mr-2">Your Rank</span>
 
-            <IconButton
+              {/* <IconButton
               bgColor="#a278fc"
               className="btn__xs rounded-pill ms-2"
               icon={<FontAwesomeIcon icon={solid("narwhal")} />}
             >
               Norwhal
-            </IconButton>
-            <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-            { priceFormat(user.xp)} xp
-            </a>
-          </div>}
+            </IconButton> */}
+              <span className="ml-3p">
+                {getC.getUserRank(user.xp)}
+              </span>
+              <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
+                {priceFormat(user.xp)} xp
+              </a>
+            </div>}
           <div className="py-20p">
             <div className="note text-dark fs-7 mw-600">
               <div className="mb-12p">

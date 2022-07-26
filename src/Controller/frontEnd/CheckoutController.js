@@ -310,7 +310,7 @@ export default function CheckoutController() {
                         dispatch(setUserXp(user.xp + xp))
                         const clearCart = await cartApi.clearCart(userAuthToken);
                         if (clearCart.data.success) {
-                            navigate('/thankyou')
+                            navigate('/order/' + saveOrderDetails.data.orderId)
                         }
                         ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });
                         setLoading(false)

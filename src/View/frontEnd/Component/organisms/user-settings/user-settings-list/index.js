@@ -60,6 +60,7 @@ function UserSettingsList(props) {
               icon={<FontAwesomeIcon icon={solid("trophy-star")} />}
               label="Leaderboard"
               itemClass="border-bottom"
+              onClick={() => props.onClickLeaderBoard()}
             />
             <UserSettingsItem
               icon={<FontAwesomeIcon icon={solid("right-from-bracket")} />}

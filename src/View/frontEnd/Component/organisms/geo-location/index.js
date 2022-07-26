@@ -14,7 +14,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong } from "../../../../../user/user.action"
+import { setDistance, setLatLong ,setLocationFilter} from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
@@ -249,8 +249,8 @@ const GeoLocation = () => {
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button variant="success">
-                Update Results (12)
+              <Button variant="success" onClick={()=>dispatch(setLocationFilter(true))}>
+                Update Results {user.locationProductCount> 0 ? ' ( ' +user.locationProductCount+ ' ) ' : ''}
               </Button>
             </div>
           </div>

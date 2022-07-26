@@ -30,15 +30,25 @@ const ProjectsTable = (props) => {
     if (data.length > 0) {
       data.map((p, i) => {
         // console.log(p.itemDetails)
-        totalQArray.push(Number(p.itemDetails.quantity))
-        soldOutQArray.push(Number(p.itemDetails.soldout))
+        if (!p.itemDetails.unlimited) {
+          totalQArray.push(Number(p.itemDetails.quantity))
+          soldOutQArray.push(Number(p.itemDetails.soldout))
+        }
+
       })
+
+
 
       const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
       const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+      if (soldout === 0 || total === 0){
+        per = 0
+      }else{
+        per = Number(soldout) / Number(total) * 100
+      }
+        
 
 
-      per = soldout / total * 100
     } else {
       per = 0;
 

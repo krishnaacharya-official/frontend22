@@ -10,11 +10,12 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress,setProductCount,setLocationFilter  } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
+import { getDistance } from 'geolib';
 
 
 export default function CategoryProductsController() {
@@ -28,6 +29,7 @@ export default function CategoryProductsController() {
 
     const [wishListproductList, setWishListProductList] = useState([])
     const [wishListproductIds, setWishListProductIds] = useState([])
+    const [categoryProducts, setCategoryProducts] = useState([])
 
 
     const [productTags, setProductTags] = useState([])
@@ -149,6 +151,24 @@ export default function CategoryProductsController() {
             }
 
         }
+    }
+    const productListByCategory = async (id) => {
+
+        let userCountry = user.countryId
+        const getCategoryProducts = await productApi.listByCategory(token, id, userCountry)
+        if (getCategoryProducts.data.success === true) {
+            if (getCategoryProducts.data.data.length > 0) {
+                let tempArray = []
+                getCategoryProducts.data.data.map((product, i) => {
+                    tempArray.push(product)
+
+                })
+                setCategoryProducts(tempArray)
+            }
+
+        }
+
+
     }
 
     // function arrayUnique(array) {
@@ -291,6 +311,7 @@ export default function CategoryProductsController() {
 
             await getCategoryAdList(location.state.id)
             await getHomePageAdList()
+            await productListByCategory(location.state.id)
             // await getWishListProductList()
 
 
@@ -298,7 +319,47 @@ export default function CategoryProductsController() {
 
 
         })()
-    }, [user, location])
+    }, [user.countryId, location])
+
+
+    useEffect(() => {
+        (async () => {
+
+            // console.log(user.distance)
+            // console.log(user.isUpdateLocationFilter)
+            // console.log(user.lng)
+            if (user.distance && user.distance.split(" ").length > 0) {
+                let d = Number(user.distance.split(" ")[0])
+                // console.log(d)
+
+                let productArray = []
+
+                if (categoryProducts.length > 0 && d > 1 ) {
+                    categoryProducts.map((p, i) => {
+                        if (p.lat && p.lng) {
+                            let dis = getDistance(
+                                { latitude: user.lat, longitude: user.lng },
+                                { latitude: p.lat, longitude: p.lng },
+                            );
+                            // console.log('dis', dis / 1000)
+                            if (d > dis / 1000) {
+                                productArray.push(p)
+                            }
+                            //   console.log(dis/1000)
+                        }
+                    })
+                    dispatch(setProductCount(productArray.length))
+                    if (user.isUpdateLocationFilter === true) {
+                        // console.log('first')
+                        setProductList(productArray)
+                        dispatch(setLocationFilter(false))
+                    }
+                }
+            }
+     
+
+        })()
+    }, [user.distance,user.isUpdateLocationFilter])
 
     const checkItemInCart = async (id) => {
         let res;

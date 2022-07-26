@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE, SET_CURRENT_COUNTRY_SORT, SET_DISTANCE, UPDATE_LAT_LONG } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE, SET_CURRENT_COUNTRY_SORT, SET_DISTANCE, UPDATE_LAT_LONG,UPDATE_PRODUCT_COUNT,SET_LOCATION_FILTER } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -158,6 +158,20 @@ const userReducer = (state = userInitialState, action) => {
                 lng: action.payload.lng,
             }
 
+        case SET_LOCATION_FILTER:
+            return {
+                ...state,
+                isUpdateLocationFilter: action.payload,
+
+            }
+
+        case UPDATE_PRODUCT_COUNT:
+            return {
+                ...state,
+                locationProductCount: action.payload,
+
+            }
+
         case LOGOUT:
             localStorage.clear();
             return {
@@ -185,7 +199,9 @@ const userReducer = (state = userInitialState, action) => {
                 rank: "",
                 salesTax: "",
                 role: '',
-                distance: ""
+                distance: "",
+                isUpdateLocationFilter: false,
+                locationProductCount: 0
 
 
             }

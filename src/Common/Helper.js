@@ -234,12 +234,18 @@ export function getCalculatedPrice() {
         const beluga = setting.beluga && setting.beluga !== "" ? Number(setting.beluga) : 1000
         const fish = setting.fish && setting.fish !== "" ? Number(setting.fish) : 500
         let rank;
+        // console.log('pirate', pirate)
+        // console.log('admiral', admiral)
+
+        // console.log(typeof(captian) )
 
 
         switch (true) {
 
             case (UserXp < fish):
-                rank = <></>
+                rank = <div style={{ width: "100px" }}>
+
+                </div>
                 break;
 
             case (UserXp >= fish && UserXp < beluga):
@@ -280,7 +286,7 @@ export function getCalculatedPrice() {
 
                 break;
 
-            case (UserXp >= pirate && UserXp < admiral):
+            case (UserXp >= pirate && UserXp <= admiral):
                 rank = (
                     <IconButton
                         bgColor="#fc8c63"
@@ -293,7 +299,7 @@ export function getCalculatedPrice() {
 
                 break;
 
-            case (UserXp >= admiral && UserXp < captian):
+            case (UserXp > admiral && UserXp < captian):
                 rank = (
                     <IconButton
                         bgColor="#95dbb0"
@@ -320,7 +326,7 @@ export function getCalculatedPrice() {
 
                 break;
             default:
-                <></>
+                rank = <></>
                 break;
 
 

@@ -104,13 +104,17 @@ function ProjectDetailMain(props) {
           <FontAwesomeIcon icon={regular("clock")} className="me-1" />
           {moment(productDetails?.created_at).format('MMMM DD, YYYY')}
         </div>
-        <div className="d-flex align-items-center ms-2">
-          <FontAwesomeIcon
-            icon={regular("circle-location-arrow")}
-            className="me-1"
-          />
-          Toronto, ON
-        </div>
+        {
+          productDetails?.address &&
+
+          <div className="d-flex align-items-center ms-2">
+            <FontAwesomeIcon
+              icon={regular("circle-location-arrow")}
+              className="me-1"
+            />
+            {productDetails?.address}
+          </div>
+        }
       </div>
 
       {/* show for mobile view */}
@@ -126,18 +130,20 @@ function ProjectDetailMain(props) {
         <div className="d-flex align-items-center flex-grow-1">
           <ProgressBar
             variant="success"
-            now={per}
+            now={productDetails.unlimited ?100 : per}
             className="flex-grow-1 me-1"
           />
-          {props.onGoing ? (
-            <span className="tag tag__ongoing tag__rounded fs-5">
-              <FontAwesomeIcon icon={regular("infinity")} />
-            </span>
-          ) : (
-            <span className="fw-bold">
-              {productDetails.soldout} / {productDetails.quantity} <span className="fs-9 fw-normal">sold</span>
-            </span>
-          )}
+          {productDetails.
+            unlimited
+            ? (
+              <span className="tag tag__ongoing tag__rounded fs-5">
+                <FontAwesomeIcon icon={regular("infinity")} />
+              </span>
+            ) : (
+              <span className="fw-bold">
+                {productDetails.soldout} / {productDetails.quantity} <span className="fs-9 fw-normal">sold</span>
+              </span>
+            )}
         </div>
         <div className="text-light d-flex align-items-center ms-3">
           <IconToggle

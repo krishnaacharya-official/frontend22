@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort, setProductCount,setLocationFilter } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
@@ -346,7 +346,7 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
 
-            console.log(user.distance)
+            // console.log(user.distance)
             // console.log(user.lat)
             // console.log(user.lng)
             if (user.distance && user.distance.split(" ").length > 0) {
@@ -369,7 +369,11 @@ export default function HomeController() {
                             //   console.log(dis/1000)
                         }
                     })
-                    setProductList(productArray)
+                    dispatch(setProductCount(productArray.length))
+                    if (user.isUpdateLocationFilter === true) {
+                        setProductList(productArray)
+                        dispatch(setLocationFilter(false))
+                    }
                 }
             }
 
@@ -377,7 +381,7 @@ export default function HomeController() {
             // console.log(Math.floor(10000000 + Math.random() * 90000000))
 
         })()
-    }, [user.distance])
+    }, [user.distance,user.isUpdateLocationFilter])
 
 
 

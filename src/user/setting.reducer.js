@@ -11,7 +11,7 @@ const settingReducer = (state = settingInitialState, action) => {
             return {
                 ...state,
                 captian: action.payload.captian,
-                admiral: action.payload.captian,
+                admiral: action.payload.admiral,
                 pirate: action.payload.pirate,
                 narwhal: action.payload.narwhal,
                 beluga: action.payload.beluga,

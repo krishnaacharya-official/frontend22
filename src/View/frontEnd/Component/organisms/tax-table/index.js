@@ -62,6 +62,7 @@ const TaxTable = (props) => {
           {
             props.taxList.length > 0 ?
               props.taxList.map((item, i) => {
+                // console.log(item)
                 return (
                   <li className="table__list-item p-2">
                     <div className="d-sm-flex align-items-center flex-grow-1">
@@ -79,7 +80,7 @@ const TaxTable = (props) => {
                               <div className="fw-bold fs-5 billing__name mb-6p">
                                 {item.organizationDetails.name}
                               </div>
-                              <div className="text-light">#{item.orderId}</div>
+                              <div className="text-light">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div>
                             </div>
 
                             <span className="text-light fw-semibold flex__1">

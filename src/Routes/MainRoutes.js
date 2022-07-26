@@ -76,6 +76,8 @@ import PlansController from '../Controller/frontEnd/PlansController';
 import VerifiedDonors from '../View/frontEnd/verified-donors';
 import Terms from '../View/frontEnd/terms';
 import CategoryProductsController from '../Controller/frontEnd/CategoryProductsController';
+import LeaderBoard from '../View/frontEnd/Component/organisms/leaderboard';
+import OrderConfirmPage from '../View/frontEnd/OrderConfirmPage';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -261,6 +263,8 @@ export default function MainRoutes() {
                         <Route path="/categories/:slug" element={<CategoryProductsController />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route path="/xp" element={<Xp />} />
+                        <Route path="/leaderboard" element={<LeaderBoard />} />
+
                         <Route path="/partnership" element={<Partnership />} />
                         <Route path="/sponsors" element={<Sponsors />} />
                         <Route path="/help" element={<Help />} />
@@ -278,6 +282,7 @@ export default function MainRoutes() {
                         <Route path="/cart" element={<CartController />} />
                         <Route path="/checkout" element={<CheckoutController />} />
                         <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="/order/:id" element={<OrderConfirmPage />} />
                         <Route path="/verified" element={<VerifiedDonors />} />
                         <Route path="/terms" element={<Terms />} />
                         <Route path="user" element={<UserDetail />} >

@@ -1201,3 +1201,15 @@ li.search__tag {
   height: 15px;
   border-radius: 50%;
 }
+.rank__avatar {
+  width: 98px;
+  height: 98px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background-image: url(https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg);
+  background-position: 50% 50%;
+  background-size: cover;
+}
