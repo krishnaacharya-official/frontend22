@@ -242,7 +242,7 @@ export default function OrganizationDetailsController() {
                         dispatch(setUserXp(user.xp + addXp))
                         ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });
                         setLoading(false)
-                        navigate('/thankyou')
+                        navigate('/donate/'+donateToOrganization.data.donationId)
                     }
 
                 } else {

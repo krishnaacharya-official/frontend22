@@ -32,7 +32,9 @@ const LeaderBoard = () => {
     const [list, setList] = useState([])
 
     const getList = async () => {
-        const list = await userApi.getUserHighXpList(userAuthToken)
+        let data = {}
+        data.countryId = user.countryId
+        const list = await userApi.getUserHighXpList(userAuthToken, data)
         if (list && list.data.success) {
             setList(list.data.data)
         }
@@ -42,12 +44,14 @@ const LeaderBoard = () => {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            await getList()
+            if(user.countryId){
+                await getList()
+            }
             setLoading(false)
 
         })()
 
-    }, [])
+    }, [user.countryId])
 
 
     return (
@@ -73,11 +77,11 @@ const LeaderBoard = () => {
                                                 <li className="similar__item__wrap  d-flex align-items-center">
                                                     <div className="d-flex align-items-center w-100 " style={{ borderBottom: "1px solid #f5f5f5", height: "90px" }}>
                                                         <div className="">
-                                                            <div className="fs-5 fw-bold mb-3p" style={{ marginRight: "30px" }}>{i+1}</div>
+                                                            <div className="fs-5 fw-bold mb-3p" style={{ marginRight: "30px" }}>{i + 1}</div>
 
                                                         </div>
                                                         <div className="d-flex align-items-center w-100">
-                                                            <Avatar size={46} avatarUrl={person.image ?helper.DonorImagePath + person.image : AvatarImg} border={0} shadow={false} />
+                                                            <Avatar size={46} avatarUrl={person.image ? helper.DonorImagePath + person.image : AvatarImg} border={0} shadow={false} />
                                                             <div className="ms-2" style={{ flexGrow: "0.5" }}>
                                                                 <div className="d-flex align-items-center justify-content-start me-3">
                                                                     <div className="text-dark fw-bold">{person.name}</div>

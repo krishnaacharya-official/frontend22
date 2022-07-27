@@ -87,7 +87,7 @@ export default function AdvertisementController() {
     const filterProduct = async (val) => {
 
         let data = {}
-        data.search = val
+        data.searchProductName = val
 
         if (val !== "") {
 

@@ -224,7 +224,8 @@ export default function ProjectDetailsController() {
                         // await getUserRank()
                         ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
                         setLoading(false)
-                        navigate('/')
+                        // navigate('/')
+                        navigate('/donate/' + donateToProject.data.donationId)
                     }
 
                 } else {

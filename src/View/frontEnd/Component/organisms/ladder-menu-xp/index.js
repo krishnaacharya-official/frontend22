@@ -7,6 +7,7 @@ import "./style.scss";
 const LadderMenuXp = (props) => {
   const [active, setActive] = useState(0);
 
+
   return (
     <div className="ladder__menu position-relative">
       <div
@@ -28,10 +29,15 @@ const LadderMenuXp = (props) => {
               />
             }
           </div>
-          <span style={{ textTransform: "capitalize" }}>{props.listBy === 'ALL' ?
-            'Show All' : props.listBy === 'DONATED' ? "Donated" : 'FOLLOWED' ? 'Followed' : 'SHARED' ? 'Shared' : 'BOUGHT' ? 'Bought' : ""
+          <span style={{ textTransform: "capitalize" }}>
+            {props.listBy === 'ALL' ? 'Show All'
+              : props.listBy === 'DONATED' ? "Donated"
+                : props.listBy === 'FOLLOWED' ? 'Followed'
+                  : props.listBy === 'SHARED' ? 'Shared'
+                    : props.listBy === 'BOUGHT' ? 'Bought'
+                      : ""
 
-          }</span>
+            }</span>
         </div>
         <FontAwesomeIcon icon={solid("chevron-down")} className="icon chevron__icon" />
       </div>

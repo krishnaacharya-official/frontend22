@@ -287,11 +287,11 @@ function user() {
         return res;
     }
 
-    const getUserHighXpList = async (authToken) => {
+    const getUserHighXpList = async (authToken,data) => {
 
         let res = {};
         await axios({
-            method: 'get',
+            method: 'post',
             url: `${helper.ApiUrl}user/highXp`,
             responseType: 'json',
             headers: {
@@ -302,6 +302,7 @@ function user() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data:data
 
         }).then((response) => {
             res = response

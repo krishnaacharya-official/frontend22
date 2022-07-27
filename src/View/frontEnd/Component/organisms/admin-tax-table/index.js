@@ -65,6 +65,7 @@ const AdminTaxTable = (props) => {
           {
             taxList.length > 0 &&
             taxList.map((item, i) => {
+              // console.log(item)
               return (
                 <>
                   <li className="table__list-item p-2">
@@ -93,28 +94,34 @@ const AdminTaxTable = (props) => {
                         </div>
                       </div>
                       <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                        {/* <div className="pe-1 p-sm-2 mr-12p">
-                          <img
-                            loading="lazy"
-                            width={36}
-                            src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/6005ba4366767589aa5a9f09_5ecc698a8164c2821bc91f84_Classic_topview-500x392.png"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <div>
-                            <Button variant="link" className="text-dark px-0 py-3p">
-                              Dinner Drive
-                            </Button>
-                          </div>
-                          <div className="text-light fs-7">
+                        {
+                          item[0].type === 'Donated' &&
+
+                          <>
+                            <div className="pe-1 p-sm-2 mr-12p">
+                              <img
+                                loading="lazy"
+                                width={36}
+                                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg"
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <div>
+                                <Button variant="link" className="text-dark px-0 py-3p">
+                                  Donated
+                                </Button>
+                              </div>
+                              {/* <div className="text-light fs-7">
                             <FontAwesomeIcon
                               icon={regular("wallet")}
                               className="mr-3p"
                             />
                             Bought 4
-                          </div>
-                        </div> */}
+                          </div> */}
+                            </div>
+                          </>
+                        }
                         {
                           item.length > 0 &&
                             item[0].receipt ?
@@ -187,48 +194,53 @@ const AdminTaxTable = (props) => {
                     {
                       item.length > 0 &&
                       item.map((i1, k) => {
-                        return (
-                          <>
-                            <hr />
-                            <li className="table__list-item p-2">
-                              <div className="d-sm-flex align-items-center flex-grow-1">
-                                <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
-                                  <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                                    <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
-                                    <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
-                                  </div>
+                        // console.log(item[0].type)
+                        if (item[0].type === 'Purchased') {
 
-                                </div>
-                                <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                                  <div className="pe-1 p-sm-2 mr-12p">
-                                    <img
-                                      loading="lazy"
-                                      width={36}
-                                      src={helper.CampaignProductImagePath + i1.orderItemDetails?.productImage}
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div>
-                                    <div>
-                                      <Button variant="link" className="text-dark px-0 py-3p">
-                                        {i1.orderItemDetails?.productName}
-                                      </Button>
+
+                          return (
+                            <>
+                              <hr />
+                              <li className="table__list-item p-2">
+                                <div className="d-sm-flex align-items-center flex-grow-1">
+                                  <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                    <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
+                                      <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
+                                      <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
                                     </div>
-                                    <div className="text-light fs-7">
-                                      <FontAwesomeIcon
-                                        icon={regular("wallet")}
-                                        className="mr-3p"
+
+                                  </div>
+                                  <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                    <div className="pe-1 p-sm-2 mr-12p">
+                                      <img
+                                        loading="lazy"
+                                        width={36}
+                                        src={helper.CampaignProductImagePath + i1.orderItemDetails?.productImage}
+                                        alt=""
                                       />
-                                      Bought {i1.orderItemDetails?.quantity}
+                                    </div>
+                                    <div>
+                                      <div>
+                                        <Button variant="link" className="text-dark px-0 py-3p">
+                                          {i1.orderItemDetails?.productName}
+                                        </Button>
+                                      </div>
+                                      <div className="text-light fs-7">
+                                        <FontAwesomeIcon
+                                          icon={regular("wallet")}
+                                          className="mr-3p"
+                                        />
+                                        Bought {i1.orderItemDetails?.quantity}
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
 
-                              </div>
-                            </li>
-                            {/* <hr /> */}
-                          </>
-                        )
+                                </div>
+                              </li>
+                              {/* <hr /> */}
+                            </>
+                          )
+                        }
 
                       })
                     }
