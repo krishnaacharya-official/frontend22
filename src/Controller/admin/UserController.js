@@ -367,11 +367,13 @@ function UserController() {
                 [e.target.name]: value
             })
             setLoading(false)
-
+            // console.log('e.target.name')
         } else if (e.target.name === "stateid") {
+          
             setLoading(true)
             const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
             if (getStateCityList.data.success === true) {
+                console.log(getStateCityList.data.data)
                 setCityList(getStateCityList.data.data)
             }
 

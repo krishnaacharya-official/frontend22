@@ -224,8 +224,10 @@ export default function CampaignAdminForm(props) {
                                     props.cityList.map((city, i) => {
 
                                         return (
-                                            city.status === 1 &&
-                                            <option value={city.id} selected={stateData.city === city.id}>{city.city}</option>
+                                            // city.status === 1 &&
+                                            // <option value={city.id} selected={stateData.city === city.id}>{city.city}</option>
+                                            <option value={city._id.id} selected={stateData.city === city._id.id}>{city._id.city}</option>
+
                                         )
 
                                     })
