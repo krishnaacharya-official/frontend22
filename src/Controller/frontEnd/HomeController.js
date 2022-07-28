@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort, setProductCount,setLocationFilter } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort, setProductCount, setLocationFilter } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
@@ -130,7 +130,10 @@ export default function HomeController() {
                     dispatch(setCurrency(currencyData))
                 } else {
                     dispatch(setUserCountry(233))
-
+                    let currencyData = {}
+                    currencyData.currency = 'USD'
+                    currencyData.currencySymbol = "$"
+                    dispatch(setCurrency(currencyData))
 
                 }
                 if (userData.state_id && userData.state_id !== null && userData.state_id > 0) {
@@ -381,7 +384,7 @@ export default function HomeController() {
             // console.log(Math.floor(10000000 + Math.random() * 90000000))
 
         })()
-    }, [user.distance,user.isUpdateLocationFilter])
+    }, [user.distance, user.isUpdateLocationFilter])
 
 
 

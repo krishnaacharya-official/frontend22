@@ -282,12 +282,12 @@ const UserItems = () => {
                     <div className="page__paragraph mb-3">
                       {item.itemDetails?.descriptions}
                     </div>
-                    <a href={helper.websitePath+item.itemDetails?.slug} className="text-subtext">
+                    <a href={helper.websitePath+'/'+item.itemDetails?.slug} className="text-subtext">
                       <span className="url__icon me-1">
                         <FontAwesomeIcon icon={regular("square-up-right")} />
                       </span>
                       <span className="date__name date__name--url">
-                        {helper.websitePath+item.itemDetails?.slug}
+                        {helper.websitePath+'/'+item.itemDetails?.slug}
                       </span>
                     </a>
 

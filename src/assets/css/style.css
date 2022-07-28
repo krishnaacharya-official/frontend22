@@ -730,49 +730,58 @@ a.MuiListItemButton-root.active:focus {
   justify-content: center;
   flex-direction: column;
 }
+
 .filelabel i {
   display: block;
   font-size: 30px;
   padding-bottom: 5px;
 }
+
 .filelabel i,
 .filelabel .title {
-color: grey;
-transition: 200ms color;
+  color: grey;
+  transition: 200ms color;
 }
+
 .filelabel:hover {
-border: 2px solid #756fe4;
+  border: 2px solid #756fe4;
 }
+
 .filelabel:hover i,
 .filelabel:hover .title {
-color: #756fe4;
-}
-#FileInput{
-  display:none;
+  color: #756fe4;
 }
 
-
-
- .input__span, .input__label textarea:focus + .input__span {
-    transform: translatey(-23px) !important;
-    outline: none ;
+#FileInput {
+  display: none;
 }
 
-.basic-single{
-width: 100%;
+
+
+.input__span,
+.input__label textarea:focus+.input__span {
+  transform: translatey(-23px) !important;
+  outline: none;
+}
+
+.basic-single {
+  width: 100%;
 }
 
 .my-modalbank {
-  width: 90vw !important  ; 
+  width: 90vw !important;
   max-width: 90vw !important;
-}  
+}
 
-.react-confirm-alert-body{
+.react-confirm-alert-body {
   width: unset !important;
 
 }
 
-.btn-check:checked + .btn, .btn-check:active + .btn, .btn:active, .btn.active{
+.btn-check:checked+.btn,
+.btn-check:active+.btn,
+.btn:active,
+.btn.active {
   box-shadow: unset !important;
 }
 
@@ -784,12 +793,12 @@ width: 100%;
   display: block;
 }
 
-.sold--item{
+.sold--item {
   position: absolute !important;
   /* top: 50%; */
   right: 81% !important;
-  -webkit-transform: translate(50%,-50%) !important;
-  -ms-transform: translate(50%,-50%) !important;
+  -webkit-transform: translate(50%, -50%) !important;
+  -ms-transform: translate(50%, -50%) !important;
   /* transform: translate(50%,-50%); */
   bottom: 56% !important;
   width: 90% !important;
@@ -808,24 +817,23 @@ width: 100%;
   position: relative;
   flex-direction: column;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,.5), inset 1px 1px 0 rgba(255,255,255,.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .5), inset 1px 1px 0 rgba(255, 255, 255, .3);
   width: 337px;
   height: 212px;
   /* opacity: .5; */
 }
+
 .credit-card .card-company {
-    position: absolute;
-    width: 60px;
-    height: 45px;
-    /* top: 20px; */
-    left: 20px;
-    background: linear-gradient(
-135deg
-, #ddccf0 0%, #d1e9f5 44%, #f8ece7 100%);
-    border-radius: 8px;
+  position: absolute;
+  width: 60px;
+  height: 45px;
+  /* top: 20px; */
+  left: 20px;
+  background: linear-gradient(135deg, #ddccf0 0%, #d1e9f5 44%, #f8ece7 100%);
+  border-radius: 8px;
 }
-  
-  /* &.selected {
+
+/* &.selected {
     transform: scale(1.1);
     z-index: 2;
     opacity: 1;
@@ -844,16 +852,17 @@ width: 100%;
   }
 } */
 
-.card-type, .card-company {
+.card-type,
+.card-company {
   text-align: right;
   text-transform: uppercase;
   margin: 10px;
-  color: rgba(0,0,40,.5);
+  color: rgba(0, 0, 40, .5);
 }
 
 .card-company {
   font-family: Georgia, Garamond;
-  box-shadow:  inset 1px 0 0 rgba(255,255,255,.3);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, .3);
   font-weight: normal;
   padding: 10px;
   background: #C32;
@@ -863,42 +872,48 @@ width: 100%;
   margin: 15px 0;
 }
 
-.card-number, .card-expire, .card-holder {
+.card-number,
+.card-expire,
+.card-holder {
   display: flex;
   margin: 5px;
   justify-content: center;
   font-family: monospace;
   font-size: 24px;
-  color: rgba(255,255,255,.8);
-  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
 }
-  .digit-group {
-    margin: 5px;
-  }
 
-.card-expire, .card-holder {
+.digit-group {
+  margin: 5px;
+}
+
+.card-expire,
+.card-holder {
   font-size: 16px;
   justify-content: flex-start;
   padding: 0 20px;
 }
-  .card-text {
-    font-size: 12px;
-    font-family: sans-serif;
-    color: #000;
-    color: rgba(0,0,40,.5);
-    text-shadow: none;
-    margin: 3px;
-    margin-left: 10px;
-  }
+
+.card-text {
+  font-size: 12px;
+  font-family: sans-serif;
+  color: #000;
+  color: rgba(0, 0, 40, .5);
+  text-shadow: none;
+  margin: 3px;
+  margin-left: 10px;
+}
 
 
 .card-type {
   margin-top: auto;
   font-size: 14px;
 }
+
 .card-p-text:after {
 
-  content:"***";
+  content: "***";
 
 }
 
@@ -963,7 +978,7 @@ width: 100%;
   box-shadow: 0px 3px 5px 0px #e8e8e8;
 }
 
-.plans .plan input[type="radio"]:checked + .plan-content:after {
+.plans .plan input[type="radio"]:checked+.plan-content:after {
   /* content: ""; */
   position: absolute;
   height: 8px;
@@ -977,7 +992,7 @@ width: 100%;
   box-shadow: 0px 0px 0px 2px #0066ff;
 }
 
-.plans .plan input[type="radio"]:checked + .plan-content {
+.plans .plan input[type="radio"]:checked+.plan-content {
   border: 2px solid #216ee0;
   background: #eaf1fe;
   -webkit-transition: ease-in 0.3s;
@@ -1011,7 +1026,7 @@ width: 100%;
     display: inline-block;
   }
 
-  .plans .plan input[type="radio"]:checked + .plan-content:after {
+  .plans .plan input[type="radio"]:checked+.plan-content:after {
     top: 45%;
     -webkit-transform: translate(-50%);
     -ms-transform: translate(-50%);
@@ -1035,7 +1050,7 @@ width: 100%;
     transition: height 0.4s;
   }
 
-  .plans .plan input[type="radio"]:checked + .plan-content:after {
+  .plans .plan input[type="radio"]:checked+.plan-content:after {
     top: 20px;
     right: 10px;
   }
@@ -1075,9 +1090,11 @@ li.search__tag {
   box-shadow: none;
   color: white;
 }
+
 .search__tag span {
   text-transform: lowercase;
 }
+
 .search__container li a {
   position: absolute;
   top: 0;
@@ -1086,8 +1103,9 @@ li.search__tag {
   right: 0;
   text-decoration: none;
   color: rgba(0, 0, 0, 0);
-  
+
 }
+
 .search__container {
   top: 0;
   bottom: 0;
@@ -1103,27 +1121,28 @@ li.search__tag {
 
 
 .search__container li a:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-    background-image: url(http://svgshare.com/i/3yv.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  background-image: url(http://svgshare.com/i/3yv.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
 #suggestion {
-	width: inherit;
-	height: inherit;
-	position: absolute;
-	z-index: 2;
-	top: 0;
-	left: 0;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	padding: 0 18px;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 18px;
   font-size: 16px;
   color: #d1c7c7;
   margin-left: 29px;
@@ -1133,18 +1152,20 @@ li.search__tag {
 
 
 .tag.tag--ongoing._2 {
-    border-radius: 50%;
+  border-radius: 50%;
 }
+
 .tag.tag--ongoing {
-    width: 26px;
-    height: 26px;
-    padding: 0;
-    border-radius: 50%;
-    background-color: #a976f0;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #a976f0;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
 }
+
 .tag {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1169,11 +1190,11 @@ li.search__tag {
 }
 
 .geo__dropdown {
-    transform: translate(-28px, 39px) !important;
-    inset: 0px  0px auto auto  !important;
-    /* transform: unset !important; */
+  transform: translate(-28px, 39px) !important;
+  inset: 0px 0px auto auto !important;
+  /* transform: unset !important; */
 
-    /* transform:  translate(0px, 39px) !important */
+  /* transform:  translate(0px, 39px) !important */
 }
 
 .mapboxgl-user-location-dot:after {
@@ -1195,12 +1216,14 @@ li.search__tag {
   animation: mapboxgl-user-location-dot-pulse 2s infinite;
 }
 
-.mapboxgl-user-location-dot, .mapboxgl-user-location-dot:before {
+.mapboxgl-user-location-dot,
+.mapboxgl-user-location-dot:before {
   background-color: #1da1f2;
   width: 15px;
   height: 15px;
   border-radius: 50%;
 }
+
 .rank__avatar {
   width: 98px;
   height: 98px;
@@ -1212,4 +1235,16 @@ li.search__tag {
   background-image: url(https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg);
   background-position: 50% 50%;
   background-size: cover;
+}
+
+.react-mapbox-ac-input {
+  margin-bottom: unset !important;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .geo__dropdown {
+    inset: 0px auto auto 0px !important;
+    transform: translate3d(-204px, -18px, 0px) !important;
+  }
 }

@@ -55,6 +55,7 @@ function OrganisationDetailMain(props) {
             <IconToggle
               icon={<FontAwesomeIcon icon={regular("bell")} />}
               checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
+              ischecked={true}
             />
 
             <ShareWidget />
