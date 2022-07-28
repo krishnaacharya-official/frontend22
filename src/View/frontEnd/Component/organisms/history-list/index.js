@@ -15,8 +15,10 @@ import { head } from "lodash";
 
 const HistoryList = (props) => {
   let orderList = props.orderList
+  let totalRecord = props.totalRecord
+
   const [active, setActive] = useState(0);
-  const [activeList, setActiveList] = useState([]);
+  // const [activeList, setActiveList] = useState([]);
 
   const [openData, setOpenData] = useState({
     key: "",
@@ -29,6 +31,10 @@ const HistoryList = (props) => {
 
   // }
 
+  const activeList = props.activeList
+  const setActiveList = props.setActiveList
+  const setIschecked = props.setIschecked
+
   const showDetails = (e) => {
 
     let tempArry = [...activeList]
@@ -37,12 +43,20 @@ const HistoryList = (props) => {
       tempArry.splice(index, 1);
       setActiveList(tempArry)
     } else {
+      tempArry = [...activeList, e]
       setActiveList([...activeList, e])
+    }
+
+    if (tempArry.length !== orderList.length) {
+      setIschecked(false)
+    } else {
+      setIschecked(true)
+
     }
 
   }
 
-  
+
   return (
     <>
       <ul className="history__list list-unstyled mb-0">

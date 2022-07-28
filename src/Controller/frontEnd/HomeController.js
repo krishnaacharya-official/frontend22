@@ -211,12 +211,12 @@ export default function HomeController() {
                     // console.log(getLocationByLatLong.data.results[0])
                     let jsObjects = getLocationByLatLong.data.results[0].address_components
                     let tempObj = {}
-                    tempObj.stateName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1').long_name
-                    tempObj.zip = jsObjects.find(settings => settings.types[0] === 'postal_code').long_name
-                    tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2').long_name
-                    tempObj.area = jsObjects.find(settings => settings.types[0] === 'route').long_name
-                    tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country').long_name
-                    tempObj.countrySortName = jsObjects.find(settings => settings.types[0] === 'country').short_name
+                    tempObj.stateName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_1')?.long_name
+                    tempObj.zip = jsObjects.find(settings => settings.types[0] === 'postal_code')?.long_name
+                    tempObj.cityName = jsObjects.find(settings => settings.types[0] === 'administrative_area_level_2')?.long_name
+                    tempObj.area = jsObjects.find(settings => settings.types[0] === 'route')?.long_name
+                    tempObj.countryName = jsObjects.find(settings => settings.types[0] === 'country')?.long_name
+                    tempObj.countrySortName = jsObjects.find(settings => settings.types[0] === 'country')?.short_name
 
                     tempObj.lat = latitude
                     tempObj.lng = longitude
