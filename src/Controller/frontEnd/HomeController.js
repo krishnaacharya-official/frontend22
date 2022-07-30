@@ -1,7 +1,7 @@
 import Index from "../../View/frontEnd/Layout/Home/Index";
 import productApi from "../../Api/frontEnd/product";
 import React, { useState, useEffect, useContext } from "react"
-import FrontLoader from "../../Common/FrontLoader";
+//mport FrontLoader from "../../Common/FrontLoader";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
 import settingApi from "../../Api/admin/setting";
