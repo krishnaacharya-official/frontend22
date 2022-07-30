@@ -114,7 +114,7 @@ function Footer() {
         </Row>
         <div className="footer__bottom d-sm-flex align-items-center border-top text-center text-sm-start">
           <div className="copyright mb-1 mb-sm-0">
-            <div>© 2021 Donorport, Inc.</div>
+            <div>© 2022 Donorport, Inc.</div>
           </div>
           <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto">
             <li className="footer__link-item me-4">
