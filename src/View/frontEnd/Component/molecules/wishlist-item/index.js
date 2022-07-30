@@ -19,7 +19,9 @@ function WishlistItem(props) {
 
         <div className="wishlist__item__main pl-12p">
           <div className="wishlist__item__title pr-12p">
-            <a href="{}" className="wishlist__item__name">{item.productDetails.headline}</a>
+          <Link variant="link" className="wishlist__item__name" to={'/item/' + product.slug}>
+          {item.productDetails.headline}
+           </Link>
             {/* <div className="wishlist__item__location">Canada</div> */}
           </div>
           <div className="wishlist__item__price">{ getCalc.currencySymbol()}{priceFormat(price)}</div>
