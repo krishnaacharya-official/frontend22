@@ -19,7 +19,7 @@ function WishlistItem(props) {
 
         <div className="wishlist__item__main pl-12p">
           <div className="wishlist__item__title pr-12p">
-            <div className="wishlist__item__name">{item.productDetails.headline}</div>
+            <a href="{}" className="wishlist__item__name">{item.productDetails.headline}</a>
             {/* <div className="wishlist__item__location">Canada</div> */}
           </div>
           <div className="wishlist__item__price">{ getCalc.currencySymbol()}{priceFormat(price)}</div>
