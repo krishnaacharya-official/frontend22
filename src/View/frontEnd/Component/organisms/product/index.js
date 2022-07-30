@@ -246,7 +246,7 @@ const Product = (props) => {
             {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
             <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
 
-            <span className="date__name">{location}</span>
+            <span className="date__name">{productDetails?.address}</span>
           </div>
         </div>
       </div>
@@ -293,7 +293,7 @@ const Product = (props) => {
       </div>
 
       <div className="product__category d-flex align-items-center flex-grow-1">
-        <Link
+      {/*  <Link
           to={"/categories/" + categorySlug}
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
@@ -304,8 +304,8 @@ const Product = (props) => {
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68d1a8d5f290171371bc_family(white).svg"
               className="img-fluid"
               alt=""
-            /> */}
-        </Link>
+            /> 
+        </Link> */}
         <div className="product__subcategory small d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-3p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
