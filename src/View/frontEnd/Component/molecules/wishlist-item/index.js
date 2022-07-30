@@ -29,7 +29,7 @@ function WishlistItem(props) {
       </div>
       <div className="wishlist__item__remove ms-auto">
         <Button variant="link" className="text-decoration-none" onClick={()=>props.addProductToWishlist(item.productDetails._id)}>
-          <FontAwesomeIcon icon={regular('heart')} style={{ color: "#f66461" }} className="fs-4" />
+          <FontAwesomeIcon icon={solid('heart')} style={{ color: "#f66461" }} className="fs-4" />
         </Button>
       </div>
     </li>
