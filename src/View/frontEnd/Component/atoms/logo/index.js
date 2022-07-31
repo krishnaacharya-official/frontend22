@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import { setUserCountry} from "../../user/user.action"
 
 
 // class Logo extends React.Component {
@@ -29,7 +30,7 @@ const Logo = () =>{
         className="logo-icon"
       />
       <div className="logo-name ms-1">Donorport</div>
-      <h4>{location}</h4>
+      <h4>{setUserCountry}</h4>
     </Link>
   );
 
