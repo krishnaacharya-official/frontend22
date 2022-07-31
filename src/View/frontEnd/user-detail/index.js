@@ -68,8 +68,8 @@ function UserDetail(props) {
 
 
   return (
-    <DefaultLayout>
-      <FrontLoader loading={loading} />
+    <NoFooter>
+      {/*<FrontLoader loading={loading} />*/}
       <Container fluid>
         <Tab.Container
           defaultActiveKey={selectedTabKey}
@@ -199,7 +199,7 @@ function UserDetail(props) {
           </div>
         </Tab.Container>
       </Container>
-    </DefaultLayout>
+    </NoFooter>
   );
 }
 

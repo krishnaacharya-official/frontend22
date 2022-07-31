@@ -225,6 +225,7 @@
 .nav-pills .show>.nav-link {
   color: #fff;
   background-color: #00AB55 !important;
+  display: none !important;
 }
 
 .desktop__tab .nav-pills .nav-link.active,
