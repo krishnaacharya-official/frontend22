@@ -174,7 +174,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#000"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("anchor")} />}
                                         >
                                             Captain
@@ -202,7 +202,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#95dbb0"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("ship")} />}
                                         >
                                             Admiral
@@ -226,7 +226,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#fc8c63"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("swords")} />}
                                         >
                                             Pirate
@@ -250,7 +250,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#a278fc"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("narwhal")} />}
                                         >
                                             Narwhal
@@ -276,7 +276,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#78bafc"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("whale")} />}
                                         >
                                             Beluga
@@ -300,7 +300,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
-                                            className="rounded-pill"
+                                            className="rounded-pill rounded-pill--xp"
                                             icon={<FontAwesomeIcon icon={solid("fish")} />}
                                         >
                                             Fish

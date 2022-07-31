@@ -32,8 +32,8 @@
 }
 
 .no__items-found {
-  color: $gray-700;
-  font-size: 12px;
+  color: $gray-600;
+  font-size: 16px;
 }
 
 
@@ -101,4 +101,11 @@
     font-size: 16px;
     font-weight: $font-weight-extra-bold;
   }
+}
+.cart__dropdown-header {
+  line-height: 24px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 900;
 }
