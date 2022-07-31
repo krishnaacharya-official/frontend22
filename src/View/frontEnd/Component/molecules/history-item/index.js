@@ -17,7 +17,7 @@ const propTypes = {
 
 const defaultProps = {
   active: false,
-  categoryName: "Norwhal",
+  categoryName: "Narwhal",
   categoryColor: "#a278fc" // I think we need to populate category color random
 };
 
@@ -99,7 +99,7 @@ function HistoryItem({ active, ...otherProps }) {
                 :
                 <>
                   <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-6p" />
-                  Bought {item?.quantity}
+                  Bought {item?.quantity} {item?.name}
                 </>
             }
 

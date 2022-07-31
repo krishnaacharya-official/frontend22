@@ -9,6 +9,7 @@ import HeaderController from '../../../../Controller/frontEnd/HeaderController';
 import React, { useState } from 'react';
 import IconText from '../../Component/molecules/icon-text';
 import helper, { getCalculatedPrice } from '../../../../Common/Helper';
+import { Link } from 'react-router-dom';
 
 export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
@@ -197,6 +198,11 @@ export default function Index(props) {
             <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0" onClick={() => props.onClickAddToCart()}>
               Add to Cart ({props.cartProductList.length})
             </Button>
+            <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
+              <FontAwesomeIcon icon={solid('question')} />
+              How does it work? 
+              <Link to={"/about-us"} className="d-inline-block">click here</Link>
+            </div>
           </div>
         </Container>
       }
