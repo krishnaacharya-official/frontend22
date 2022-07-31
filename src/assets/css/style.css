@@ -482,8 +482,8 @@ button.ReactTags__remove {
 .--switch {
   position: relative;
   display: inline-block;
-  width: 70px;
-  height: 35px;
+  width: 56px;
+  height: 30px;
 }
 
 .--switch input {
@@ -525,12 +525,11 @@ button.ReactTags__remove {
   content: "";
   height: 27px;
   width: 27px;
-  left: 4px;
-  bottom: 4px;
+  left: 2px;
   border-radius: 50%;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .2s;
+  transition: .2s;
 }
 
 .--switch input:checked+.--slider .fa-check {
@@ -551,9 +550,9 @@ button.ReactTags__remove {
 
 .--switch input:checked+.--slider:before {
 
-  -webkit-transform: translateX(35px);
-  -ms-transform: translateX(35px);
-  transform: translateX(35px);
+  -webkit-transform: translateX(25px);
+  -ms-transform: translateX(25px);
+  transform: translateX(25px);
 }
 
 .sw-card__content {
