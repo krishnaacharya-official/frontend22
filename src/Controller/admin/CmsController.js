@@ -272,7 +272,7 @@ function CmsController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 openModal={openModal}
                 cmsList={cmsList}

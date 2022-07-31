@@ -240,7 +240,7 @@ function CategoryController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             {/* {console.log(color)} */}
             <Index
                 category={category}

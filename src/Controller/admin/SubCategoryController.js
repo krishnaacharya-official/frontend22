@@ -244,7 +244,7 @@ function SubCategoryController() {
     // }
     return (
         <>
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 openModel={openModel}
                 navigate={navigate}

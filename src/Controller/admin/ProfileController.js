@@ -384,7 +384,7 @@ function ProfileController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Index
                 stateData={state}
                 categoryList={categoryList}

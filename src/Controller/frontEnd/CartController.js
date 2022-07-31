@@ -143,7 +143,7 @@ export default function CartController() {
     }
     return (
         <>
-            <FrontLoader loading={loading} />
+               {/*<FrontLoader loading={loading} />*/}
             <Cart
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}

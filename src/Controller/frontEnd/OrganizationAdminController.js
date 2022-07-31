@@ -75,7 +75,7 @@ export default function OrganizationAdminController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <AdminDetail
                 organizationDetails={organizationDetails}
                 getProductList={getProductList}

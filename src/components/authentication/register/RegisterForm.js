@@ -72,7 +72,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <FrontLoader loading={loading} />
+     {/*<FrontLoader loading={loading} />*/}
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Stack spacing={3}>

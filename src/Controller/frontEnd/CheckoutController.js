@@ -378,7 +378,7 @@ export default function CheckoutController() {
     return (
         <>
             {/* {console.log(cartItem)} */}
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Checkout
                 cartItem={cartItem}
                 total={total}

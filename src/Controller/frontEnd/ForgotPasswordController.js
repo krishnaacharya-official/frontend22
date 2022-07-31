@@ -102,7 +102,7 @@ export default function ForgotPasswordController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
     
                 <ForgotPassword 
                 changevalue={changevalue}

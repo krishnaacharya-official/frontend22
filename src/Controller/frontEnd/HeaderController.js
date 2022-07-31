@@ -278,7 +278,7 @@ export default function HeaderController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Header
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}

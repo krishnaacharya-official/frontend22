@@ -1097,7 +1097,7 @@ export default function HomeController() {
         <>
             {/* {console.log(user)} */}
 
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 productList={productList}
                 addToCart={addToCart}

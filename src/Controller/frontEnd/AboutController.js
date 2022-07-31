@@ -26,7 +26,7 @@ export default function AboutController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <About
                 campaignAdminList={campaignAdminList}
             />

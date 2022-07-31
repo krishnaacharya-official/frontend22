@@ -236,7 +236,7 @@ export default function ItemDetailsController() {
     return (
         <>
             {/* {console.log(wishListproductIds)} */}
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <ItemDetail
                 productDetails={productDetails}
                 categoryProducts={categoryProducts}

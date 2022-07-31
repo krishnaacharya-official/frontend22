@@ -288,7 +288,7 @@ export default function ApplyOrganizationController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Apply
                 stateData={state}
                 blocks={blocks}

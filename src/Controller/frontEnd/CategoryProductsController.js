@@ -827,7 +827,7 @@ export default function CategoryProductsController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Index
                 productList={productList}
                 addToCart={addToCart}

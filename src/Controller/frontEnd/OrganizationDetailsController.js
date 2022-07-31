@@ -313,7 +313,7 @@ export default function OrganizationDetailsController() {
     return (
         <>
             {/* {console.log(user)} */}
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <OrganisationDetail
                 organizationDetails={organizationDetails}
                 projectList={projectList}

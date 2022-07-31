@@ -448,7 +448,7 @@ function ProjectController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 projectList={projectList}
                 openModel={openModel}

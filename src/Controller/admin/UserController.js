@@ -396,7 +396,7 @@ function UserController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <AddUserForm
                 modal={modal}
                 setModal={setModal}
