@@ -29,6 +29,7 @@ const Logo = () =>{
         className="logo-icon"
       />
       <div className="logo-name ms-1">Donorport</div>
+      <h4>{location}</h4>
     </Link>
   );
 

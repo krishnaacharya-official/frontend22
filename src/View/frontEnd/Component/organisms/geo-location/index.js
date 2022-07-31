@@ -36,12 +36,8 @@ const GeoLocation = () => {
 
 
   const mapStyles = {
-    "londonCycle": "mapbox://styles/mapbox/light-v9",
-    "light": "mapbox://styles/mapbox/light-v9",
-    "dark": "mapbox://styles/mapbox/dark-v9",
-    "basic": "mapbox://styles/mapbox/basic-v9",
-    "outdoor": "mapbox://styles/mapbox/outdoors-v10"
-
+    "day": "mapbox://styles/mapbox/navigation-day-v1",
+    "night": "mapbox://styles/mapbox/navigation-night-v1"
   };
 
 
@@ -204,7 +200,7 @@ const GeoLocation = () => {
             </div>
             <div className="mapboxgl-map">
               <Map
-                style={mapStyles.outdoor}
+                style={mapStyles.day}
                 zoom={[location.zoomlevel]}
                 onRender={(e) => setObjectVal(e.boxZoom._container.outerText)} //boxZoom._container.outerText
                 containerStyle={{
