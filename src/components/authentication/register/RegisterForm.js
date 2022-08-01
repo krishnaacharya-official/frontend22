@@ -44,7 +44,7 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: async () => {
-      setLoading(true)
+      setLoading(false)
       let data = {}
       data.name = formik.values.name
       data.email = formik.values.email

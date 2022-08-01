@@ -32,7 +32,7 @@ export default function PartnershipInquiryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'ORDERS')) {
                 navigate('/admin/dashboard')
             }

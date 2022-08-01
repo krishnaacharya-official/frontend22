@@ -66,7 +66,7 @@ function UserController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'DONORS')) {
                 navigate('/admin/dashboard')
             }
@@ -136,7 +136,7 @@ function UserController() {
             data.status = status
 
 
-            setLoading(true)
+            setLoading(false)
             const addUser = await userApi.add(adminAuthToken, data)
             if (addUser) {
                 if (!addUser.data.success) {
@@ -188,7 +188,7 @@ function UserController() {
                     label: 'Yes',
 
                     onClick: async () => {
-                        setLoading(true)
+                        setLoading(false)
                         const deleteUser = await userApi.deleteUser(adminAuthToken, id)
                         if (deleteUser) {
                             if (!deleteUser.data.success) {
@@ -219,7 +219,7 @@ function UserController() {
 
     const getUserRecord = async (data) => {
 
-        setLoading(true)
+        setLoading(false)
 
         if (data.country_id) {
             const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
@@ -308,7 +308,7 @@ function UserController() {
 
 
 
-            setLoading(true)
+            setLoading(false)
             const addUser = await userApi.updateUser(adminAuthToken, data, id)
             if (addUser) {
                 if (!addUser.data.success) {
@@ -356,7 +356,7 @@ function UserController() {
     const changevalue = async (e) => {
         let value = e.target.value;
         if (e.target.name === "country") {
-            setLoading(true)
+            setLoading(false)
             const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
             if (getCountryStateList.data.success === true) {
                 setStateList(getCountryStateList.data.data)
@@ -370,7 +370,7 @@ function UserController() {
             // console.log('e.target.name')
         } else if (e.target.name === "stateid") {
           
-            setLoading(true)
+            setLoading(false)
             const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
             if (getStateCityList.data.success === true) {
                 console.log(getStateCityList.data.data)

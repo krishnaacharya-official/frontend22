@@ -88,7 +88,7 @@ function ProductController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             if (!hasPermission(adminData.roleName, 'PRODUCT')) {
                 navigate('/admin/dashboard')
@@ -666,7 +666,7 @@ function ProductController() {
 
                 let addProduct;
                 // Api Call for update Profile
-                setLoading(true)
+                setLoading(false)
                 if (id !== '') {
                     addProduct = await productApi.updateProduct(adminAuthToken, data, id)
                 } else {
@@ -724,7 +724,7 @@ function ProductController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteProductApi = await productApi.deleteProduct(adminAuthToken, id)
                             if (deleteProductApi) {
@@ -756,7 +756,7 @@ function ProductController() {
     }
 
     const editProduct = async (productData) => {
-        setLoading(true)
+        setLoading(false)
         if ((productData) && productData !== null && productData !== '') {
             setModal(true);
             setstate({

@@ -40,7 +40,7 @@ function SubCategoryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             if (!hasPermission(adminData.roleName, 'CATEGORY')) {
                 navigate('/admin/dashboard')
@@ -63,7 +63,7 @@ function SubCategoryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             const getIconList = await categoryApi.listIcon(adminAuthToken);
             if (getIconList.data.success === true) {
                 setIconList(getIconList.data.data)
@@ -133,7 +133,7 @@ function SubCategoryController() {
 
             let addSubCategory;
             // Api Call for update Profile
-            setLoading(true)
+            setLoading(false)
             if (categoryHdnID !== '') {
                 addSubCategory = await categoryApi.updateSubCategory(adminAuthToken, data, categoryHdnID)
             } else {
@@ -187,7 +187,7 @@ function SubCategoryController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteCategoryApi = await categoryApi.deleteSubCategory(adminAuthToken, id)
                             if (deleteCategoryApi) {
@@ -221,7 +221,7 @@ function SubCategoryController() {
 
     const editSubCategory = async (categoryData) => {
         // console.log(categoryData)
-        setLoading(true)
+        setLoading(false)
         if ((categoryData) && categoryData !== null && categoryData !== '') {
             // setUpdateModalTitle(true);
             setModal(true);

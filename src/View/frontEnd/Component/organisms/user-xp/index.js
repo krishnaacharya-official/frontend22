@@ -36,7 +36,7 @@ const UserXp = () => {
 
 
   const getItemList = async (page, field, type) => {
-    setLoading(true)
+    setLoading(false)
     let formData = {}
 
     formData.pageNo = page

@@ -75,7 +75,7 @@ function AdminDetail() {
     (async () => {
 
       // console.log(location?.state?.type)
-      setLoading(true)
+      setLoading(false)
       const getCampaignDetails = await adminCampaignApi.getCampaignDetails(token);
       if (getCampaignDetails.data.success) {
         // console.log(getCampaignDetails.data.data.description)

@@ -46,7 +46,7 @@ const AdminTax = () => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(false)
       await getTaxList(pageNo, sortField, order)
       setLoading(false)
 
@@ -64,7 +64,7 @@ const AdminTax = () => {
     fdata.name = name
     fdata.organizationName = data.name
 
-    setLoading(true)
+    setLoading(false)
     const uploadTax = await organizationApi.organizatationTaxUpload(token, fdata)
     if (uploadTax) {
       if (uploadTax.data.success === false) {

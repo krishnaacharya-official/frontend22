@@ -13,7 +13,7 @@ export default function AboutController() {
     useEffect(() => {
         (async () => {
 
-            setLoading(true)
+            setLoading(false)
             const getCampaignAdminList = await adminCampaignApi.list(userAuthToken ?userAuthToken:CampaignAdminAuthToken)
             if (getCampaignAdminList.data.success) {
                 setCampaignAdminList(getCampaignAdminList.data.data)

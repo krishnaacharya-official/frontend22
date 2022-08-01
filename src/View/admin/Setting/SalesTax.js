@@ -116,7 +116,7 @@ export default function SalesTax(props) {
             ToastAlert({ msg: 'SalesTax is required', msgType: 'error' });
 
         } else {
-            setLoading(true)
+            setLoading(false)
             let data = {}
             // data.salesTax = editCountryTax
             // data.all = selectedCountryData.all
@@ -153,7 +153,7 @@ export default function SalesTax(props) {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             await getCountryTaxList()
             setLoading(false)
 

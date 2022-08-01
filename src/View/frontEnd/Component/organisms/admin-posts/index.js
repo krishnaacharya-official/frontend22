@@ -115,7 +115,7 @@ const AdminPosts = (props) => {
 
       // console.log(data)
       // console.log(data.country_id)
-      setLoading(true)
+      setLoading(false)
       const getcategoryList = await categoryApi.listCategory(token);
       if (getcategoryList.data.success === true) {
         setCategoryList(getcategoryList.data.data)
@@ -585,7 +585,7 @@ const AdminPosts = (props) => {
 
         let addProduct;
         // Api Call for update Profile
-        setLoading(true)
+        setLoading(false)
         if (id !== '') {
           addProduct = await productApi.updateProduct(token, formData, id)
         } else {
@@ -644,7 +644,7 @@ const AdminPosts = (props) => {
         {
           label: 'Yes',
           onClick: (async () => {
-            setLoading(true)
+            setLoading(false)
             if (id !== '') {
               const deleteProductApi = await productApi.deleteProduct(CampaignAdminAuthToken, id)
               if (deleteProductApi) {
@@ -677,7 +677,7 @@ const AdminPosts = (props) => {
 
   const editProduct = async (productData) => {
 
-    setLoading(true)
+    setLoading(false)
     let formData = {}
     formData.productId = productData._id
 
@@ -797,7 +797,7 @@ const AdminPosts = (props) => {
   }
 
   const publishProduct = async (id) => {
-    setLoading(true)
+    setLoading(false)
     const publish = await productApi.publishProduct(token, id)
     if (publish) {
       if (publish.data.success === false) {
@@ -821,7 +821,7 @@ const AdminPosts = (props) => {
 
   // console.log(data)
   const getProductList = async (page, field, type) => {
-    setLoading(true)
+    setLoading(false)
     let formData = {}
     formData.organizationId = data._id
     formData.pageNo = page

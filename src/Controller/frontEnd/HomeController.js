@@ -311,7 +311,7 @@ export default function HomeController() {
     const addProductToWishlist = async (productId) => {
         let data = {}
         data.productId = productId
-        setLoading(true)
+        setLoading(false)
         const add = await wishlistApi.add(token, data)
         if (add) {
             if (add.data.success) {
@@ -336,7 +336,7 @@ export default function HomeController() {
             if (userAuthToken) {
                 await getCartList()
 
-                setLoading(true)
+                setLoading(false)
                 await getWishListProductList()
                 setLoading(false)
             }
@@ -395,7 +395,7 @@ export default function HomeController() {
             // function getLocation() {
             // console.log(user.xp)
             //   }
-            setLoading(true)
+            setLoading(false)
             let obj = {}
             obj.userCountry = user.countryId
             const getproductList = await productApi.list(token, obj);
@@ -513,7 +513,7 @@ export default function HomeController() {
         if (token) {
             if (userAuthToken) {
 
-                setLoading(true)
+                setLoading(false)
                 let data = {}
                 data.productId = id
                 const addItemToCart = await cartApi.add(userAuthToken, data);
@@ -541,7 +541,7 @@ export default function HomeController() {
     }
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.removeCartProduct(userAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
@@ -726,7 +726,7 @@ export default function HomeController() {
                 // console.log(user.countryId)
                 // await getCountryAdvertisement(user.countryId,user.stateId)
 
-                setLoading(true)
+                setLoading(false)
                 await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
                 setLoading(false)
             }
@@ -902,7 +902,7 @@ export default function HomeController() {
                         setresultTags(finalArray)
                         // console.log(finalArray)
 
-                        setLoading(true)
+                        setLoading(false)
                         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
                         setLoading(false)
                     }
@@ -955,7 +955,7 @@ export default function HomeController() {
         }
         setresultTags(finalArray)
 
-        setLoading(true)
+        setLoading(false)
         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
         setLoading(false)
     }

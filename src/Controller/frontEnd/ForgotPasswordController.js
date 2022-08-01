@@ -50,7 +50,7 @@ export default function ForgotPasswordController() {
                 ...state,
                 error: formaerrror
             })
-            setLoading(true)
+            setLoading(false)
             const sendOtp = await userAuthApi.sendOtp(email)
             if (sendOtp) {
                 if (!sendOtp.data.success) {

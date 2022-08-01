@@ -95,7 +95,7 @@ export default function CheckoutController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (userAuthToken) {
                 const verifyUser = await authApi.verifyToken(userAuthToken)
                 if (!verifyUser.data.success) {
@@ -206,7 +206,7 @@ export default function CheckoutController() {
             })
 
 
-            setLoading(true)
+            setLoading(false)
 
             let data = {}
             data.name = userData.name
@@ -354,7 +354,7 @@ export default function CheckoutController() {
     }
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.deleteCartItem(userAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {

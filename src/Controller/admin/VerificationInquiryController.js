@@ -31,7 +31,7 @@ export default function VerificationInquiryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'ORDERS')) {
                 navigate('/admin/dashboard')
             }

@@ -33,7 +33,7 @@ const Ranks = () => {
   useEffect(() => {
     (async () => {
 
-      setLoading(true)
+      setLoading(false)
       // if (userAuthToken || CampaignAdminAuthToken) {
 
 

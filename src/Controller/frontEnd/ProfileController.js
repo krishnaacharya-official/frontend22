@@ -27,7 +27,7 @@ export default function ProfileController() {
 
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(false)
         let urlPerm = params.username
         const userData = JSON.parse(localStorage.getItem('userData'));
         if (!userData || urlPerm !== userData.username) {
@@ -75,7 +75,7 @@ export default function ProfileController() {
 
             let data = {}
             data.name = state.name
-            setLoading(true)
+            setLoading(false)
             const updateProfile = await userApi.updateProfile(userAuthToken, data, state.id)
             if (updateProfile) {
                 if (updateProfile.data.success) {
@@ -145,7 +145,7 @@ export default function ProfileController() {
             data.new_password = state.new_password
 
 
-            setLoading(true)
+            setLoading(false)
             const updatePassword = await userApi.updatePassword(userAuthToken, data)
             if (updatePassword) {
                 if (!updatePassword.data.success) {

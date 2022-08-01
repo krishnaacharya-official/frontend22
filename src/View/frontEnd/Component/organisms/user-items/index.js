@@ -45,7 +45,7 @@ const UserItems = () => {
 
 
   const getOrderItemList = async (page, field, type) => {
-    setLoading(true)
+    setLoading(false)
     let formData = {}
     formData.organizationId = data._id
     formData.pageNo = page

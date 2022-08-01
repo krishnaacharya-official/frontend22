@@ -88,7 +88,7 @@ const PaymentMethod = () => {
 
 
 
-      setLoading(true)
+      setLoading(false)
       const getAccountList = await adminCampaignApi.listBankAccount(token);
       if (getAccountList.data.success === true) {
         // console.log(getAccountList)
@@ -316,7 +316,7 @@ const PaymentMethod = () => {
 
 
       // Api Call for update Profile
-      setLoading(true)
+      setLoading(false)
       const addBank = await adminCampaignApi.addBankAccount(token, data)
 
 
@@ -367,7 +367,7 @@ const PaymentMethod = () => {
         {
           label: 'Yes',
           onClick: (async () => {
-            setLoading(true)
+            setLoading(false)
             if (id !== '') {
               const removeBank = await adminCampaignApi.deleteBankAccount(token, id)
               if (removeBank) {
@@ -536,7 +536,7 @@ const PaymentMethod = () => {
       })
 
 
-      setLoading(true)
+      setLoading(false)
       if (key !== 5) {
         setValue(key + 1);
 

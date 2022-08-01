@@ -71,7 +71,7 @@ export default function Aws(props) {
                 formaerrror
             )
 
-            setLoading(true)
+            setLoading(false)
             const saveSettingsValue = await settingApi.save(adminAuthToken, state);
             if (saveSettingsValue.data.success === true) {
                 setLoading(false)
@@ -118,7 +118,7 @@ export default function Aws(props) {
             if (!hasPermission(adminData.roleName, 'SETTING')) {
                 navigate('/admin/dashboard')
             }
-            setLoading(true)
+            setLoading(false)
             const getSettingsValue = await settingApi.list(adminAuthToken, Object.keys(state));
             if (getSettingsValue.data.data.length > 0) {
                 let data = {}

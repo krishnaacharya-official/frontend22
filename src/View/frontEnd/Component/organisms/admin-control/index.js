@@ -47,7 +47,7 @@ const AdminControl = () => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(false)
       const getControlSetting = await controlsApi.organizationControlsList(token)
       if (getControlSetting.data.success) {
         setControls({
@@ -62,7 +62,7 @@ const AdminControl = () => {
 
 
   const saveControls = async () => {
-    setLoading(true)
+    setLoading(false)
 
     let data = {}
     data.notifications = notifications

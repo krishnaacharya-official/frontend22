@@ -44,7 +44,7 @@ function UserDetail(props) {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(false)
       const getUserDetails = await userApi.getUserDetails(userAuthToken);
       if (getUserDetails) {
         if (getUserDetails.data.success) {

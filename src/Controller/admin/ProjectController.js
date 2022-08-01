@@ -50,7 +50,7 @@ function ProjectController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             if (!hasPermission(adminData.roleName, 'PROJECT')) {
                 navigate('/admin/dashboard')
@@ -92,7 +92,7 @@ function ProjectController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             const getcampaignAdminList = await adminCampaignApi.list(adminAuthToken)
             if (getcampaignAdminList.data.success) {
@@ -254,7 +254,7 @@ function ProjectController() {
 
                 let addProject;
 
-                setLoading(true)
+                setLoading(false)
                 if (id !== '') {
                     addProject = await projectApi.updateProject(adminAuthToken, data, id)
                 } else {
@@ -313,7 +313,7 @@ function ProjectController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteProjectApi = await projectApi.deleteProject(adminAuthToken, id)
                             if (deleteProjectApi) {
@@ -378,7 +378,7 @@ function ProjectController() {
 
     const editProject = async (projectData) => {
 
-        // setLoading(true)
+        // setLoading(false)
         setModal(true);
         if ((projectData) && projectData !== null && projectData !== '') {
 

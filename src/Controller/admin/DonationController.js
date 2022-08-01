@@ -36,7 +36,7 @@ export default function DonationController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {

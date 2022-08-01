@@ -124,7 +124,7 @@ export default function Plans(props) {
             data.dashboardStats = planName.dashboardStats
             data.prioritySupport = planName.prioritySupport
 
-            setLoading(true)
+            setLoading(false)
             const saveBasicPlan = await planApi.save(adminAuthToken, data);
             if (saveBasicPlan.data.success === true) {
                 setChangeBasic(false)
@@ -213,7 +213,7 @@ export default function Plans(props) {
             if (!hasPermission(adminData.roleName, 'SETTING')) {
                 navigate('/admin/dashboard')
             }
-            setLoading(true)
+            setLoading(false)
             const getPlans = await planApi.list(adminAuthToken);
 
             if (getPlans.data.success) {

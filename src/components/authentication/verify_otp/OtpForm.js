@@ -67,7 +67,7 @@ export default function OtpForm() {
         },
         validationSchema: LoginSchema,
         onSubmit: async () => {
-            setLoading(true)
+            setLoading(false)
             let data = {}
             data.email = decryptedData
             data.otp = Number(formik.values.otp)

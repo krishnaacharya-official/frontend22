@@ -115,7 +115,7 @@ function CampaignAdminController() {
             }
 
 
-            setLoading(true)
+            setLoading(false)
             const getCampaignAdminList = await adminCampaignApi.list(adminAuthToken)
             if (getCampaignAdminList.data.success) {
                 setCampaignAdminList(getCampaignAdminList.data.data)
@@ -227,7 +227,7 @@ function CampaignAdminController() {
 
 
 
-            setLoading(true)
+            setLoading(false)
             const addUser = await adminCampaignApi.add(adminAuthToken, data)
             if (addUser) {
                 if (!addUser.data.success) {
@@ -279,7 +279,7 @@ function CampaignAdminController() {
                     label: 'Yes',
 
                     onClick: async () => {
-                        setLoading(true)
+                        setLoading(false)
                         const deleteUser = await adminCampaignApi.deleteCampaignAdmin(adminAuthToken, id)
                         if (deleteUser) {
                             if (!deleteUser.data.success) {
@@ -312,7 +312,7 @@ function CampaignAdminController() {
         if ((data) && data !== null && data !== '') {
             // }
             // console.log(data)
-            setLoading(true)
+            setLoading(false)
             if (data.country_id && data.country_id !== null && data.country_id > 0) {
                 const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, data.country_id);
                 if (getCountryStateList.data.success === true) {
@@ -436,7 +436,7 @@ function CampaignAdminController() {
 
 
 
-            setLoading(true)
+            setLoading(false)
             const updateCampaignAdmin = await adminCampaignApi.updateCampaignAdmin(adminAuthToken, data, id)
             if (updateCampaignAdmin) {
                 if (!updateCampaignAdmin.data.success) {
@@ -482,7 +482,7 @@ function CampaignAdminController() {
     const changevalue = async (e) => {
         let value = e.target.value;
         if (e.target.name === "country") {
-            setLoading(true)
+            setLoading(false)
             const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
             if (getCountryStateList.data.success === true) {
                 setStateList(getCountryStateList.data.data)
@@ -495,7 +495,7 @@ function CampaignAdminController() {
             setLoading(false)
 
         } else if (e.target.name === "stateid") {
-            setLoading(true)
+            setLoading(false)
             const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
             if (getStateCityList.data.success === true) {
                 setCityList(getStateCityList.data.data)
@@ -597,7 +597,7 @@ function CampaignAdminController() {
                 data.accountId = bankDetails.stripeAccountId
 
 
-                setLoading(true)
+                setLoading(false)
                 const pay = await adminCampaignApi.payToCampaignAdmin(adminAuthToken, data)
                 if (pay) {
                     if (!pay.data.success) {
