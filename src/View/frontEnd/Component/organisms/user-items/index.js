@@ -255,8 +255,8 @@ const UserItems = () => {
               <Row className="pt-5">
                 <Col md="6">
                   <div className="project__detail-main me-sm-3">
-                    <h6 className="project__detail-label mb-3p">Item</h6>
-                    <h1 className="project__detail-title mb-0">
+                    <h4 className="project__detail-label mb-3p">Item</h4>
+                    <h1 className="project__detail-title">
                       {item.itemDetails?.headline}
                     </h1>
                     <h5 className="project__detail-sublabel">Product</h5>

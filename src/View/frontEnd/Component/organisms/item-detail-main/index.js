@@ -94,8 +94,8 @@ function ProjectDetailMain(props) {
 
   return (
     <div className="project__detail-main">
-      <h6 className="project__detail-label mb-3p">Item</h6>
-      <h1 className="project__detail-title mb-0" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
+      <h4 className="project__detail-label mb-3p">Item</h4>
+      <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
       <div className="project__detail-price fs-2 text-success">{currencySymbol} {priceFormat(price)}</div>
@@ -127,11 +127,11 @@ function ProjectDetailMain(props) {
         />
       </div>
       <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="d-flex align-items-center flex-grow-1">
+        <div className="page__bar d-flex align-items-center flex-grow-1">
           <ProgressBar
-            variant="success"
+            variant={unlimited ? 'infinity' : 'success'}
             now={productDetails.unlimited ?100 : per}
-            className="flex-grow-1 me-1"
+            className="page__progress flex-grow-1 me-1"
           />
           {productDetails.
             unlimited
@@ -222,8 +222,8 @@ function ProjectDetailMain(props) {
       }
 
 
-      <h5>{productDetails.needheadline}</h5>
-      <div className="page__paragraph lh-lg">
+      <h4>{productDetails.needheadline}</h4>
+      <div className="page__paragraph">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 

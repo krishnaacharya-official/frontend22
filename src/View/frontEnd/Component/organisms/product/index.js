@@ -189,7 +189,7 @@ const Product = (props) => {
           />
         </div>
         <div className="flex-grow-1">
-          <ProgressBar variant={unlimited ? '#a976f0' : 'success'} now={progress} />
+          <ProgressBar variant={unlimited ? 'infinity' : 'success'} now={progress} />
         </div>
         {
           !unlimited ?

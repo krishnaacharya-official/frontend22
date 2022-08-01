@@ -44,6 +44,9 @@
 
 @include text-emphasis-variant('.text-danger', $brand-danger);
 
+@include text-emphasis-variant('.text-infinity', $brand-infinity);
+
+
 // Misc
 
 .text-hide {

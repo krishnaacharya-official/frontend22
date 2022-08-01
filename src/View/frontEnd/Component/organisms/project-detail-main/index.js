@@ -64,7 +64,7 @@ function ProjectDetailMain(props) {
         <div className="d-flex align-items-center mb-1">
           <div>
             <TagTitle>Project</TagTitle>
-            <h1 className="project__detail-title mb-0 fw-bolder">
+            <h1 className="project__detail-title">
               {projectDetails.name}
             </h1>
           </div>
@@ -191,8 +191,8 @@ function ProjectDetailMain(props) {
           </div>
         }
 
-        <h5>{projectDetails.headline}</h5>
-        <div className="page__paragraph lh-lg">
+        <h4>{projectDetails.headline}</h4>
+        <div className="page__paragraph">
           {projectDetails.description}
         </div>
       </div>
