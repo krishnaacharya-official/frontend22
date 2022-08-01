@@ -85,11 +85,11 @@ function HistoryItem({ active, ...otherProps }) {
             </span>
           </div>
           <div className="text-lighter fs-8">
-            {
+          {/*  {
               isDeleted &&
 
               <div className="text-lighter fs-8">Deleted User</div>
-            }
+            }*/}
             {
               type === "donation" ?
                 <>

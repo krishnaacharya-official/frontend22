@@ -148,14 +148,15 @@ const ItemDetail = (props) => {
 
       <Container fluid>
 
-        <div>
-          <Row className="py-5 border-top">
-            <Col md="6" className="mb-4 mb-0">
-              <h6>Projects</h6>
               {
                 productDetails?.projectDetails && productDetails?.projectDetails.length > 0 &&
                 productDetails?.projectDetails.map((project, i) => {
                   return (
+                    <div>
+                    <Row className="py-5 border-top">
+                      <Col md="6" className="mb-4 mb-0">
+                        <h6>Projects</h6>
+
                     <div>
                       <h6 style={{ color: "grey" }}>{project.projectDetails.name}</h6>
 
@@ -187,15 +188,17 @@ const ItemDetail = (props) => {
                         <span className="fs-6">Go to Project</span>
                       </Link>
                     </div>
+
+
+                    </Col>
+          </Row>
+        </div>
                   )
                 })
               }
 
 
 
-            </Col>
-          </Row>
-        </div>
 
         <Row className="py-5 border-top">
           <Col md="6" className="mb-4 mb-0">
