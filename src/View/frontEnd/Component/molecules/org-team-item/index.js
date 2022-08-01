@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
 import moment from "moment";
-import AvatarImg from "../../../../../assets/images/avatar_default.jpg"
+import AvatarImg from "../../../../../assets/images/avatar_default.png"
 
 function OrganisationTeamItem(props) {
   const member = props.member

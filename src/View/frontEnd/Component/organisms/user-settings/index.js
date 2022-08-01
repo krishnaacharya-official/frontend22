@@ -7,7 +7,7 @@ import LinkedOrg from "../../molecules/linked-org";
 import FollowingList from "../wishlist/index";
 import UserSettingsList from "./user-settings-list";
 // import { Link } from "react-router-dom";
-import AvatarImg from "../../../../../assets/images/avatar.jpeg";
+import AvatarImg from "../../../../../assets/images/avatar.png";
 import helper, { getCalculatedPrice } from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';

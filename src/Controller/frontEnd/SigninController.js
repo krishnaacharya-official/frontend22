@@ -11,7 +11,7 @@ import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUse
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
-import defaultAvatar from "../../assets/images/avatar_default.jpg"
+import defaultAvatar from "../../assets/images/avatar_default.png"
 
 
 

@@ -234,11 +234,12 @@ const GeoLocation = () => {
                   border: "none",
                   background: "#3596F3",
                   marginTop: "-10px",
+                  opacity: "1",
                 }}
                 min={1}
-                max={150}
+                max={220}
                 value={location.zoomlevel * 10}
-                railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
+                railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
                 disabled={!state.locked}
                 onChange={(e) => setLocation({ ...location, zoomlevel: e / 10 })}
               />

@@ -48,7 +48,7 @@ const Product = (props) => {
   let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
 
-  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62a2a55e87f6544c42fa0e73_2022%20Logo%20Icon%20(2).svg')
+  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg')
 
   // console.log(props.campaignDetails?.logo)
   let img = props.image
