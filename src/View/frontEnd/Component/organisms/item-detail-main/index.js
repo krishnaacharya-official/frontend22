@@ -233,7 +233,7 @@ function ProjectDetailMain(props) {
           <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
         </div>
         <div className="d-flex align-items-center fs-5 py-1 mb-3">
-          <div className="project__count mt-3p">1</div>
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
           <div className="flex-grow-1 mx-2">
             <Slider
               handleStyle={{
@@ -242,16 +242,15 @@ function ProjectDetailMain(props) {
                 border: "none",
                 background: "#3596F3",
                 marginTop: "-10px",
-
-
+                opacity: 1,
               }}
               min={1}
               max={maxQuentity}
-              railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
+              railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
               onChange={(e) => setQuantity(e)}
             />
           </div>
-          <div className="project__count mt-3p">{maxQuentity}</div>
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
         </div>
 
         {/* <Button size="lg" className="w-100">
