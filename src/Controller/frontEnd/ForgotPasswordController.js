@@ -63,7 +63,7 @@ export default function ForgotPasswordController() {
                         email: "",
                         error: [],
                     })
-                    ToastAlert({ msg: sendOtp.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: sendOtp.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 

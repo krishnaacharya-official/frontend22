@@ -312,7 +312,7 @@ export default function CheckoutController() {
                         if (clearCart.data.success) {
                             navigate('/order/' + saveOrderDetails.data.orderId)
                         }
-                        ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });*/
                         setLoading(false)
                     }
 
@@ -363,7 +363,7 @@ export default function CheckoutController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 

@@ -190,7 +190,7 @@ export default function HeaderController() {
                 setIsUpdate(!update)
                 // user.setCart(!user.isUpdateCart)
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -219,7 +219,7 @@ export default function HeaderController() {
                 // setIsUpdate(!update)
                 // user.setCart(!user.isUpdateCart)
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-                ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 

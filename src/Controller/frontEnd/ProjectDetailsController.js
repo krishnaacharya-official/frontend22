@@ -128,7 +128,7 @@ export default function ProjectDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
-                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -222,7 +222,7 @@ export default function ProjectDetailsController() {
                         let addXp = Number(selectedValue * 10)
                         dispatch(setUserXp(user.xp + addXp))
                         // await getUserRank()
-                        ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });*/
                         setLoading(false)
                         // navigate('/')
                         navigate('/donate/' + donateToProject.data.donationId)

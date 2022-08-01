@@ -87,7 +87,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -107,7 +107,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: clearCart.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: clearCart.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -128,7 +128,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 

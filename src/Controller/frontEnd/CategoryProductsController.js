@@ -397,7 +397,7 @@ export default function CategoryProductsController() {
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
                     setIsUpdate(!update)
-                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -419,7 +419,7 @@ export default function CategoryProductsController() {
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -784,7 +784,7 @@ export default function CategoryProductsController() {
                         dispatch(setIsUpdateCart(!user.isUpdateCart))
                         setCartProductList([])
                         setPrice('')
-                        ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });*/
                         setLoading(false)
                     }
 

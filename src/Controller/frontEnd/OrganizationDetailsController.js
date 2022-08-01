@@ -141,7 +141,7 @@ export default function OrganizationDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
-                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -240,7 +240,7 @@ export default function OrganizationDetailsController() {
                         // }
                         let addXp = Number(selectedValue * 10)
                         dispatch(setUserXp(user.xp + addXp))
-                        ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });*/
                         setLoading(false)
                         navigate('/donate/'+donateToOrganization.data.donationId)
                     }

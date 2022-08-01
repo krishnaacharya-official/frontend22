@@ -80,7 +80,7 @@ export default function ProfileController() {
             if (updateProfile) {
                 if (updateProfile.data.success) {
                     setLoading(false)
-                    ToastAlert({ msg: updateProfile.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: updateProfile.data.message, msgType: 'success' });*/
                     localStorage.setItem('userData', JSON.stringify(updateProfile.data))
                 } else {
                     setLoading(false)
@@ -160,7 +160,7 @@ export default function ProfileController() {
                         error: []
                     })
                     setLoading(false)
-                    ToastAlert({ msg: updatePassword.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: updatePassword.data.message, msgType: 'success' });*/
                 }
 
             } else {
