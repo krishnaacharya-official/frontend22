@@ -25,6 +25,9 @@ function ProjectDetailMain(props) {
 
   let per = productDetails.soldout / productDetails.quantity * 100
 
+  let fullAddress = productDetails?.address?.split(',')
+  let address = productDetails?.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
+
   const [quantity, setQuantity] = useState(1)
 
   const [addedToCard, setAddedToCard] = useState(false)
@@ -112,7 +115,7 @@ function ProjectDetailMain(props) {
               icon={regular("circle-location-arrow")}
               className="me-1"
             />
-            {productDetails?.address}
+            {address}
           </div>
         }
       </div>
@@ -130,7 +133,7 @@ function ProjectDetailMain(props) {
         <div className="d-flex align-items-center flex-grow-1">
           <ProgressBar
             variant="success"
-            now={productDetails.unlimited ?100 : per}
+            now={productDetails.unlimited ? 100 : per}
             className="flex-grow-1 me-1"
           />
           {productDetails.
@@ -158,7 +161,9 @@ function ProjectDetailMain(props) {
           <IconToggle
             icon={<FontAwesomeIcon icon={regular("bell")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
-            onClickFilter={() => { }}
+            onClickFilter={(e) =>props.followToProduct(e)}
+            name='Product'
+            ischecked={props.isFollow}
           />
 
           <ShareWidget />

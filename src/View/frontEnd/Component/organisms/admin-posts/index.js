@@ -97,12 +97,13 @@ const AdminPosts = (props) => {
     unlimited: false,
     tax: false,
     postTag: false,
+    media: false,
     policy: false,
     galleryImg: [],
 
   })
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy, media
   } = state;
 
   const [tags, setTags] = useState([]);
@@ -133,6 +134,8 @@ const AdminPosts = (props) => {
     formData.sortField = 'created_at'
     formData.sortType = 'asc'
     formData.organizationId = data._id
+    formData.type = 'product'
+
 
 
     const getProjectList = await projectApi.projectListByOrganization(token, formData)
@@ -194,7 +197,7 @@ const AdminPosts = (props) => {
   const changevalue = async (e) => {
     let value = e.target.value;
     // console.log(value)
-    if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag' || e.target.name === 'policy') {
+    if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag' || e.target.name === 'policy' || e.target.name === 'media') {
       value = e.target.checked
 
 
@@ -401,6 +404,7 @@ const AdminPosts = (props) => {
       tax: false,
       postTag: false,
       policy: false,
+      media: false,
       error: [],
     });
 
@@ -518,6 +522,8 @@ const AdminPosts = (props) => {
       }
       formData.headline = headline
       formData.unlimited = unlimited
+      formData.media = media
+
       formData.tax = tax
       formData.postTag = postTag
 
@@ -646,7 +652,7 @@ const AdminPosts = (props) => {
           onClick: (async () => {
             setLoading(true)
             if (id !== '') {
-              const deleteProductApi = await productApi.deleteProduct(CampaignAdminAuthToken, id)
+              const deleteProductApi = await productApi.deleteProduct(token, id)
               if (deleteProductApi) {
                 if (deleteProductApi.data.success === false) {
                   setLoading(false)
@@ -713,6 +719,8 @@ const AdminPosts = (props) => {
           address: productData.address ? productData.address : "",
           lat: productData.lat ? productData.lat : "",
           lng: productData.lng ? productData.lng : "",
+          media: productData.media ? productData.media : false,
+
           policy: true,
 
 
@@ -736,7 +744,10 @@ const AdminPosts = (props) => {
         if (productData.imageDetails.length > 0) {
           productData.imageDetails.map((img, i) => {
             if (img.type === 'moreImage') {
-              tempMImgArray.push(img.image)
+              let tempObj = {}
+              tempObj.img = img.image
+              tempObj.id = img._id
+              tempMImgArray.push(tempObj)
             }
 
           })
@@ -752,7 +763,10 @@ const AdminPosts = (props) => {
         if (productData.imageDetails.length > 0) {
           productData.imageDetails.map((img, i) => {
             if (img.type === 'galleryImage') {
-              tempGImgArray.push(img.image)
+              let tempObj = {}
+              tempObj.img = img.image
+              tempObj.id = img._id
+              tempGImgArray.push(tempObj)
             }
 
           })
@@ -828,6 +842,8 @@ const AdminPosts = (props) => {
     formData.sortField = field
     formData.sortType = type
     formData.filter = true
+    formData.type = 'product'
+
     // console.log(data._id)
 
 
@@ -868,6 +884,26 @@ const AdminPosts = (props) => {
 
 
   };
+
+  const deleteProductImage = async (id, type) => {
+    setLoading(true)
+    const deleteImg = await productApi.deleteProductImages(token, id)
+
+    if (deleteImg.data.success) {
+      if (type === 'More') {
+        let imgs = [...moreImages]
+        imgs = imgs.filter((item) => item.id !== id)
+        setMoreImages(imgs)
+      } else {
+        let gImg = [...gallaryImages]
+        gImg = gImg.filter((item) => item.id !== id)
+        setGallaryImages(gImg)
+
+      }
+
+    }
+    setLoading(false)
+  }
 
   return (
     <>
@@ -931,6 +967,7 @@ const AdminPosts = (props) => {
           gallaryImages={gallaryImages}
           setstate={setstate}
           data={data}
+          deleteProductImage={deleteProductImage}
 
         />}
     </>

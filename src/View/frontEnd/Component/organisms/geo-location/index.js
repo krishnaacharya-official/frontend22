@@ -9,19 +9,20 @@ import "rc-slider/assets/index.css";
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker, Cluster, ScaleControl } from 'react-mapbox-gl';
-import mapboxgl from 'mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker, ScaleControl, GeoJSONLayer, Source } from 'react-mapbox-gl';
+
+import mapboxgl, { MapTouchEvent } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong ,setLocationFilter} from "../../../../../user/user.action"
+import { setDistance, setLatLong, setLocationFilter } from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
 
 
-const Map = ReactMapboxGl({
+let Map = ReactMapboxGl({
   accessToken:
     helper.MapBoxPrimaryKey
 });
@@ -93,8 +94,17 @@ const GeoLocation = () => {
 
   const toggleState = () => {
     if (state.locked) {
+
+
+
       setState({ ...state, locked: false })
     } else {
+      setLocation({
+        ...location,
+        lat: user.lat ? Number(user.lat) : 0,
+        lng: user.lng ? Number(user.lng) : 0,
+        zoomlevel: 13
+      })
       setState({ ...state, locked: true });
     }
 
@@ -142,10 +152,45 @@ const GeoLocation = () => {
 
   }, [user])
 
+
+  let Obj = {
+    'circle-radius': 100,
+    'circle-color': '#E54E52',
+    'circle-opacity': 0.8
+  }
+
+
+
   useEffect(() => {
 
+    if (objectVal?.includes("© Mapbox ")) {
+      const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+      dispatch(setDistance(after_))
+
+    } else {
+      dispatch(setDistance(objectVal))
+
+    }
+
     // console.log(objectVal)
-    dispatch(setDistance(objectVal))
+
+    // Map.setPaintProperty("point-blip", "circle-radius", 8)
+    // Map.on("load", () => {
+    //   Map.addLayer({
+    //     id: "snotel-sites-circle",
+    //     type: "circle",
+    //     source: "snotel-sites",
+    //     paint: {
+    //       "circle-color": "#1d1485",
+    //       "circle-radius": 8,
+    //       "circle-stroke-color": "#ffffff",
+    //       "circle-stroke-width": 2,
+    //     },
+    //   })
+    // })
+
+
+    // console.log(Map)
 
   }, [objectVal])
 
@@ -182,7 +227,8 @@ const GeoLocation = () => {
 
               <div className="geo__distance" id="scale">
                 <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1" style={{ fontSize: 'small' }}>
-                  {objectVal}
+                  {/* {objectVal} */}
+                  {user.distance}
                 </div>
               </div>
 
@@ -206,18 +252,64 @@ const GeoLocation = () => {
               <Map
                 style={mapStyles.outdoor}
                 zoom={[location.zoomlevel]}
-                onRender={(e) => setObjectVal(e.boxZoom._container.outerText)} //boxZoom._container.outerText
+                onRender={(e) => {
+                  setObjectVal(e.boxZoom._container.outerText)
+
+                }} //boxZoom._container.outerText
                 containerStyle={{
                   height: '300px',
                   width: '310px'
                 }}
                 center={[location.lng, location.lat]}
 
+              // onStyleLoad={onStyleLoad}
+
               >
-                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
+                <Layer type="circle" id="circle"
+
+                  paint={Obj}
+                  // layout={{ 'icon-image': 'custom-marker' }}
+                  layout={{ "icon-image": "harbor-15" }}
+
+                >
+
                   <Feature coordinates={[location.lng, location.lat]} />
                 </Layer>
+
+                {/* <Source
+                  id="point"
+                  geoJsonSource={{
+                    type: "geojson",
+                    data: {
+                      type: "Point",
+                      coordinates: [0, 0]
+                    }
+                  }}
+                /> */}
+
+
+                {/* <Layer
+                  id="point-blip"
+                  type="circle"
+                  sourceId="point"
+                  paint={{
+                    "circle-radius": 8,
+                    "circle-radius-transition": { duration: 0 },
+                    "circle-opacity-transition": { duration: 0 },
+                    "circle-color": "#007cbf"
+                  }}
+                /> */}
+                {/* <Layer
+                  id="point"
+                  type="circle"
+                  sourceId="point"
+                  paint={{
+                    "circle-radius": 8,
+                    "circle-color": "#007cbf"
+                  }}
+                /> */}
                 <ScaleControl />
+
 
                 <Marker
                   coordinates={[location.lng, location.lat]}
@@ -249,8 +341,8 @@ const GeoLocation = () => {
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button variant="success" onClick={()=>dispatch(setLocationFilter(true))}>
-                Update Results {user.locationProductCount> 0 ? ' ( ' +user.locationProductCount+ ' ) ' : ''}
+              <Button variant="success" onClick={() => dispatch(setLocationFilter(true))}>
+                Update Results {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
               </Button>
             </div>
           </div>

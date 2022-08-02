@@ -91,6 +91,8 @@ const ItemDetail = (props) => {
 
             <ItemDetailMain progress={70} productDetails={productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart}
               addProductToWishlist={props.addProductToWishlist} wishListproductIds={props.wishListproductIds}
+              followToProduct={props.followToProduct}
+              isFollow={props.isFollow}
             />
           </Col>
           <Col md="5">

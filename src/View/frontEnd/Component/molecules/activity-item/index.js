@@ -46,7 +46,12 @@ function ActivityItem(props) {
   // let watched = notification.watched
   let watched = notification?.userNotificationDetails?.watched ? notification?.userNotificationDetails?.watched : false
 
-  let date = notification.type === 'PRODUCT' ? notification?.productDetails?.created_at : notification?.projectDetails?.created_at
+  let date = notification.created_at
+
+  let info = notification.info
+
+
+  let orgLogo = helper.CampaignAdminLogoPath + notification?.campaignadminDetails?.logo
 
 
 
@@ -70,13 +75,27 @@ function ActivityItem(props) {
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={image} />
+        <ListItemImg imgSrc={info ? orgLogo : image} />
         <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">
-            <div className="ad__activity__name">{name}</div>
-            <div className="ad__activity__sub-name">{organizationName}</div>
             {
-              notification.type === 'PROJECT' &&
+              info ?
+                <div className="ad__activity__name">{organizationName}</div>
+                :
+                <div className="ad__activity__name">{name}</div>
+            }
+            {/* <div className="ad__activity__name">{name}</div> */}
+            {
+              info ?
+                <div className="ad__activity__sub-name">{info}</div>
+                :
+                <div className="ad__activity__sub-name">{organizationName}</div>
+
+
+            }
+
+            {
+              notification.type === 'PROJECT' && !info &&
               <div className="ad__activity__title fs-7">{countProjectProcess(notification.productDetails)}% Funded</div>
 
             }
@@ -98,7 +117,7 @@ function ActivityItem(props) {
         </div>
       </div>
       <div className="ad__activity__remove ms-auto">
-        <Button variant="link" className="btn__link-light text-decoration-none" onClick={()=>props.removeNotification(notification._id)}>
+        <Button variant="link" className="btn__link-light text-decoration-none" onClick={() => props.removeNotification(notification._id)}>
           <FontAwesomeIcon icon={solid("xmark")} />
         </Button>
       </div>

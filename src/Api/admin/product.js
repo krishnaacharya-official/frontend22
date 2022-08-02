@@ -22,6 +22,7 @@ function product() {
         }
         data.append('unlimited', cdata.unlimited);
         data.append('organizationCountryId', cdata.organizationCountryId);
+        data.append('media', cdata.media);
 
         data.append('tax', cdata.tax);
         data.append('postTag', cdata.postTag);
@@ -153,6 +154,8 @@ function product() {
         data.append('headline', cdata.headline);
 
         data.append('unlimited', cdata.unlimited);
+        data.append('media', cdata.media);
+
         data.append('tax', cdata.tax);
         data.append('postTag', cdata.postTag);
 
@@ -288,6 +291,28 @@ function product() {
         return res;
     }
 
+    
+    const deleteProductImages = async (authToken, id) => {
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}product/image/${id}`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
     return {
         add,
@@ -296,7 +321,8 @@ function product() {
         updateProduct,
         listByOrganization,
         publishProduct,
-        productDetailsById
+        productDetailsById,
+        deleteProductImages
 
 
 

@@ -85,13 +85,17 @@ const PostsTable = (props) => {
                           <div className="fs-7 text-light mb-6p">
                             {product.brand}
                           </div>
-                          <Link variant="link" className="text-light p-0 fw-normal" to={'/item/' + product.slug}>
-                            <FontAwesomeIcon
-                              icon={regular("square-up-right")}
-                              className="me-1"
-                            />{" "}
-                            Go to Post
-                          </Link>
+                          {
+                            product.status === 1 &&
+
+                            <Link variant="link" className="text-light p-0 fw-normal" to={'/item/' + product.slug}>
+                              <FontAwesomeIcon
+                                icon={regular("square-up-right")}
+                                className="me-1"
+                              />{" "}
+                              Go to Post
+                            </Link>
+                          }
                         </div>
                       </div>
                       <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">

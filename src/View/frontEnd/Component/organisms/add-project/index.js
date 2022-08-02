@@ -15,7 +15,7 @@ import "./style.scss";
 import { Link } from "react-router-dom";
 
 const AddProject = (props) => {
-   const { id, status, name, headline, video, description, error, images, infinite } = props.stateData
+  const { id, status, name, headline, video, description, error, images, infinite } = props.stateData
 
   // let url = video;
   // let videoid = url.split("?v=")[1];
@@ -181,7 +181,7 @@ const AddProject = (props) => {
               {error && error.video && <p className="error">{error ? error.video ? error.video : "" : ""}</p>}
             </div>
             {/* <div className="project-video-wrap mb-4"> */}
-            <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{__html: video}} >
+            <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: video }} >
               {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
             </div>
             {/* <div className="">
@@ -200,7 +200,7 @@ const AddProject = (props) => {
                   className="icon-cloud"
                 />
                 <label >
-                  <input name='moreImg[]' id='moreImg' type="file"  multiple onChange={(e) => { props.changefile(e) }} />
+                  <input name='moreImg[]' id='moreImg' type="file" multiple onChange={(e) => { props.changefile(e) }} />
                 </label>
               </div>
               {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}
@@ -214,10 +214,17 @@ const AddProject = (props) => {
                   })
 
                   :
+                  <></>
+                }{
                   projectImages?.length ?
                     projectImages.map((img, key) => {
                       return (
-                        <img src={img ? img !== "" ? helper.ProjectImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                        // <img src={img ? img !== "" ? helper.ProjectImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+
+                        <div className="img-wrap">
+                          <span className="close" onClick={() => props.deleteProjectImage(img.id)}>&times;</span>
+                          <img src={img.img ? img.img !== "" ? helper.ProjectImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
+                        </div>
                       )
 
                     })
@@ -241,7 +248,7 @@ const AddProject = (props) => {
         </h3>
         <span className="d-flex align-items-center text-light me-2">(0)</span>
         {/* <Button variant="info">Create New</Button> */}
-        <Link to={"/campaign/"+props.slug+"/posts"} className="btn btn-info">Create New</Link>
+        <Link to={"/campaign/" + props.slug + "/posts"} className="btn btn-info">Create New</Link>
       </div>
       <div className="d-flex flex-wrap mb-3 p-20p border rounded-3">
 

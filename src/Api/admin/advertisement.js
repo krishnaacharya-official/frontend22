@@ -300,6 +300,71 @@ function advertisement() {
         });
         return res;
     }
+    const addAdvertiseToCategoryCountryState = async (authToken,data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}advertisement/country/state/category`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const listByCategoryStateAndAdvertisement = async (data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}advertisement/country/state/category/list`,
+            responseType: 'json',
+            headers: {
+                // "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const categoryPageAdList = async (data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}advertisement/list`,
+            responseType: 'json',
+            headers: {
+                // "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
 
 
     return {
@@ -314,7 +379,10 @@ function advertisement() {
         publishAddToCategory,
         listCategoryAdvertisement,
         publishAddToCountry,
-        listCountryAdvertisement
+        listCountryAdvertisement,
+        addAdvertiseToCategoryCountryState,
+        listByCategoryStateAndAdvertisement,
+        categoryPageAdList
 
 
 

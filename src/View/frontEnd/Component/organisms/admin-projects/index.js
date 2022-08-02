@@ -62,6 +62,8 @@ const AdminProjects = () => {
     formData.sortField = field
     formData.sortType = type
     formData.filter = true
+    formData.type = 'project'
+
     const getProjectList = await projectApi.projectListByOrganization(token, formData)
     if (getProjectList.data.success) {
       // console.log(getProjectList.data.data)
@@ -78,6 +80,8 @@ const AdminProjects = () => {
     formData.filter = false
     formData.sortField = 'created_at'
     formData.sortType = 'asc'
+    formData.type = 'project'
+
     const getOrganizationProducts = await productApi.listByOrganization(token, formData);
 
     if (getOrganizationProducts.data.success === true) {
@@ -386,7 +390,10 @@ const AdminProjects = () => {
       let tempImgArray = []
       if (projectData.imageDetails.length > 0) {
         projectData.imageDetails.map((img, i) => {
-          tempImgArray.push(img.image)
+          let tempObj = {}
+          tempObj.img = img.image
+          tempObj.id = img._id
+          tempImgArray.push(tempObj)
         })
         setProjectImages(tempImgArray)
       }
@@ -441,6 +448,20 @@ const AdminProjects = () => {
 
   };
 
+
+  const deleteProjectImage = async (id) => {
+    setLoading(true)
+    const deleteImg = await projectApi.deleteProjectImages(token, id)
+
+    if (deleteImg.data.success) {
+        let imgs = [...projectImages]
+        imgs = imgs.filter((item) => item.id !== id)
+        setProjectImages(imgs)
+
+    }
+    setLoading(false)
+  }
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -488,6 +509,7 @@ const AdminProjects = () => {
           submitProjectForm={submitProjectForm}
           discardProject={discardProject}
           slug={data.slug}
+          deleteProjectImage={deleteProjectImage}
 
         />}
     </>

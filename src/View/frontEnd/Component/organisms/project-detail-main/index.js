@@ -21,7 +21,7 @@ import IconToggle from "../../atoms/icon-toggle";
 // import helper from "../../../../../Common/Helper";
 import noImg from "../../../../../assets/images/noimg.jpg"
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat,isIframe } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, isIframe } from "../../../../../Common/Helper";
 
 import "./style.scss";
 
@@ -109,6 +109,9 @@ function ProjectDetailMain(props) {
             <IconToggle
               icon={<FontAwesomeIcon icon={regular("bell")} />}
               checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
+              onClickFilter={(e) => props.followToProject(e)}
+              name='Project'
+              ischecked={props.isFollow}
             />
 
             <ShareWidget />

@@ -14,6 +14,7 @@ import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
+import followApi from "../../Api/frontEnd/follow";
 
 
 
@@ -34,6 +35,7 @@ export default function ProjectDetailsController() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [donationList, setDonationList] = useState([])
     const dispatch = useDispatch()
+    const [isFollow, setIsFollow] = useState(false)
 
 
 
@@ -209,6 +211,8 @@ export default function ProjectDetailsController() {
                 data.organizationId = projectDetails?.campaignDetails?._id
                 data.organizationLogo = helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo
                 data.projectName = projectDetails?.name
+                data.organizationCountryId = projectDetails?.campaignDetails?.country_id
+
 
 
 
@@ -260,7 +264,34 @@ export default function ProjectDetailsController() {
         }
 
     }
+    const checkUserFollow = async (projectId) => {
+        let data = {}
+        data.typeId = projectId
+        data.type = 'PROJECT'
+        const check = await followApi.checkUserFollow(userAuthToken, data)
+        if (check) {
+            setIsFollow(check.data.success)
+        }
+    }
 
+    const followToProject = async (e) => {
+        if (userAuthToken) {
+            let data = {}
+            data.organizationId = projectDetails.campaignDetails._id
+            data.typeId = projectDetails._id
+            data.type = 'PROJECT'
+
+            const follow = await followApi.follow(userAuthToken, data)
+            if (follow && follow.data.success) {
+                await checkUserFollow(projectDetails._id)
+
+            }
+        } else {
+            ToastAlert({ msg: 'Please Login', msgType: 'error' });
+
+        }
+
+    }
 
     useEffect(() => {
         (async () => {
@@ -282,6 +313,10 @@ export default function ProjectDetailsController() {
                     await getAllProjectList()
                     await getPurchasedItems(projdata._id)
                     await getDonationList(projdata._id)
+
+                    if (userAuthToken) {
+                        await checkUserFollow(projdata._id)
+                    }
 
                 } else {
                     navigate('/')
@@ -310,6 +345,9 @@ export default function ProjectDetailsController() {
                 changevalue={changevalue}
                 donate={donate}
                 donationList={donationList}
+                followToProject={followToProject}
+                isFollow={isFollow}
+
 
             />
 

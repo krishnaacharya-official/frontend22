@@ -188,6 +188,28 @@ function project() {
     }
 
 
+    const deleteProjectImages = async (authToken, id) => {
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}project/image/${id}`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
 
     return {
         list,
@@ -195,7 +217,8 @@ function project() {
         deleteProject,
         updateProject,
         projectListByOrganization,
-        publishProject
+        publishProject,
+        deleteProjectImages
 
     }
 }

@@ -347,6 +347,9 @@ function organization() {
     }
 
 
+
+
+
     return {
         details,
         organizationPurchasedItemHistory,
@@ -361,7 +364,7 @@ function organization() {
         teamMemberActivation,
         listUserTeamMember,
         getPaymentHistory,
-        getDonationDetails
+        getDonationDetails,
 
     }
 }

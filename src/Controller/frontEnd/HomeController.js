@@ -350,15 +350,20 @@ export default function HomeController() {
         (async () => {
 
             // console.log(user.distance)
-            // console.log(user.lat)
+            let str = user.distance
+            const after_ = str?.substring(str.indexOf('map') + 3);
             // console.log(user.lng)
             if (user.distance && user.distance.split(" ").length > 0) {
                 let d = Number(user.distance.split(" ")[0])
                 // console.log(d)
+                if (isNaN(d)) {
+                    d = after_.split(" ")[0]
+                    // console.log(d)
+                }
 
                 let productArray = []
 
-                if (d > 1) {
+                if (Number(d) > 1) {
                     allProductList.map((p, i) => {
                         if (p.lat && p.lng) {
                             let dis = getDistance(
@@ -366,7 +371,7 @@ export default function HomeController() {
                                 { latitude: p.lat, longitude: p.lng },
                             );
                             // console.log('dis', dis / 1000)
-                            if (d > dis / 1000) {
+                            if (Number(d) > dis / 1000) {
                                 productArray.push(p)
                             }
                             //   console.log(dis/1000)
@@ -377,6 +382,10 @@ export default function HomeController() {
                         setProductList(productArray)
                         dispatch(setLocationFilter(false))
                     }
+                } else {
+                    await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+                    dispatch(setProductCount(0))
+                    // dispatch(setLocationFilter(false))
                 }
             }
 
@@ -401,7 +410,7 @@ export default function HomeController() {
             const getproductList = await productApi.list(token, obj);
             if (getproductList.data.success === true) {
                 if (getproductList.data.data.length > 0) {
-                    setAllProductList(getproductList.data.data)
+                    // setAllProductList(getproductList.data.data)
 
                     let productTagsArray = []
                     await Promise.all(getproductList.data.data.map(async (p, i) => {
@@ -791,6 +800,9 @@ export default function HomeController() {
         if (getFilteredProductList.data.success === true) {
             // console.log(getFilteredProductList.data.data)
             setProductList(getFilteredProductList.data.data)
+            setAllProductList(getFilteredProductList.data.data)
+            dispatch(setLocationFilter(true))
+
             // if (getFilteredProductList.data.data.length > 0) {
             //     let productTagsArray = []
             //     getFilteredProductList.data.data.map((p, i) => {

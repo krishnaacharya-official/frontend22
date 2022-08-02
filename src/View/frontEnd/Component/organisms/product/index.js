@@ -33,6 +33,8 @@ const Product = (props) => {
 
   // 30/40*100 = 75.
   let unlimited = props.unlimited
+  let media = props.media ? props.media : false
+
 
   let progress = unlimited ? 100 : Math.round(sold / total * 100)
 
@@ -276,6 +278,8 @@ const Product = (props) => {
             </span>
           }
 
+
+
           {
             props.tax &&
 
@@ -285,6 +289,16 @@ const Product = (props) => {
               <FontAwesomeIcon icon={solid("calculator-simple")} />
             </span>
 
+          }
+
+          {
+            props.media &&
+            <span className="product__type product__type-tab icon icon__solid-900 text-dark">
+              {/* <Icon icon="bxs:purchase-tag" color="#947ada" /> */}
+              {/* <FontAwesomeIcon icon={solid("tag")} color="#947ada" /> */}
+              <FontAwesomeIcon className="fs-3 text-info" icon={solid("image")} />
+
+            </span>
           }
 
 

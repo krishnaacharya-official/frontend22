@@ -36,7 +36,14 @@ export default function AdvertisementController() {
     const [category, setCategory] = useState([])
     const [publisedCatIds, setPublisedCatIds] = useState([])
     const [publisedStateIds, setPublisedStateIds] = useState([])
+    const [defaultCountryCategory, setDefaultCountryCategory] = useState([])
 
+    const [categoryStateList, setCategoryStateList] = useState([])
+    const [defaultStateCountryCategory, setDefaultStateCountryCategory] = useState([])
+
+    const [defaultStateCategory, setDefaultStateCategory] = useState([])
+
+    const [publisedStateCatIds, setPublisedStateCatIds] = useState([])
 
 
 
@@ -47,10 +54,16 @@ export default function AdvertisementController() {
         allSearch: '',
         MySearch: '',
         home: false,
-        country: ''
+        country: '',
+        categoryCountry: '',
+        categoryStateCountry: '',
+        categoryState: ''
+
+
+
     })
     const {
-        allSearch, MySearch, home, country
+        allSearch, MySearch, home, country, categoryCountry, categoryStateCountry, categoryState
     } = searchState;
 
 
@@ -212,12 +225,17 @@ export default function AdvertisementController() {
     }
 
 
-    const getCountryStateList = async (countryId) => {
+    const getCountryStateList = async (countryId, type) => {
         const getCountryStateList = await locationApi.stateListByCountry(adminAuthToken, Number(countryId));
         if (getCountryStateList) {
             if (getCountryStateList.data.success) {
                 if (getCountryStateList.data.data.length > 0) {
-                    setStateList(getCountryStateList.data.data)
+                    if (type === 'home') {
+                        setStateList(getCountryStateList.data.data)
+
+                    } else {
+                        setCategoryStateList(getCountryStateList.data.data)
+                    }
                 }
             }
         }
@@ -230,32 +248,106 @@ export default function AdvertisementController() {
         }
     }
 
-    const onChangeCountry = async (e, advertisementId) => {
+    const onChangeCountry = async (e, advertisementId, type) => {
+
+        if (type === 'home') {
 
 
-        setDefaultCountry(e)
-        setSearchState({
-            ...searchState,
-            country: e.value,
+            setDefaultCountry(e)
+            setSearchState({
+                ...searchState,
+                country: e.value,
+            })
+            await getCountryStateList(e.value, type)
+            await listPublishedAdToCountry(advertisementId, e.value)
 
 
-        })
-        await getCountryStateList(e.value)
-        await listPublishedAdToCountry(advertisementId, e.value)
+        } else if (type === 'category') {
+            setDefaultCountryCategory(e)
+            setSearchState({
+                ...searchState,
+                categoryCountry: e.value,
+            })
+            await listPublishedAddToCategory(advertisementId, Number(e.value))
+
+        } else {
+            setDefaultStateCountryCategory(e)
+            setSearchState({
+                ...searchState,
+                categoryStateCountry: e.value,
+            })
+
+            await getCountryStateList(e.value, type)
+
+
+        }
 
 
     }
 
+
+    const listByCategoryStateAndAdvertisement = async (stateId, advertisementId) => {
+        let data = {}
+        data.advertisementId = advertisementId
+        data.countryId = Number(categoryStateCountry)
+        data.stateId = Number(stateId)
+        const getList = await advertisementApi.listByCategoryStateAndAdvertisement(data)
+
+        if (getList && getList.data.success) {
+            if (getList.data.data.length > 0) {
+                let tempArray = []
+                getList.data.data.map((listCat, key) => {
+                    tempArray.push(listCat.categoryId)
+                })
+                setPublisedStateCatIds(tempArray)
+            } else {
+                setPublisedStateCatIds([])
+
+            }
+        }
+    }
+
+
+    const onChangeState = async (e, advertisementId) => {
+        setDefaultStateCategory(e)
+        setSearchState({
+            ...searchState,
+            categoryState: e.id,
+        })
+        await listByCategoryStateAndAdvertisement(e.id, advertisementId)
+        // let data = {}
+        // data.advertisementId = advertisementId
+        // data.countryId = Number(categoryStateCountry)
+        // data.stateId = Number(e.id)
+
+
+        // const getList = await advertisementApi.listByCategoryStateAndAdvertisement(data)
+
+        // if (getList && getList.data.success) {
+        //     if (getList.data.data.length > 0) {
+        //         let tempArray = []
+        //         getList.data.data.map((listCat, key) => {
+        //             tempArray.push(listCat.categoryId)
+        //         })
+        //         setPublisedStateCatIds(tempArray)
+        //     } else {
+        //         setPublisedStateCatIds([])
+
+        //     }
+        // }
+    }
 
     const publishOrRemoveAdFromCategory = async (categoryId, advertisementId) => {
         setLoading(true)
         let data = {}
         data.categoryId = categoryId
         data.advertisementId = advertisementId
+        data.countryId = Number(categoryCountry)
+
 
         const advertisementPublish = await advertisementApi.publishAddToCategory(adminAuthToken, data)
         if (advertisementPublish) {
-            await listPublishedAddToCategory(advertisementId)
+            await listPublishedAddToCategory(advertisementId, Number(categoryCountry))
         }
 
         setLoading(false)
@@ -263,11 +355,13 @@ export default function AdvertisementController() {
     }
 
 
-    const listPublishedAddToCategory = async (advertisementId) => {
+    const listPublishedAddToCategory = async (advertisementId, countryId) => {
 
 
         let data = {}
         data.advertisementId = advertisementId
+        data.countryId = countryId
+
 
         const getListPublishedAdCategory = await advertisementApi.listCategoryAdvertisement(adminAuthToken, data)
         if (getListPublishedAdCategory) {
@@ -308,7 +402,7 @@ export default function AdvertisementController() {
                     })
 
                     setPublisedStateIds(tempArr)
-                }else{
+                } else {
                     setPublisedStateIds([])
                 }
             }
@@ -332,6 +426,25 @@ export default function AdvertisementController() {
 
     }
 
+
+    const publishOrRemoveAdFromCategoryState = async (categoryId, advertisementId) => {
+        setLoading(true)
+        let data = {}
+        data.categoryId = categoryId
+        data.advertisementId = advertisementId
+        data.countryId = Number(categoryStateCountry)
+        data.stateId = Number(categoryState)
+
+
+
+        const advertisementPublish = await advertisementApi.addAdvertiseToCategoryCountryState(adminAuthToken, data)
+        if (advertisementPublish) {
+            await listByCategoryStateAndAdvertisement(Number(categoryState), advertisementId)
+        }
+
+        setLoading(false)
+
+    }
 
 
 
@@ -565,14 +678,20 @@ export default function AdvertisementController() {
             home: data.home,
             allSearch: '',
             MySearch: '',
-            country: ''
+            country: '',
+            categoryCountry: '',
+            categoryStateCountry: '',
+            categoryState: ''
         })
         setLoading(false)
         setProductList([])
         setSettingModal(true)
         setDefaultCountry([])
         setStateList([])
-
+        setDefaultCountryCategory([])
+        setDefaultStateCountryCategory([])
+        setCategoryStateList([])
+        setDefaultStateCategory([])
     }
 
     return (
@@ -610,6 +729,7 @@ export default function AdvertisementController() {
                 allSearch={allSearch}
                 onChangeHome={onChangeHome}
                 home={home}
+                categoryCountry={categoryCountry}
                 countryList={countryList}
                 onChangeCountry={onChangeCountry}
                 defaultCountry={defaultCountry}
@@ -619,7 +739,15 @@ export default function AdvertisementController() {
                 publisedCatIds={publisedCatIds}
                 publisedStateIds={publisedStateIds}
                 publishOrRemoveAdFromCountry={publishOrRemoveAdFromCountry}
-
+                defaultCountryCategory={defaultCountryCategory}
+                defaultStateCountryCategory={defaultStateCountryCategory}
+                categoryStateList={categoryStateList}
+                categoryStateCountry={categoryStateCountry}
+                onChangeState={onChangeState}
+                defaultStateCategory={defaultStateCategory}
+                categoryState={categoryState}
+                publishOrRemoveAdFromCategoryState={publishOrRemoveAdFromCategoryState}
+                publisedStateCatIds={publisedStateCatIds}
             />
 
 

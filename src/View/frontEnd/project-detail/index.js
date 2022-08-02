@@ -112,6 +112,8 @@ const ProjectDetail = (props) => {
               projectDetails={props.projectDetails}
               addToCart={props.addToCart}
               checkItemInCart={props.checkItemInCart}
+              followToProject={props.followToProject}
+              isFollow={props.isFollow}
             />
           </Col>
           <Col md="5">

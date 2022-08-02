@@ -1248,3 +1248,54 @@ li.search__tag {
     transform: translate3d(-204px, -18px, 0px) !important;
   }
 }
+
+
+
+
+/* .imgremove-btn:hover {
+    box-shadow: 0px 0px 3px grey;
+    transition: all .3s ease-in-out;
+}
+.imgremove-btn {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+ 
+  top: -8px;
+  right: 0p;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+} */
+
+.img-wrap {
+  position: relative;
+  display: inline-block;
+  /* border: 1px red solid; */
+  font-size: 0;
+}
+.img-wrap .close {
+  position: absolute;
+  /* top: 2px;
+  right: 2px; */
+  top: -9px;
+  right: -6px;
+  z-index: 100;
+  background-color: #FFF;
+  padding: 5px 2px 2px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: .2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+}
+.img-wrap:hover .close {
+  opacity: 1;
+}

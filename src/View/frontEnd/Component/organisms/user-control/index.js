@@ -32,7 +32,7 @@ const UserControl = () => {
       setLoading(true)
       const getControlSetting = await controlsApi.list(userAuthToken)
       if (getControlSetting.data.success) {
-        console.log(getControlSetting.data.data)
+        // console.log(getControlSetting.data.data)
         setControls({
           ...getControlSetting.data.data
         })
