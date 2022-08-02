@@ -97,8 +97,8 @@ function ProjectDetailMain(props) {
 
   return (
     <div className="project__detail-main">
-      <h6 className="project__detail-label mb-3p">Item</h6>
-      <h1 className="project__detail-title mb-0" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
+      <h4 className="project__detail-label mb-3p">Item</h4>
+      <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
       <div className="project__detail-price fs-2 text-success">{currencySymbol} {priceFormat(price)}</div>
@@ -130,11 +130,12 @@ function ProjectDetailMain(props) {
         />
       </div>
       <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="d-flex align-items-center flex-grow-1">
+        <div className="page__bar d-flex align-items-center flex-grow-1">
           <ProgressBar
-            variant="success"
+            variant={productDetails.
+              unlimited ? 'infinity' : 'success'}
             now={productDetails.unlimited ? 100 : per}
-            className="flex-grow-1 me-1"
+            className="page__progress flex-grow-1 me-1"
           />
           {productDetails.
             unlimited
@@ -161,7 +162,7 @@ function ProjectDetailMain(props) {
           <IconToggle
             icon={<FontAwesomeIcon icon={regular("bell")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
-            onClickFilter={(e) =>props.followToProduct(e)}
+            onClickFilter={(e) => props.followToProduct(e)}
             name='Product'
             ischecked={props.isFollow}
           />
@@ -227,8 +228,8 @@ function ProjectDetailMain(props) {
       }
 
 
-      <h5>{productDetails.needheadline}</h5>
-      <div className="page__paragraph lh-lg">
+      <h4>{productDetails.needheadline}</h4>
+      <div className="page__paragraph">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
@@ -238,7 +239,7 @@ function ProjectDetailMain(props) {
           <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
         </div>
         <div className="d-flex align-items-center fs-5 py-1 mb-3">
-          <div className="project__count mt-3p">1</div>
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
           <div className="flex-grow-1 mx-2">
             <Slider
               handleStyle={{
@@ -247,16 +248,15 @@ function ProjectDetailMain(props) {
                 border: "none",
                 background: "#3596F3",
                 marginTop: "-10px",
-
-
+                opacity: 1,
               }}
               min={1}
               max={maxQuentity}
-              railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
+              railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
               onChange={(e) => setQuantity(e)}
             />
           </div>
-          <div className="project__count mt-3p">{maxQuentity}</div>
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
         </div>
 
         {/* <Button size="lg" className="w-100">

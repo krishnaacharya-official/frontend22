@@ -29,7 +29,7 @@ const UserControl = () => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(false)
       const getControlSetting = await controlsApi.list(userAuthToken)
       if (getControlSetting.data.success) {
         // console.log(getControlSetting.data.data)
@@ -44,7 +44,7 @@ const UserControl = () => {
   }, [update])
 
   const saveControls = async () => {
-    setLoading(true)
+    setLoading(false)
 
     let data = {}
     data.push = push

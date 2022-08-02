@@ -28,7 +28,7 @@ function OrganisationDetailMain(props) {
         <div className="d-flex align-items-center mb-1">
           <div>
             <TagTitle>Organization</TagTitle>
-            <h1 className="project__detail-title mb-0" style={{ textTransform: "capitalize" }}>{organizationDetails?.name}</h1>
+            <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{organizationDetails?.name}</h1>
           </div>
           <div className="page__logo page__logo--org ms-auto">
             <img
@@ -102,8 +102,8 @@ function OrganisationDetailMain(props) {
           </Button>
         </div>
 
-        <h5>{organizationDetails?.headline}</h5>
-        <div className="page__paragraph lh-lg">
+        <h4>{organizationDetails?.headline}</h4>
+        <div className="page__paragraph">
           {organizationDetails?.description}
         </div>
         <div>

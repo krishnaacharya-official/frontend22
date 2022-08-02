@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import moment from "moment";
-import ProjectDetail from "src/View/frontEnd/project-detail";
+// import ProjectDetail from "src/View/frontEnd/project-detail";
 
 function SimilarItem(props) {
   let product = props.product

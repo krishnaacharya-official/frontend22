@@ -119,7 +119,7 @@ export default function ProjectDetailsController() {
     const addToCart = async (id, quantity) => {
         if (token) {
 
-            setLoading(true)
+            setLoading(false)
             let data = {}
             data.productId = id
             data.quantity = quantity
@@ -130,7 +130,7 @@ export default function ProjectDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
-                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -145,7 +145,7 @@ export default function ProjectDetailsController() {
 
 
     const checkItemInCart = async (id) => {
-        setLoading(true)
+        setLoading(false)
         let res;
         const checkItemInCart = await cartApi.checkItemInCart(userAuthToken, id);
         if (checkItemInCart) {
@@ -191,7 +191,7 @@ export default function ProjectDetailsController() {
                     ...state,
                     error: formaerrror
                 })
-                setLoading(true)
+                setLoading(false)
                 let data = {}
                 data.name = userData.name
                 data.email = userData.email
@@ -226,7 +226,7 @@ export default function ProjectDetailsController() {
                         let addXp = Number(selectedValue * 10)
                         dispatch(setUserXp(user.xp + addXp))
                         // await getUserRank()
-                        ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });*/
                         setLoading(false)
                         // navigate('/')
                         navigate('/donate/' + donateToProject.data.donationId)
@@ -295,7 +295,7 @@ export default function ProjectDetailsController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             // console.log(params.name)
             let projdata = {}
             const getProjectDetails = await projectApi.details(token, params.name);

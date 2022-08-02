@@ -201,7 +201,7 @@ export default function Index(props) {
             <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
               <FontAwesomeIcon icon={solid('question')} />
               How does it work? 
-              <Link to={"/about-us"} className="d-inline-block">click here</Link>
+              <Link to="/about-us" className="d-inline-block">click here</Link>
             </div>
           </div>
         </Container>

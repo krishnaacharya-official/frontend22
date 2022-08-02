@@ -50,7 +50,7 @@ const Product = (props) => {
   let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
 
-  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62a2a55e87f6544c42fa0e73_2022%20Logo%20Icon%20(2).svg')
+  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg')
 
   // console.log(props.campaignDetails?.logo)
   let img = props.image
@@ -140,7 +140,7 @@ const Product = (props) => {
       className="icon icon__pro"
     // onClick={removeFromCart}
     >
-      <FontAwesomeIcon icon={solid("cart-shopping")} />
+      <FontAwesomeIcon icon={solid("circle-check")} />
     </Button>
   ) : (
     <Button
@@ -149,7 +149,7 @@ const Product = (props) => {
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
-      <FontAwesomeIcon icon={solid("cart-shopping")} />
+      <FontAwesomeIcon icon={regular("cart-shopping")} />
     </Button>
   );
   const btn =
@@ -191,7 +191,7 @@ const Product = (props) => {
           />
         </div>
         <div className="flex-grow-1">
-          <ProgressBar variant={unlimited ? 'warning' : 'success'} now={progress} />
+          <ProgressBar variant={unlimited ? 'infinity' : 'success'} now={progress} />
         </div>
         {
           !unlimited ?
@@ -248,7 +248,7 @@ const Product = (props) => {
             {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
             <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
 
-            <span className="date__name">{location}</span>
+            <span className="date__name">{props.address}</span>
           </div>
         </div>
       </div>
@@ -307,7 +307,7 @@ const Product = (props) => {
       </div>
 
       <div className="product__category d-flex align-items-center flex-grow-1">
-        <Link
+      {/*  <Link
           to={"/categories/" + categorySlug}
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
@@ -318,8 +318,8 @@ const Product = (props) => {
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68d1a8d5f290171371bc_family(white).svg"
               className="img-fluid"
               alt=""
-            /> */}
-        </Link>
+            /> 
+        </Link> */}
         <div className="product__subcategory small d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-3p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>

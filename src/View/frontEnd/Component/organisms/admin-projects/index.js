@@ -102,7 +102,7 @@ const AdminProjects = () => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(false)
       await getProductList()
       await getProjectList(pageNo, sortField, order)
       setLoading(false)
@@ -260,7 +260,7 @@ const AdminProjects = () => {
 
         let addProject;
 
-        setLoading(true)
+        setLoading(false)
         if (id !== '') {
           addProject = await projectApi.updateProject(token, formData, id)
         } else {
@@ -320,7 +320,7 @@ const AdminProjects = () => {
         {
           label: 'Yes',
           onClick: (async () => {
-            setLoading(true)
+            setLoading(false)
             if (id !== '') {
               const deleteProjectApi = await projectApi.deleteProject(CampaignAdminAuthToken, id)
               if (deleteProjectApi) {
@@ -365,7 +365,7 @@ const AdminProjects = () => {
 
   const editProject = async (projectData) => {
 
-    // setLoading(true)
+    // setLoading(false)
     if ((projectData) && projectData !== null && projectData !== '') {
 
       setstate({
@@ -410,7 +410,7 @@ const AdminProjects = () => {
 
 
   const publishProject = async (id) => {
-    setLoading(true)
+    setLoading(false)
     const publish = await projectApi.publishProject(CampaignAdminAuthToken, id)
     if (publish) {
       if (publish.data.success === false) {

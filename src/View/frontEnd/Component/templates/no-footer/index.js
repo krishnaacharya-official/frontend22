@@ -8,7 +8,7 @@ const NoFooter = ({ children}) => {
     <>
       <HeaderController />
       {children}
-      {""}
+      {/* {""} */}
     </>
   );
 };

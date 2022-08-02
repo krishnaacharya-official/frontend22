@@ -247,7 +247,7 @@ export default function CategoryProductsController() {
     const addProductToWishlist = async (productId) => {
         let data = {}
         data.productId = productId
-        setLoading(true)
+        setLoading(false)
         const add = await wishlistApi.add(token, data)
         if (add) {
             if (add.data.success) {
@@ -282,7 +282,7 @@ export default function CategoryProductsController() {
         (async () => {
 
 
-            setLoading(true)
+            setLoading(false)
             let obj = {}
             obj.userCountry = user.countryId
             const getproductList = await productApi.list(token, obj);
@@ -414,7 +414,7 @@ export default function CategoryProductsController() {
         if (token) {
 
 
-            setLoading(true)
+            setLoading(false)
             let data = {}
             data.productId = id
             const addItemToCart = await cartApi.add(userAuthToken, data);
@@ -424,7 +424,7 @@ export default function CategoryProductsController() {
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
                     setIsUpdate(!update)
-                    ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -438,7 +438,7 @@ export default function CategoryProductsController() {
     }
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.removeCartProduct(userAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
@@ -446,7 +446,7 @@ export default function CategoryProductsController() {
                 ToastAlert({ msg: removeCartItem.data.message, msgType: 'error' });
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -577,7 +577,7 @@ export default function CategoryProductsController() {
             // console.log(params)
             // console.log(params.slug)
 
-            setLoading(true)
+            setLoading(false)
             if (categoryDetails?.id) {
                 await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
             }
@@ -708,7 +708,7 @@ export default function CategoryProductsController() {
                         setresultTags(finalArray)
                         // console.log(finalArray)
 
-                        setLoading(true)
+                        setLoading(false)
                         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
                         setLoading(false)
                     }
@@ -813,7 +813,7 @@ export default function CategoryProductsController() {
                         dispatch(setIsUpdateCart(!user.isUpdateCart))
                         setCartProductList([])
                         setPrice('')
-                        ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });*/
                         setLoading(false)
                     }
 
@@ -849,14 +849,14 @@ export default function CategoryProductsController() {
         }
         setresultTags(finalArray)
 
-        setLoading(true)
+        setLoading(false)
         await filterProduct(lowPrice, HighPrice, finalArray, user.countryId)
         setLoading(false)
     }
     return (
         <>
 
-            <FrontLoader loading={loading} />
+            {/*<FrontLoader loading={loading} />*/}
             <Index
                 productList={productList}
                 addToCart={addToCart}

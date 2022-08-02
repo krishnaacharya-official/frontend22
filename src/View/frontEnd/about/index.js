@@ -65,7 +65,7 @@ const About = (props) => {
           </Col>
           <Col md="6">
           <div className="ps-sm-5">
-          <div class="circle"></div>
+          <div className="circle"></div>
               <div className="d-flex flex-column align-items-start ps-sm-5">Your donations, all in one place</div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Discover unique opportunities</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">

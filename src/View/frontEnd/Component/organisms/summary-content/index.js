@@ -108,10 +108,10 @@ const SummaryContent = (props) => {
 
       <div className="note note--info px-0 text-center">
       All prices include sales tax. The organization(s) will receive the exact amount required to purchase each unit including regional sales tax. The funds provided for these goods is a transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
-        <br>
-        </br>
-        <br>
-        </br>
+        <br/>
+        {/* </br> */}
+        <br/>
+        {/* </br> */}
         Your funds are sent to the organization to purchase the goods on your behalf at their local stores.
         <br></br>
         <a href="/about-us" className="text-subtext">

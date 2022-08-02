@@ -117,7 +117,7 @@ export default function AdvertisementController() {
     }
 
     const publishOrRemoveAdFromProduct = async (productId, advertisementId) => {
-        setLoading(true)
+        setLoading(false)
         let data = {}
         data.productId = productId
         data.advertisementId = advertisementId
@@ -175,7 +175,7 @@ export default function AdvertisementController() {
     }
 
     const onChangeHome = async (e, id) => {
-        setLoading(true)
+        setLoading(false)
         let data = {}
         data.home = e.target.checked
         setSearchState({
@@ -338,7 +338,7 @@ export default function AdvertisementController() {
     }
 
     const publishOrRemoveAdFromCategory = async (categoryId, advertisementId) => {
-        setLoading(true)
+        setLoading(false)
         let data = {}
         data.categoryId = categoryId
         data.advertisementId = advertisementId
@@ -411,7 +411,7 @@ export default function AdvertisementController() {
 
 
     const publishOrRemoveAdFromCountry = async (countryId, stateId, advertisementId) => {
-        setLoading(true)
+        setLoading(false)
         let data = {}
         data.countryId = countryId
         data.stateId = stateId
@@ -452,7 +452,7 @@ export default function AdvertisementController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'ORDERS')) {
                 navigate('/admin/dashboard')
             }
@@ -557,7 +557,7 @@ export default function AdvertisementController() {
 
             let createAd;
             // Api Call for update Profile
-            setLoading(true)
+            setLoading(false)
             if (id !== '') {
                 createAd = await advertisementApi.updateAdvertisement(adminAuthToken, data, id)
             } else {
@@ -606,7 +606,7 @@ export default function AdvertisementController() {
     }
 
     const editAd = (data) => {
-        setLoading(true)
+        setLoading(false)
         if ((data) && data !== null && data !== '') {
             setstate({
                 ...state,
@@ -634,7 +634,7 @@ export default function AdvertisementController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteAd = await advertisementApi.deleteAdvertisement(adminAuthToken, id)
                             if (deleteAd) {
@@ -668,7 +668,7 @@ export default function AdvertisementController() {
 
     const adSetting = async (data) => {
         setAdvertisementDetails(data)
-        setLoading(true)
+        setLoading(false)
         await listPublishedAdProduct(data._id)
         await listPublishedAddToCategory(data._id)
         // await listPublishedAdToCountry(data._id)
