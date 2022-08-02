@@ -24,7 +24,7 @@ const UserHistory = () => {
 
 
   const getUserOrders = async (page) => {
-    setLoading(true)
+    setLoading(false)
     const getUserOrderDetails = await userApi.getUserOrderDetails(userAuthToken, page)
     if (getUserOrderDetails.data.success) {
       // console.log(getUserOrderDetails.data)
@@ -46,7 +46,7 @@ const UserHistory = () => {
   }, [data._id])
 
   const handleClick = async (e, v) => {
-    // setLoading(true)
+    // setLoading(false)
     setActiveList([])
     setIschecked(false)
     setPageNo(Number(v))

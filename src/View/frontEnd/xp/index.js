@@ -36,7 +36,7 @@ const Xp = () => {
   useEffect(() => {
     (async () => {
 
-      setLoading(true)
+      setLoading(false)
 
       const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
       if (getSettingsValue.data.data.length > 0) {

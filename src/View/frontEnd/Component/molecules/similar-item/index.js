@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import moment from "moment";
+import ProjectDetail from "src/View/frontEnd/project-detail";
 
 function SimilarItem(props) {
   let product = props.product
@@ -46,7 +47,8 @@ function SimilarItem(props) {
   const cart_btn = addedToCart ? (
     <Button
       variant="success"
-      size="sm"
+      /*size="sm"*/
+      /* NOTE: Add product category color to button -> style={{ backgroundColor: theme_color }}*/
       className="icon icon__pro"
       onClick={() => {props.removeCartItem(product._id)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
@@ -57,14 +59,14 @@ function SimilarItem(props) {
   ) : (
     <Button
       variant="primary"
-      size="sm"
+      /*size="sm"*/
       className="icon icon__pro"
       onClick={() => {props.addToCart(product._id)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
         
       }}
     >
-      <FontAwesomeIcon icon={solid("cart-shopping")} />
+      <FontAwesomeIcon icon={regular("cart-shopping")} />
     </Button>
   );
 

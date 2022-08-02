@@ -65,7 +65,7 @@ export default function HeaderController() {
     const addProductToWishlist = async (productId) => {
         let data = {}
         data.productId = productId
-        setLoading(true)
+        setLoading(false)
         const add = await wishlistApi.add(token, data)
         if (add) {
             if (add.data.success) {
@@ -101,7 +101,7 @@ export default function HeaderController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             if (userAuthToken && user.countryId) {
                 // console.log('token')
@@ -137,7 +137,7 @@ export default function HeaderController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (token) {
                 const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 
@@ -179,7 +179,7 @@ export default function HeaderController() {
 
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.deleteCartItem(userAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
@@ -190,7 +190,7 @@ export default function HeaderController() {
                 setIsUpdate(!update)
                 // user.setCart(!user.isUpdateCart)
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -208,7 +208,7 @@ export default function HeaderController() {
 
 
 
-        setLoading(true)
+        setLoading(false)
         const updateCartItem = await cartApi.updateCart(userAuthToken, quentity, id, productId, type);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
@@ -219,7 +219,7 @@ export default function HeaderController() {
                 // setIsUpdate(!update)
                 // user.setCart(!user.isUpdateCart)
                 dispatch(setIsUpdateCart(!user.isUpdateCart))
-                ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -278,7 +278,7 @@ export default function HeaderController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Header
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}

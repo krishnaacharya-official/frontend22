@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import IconButton from "../icon-button";
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar_default.jpg";
+import AvatarImg from "../../../../../assets/images/avatar_default.png";
 import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import moment from "moment";
 
@@ -17,7 +17,7 @@ const propTypes = {
 
 const defaultProps = {
   active: false,
-  categoryName: "Norwhal",
+  categoryName: "Narwhal",
   categoryColor: "#a278fc" // I think we need to populate category color random
 };
 
@@ -85,11 +85,11 @@ function HistoryItem({ active, ...otherProps }) {
             </span>
           </div>
           <div className="text-lighter fs-8">
-            {
+          {/*  {
               isDeleted &&
 
               <div className="text-lighter fs-8">Deleted User</div>
-            }
+            }*/}
             {
               type === "donation" ?
                 <>
@@ -99,7 +99,7 @@ function HistoryItem({ active, ...otherProps }) {
                 :
                 <>
                   <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-6p" />
-                  Bought {item?.quantity}
+                  Bought {item?.quantity} {item?.name}
                 </>
             }
 

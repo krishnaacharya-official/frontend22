@@ -2,15 +2,15 @@ import "./style.scss";
 
 const WidgetTitle = (props) => {
   return (
-    <h5 className="widget__title mb-3p">
+    <div className="project__detail-subtitle mb-12p">
       {props.href ? (
-        <a href={props.href} className="text-decoration-none">
+        <div className="text-decoration-none">
           {props.children}
-        </a>
+        </div>
       ) : (
         props.children
       )}
-    </h5>
+    </div>
   );
 };
 

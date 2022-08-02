@@ -25,7 +25,7 @@ export default function OrderController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'ORDERS')) {
                 navigate('/admin/dashboard')
             }
@@ -53,7 +53,7 @@ export default function OrderController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Index
             orderList={orderList}
             viewOrderDetails={viewOrderDetails}

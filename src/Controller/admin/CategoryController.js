@@ -50,7 +50,7 @@ function CategoryController() {
             }
 
         
-            setLoading(true)
+            setLoading(false)
             const categoryList = await categoryApi.listCategory(adminAuthToken);
             if (categoryList.data.success === true) {
                 setCategory(categoryList.data.data)
@@ -126,7 +126,7 @@ function CategoryController() {
 
             let addCategory;
             // Api Call for update Profile
-            setLoading(true)
+            setLoading(false)
             if (categoryHdnID !== '') {
                 addCategory = await categoryApi.updateCategory(adminAuthToken, data, categoryHdnID)
             } else {
@@ -180,7 +180,7 @@ function CategoryController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteCategoryApi = await categoryApi.deleteCategory(adminAuthToken, id)
                             if (deleteCategoryApi) {
@@ -214,7 +214,7 @@ function CategoryController() {
 
     const editCategory = async (categoryData) => {
         // console.log(categoryData)
-        setLoading(true)
+        setLoading(false)
         if ((categoryData) && categoryData !== null && categoryData !== '') {
             // setUpdateModalTitle(true);
             setModal(true);
@@ -240,7 +240,7 @@ function CategoryController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             {/* {console.log(color)} */}
             <Index
                 category={category}

@@ -50,7 +50,7 @@ export default function CartController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (userAuthToken) {
                 const verifyUser = await authApi.verifyToken(userAuthToken ? userAuthToken : CampaignAdminAuthToken)
                 if (!verifyUser.data.success) {
@@ -78,7 +78,7 @@ export default function CartController() {
     }, [update, token])
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.deleteCartItem(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
@@ -87,7 +87,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -98,7 +98,7 @@ export default function CartController() {
     }
 
     const clearCart = async () => {
-        setLoading(true)
+        setLoading(false)
         const clearCart = await cartApi.clearCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken);
         if (clearCart) {
             if (!clearCart.data.success) {
@@ -107,7 +107,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: clearCart.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: clearCart.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -119,7 +119,7 @@ export default function CartController() {
 
 
     const updateCartItem = async (quentity, id, productId, type) => {
-        setLoading(true)
+        setLoading(false)
         const updateCartItem = await cartApi.updateCart(userAuthToken ? userAuthToken : CampaignAdminAuthToken, quentity, id, productId, type);
         if (updateCartItem) {
             if (!updateCartItem.data.success) {
@@ -128,7 +128,7 @@ export default function CartController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: updateCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -143,7 +143,7 @@ export default function CartController() {
     }
     return (
         <>
-            <FrontLoader loading={loading} />
+               {/*<FrontLoader loading={loading} />*/}
             <Cart
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}

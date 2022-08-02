@@ -34,7 +34,7 @@ const OrderConfirmPage = () => {
     useEffect(() => {
         (async () => {
             if (params.id) {
-                setLoading(true)
+                setLoading(false)
                 await getOrderDetails()
                 setLoading(false)
 

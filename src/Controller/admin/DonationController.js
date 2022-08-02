@@ -36,7 +36,7 @@ export default function DonationController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
 
             const verifyUser = await authApi.verifyToken(adminAuthToken)
             if (!verifyUser.data.success) {
@@ -57,7 +57,7 @@ export default function DonationController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 orderList={orderList}
                 handleChange={handleChange}

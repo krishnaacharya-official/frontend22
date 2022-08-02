@@ -200,7 +200,7 @@ const CompanySettings = () => {
     (async () => {
 
       // console.log(data.description)
-      setLoading(true)
+      setLoading(false)
       setState({
         ...state,
         name: data.name,
@@ -300,7 +300,7 @@ const CompanySettings = () => {
       }
 
 
-      setLoading(true)
+      setLoading(false)
       const addUser = await adminCampaignApi.saveCampaignDetails(token, fdata)
       if (addUser) {
         if (!addUser.data.success) {
@@ -357,7 +357,7 @@ const CompanySettings = () => {
           label: 'Yes',
 
           onClick: async () => {
-            setLoading(true)
+            setLoading(false)
             const deleteUser = await adminCampaignApi.deleteCampaignAdmin(token, id)
             if (deleteUser) {
               if (!deleteUser.data.success) {

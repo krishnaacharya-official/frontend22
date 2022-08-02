@@ -8,7 +8,7 @@ import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./style.scss";
 
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar_default.jpg"
+import AvatarImg from "../../../../../assets/images/avatar_default.png"
 import ListItemImg from "../../atoms/list-item-img";
 import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 import Pagination from '@mui/material/Pagination';

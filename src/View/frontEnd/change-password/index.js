@@ -71,7 +71,7 @@ const ChangePassword = () => {
         ...state,
         error: formaerrror
       })
-      setLoading(true)
+      setLoading(false)
       let data = {}
       data.current_password = currentPassword
       data.new_password = newPassword

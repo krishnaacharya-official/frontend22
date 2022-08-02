@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import userApi from "../../../../../Api/frontEnd/user";
 import React, { useState, useEffect } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
-import AvatarImg from "../../../../../assets/images/avatar_default.jpg";
+import AvatarImg from "../../../../../assets/images/avatar_default.png";
 
 
 const LeaderBoard = () => {
@@ -43,7 +43,7 @@ const LeaderBoard = () => {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if(user.countryId){
                 await getList()
             }

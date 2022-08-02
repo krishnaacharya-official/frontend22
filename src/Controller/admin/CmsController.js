@@ -42,7 +42,7 @@ function CmsController() {
                 localStorage.clear()
                 navigate('/admin/login')
             }
-            setLoading(true)
+            setLoading(false)
             const getCmsPageList = await cmsApi.list(adminAuthToken);
             if (getCmsPageList.data.success === true) {
                 setCmsList(getCmsPageList.data.data)
@@ -155,7 +155,7 @@ function CmsController() {
 
             let addCms;
 
-            setLoading(true)
+            setLoading(false)
             if (id !== '') {
 
 
@@ -213,7 +213,7 @@ function CmsController() {
                 {
                     label: 'Yes',
                     onClick: (async () => {
-                        setLoading(true)
+                        setLoading(false)
                         if (id !== '') {
                             const deleteCms = await cmsApi.deleteCmsPage(adminAuthToken, id)
                             if (deleteCms) {
@@ -246,7 +246,7 @@ function CmsController() {
     }
 
     const editCms = async (data) => {
-        setLoading(true)
+        setLoading(false)
         if ((data) && data !== null && data !== '') {
 
             setModal(true);
@@ -272,7 +272,7 @@ function CmsController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index
                 openModal={openModal}
                 cmsList={cmsList}

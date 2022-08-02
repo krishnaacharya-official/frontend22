@@ -22,7 +22,7 @@ const UserTax = () => {
   const [taxList, setTaxList] = useState([])
 
   const getTaxDataList = async (page, field, type) => {
-    setLoading(true)
+    setLoading(false)
     let formData = {}
     formData.pageNo = page
     formData.sortField = field

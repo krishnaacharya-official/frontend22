@@ -2851,7 +2851,9 @@ fieldset[disabled] a.btn {
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
-  border-radius: 0.2rem;
+  border-radius: 0.2rem; 
+  width: 68px;
+  height: 38px;
 }
 
 .btn-block {
@@ -5749,7 +5751,7 @@ a.bg-primary:focus, a.bg-primary:hover {
 
 .bg-success {
   color: #fff !important;
-  background-color: #5cb85c !important;
+  background-color: #3cd3ad !important;
 }
 
 a.bg-success:focus, a.bg-success:hover {

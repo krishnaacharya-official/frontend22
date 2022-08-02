@@ -187,7 +187,7 @@ export default function ApplyOrganizationController() {
                 ...state,
                 error: formaerrror
             })
-            setLoading(true)
+            setLoading(false)
 
             let data = {}
             data.name = name
@@ -252,7 +252,7 @@ export default function ApplyOrganizationController() {
             let data = {}
             data.otp = Number(finalCode)
 
-            setLoading(true)
+            setLoading(false)
             const verifyOtp = await adminCampaignApi.VerifyOtpCampaignAdmin(data)
             deleteCookie("code1")
             deleteCookie("code2")
@@ -288,7 +288,7 @@ export default function ApplyOrganizationController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Apply
                 stateData={state}
                 blocks={blocks}

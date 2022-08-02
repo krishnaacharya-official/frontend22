@@ -8,7 +8,5 @@ export const Image = styled.div`
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   border-radius: 100%;
-  border: 2px solid #efefef;
-  box-shadow: 1px 1px 3px 0 #bbb;
   ${props => mixin.backgroundImage(props.avatarUrl)}
 `;

@@ -74,7 +74,7 @@ export default function PlansController() {
     useEffect(() => {
         (async () => {
 
-            setLoading(true)
+            setLoading(false)
             await getPlansDetails()
             setLoading(false)
         })()

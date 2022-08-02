@@ -95,7 +95,7 @@ export default function CheckoutController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (userAuthToken) {
                 const verifyUser = await authApi.verifyToken(userAuthToken)
                 if (!verifyUser.data.success) {
@@ -206,7 +206,7 @@ export default function CheckoutController() {
             })
 
 
-            setLoading(true)
+            setLoading(false)
 
             let data = {}
             data.name = userData.name
@@ -312,7 +312,7 @@ export default function CheckoutController() {
                         if (clearCart.data.success) {
                             navigate('/order/' + saveOrderDetails.data.orderId)
                         }
-                        ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });
+                        /*ToastAlert({ msg: saveOrderDetails.data.message, msgType: 'success' });*/
                         setLoading(false)
                     }
 
@@ -354,7 +354,7 @@ export default function CheckoutController() {
     }
 
     const removeCartItem = async (id) => {
-        setLoading(true)
+        setLoading(false)
         const removeCartItem = await cartApi.deleteCartItem(userAuthToken, id);
         if (removeCartItem) {
             if (!removeCartItem.data.success) {
@@ -363,7 +363,7 @@ export default function CheckoutController() {
 
             } else {
                 setIsUpdate(!update)
-                ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });
+                /*ToastAlert({ msg: removeCartItem.data.message, msgType: 'success' });*/
                 setLoading(false)
             }
 
@@ -378,7 +378,7 @@ export default function CheckoutController() {
     return (
         <>
             {/* {console.log(cartItem)} */}
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Checkout
                 cartItem={cartItem}
                 total={total}

@@ -59,7 +59,7 @@ function ProfileController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'PROFILE')) {
                 navigate('/admin/dashboard')
             }
@@ -136,7 +136,7 @@ function ProfileController() {
         let value = e.target.value;
 
         if (e.target.name === "country") {
-            setLoading(true)
+            setLoading(false)
             const getCountryStateList = await adminCampaignApi.stateListByCountry(adminAuthToken, value);
             if (getCountryStateList.data.success === true) {
                 setStateList(getCountryStateList.data.data)
@@ -149,7 +149,7 @@ function ProfileController() {
             setLoading(false)
 
         } else if (e.target.name === "stateid") {
-            setLoading(true)
+            setLoading(false)
             const getStateCityList = await adminCampaignApi.cityListByState(adminAuthToken, value);
             if (getStateCityList.data.success === true) {
                 setCityList(getStateCityList.data.data)
@@ -248,7 +248,7 @@ function ProfileController() {
             data.address = address
             data.category_id = category
 
-            setLoading(true)
+            setLoading(false)
             const addUser = await adminCampaignApi.saveCampaignDetails(adminAuthToken, data)
             if (addUser) {
                 if (!addUser.data.success) {
@@ -323,7 +323,7 @@ function ProfileController() {
             data.current_password = currentPassword
             data.new_password = newPassword
 
-            setLoading(true)
+            setLoading(false)
             const addUser = await adminCampaignApi.updatePassword(adminAuthToken, data)
             if (addUser) {
                 if (!addUser.data.success) {
@@ -384,7 +384,7 @@ function ProfileController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
             <Index
                 stateData={state}
                 categoryList={categoryList}

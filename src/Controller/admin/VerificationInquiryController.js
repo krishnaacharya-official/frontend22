@@ -31,7 +31,7 @@ export default function VerificationInquiryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
+            setLoading(false)
             if (!hasPermission(adminData.roleName, 'ORDERS')) {
                 navigate('/admin/dashboard')
             }
@@ -66,7 +66,7 @@ export default function VerificationInquiryController() {
     return (
         <>
 
-            <FrontLoader loading={loading} />
+                 {/*<FrontLoader loading={loading} />*/}
             <Index inquiryList={inquiryList} viewDetails={viewDetails}/>
             <Details stateData={state}  modal={modal} setModal={setModal}/>
          

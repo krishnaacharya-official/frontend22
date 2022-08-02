@@ -50,7 +50,7 @@ export default function ForgotPasswordController() {
                 ...state,
                 error: formaerrror
             })
-            setLoading(true)
+            setLoading(false)
             const sendOtp = await userAuthApi.sendOtp(email)
             if (sendOtp) {
                 if (!sendOtp.data.success) {
@@ -63,7 +63,7 @@ export default function ForgotPasswordController() {
                         email: "",
                         error: [],
                     })
-                    ToastAlert({ msg: sendOtp.data.message, msgType: 'success' });
+                    /*ToastAlert({ msg: sendOtp.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }
 
@@ -102,7 +102,7 @@ export default function ForgotPasswordController() {
 
     return (
         <>
-            <FrontLoader loading={loading} />
+                {/*<FrontLoader loading={loading} />*/}
     
                 <ForgotPassword 
                 changevalue={changevalue}

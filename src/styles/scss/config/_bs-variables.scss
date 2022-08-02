@@ -12,7 +12,7 @@ $gray-600: #6d6d86;
 $gray-700: #585a83;
 $gray-800: #3d4279;
 
-$body-color: $gray-700;
+$body-color: $gray-800;
 
 $darkest: #001429;
 $dark: $gray-800;
@@ -43,7 +43,7 @@ $font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-bolder: 900;
 
-$input-font-weight: $font-weight-normal;
+$input-font-weight: $font-weight-semibold;
 $input-border-color: $border-color;
 
 $input-btn-font-size-sm: 0.75rem;
@@ -68,7 +68,7 @@ $btn-disabled-opacity: 0.5;
 $input-btn-border-width: 1px;
 
 $border-radius: 3px;
-$border-radius-lg: 6px;
+$border-radius-lg: 4px;
 
 $primary: #6b68f8;
 $secondary: #5fc996;
@@ -76,6 +76,7 @@ $success: #45bb82;
 $warning: #f8b22f;
 $danger: #f15e5e;
 $info: #3898ec;
+$infinity: #a976f0;
 
 $light: $gray-100 !default;
 $dark: $gray-900 !default;

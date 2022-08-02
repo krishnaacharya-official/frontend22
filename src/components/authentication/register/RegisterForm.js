@@ -44,7 +44,7 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: async () => {
-      setLoading(true)
+      setLoading(false)
       let data = {}
       data.name = formik.values.name
       data.email = formik.values.email
@@ -72,7 +72,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <FrontLoader loading={loading} />
+     {/*<FrontLoader loading={loading} />*/}
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Stack spacing={3}>

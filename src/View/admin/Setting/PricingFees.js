@@ -108,7 +108,7 @@ export default function PricingFees(props) {
             // tempData.transectionFee = transectionFee
             // tempData.countryId = country
 
-            setLoading(true)
+            setLoading(false)
             // const saveSettingsValue = await pricingFeesApi.save(adminAuthToken, tempData);
             const saveSettingsValue = await settingApi.save(adminAuthToken, state);
 
@@ -205,7 +205,7 @@ export default function PricingFees(props) {
             if (!hasPermission(adminData.roleName, 'SETTING')) {
                 navigate('/admin/dashboard')
             }
-            setLoading(true)
+            setLoading(false)
             // await getCountryList()
             // let tempD = {}
             // tempD.countryId = country
