@@ -35,6 +35,9 @@ const Product = (props) => {
   let unlimited = props.unlimited
   let media = props.media ? props.media : false
 
+  let fullAddress = props.address?.split(',')
+  let address = props.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
+
 
   let progress = unlimited ? 100 : Math.round(sold / total * 100)
 
@@ -243,13 +246,17 @@ const Product = (props) => {
               />
             </Link>
           </div>
-          <div className="product__location d-flex align-items-center small mt-auto">
-            {/* <span className="icon icon__pro"></span> */}
-            {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
-            <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+          {
+            address &&
 
-            <span className="date__name">{props.address}</span>
-          </div>
+            <div className="product__location d-flex align-items-center small mt-auto">
+              {/* <span className="icon icon__pro"></span> */}
+              {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
+              <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+
+              <span className="date__name">{address}</span>
+            </div>
+          }
         </div>
       </div>
 
@@ -307,7 +314,7 @@ const Product = (props) => {
       </div>
 
       <div className="product__category d-flex align-items-center flex-grow-1">
-      {/*  <Link
+        {/*  <Link
           to={"/categories/" + categorySlug}
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}

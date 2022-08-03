@@ -11,8 +11,8 @@ const SummaryContent = (props) => {
   let total = props.total;
   let salesTax = props.salesTax
   let subtotal = props.subtotal
-  let salesTaxPer =props.salesTaxPer
-  let transectionFee =props.transectionFee
+  let salesTaxPer = props.salesTaxPer
+  let transectionFee = props.transectionFee
 
 
 
@@ -24,7 +24,7 @@ const SummaryContent = (props) => {
     <div className="summary__content">
 
       <div className="note note--info mb-3">
-      You have selected a credit card as your payment method. Your credit card company charges a {transectionFee}% transaction fee which will be added to the subtotal of your donation{" "}
+        You have selected a credit card as your payment method. Your credit card company charges a {transectionFee}% transaction fee which will be added to the subtotal of your donation{" "}
         {/* <a href="#">
           <span className="text-subtext">Terms and Conditions.</span>
         </a> */}
@@ -83,11 +83,12 @@ const SummaryContent = (props) => {
             </span>
           </div>
           <div className="d-flex align-items-center pb-20p">
-          <img
-                    className="img-stripe"
-                    src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
-                    alt=""
-                  />
+            <img
+              className="img-stripe"
+              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+              alt=""
+              style={{width:"100px"}}
+            />
             <span className="fw-semibold fs-7">
               {props.currencySymbol + priceFormat(transectionFee)}
             </span>
@@ -107,10 +108,10 @@ const SummaryContent = (props) => {
       </div>
 
       <div className="note note--info px-0 text-center">
-      All prices include sales tax. The organization(s) will receive the exact amount required to purchase each unit including regional sales tax. The funds provided for these goods is a transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
-        <br/>
+        All prices include sales tax. The organization(s) will receive the exact amount required to purchase each unit including regional sales tax. The funds provided for these goods is a transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
+        <br />
         {/* </br> */}
-        <br/>
+        <br />
         {/* </br> */}
         Your funds are sent to the organization to purchase the goods on your behalf at their local stores.
         <br></br>

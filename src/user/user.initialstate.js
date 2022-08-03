@@ -26,8 +26,9 @@ const userInitialState = {
     rank: "",
     salesTax: "",
     distance: "",
-    isUpdateLocationFilter: false,
-    locationProductCount: 0
+    isUpdateLocationFilter: 'false',
+    locationProductCount: 0,
+    isMapLocked:false
 
 
 

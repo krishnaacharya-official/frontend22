@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
 import ListItemImg from "../../atoms/list-item-img";
-import helper, { priceFormat } from "../../../../../Common/Helper";
+import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
 
 import "./style.scss";
 
 function CartItem(props) {
   let cartItem = props.cartItem
   const [quantity, setQuantity] = useState(cartItem?.quantity)
-
+  // const CalculatePrice = getCalculatedPrice()
+  // console.log(cartItem)
 
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
@@ -18,8 +19,12 @@ function CartItem(props) {
   let price = props.CalculatePrice.getData(cartItem?.productDetails?.price)
   let currencySymbol = props.currencySymbol
 
+
+  // console.log(location)
+
+
   const minusValue = async (value) => {
-    console.log('minusValue', value)
+    // console.log('minusValue', value)
     if (value > 1) {
       value--;
       await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'minus')
@@ -29,7 +34,7 @@ function CartItem(props) {
 
   }
   const plusValue = async (value) => {
-    console.log('plusValue', value)
+    // console.log('plusValue', value)
     value++;
     // setQuantity(value)
     await props.updateCartItem(value, cartItem?._id, cartItem?.productDetails?._id, 'plus')
@@ -49,7 +54,7 @@ function CartItem(props) {
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
             <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
-            <div className="cd__cart__location">{location}</div>
+            {/* <div className="cd__cart__location">{location}</div> */}
           </div>
           <div className="cd__cart__price">{currencySymbol + priceFormat(price)}</div>
         </div>

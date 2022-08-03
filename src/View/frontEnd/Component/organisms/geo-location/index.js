@@ -15,7 +15,7 @@ import mapboxgl, { MapTouchEvent } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong, setLocationFilter } from "../../../../../user/user.action"
+import { setDistance, setLatLong, setLocationFilter, setMapLock } from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
@@ -44,7 +44,7 @@ const GeoLocation = () => {
 
 
   const [state, setState] = useState({
-    locked: true
+    locked: false
   })
 
   const [objectVal, setObjectVal] = useState()
@@ -90,18 +90,18 @@ const GeoLocation = () => {
 
   const toggleState = () => {
     if (state.locked) {
-
-
-
       setState({ ...state, locked: false })
+      dispatch(setMapLock(false))
     } else {
-      setLocation({
-        ...location,
-        lat: user.lat ? Number(user.lat) : 0,
-        lng: user.lng ? Number(user.lng) : 0,
-        zoomlevel: 13
-      })
+      // setLocation({
+      //   ...location,
+      //   lat: user.lat ? Number(user.lat) : 0,
+      //   lng: user.lng ? Number(user.lng) : 0,
+      //   zoomlevel: 13
+      // })
       setState({ ...state, locked: true });
+      dispatch(setMapLock(true))
+
     }
 
   };
@@ -144,7 +144,7 @@ const GeoLocation = () => {
       lng: user.lng ? Number(user.lng) : 0
     })
 
-
+    setState({ ...state, locked: user.isMapLocked });
 
   }, [user])
 
@@ -159,12 +159,28 @@ const GeoLocation = () => {
 
   useEffect(() => {
 
-    if (objectVal?.includes("© Mapbox ")) {
-      const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
-      dispatch(setDistance(after_))
+    if (user.distance === '') {
 
-    } else {
-      dispatch(setDistance(objectVal))
+      if (objectVal?.includes("© Mapbox ")) {
+        const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+        dispatch(setDistance(after_))
+
+      } else {
+        dispatch(setDistance(objectVal))
+
+      }
+    }
+
+    if (!user.isMapLocked) {
+      // console.log(user.isMapLocked)
+      if (objectVal?.includes("© Mapbox ")) {
+        const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+        dispatch(setDistance(after_))
+
+      } else {
+        dispatch(setDistance(objectVal))
+
+      }
 
     }
 
@@ -235,7 +251,7 @@ const GeoLocation = () => {
                   onClick={() => toggleState()}
                 >
                   <span className="d-flex align-items-center icon">
-                    {state.locked ? (
+                    {!state.locked ? (
                       <FontAwesomeIcon icon={light('lock-open')} />
                     ) : (
                       <FontAwesomeIcon icon={solid('lock')} />
@@ -332,13 +348,13 @@ const GeoLocation = () => {
                 max={220}
                 value={location.zoomlevel * 10}
                 railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
-                disabled={!state.locked}
+                disabled={state.locked}
                 onChange={(e) => setLocation({ ...location, zoomlevel: e / 10 })}
               />
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button variant="success" onClick={() => dispatch(setLocationFilter(true))}>
+              <Button variant="success" onClick={() => dispatch(setLocationFilter('true'))}>
                 Update Results {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
               </Button>
             </div>
