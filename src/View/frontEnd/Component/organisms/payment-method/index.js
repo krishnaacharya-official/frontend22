@@ -18,7 +18,8 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
-import { Link ,Outlet, useOutletContext } from 'react-router-dom';
+import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { DataArraySharp } from "@mui/icons-material";
 
 
 const PaymentMethod = () => {
@@ -78,9 +79,10 @@ const PaymentMethod = () => {
     identityDocumentImage: "",
     status: 1,
     error: [],
+    taxRate: ''
   })
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber,
+    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate
   } = state;
 
   useEffect(() => {
@@ -113,6 +115,18 @@ const PaymentMethod = () => {
     }
 
   }, [countryList])
+
+  useEffect(() => {
+    (async () => {
+      // console.log(data._id)
+      setstate({
+        ...state,
+        taxRate: data.taxRate
+      })
+
+
+    })()
+  }, [data])
 
 
   const getCountryList = async () => {
@@ -619,6 +633,64 @@ const PaymentMethod = () => {
 
   }
 
+  const onChangeTaxRate = (e) => {
+    let taxvalue = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+
+    setstate({
+      ...state,
+      taxRate: taxvalue
+    })
+  }
+
+  function myFunction() {
+
+
+    const rules = {
+      taxRate: 'required',
+
+    }
+    const message = {
+      'taxRate.required': 'Tax Rate is Required.',
+    }
+    validateAll(state, rules, message).then(async () => {
+      const formaerrror = {};
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+      let fdata = {}
+      fdata.taxRate = Number(taxRate)
+
+      // console.log('first')
+      const updateSalesTax = await adminCampaignApi.updateSalesTax(token, fdata)
+      if (updateSalesTax && updateSalesTax.data.success) {
+        // ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+
+      }
+
+    }).catch(errors => {
+      // console.log(errors)
+      setLoading(false)
+      const formaerrror = {};
+      if (errors && errors.length) {
+        errors.forEach(element => {
+          formaerrror[element.field] = element.message
+        });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+      }
+
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+
+    });
+
+  }
+
 
   return (
     <>
@@ -677,6 +749,32 @@ const PaymentMethod = () => {
             </div>
           </div>
         </div>
+
+
+        <h4 className="fw-bolder">Tax Rate</h4>
+        <div className="text-subtext mb-3">
+          What is your regional sales tax?
+        </div>
+
+
+        <div className="input__wrap mb-3">
+          <label className="input__label flex__1">
+            <input type="text" name="taxRate" value={taxRate} className={state.error && state.error.taxRate ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
+              // onFocu={()=>alert('okk')} 
+              onBlur={() => myFunction()}
+            />
+            <span className="input__span">Ex: HST/ON 13%</span>
+          </label>
+          {state.error && state.error.taxRate && <p className="error">{state.error.taxRate}</p>}
+        </div>
+
+
+
+        <div className="note text-dark mb-5">
+          The tax rate will be automatically added to the unit price of items you post to make sure you enough funds to cover the sales tax when you purchase the items.
+
+        </div>
+
 
         <div className="mb-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>

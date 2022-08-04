@@ -15,7 +15,7 @@ import mapboxgl, { MapTouchEvent } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong, setLocationFilter, setMapLock } from "../../../../../user/user.action"
+import { setDistance, setLatLong, setLocationFilter, setMapLock, } from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 

@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort, setProductCount, setLocationFilter,setDistance } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax, setUserCountrySort, setProductCount, setLocationFilter, setDistance } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
@@ -340,12 +340,12 @@ export default function HomeController() {
             //     if (user.distance?.includes("© Mapbox ")) {
             //       const after_ = user.d?.substring(user.d.indexOf('map') + 3);
             //       dispatch(setDistance(after_))
-          
+
             //     } else {
             //       dispatch(setDistance(user.d))
-          
+
             //     }
-          
+
             //   }
 
 
@@ -367,46 +367,46 @@ export default function HomeController() {
             // if (user.isMapLocked) {
 
 
-                // console.log(user.distance) 
-                let str = user.distance
-                const after_ = str?.substring(str.indexOf('map') + 3);
-                // console.log(user.lng)
-                if (user.distance && user.distance.split(" ").length > 0) {
-                    let d = Number(user.distance.split(" ")[0])
+            // console.log(user.distance) 
+            let str = user.distance
+            const after_ = str?.substring(str.indexOf('map') + 3);
+            // console.log(user.lng)
+            if (user.distance && user.distance.split(" ").length > 0) {
+                let d = Number(user.distance.split(" ")[0])
+                // console.log(d)
+                if (isNaN(d)) {
+                    d = after_.split(" ")[0]
                     // console.log(d)
-                    if (isNaN(d)) {
-                        d = after_.split(" ")[0]
-                        // console.log(d)
-                    }
-
-                    let productArray = []
-
-                    if (Number(d) > 1) {
-                        allProductList.map((p, i) => {
-                            if (p.lat && p.lng) {
-                                let dis = getDistance(
-                                    { latitude: user.lat, longitude: user.lng },
-                                    { latitude: p.lat, longitude: p.lng },
-                                );
-                                // console.log('dis', dis / 1000)
-                                if (Number(d) > dis / 1000) {
-                                    productArray.push(p)
-                                }
-                                //   console.log(dis/1000)
-                            }
-                        })
-                        setTempProductList(productArray)
-                        dispatch(setProductCount(productArray.length))
-                        // if (user.isUpdateLocationFilter === true) {
-                        //     setProductList(productArray)
-                        //     dispatch(setLocationFilter(false))
-                        // }
-                    } else {
-                        await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
-                        dispatch(setProductCount(0))
-                        // dispatch(setLocationFilter(false))
-                    }
                 }
+
+                let productArray = []
+
+                if (Number(d) > 1) {
+                    allProductList.map((p, i) => {
+                        if (p.lat && p.lng) {
+                            let dis = getDistance(
+                                { latitude: user.lat, longitude: user.lng },
+                                { latitude: p.lat, longitude: p.lng },
+                            );
+                            // console.log('dis', dis / 1000)
+                            if (Number(d) > dis / 1000) {
+                                productArray.push(p)
+                            }
+                            //   console.log(dis/1000)
+                        }
+                    })
+                    setTempProductList(productArray)
+                    dispatch(setProductCount(productArray.length))
+                    // if (user.isUpdateLocationFilter === true) {
+                    //     setProductList(productArray)
+                    //     dispatch(setLocationFilter(false))
+                    // }
+                } else {
+                    await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+                    dispatch(setProductCount(0))
+                    // dispatch(setLocationFilter(false))
+                }
+            }
 
             // }
             // console.log(user.isUpdateLocationFilter)
@@ -422,13 +422,41 @@ export default function HomeController() {
         (async () => {
             // console.log(user.isUpdateLocationFilter)
             // if (user.isMapLocked) {
-                if (user.isUpdateLocationFilter === 'true') {
-                    // console.log(user.isUpdateLocationFilter)
-                    if (tempProductList.length > 0) {
-                        setProductList(tempProductList)
-                    }
-                    dispatch(setLocationFilter('false'))
+            if (user.isUpdateLocationFilter === 'true') {
+                // console.log(user.isUpdateLocationFilter)
+                if (tempProductList.length > 0) {
+
+
+
+                    let productTagsArray = []
+                    await Promise.all(tempProductList.map(async (p, i) => {
+
+
+
+
+                        await Promise.all(p.tags.map((value, i) => {
+                            let tempObj = {}
+                            tempObj.color = p.categoryDetails.color ? p.categoryDetails.color : 'red'
+
+                            tempObj.tag = value
+                            productTagsArray.push(tempObj);
+
+
+
+                        }))
+                    }))
+                    productTagsArray = productTagsArray.filter((value, index, self) =>
+                        index === self.findIndex((t) => (
+                            t.tag === value.tag
+                        ))
+                    )
+
+                    setProductTags(productTagsArray)
+                    
+                    setProductList(tempProductList)
                 }
+                dispatch(setLocationFilter('false'))
+            }
             // } 
             // else {
             //     await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
@@ -843,7 +871,9 @@ export default function HomeController() {
             // console.log(getFilteredProductList.data.data)
             setProductList(getFilteredProductList.data.data)
             setAllProductList(getFilteredProductList.data.data)
-            dispatch(setLocationFilter('true'))
+            if (user.locationProductCount > 0) {
+                dispatch(setLocationFilter('true'))
+            }
 
             // if (getFilteredProductList.data.data.length > 0) {
             //     let productTagsArray = []

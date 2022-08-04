@@ -109,7 +109,7 @@ const PostsTable = (props) => {
                               </span>
                             }
                             <ProgressBar
-                              variant={!product.unlimited ? "success" : "info"}
+                              variant={!product.unlimited ? "success" : "infinity"}
                               now={!product.unlimited ? Math.round(product.soldout / product.quantity * 100) : 100}
                               className="flex__1"
                             />
@@ -153,18 +153,22 @@ const PostsTable = (props) => {
                           </Button>
                         }
                         <div className="ms-auto">
-                          <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
+                          {/* <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
                             <FontAwesomeIcon
                               icon={solid("edit")}
                               className="text-warning fs-2 me-2"
                             />
                           </Button>
-                          <Button variant="link" className="p-0">
-                            <FontAwesomeIcon
-                              icon={solid("square-up-right")}
-                              className="text-success fs-2 me-2"
-                            />
-                          </Button>
+                          {
+                            product.quantity <= product.soldout && !product.unlimited &&
+
+                            <Button variant="link" className="p-0">
+                              <FontAwesomeIcon
+                                icon={solid("square-up-right")}
+                                className="text-success fs-2 me-2"
+                              />
+                            </Button>
+                          }
 
                           <Button variant="link" className="p-0" onClick={() => props.deleteProduct(product._id)}>
                             <FontAwesomeIcon
@@ -177,13 +181,39 @@ const PostsTable = (props) => {
                             <Button variant="info" className="" onClick={() => props.publishProduct(product._id)}>
                               Publish
                             </Button>
-                          }
+                          } */}
 
                           {
-                            product.quantity <= product.soldout && !product.unlimited &&
-                            <Button variant="success" className="rounded-pill fw-bold">
-                              Fulfil Order
-                            </Button>
+                            product.quantity <= product.soldout && !product.unlimited ?
+                              <Button variant="success" className="btn-md fw-bold" onClick={() => {
+                                props.createPost(true)
+                                props.setFulfil(true)
+                              }}
+                              >
+                                Fulfil Order
+                              </Button>
+                              :
+                              <>
+                                <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
+                                  <FontAwesomeIcon
+                                    icon={solid("edit")}
+                                    className="text-warning fs-2 me-2"
+                                  />
+                                </Button>
+
+                                <Button variant="link" className="p-0" onClick={() => props.deleteProduct(product._id)}>
+                                  <FontAwesomeIcon
+                                    icon={solid("trash")}
+                                    className="text-danger fs-2 me-2"
+                                  />
+                                </Button>
+
+                                {product.status === -1 &&
+                                  <Button variant="info" className="" onClick={() => props.publishProduct(product._id)}>
+                                    Publish
+                                  </Button>
+                                }
+                              </>
                           }
 
 

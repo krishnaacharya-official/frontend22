@@ -28,7 +28,8 @@ const userInitialState = {
     distance: "",
     isUpdateLocationFilter: 'false',
     locationProductCount: 0,
-    isMapLocked:false
+    isMapLocked:false,
+    ischangeSlider:false
 
 
 

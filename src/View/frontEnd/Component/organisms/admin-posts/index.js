@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import { Outlet, useOutletContext } from 'react-router-dom';
+// import { Button } from "react-bootstrap";
+import { Outlet, useOutletContext, Link } from 'react-router-dom';
 // import {
 //   LadderMenuItems,
 //   PostsTable,
@@ -26,6 +26,21 @@ import helper from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+
+
+import {
+  Button,
+  Accordion,
+  AccordionContext,
+  useAccordionButton,
+  Card,
+  Col,
+  Row,
+  Dropdown,
+} from "react-bootstrap";
 
 const AdminPosts = (props) => {
   const validExtensions = ['jpg', 'png', 'jpeg'];
@@ -105,6 +120,9 @@ const AdminPosts = (props) => {
   const {
     id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy, media
   } = state;
+
+  const [fulfil, setFulfil] = useState(false)
+
 
   const [tags, setTags] = useState([]);
   let url = galleryUrl;
@@ -935,41 +953,312 @@ const AdminPosts = (props) => {
             order={order}
             sortField={sortField}
             organizationDetails={data}
+            setFulfil={setFulfil}
+            createPost={createPost}
+
+
 
           />
         </div>
-      ) :
-        <AddPost
-          createPost={createPost}
-          organizationDetails={data}
-          stateData={state}
-          handleDelete={handleDelete}
-          handleAddition={handleAddition}
-          handleDrag={handleDrag}
-          handleTagClick={handleTagClick}
-          onClearAll={onClearAll}
-          onTagUpdate={onTagUpdate}
-          onSelectProject={onSelectProject}
-          changevalue={changevalue}
-          changefile={changefile}
-          resetForm={resetForm}
-          submitProductForm={submitProductForm}
-          tags={tags}
-          categoryList={categoryList}
-          subcategoryList={subcategoryList}
-          Img={Img}
-          tempImg={tempImg}
-          moreTempImages={moreTempImages}
-          moreImages={moreImages}
-          projectList={projectList}
-          seletedProjectList={seletedProjectList}
-          gallaryTempImages={gallaryTempImages}
-          gallaryImages={gallaryImages}
-          setstate={setstate}
-          data={data}
-          deleteProductImage={deleteProductImage}
+      )
+        : !fulfil ?
+          <AddPost
+            createPost={createPost}
+            organizationDetails={data}
+            stateData={state}
+            handleDelete={handleDelete}
+            handleAddition={handleAddition}
+            handleDrag={handleDrag}
+            handleTagClick={handleTagClick}
+            onClearAll={onClearAll}
+            onTagUpdate={onTagUpdate}
+            onSelectProject={onSelectProject}
+            changevalue={changevalue}
+            changefile={changefile}
+            resetForm={resetForm}
+            submitProductForm={submitProductForm}
+            tags={tags}
+            categoryList={categoryList}
+            subcategoryList={subcategoryList}
+            Img={Img}
+            tempImg={tempImg}
+            moreTempImages={moreTempImages}
+            moreImages={moreImages}
+            projectList={projectList}
+            seletedProjectList={seletedProjectList}
+            gallaryTempImages={gallaryTempImages}
+            gallaryImages={gallaryImages}
+            setstate={setstate}
+            data={data}
+            deleteProductImage={deleteProductImage}
 
-        />}
+          />
+          :
+          // fulfil ?
+          <>
+            <div className="d-flex align-items-center flex-grow-1 pb-20p border-bottom">
+              <Button variant="link" className="me-sm-2 me-1" onClick={() => {
+                createPost(false)
+                setFulfil(false)
+              }}>
+                <FontAwesomeIcon
+                  icon={solid("angle-left")}
+                  className="text-subtext fs-3"
+                />
+              </Button>
+              <div className="d-flex align-items-center text-dark me-sm-3 flex__1">
+                <div className="item__image-wrap">
+                  <img
+                    alt=""
+                    height="56"
+                    className="img-fluid"
+                    src='https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c22f4fd28a7b481f49c8c_5a84f80c52ba0b1d48012b26-icon-512x512.png'
+                  />
+                </div>
+                <div className="ms-3">
+                  <div className="fw-bolder fs-4 mb-3p">Product name</div>
+                  <div className="fs-7">April 20th
+                  </div>
+                </div>
+              </div>
+
+              <div className="d-none d-sm-flex align-items-center flex__1">
+                <div className="d-flex align-items-center flex__1">
+
+                </div>
+              </div>
+
+              {/* <ListItemImg
+                size={42}
+                imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
+              /> */}
+
+              <Link variant="link" className="text-light p-0 fw-normal" to='/'>
+                <FontAwesomeIcon
+                  icon={regular("square-up-right")}
+                  className="me-1"
+                />{" "}
+                Go to Post
+              </Link>
+            </div>
+
+            <div className="empty_state mt-3">
+              <div className="note note-info d-flex align-items-center" style={{ maxWidth: "100%" }}>
+                <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                  <FontAwesomeIcon icon={solid("party-horn")} />
+                </span>
+                <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                  <FontAwesomeIcon icon={solid("face-party")} />
+                </span>
+
+                <span className="fs-6 text-subtext">
+                  Congratulations! Your post has been fully funded. Upload the sales receipt to complete your order.
+                </span>
+              </div>
+            </div>
+
+
+            <Card className="mt-5">
+
+              <Row className="mw-850 ml-5">
+
+
+                <Col lg="6">
+
+
+                  <Card.Header className="post__accordion-header pb-3">
+
+                    <span className="fs-3 fw-bolder text-dark">Order Summary</span>
+
+                  </Card.Header>
+                  <label htmlFor="videoInput" className="form__label mt-3">
+                    Transaction Details
+                  </label>
+
+                  <div className="order__widget ">
+
+
+
+
+                    <div className="border-bottom">
+                      <div className="d-flex align-items-center fw-bolder mb-20p">
+                        <span className="flex__1">Qty:</span>
+                        <span className="text-dark">23</span>
+                      </div>
+                      <div className="d-flex align-items-center pt-1 mb-2">
+                        <span className="fw-bolder flex__1">Each:</span>
+                        <span className="text-success fw-bold fs-4">$500</span>
+                      </div>
+                    </div>
+                    <div className="d-flex align-items-center pt-3 mb-2">
+                      <span className="fw-bolder flex__1">Total:</span>
+                      <span className="text-success fw-bold fs-4">$500</span>
+                    </div>
+
+                  </div>
+
+
+                  <label htmlFor="videoInput" className="form__label py-3">
+                    Upload Receipt
+                    &nbsp;
+                    <span className="post-type-text" style={{ color: '#dd4646' }}>(required)</span>
+                  </label>
+
+
+                  <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                    <div className="upload-wrap" style={{ width: "100%", height: "200px" }}>
+                      <FontAwesomeIcon
+                        icon={solid("cloud-arrow-up")}
+                        className="icon-cloud"
+                      />
+                      <label>
+                        <input name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.gif,.png" multiple
+                        // onChange={(e) => { changefile(e) }} 
+                        />
+                      </label>
+                    </div>
+
+
+                  </div>
+
+
+
+                </Col>
+                <Col lg="6">
+
+                  <Card.Header className="post__accordion-header pb-3">
+
+                    <span className="fs-3 fw-bolder text-dark">Follow-up Media</span>
+
+                  </Card.Header>
+                  <form className="video-detail-form mt-3">
+                    <div className="form-group mb-2">
+                      <label htmlFor="videoInput" className="form__label">
+                        Video & Images (iframe)&nbsp;
+                        <span className="post-type-text">(optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        // id="videoInput"
+                        placeholder="Video URL"
+                        name='galleryUrl' id="galleryUrl"
+                      //  value={galleryUrl} onChange={(e) => { changevalue(e) }}
+                      />
+                    </div>
+
+                    <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: '' }} >
+                      {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
+
+                    </div>
+                    <div className="">
+
+                      <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                        <div className="upload-wrap" style={{ width: "100%" }}>
+                          <FontAwesomeIcon
+                            icon={solid("cloud-arrow-up")}
+                            className="icon-cloud"
+                          />
+                          <label>
+                            <input name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.gif,.png" multiple
+                            // onChange={(e) => { changefile(e) }} 
+                            />
+                          </label>
+                        </div>
+
+                        <div className='grid mt-3 mb-3' style={{ display: "grid" }}>
+                          {/* {gallaryTempImages?.length ?
+                              gallaryTempImages.map((img, key) => {
+                                return (
+                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                )
+
+                              })
+
+                              :
+                              <></>
+                            } */}
+
+                          {/* {gallaryImages?.length ?
+                              gallaryImages.map((img, key) => {
+                                return (
+                                  <>
+
+                            
+
+                                    <div className="img-wrap">
+                                      <span className="close" onClick={() => props.deleteProductImage(img.id, 'Gallary')} style={{ right: "7px" }}>&times;</span>
+                                      <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
+                                    </div>
+                                  </>
+                                )
+
+                              })
+                              : ""
+
+                            } */}
+
+                        </div>
+
+                        {/* {error && error.galleryImg && <p className='error'>{error ? error.galleryImg ? error.galleryImg : "" : ""}</p>} */}
+                      </div>
+                    </div>
+                  </form>
+                </Col>
+
+              </Row>
+            </Card>
+
+
+            <div className="fulfilling-check-wrap">
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  name="policy"
+                  id="policy"
+                // checked={stateData.policy}
+                // onChange={(e) => { changevalue(e) }}
+                />
+                <label className="form-check-label" htmlFor="policy">
+                  {/* By posting your ad, you are agreeing to our{" "}
+                  <a href="#" target="_blank">
+                    <strong>terms of use</strong>
+                  </a>
+                  ,{" "}
+                  <a href="#" target="_blank">
+                    <strong>privacy policy</strong>
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" target="_blank">
+                    <strong>site policies</strong>
+                  </a>
+                  . Please do not post duplicate ads. You may not edit your post
+                  after it has received funding. If you delete your post after it
+                  has received donations, the donors will receive a full refund and
+                  the post will be closed. */}
+
+                  By fulfilling your order, you are agreeing that you have purchased the product as it was presented at the time the post was created for the amount of items you requested. The sales receipt for your order will be shared with your donors on their order page.
+                </label>
+              </div>
+
+            </div>
+            {/* {error && error.policy && <p className='error'>{error ? error.policy ? error.policy : "" : ""}</p>} */}
+
+            <div className="products-detial-footer py-5">
+              <Button variant="danger" size="lg" className="fw-bold fs-6">Disregard</Button>
+              <Button variant="success" size="lg" className="fw-bold fs-6"
+              // onClick={() => submitProductForm(1)}
+              >
+                Fulfil Order</Button>
+            </div>
+
+
+          </>
+        // : ""
+
+
+      }
     </>
   );
 };
