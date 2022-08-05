@@ -1,46 +1,42 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 
-import DefaultLayout from "../Component/templates/default-layout";
-import MarqueeList from "../Component/molecules/marquee-list";
+import { Link } from 'react-router-dom';
+import MarqueeList from '../Component/molecules/marquee-list';
+import DefaultLayout from '../Component/templates/default-layout';
 
-import "./style.scss";
+import './style.scss';
 
 const About = (props) => {
   // console.log(props.campaignAdminList)
   return (
     <DefaultLayout className="about">
-      <div className="section--hero pb-4">
+      <div className="section--hero section--design">
         <Container fluid>
           <Row className="about__row-1">
             <Col md="5" className="mb-4 mb-sm-0">
               <div className="about__content-1">
                 <h1 className="about__title display-6 fw-bolder text-dark">
-                A Crowdfunding Platform for Charities
+                  A Crowdfunding Platform for Charities
                 </h1>
-                <p className="fs-5 text-light fw-semibold mb-4 lh-1.5">
-                Charities post products they need, donors provide the funding, the charity purchases the products. No fees, No costs, No gift-in-kind - You choose how charities spend your money.
+                <p className="fs-5 text-light fw-regular mb-4 lh-1.5">
+                  Charities post products they need, donors provide the funding, the charity
+                  purchases the products. No fees, No costs, No gift-in-kind - You choose how
+                  charities spend your money.
                 </p>
                 <div className="d-flex align-items-center gap-2 mb-2 pb-5">
-                  <Button
-                    variant="primary"
-                    className="fw-bold fs-16 px-14"
-                    size="lg"
-                  >
+                  <Button variant="primary" className="fw-bold fs-16 px-14" size="lg">
                     Start Listing
                   </Button>
-                  <Button
-                    className="w-bold fs-6 px-4"
-                    size="lg"
-                  >
+                  <Link to="/home" className="about-nobg w-bold fs-6 px-4">
                     Home
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </Col>
             <Col md="7">
-              <div className="d-flex align-items-center ps-sm-5 justify-content-sm-center">
+              <div className="d-flex align-items-center  justify-content-sm-center">
                 <img
                   src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/626f21b70f1d0f40951a1eb6_Savings-amico.svg"
                   className="img-fluid"
@@ -52,24 +48,28 @@ const About = (props) => {
         </Container>
       </div>
       <Container fluid>
-      <h4 className="fs-1 fw-bolder text-dark pt-3">Our services</h4>
-        <Row>
+        <h4 className="fs-1 fw-bolder text-center text-dark pt-3">Our services</h4>
+        <Row className="section--hero">
           <Col md="6">
-               <div className="d-flex align-items-center ps-sm-5 justify-content-sm-center">
-                <img
-                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/626df2f3a0717a4b4ca2d22c_Profile%20pic-rafiki%20(1).svg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
+            <div className="d-flex align-items-center  justify-content-sm-center">
+              <img
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/626df2f3a0717a4b4ca2d22c_Profile%20pic-rafiki%20(1).svg"
+                className="img-fluid"
+                alt=""
+              />
+            </div>
           </Col>
           <Col md="6">
-          <div className="ps-sm-5">
-          <div className="circle"></div>
-              <div className="d-flex flex-column align-items-start ps-sm-5">Your donations, all in one place</div>
+            <div className="">
+              <div className="circle"></div>
+              <div className="d-flex flex-column align-items-start ">
+                Your donations, all in one place
+              </div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Discover unique opportunities</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">
-              Browse categories and filter results based on your donation preferences. Our geo-location system shows you posts from charities near you so you can support your local organizations.
+                Browse categories and filter results based on your donation preferences. Our
+                geo-location system shows you posts from charities near you so you can support your
+                local organizations.
               </p>
             </div>
             <div className="d-flex align-items-center flex-wrap mw-600">
@@ -99,69 +99,71 @@ const About = (props) => {
             </div>
           </Col>
         </Row>
-  </Container> 
+      </Container>
       <Container fluid>
-        <Row>
+        <Row className="section--hero p-6">
           <Col md="6" className="pt-5">
-            <div className="ps-sm-5">
-              <div className="about__label d-flex flex-column align-items-start ps-sm-5">Donations</div>
+            <div className="d-flex flex-column align-items-start">
+              <div className="about__label d-flex flex-column align-items-start ">Donations</div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Tangible Giving</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">
-              Charities are often asked what they need, not how much they need. Donorport allows you to see the needs and provide funding for them.
+                Charities are often asked what they need, not how much they need. Donorport allows
+                you to see the needs and provide funding for them.
               </p>
             </div>
           </Col>
-          <div className="d-flex">
-            <div className="bigcircle">
-            <img
+          <Col md="6">
+            <div className="d-flex">
+              <div className="bigcircle">
+                <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624ba8a3688ae7c3ef86a416_20139509001_front_a06_%402.png"
                   className="img-fluid"
                   alt=""
                 />
-            </div>
-            <div className="bigcircle _2">
-            <img
+              </div>
+              <div className="bigcircle _2">
+                <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b731470e7e18043959c58_s-l300.png"
                   className="img-fluid"
                   alt=""
                 />
-            </div>
-            <div className="bigcircle">
-            <img
+              </div>
+              <div className="bigcircle">
+                <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c24cdbda7359a71d94025_aj1_top3.png"
                   className="img-fluid"
                   alt=""
                 />
+              </div>
             </div>
-          </div>
-          <Col md="6">
           </Col>
         </Row>
       </Container>
-      <div className="section--cityscape bg-light pb-4">
-      <img
-                  src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c24cdbda7359a71d94025_aj1_top3.png"
-                  className="cityscape"
-                  alt=""
-                />
-      <Container fluid>
-        <Row>
-          <Col md="6" className="pt-5">
-            <div className="ps-sm-5">
-              <div className="about__label d-flex flex-column align-items-start ps-sm-5">How it Works</div>
-              <h3 className="fs-1 fw-bolder text-dark pt-3">Transparent</h3>
-              <p className="fs-5 text-light mb-3 lh-1.5">
-              A simple solution to the charity fundraising problem. Now you can see where your money goes; hand pick from a list of needs posted by hundreds of organizations.
-              </p>
-            </div>
-          </Col>
-          <Col md="6">
-
-          </Col>
-        </Row>
-      </Container>
-      <Container fluid>
+      <div className="section--hero section--cityscape pb-4">
+        <img
+          src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/621fbd2a971cc27a3898b387_60e47ee6c4af646a50d5b8e3_hero-illustration.svg"
+          className="cityscape"
+          alt=""
+        />
+        <Container fluid>
           <Row>
+            <Col md="6" className="pt-5">
+              <div>
+                <div className="about__label d-flex flex-column align-items-start ">
+                  How it Works
+                </div>
+                <h3 className="fs-1 fw-bolder text-dark pt-3">Transparent</h3>
+                <p className="fs-5 text-light mb-3 lh-1.5">
+                  A simple solution to the charity fundraising problem. Now you can see where your
+                  money goes; hand pick from a list of needs posted by hundreds of organizations.
+                </p>
+              </div>
+            </Col>
+            <Col md="6"></Col>
+          </Row>
+        </Container>
+        <Container fluid>
+          <Row className="mt-5">
             <Col md="4" className="position-relative mb-5 mb-sm-0">
               <div className="d-flex justify-content-center mb-2">
                 <img
@@ -170,11 +172,9 @@ const About = (props) => {
                   alt=""
                 />
               </div>
-              <h4 className="mb-1 fw-bolder text-dark text-center">
-              Charity creates a post
-              </h4>
+              <h4 className="mb-1 fw-bolder text-dark text-center">Charity creates a post</h4>
               <p className="text-light text-center fs-5">
-              An organziation creates a post for products they need.
+                An organziation creates a post for products they need.
               </p>
             </Col>
             <Col md="4" className="position-relative mb-5 mb-sm-0">
@@ -185,12 +185,9 @@ const About = (props) => {
                   alt=""
                 />
               </div>
-              <h4 className="mb-1 fw-bolder text-dark text-center">
-                Donors provide the funding
-              </h4>
+              <h4 className="mb-1 fw-bolder text-dark text-center">Donors provide the funding</h4>
               <p className="text-light text-center fs-5">
-                Donors send funds to pay for the products posted by the
-                organizations.
+                Donors send funds to pay for the products posted by the organizations.
               </p>
             </Col>
             <Col md="4" className="position-relative">
@@ -201,128 +198,70 @@ const About = (props) => {
                   alt=""
                 />
               </div>
-              <h4 className="mb-1 fw-bolder text-dark text-center">
-                Charity buys the products
-              </h4>
+              <h4 className="mb-1 fw-bolder text-dark text-center">Charity buys the products</h4>
               <p className="text-light text-center fs-5">
-                The organizations use the funding provided by the donors to
-                purchase the products.
+                The organizations use the funding provided by the donors to purchase the products.
               </p>
             </Col>
           </Row>
         </Container>
-      
-</div>
-
-      <section className="mb-5">
-        <Container fluid>
-          <div className="p-5 rounded-5 bg-lighter">
-            <Row>
-              <Col md="7">
-                <div className="pe-sm-5 me-sm-4">
-                  <h3 className="fs-1 fw-bolder text-dark">Our Standard</h3>
-                  <p className="fs-5 text-light mb-3 lh-1.5">
-                    Donorport promises to remain a platform for the people which
-                    is why we will never censor or ban any posts created by our
-                    approved non-profits & charities. We approve non-profits.
-                  </p>
-                  <p className="fs-5 text-light lh-1.5">
-                    To learn more check out our partnerships page.
-                  </p>
-                </div>
-              </Col>
-              <Col md="5">
-                <ul className="list-unstyled fs-5 text-light">
-                  <li className="d-flex align-items-center pt-2">
-                    <div className="icon icon--shield">
-                      <FontAwesomeIcon
-                        icon={solid("shield-check")}
-                        className="fs-3 me-1 text-success p-12p mr-12p"
-                      />
-                    </div>
-                    <div>Non-profits keep 100% of your donation</div>
-                  </li>
-                  <li className="d-flex align-items-center pt-2">
-                    <div className="icon icon--shield">
-                      <FontAwesomeIcon
-                        icon={solid("shield-check")}
-                        className="fs-3 me-1 text-success p-12p mr-12p"
-                      />
-                    </div>
-                    <div>Donorport never interferes with your donations</div>
-                  </li>
-                  <li className="d-flex align-items-center pt-2">
-                    <div className="icon icon--shield">
-                      <FontAwesomeIcon
-                        icon={solid("shield-check")}
-                        className="fs-3 me-1 text-success p-12p mr-12p"
-                      />
-                    </div>
-                    <div>We will maintain your privacy and anonymity</div>
-                  </li>
-                </ul>
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </section>
+      </div>
 
       <Container fluid>
-        <Row className="d-flex">
+        <Row className="section--hero d-flex justify-content-between">
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626cb8aafbea8678573371cd_Tim_Hortons_logo.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626cb8aafbea8678573371cd_Tim_Hortons_logo.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f437fab93d764b284564d_McDonald%27s_Golden_Arches.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f437fab93d764b284564d_McDonald%27s_Golden_Arches.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/6271d71d721c60e1ee063619_Crocs_wordmark.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/6271d71d721c60e1ee063619_Crocs_wordmark.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f4471dc441c225745284c_Target_logo.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f4471dc441c225745284c_Target_logo.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624de9e9e4496f32fd5463ad_brand_chichis.png"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624de9e9e4496f32fd5463ad_brand_chichis.png"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f44aef1df651c17c8f3e6_Purina-logo.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f44aef1df651c17c8f3e6_Purina-logo.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
-          <img
-                src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
-                className="img-fluid"
-                alt=""
-              />
+            <img
+              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
+              className="img-fluid"
+              alt=""
+            />
           </div>
         </Row>
       </Container>
 
-
-      <section className="mb-5">
+      <section className="section--hero">
         <Container fluid>
           <div className="p-5 rounded-5 bg-lighter">
             <Row>
@@ -330,9 +269,9 @@ const About = (props) => {
                 <div className="pe-sm-5 me-sm-4">
                   <h3 className="fs-1 fw-bolder text-dark">Our Standard</h3>
                   <p className="fs-5 text-light mb-3 lh-1.5">
-                    Donorport promises to remain a platform for the people which
-                    is why we will never censor or ban any posts created by our
-                    approved non-profits & charities. We approve non-profits.
+                    Donorport promises to remain a platform for the people which is why we will
+                    never censor or ban any posts created by our approved non-profits & charities.
+                    We approve non-profits.
                   </p>
                   <p className="fs-5 text-light lh-1.5">
                     To learn more check out our partnerships page.
@@ -344,7 +283,7 @@ const About = (props) => {
                   <li className="d-flex align-items-center pt-2">
                     <div className="icon icon--shield">
                       <FontAwesomeIcon
-                        icon={solid("shield-check")}
+                        icon={solid('shield-check')}
                         className="fs-3 me-1 text-success p-12p mr-12p"
                       />
                     </div>
@@ -353,7 +292,7 @@ const About = (props) => {
                   <li className="d-flex align-items-center pt-2">
                     <div className="icon icon--shield">
                       <FontAwesomeIcon
-                        icon={solid("shield-check")}
+                        icon={solid('shield-check')}
                         className="fs-3 me-1 text-success p-12p mr-12p"
                       />
                     </div>
@@ -362,7 +301,7 @@ const About = (props) => {
                   <li className="d-flex align-items-center pt-2">
                     <div className="icon icon--shield">
                       <FontAwesomeIcon
-                        icon={solid("shield-check")}
+                        icon={solid('shield-check')}
                         className="fs-3 me-1 text-success p-12p mr-12p"
                       />
                     </div>
@@ -374,9 +313,9 @@ const About = (props) => {
           </div>
         </Container>
       </section>
-      
+
       <Container fluid>
-        <Row>
+        <Row className="section--hero">
           <Col md="6">
             <div className="d-flex align-items-center justify-content-center pe-sm-5">
               <img
@@ -387,45 +326,43 @@ const About = (props) => {
             </div>
           </Col>
           <Col md="6" className="pt-5">
-            <div className="ps-sm-5">
-              <div className="about__label d-flex flex-column align-items-start ps-sm-5">Tax Management</div>
+            <div className="d-flex flex-column align-items-start">
+              <div className="about__label d-flex flex-column align-items-start ">
+                Tax Management
+              </div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Centralized Giving</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">
-              When you donate on Donorport, your tax receipts are uploaded directly to the platform so you can view, download, and track all of your receipts for every donation, each year.
+                When you donate on Donorport, your tax receipts are uploaded directly to the
+                platform so you can view, download, and track all of your receipts for every
+                donation, each year.
               </p>
               <ul className="list-unstyled fs-5 text-light">
                 <li className="d-flex align-items-center pt-2">
                   <div className="icon icon--shield">
                     <FontAwesomeIcon
-                      icon={solid("bolt")}
+                      icon={solid('bolt')}
                       className="fs-3 me-1 text-primary p-12p mr-12p"
                     />
                   </div>
-                  <span>
-                  All of your tax receipts in one place
-                  </span>
+                  <span>All of your tax receipts in one place</span>
                 </li>
                 <li className="d-flex align-items-center pt-2">
                   <div className="icon icon--shield">
                     <FontAwesomeIcon
-                      icon={solid("pencil")}
+                      icon={solid('pencil')}
                       className="fs-3 me-1 text-primary p-12p mr-12p"
                     />
                   </div>
-                  <span>
-                  View, download, review & share your receipts every year
-                  </span>
+                  <span>View, download, review & share your receipts every year</span>
                 </li>
                 <li className="d-flex align-items-center pt-2">
                   <div className="icon icon--shield">
                     <FontAwesomeIcon
-                      icon={solid("check")}
+                      icon={solid('check')}
                       className="fs-3 me-1 text-primary p-12p mr-12p"
                     />
                   </div>
-                  <span>
-                  Encrypted files maintain your privacy and security
-                  </span>
+                  <span>Encrypted files maintain your privacy and security</span>
                 </li>
               </ul>
             </div>
@@ -434,13 +371,17 @@ const About = (props) => {
       </Container>
 
       <Container fluid>
-        <Row>
-          <Col md="6" className="pt-5">
-            <div className="ps-sm-5">
-              <div className="about__label d-flex flex-column align-items-start ps-sm-5">Payment Options</div>
+        <Row className="section--hero pb-0">
+          <Col md="6">
+            <div className="d-flex flex-column align-items-start">
+              <div className="about__label d-flex flex-column align-items-start ">
+                Payment Options
+              </div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Modern Solutions</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">
-              As technology advances, so does the neeed for platforms to adopt the latest solutions. Donorport accepts all major forms of payment making it easier than ever to donate.
+                As technology advances, so does the neeed for platforms to adopt the latest
+                solutions. Donorport accepts all major forms of payment making it easier than ever
+                to donate.
               </p>
             </div>
           </Col>
@@ -450,49 +391,15 @@ const About = (props) => {
         </Row>
       </Container>
       <Container fluid>
-        <Row>
-          <Col md="6">
-            <div className="d-flex gap-2 mb-3">
-              <div className="crypto__icon p-0">
-                <img
-                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5d6c9582b74e722c3122_ethereum-eth.svg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="crypto__icon p-0">
-                <img
-                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5d4c36e4c982f37e9894_Bitcoin.svg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="crypto__icon p-0">
-                <img
-                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5ca7ee8035585abb93b9_usd-coin-usdc-logo.svg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-            </div>
-            <p className="fs-5 text-light mb-3 pb-5 lh-1.5">
-            Donorport understands the importance of privacy which is why we have adopted cryptocurrency on our platform so you can send your donations anonymously.
-            </p>
-          </Col>
+        <Row className="section--hero">
           <Col md="6">
             <div className="d-flex gap-3 mb-3 py-6p flex-wrap">
               <div className="d-flex align-items-center text-success">
-                <FontAwesomeIcon
-                  icon={regular("building-columns")}
-                  className="fs-4 me-1"
-                />
+                <FontAwesomeIcon icon={regular('building-columns')} className="fs-4 me-1" />
                 <span>Bank</span>
               </div>
               <div className="d-flex align-items-center text-success">
-                <FontAwesomeIcon
-                  icon={regular("credit-card-front")}
-                  className="fs-4 me-1"
-                />
+                <FontAwesomeIcon icon={regular('credit-card-front')} className="fs-4 me-1" />
                 <span>Card</span>
               </div>
               <div className="crypto__icon-24">
@@ -519,29 +426,60 @@ const About = (props) => {
               </div>
             </div>
             <p className="fs-5 text-light mb-3 pb-5 lh-1.5">
-            Donorport accepts several forms of traditional payment methods including credit cards, Google Pay, PayPal and Stripe. Choose the payment method that works best for your giving.
+              Donorport accepts several forms of traditional payment methods including credit cards,
+              Google Pay, PayPal and Stripe. Choose the payment method that works best for your
+              giving.
+            </p>
+          </Col>
+          <Col md="6">
+            <div className="d-flex gap-2 mb-3">
+              <div className="crypto__icon p-0">
+                <img
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5d6c9582b74e722c3122_ethereum-eth.svg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="crypto__icon p-0">
+                <img
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5d4c36e4c982f37e9894_Bitcoin.svg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="crypto__icon p-0">
+                <img
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/620e5ca7ee8035585abb93b9_usd-coin-usdc-logo.svg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+            </div>
+            <p className="fs-5 text-light mb-3 pb-5 lh-1.5">
+              Donorport understands the importance of privacy which is why we have adopted
+              cryptocurrency on our platform so you can send your donations anonymously.
             </p>
           </Col>
         </Row>
       </Container>
-      
+
       <section className="py-3">
         <MarqueeList campaignAdminList={props.campaignAdminList} />
       </section>
 
       <Container fluid>
-        <Row>
-          <Col md="6" className="pt-5">
-            <div className="ps-sm-5">
-              <div className="about__label d-flex flex-column align-items-start ps-sm-5">Our Partners</div>
+        <Row className="section--hero">
+          <Col md="6">
+            <div className="d-flex flex-column align-items-start">
+              <div className="about__label d-flex flex-column align-items-start ">Our Partners</div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Trusted Charities</h3>
               <p className="fs-5 text-light mb-3 lh-1.5">
-              Only registered charities and non-profits in good standing are allowed to post on Donorport so you can be sure your donation is secure.
+                Only registered charities and non-profits in good standing are allowed to post on
+                Donorport so you can be sure your donation is secure.
               </p>
             </div>
           </Col>
-          <Col md="6">
-          </Col>
+          <Col md="6"></Col>
         </Row>
       </Container>
     </DefaultLayout>
