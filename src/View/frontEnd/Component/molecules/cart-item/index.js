@@ -16,7 +16,9 @@ function CartItem(props) {
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
   // let totalCharge = Number(transectionFee) + Number(platformFee)
-  let price = props.CalculatePrice.getData(cartItem?.productDetails?.price)
+  // let price = props.CalculatePrice.getData(cartItem?.productDetails?.price)
+  let price = cartItem.productDetails?.displayPrice ? cartItem.productDetails?.displayPrice : cartItem.productDetails?.price
+
   let currencySymbol = props.currencySymbol
 
 

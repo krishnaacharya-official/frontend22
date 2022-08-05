@@ -51,7 +51,7 @@ const UserBilling = () => {
             <span className="fw-bold fs-6">Export</span>
           </Button> */}
         </div>
-        <div className="billing__list mw-600">
+        <div className="billing__list mw-600" style={{overflowY:loadMore ?"scroll":"",height:loadMore ?"500px":""}}>
 
           {
             historyList.length > 0 &&

@@ -20,7 +20,9 @@ import "./style.scss";
 function ProjectDetailMain(props) {
   let productDetails = props.productDetails
   const getCalc = getCalculatedPrice();
-  let price = getCalc.getData(productDetails?.price)
+  // let price = getCalc.getData(productDetails?.price)
+  let price = productDetails?.displayPrice ? productDetails?.displayPrice : productDetails?.price
+
   let currencySymbol = getCalc.currencySymbol()
 
   let per = productDetails.soldout / productDetails.quantity * 100

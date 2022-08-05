@@ -66,9 +66,17 @@ const SummaryContent = (props) => {
                   </div>
                   <span className="fs-5 fw-bold text-success ms-3">
                     {props.currencySymbol +
-                      priceFormat(
-                        props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity
-                      )}
+
+
+                      // priceFormat(
+                      //   props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity
+
+                      // )
+
+                      priceFormat((item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price) * item.quantity)
+
+
+                    }
                   </span>
                 </li>
               );
@@ -83,12 +91,15 @@ const SummaryContent = (props) => {
             </span>
           </div>
           <div className="d-flex align-items-center pb-20p">
-            <img
-              className="img-stripe"
-              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
-              alt=""
-              style={{width:"100px"}}
-            />
+
+            <span className="fw-bolder flex__1">
+              <img
+                className="img-stripe"
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+                alt=""
+                style={{ width: "44px" }}
+              />
+            </span>
             <span className="fw-semibold fs-7">
               {props.currencySymbol + priceFormat(transectionFee)}
             </span>

@@ -52,7 +52,9 @@ const ShoppingCart = (props) => {
 
       
       props.cartItem.map((item, i) => {
-        let price = CalculatePrice.getData(item.productDetails?.price)
+        // let price = CalculatePrice.getData(item.productDetails?.price)
+        let price = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price
+
 
         tempPriceArray.push(price * item.quantity)
         tempQuantityArray.push( item.quantity)

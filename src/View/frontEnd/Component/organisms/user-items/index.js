@@ -162,8 +162,13 @@ const UserItems = () => {
           console.log(item)
           // console.log(item.appliedTaxPer)
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
-          let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
-          let purchasedPrice = (Math.round(purchasedPriceWithTax(Number(item.productPrice), item.appliedTaxPer)))
+          // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
+
+          let price = item.itemDetails.displayPrice ? item.itemDetails.displayPrice : item.itemDetails.price
+
+          // let purchasedPrice = (Math.round(purchasedPriceWithTax(Number(item.productPrice), item.appliedTaxPer)))
+          let purchasedPrice = item.productPrice
+
 
           // console.log(purchasedPrice)
 
@@ -282,12 +287,12 @@ const UserItems = () => {
                     <div className="page__paragraph mb-3">
                       {item.itemDetails?.descriptions}
                     </div>
-                    <a href={helper.websitePath+'/'+item.itemDetails?.slug} className="text-subtext">
+                    <a href={helper.websitePath + '/' + item.itemDetails?.slug} className="text-subtext">
                       <span className="url__icon me-1">
                         <FontAwesomeIcon icon={regular("square-up-right")} />
                       </span>
                       <span className="date__name date__name--url">
-                        {helper.websitePath+'/'+item.itemDetails?.slug}
+                        {helper.websitePath + '/' + item.itemDetails?.slug}
                       </span>
                     </a>
 

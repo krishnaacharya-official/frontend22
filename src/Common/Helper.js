@@ -38,8 +38,8 @@ let helper = {
 
     MapBoxPrimaryKey: 'pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg'
 
-//Kyle's Mapbox key: pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg
-// Developers key: pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ
+    //Kyle's Mapbox key: pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg
+    // Developers key: pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ
 
 }
 
@@ -426,6 +426,14 @@ export function getCardIcon(card) {
 
     }
     return img;
+
+}
+
+export function priceWithOrganizationTax(price, salesTax) {
+
+    let taxPrice = Math.round(price + (Number(salesTax) / 100) * price)
+    // console.log(taxPrice)
+    return taxPrice;
 
 }
 

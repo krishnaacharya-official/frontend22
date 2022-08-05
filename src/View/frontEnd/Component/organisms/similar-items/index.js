@@ -20,19 +20,24 @@ function SimilarItems(props) {
       <ul className="similar__items list-unstyled mb-0">
         {categoryProducts.length > 0
           ? categoryProducts.map((product, i) => {
-            return (
-              <div key={i}>
-                <SimilarItem
-                  product={product}
-                  key={i}
-                  removeCartItem={props.removeCartItem}
-                  checkItemInCart={props.checkItemInCart}
-                  pricingFees={props.pricingFees}
-                  addToCart={props.addToCart}
-                />
-              </div>
 
-            );
+            if (product._id !== productDetails._id) {
+
+
+              return (
+                <div key={i}>
+                  <SimilarItem
+                    product={product}
+                    key={i}
+                    removeCartItem={props.removeCartItem}
+                    checkItemInCart={props.checkItemInCart}
+                    pricingFees={props.pricingFees}
+                    addToCart={props.addToCart}
+                  />
+                </div>
+
+              );
+            }
           })
           : 'Products Not Found'}
         {/* <SimilarItem />

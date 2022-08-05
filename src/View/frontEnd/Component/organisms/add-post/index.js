@@ -82,8 +82,10 @@ const AddPost = (props) => {
   let stateData = props.stateData
   const user = useSelector((state) => state.user);
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, media
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, media, displayPrice
   } = props.stateData;
+
+  // console.log(displayPrice)
 
   let submitProductForm = props.submitProductForm
   let changevalue = props.changevalue
@@ -391,7 +393,7 @@ const AddPost = (props) => {
                       <div className="price-group-wrap d-flex align-items-center gap-2 mb-3">
                         <div className="form-group">
                           <label htmlFor="priceInput" className="form__label">
-                            Price
+                            Unit Price
                           </label>
                           <input
                             type="text"
@@ -402,6 +404,21 @@ const AddPost = (props) => {
                           />
 
                           {error && error.price && <p className="error">{error ? error.price ? error.price : "" : ""}</p>}
+                        </div>
+
+                        <div className="form-group">
+                          <label htmlFor="priceInput" className="form__label">
+                            Display Price
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="$0"
+                            className="form-control form-control-lg"
+                            disabled
+                            // id="priceInput"
+                            name='displayprice' id="displayprice" value={displayPrice}
+                          />
+
                         </div>
                         <div className="form-group quantity-from-group">
                           <label
@@ -429,6 +446,14 @@ const AddPost = (props) => {
                           </div>
                           <ToggleSwitch id="unlimited" checked={unlimited} name="unlimited" changevalue={changevalue} />
                         </div>
+
+
+                      </div>
+                      <div className="note note--info mb-3">
+
+                        <span className="text-dark">
+                          Enter the unit price before taxes. Your <span style={{ color: "#3a94d4" }}>regional sales tax</span> will be automatically applied to the price of the item.
+                        </span>
                       </div>
                       <div className="keyword-tags-wrap">
                         <div className="form-group">
@@ -689,7 +714,7 @@ const AddPost = (props) => {
                                     <span> X</span> */}
 
                                     <div className="img-wrap">
-                                      <span className="close" onClick={() => props.deleteProductImage(img.id,'More')}>&times;</span>
+                                      <span className="close" onClick={() => props.deleteProductImage(img.id, 'More')}>&times;</span>
                                       <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
                                     </div>
                                   </>
@@ -897,7 +922,7 @@ const AddPost = (props) => {
                                   {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> */}
 
                                   <div className="img-wrap">
-                                    <span className="close" onClick={() => props.deleteProductImage(img.id,'Gallary')} style={{right:"7px"}}>&times;</span>
+                                    <span className="close" onClick={() => props.deleteProductImage(img.id, 'Gallary')} style={{ right: "7px" }}>&times;</span>
                                     <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
                                   </div>
                                 </>

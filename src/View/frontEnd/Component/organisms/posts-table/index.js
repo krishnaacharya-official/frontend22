@@ -73,7 +73,7 @@ const PostsTable = (props) => {
                     <div className="d-xl-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                          <div className="text-success fw-bold fs-5">{organizationDetails.symbol}{priceFormat(product.price)}</div>
+                          <div className="text-success fw-bold fs-5">{organizationDetails.symbol}{priceFormat(product.displayPrice ? product.displayPrice : product.price)}</div>
                           <div className="text-light fs-8">{moment(product.created_at).fromNow()}</div>
                         </div>
                         <ListItemImg
@@ -188,6 +188,7 @@ const PostsTable = (props) => {
                               <Button variant="success" className="btn-md fw-bold" onClick={() => {
                                 props.createPost(true)
                                 props.setFulfil(true)
+                                props.setFulfilProductDetails(product)
                               }}
                               >
                                 Fulfil Order

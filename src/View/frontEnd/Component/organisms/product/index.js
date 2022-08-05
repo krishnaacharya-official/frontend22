@@ -45,7 +45,9 @@ const Product = (props) => {
 
   const getCalc = getCalculatedPrice();
 
-  let price = getCalc.getData(props.price)
+  // let price = getCalc.getData(props.price)
+  let price = props.displayPrice ? props.displayPrice : props.price
+
   let currencySymbol = getCalc.currencySymbol()
 
 

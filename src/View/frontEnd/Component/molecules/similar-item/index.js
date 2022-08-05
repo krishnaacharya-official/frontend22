@@ -50,7 +50,8 @@ function SimilarItem(props) {
       /*size="sm"*/
       /* NOTE: Add product category color to button -> style={{ backgroundColor: theme_color }}*/
       className="icon icon__pro"
-      onClick={() => {props.removeCartItem(product._id)
+      onClick={() => {
+        props.removeCartItem(product._id)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
@@ -61,9 +62,10 @@ function SimilarItem(props) {
       variant="primary"
       /*size="sm"*/
       className="icon icon__pro"
-      onClick={() => {props.addToCart(product._id)
+      onClick={() => {
+        props.addToCart(product._id)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
-        
+
       }}
     >
       <FontAwesomeIcon icon={regular("cart-shopping")} />
@@ -71,11 +73,11 @@ function SimilarItem(props) {
   );
 
   const btn =
-  product.soldout === product.quantity ? (
-    <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
-  ) : (
-    cart_btn
-  );
+    product.soldout === product.quantity ? (
+      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+    ) : (
+      cart_btn
+    );
   return (
     <li className="similar__item__item pt-12p pb-12p d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
@@ -92,10 +94,12 @@ function SimilarItem(props) {
             </Link>
             <div className="similar__item__location mb-6p">{moment(product.created_at).fromNow()}</div>
           </div>
-          <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div>
+          {/* <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div> */}
+          <div className="similar__item__price">{currencySymbol}{product.displayPrice ? product.displayPrice : product.price}</div>
+
         </div>
 
-        {!CampaignAdminAuthToken &&<div className="qty__tag ms-auto me-5">1</div>}
+        {!CampaignAdminAuthToken && <div className="qty__tag ms-auto me-5">1</div>}
       </div>
       <div className="similar__item__remove ms-auto">
         {/* <IconButton

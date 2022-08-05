@@ -22,7 +22,7 @@ import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
 import { WithContext as ReactTags } from "react-tag-input";
 import noimg from "../../../../../assets/images/noimg.jpg"
-import helper from "../../../../../Common/Helper";
+import helper, { priceWithOrganizationTax,priceFormat } from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
@@ -41,6 +41,7 @@ import {
   Row,
   Dropdown,
 } from "react-bootstrap";
+import moment from "moment";
 
 const AdminPosts = (props) => {
   const validExtensions = ['jpg', 'png', 'jpeg'];
@@ -85,7 +86,7 @@ const AdminPosts = (props) => {
 
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
-
+  const [fulfilProductDetails, setFulfilProductDetails] = useState({})
 
   const [state, setstate] = useState({
     id: '',
@@ -98,6 +99,7 @@ const AdminPosts = (props) => {
     subcategory: '',
     description: '',
     price: '',
+    displayPrice: '',
     image: '',
     quantity: '',
     organization: '',
@@ -115,10 +117,12 @@ const AdminPosts = (props) => {
     media: false,
     policy: false,
     galleryImg: [],
+    fulfilMoreImg: [],
+
 
   })
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy, media
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy, media, displayPrice, fulfilMoreImg
   } = state;
 
   const [fulfil, setFulfil] = useState(false)
@@ -222,6 +226,7 @@ const AdminPosts = (props) => {
     }
     if (e.target.name === 'price' || e.target.name === 'quantity') {
       value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+
     }
 
     if (e.target.name === "category") {
@@ -296,8 +301,18 @@ const AdminPosts = (props) => {
           quantity: '',
           [e.target.name]: value
         })
-      } else {
+      } else if (e.target.name === 'price') {
+        // console.log(priceWithOrganizationTax(Number(value), Number(data.taxRate)))
 
+        let display = priceWithOrganizationTax(Number(value), Number(data.taxRate))
+        console.log(display)
+        setstate({
+          ...state,
+          displayPrice: display,
+          [e.target.name]: value
+        })
+
+      } else {
 
         setstate({
           ...state,
@@ -365,7 +380,7 @@ const AdminPosts = (props) => {
 
 
 
-    } else {
+    } else if (e.target.id === 'moreImg') {
 
       let mImgtempArry = []
       let mImgtempObj = []
@@ -407,23 +422,31 @@ const AdminPosts = (props) => {
       id: '',
       status: 1,
       title: '',
-      sub_title: '',
-      category_id: '',
-      subcategory_id: '',
+      subtitle: '',
+      headline: '',
+      brand: '',
+      category: '',
+      subcategory: '',
       description: '',
       price: '',
+      displayPrice: '',
       image: '',
       quantity: '',
+      organization: '',
       slug: '',
+      error: [],
+      moreImg: [],
+      galleryUrl: '',
+      needheadline: '',
       address: '',
       lat: '',
       lng: '',
       unlimited: false,
       tax: false,
       postTag: false,
-      policy: false,
       media: false,
-      error: [],
+      policy: false,
+      galleryImg: [],
     });
 
   }
@@ -594,6 +617,8 @@ const AdminPosts = (props) => {
       formData.description = description
       formData.category_id = category
       formData.subcategory_id = subcategory
+      formData.displayPrice = displayPrice
+
 
       if (quantity) {
         formData.quantity = quantity
@@ -738,7 +763,7 @@ const AdminPosts = (props) => {
           lat: productData.lat ? productData.lat : "",
           lng: productData.lng ? productData.lng : "",
           media: productData.media ? productData.media : false,
-
+          displayPrice: productData.displayPrice ? productData.displayPrice : productData.price,
           policy: true,
 
 
@@ -925,6 +950,7 @@ const AdminPosts = (props) => {
 
   return (
     <>
+      {/* {console.log('state', displayPrice)} */}
       <FrontLoader loading={loading} />
       {!viewPost ? (
         <div>
@@ -955,6 +981,8 @@ const AdminPosts = (props) => {
             organizationDetails={data}
             setFulfil={setFulfil}
             createPost={createPost}
+            setFulfilProductDetails={setFulfilProductDetails}
+
 
 
 
@@ -1012,12 +1040,14 @@ const AdminPosts = (props) => {
                     alt=""
                     height="56"
                     className="img-fluid"
-                    src='https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c22f4fd28a7b481f49c8c_5a84f80c52ba0b1d48012b26-icon-512x512.png'
+                    src={helper.CampaignProductFullImagePath + fulfilProductDetails?.image}
                   />
                 </div>
                 <div className="ms-3">
-                  <div className="fw-bolder fs-4 mb-3p">Product name</div>
-                  <div className="fs-7">April 20th
+                  <div className="fw-bolder fs-4 mb-3p">{fulfilProductDetails?.headline}</div>
+                  <div className="fs-7">
+                    {moment(fulfilProductDetails.created_at).format('MMMM DD')}
+                    {/* April 20th */}
                   </div>
                 </div>
               </div>
@@ -1033,7 +1063,7 @@ const AdminPosts = (props) => {
                 imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
               /> */}
 
-              <Link variant="link" className="text-light p-0 fw-normal" to='/'>
+              <Link variant="link" className="text-light p-0 fw-normal" to={'/item/' + fulfilProductDetails?.slug}>
                 <FontAwesomeIcon
                   icon={regular("square-up-right")}
                   className="me-1"
@@ -1083,16 +1113,16 @@ const AdminPosts = (props) => {
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">Qty:</span>
-                        <span className="text-dark">23</span>
+                        <span className="text-dark">{fulfilProductDetails?.quantity}</span>
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">
                         <span className="fw-bolder flex__1">Each:</span>
-                        <span className="text-success fw-bold fs-4">$500</span>
+                        <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price)}</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">$500</span>
+                      <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price * fulfilProductDetails?.quantity)}</span>
                     </div>
 
                   </div>

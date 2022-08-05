@@ -31,7 +31,7 @@ const Cart = (props) => {
   const minusValue = async (value, id, productId) => {
     if (value > 1) {
       value--;
-      await props.updateCartItem(value, id, productId,'minus')
+      await props.updateCartItem(value, id, productId, 'minus')
     }
     // setQuantity(value)
 
@@ -40,7 +40,7 @@ const Cart = (props) => {
   const plusValue = async (value, id, productId) => {
     value++;
     // setQuantity(value)
-    await props.updateCartItem(value, id, productId,'plus')
+    await props.updateCartItem(value, id, productId, 'plus')
   }
 
   useEffect(() => {
@@ -48,7 +48,10 @@ const Cart = (props) => {
       let tempPriceArray = [];
       props.cartItem.map((item, i) => {
         // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
-        let price = getCalc.getData(item.productDetails?.price);
+        // let price = getCalc.getData(item.productDetails?.price);
+        let price = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price;
+
+
 
         tempPriceArray.push(price * item.quantity);
       });
@@ -59,7 +62,9 @@ const Cart = (props) => {
       setSubTotal(sum)
       let salesTax = getCalc.calculateSalesTax(sum)
       setSalesTax(getCalc.calculateSalesTax(sum))
-      setTotal(sum + salesTax);
+      // setTotal(sum + salesTax);
+      setTotal(sum);
+
     }
   }, [props.cartItem]);
   return (
@@ -173,7 +178,10 @@ const Cart = (props) => {
                       </span>
                       <span className="fs-5 fw-bold text-success ms-3">
                         {currencySymbol +
-                          priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)}
+                          // priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)
+                          priceFormat((item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price) * item.quantity)
+
+                        }
                       </span>
                     </div>
                   </li>
@@ -187,12 +195,12 @@ const Cart = (props) => {
                 {currencySymbol + priceFormat(subTotal)}
               </span>
             </div>
-            <div className="d-flex align-items-center py-3 border-bottom">
+            {/* <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Sales Tax:</span>
               <span className="fw-bold text-success fs-5">
                 {currencySymbol + priceFormat(salesTax)}
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>

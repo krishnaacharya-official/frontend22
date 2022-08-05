@@ -30,12 +30,15 @@ function OrganisationWidget(props) {
         let obj = {}
         if (props.tagTitle === 'Project') {
           productDetails.map((product, i) => {
-            obj[product?.itemDetails?._id] = getCalc.getData(product?.itemDetails?.price)
+            // obj[product?.itemDetails?._id] = getCalc.getData(product?.itemDetails?.price)
+            obj[product?.itemDetails?._id] = product?.itemDetails?.displayPrice ? product?.itemDetails?.displayPrice : product?.itemDetails?.price
+
           })
         } else {
           productDetails.map((product, i) => {
             // console.log(product)
-            obj[product._id] = getCalc.getData(product?.price)
+            // obj[product._id] = getCalc.getData(product?.price)
+            obj[product._id] = product?.displayPrice ? product?.displayPrice : product?.price
           })
         }
 
@@ -91,7 +94,7 @@ function OrganisationWidget(props) {
 
               return (
                 <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i}
-                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart}  currencySymbol={currencySymbol}
+                  addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} currencySymbol={currencySymbol}
                 />
               )
             })
