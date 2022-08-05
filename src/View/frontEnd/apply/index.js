@@ -25,7 +25,7 @@ const Apply = (props) => {
         <div className="password-reset position-relative ">
           <Container fluid className="position-relative pb-5 pt-5 container-fluid">
             <div className="mw-600">
-              <h1 className="text-dark fw-bolder mb-6p pt-2">New Organizations</h1>
+              <h1 className="text-dark fw-bolder mb-6p pt-2">New Charities</h1>
               <div className="fs-5 fw-semibold text-light mb-4">
                 Active your account to create your organization's administration page or apply to
                 receive your activation code.

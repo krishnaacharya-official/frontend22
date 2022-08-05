@@ -52,6 +52,11 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
       {sharedProps.categoryName === 'Support' && (
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
+            <Link to="/apply" className="footer__link">
+               Apply to Post
+            </Link>
+          </li>
+          <li className="footer__link-item">
             <Link to="/help" className="footer__link">
               Help Center
             </Link>
@@ -64,11 +69,6 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
           <li className="footer__link-item">
             <Link to="/sponsors" className="footer__link">
               Sponsorships
-            </Link>
-          </li>
-          <li className="footer__link-item">
-            <Link to="/apply" className="footer__link">
-              New Organizations
             </Link>
           </li>
         </ul>

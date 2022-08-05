@@ -135,9 +135,9 @@ const Trust = () => {
         </Container>
         <div className="about__banner position-relative d-flex justify-content-center align-items-center border-top bg-lighter fs-5 text-center">
           <div className="about__text">
-            We're here to help with any issues you may have, with a friendly
+            We're here to help with any issues you may have, with a friendly&nbsp;
             <a href="/help-contact" className="link">
-              customer support team
+              customer support team&nbsp;
             </a>
             at your service 24/7.
           </div>
