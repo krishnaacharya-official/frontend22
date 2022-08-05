@@ -19,7 +19,7 @@
 
   @include media-breakpoint-up(sm) {
     &:after {
-      background: rgb(248, 250, 253);
+      background: #f8fafd;
       content: '';
       width: 15px;
       height: 15px;
@@ -91,7 +91,7 @@
     --z: 0;
     background: #fff;
     padding: 12px 0;
-    top: auto !important;
+    //top: auto !important;
     border-radius: 12px 12px 0 0;
     display: flex !important;
     position: fixed !important;

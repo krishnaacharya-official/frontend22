@@ -2935,6 +2935,7 @@ input[type="button"].btn-block {
   position: absolute;
   top: 100%;
   left: 0;
+  overflow: visible;
   z-index: 1000;
   display: none;
   float: left;
@@ -2999,6 +3000,7 @@ input[type="button"].btn-block {
 
 .open > .dropdown-menu {
   display: block;
+  overflow: inherit;
 }
 
 .open > a {

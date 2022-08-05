@@ -15,9 +15,9 @@ export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
   const selectedKey = props.selectedKey;
   const setSelectedKey = props.setSelectedKey;
-  const module = props.module
+  const module = props.module;
   const getCalc = getCalculatedPrice();
-  let currencySymbol = getCalc.currencySymbol()
+  let currencySymbol = getCalc.currencySymbol();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
   let products;
@@ -45,19 +45,38 @@ export default function Index(props) {
       );
     });
   } else {
-    products =
+    products = (
       <div className="container">
         <div className="empty__modal">
-          <div id="noSlider" className="empty__block"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e611cf546e6b8a2c0d1ad3b_tag.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results in this range</text></div><div className="empty__text"><p>Try broadening your search.</p></div></div></div></div>
-{/* 
+          <div id="noSlider" className="empty__block">
+            <div className="empty__container">
+              <div className="empty__circle empty--small">
+                <img
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e611cf546e6b8a2c0d1ad3b_tag.svg"
+                  alt=""
+                />
+              </div>
+              <div className="empty__message">
+                <div className="title title--small w-embed">
+                  <text className="item__title project__title">
+                    There are no results in this range
+                  </text>
+                </div>
+                <div className="empty__text">
+                  <p>Try broadening your search.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* 
           <div id="noFilter" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4af73f9963441ad99d98ef_023-setting.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results with these filters</text></div><div className="empty__text"><p>Try removing some toggles.</p></div></div></div></div>
 
           <div id="noButton" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4b07b4c980734faa9e452a_blend.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">No matches in this category</text></div><div className="empty__text"><p>Try removing your search or checking another category.</p></div></div></div></div>
 
           <div id="noData" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4a25127a18113aa8c6cd10_qr-code.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results matching your search</text></div><div className="empty__text"><p>Try broadening your search.</p></div></div></div></div> */}
         </div>
-
-      </div>;
+      </div>
+    );
   }
 
   const items = [
@@ -119,36 +138,39 @@ export default function Index(props) {
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
             <div className="search__container">
-              <ul style={{ display: "flex", listStyle: "none",marginBottom:"unset" }}>
-                {
-                  props.searchTag.length > 0 &&
+              <ul style={{ display: 'flex', listStyle: 'none', marginBottom: 'unset' }}>
+                {props.searchTag.length > 0 &&
                   props.searchTag.map((tag, i) => {
                     return (
-                      <li className="search__tag" onClick={() => props.deSelectTag(tag.tag)} style={{ backgroundColor: tag.color, marginRight: "10px" }}><span>{tag.tag}</span><a href="javascript:void(0)">x</a></li>
-                    )
-                  })
-
-
-                }
+                      <li
+                        className="search__tag"
+                        onClick={() => props.deSelectTag(tag.tag)}
+                        style={{ backgroundColor: tag.color, marginRight: '10px' }}
+                      >
+                        <span>{tag.tag}</span>
+                        <a href="javascript:void(0)">x</a>
+                      </li>
+                    );
+                  })}
                 {/* <li className="search__tag" onClick={() => alert('k')} style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>blankets</span><a href="javascript:void(0)">x</a></li>
                 <li className="search__tag " style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>designlab</span><a href="javascript:void(0)">x</a></li> */}
 
                 <li>
                   <InputGroup className="input-group__alpha">
                     <InputGroup.Text>
-                      <FontAwesomeIcon icon={regular('magnifying-glass')} className="zoom__icon fs-5" />
+                      <FontAwesomeIcon
+                        icon={regular('magnifying-glass')}
+                        className="zoom__icon fs-5"
+                      />
                     </InputGroup.Text>
                     <FormControl
                       placeholder="Search"
                       value={props.filters.search}
                       onChange={(e) => props.onSearchProduct(e, 'onchange')}
                       onKeyDown={(e) => props.onSearchProduct(e, 'keydown')}
-                      style={{ zIndex: "9" }}
-
+                      style={{ zIndex: '9' }}
                     />
                     <span id="suggestion">{props.suggestionTag}</span>
-
-
 
                     {/* 
                     <FormControl
@@ -158,15 +180,11 @@ export default function Index(props) {
 
                       // disabled
                     /> */}
-
                   </InputGroup>
                   {/* <input type="text" className="autofill__bg" disabled="" value={props.suggestionTag} style={{ color: "rgb(214, 215, 220)", top: " -4px", outline: "none", width: "88px" }}></input> */}
-
                 </li>
               </ul>
-
             </div>
-
           </div>
 
           <div className="grab__info ms-auto d-flex align-items-center order-2 order-sm-3">
@@ -180,9 +198,7 @@ export default function Index(props) {
           </div>
         </Container>
       </div>
-      {
-        !CampaignAdminAuthToken &&
-
+      {!CampaignAdminAuthToken && (
         <Container className="d-flex align-items-center" fluid>
           <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
             <div className="d-flex align-items-center d-sm-inline-bock">
@@ -191,21 +207,31 @@ export default function Index(props) {
                 <InputGroup.Text id="btnGroupAddon" className="">
                   {currencySymbol}
                 </InputGroup.Text>
-                <FormControl type="text" value={props.price} onChange={(e) => props.onChangeDonatePrice(e)} />
+                <FormControl
+                  type="text"
+                  value={props.price}
+                  onChange={(e) => props.onChangeDonatePrice(e)}
+                />
               </InputGroup>
               <span className="d-none d-sm-inline-block mx-1">to these items:</span>
             </div>
-            <Button variant="outline-primary" className="btn__cart ms-sm-1 mt-2 mt-sm-0" onClick={() => props.onClickAddToCart()}>
+            <Button
+              variant="outline-primary"
+              className="btn__cart ms-sm-1 mt-2 mt-sm-0"
+              onClick={() => props.onClickAddToCart()}
+            >
               Add to Cart ({props.cartProductList.length})
             </Button>
-            <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
-              <FontAwesomeIcon icon={solid('question')} />
-              How does it work? 
-              <Link to="/about-us" className="d-inline-block">click here</Link>
+            <div className="p-2 d-sm-flex align-items-center flex-grow-1">
+              <FontAwesomeIcon icon={regular('circle-question')} />
+              &nbsp; How does it work?
+              <Link to="/about-us" className="text-light d-inline-block">&nbsp;
+                click here
+              </Link>
             </div>
           </div>
         </Container>
-      }
+      )}
 
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">

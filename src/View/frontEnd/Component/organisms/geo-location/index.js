@@ -219,7 +219,7 @@ const GeoLocation = () => {
           </span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="geo__dropdown dropdown-top-arrow w-310">
+        <Dropdown.Menu className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310">
           <div className="dropdown__inner position-relative">
             <div className="geo_dropdown-top d-flex align-items-center">
               <InputGroup className="input-group__alpha">
@@ -270,7 +270,7 @@ const GeoLocation = () => {
                 }} //boxZoom._container.outerText
                 containerStyle={{
                   height: '300px',
-                  width: '310px'
+                  //width: '310px'
                 }}
                 center={[location.lng, location.lat]}
 
