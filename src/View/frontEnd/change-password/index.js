@@ -1,138 +1,114 @@
-import { useState } from "react";
-import {
-  Button,
-  InputGroup,
-  Container,
-  Form,
-} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useState } from 'react';
+import { Button, InputGroup, Container, Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import DefaultLayout from "@templates/default-layout";
 
-import DefaultLayout from "../Component/templates/default-layout";
-import { useParams, useNavigate } from "react-router-dom";
-import ToastAlert from "../../../Common/ToastAlert";
-import { validateAll } from "indicative/validator";
-import "./style.scss";
-import FrontLoader from "../../../Common/FrontLoader";
-import userApi from "../../../Api/frontEnd/user";
-import adminCampaignApi from "../../../Api/admin/adminCampaign";
+import DefaultLayout from '../Component/templates/default-layout';
+import { useParams, useNavigate } from 'react-router-dom';
+import ToastAlert from '../../../Common/ToastAlert';
+import { validateAll } from 'indicative/validator';
+import './style.scss';
+import FrontLoader from '../../../Common/FrontLoader';
+import userApi from '../../../Api/frontEnd/user';
+import adminCampaignApi from '../../../Api/admin/adminCampaign';
 
 const ChangePassword = () => {
   const [showCPassword, toggleCPassword] = useState(false);
   const [showNPassword, toggleNPassword] = useState(false);
   const [showRNPassword, toggleRNPassword] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const params = useParams()
-  const navigate = useNavigate()
+  const params = useParams();
+  const navigate = useNavigate();
   const [state, setstate] = useState({
-    newPassword: "",
-    confirmPassword: "",
-    currentPassword: "",
-    error: [],
-  })
+    newPassword: '',
+    confirmPassword: '',
+    currentPassword: '',
+    error: []
+  });
 
-  const {
-    error, newPassword,
-    confirmPassword, currentPassword,
-  } = state;
-
+  const { error, newPassword, confirmPassword, currentPassword } = state;
 
   const changevalue = (e) => {
     let value = e.target.value;
     setstate({
       ...state,
       [e.target.name]: value
-    })
-  }
+    });
+  };
 
   const change = () => {
     const rules = {
       currentPassword: 'required',
       newPassword: 'required|min:6',
-      confirmPassword: 'required|same:newPassword',
-
-    }
+      confirmPassword: 'required|same:newPassword'
+    };
 
     const message = {
       'currentPassword.required': 'Current Password is Required.',
       'newPassword.min': 'New Password must be at least 6 characters',
       'newPassword.required': 'New Password is Required.',
       'confirmPassword.required': 'Confirm Password is Required.',
-      'confirmPassword.same': 'Password and ConfirmPassword Must be same.',
-
-    }
-    validateAll(state, rules, message).then(async () => {
-      const formaerrror = {};
-      setstate({
-        ...state,
-        error: formaerrror
-      })
-      setLoading(false)
-      let data = {}
-      data.current_password = currentPassword
-      data.new_password = newPassword
-      let changePassword;
-      if (CampaignAdminAuthToken) {
-        changePassword = await adminCampaignApi.updatePassword(CampaignAdminAuthToken, data)
-
-      } else {
-        changePassword = await userApi.updatePassword(userAuthToken, data)
-
-      }
-      if (changePassword) {
-        if (!changePassword.data.success) {
-          setLoading(false)
-          ToastAlert({ msg: changePassword.data.message, msgType: 'error' });
+      'confirmPassword.same': 'Password and ConfirmPassword Must be same.'
+    };
+    validateAll(state, rules, message)
+      .then(async () => {
+        const formaerrror = {};
+        setstate({
+          ...state,
+          error: formaerrror
+        });
+        setLoading(false);
+        let data = {};
+        data.current_password = currentPassword;
+        data.new_password = newPassword;
+        let changePassword;
+        if (CampaignAdminAuthToken) {
+          changePassword = await adminCampaignApi.updatePassword(CampaignAdminAuthToken, data);
         } else {
-          localStorage.clear()
-          navigate('/signin')
-          ToastAlert({ msg: changePassword.data.message, msgType: 'success' });
-          setLoading(false)
+          changePassword = await userApi.updatePassword(userAuthToken, data);
+        }
+        if (changePassword) {
+          if (!changePassword.data.success) {
+            setLoading(false);
+            ToastAlert({ msg: changePassword.data.message, msgType: 'error' });
+          } else {
+            localStorage.clear();
+            navigate('/signin');
+            ToastAlert({ msg: changePassword.data.message, msgType: 'success' });
+            setLoading(false);
+          }
+        } else {
+          setLoading(false);
+          ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+      })
+      .catch((errors) => {
+        setLoading(false);
+        const formaerrror = {};
+        if (errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
 
-      } else {
-        setLoading(false)
-        ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-      }
-
-
-
-
-    }).catch(errors => {
-
-      setLoading(false)
-      const formaerrror = {};
-      if (errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+        setstate({
+          ...state,
+          error: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
-      }
-
-      setstate({
-        ...state,
-        error: formaerrror
-      })
-
-    });
-
-  }
-
-
-
+      });
+  };
 
   return (
     <>
       <FrontLoader loading={loading} />
       <DefaultLayout>
-
         <div className="password-reset position-relative">
-          <div className="page__banner"></div>
           <Container fluid className="position-relative pb-5 pt-3">
             <h1 className="fs-2 text-dark fw-bolder mb-6p">Change Password</h1>
             <div className="fs-5 fw-semibold text-light mb-4">
@@ -140,10 +116,9 @@ const ChangePassword = () => {
             </div>
 
             <Form className="mw-400">
-
               <InputGroup className="">
                 <Form.Control
-                  type={!showCPassword ? "password" : "text"}
+                  type={!showCPassword ? 'password' : 'text'}
                   size="xl"
                   name="currentPassword"
                   placeholder="Current Password"
@@ -156,22 +131,25 @@ const ChangePassword = () => {
                   className="bg-white border-top border-end border-bottom"
                 >
                   <FontAwesomeIcon
-                    icon={solid("eye")}
-                    className={`${showCPassword ? "text-primary" : "text-light"}`}
+                    icon={solid('eye')}
+                    className={`${showCPassword ? 'text-primary' : 'text-light'}`}
                   />
                 </Button>
               </InputGroup>
-              {error && error.currentPassword && <p className="error">{error ? error.currentPassword ? error.currentPassword : "" : ""}</p>}
+              {error && error.currentPassword && (
+                <p className="error">
+                  {error ? (error.currentPassword ? error.currentPassword : '') : ''}
+                </p>
+              )}
 
               <InputGroup className="mt-3">
                 <Form.Control
-                  type={!showNPassword ? "password" : "text"}
+                  type={!showNPassword ? 'password' : 'text'}
                   size="xl"
                   name="newPassword"
                   placeholder="New Password"
                   className="border-end-0"
                   onChange={(e) => changevalue(e)}
-
                 />
                 <Button
                   variant="link"
@@ -179,21 +157,22 @@ const ChangePassword = () => {
                   className="bg-white border-top border-end border-bottom"
                 >
                   <FontAwesomeIcon
-                    icon={solid("eye")}
-                    className={`${showNPassword ? "text-primary" : "text-light"}`}
+                    icon={solid('eye')}
+                    className={`${showNPassword ? 'text-primary' : 'text-light'}`}
                   />
                 </Button>
               </InputGroup>
-              {error && error.newPassword && <p className="error">{error ? error.newPassword ? error.newPassword : "" : ""}</p>}
+              {error && error.newPassword && (
+                <p className="error">{error ? (error.newPassword ? error.newPassword : '') : ''}</p>
+              )}
               <InputGroup className="mt-3 ">
                 <Form.Control
-                  type={!showRNPassword ? "password" : "text"}
+                  type={!showRNPassword ? 'password' : 'text'}
                   size="xl"
                   name="confirmPassword"
                   placeholder="Re-type New Password"
                   className="border-end-0"
                   onChange={(e) => changevalue(e)}
-
                 />
                 <Button
                   variant="link"
@@ -201,12 +180,16 @@ const ChangePassword = () => {
                   className="bg-white border-top border-end border-bottom"
                 >
                   <FontAwesomeIcon
-                    icon={solid("eye")}
-                    className={`${showRNPassword ? "text-primary" : "text-light"}`}
+                    icon={solid('eye')}
+                    className={`${showRNPassword ? 'text-primary' : 'text-light'}`}
                   />
                 </Button>
               </InputGroup>
-              {error && error.confirmPassword && <p className="error">{error ? error.confirmPassword ? error.confirmPassword : "" : ""}</p>}
+              {error && error.confirmPassword && (
+                <p className="error">
+                  {error ? (error.confirmPassword ? error.confirmPassword : '') : ''}
+                </p>
+              )}
 
               {/* <div className="note note--more text-dark mb-3">
               <FontAwesomeIcon

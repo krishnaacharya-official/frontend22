@@ -8,10 +8,9 @@ const Media = () => {
   return (
     <DefaultLayout>
       <div className="password-reset position-relative">
-        <div className="page__banner"></div>
         <Container fluid className="position-relative pb-5 pt-3">
           <div className="mw-600">
-            <h1 className="fs-2 text-dark fw-bolder mb-6p">Media</h1>
+            <h1 className="text-dark fw-bolder mb-6p pt-2">Media</h1>
             <div className="fs-5 fw-semibold text-light mb-4">
               If you’ve received permission to use our logo, product icons, or
               other trademarks, follow these guidelines.
