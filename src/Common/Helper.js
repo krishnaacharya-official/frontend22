@@ -35,6 +35,7 @@ let helper = {
 
     recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/',
     websitePath: "https://www.donorport.org",
+    FulfilRecieptPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/fulfil/receipt/',
 
     MapBoxPrimaryKey: 'pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg'
 
@@ -437,4 +438,11 @@ export function priceWithOrganizationTax(price, salesTax) {
 
 }
 
+
+export function download(dataurl, filename) {
+    const link = document.createElement("a");
+    link.href = dataurl;
+    link.download = filename;
+    link.click();
+  }
 

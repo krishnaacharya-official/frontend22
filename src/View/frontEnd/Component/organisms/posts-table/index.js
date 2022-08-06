@@ -184,7 +184,18 @@ const PostsTable = (props) => {
                           } */}
 
                           {
-                            product.quantity <= product.soldout && !product.unlimited ?
+                            product.isFulfiled &&
+                            <Button variant="link" className="p-0" onClick={()=>props.showFulfillOrder(product)}>
+                              <FontAwesomeIcon
+                                icon={solid("square-up-right")}
+                                className="text-success fs-2 me-2"
+                              />
+                            </Button>
+                          }
+
+                          {
+                            product.quantity <= product.soldout && !product.unlimited && !product.isFulfiled
+                              ?
                               <Button variant="success" className="btn-md fw-bold" onClick={() => {
                                 props.createPost(true)
                                 props.setFulfil(true)
@@ -193,7 +204,7 @@ const PostsTable = (props) => {
                               >
                                 Fulfil Order
                               </Button>
-                              :
+                              : !product.isFulfiled &&
                               <>
                                 <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
                                   <FontAwesomeIcon

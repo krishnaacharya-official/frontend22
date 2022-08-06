@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ProgressBar, Button, Row, Col } from "react-bootstrap";
+// import { ProgressBar, Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import ListItemImg from "@components/atoms/list-item-img";
@@ -17,7 +17,20 @@ import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download,isIframe } from "../../../../../Common/Helper";
+
+
+import {
+  Button,
+  Accordion,
+  AccordionContext,
+  useAccordionButton,
+  Card,
+  Col,
+  Row,
+  Dropdown,
+  ProgressBar
+} from "react-bootstrap";
 
 
 
@@ -295,18 +308,34 @@ const UserItems = () => {
                         {helper.websitePath + '/' + item.itemDetails?.slug}
                       </span>
                     </a>
+                    {
+                      item.fulfilDetails.length === 0 ?
 
-                    <div className="empty_state mt-5">
-                      <div className="note note-info d-flex align-items-center">
-                        <span className="post__badge post__badge--sold me-2 text-primary fs-3">
-                          <FontAwesomeIcon icon={solid("photo-film")} />
-                        </span>
-                        <span className="fs-6 text-subtext">
-                          Giveaway media appears here when the post has been fully
-                          funded.
-                        </span>
-                      </div>
-                    </div>
+                        <div className="empty_state mt-5">
+                          <div className="note note-info d-flex align-items-center">
+                            <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                              <FontAwesomeIcon icon={solid("photo-film")} />
+                            </span>
+                            <span className="fs-6 text-subtext">
+                              Giveaway media appears here when the post has been fully
+                              funded.
+                            </span>
+                          </div>
+                        </div>
+                        :
+                        <>
+                          {
+                            item.fulfilDetails[0].video && isIframe(item.fulfilDetails[0].video) &&
+
+                            <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.fulfilDetails[0].video }} >
+                              {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
+
+                            </div>
+
+                          }
+                        </>
+                    }
+
                   </div>
                 </Col>
                 <Col md="6">
@@ -368,17 +397,106 @@ const UserItems = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className="fw-bold mb-2">Order Files</div>
-                  <div className="empty_state mb-4">
-                    <div className="note note-info d-flex align-items-center">
-                      <span className="post__badge post__badge--sold me-2 text-primary fs-3">
-                        <FontAwesomeIcon icon={solid("file-lines")} />
-                      </span>
-                      <span className="fs-6 text-subtext">
-                        Tax & Order Receipts appear here when they are available.
-                      </span>
-                    </div>
-                  </div>
+                  {
+                    item.fulfilDetails.length === 0 ?
+
+                      <div className="empty_state mb-4">
+                        <div className="note note-info d-flex align-items-center">
+                          <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                            <FontAwesomeIcon icon={solid("file-lines")} />
+                          </span>
+                          <span className="fs-6 text-subtext">
+                            Tax & Order Receipts appear here when they are available.
+                          </span>
+                        </div>
+                      </div> :
+                      <>
+                        <div className="mt-3 d-flex align-item-center" style={{ alignItems: "center" }}>
+                          <div className="nn" style={{
+                            display: 'flex',
+                            position: 'relative',
+                            color: '#64a9ee',
+                            height: '49px',
+                            width: '49px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            background: '#edf6fd',
+                            borderRadius: '6px',
+                            marginRight: '6px'
+                          }}>
+                            <span className="post__badge post__badge--sold fs-3">
+                              <FontAwesomeIcon icon={solid("receipt")} />
+                            </span>
+                          </div>
+                          <div style={{ paddingLeft: '9px' }}>
+                            <text className="post__title"
+                              style={{
+                                fontSize: '21px',
+                                lineHeight: '1rem',
+                                fontWeight: 700
+                              }}
+                            >
+                              {item.fulfilDetails[0].receipt}
+                            </text>
+                            <div className="date__name"
+                              style={{
+                                fontWeight: 600,
+                                fontSize: 'smaller',
+                                color: '#9796b1',
+                              }}
+                            >Added &nbsp;
+                              {moment(item.fulfilDetails[0].created_at).fromNow()}</div>
+
+
+                          </div>
+                          <div style={{ marginLeft: "auto" }}>
+                            <Dropdown className="d-flex ms-auto" autoClose="outside">
+                              <Dropdown.Toggle
+                                variant="link"
+                                className="no-caret text-decoration-none"
+                              >
+                                <FontAwesomeIcon
+                                  icon={regular("ellipsis-vertical")}
+                                  className="text-light fs-3"
+                                />
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu className="">
+                                <Dropdown.Item className="d-flex align-items-center p-2" onClick={() => download(helper.FulfilRecieptPath + item.fulfilDetails[0].receipt, item.fulfilDetails[0].receipt)}>
+                                  <span className="fw-bold fs-7 flex__1">View</span>
+                                  <FontAwesomeIcon
+                                    icon={solid("magnifying-glass")}
+                                    className="ms-1"
+                                  />
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item className="d-flex align-items-center p-2" onClick={() => download(helper.FulfilRecieptPath + item.fulfilDetails[0].receipt, item.fulfilDetails[0].receipt)}>
+                                  <span className="fw-bold fs-7 flex__1">Download</span>
+                                  {/* <a href={helper.FulfilRecieptPath + fulfilProductDetails?.fulfilDetails?.receipt} download
+                                    // variant="info"
+                                    // target="_blank"
+                                    className="fw-bold fs-7 flex__1"
+                                  >
+                                    Download
+                                  </a> */}
+                                  <FontAwesomeIcon icon={regular("download")} className="ms-1" />
+                                </Dropdown.Item>
+                                {/* <Dropdown.Divider /> */}
+                                {/* <Dropdown.Item className="d-flex align-items-center p-2">
+                              <span className="fw-bold fs-7 flex__1">Delete</span>
+                              <FontAwesomeIcon
+                                icon={regular("trash")}
+                                className="ms-1"
+                              />
+                            </Dropdown.Item> */}
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </>
+                  }
                 </Col>
               </Row>
             </div>
