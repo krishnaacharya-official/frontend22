@@ -1042,6 +1042,9 @@ a.MuiListItemButton-root.active:focus {
 }
 
 @media screen and (max-width: 540px) {
+  .activity__dropdown {
+    transform: translate(0px, 60px) !important;
+  }
   .plans .plan .plan-content img {
     margin-bottom: 20px;
     height: 56px;
@@ -1190,7 +1193,8 @@ li.search__tag {
 }
 
 .geo__dropdown {
-  transform: translate(-28px, 39px) !important;
+  overflow: visible !important;
+  transform: translate(45px, 39px) !important;
   inset: 0px 0px auto auto !important;
   /* transform: unset !important; */
 

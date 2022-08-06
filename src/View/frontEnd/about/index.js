@@ -14,7 +14,7 @@ const About = (props) => {
     <DefaultLayout className="about">
       <div className="section--hero section--design">
         <Container fluid>
-          <Row className="about__row-1">
+          <Row>
             <Col md="5" className="mb-4 mb-sm-0">
               <div className="about__content-1">
                 <h1 className="about__title display-6 fw-bolder text-dark">
@@ -36,7 +36,7 @@ const About = (props) => {
               </div>
             </Col>
             <Col md="7">
-              <div className="d-flex align-items-center  justify-content-sm-center">
+              <div className="mw-600 d-flex align-items-center  justify-content-sm-center">
                 <img
                   src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/626f21b70f1d0f40951a1eb6_Savings-amico.svg"
                   className="img-fluid"
@@ -48,8 +48,8 @@ const About = (props) => {
         </Container>
       </div>
       <Container fluid>
-        <h4 className="fs-1 fw-bolder text-center text-dark pt-3">Our services</h4>
-        <Row className="section--hero">
+        <h4 className="fs-1 fw-bolder text-center text-dark">Our services</h4>
+        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
           <Col md="6">
             <div className="d-flex align-items-center  justify-content-sm-center">
               <img
@@ -101,7 +101,7 @@ const About = (props) => {
         </Row>
       </Container>
       <Container fluid>
-        <Row className="section--hero p-6">
+        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
           <Col md="6" className="pt-5">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">Donations</div>
@@ -113,7 +113,7 @@ const About = (props) => {
             </div>
           </Col>
           <Col md="6">
-            <div className="d-flex">
+            <div className="d-flex justify-content-between mb-5">
               <div className="bigcircle">
                 <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624ba8a3688ae7c3ef86a416_20139509001_front_a06_%402.png"
@@ -121,7 +121,7 @@ const About = (props) => {
                   alt=""
                 />
               </div>
-              <div className="bigcircle _2">
+              <div className="bigcircle _2 mb-5">
                 <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b731470e7e18043959c58_s-l300.png"
                   className="img-fluid"
@@ -139,7 +139,7 @@ const About = (props) => {
           </Col>
         </Row>
       </Container>
-      <div className="section--hero section--cityscape pb-4">
+      <div className="section--hero pt-5 mt-5 mb-5 pb-5 section--cityscape">
         <img
           src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/621fbd2a971cc27a3898b387_60e47ee6c4af646a50d5b8e3_hero-illustration.svg"
           className="cityscape"
@@ -208,7 +208,7 @@ const About = (props) => {
       </div>
 
       <Container fluid>
-        <Row className="section--hero d-flex justify-content-between">
+        <Row className="section--hero pt-5 mt-5 mb-5 pb-5 d-flex justify-content-between">
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626cb8aafbea8678573371cd_Tim_Hortons_logo.svg"
@@ -261,7 +261,7 @@ const About = (props) => {
         </Row>
       </Container>
 
-      <section className="section--hero">
+      <section className="section--hero pt-5 mt-5 mb-5 pb-5">
         <Container fluid>
           <div className="p-5 rounded-5 bg-lighter">
             <Row>
@@ -274,7 +274,10 @@ const About = (props) => {
                     We approve non-profits.
                   </p>
                   <p className="fs-5 text-light lh-1.5">
-                    To learn more check out our partnerships page.
+                    To learn more check out our
+                    <Link to="/home" className="text-dark">
+                      &nbsp;partnerships page.
+                    </Link>
                   </p>
                 </div>
               </Col>
@@ -287,7 +290,7 @@ const About = (props) => {
                         className="fs-3 me-1 text-success p-12p mr-12p"
                       />
                     </div>
-                    <div>Non-profits keep 100% of your donation</div>
+                    <div>Charities keep 100% of your donation</div>
                   </li>
                   <li className="d-flex align-items-center pt-2">
                     <div className="icon icon--shield">
@@ -315,17 +318,17 @@ const About = (props) => {
       </section>
 
       <Container fluid>
-        <Row className="section--hero">
+        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
           <Col md="6">
             <div className="d-flex align-items-center justify-content-center pe-sm-5">
               <img
                 src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/6271b1e2ec98d212a842735e_To%20do%20list-rafiki.svg"
-                className="img-fluid"
+                className="mw-600 w-100 img-fluid"
                 alt=""
               />
             </div>
           </Col>
-          <Col md="6" className="pt-5">
+          <Col md="6">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">
                 Tax Management
@@ -371,7 +374,7 @@ const About = (props) => {
       </Container>
 
       <Container fluid>
-        <Row className="section--hero pb-0">
+        <Row className="section--hero pb-0 pt-0">
           <Col md="6">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">
@@ -391,7 +394,7 @@ const About = (props) => {
         </Row>
       </Container>
       <Container fluid>
-        <Row className="section--hero">
+        <Row className="section--hero pt-0 pb-0">
           <Col md="6">
             <div className="d-flex gap-3 mb-3 py-6p flex-wrap">
               <div className="d-flex align-items-center text-success">
@@ -468,7 +471,7 @@ const About = (props) => {
       </section>
 
       <Container fluid>
-        <Row className="section--hero">
+        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
           <Col md="6">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">Our Partners</div>

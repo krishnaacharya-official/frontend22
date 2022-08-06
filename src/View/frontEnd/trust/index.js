@@ -1,19 +1,18 @@
-import { Button, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, Container } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import ListItemImg from "@components/atoms/list-item-img";
-import ListItemImg from "../Component/atoms/list-item-img";
+import ListItemImg from '../Component/atoms/list-item-img';
 
 // import DefaultLayout from "@templates/default-layout";
-import DefaultLayout from "../Component/templates/default-layout";
+import DefaultLayout from '../Component/templates/default-layout';
 
-import "./style.scss";
+import './style.scss';
 
 const Trust = () => {
   return (
     <DefaultLayout>
       <div className="password-reset position-relative">
-        <div className="page__banner"></div>
         <Container fluid className="position-relative pb-5 pt-5">
           <div className="mw-800">
             <h1 className="text-dark fw-bolder mb-6p pt-2">Trust & Safety</h1>
@@ -78,10 +77,9 @@ const Trust = () => {
                 </div>
                 <div className="ms-3">
                   <div className="text-light fs-5 lh-1.5">
-                    The Organizations that partner with Donorport are deeply
-                    rooted in their communities and have established trust in
-                    their field of service. A proven track record of success is
-                    one of the many indicators Donorport uses when creating new
+                    The Organizations that partner with Donorport are deeply rooted in their
+                    communities and have established trust in their field of service. A proven track
+                    record of success is one of the many indicators Donorport uses when creating new
                     partnerships on the platform.
                   </div>
                 </div>
@@ -99,18 +97,17 @@ const Trust = () => {
                 </div>
                 <div className="ms-3">
                   <div className="text-light fs-5 lh-1.5">
-                    Our users as passionate about their giving which is why we
-                    provide the most organic and exciting way to donate without
-                    sacrificing trust and security. Every organization Donorport
-                    partners with is legally recognized and operates under
+                    Our users as passionate about their giving which is why we provide the most
+                    organic and exciting way to donate without sacrificing trust and security. Every
+                    organization Donorport partners with is legally recognized and operates under
                     strict ethical and inclusive standards.
                   </div>
                 </div>
               </li>
               <li>
                 <div className="trust__note py-2 px-20p note my-20p text-dark fs-6 w-100">
-                  Donorport selects only the most trusted organizations to
-                  ensure the security of your giving
+                  Donorport selects only the most trusted organizations to ensure the security of
+                  your giving
                 </div>
               </li>
               <li className="d-sm-flex text-center align-items-center py-3">
@@ -126,10 +123,9 @@ const Trust = () => {
                 </div>
                 <div className="ms-3 mb-4 mb-sm-0">
                   <div className="text-light fs-5 lh-1.5">
-                    Donorport vets through every organization that wants to post
-                    on the platform to ensure that every purchase is completed
-                    as intended. Our rigorous application process ensures that
-                    only the most trusted organizations can post on the
+                    Donorport vets through every organization that wants to post on the platform to
+                    ensure that every purchase is completed as intended. Our rigorous application
+                    process ensures that only the most trusted organizations can post on the
                     platform.
                   </div>
                 </div>
@@ -139,9 +135,9 @@ const Trust = () => {
         </Container>
         <div className="about__banner position-relative d-flex justify-content-center align-items-center border-top bg-lighter fs-5 text-center">
           <div className="about__text">
-            We're here to help with any issues you may have, with a friendly
+            We're here to help with any issues you may have, with a friendly&nbsp;
             <a href="/help-contact" className="link">
-              customer support team
+              customer support team&nbsp;
             </a>
             at your service 24/7.
           </div>

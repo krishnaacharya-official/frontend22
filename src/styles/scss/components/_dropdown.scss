@@ -20,7 +20,7 @@
   @include media-breakpoint-up(sm) {
     &:after {
       background: rgb(248, 250, 253);
-      content: "";
+      content: '';
       width: 15px;
       height: 15px;
       position: absolute;

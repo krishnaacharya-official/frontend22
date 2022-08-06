@@ -8,10 +8,9 @@ const Media = () => {
   return (
     <DefaultLayout>
       <div className="password-reset position-relative">
-        <div className="page__banner"></div>
-        <Container fluid className="position-relative pb-5 pt-3">
+        <Container fluid className="position-relative pb-5 pt-5">
           <div className="mw-600">
-            <h1 className="fs-2 text-dark fw-bolder mb-6p">Media</h1>
+            <h1 className="text-dark fw-bolder mb-6p pt-2">Media</h1>
             <div className="fs-5 fw-semibold text-light mb-4">
               If you’ve received permission to use our logo, product icons, or
               other trademarks, follow these guidelines.
@@ -23,7 +22,7 @@ const Media = () => {
               get in touch with us at press@donorport.com
             </div>
           </div>
-          <div className="mb-3">
+          <div className="mb-3 pt-5">
             <h4 className="fw-bolder text-dark">Brand Assets</h4>
             <div className="fs-5 fw-semibold text-light mb-2">
               In most cases, you’re welcome to use our icons in your materials,
