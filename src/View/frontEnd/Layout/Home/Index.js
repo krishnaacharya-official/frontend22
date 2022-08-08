@@ -52,7 +52,7 @@ export default function Index(props) {
             <div className="empty__container">
               <div className="empty__circle empty--small">
                 <img
-                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e611cf546e6b8a2c0d1ad3b_tag.svg"
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f1681d63e2204ef2532f97_corrupted-file.png"
                   alt=""
                 />
               </div>
@@ -222,8 +222,8 @@ export default function Index(props) {
             >
               Add to Cart ({props.cartProductList.length})
             </Button>
-            <div className="p-2 d-sm-flex align-items-center flex-grow-1">
-              <FontAwesomeIcon icon={regular('circle-question')} />
+            <div className="p-2 d-sm-flex align-items-center flex-grow-1" style={{fontSize: '14px'}}>
+              <FontAwesomeIcon icon={regular('circle-question')} style={{color: "#5f5df8"}}/>
               &nbsp; How does it work?
               <Link to="/about-us" className="text-light d-inline-block">&nbsp;
                 click here
