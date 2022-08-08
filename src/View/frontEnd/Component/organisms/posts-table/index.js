@@ -185,7 +185,7 @@ const PostsTable = (props) => {
 
                           {
                             product.isFulfiled &&
-                            <Button variant="link" className="p-0" onClick={()=>props.showFulfillOrder(product)}>
+                            <Button variant="link" className="p-0" onClick={() => props.showFulfillOrder(product)}>
                               <FontAwesomeIcon
                                 icon={solid("square-up-right")}
                                 className="text-success fs-2 me-2"
@@ -194,7 +194,7 @@ const PostsTable = (props) => {
                           }
 
                           {
-                            product.quantity <= product.soldout && !product.unlimited && !product.isFulfiled
+                            product.quantity <= product.soldout && !product.isFulfiled || product.unlimited  && !product.isFulfiled
                               ?
                               <Button variant="success" className="btn-md fw-bold" onClick={() => {
                                 props.createPost(true)

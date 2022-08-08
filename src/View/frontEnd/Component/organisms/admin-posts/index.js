@@ -22,7 +22,7 @@ import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
 import { WithContext as ReactTags } from "react-tag-input";
 import noimg from "../../../../../assets/images/noimg.jpg"
-import helper, { priceWithOrganizationTax, priceFormat, isIframe,download } from "../../../../../Common/Helper";
+import helper, { priceWithOrganizationTax, priceFormat, isIframe, download } from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
@@ -977,7 +977,7 @@ const AdminPosts = (props) => {
 
   useEffect(() => {
     (async () => {
-
+      // console.log(data.country_id)
       await getProductList(pageNo, sortField, order)
       // console.log(data)
 
@@ -1069,6 +1069,8 @@ const AdminPosts = (props) => {
         formData.image = receiptFile
         formData.organizationId = data._id
         formData.productId = fulfilProductDetails._id
+        formData.organizationCountryId = data.country_id
+
 
         if (videoUrl) {
           formData.video = videoUrl
@@ -1318,8 +1320,8 @@ const AdminPosts = (props) => {
 
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
-                        <span className="flex__1">Qty:</span>
-                        <span className="text-dark">{fulfilProductDetails?.quantity}</span>
+                        <span className="flex__1">{fulfilProductDetails?.unlimited ? 'Soldout':'Qty'} :</span>
+                        <span className="text-dark">{fulfilProductDetails?.unlimited ? fulfilProductDetails?.soldout:  fulfilProductDetails?.quantity}</span>
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">
                         <span className="fw-bolder flex__1">Each:</span>
@@ -1328,38 +1330,49 @@ const AdminPosts = (props) => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price * fulfilProductDetails?.quantity)}</span>
+                      <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(
+                        (fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price) * 
+                        (fulfilProductDetails?.
+                          unlimited
+                           ? fulfilProductDetails?.soldout :
+                        fulfilProductDetails?.quantity))}</span>
                     </div>
 
                   </div>
 
-                  <div className="linked__item d-flex align-items-center p-1 border mt-3">
-                    <div className="accounts__icon">
-                      <ListItemImg
-                        size={75}
-                        className="bg-white"
-                        imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
-                      />
-                    </div>
-                    <div className=" flex__1 mx-2 text-break">
-                      <div className="accounts__email fw-bold">Ending in 7709</div>
-                      <div className="fs-7 mb-3p">Mastercard</div>
-                      <div className="fs-7 text-subtext">8 / 2019</div>
-                    </div>
-                    {/* <Button variant="link" className="text-danger fs-7">
+                  {
+                    fulfilProductDetails?.isFulfiled &&
+
+                    <>
+                      <div className="linked__item d-flex align-items-center p-1 border mt-3">
+                        <div className="accounts__icon">
+                          <ListItemImg
+                            size={75}
+                            className="bg-white"
+                            imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                          />
+                        </div>
+                        <div className=" flex__1 mx-2 text-break">
+                          <div className="accounts__email fw-bold">Ending in 7709</div>
+                          <div className="fs-7 mb-3p">Mastercard</div>
+                          <div className="fs-7 text-subtext">8 / 2019</div>
+                        </div>
+                        {/* <Button variant="link" className="text-danger fs-7">
                       remove
                     </Button> */}
-                  </div>
+                      </div>
 
-                  <div className="note note--info mt-3" style={{ padding: "16px" }}>
-                    <FontAwesomeIcon
-                      icon={regular("circle-info")}
-                      className="text-info icon-method mr-3p"
-                    />
-                    <span className="text-dark">
-                      Funds were dispersed to your bank account on 03/04/2022
-                    </span>
-                  </div>
+                      <div className="note note--info mt-3" style={{ padding: "16px" }}>
+                        <FontAwesomeIcon
+                          icon={regular("circle-info")}
+                          className="text-info icon-method mr-3p"
+                        />
+                        <span className="text-dark">
+                          Funds were dispersed to your bank account on 03/04/2022
+                        </span>
+                      </div>
+                    </>
+                  }
                   {
                     !fulfilProductDetails?.isFulfiled ?
 

@@ -331,6 +331,7 @@ function product() {
         if (cdata.video) {
             data.append('video', cdata.video);
         }
+        data.append('organizationCountryId', cdata.organizationCountryId);
 
         let res = {};
         await axios({

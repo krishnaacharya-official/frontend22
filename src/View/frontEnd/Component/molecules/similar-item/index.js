@@ -73,7 +73,9 @@ function SimilarItem(props) {
   );
 
   const btn =
-    product.soldout === product.quantity ? (
+  product.soldout >= product.quantity || product.isFulfiled
+    // product.soldout === product.quantity 
+    ? (
       <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
     ) : (
       cart_btn

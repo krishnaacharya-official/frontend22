@@ -54,6 +54,8 @@ const Product = (props) => {
   let theme_color = props.categoryDetails?.color
   let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
+  let isFulfiled = props.isFulfiled
+
 
   let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg')
 
@@ -158,7 +160,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold >= total ? (
+    sold >= total || isFulfiled  ? (
       <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -227,7 +229,9 @@ const Product = (props) => {
           </div>
           {
             // !CampaignAdminAuthToken &&
-            <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
+            // <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
+            <div className="mt-auto mb-12p"> {btn}</div>
+
 
           }
         </div>

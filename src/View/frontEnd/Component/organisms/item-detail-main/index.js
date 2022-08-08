@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button, ProgressBar } from "react-bootstrap";
+import { Button, ProgressBar,Card } from "react-bootstrap";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -235,72 +235,119 @@ function ProjectDetailMain(props) {
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
-      <div className="project__calculate mt-4">
-        <div className="sub__total">
-          <div className="text-dark fw-bold me-2">Subtotal:</div>
-          <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
-        </div>
-        <div className="d-flex align-items-center fs-5 py-1 mb-3">
-          <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
-          <div className="flex-grow-1 mx-2">
-            <Slider
-              handleStyle={{
-                width: "26px",
-                height: "26px",
-                border: "none",
-                background: "#3596F3",
-                marginTop: "-10px",
-                opacity: 1,
-              }}
-              min={1}
-              max={maxQuentity}
-              railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
-              onChange={(e) => setQuantity(e)}
-            />
+      {
+        productDetails.isFulfiled ?
+          <>
+            <div className="note note-info d-flex align-items-center mt-5">
+              <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                <FontAwesomeIcon icon={solid("circle-check")} />
+              </span>
+              <span className="fs-6 text-subtext">
+                This item has been fully funded.
+              </span>
+            </div>
+            {
+              productDetails.fulfiledproductsDetails.video && isIframe(productDetails.fulfiledproductsDetails.video) &&
+
+              <div className="note note-info align-items-center mt-5">
+
+                <Card.Header className="post__accordion-header pb-3">
+
+                  <span className="fs-3 fw-bolder text-dark">Followup</span>
+
+                </Card.Header>
+
+
+                <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: productDetails.fulfiledproductsDetails.video }} >
+
+                </div>
+              </div>
+            }
+          </>
+          :
+          <div className="project__calculate mt-4">
+            <div className="sub__total">
+              <div className="text-dark fw-bold me-2">Subtotal:</div>
+              <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
+            </div>
+            <div className="d-flex align-items-center fs-5 py-1 mb-3">
+              <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
+              <div className="flex-grow-1 mx-2">
+                <Slider
+                  handleStyle={{
+                    width: "26px",
+                    height: "26px",
+                    border: "none",
+                    background: "#3596F3",
+                    marginTop: "-10px",
+                    opacity: 1,
+                  }}
+                  min={1}
+                  max={maxQuentity}
+                  railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
+                  onChange={(e) => setQuantity(e)}
+                />
+              </div>
+              <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
+            </div>
+
+            {/* <Button size="lg" className="w-100">
+            <span className="fw-bold">Add to cart ( {quantity} )</span>
+          </Button> */}
+
+            {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
+            {!CampaignAdminAuthToken && btn}
           </div>
-          <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
-        </div>
 
-        {/* <Button size="lg" className="w-100">
-          <span className="fw-bold">Add to cart ( {quantity} )</span>
-        </Button> */}
+      }
 
-        {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
-        {!CampaignAdminAuthToken && btn}
-      </div>
+
 
       <div className="product__badge mt-5">
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon
-              icon={solid("infinity")}
-              className="fs-4 text-info pt-12p pb-12p"
-            />
-          }
-        >
-          Item is ongoing - there is no fixed quantity.
-        </IconText>
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon
-              icon={solid("calculator-simple")}
-              className="fs-4 text-info"
-            />
-          }
-        >
-          Item was already purchased by the organization. Your purchase will
-          cover those costs.
-        </IconText>
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon icon={solid("image")} className="fs-4 text-info" />
-          }
-        >
-          These items are tax deductible.
-        </IconText>
+        {
+          productDetails.unlimited &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("infinity")}
+                className="fs-4 text-info pt-12p pb-12p"
+              />
+            }
+          >
+            Item is ongoing - there is no fixed quantity.
+          </IconText>
+        }
+
+        {
+          productDetails.tax &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("calculator-simple")}
+                className="fs-4 text-info"
+              />
+            }
+          >
+            Item was already purchased by the organization. Your purchase will
+            cover those costs.
+          </IconText>
+        }
+        {
+          productDetails.media &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon icon={solid("image")} className="fs-4 text-info" />
+            }
+          >
+            These items are tax deductible.
+          </IconText>
+        }
         {
           productDetails?.advertisements?.length > 0 &&
 
