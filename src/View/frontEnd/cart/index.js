@@ -60,10 +60,10 @@ const Cart = (props) => {
         return a + b;
       }, 0);
       setSubTotal(sum)
-      let salesTax = getCalc.calculateSalesTax(sum)
-      setSalesTax(getCalc.calculateSalesTax(sum))
+      // let salesTax = getCalc.calculateSalesTax(sum)
+      setSalesTax(getCalc.getTaxValueOfPrice(sum))
       // setTotal(sum + salesTax);
-      setTotal(sum);
+      setTotal(getCalc.priceWithTax(sum));
 
     }
   }, [props.cartItem]);
@@ -193,6 +193,21 @@ const Cart = (props) => {
               <span className="fw-bolder flex__1">Subtotal:</span>
               <span className="fw-bold text-success fs-5">
                 {currencySymbol + priceFormat(subTotal)}
+              </span>
+            </div>
+
+            <div className="d-flex align-items-center py-3 border-bottom">
+           
+              <span className="fw-bolder flex__1">
+              <img
+                className="img-stripe "
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+                alt=""
+                style={{ width: "44px" }}
+              />
+              </span>
+              <span className="fw-bold text-success fs-5">
+                {currencySymbol + salesTax}
               </span>
             </div>
             {/* <div className="d-flex align-items-center py-3 border-bottom">

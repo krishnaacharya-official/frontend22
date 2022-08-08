@@ -121,7 +121,7 @@ export default function HomeController() {
     function showError(error) {
         if (error) {
             console.log(error)
-            dispatch(setUserCountrySort('us'))
+            dispatch(setUserCountrySort('US'))
             if (userAuthToken) {
                 if (userData.country_id && userData.country_id !== null && userData.country_id > 0) {
                     dispatch(setUserCountry(userData.country_id))

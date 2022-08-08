@@ -101,7 +101,7 @@ const SummaryContent = (props) => {
               />
             </span>
             <span className="fw-semibold fs-7">
-              {props.currencySymbol + priceFormat(transectionFee)}
+              {props.currencySymbol + props.stripeTax}
             </span>
           </div>
           <div className="d-flex align-items-center">

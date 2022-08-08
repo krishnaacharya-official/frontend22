@@ -110,12 +110,14 @@ const OrderConfirmPage = () => {
                                 </b></p></div>
 
 
-                            {/* <div style={{ textAlign: 'left', display: 'inline-block', width: '70%', float: 'left' }}>
+                            <div style={{ textAlign: 'left', display: 'inline-block', width: '70%', float: 'left' }}>
                                 <p style={{ fontSize: '19px', color: '#6f6f90', font: 'bold 19px Helvetica' }}>
-                                    SalesTax ({orderDetails.salesTaxPer}%):</p></div>
+                                    Stripe :
+                                    {/* ({orderDetails.salesTaxPer}%): */}
+                                    </p></div>
                             <div style={{ textAlign: 'right', display: 'inline-block', width: '25%', float: 'right' }}>
                                 <p style={{ color: '#6f6f90', font: '16px Helvetica' }}><b style={{ fontSize: '16px' }}> {orderDetails.currencySymbol
-                                }{orderDetails.salesTax}</b></p></div> */}
+                                }{orderDetails.salesTax}</b></p></div>
 
                             <div style={{ textAlign: 'left', display: 'inline-block', width: '70%', float: 'left' }}>
                                 <p style={{ fontSize: '19px', color: '#6f6f90', font: 'bold 19px Helvetica' }}>

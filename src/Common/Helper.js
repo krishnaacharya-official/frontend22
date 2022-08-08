@@ -333,6 +333,22 @@ export function getCalculatedPrice() {
         return rank
     }
 
+    const getTaxValueOfPrice = (amount)=>{
+
+        let transectionFee = user.transectionFee
+        let platformFee = user.platformFee
+
+        //Calculate total charges (transectionFee + platformFee )
+
+        let totalCharge = Number(transectionFee) + Number(platformFee)
+
+        const salesTax = Number(totalCharge)
+        let taxAmount = Math.round((salesTax / 100) * amount)
+        return taxAmount
+
+
+    }
+
 
     return {
         getData,
@@ -340,7 +356,8 @@ export function getCalculatedPrice() {
         priceWithoutTax,
         priceWithTax,
         getUserRank,
-        calculateSalesTax
+        calculateSalesTax,
+        getTaxValueOfPrice
     }
 }
 

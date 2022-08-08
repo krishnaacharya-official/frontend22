@@ -25,6 +25,8 @@ export default function CheckoutController() {
 
     const [total, setTotal] = useState(0)
     const [salesTax, setSalesTax] = useState(0);
+    const [stripeTax, setStripeTax] = useState(0);
+
 
     const [xp, setXp] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
@@ -160,11 +162,13 @@ export default function CheckoutController() {
                     setXp(xpSum * xpForeEachItem)
                     setSubtotalWithTax(sumSubTotal)
                     let salesTax = CalculatedPrice.calculateSalesTax(sum)
-                    setSalesTax(salesTax)
+                    // setSalesTax(salesTax)
+                    setTotal(CalculatedPrice.priceWithTax(sum));
+                    setStripeTax(CalculatedPrice.getTaxValueOfPrice(sum))
 
                     // setTotal(sum + salesTax)
 
-                    setTotal(sum)
+                    // setTotal(sum)
 
                     setSubTotal(sum)
                 } else {
@@ -274,7 +278,7 @@ export default function CheckoutController() {
                             tempObj.unlimited = item.productDetails.unlimited
                             tempObj.postTag = item.productDetails.postTag
                             // tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
-                            tempObj.totalPrice = item.productDetails.displayPrice ? item.productDetails.displayPrice  : item.productDetails.price  * item.quantity
+                            tempObj.totalPrice = item.productDetails.displayPrice ? item.productDetails.displayPrice : item.productDetails.price * item.quantity
 
                             tempObj.organizationId = item.productDetails.organizationId
                             tempObj.organizationCountryId = item.productDetails?.organizationDetails?.country_id
@@ -300,7 +304,7 @@ export default function CheckoutController() {
                     orderDetails.products = productDetails
                     orderDetails.xpToadd = xp
                     orderDetails.salesTaxPer = user.salesTax
-                    orderDetails.salesTax = salesTax
+                    orderDetails.salesTax = stripeTax
 
 
                     if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -402,6 +406,7 @@ export default function CheckoutController() {
                 subtotal={subtotal}
                 salesTaxPer={user.salesTax}
                 transectionFee={user.transectionFee}
+                stripeTax={stripeTax}
             // pricingFees={pricingFees}
 
             />

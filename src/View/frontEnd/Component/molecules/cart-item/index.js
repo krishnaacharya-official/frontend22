@@ -9,6 +9,8 @@ import "./style.scss";
 
 function CartItem(props) {
   let cartItem = props.cartItem
+
+  console.log(cartItem)
   const [quantity, setQuantity] = useState(cartItem?.quantity)
   // const CalculatePrice = getCalculatedPrice()
   // console.log(cartItem)
@@ -56,7 +58,7 @@ function CartItem(props) {
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
             <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>
-            {/* <div className="cd__cart__location">{location}</div> */}
+            <div className="cd__cart__location">{cartItem?.productDetails?.organizationDetails?.name}</div>
           </div>
           <div className="cd__cart__price">{currencySymbol + priceFormat(price)}</div>
         </div>

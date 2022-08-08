@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
 // import { setUserCountry} from "../../user/user.action"
+import { useSelector, useDispatch } from "react-redux";
 
 
 // class Logo extends React.Component {
@@ -20,7 +21,10 @@ import { Link } from "react-router-dom";
 // }
 
 const Logo = () =>{
+  const user = useSelector((state) => state.user);
+
   return (
+    <>
     <Link to="/" className="logo-wrap d-flex align-items-center text-decoration-none">
       <img
         // src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/61fed883243c845a8478a637_2022%20(Icon).svg"
@@ -29,9 +33,12 @@ const Logo = () =>{
         alt="Donorport Logo Icon"
         className="logo-icon"
       />
-      <div className="logo-name ms-1">Donorport</div>
-      {/* <h4>{setUserCountry}</h4> */}
+      <div className="logo-name ms-1">Donorport</div>&nbsp;
+      
+      <span style={{fontSize:"small",display:"contents"}} >{user.countrySortName}</span>
     </Link>
+     
+      </>
   );
 
 }
