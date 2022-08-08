@@ -85,7 +85,7 @@ const FilterDropdown = (props) => {
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
         {
           module === 'HOME' ?
-            <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
+            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100">
               <div className="d-flex align-items-center justify-content-center">
 
                 <span className="fw-bold">Filters</span>

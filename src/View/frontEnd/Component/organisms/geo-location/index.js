@@ -354,7 +354,7 @@ const GeoLocation = () => {
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button variant="success" onClick={() => dispatch(setLocationFilter('true'))}>
+              <Button className="toggle__btn" variant="success" onClick={() => dispatch(setLocationFilter('true'))}>
                 Update Results {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
               </Button>
             </div>

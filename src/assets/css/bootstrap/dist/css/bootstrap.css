@@ -2441,8 +2441,8 @@ fieldset[disabled] a.btn {
 .btn-success:active, .btn-success.active,
 .open > .btn-success.dropdown-toggle {
   color: #fff;
-  background-color: #449d44;
-  border-color: #419641;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
   background-image: none;
 }
 
