@@ -139,7 +139,6 @@ const Media = () => {
             </div>
           </div>
 
-          <h4 className="fw-bolder text-dark mb-1">Logo</h4>
           <Button variant="primary" size="lg" className="fw-bold fs-6">
             Download Kit (3mb)
           </Button>

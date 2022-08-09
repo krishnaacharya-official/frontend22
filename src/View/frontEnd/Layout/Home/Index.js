@@ -224,8 +224,8 @@ export default function Index(props) {
             </Button>
             <div className="p-2 d-sm-flex align-items-center flex-grow-1" style={{fontSize: '14px'}}>
               <FontAwesomeIcon icon={regular('circle-question')} style={{color: "#5f5df8"}}/>
-              &nbsp; How does it work?
-              <Link to="/about-us" className="text-light d-inline-block">&nbsp;
+              &nbsp; How does it work?&nbsp;
+              <Link to="/about-us" className="text-light d-inline-block">
                 click here
               </Link>
             </div>

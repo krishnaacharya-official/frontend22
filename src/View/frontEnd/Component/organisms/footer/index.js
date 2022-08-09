@@ -1,16 +1,18 @@
 import React from "react";
 import { Button, Container, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, brands } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid, brands, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // import IconButton from "@components/molecules/icon-button";
 // import FooterCategoryLinks from "@components/molecules/footer-category-links";
 import IconButton from "../../molecules/icon-button";
 import FooterCategoryLinks from "../../molecules/footer-category-links";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style.scss";
 
 function Footer() {
+  const user = useSelector((state) => state.user);
   return (
     <div className="footer border-top px-1">
       <Container fluid className="footer__top">
@@ -115,6 +117,10 @@ function Footer() {
         <div className="footer__bottom d-sm-flex align-items-center border-top text-center text-sm-start">
           <div className="copyright mb-1 mb-sm-0">
             <div>© 2022 Donorport, Inc.</div>
+          </div>
+          <div className="copyright mb-1 mb-sm-0 ms-1">
+          <FontAwesomeIcon icon={regular("earth-americas")} />
+          <span className="logo-span">{user.countryName}</span>
           </div>
           <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto">
             <li className="footer__link-item me-4">

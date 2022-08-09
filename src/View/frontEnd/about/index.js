@@ -274,9 +274,9 @@ const About = (props) => {
                     We approve non-profits.
                   </p>
                   <p className="fs-5 text-light lh-1.5">
-                    To learn more check out our
+                    To learn more check out our&nbsp;
                     <Link to="/home" className="text-dark">
-                      &nbsp;partnerships page.
+                     partnerships page.
                     </Link>
                   </p>
                 </div>
