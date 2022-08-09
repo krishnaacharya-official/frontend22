@@ -277,7 +277,7 @@ const UserItems = () => {
                     <h1 className="project__detail-title">
                       {item.itemDetails?.headline}
                     </h1>
-                    <h5 className="project__detail-sublabel">Product</h5>
+                    <h5 className="project__detail-sublabel mb-0">Product</h5>
                     <div className="project__detail-subtitle mb-12p">{item.itemDetails?.brand} ™</div>
                     <div className="project__detail-price fs-2 text-success">
                       {item.currencySymbol} {price}
@@ -296,7 +296,7 @@ const UserItems = () => {
                       </div>
                     </div>
 
-                    <h5>{item.itemDetails?.needheadline}</h5>
+                    <h5 className="page__blurb">{item.itemDetails?.needheadline}</h5>
                     <div className="page__paragraph mb-3">
                       {item.itemDetails?.descriptions}
                     </div>

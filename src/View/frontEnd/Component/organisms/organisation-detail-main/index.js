@@ -102,7 +102,7 @@ function OrganisationDetailMain(props) {
           </Button>
         </div>
 
-        <h4>{organizationDetails?.headline}</h4>
+        <h4 className="page__blurb">{organizationDetails?.headline}</h4>
         <div className="page__paragraph">
           {organizationDetails?.description}
         </div>

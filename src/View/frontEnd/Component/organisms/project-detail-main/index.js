@@ -98,7 +98,7 @@ function ProjectDetailMain(props) {
               className="flex-grow-1 me-1"
             />
             {props.onGoing ? (
-              <span className="tag tag__ongoing tag__rounded fs-5">
+              <span className="tag tag__ongoing tag__rounded fs-9">
                 <FontAwesomeIcon icon={regular("infinity")} />
               </span>
             ) : (
@@ -194,7 +194,7 @@ function ProjectDetailMain(props) {
           </div>
         }
 
-        <h4>{projectDetails.headline}</h4>
+        <h4 className="page__blurb">{projectDetails.headline}</h4>
         <div className="page__paragraph">
           {projectDetails.description}
         </div>

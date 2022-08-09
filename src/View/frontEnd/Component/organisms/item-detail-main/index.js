@@ -101,7 +101,7 @@ function ProjectDetailMain(props) {
     <div className="project__detail-main">
       <h4 className="project__detail-label mb-3p">Item</h4>
       <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
-      <h5 className="project__detail-sublabel">Product</h5>
+      <h5 className="project__detail-sublabel mb-0">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
       <div className="project__detail-price fs-2 text-success">{currencySymbol} {priceFormat(price)}</div>
       <div className="project__detail-meta d-flex align-items-center">
@@ -128,11 +128,11 @@ function ProjectDetailMain(props) {
         <img
           className="img-fluid"
           alt=""
-          src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c26551110ec14dd05ef15_image%20(1).png"
+          src={helper.CampaignProductFullImagePath + productDetails?.image}
         />
       </div>
       <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="page__bar d-flex align-items-center flex-grow-1">
+        <div className="page__bar d-flex align-items-center" style={{width: "180px"}}>
           <ProgressBar
             variant={productDetails.
               unlimited ? 'infinity' : 'success'}
@@ -142,7 +142,7 @@ function ProjectDetailMain(props) {
           {productDetails.
             unlimited
             ? (
-              <span className="tag tag__ongoing tag__rounded fs-5">
+              <span className="tag tag__ongoing tag__rounded fs-9">
                 <FontAwesomeIcon icon={regular("infinity")} />
               </span>
             ) : (
@@ -216,9 +216,9 @@ function ProjectDetailMain(props) {
             />
           </span>
         </Button> */}
-        <Button size="lg" variant="success" className=" text-decoration-none">
+       {/* <Button size="lg" variant="success" className=" text-decoration-none">
           <span className="fs-6">Shelter</span>
-        </Button>
+        </Button>*/}
       </div>
       {
         productDetails.galleryUrl && isIframe(productDetails.galleryUrl) &&
@@ -230,7 +230,7 @@ function ProjectDetailMain(props) {
       }
 
 
-      <h4>{productDetails.needheadline}</h4>
+      <h4 className="page__blurb">{productDetails.needheadline}</h4>
       <div className="page__paragraph">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
@@ -332,8 +332,7 @@ function ProjectDetailMain(props) {
               />
             }
           >
-            Item was already purchased by the organization. Your purchase will
-            cover those costs.
+            These items are tax deductible.
           </IconText>
         }
         {
@@ -345,7 +344,7 @@ function ProjectDetailMain(props) {
               <FontAwesomeIcon icon={solid("image")} className="fs-4 text-info" />
             }
           >
-            These items are tax deductible.
+            The organization has indicated that they will upload follow-up media from their purchase.
           </IconText>
         }
         {

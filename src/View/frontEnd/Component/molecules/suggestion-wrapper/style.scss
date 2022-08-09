@@ -1,3 +1,9 @@
+.suggested__list {
+  overflow: auto
+}
+.suggested__list::-webkit-scrollbar {
+  height: 0px;
+}
 .suggested__list-wrap {
   background: $gray-100;
   border-bottom: 1px solid #e6e6e6;

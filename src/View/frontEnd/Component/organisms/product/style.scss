@@ -95,13 +95,13 @@
   // .product__title
   &__title {
     color: $gray-600;
-    font-size: 18px;
+    font-size: 21px;
     font-weight: 900;
   }
 
   // .product__price
   &__price {
-    color: $success;
+    color: #45bb82;
     font-size: 16px;
     font-weight: 900;
   }
@@ -129,9 +129,9 @@
 
   // .product__subcategory, .product__count
   &__subcategory, &__count {
-      font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
   }
-
   // .product__location
   &__location {
     .icon {
