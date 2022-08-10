@@ -32,6 +32,7 @@ const DonateModal = (props) => {
     setSelectedValue(Number(event.target.value));
     setColor(clr);
   };
+
   return (
     <Modal
       {...props}
@@ -236,7 +237,29 @@ const DonateModal = (props) => {
           <>
             <div className="sleeve">
               <div className="credit-card selected" style={{ background: "#555" }}>
-                <div className="card-company"></div>
+                <div className="">
+
+                  <div className="card-company"></div>
+
+                  {
+                    props.dCardIcon &&
+
+                    <img
+                      src={props.dCardIcon}
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        width: '62px',
+                        height: '45px',
+                        top: '14px',
+                        left: ' 80%',
+                      }}
+
+                    />
+                  }
+
+
+                </div>
                 <div className="card-number" style={{ marginTop: "74px" }}>
 
                   <div className="digit-group">{props.cardNumberWithSpace ? props.cardNumberWithSpace : "XXXX XXXX XXXX XXXX"}</div>
@@ -256,7 +279,7 @@ const DonateModal = (props) => {
               </div>
               <div className="checkout__input">
                 <p>Card number<span>*</span></p>
-                <input type="text" name='cardNumber' value={stateData.cardNumber ? stateData.cardNumber : ""} className={stateData.error.cardNumber ? "inputerror form-control " : "form-control "} placeholder="Card Number" onChange={(e) => props.changevalue(e)} maxLength={16} />
+                <input type="text" name='cardNumber' value={stateData.cardNumber ? stateData.cardNumber : ""} className={stateData.error.cardNumber ? "inputerror form-control " : "form-control "} placeholder="Card Number" onChange={(e) => { props.changevalue(e) }} maxLength={16} />
                 <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>
 
               </div>

@@ -28,7 +28,7 @@ const ProjectsTable = (props) => {
     let soldOutQArray = []
     let per = 0
 
-    if (data.length > 0) {
+    if (data?.length > 0) {
       data.map((p, i) => {
         // console.log(p.itemDetails)
         if (!p.itemDetails.unlimited) {
@@ -163,8 +163,15 @@ const ProjectsTable = (props) => {
                         project.infinity ?
                           <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                             <div className="d-flex align-items-center flex__1 mw-200">
-                              <ProgressBar variant="success" now={100} className="flex__1" />
-                              <span className="text-light ms-1 fw-bold">Infinite</span>
+                              <ProgressBar variant="infinity" now={100} className="flex__1" />
+                              {/* <span className="text-light ms-1 fw-bold">Infinite</span> */}
+                              <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                                <div className="tag tag--ongoing _2">
+                                  <div className="icon icon--unlimited">
+                                    <FontAwesomeIcon icon={solid("infinity")} className="" />
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                           :

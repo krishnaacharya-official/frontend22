@@ -12,7 +12,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
-import helper from "../../Common/Helper";
+import helper,{GetCardTypeByNumber,getCardIcon} from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
 import followApi from "../../Api/frontEnd/follow";
 
@@ -37,6 +37,7 @@ export default function ProjectDetailsController() {
     const dispatch = useDispatch()
     const [isFollow, setIsFollow] = useState(false)
 
+    const [dCardIcon, setDCardIcon] = useState('')
 
 
     const [state, setstate] = useState({
@@ -70,8 +71,20 @@ export default function ProjectDetailsController() {
         }
     }
 
+    const getCardNumber = async (num) => {
+        if (num) {
+            let cardType = GetCardTypeByNumber(num);
+            let cardIcon = getCardIcon(cardType)
 
-    const changevalue = (e) => {
+            setDCardIcon(cardIcon)
+        } else {
+            setDCardIcon('')
+
+        }
+    }
+
+
+    const changevalue = async(e) => {
         let value = e.target.value;
         if (e.target.name === "cardNumber") {
             let cardVal = e.target.value;
@@ -80,6 +93,7 @@ export default function ProjectDetailsController() {
                 ...state,
                 [e.target.name]: value
             })
+            await getCardNumber(value)
         } else {
             setstate({
                 ...state,
@@ -347,6 +361,7 @@ export default function ProjectDetailsController() {
                 donationList={donationList}
                 followToProject={followToProject}
                 isFollow={isFollow}
+                dCardIcon={dCardIcon}
 
 
             />

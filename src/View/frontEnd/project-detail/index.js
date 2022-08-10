@@ -89,6 +89,8 @@ const ProjectDetail = (props) => {
               changevalue={props.changevalue}
               cardNumberWithSpace={props.cardNumberWithSpace}
               donate={props.donate}
+              dCardIcon={props.dCardIcon}
+
 
 
             />

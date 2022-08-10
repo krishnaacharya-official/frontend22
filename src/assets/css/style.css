@@ -793,13 +793,15 @@ a.MuiListItemButton-root.active:focus {
 }
 
 .sold--item {
-  position: absolute !important;
+  bottom: 27% !important;
+  position: relative !important;
+  /* position: absolute !important; */
   /* top: 50%; */
   right: 81% !important;
   -webkit-transform: translate(50%, -50%) !important;
   -ms-transform: translate(50%, -50%) !important;
   /* transform: translate(50%,-50%); */
-  bottom: 56% !important;
+  /* bottom: 56% !important; */
   width: 90% !important;
 }
 
@@ -1044,6 +1046,7 @@ a.MuiListItemButton-root.active:focus {
   .activity__dropdown {
     transform: translate(0px, 60px) !important;
   }
+
   .plans .plan .plan-content img {
     margin-bottom: 20px;
     height: 56px;
@@ -1281,6 +1284,7 @@ li.search__tag {
   /* border: 1px red solid; */
   font-size: 0;
 }
+
 .img-wrap .close {
   position: absolute;
   /* top: 2px;
@@ -1299,6 +1303,7 @@ li.search__tag {
   line-height: 10px;
   border-radius: 50%;
 }
+
 .img-wrap:hover .close {
   opacity: 1;
 }
