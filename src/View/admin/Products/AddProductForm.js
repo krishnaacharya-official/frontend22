@@ -541,7 +541,7 @@ export default function AddProductForm(props) {
                             {
 
                                 stateData.galleryUrl && isIframe(stateData.galleryUrl) &&
-                                <div className="project-video-wrap mb-4 mt-4" style={{ height: "200px", width: "500px" }} dangerouslySetInnerHTML={{ __html: stateData.galleryUrl }} >
+                                <div className="project-video-wrap mb-4 mt-4" dangerouslySetInnerHTML={{ __html: stateData.galleryUrl }} >
 
                                 </div>
                                 // <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>

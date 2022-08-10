@@ -189,7 +189,7 @@ function ProjectDetailMain(props) {
         {
           video && isIframe(video) &&
 
-          <div className="project-video-wrap mb-4" style={{ width: "500px", height: "200px" }} dangerouslySetInnerHTML={{ __html: video }} >
+          <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: video }} >
 
           </div>
         }
