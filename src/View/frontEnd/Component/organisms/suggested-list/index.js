@@ -6,7 +6,7 @@ import "./style.scss";
 
 function SuggestedList(props) {
   let organizationList = props.organizationList
- let productDetails=props.productDetails
+  let productDetails = props.productDetails
   // this one need to be rendered based on device width
   // can try this solution https://stackoverflow.com/questions/39235506/render-component-in-different-order-depending-on-screen-size-react
   return (
@@ -15,22 +15,23 @@ function SuggestedList(props) {
 
       {
         props.itemTag === 'organization' ?
-        organizationList?.length > 0 &&
-        organizationList.map((org, i) => {
-          return (
-            org._id !== props.organizationId &&
-            <SuggestedItem imgUrl={helper.CampaignAdminLogoPath + org.logo} organization={org} itemTag={props.itemTag}  />
-          )
-        })
-        :
-      
-        props.productList?.length > 0 &&
-        props.productList.slice(0,12).map((pro, i) => {
-          return (
-            pro._id !== props.productId &&
-            <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={pro.quantity === pro.soldout}  itemTag={props.itemTag}  />
-          )
-        })
+          organizationList?.length > 0 &&
+          organizationList.map((org, i) => {
+            return (
+              org._id !== props.organizationId &&
+              <SuggestedItem imgUrl={helper.CampaignAdminLogoPath + org.logo} organization={org} itemTag={props.itemTag} />
+            )
+          })
+          :
+
+          props.productList?.length > 0 &&
+          props.productList.slice(0, 12).map((pro, i) => {
+            let sold = pro.unlimited ? pro.isFulfiled : pro.quantity <= pro.soldout
+            return (
+              pro._id !== props.productId &&
+              <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={sold} itemTag={props.itemTag} />
+            )
+          })
 
       }
       {/* <SuggestedItem

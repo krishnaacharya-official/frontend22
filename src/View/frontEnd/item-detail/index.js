@@ -78,6 +78,8 @@ const ItemDetail = (props) => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken
 
+  const isSold = productDetails.unlimited ? productDetails.isFulfiled : productDetails.quantity <= productDetails.soldout
+
   return (
     <>
       <HeaderController />
@@ -135,9 +137,9 @@ const ItemDetail = (props) => {
 
 
             {
-              productDetails.quantity === productDetails.soldout &&
+              isSold ?
 
-              <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item"></img>}
+                <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item" style={{ bottom: "27%", position: "relative" }}></img> : ""}
 
 
             <History list={props.purchasedItemList} />
@@ -150,14 +152,14 @@ const ItemDetail = (props) => {
 
       <Container fluid>
 
-              {
-                productDetails?.projectDetails && productDetails?.projectDetails.length > 0 &&
-                productDetails?.projectDetails.map((project, i) => {
-                  return (
-                    <div>
-                    <Row className="py-5 border-top">
-                      <Col md="6" className="mb-4 mb-0">
-                        <h6>Projects</h6>
+        {
+          productDetails?.projectDetails && productDetails?.projectDetails.length > 0 &&
+          productDetails?.projectDetails.map((project, i) => {
+            return (
+              <div>
+                <Row className="py-5 border-top">
+                  <Col md="6" className="mb-4 mb-0">
+                    <h6>Projects</h6>
 
                     <div>
                       <h6 style={{ color: "grey" }}>{project.projectDetails.name}</h6>
@@ -192,12 +194,12 @@ const ItemDetail = (props) => {
                     </div>
 
 
-                    </Col>
-          </Row>
-        </div>
-                  )
-                })
-              }
+                  </Col>
+                </Row>
+              </div>
+            )
+          })
+        }
 
 
 
