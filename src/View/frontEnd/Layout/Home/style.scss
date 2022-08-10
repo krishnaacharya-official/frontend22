@@ -17,7 +17,9 @@
       }
     }
   }
-  
+  .empty__circle * {
+    max-width: 300px
+  }
   @include media-breakpoint-down(sm) {
     .btn__cart {
       width: 100%;

@@ -57,7 +57,7 @@ function HistoryItem({ active, ...otherProps }) {
 
   return (
     <li
-      className={`similar__item__wrap p-2 d-flex align-items-center ${sharedProps.active ? "active" : ""
+      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${sharedProps.active ? "active" : ""
         }`}
     >
       <div className="d-flex align-items-center w-100">
@@ -67,9 +67,9 @@ function HistoryItem({ active, ...otherProps }) {
             <div className="text-dark fw-bold">{name}</div>
 
 
-            <span className="text-info fs-5">
+           {/*<span className="text-info fs-5">
               <FontAwesomeIcon icon={solid("badge-check")} />
-            </span>
+      </span> */}
             {/* <IconButton
               bgColor={sharedProps.categoryColor}
               className="btn__xs rounded-pill"
@@ -79,12 +79,12 @@ function HistoryItem({ active, ...otherProps }) {
             >
               {sharedProps.categoryName}
             </IconButton> */}
-            <span className="btn-sm">
+            <span className="btn-sm ms-auto">
               {getC.getUserRank(xp)}
 
             </span>
           </div>
-          <div className="text-lighter fs-8">
+          <div className="text-light fs-7">
           {/*  {
               isDeleted &&
 

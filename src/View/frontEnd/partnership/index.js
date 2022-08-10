@@ -125,7 +125,7 @@ const Partnership = () => {
             </div>
 
             <Form className="mw-400">
-              <div className="py-1 d-flex fs-4 mb-3">
+              <div className="py-1 d-flex align-items-center fs-4 mb-3" style={{height: "60px"}}>
                 <RadioToggle
                   outline={true}
                   checked={selected === 'sponsor'}

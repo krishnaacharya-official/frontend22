@@ -25,54 +25,6 @@ const Sponsors = () => {
               </div>
               <div className="sponsor__list d-flex flex-wrap align-items-center flex__1">
                 <div className="sponsor__item mb-2 mb-sm-0">
-                  <a href="http://www.mcdonalds.com" className="sponsor__link">
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624df00fca225a2f9055da1c_McDonald%27s_Golden_Arches.svg"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-                <div className="sponsor__item mb-2 mb-sm-0">
-                  <a href="https://www.sprinklr.com/" className="sponsor__link">
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624dea43b11e481200ac7241_Sprinklr_Brand_Logo.png"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-                <div className="sponsor__item mb-2 mb-sm-0">
-                  <a href="https://www.lg.com/global/about-our-brand" className="sponsor__link">
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624dea1886c16d0e415b381d_LG-Logo-1995-2014.png"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-                <div className="sponsor__item mb-2 mb-sm-0">
-                  <a
-                    href="https://www.hormelfoods.com/brand/chi-chis-mexican-products/"
-                    className="sponsor__link"
-                  >
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624de9e9e4496f32fd5463ad_brand_chichis.png"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-                <div className="sponsor__item mb-2 mb-sm-0">
-                  <a href="https://petpalfoods.com/" className="sponsor__link">
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624deb5786e6970e3dcb726e_petpal.png"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-                <div className="sponsor__item mb-2 mb-sm-0">
                   <a href="https://www.dunkindonuts.com/en" className="sponsor__link">
                     <img
                       src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
@@ -84,12 +36,12 @@ const Sponsors = () => {
               </div>
             </div>
 
-            <p className="fs-5 text-light p-3 mb-5">
+            <p className="fs-5 text-light pt-3 mb-5">
               By partnering with different suppliers, Donorport is able to expand its reach to serve
-              more communities across the world!
+              more communities across the world! Interesting in becoming a sponsor on Donorport?
             </p>
 
-            <ul className="list-unstyled mb-0 ms-sm-3">
+          {/*  <ul className="list-unstyled mb-0 ms-sm-3">
               <li className="d-flex align-items-center py-1">
                 <div className="p-12p mr-12p">
                   <FontAwesomeIcon icon={solid('sailboat')} className="fs-3 text-primary" />
@@ -120,14 +72,11 @@ const Sponsors = () => {
                   button below.
                 </div>
               </li>
-            </ul>
-            <div className="mt-20p p-3 fs-5 text-light mb-3 ms-2">
-              Interesting in becoming a sponsor on Donorport?
-            </div>
+  </ul> */}
             <Link
               variant="info"
               size="lg"
-              className="btn btn-lg btn-info fw-bold ms-3"
+              className="btn btn-lg btn-info fw-bold"
               to="/partnership"
             >
               Apply

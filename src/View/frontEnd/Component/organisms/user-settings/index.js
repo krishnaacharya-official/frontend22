@@ -89,9 +89,9 @@ const onClickLeaderBoard = ()=> {
               )}
 
               {state.wishlist ? (
-                <div className="fw-bold">Wishlist</div>
+                <div>Wishlist</div>
               ) : state.linked_org ? (
-                <div className="fw-bold">Organizations</div>
+                <div>Organizations</div>
               ) : (
                 <div className="d-flex align-items-center w-100">
                   <Avatar avatarUrl={user.profileImage} />

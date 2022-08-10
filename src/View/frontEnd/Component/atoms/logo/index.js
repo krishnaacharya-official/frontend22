@@ -35,7 +35,7 @@ const Logo = () =>{
       />
       <div className="logo-name ms-1">Donorport</div>&nbsp;
       
-      <span style={{fontSize:"small",display:"contents"}} >{user.countrySortName}</span>
+      <span className="logo-span">{user.countrySortName}</span>
     </Link>
      
       </>

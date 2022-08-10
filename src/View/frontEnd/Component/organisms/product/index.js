@@ -143,7 +143,7 @@ const Product = (props) => {
   const cart_btn = added_to_cart ? (
     <Button
       variant="success"
-      size="sm"
+      //size="sm"
       className="icon icon__pro"
     // onClick={removeFromCart}
     >
@@ -152,7 +152,7 @@ const Product = (props) => {
   ) : (
     <Button
       variant="primary"
-      size="sm"
+      //size="sm"
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
@@ -161,7 +161,7 @@ const Product = (props) => {
   );
   const btn =
     sold >= total || isFulfiled  ? (
-      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+      <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
     );
@@ -334,7 +334,7 @@ const Product = (props) => {
             /> 
         </Link> */}
         <div className="product__subcategory small d-flex align-items-center text-dark">
-          <div className="product__cat-icon mr-3p">
+          <div className="product__cat-icon mr-6p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
 
             {/* <svg
@@ -361,7 +361,7 @@ const Product = (props) => {
             </div>
             :
             <div className="product__count d-flex align-items-center ms-auto text-dark">
-              <span>{sold}/{total} sold</span>
+              <span>{sold}&nbsp;/&nbsp;{total} sold</span>
             </div>
         }
 
