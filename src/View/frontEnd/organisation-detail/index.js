@@ -87,6 +87,8 @@ const OrganisationDetail = (props) => {
               donate={props.donate}
               selectedValue={props.selectedValue}
               setSelectedValue={props.setSelectedValue}
+              dCardIcon={props.dCardIcon}
+
 
 
             />

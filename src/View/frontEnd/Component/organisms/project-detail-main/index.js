@@ -31,6 +31,32 @@ function ProjectDetailMain(props) {
   // let videoid = url ? url.split("?v=")[1] : "";
   // let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
 
+  // const countProjectProcess = (data) => {
+  //   // console.log(data)
+  //   let totalQArray = []
+  //   let soldOutQArray = []
+  //   let per = 0
+
+  //   if (data?.length > 0) {
+  //     data.map((p, i) => {
+  //       // console.log(p.itemDetails)
+  //       totalQArray.push(Number(p.itemDetails.quantity))
+  //       soldOutQArray.push(Number(p.itemDetails.soldout))
+  //     })
+
+  //     const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+  //     per = soldout / total * 100
+  //   } else {
+  //     per = 0;
+
+  //   }
+  //   return Math.round(per);
+
+  // }
+
   const countProjectProcess = (data) => {
     // console.log(data)
     let totalQArray = []
@@ -40,15 +66,25 @@ function ProjectDetailMain(props) {
     if (data?.length > 0) {
       data.map((p, i) => {
         // console.log(p.itemDetails)
-        totalQArray.push(Number(p.itemDetails.quantity))
-        soldOutQArray.push(Number(p.itemDetails.soldout))
+        if (!p.itemDetails.unlimited) {
+          totalQArray.push(Number(p.itemDetails.quantity))
+          soldOutQArray.push(Number(p.itemDetails.soldout))
+        }
+
       })
+
+
 
       const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
       const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+      if (soldout === 0 || total === 0) {
+        per = 0
+      } else {
+        per = Number(soldout) / Number(total) * 100
+      }
 
 
-      per = soldout / total * 100
+
     } else {
       per = 0;
 
@@ -93,11 +129,11 @@ function ProjectDetailMain(props) {
         <div className="product__top px-0 mb-1 d-flex align-items-center">
           <div className="d-flex align-items-center w-310">
             <ProgressBar
-              variant="success"
+              variant={projectDetails.infinity? 'infinity':'success' }
               now={countProjectProcess(projectDetails.productDetails)}
               className="flex-grow-1 me-1"
             />
-            {props.onGoing ? (
+            {projectDetails.infinity ? (
               <span className="tag tag__ongoing tag__rounded fs-9">
                 <FontAwesomeIcon icon={regular("infinity")} />
               </span>
