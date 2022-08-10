@@ -34,7 +34,7 @@ function ShareWidget() {
 
   return (
     <div className="position-relative">
-      <Button variant="link" onClick={() => setActive(!active)} className="btn__share">
+      <Button variant="link" onClick={() => setActive(!active)} className="btn__share text-light">
         <FontAwesomeIcon icon={regular("share-nodes")} />
       </Button>
       {active ? (

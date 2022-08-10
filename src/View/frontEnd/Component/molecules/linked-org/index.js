@@ -269,7 +269,7 @@ function LinkedOrg(props) {
                 <li className="linked__item py-2">
                   <div className="linked__item-link px-12p d-flex align-items-center flex-grow-1">
                     <Avatar
-                      size={50}
+                      size={42}
                       border={0}
                       shadow={false}
                       avatarUrl={image}

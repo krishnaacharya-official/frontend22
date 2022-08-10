@@ -483,7 +483,7 @@ button.ReactTags__remove {
   position: relative;
   display: inline-block;
   width: 56px;
-  height: 30px;
+  height: 31px;
 }
 
 .--switch input {
@@ -793,16 +793,13 @@ a.MuiListItemButton-root.active:focus {
 }
 
 .sold--item {
-  bottom: 27% !important;
-  position: relative !important;
-  /* position: absolute !important; */
-  /* top: 50%; */
-  right: 81% !important;
-  -webkit-transform: translate(50%, -50%) !important;
-  -ms-transform: translate(50%, -50%) !important;
-  /* transform: translate(50%,-50%); */
-  /* bottom: 56% !important; */
-  width: 90% !important;
+  bottom: -50%!important;
+  top: 50%;
+  position: absolute!important;
+  right: 50%!important;
+  -webkit-transform: translate(50%,-50%)!important;
+  -ms-transform: translate(50%,-50%)!important;
+  width: 90%!important;
 }
 
 .sleeve {

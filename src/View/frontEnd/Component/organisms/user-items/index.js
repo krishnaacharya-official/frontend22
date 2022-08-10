@@ -225,7 +225,7 @@ const UserItems = () => {
                           <></>
                       }
                       <ProgressBar
-                        variant={!item.itemDetails?.unlimited ? "success" : "info"}
+                        variant={!item.itemDetails?.unlimited ? "success" : "infinity"}
                         now={!item.itemDetails?.unlimited ? Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100) : 100}
                         className="flex-grow-1"
                       />
@@ -279,8 +279,8 @@ const UserItems = () => {
                     </h1>
                     <h5 className="project__detail-sublabel mb-0">Product</h5>
                     <div className="project__detail-subtitle mb-12p">{item.itemDetails?.brand} ™</div>
-                    <div className="project__detail-price fs-2 text-success">
-                      {item.currencySymbol} {price}
+                    <div className="project__detail-price fs-2 text-price">
+                      {item.currencySymbol}{price}
                     </div>
                     <div className="project__detail-meta d-flex align-items-center mb-4">
                       <div className="d-flex align-items-center">

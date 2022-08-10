@@ -15,7 +15,7 @@ function ListItemImg({ icon, imgSrc, size, iconSize, className }) {
   return (
     <div
       className={`list__item-img ${className}`}
-      style={{ width: size + "px", height: size + "px" }}
+      //style={{ width: size + "px", height: size + "px" }}
     >
       {icon ? icon : <img src={imgSrc} alt="" />}
     </div>

@@ -69,8 +69,8 @@ function ProjectDetailMain(props) {
     <Button
       variant="success"
       size="lg"
-      className="icon icon__pro"
-
+      className="icon icon__pro fw-semibold"
+      style={{width: "250px"}}
     >
       Added In cart &nbsp;
       <FontAwesomeIcon icon={solid("circle-check")} />
@@ -79,13 +79,14 @@ function ProjectDetailMain(props) {
     <Button
       variant="primary"
       size="lg"
-      className="icon icon__pro"
+      className="icon icon__pro fw-semibold"
+      style={{width: "250px"}}
       onClick={() => {
         props.addToCart(productDetails._id, quantity)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
-      Add to cart ( {quantity} )
+      Add to cart ({quantity})
     </Button>
   );
   const btn =
@@ -103,7 +104,7 @@ function ProjectDetailMain(props) {
       <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel mb-0">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
-      <div className="project__detail-price fs-2 text-success">{currencySymbol} {priceFormat(price)}</div>
+      <div className="project__detail-price fs-2 text-price">{currencySymbol}{priceFormat(price)}</div>
       <div className="project__detail-meta d-flex align-items-center">
         <div className="d-flex align-items-center">
           <FontAwesomeIcon icon={regular("clock")} className="me-1" />
@@ -132,8 +133,9 @@ function ProjectDetailMain(props) {
         />
       </div>
       <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="page__bar d-flex align-items-center" style={{width: "180px"}}>
+        <div className="page__bar d-flex align-items-center">
           <ProgressBar
+            style={{width: "180px"}}
             variant={productDetails.
               unlimited ? 'infinity' : 'success'}
             now={productDetails.unlimited ? 100 : per}

@@ -104,6 +104,11 @@ const ItemDetail = (props) => {
                 alt=""
                 src={helper.CampaignProductFullImagePath + productDetails?.image}
               />
+                        {
+              isSold ?
+
+                <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item" style={{ bottom: "27%", position: "relative" }}></img> : ""}
+
 
 
 
@@ -134,12 +139,6 @@ const ItemDetail = (props) => {
             </div>
 
 
-
-
-            {
-              isSold ?
-
-                <img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5d41c138db84bd176388cc01_sold-out.svg" loading="lazy" alt="" className="sold sold--item" style={{ bottom: "27%", position: "relative" }}></img> : ""}
 
 
             <History list={props.purchasedItemList} />

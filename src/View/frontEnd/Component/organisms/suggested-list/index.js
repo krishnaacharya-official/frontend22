@@ -11,7 +11,7 @@ function SuggestedList(props) {
   // can try this solution https://stackoverflow.com/questions/39235506/render-component-in-different-order-depending-on-screen-size-react
   return (
     // <SuggestionWrapper>
-    <ul className="suggested__list d-flex align-items-center list-unstyled mb-0">
+    <ul className="suggested__list-wrap d-flex align-items-center container-fluid p-0 mb-0">
 
       {
         props.itemTag === 'organization' ?

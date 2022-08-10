@@ -4603,6 +4603,7 @@ a.tag:focus, a.tag:hover {
   width: 100%;
   height: 1rem;
   margin-bottom: 1rem;
+  box-shadow: none !important
 }
 
 .progress[value] {
@@ -6263,7 +6264,9 @@ a.text-primary:focus, a.text-primary:hover {
 a.text-success:focus, a.text-success:hover {
   color: #449d44;
 }
-
+.text-price {
+  color: #45bb82
+}
 .text-info {
   color: #5bc0de !important;
 }

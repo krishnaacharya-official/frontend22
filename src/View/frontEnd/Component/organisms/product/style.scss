@@ -97,6 +97,7 @@
     color: $gray-600;
     font-size: 21px;
     font-weight: 900;
+    line-height: 1.1
   }
 
   // .product__price
@@ -141,8 +142,9 @@
 
   // .product__meta
   &__meta {
+    gap: 6px;
     .icon {
-      font-size: 18px;
+      font-size: 19px;
       line-height: 1;
       text-align: center;
       width: 24px;

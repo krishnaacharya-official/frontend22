@@ -114,7 +114,7 @@ const AdminBilling = () => {
                 let amount = list.type === 'ORDER' ? list.totalPrice : list.amount
                 let currencySymbole = list.type === 'ORDER' ? list.orderDetails.currencySymbol : list.currencySymbol
                 let date = moment(list.created_at).format('DD/MM/YYYY')
-                let donate = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donate'
+                let donate = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donated'
                 let PurchaseIcon = list.type === 'ORDER' ? <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-3p" /> : <FontAwesomeIcon icon={solid("heart")} className="mr-3p" />
                 let userName = list.type === 'ORDER' ? list.orderDetails.userDetails.name : list.userDetails.name
                 let CardType = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
@@ -125,7 +125,7 @@ const AdminBilling = () => {
                     <div className="billing__content d-sm-flex align-items-center">
                       <div className="flex__1 d-flex d-sm-flex-block align-items-center mb-2 mb-sm-0">
                         <Avatar
-                          size={62}
+                          size={52}
                           avatarUrl="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg"
                           border={0}
                           shadow={false}
@@ -135,10 +135,10 @@ const AdminBilling = () => {
                           <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole} {amount}</div>
                           <div className="fw-bold text-subtext fs-8">{date}</div>
                         </div>
-                        <div className="admin__billing__details pr-3 ms-2 flex__1">
-                          <div className="fw-bold mb-3p">{userName}</div>
-                          <div className="text-subtext">
-                            {PurchaseIcon}
+                        <div className="admin__billing__details pr-3 ms-2 flex__1 d-flex flex-column align-items-start ps-3">
+                          <div className="fw-bold mb-6p">{userName}</div>
+                          <div className="text-subtext fs-7">
+                            {PurchaseIcon}&nbsp;
                             {donate}
                           </div>
                         </div>

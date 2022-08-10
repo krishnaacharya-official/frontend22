@@ -77,7 +77,7 @@ const AdminTaxTable = (props) => {
                         </div>
                         <div className="position-relative d-flex">
                           <Avatar
-                            size={62}
+                            size={52}
                             avatarUrl={helper.DonorImageResizePath + item[0].userDetails.image}
                             border={0}
                             shadow={false}
