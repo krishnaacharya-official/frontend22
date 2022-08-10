@@ -132,7 +132,7 @@ const AdminBilling = () => {
                           className="admin__avatar mr-12p"
                         />
                         <div className="admin__billing__value flex__1">
-                          <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole} {amount}</div>
+                          <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole}{amount}</div>
                           <div className="fw-bold text-subtext fs-8">{date}</div>
                         </div>
                         <div className="admin__billing__details pr-3 ms-2 flex__1 d-flex flex-column align-items-start ps-3">

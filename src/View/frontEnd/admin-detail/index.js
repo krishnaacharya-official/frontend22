@@ -92,8 +92,7 @@ function AdminDetail() {
 
   // let data ={}
   return (
-    <div className="frontend_pages">
-      <FrontLoader loading={loading} />
+    <div>
       <DefaultLayout>
         <Container fluid>
           <Tab.Container

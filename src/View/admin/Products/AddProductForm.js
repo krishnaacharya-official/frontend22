@@ -214,7 +214,7 @@ export default function AddProductForm(props) {
                                     resetSearch={false} />
 
                                 <div className="post-location-wrap">
-                                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                                    <div className="px-3 py-20p bg-lighter rounded-3 my-20p">
                                         <div className="d-flex align-items-center">
                                             <div className="icon-wrap mr-20p">
 

@@ -4,7 +4,16 @@
   height: 58px;
   width: 58px;
 }
-
+.keyword-tags-wrap {
+  margin: 3.3rem 0
+}
+.price-group-wrap {
+  .form-group {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
 .post__accordion-header {
   border-bottom: 1px solid $border-color;
   .accordion__btn {

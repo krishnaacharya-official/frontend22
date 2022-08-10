@@ -255,8 +255,8 @@
   cursor: pointer;
   padding: 10px;
   margin: 10px;
-  background: #e6e6e6;
-  color: black;
+  background: none;
+  color: #585a83;
   border: none;
 }
 
@@ -268,7 +268,7 @@
 
 .ReactTags__tagInput input.ReactTags__tagInputField,
 .ReactTags__tagInput input.ReactTags__tagInputField:focus {
-  height: 31px;
+  height: 52px;
   margin: 0;
   font-size: 12px;
   border: 1px solid #eee;
@@ -386,18 +386,26 @@ span.tag-wrapper.ReactTags__tag {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  padding: 0 0 0 5px;
+  padding: 6px 3px 6px 9px;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #3898ec;
+  color: white;
+  font-weight: 600;
+  border: none;
+  text-transform: lowercase;
 }
 
 button.ReactTags__remove {
   margin-left: 5px !important;
+  color: white !important;
   padding: 0px;
   width: 30px;
   font-size: 20px;
 }
 
 .ReactTags__remove:hover {
-  background-color: #FFBDAD !important;
+  /*background-color: #FFBDAD !important;*/
   color: #DE350B !important;
 }
 
@@ -414,8 +422,8 @@ button.ReactTags__remove {
 }
 
 .grid img {
-  border: 1px solid #ccc;
   max-width: 100%;
+  border-radius: 6px
 }
 
 .input-group {

@@ -708,7 +708,7 @@ const PaymentMethod = () => {
               <div className="accounts__icon">
                 <ListItemImg
                   size={75}
-                  className="bg-white"
+                  className="bg-white border-0"
                   imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
                 />
               </div>
@@ -726,7 +726,7 @@ const PaymentMethod = () => {
               <div className="accounts__icon">
                 <ListItemImg
                   size={75}
-                  className="rounded-circle"
+                  className="rounded-circle border-0"
                   imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e7b0e93af1ec003cd9a58_paypal-seeklogo.com.svg"
                 />
               </div>
@@ -865,7 +865,7 @@ const PaymentMethod = () => {
           </div>
         </div>
 
-        <div className="mb-5">
+        {/*<div className="mb-5">
           <h4 className="fw-bolder">Cryptocurrencyies</h4>
           <div className="text-subtext mb-4">
             Allow your donors to send funds via cryptocurrency. Choose the coins
@@ -914,7 +914,7 @@ const PaymentMethod = () => {
               <ToggleSwitch checked={false} changevalue={() => { }} />
             </li>
           </ul>
-        </div>
+            </div>*/}
       </div>
     </>
   );

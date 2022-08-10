@@ -274,7 +274,7 @@ const AddPost = (props) => {
 
 
                   <div className="post-location-wrap">
-                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                    <div className="px-3 py-20p bg-lighter rounded-3 my-20p">
                       <div className="d-flex align-items-center">
                         <div className="icon-wrap mr-20p">
 
@@ -437,7 +437,7 @@ const AddPost = (props) => {
                           {error && error.quantity && <p className="error">{error ? error.quantity ? error.quantity : "" : ""}</p>}
                         </div>
                         <div className="form-group unlimited-switch-wrap">
-                          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p text-white">
+                          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p mb-2 text-white">
                             Unlimited
                             <FontAwesomeIcon
                               icon={solid("infinity")}
@@ -459,7 +459,7 @@ const AddPost = (props) => {
                         <div className="form-group">
                           <label
                             htmlFor="keywordsInput"
-                            className="form__label"
+                            className="form__label pb-3"
                           >
                             <FontAwesomeIcon
                               icon={solid("magnifying-glass")}
