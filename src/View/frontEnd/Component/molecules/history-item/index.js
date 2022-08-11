@@ -63,7 +63,7 @@ function HistoryItem({ active, ...otherProps }) {
       <div className="d-flex align-items-center w-100">
         <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} />
         <div className="ms-2 flex-grow-1">
-          <div className="d-flex align-items-center justify-content-between me-3">
+          <div className="d-flex align-items-center justify-content-between">
             <div className="text-dark fw-bold">{name}</div>
 
 
@@ -79,7 +79,7 @@ function HistoryItem({ active, ...otherProps }) {
             >
               {sharedProps.categoryName}
             </IconButton> */}
-            <span className="btn-sm ms-auto">
+            <span className="btn-sm ms-auto p-0">
               {getC.getUserRank(xp)}
 
             </span>
@@ -107,7 +107,7 @@ function HistoryItem({ active, ...otherProps }) {
         </div>
 
         <div className="billing__value">
-          <div className="fs-5 fw-bold text-success mb-3p">{currencySymbol ? currencySymbol : "$"} {priceFormat(amount)}</div>
+          <div className="fs-5 fw-bold text-success mb-3p">{currencySymbol ? currencySymbol : "$"}{priceFormat(amount)}</div>
           <div className="fs-8 fw-bold text-light">{moment(date).fromNow()}</div>
         </div>
       </div>
