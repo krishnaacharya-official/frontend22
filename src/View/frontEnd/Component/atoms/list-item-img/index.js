@@ -8,7 +8,7 @@ const propTypes = {
   iconSize: PropTypes.number,
 };
 const defaultProps = {
-  size: 54,
+  size: 48,
 };
 
 function ListItemImg({ icon, imgSrc, size, iconSize, className }) {

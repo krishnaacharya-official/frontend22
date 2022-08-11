@@ -305,7 +305,22 @@ function ProjectDetailMain(props) {
 
 
 
-      <div className="product__badge mt-5">
+      <div className="product__badge mt-5 text-light">
+      {
+          productDetails.postTag &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("tag")}
+                className="fs-4 text-info pt-12p pb-12p"
+              />
+            }
+          >
+            Item was already purchased by the organization. Your purchase will cover those costs.
+          </IconText>
+        }
         {
           productDetails.unlimited &&
 

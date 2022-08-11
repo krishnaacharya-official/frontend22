@@ -307,8 +307,8 @@ export default function Index(props) {
                       <img
                         src={helper.sponsorLogoResizePath + ad.logo}
                         alt="sponsor"
-                        className="p-1"
-                        style={{ width: '50px' }}
+                        className="px-2"
+                        style={{ maxWidth: '50px', maxHeight: "55px" }}
                       ></img>
                     </a>
                   );

@@ -26,6 +26,7 @@
 
 .product {
   box-shadow: 1px 1px 3px 0 rgb(0 0 0 / 12%);
+  border-radius: 6px;
   color: #9796b1;
   min-width: 245px;
 
@@ -109,6 +110,7 @@
 
   // .product__details
   &__details {
+    height: 40px;
     padding: 12px;
   }
 

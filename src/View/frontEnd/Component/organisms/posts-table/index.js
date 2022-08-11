@@ -133,8 +133,7 @@ const PostsTable = (props) => {
                         {
                           product.projectDetails.length > 0 &&
                           <Button
-                            variant="info"
-                            className="me-auto rounded-pill pt-6p pb-6p pl-6p pr-12p"
+                            className="me-auto pt-6p pb-6p pl-6p pr-12p"
                           >
 
                             <div className="d-flex align-items-center justify-content-center">
