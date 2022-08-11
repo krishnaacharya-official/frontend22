@@ -15,6 +15,14 @@
         border-left: 0;
         padding-left: 0;
       }
+      .form-control::placeholder,
+      .donate-value-input,
+      .donate-value-symbol {
+        font-size: 16px
+      }
+      .donate-value-input:focus {
+        border-color: #e6e6e6 !important
+      }
     }
   }
   .empty__circle * {

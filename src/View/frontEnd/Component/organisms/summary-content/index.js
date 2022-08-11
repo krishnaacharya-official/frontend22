@@ -22,14 +22,6 @@ const SummaryContent = (props) => {
 
   return (
     <div className="summary__content">
-
-      <div className="note note--info mb-3">
-        You have selected a credit card as your payment method. Your credit card company charges a {transectionFee}% transaction fee which will be added to the subtotal of your donation{" "}
-        {/* <a href="#">
-          <span className="text-subtext">Terms and Conditions.</span>
-        </a> */}
-        .
-      </div>
       <div className="pt-20p pb-12p">
         <ul className="list-unstyled pb-1 border-bottom mb-0">
           {cartItem &&
@@ -45,7 +37,7 @@ const SummaryContent = (props) => {
                       <ListItemImg
                         size={75}
                         imgSrc={helper.CampaignProductImagePath + item?.productDetails?.image}
-                        className="border"
+                        className="avatar__checkout border"
                       />
                       <span className="badge item__img-badge fw-bold fs-8">{item.quantity}</span>
                     </div>
@@ -95,12 +87,12 @@ const SummaryContent = (props) => {
             <span className="fw-bolder flex__1">
               <img
                 className="img-stripe"
-                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f58f1ce7a1c54afeefc883_Authorize.Net_.svg"
                 alt=""
                 style={{ width: "44px" }}
               />
             </span>
-            <span className="fw-semibold fs-7">
+            <span className="fw-semibold fs-7 text-light">
               {props.currencySymbol + props.stripeTax}
             </span>
           </div>
@@ -118,16 +110,15 @@ const SummaryContent = (props) => {
         </span>
       </div>
 
-      <div className="note note--info px-0 text-center">
+      <div className="note note--info px-0 text-start">
         All prices include sales tax. The organization(s) will receive the exact amount required to purchase each unit including regional sales tax. The funds provided for these goods is a transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
         <br />
         {/* </br> */}
         <br />
         {/* </br> */}
-        Your funds are sent to the organization to purchase the goods on your behalf at their local stores.
-        <br></br>
+        Your funds are sent to the organization to purchase the goods on your behalf at their local stores.&nbsp;
         <a href="/about-us" className="text-subtext">
-          Click Here
+          Click here
         </a>{' '}
         to learn more.
       </div>

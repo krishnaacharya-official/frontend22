@@ -267,10 +267,10 @@ const Checkout = (props) => {
                 </div>
 
                 <div className="d-flex aling-items-center py-8">
-                  <Form.Check type="checkbox" className="fs-4 lh-1" />
+                {/*}  <Form.Check type="checkbox" className="fs-4 lh-1" />
                   <span className="fs-7 text-subtext d-flex align-items-center lh-1 h-auto ms-1">
                     Pay with this card
-                  </span>
+      </span>*/}
                 </div>
               </div>
             </div>
