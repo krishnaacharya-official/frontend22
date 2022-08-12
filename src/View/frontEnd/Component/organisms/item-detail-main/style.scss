@@ -1,6 +1,5 @@
 .rounded-pill--xp {
-  padding: 6px 9px;
-  font-size: 11px; 
+  padding: 6px 9px !important;
   .icon__wrap {
     font-size: 10px
   }
@@ -14,6 +13,14 @@
 }
 .project__detail-label {
   font-weight: 900;
+}
+.product__badge {
+  .list__item-img {
+    height: 48px !important;
+    width: 48px !important;
+    min-height: 48px !important;
+    border: none !important
+  }
 }
 .project__detail-main {
   color: $gray-700;
@@ -104,7 +111,11 @@
 .project__calculate {
   width: 100%;
   max-width: 250px;
-
 }
 
-
+@media (min-width: 544px) {
+  .project__calculate,
+  .btn--addtocart {
+    max-width: 100% !important;
+  }
+}

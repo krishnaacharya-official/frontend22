@@ -368,7 +368,7 @@ const UserItems = () => {
                     <div className="py-3 border-top border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">Subtotal:</span>
-                        <span className="text-success">{item.currencySymbol ? item.currencySymbol : "$"} {priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
+                        <span className="text-success">{item.currencySymbol ? item.currencySymbol : "$"}{priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
                       </div>
                       <div className="d-flex align-items-center ">
                         <span className="fw-bolder flex__1">XP</span>
@@ -377,7 +377,7 @@ const UserItems = () => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">{item.currencySymbol ? item.currencySymbol : "$"} {priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
+                      <span className="text-success fw-bold fs-4">{item.currencySymbol ? item.currencySymbol : "$"}{priceFormat(Number(purchasedPrice) * Number(item.quantity))}</span>
                     </div>
                     <div className="bg-lighter d-flex align-items-center p-20p rounded">
                       <div className="order__logo me-2">

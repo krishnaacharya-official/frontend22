@@ -156,7 +156,7 @@ export default function Index(props) {
                 {/* <li className="search__tag" onClick={() => alert('k')} style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>blankets</span><a href="javascript:void(0)">x</a></li>
                 <li className="search__tag " style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>designlab</span><a href="javascript:void(0)">x</a></li> */}
 
-                <li>
+                <li className="d-flex align-items-center">
                   <InputGroup className="input-group__alpha">
                     <InputGroup.Text>
                       <FontAwesomeIcon
@@ -205,11 +205,13 @@ export default function Index(props) {
             <div className="d-flex align-items-center d-sm-inline-bock">
               <span className="me-1">I want to donate up to</span>
               <InputGroup className="donate-value-control">
-                <InputGroup.Text id="btnGroupAddon" className="">
+                <InputGroup.Text id="btnGroupAddon" className="donate-value-symbol">
                   {currencySymbol}
                 </InputGroup.Text>
                 <FormControl
                   type="text"
+                  placeholder="0"
+                  className="donate-value-input"
                   value={props.price}
                   onChange={(e) => props.onChangeDonatePrice(e)}
                 />

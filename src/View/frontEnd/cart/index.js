@@ -109,7 +109,7 @@ const Cart = (props) => {
                       <ListItemImg
                         size={75}
                         imgSrc={helper.CampaignProductImagePath + item?.productDetails?.image}
-                        className="border"
+                        className="avatar__checkout border"
                       />
                       <div className="ms-2">
                         <Link
@@ -206,7 +206,7 @@ const Cart = (props) => {
                 style={{ width: "44px" }}
               />
               </span>
-              <span className="fw-bold text-success fs-5">
+              <span className="fw-bold text-light fs-5">
                 {currencySymbol + salesTax}
               </span>
             </div>
@@ -221,7 +221,7 @@ const Cart = (props) => {
             <span className="fw-bolder flex__1">Total:</span>
             <span className="fw-bold text-success fs-4">{currencySymbol + priceFormat(total)}</span>
           </div>
-          <div className="pb-4 border-bottom d-grid d-sm-block">
+          <div className="py-4 border-bottom d-grid d-sm-block">
             <Button
               variant="danger"
               size="lg"

@@ -79,8 +79,8 @@ function ProjectDetailMain(props) {
     <Button
       variant="primary"
       size="lg"
-      className="icon icon__pro fw-semibold"
-      style={{width: "250px"}}
+      className="btn--addtocart fw-semibold"
+      style={{minWidth: "250px"}}
       onClick={() => {
         props.addToCart(productDetails._id, quantity)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
@@ -314,7 +314,7 @@ function ProjectDetailMain(props) {
             icon={
               <FontAwesomeIcon
                 icon={solid("tag")}
-                className="fs-4 text-info pt-12p pb-12p"
+                className="fs-3 text-info pt-12p pb-12p"
               />
             }
           >
@@ -329,7 +329,7 @@ function ProjectDetailMain(props) {
             icon={
               <FontAwesomeIcon
                 icon={solid("infinity")}
-                className="fs-4 text-info pt-12p pb-12p"
+                className="fs-3 text-info pt-12p pb-12p"
               />
             }
           >
@@ -345,7 +345,7 @@ function ProjectDetailMain(props) {
             icon={
               <FontAwesomeIcon
                 icon={solid("calculator-simple")}
-                className="fs-4 text-info"
+                className="fs-3 text-info"
               />
             }
           >
@@ -358,7 +358,7 @@ function ProjectDetailMain(props) {
           <IconText
             className="pt-12p pb-12p"
             icon={
-              <FontAwesomeIcon icon={solid("image")} className="fs-4 text-info" />
+              <FontAwesomeIcon icon={solid("image")} className="fs-3 text-info" />
             }
           >
             The organization has indicated that they will upload follow-up media from their purchase.
@@ -371,7 +371,7 @@ function ProjectDetailMain(props) {
             className="pt-12p pb-12p"
             icon={
               // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
-              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-3 text-info" />
             }
           >
             {
@@ -386,7 +386,8 @@ function ProjectDetailMain(props) {
           </IconText>
         }
       </div>
-
+      <TagTitle>Need</TagTitle>
+      <WidgetTitle>Gallery</WidgetTitle>
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div >
   );

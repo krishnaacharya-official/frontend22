@@ -33,7 +33,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item>
             <Nav.Link
               eventKey="dashboard"
-              className={currentOption === 'dashboard' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark '}
+              className={currentOption === 'dashboard' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark '}
             >
               <span className="tab__icon">
                 <DashboardIcon active={activeKey === "dashboard"} />
@@ -47,7 +47,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item>
             <Nav.Link
               eventKey="posts"
-              className={currentOption === 'posts' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark'}
+              className={currentOption === 'posts' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark'}
 
             >
               <span className="tab__icon">
@@ -62,7 +62,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item onClick={_onClick}>
             <Nav.Link
               eventKey="activity"
-              className={currentOption === 'activity' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark '}
+              className={currentOption === 'activity' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark '}
 
             >
               <span className="tab__icon">
@@ -78,7 +78,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item onClick={_onClick}>
             <Nav.Link
               eventKey="tax"
-              className={currentOption === 'tax' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark '}
+              className={currentOption === 'tax' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark '}
 
             >
               <span className="tab__icon">
@@ -94,7 +94,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item onClick={_onClick}>
             <Nav.Link
               eventKey="project"
-              className={currentOption === 'project' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark '}
+              className={currentOption === 'project' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark '}
 
             >
               <span className="tab__icon">
@@ -110,7 +110,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item className="" onClick={_onClick}>
             <Nav.Link
               eventKey="settings"
-              className={currentOption === 'settings' ? "tab__btn d-flex align-items-center text-dark active" : 'tab__btn d-flex align-items-center text-dark '}
+              className={currentOption === 'settings' ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : 'tab__btn d-flex align-items-center text-dark '}
 
             >
               <span className="tab__icon">

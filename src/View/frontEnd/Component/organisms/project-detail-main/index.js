@@ -155,7 +155,7 @@ function ProjectDetailMain(props) {
         </div>
 
         <div className="category__icons d-flex align-items-center mb-2">
-          <Button
+         {/*} <Button
             size="lg"
             variant="link"
             className="btn__category text-decoration-none"
@@ -167,7 +167,7 @@ function ProjectDetailMain(props) {
               icon={<FontAwesomeIcon icon={solid("briefcase-medical")} />}
             />
             <span className="fs-6 text-dark fw-bold">Shelter</span>
-          </Button>
+            </Button>*/}
 
           <Button
             size="lg"
@@ -235,9 +235,9 @@ function ProjectDetailMain(props) {
           {projectDetails.description}
         </div>
       </div>
-      <div className="mb-4">
+     {/* <div className="mb-4">
         <OrganisationTeamWidget tagTitle="Project" showEmail={false} showContact />
-      </div>
+      </div> */}
       <OrganisationWidget tagTitle="Project" productDetails={projectDetails.productDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
     </div>
   );
