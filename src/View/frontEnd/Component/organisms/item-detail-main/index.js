@@ -16,6 +16,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import "./style.scss";
+import { TagTitle,WidgetTitle } from "../../atoms";
+// import WidgetTitle from "../../atoms";
 
 function ProjectDetailMain(props) {
   let productDetails = props.productDetails
