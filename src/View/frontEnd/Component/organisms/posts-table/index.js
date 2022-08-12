@@ -77,7 +77,7 @@ const PostsTable = (props) => {
                           <div className="text-light fw-light fs-8">{moment(product.created_at).fromNow()}</div>
                         </div>
                         <ListItemImg
-                          size={75}
+                          size={45}
                           imgSrc={helper.CampaignProductImagePath + product.image}
                         />
                         <div className="ms-2">
@@ -193,9 +193,9 @@ const PostsTable = (props) => {
                           }
 
                           {
-                            product.quantity <= product.soldout && !product.isFulfiled || product.unlimited  && !product.isFulfiled
+                            product.quantity <= product.soldout && !product.isFulfiled || product.unlimited && !product.isFulfiled
                               ?
-                              <Button variant="success" className="btn-md fw-bold" onClick={() => {
+                              <Button variant="success" className="btn-md fw-bold" style={{marginRight:"10px"}} onClick={() => {
                                 props.createPost(true)
                                 props.setFulfil(true)
                                 props.setFulfilProductDetails(product)
@@ -203,29 +203,35 @@ const PostsTable = (props) => {
                               >
                                 Fulfil Order
                               </Button>
-                              : !product.isFulfiled &&
-                              <>
-                                <Button variant="link" className="p-0" onClick={() => props.editProduct(product)}>
-                                  <FontAwesomeIcon
-                                    icon={solid("edit")}
-                                    className="text-warning fs-2 me-2"
-                                  />
-                                </Button>
-
-                                <Button variant="link" className="p-0" onClick={() => props.deleteProduct(product._id)}>
-                                  <FontAwesomeIcon
-                                    icon={solid("trash")}
-                                    className="text-danger fs-2 me-2"
-                                  />
-                                </Button>
-
-                                {product.status === -1 &&
-                                  <Button variant="info" className="" onClick={() => props.publishProduct(product._id)}>
-                                    Publish
-                                  </Button>
-                                }
-                              </>
+                              : <></>
                           }
+                          {
+                            !product.isFulfiled &&
+
+
+                            <>
+                              <Button variant="link" className="p-0 mr-2" onClick={() => props.editProduct(product)}>
+                                <FontAwesomeIcon
+                                  icon={solid("edit")}
+                                  className="text-warning fs-2 me-2"
+                                />
+                              </Button>
+
+                              <Button variant="link" className="p-0  mr-2" onClick={() => props.deleteProduct(product._id)}>
+                                <FontAwesomeIcon
+                                  icon={solid("trash")}
+                                  className="text-danger fs-2 me-2"
+                                />
+                              </Button>
+
+                              {product.status === -1 &&
+                                <Button variant="info" className=" mr-2" onClick={() => props.publishProduct(product._id)}>
+                                  Publish
+                                </Button>
+                              }
+                            </>
+                          }
+
 
 
                         </div>

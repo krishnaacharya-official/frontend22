@@ -1,9 +1,9 @@
 import Header from '../../Component/organisms/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Button, Container, Row, Col, FormControl, InputGroup } from 'react-bootstrap';
+import { Button, Container, Row, Col, FormControl, InputGroup,ProgressBar } from 'react-bootstrap';
 import { Product, GrabDropdown, FilterDropdown, LadderMenu } from '../../Component/organisms';
-import { ProgressBar } from "react-bootstrap";
+// import { ProgressBar } from "react-bootstrap";
 
 import './style.scss';
 import HeaderController from '../../../../Controller/frontEnd/HeaderController';

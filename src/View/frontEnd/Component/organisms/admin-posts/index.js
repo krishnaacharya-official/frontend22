@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import { Button } from "react-bootstrap";
-import { Outlet, useOutletContext, Link } from 'react-router-dom';
+import { Outlet, useOutletContext, Link, useNavigate } from 'react-router-dom';
 // import {
 //   LadderMenuItems,
 //   PostsTable,
@@ -69,7 +69,7 @@ const AdminPosts = (props) => {
   const [iconList, setIconList] = useState([])
   const [projectList, setProjectList] = useState([])
   const [update, setUpdate] = useState(false)
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [seletedProjectList, setSeletedProjectList] = useState([])
 
@@ -925,8 +925,15 @@ const AdminPosts = (props) => {
   }
 
   const createNewPost = () => {
-    resetForm()
-    createPost(true)
+    if (data.transectionKey && data.paymentLoginId) {
+      resetForm()
+      createPost(true)
+    } else {
+      let path = '/campaign/' + data.slug + '/settings/paymentMethod'
+      navigate(path)
+      ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
+
+    }
   }
 
   const publishProduct = async (id) => {
@@ -1320,8 +1327,8 @@ const AdminPosts = (props) => {
 
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
-                        <span className="flex__1">{fulfilProductDetails?.unlimited ? 'Soldout':'Qty'} :</span>
-                        <span className="text-dark">{fulfilProductDetails?.unlimited ? fulfilProductDetails?.soldout:  fulfilProductDetails?.quantity}</span>
+                        <span className="flex__1">{fulfilProductDetails?.unlimited ? 'Soldout' : 'Qty'} :</span>
+                        <span className="text-dark">{fulfilProductDetails?.unlimited ? fulfilProductDetails?.soldout : fulfilProductDetails?.quantity}</span>
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">
                         <span className="fw-bolder flex__1">Each:</span>
@@ -1331,11 +1338,11 @@ const AdminPosts = (props) => {
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
                       <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(
-                        (fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price) * 
+                        (fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price) *
                         (fulfilProductDetails?.
                           unlimited
-                           ? fulfilProductDetails?.soldout :
-                        fulfilProductDetails?.quantity))}</span>
+                          ? fulfilProductDetails?.soldout :
+                          fulfilProductDetails?.quantity))}</span>
                     </div>
 
                   </div>
@@ -1347,7 +1354,7 @@ const AdminPosts = (props) => {
                       <div className="linked__item d-flex align-items-center p-1 border mt-3">
                         <div className="accounts__icon">
                           <ListItemImg
-                            size={75}
+                            size={45}
                             className="bg-white"
                             imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
                           />
