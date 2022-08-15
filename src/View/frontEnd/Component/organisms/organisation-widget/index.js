@@ -76,7 +76,7 @@ function OrganisationWidget(props) {
             />
           </div>
         </div>
-        <Button variant="outline-primary" className="organisation__cart-btn">
+        <Button variant="outline-primary" className="organisation__cart-btn" style={{border: '2px solid'}}>
           Add to cart (0)
         </Button>
       </div>

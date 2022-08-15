@@ -55,7 +55,7 @@
 .log__wrap {
     max-width: 400px;
 }
-@media (min-width: 544px) {
+@media (max-width: 544px) {
   .log__wrap {
     max-width: 100% !important;
   }

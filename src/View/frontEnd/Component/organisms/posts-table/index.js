@@ -71,7 +71,7 @@ const PostsTable = (props) => {
                 return (
                   <li className="table__list-item p-2">
                     <div className="d-xl-flex align-items-center flex-grow-1">
-                      <div className="d-flex align-items-center text-dark me-sm-3 mb-2">
+                      <div className="d-flex align-items-center text-dark me-sm-3 mb-2" style={{width: "300px"}}>
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
                           <div className="text-success fw-bold fs-5">{organizationDetails.symbol}{priceFormat(product.displayPrice ? product.displayPrice : product.price)}</div>
                           <div className="text-light fw-light fs-8">{moment(product.created_at).fromNow()}</div>
@@ -133,7 +133,7 @@ const PostsTable = (props) => {
                         {
                           product.projectDetails.length > 0 &&
                           <Button
-                            className="me-auto pt-6p pb-6p pl-6p pr-12p"
+                            className="project--btn me-auto pt-6p pb-6p pl-6p pr-12p"
                           >
 
                             <div className="d-flex align-items-center justify-content-center">

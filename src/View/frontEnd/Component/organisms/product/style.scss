@@ -98,7 +98,7 @@
     color: $gray-600;
     font-size: 21px;
     font-weight: 900;
-    line-height: 1.1
+    line-height: 1.1;
   }
 
   // .product__price
@@ -113,7 +113,11 @@
     height: 40px;
     padding: 12px;
   }
-
+  // .product__header
+  &__date {
+    font-size: 12px;
+    font-weight: 600;
+  }
   // .product__category
   &__category {
     padding: 10px 12px;
@@ -131,12 +135,16 @@
   }
 
   // .product__subcategory, .product__count
-  &__subcategory, &__count {
+  &__subcategory,
+  &__count {
     font-size: 14px;
     font-weight: 600;
   }
   // .product__location
   &__location {
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
     .icon {
       margin-right: 6px;
     }
@@ -153,7 +161,7 @@
     }
   }
 
-  // .product__type-tax 
+  // .product__type-tax
   &__type-tax {
     color: #3a94d4;
   }
@@ -165,5 +173,4 @@
       cursor: default;
     }
   }
-
 }

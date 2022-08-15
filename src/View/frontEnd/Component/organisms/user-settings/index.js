@@ -69,7 +69,7 @@ const onClickLeaderBoard = ()=> {
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={UserButton}>
-          <Avatar avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
+          <Avatar size={39} style={{border: "", boxShadow: ""}} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
