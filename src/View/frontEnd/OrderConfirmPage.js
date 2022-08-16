@@ -56,7 +56,8 @@ const OrderConfirmPage = () => {
               <img
                 style={{ width: '120px' }}
                 src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f91f5a4baf698de2fbded0_%E2%80%94Pngtree%E2%80%94green%20check%20mark%20icon%20flat_5253210.png"
-              ></img>
+                alt=''
+              />
 
               {/*}   <p
                 style={{
@@ -217,7 +218,7 @@ const OrderConfirmPage = () => {
                             >
                               <Link
                                 to={
-                                  '/organization/' + item?.productDetails?.organizationDetails.slug
+                                  '/organization/' + itm?.productDetails?.organizationDetails.slug
                                 }
                               >
                                 <ListItemImg
@@ -225,7 +226,7 @@ const OrderConfirmPage = () => {
                                   className="ms-2 d-none d-sm-flex"
                                   imgSrc={
                                     helper.CampaignAdminLogoPath +
-                                    item.productDetails?.organizationDetails?.logo
+                                    itm.productDetails?.organizationDetails?.logo
                                   }
                                 />
                               </Link>

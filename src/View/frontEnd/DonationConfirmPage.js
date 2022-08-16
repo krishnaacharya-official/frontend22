@@ -5,6 +5,7 @@ import FrontLoader from '../../Common/FrontLoader';
 import helper, { purchasedPriceWithTax } from '../../Common/Helper';
 import DefaultLayout from './Component/templates/default-layout';
 import organizationApi from '../../Api/frontEnd/organization';
+import {Button} from 'react-bootstrap';
 
 const DonationConfirmPage = () => {
   const params = useParams();
@@ -52,7 +53,8 @@ const DonationConfirmPage = () => {
               <img
                 style={{ width: '120px' }}
                 src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f91f5a4baf698de2fbded0_%E2%80%94Pngtree%E2%80%94green%20check%20mark%20icon%20flat_5253210.png"
-              ></img>
+                alt=''
+              />
               {/* <p
                 style={{
                   fontSize: '19px',

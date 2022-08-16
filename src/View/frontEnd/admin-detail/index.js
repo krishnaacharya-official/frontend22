@@ -43,6 +43,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import noimg from '../../../assets/images/noimg.jpg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { setLogout } from "../../../user/user.action"
+import NoFooter from '../Component/templates/no-footer';
 
 function AdminDetail() {
   // const user = useContext(UserContext)
