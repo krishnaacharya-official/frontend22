@@ -152,7 +152,7 @@ const Product = (props) => {
   ) : (
     <Button
       variant="primary"
-      //size="sm"
+      style={{width: '56px', fontSize: '16px'}}
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
@@ -255,7 +255,7 @@ const Product = (props) => {
           {
             address &&
 
-            <div className="product__location d-flex align-items-center small mt-auto">
+            <div className="product__location d-flex align-items-center mt-auto">
               {/* <span className="icon icon__pro"></span> */}
               {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
               <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
@@ -267,7 +267,7 @@ const Product = (props) => {
       </div>
 
       <div className="product__details border-bottom d-flex align-items-center">
-        <div className="product__date d-flex align-items-center small">
+        <div className="product__date d-flex align-items-center">
           {/* <span className="icon icon__pro-400 date__icon mr-6p"></span> */}
           <FontAwesomeIcon icon={regular("clock")} className="mr-6p" />
 
@@ -333,7 +333,7 @@ const Product = (props) => {
               alt=""
             /> 
         </Link> */}
-        <div className="product__subcategory small d-flex align-items-center text-dark">
+        <div className="product__subcategory d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-6p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
 

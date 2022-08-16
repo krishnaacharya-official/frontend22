@@ -1435,7 +1435,6 @@ const AdminPosts = (props) => {
                           <div style={{ paddingLeft: '9px' }}>
                             <text className="post__title"
                               style={{
-                                fontSize: '21px',
                                 lineHeight: '1rem',
                                 fontWeight: 700
                               }}

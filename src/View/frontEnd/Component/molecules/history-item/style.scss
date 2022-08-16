@@ -1,13 +1,27 @@
 .billing__value {
-  text-align: end
+  text-align: end;
+}
+.icon--bg {
+  width: 19px;
+  height: 19px;
+  min-height: 19px;
+  min-width: 19px;
+  margin-right: 3px;
+  margin-left: -4px;
+  padding-left: 6px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background-color: #f8fafd;
 }
 .similar__ {
-
-  // .similar__item__wrap 
+  // .similar__item__wrap
   &item__wrap {
     &.active {
       background-color: $gray-100;
-      border-radius: 6px
+      border-radius: 6px;
     }
   }
 

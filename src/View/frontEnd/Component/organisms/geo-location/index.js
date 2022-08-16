@@ -54,7 +54,7 @@ const GeoLocation = () => {
     locationName: "",
     lng: 0,
     lat: 0,
-    zoomlevel: 13
+    zoomlevel: 7
 
   })
   // const scale = new mapboxgl.ScaleControl({

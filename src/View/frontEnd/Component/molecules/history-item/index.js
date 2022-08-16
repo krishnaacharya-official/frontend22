@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import IconButton from "../icon-button";
-import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar_default.png";
-import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
-import moment from "moment";
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import IconButton from '../icon-button';
+import Avatar from '../../atoms/avatar';
+import AvatarImg from '../../../../../assets/images/avatar_default.png';
+import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
+import moment from 'moment';
 
-import "./style.scss";
+import './style.scss';
 
 const propTypes = {
   active: PropTypes.bool,
@@ -17,48 +17,47 @@ const propTypes = {
 
 const defaultProps = {
   active: false,
-  categoryName: "Narwhal",
-  categoryColor: "#a278fc" // I think we need to populate category color random
+  categoryName: 'Narwhal',
+  categoryColor: '#a278fc' // I think we need to populate category color random
 };
 
 function HistoryItem({ active, ...otherProps }) {
-  const getC = getCalculatedPrice()
+  const getC = getCalculatedPrice();
   const sharedProps = {
     active,
-    ...otherProps,
+    ...otherProps
   };
 
   const getAvatarImage = (img) => {
     let image;
-    if (img && img !== "") {
-      image = helper.DonorImagePath + img
+    if (img && img !== '') {
+      image = helper.DonorImagePath + img;
     } else {
-      image = AvatarImg
+      image = AvatarImg;
     }
     return image;
+  };
+  let item = sharedProps.item;
+  let type = sharedProps.type;
+  let avatar =
+    type === 'donation' ? item?.userDetails?.image : item?.orderDetails?.userDetails?.image;
 
-  }
-  let item = sharedProps.item
-  let type = sharedProps.type
-  let avatar = type === "donation" ? item?.userDetails?.image : item?.orderDetails?.userDetails?.image
-
-
-
-
-
-  let name = type === "donation" ? item?.userDetails?.name : item?.orderDetails?.userDetails?.name
-  let amount = type === "donation" ? item?.amount : item?.orderDetails?.total
-  let date = type === "donation" ? item?.created_at : item?.orderDetails?.created_at
-  let currencySymbol = type === "donation" ? item?.currencySymbol : item?.orderDetails?.currencySymbol
-  let xp = type === "donation" ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp
-  let isDeleted = type === "donation" ? item?.userDetails?.isDeleted : item?.orderDetails?.userDetails?.isDeleted
+  let name = type === 'donation' ? item?.userDetails?.name : item?.orderDetails?.userDetails?.name;
+  let amount = type === 'donation' ? item?.amount : item?.orderDetails?.total;
+  let date = type === 'donation' ? item?.created_at : item?.orderDetails?.created_at;
+  let currencySymbol =
+    type === 'donation' ? item?.currencySymbol : item?.orderDetails?.currencySymbol;
+  let xp = type === 'donation' ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp;
+  let isDeleted =
+    type === 'donation' ? item?.userDetails?.isDeleted : item?.orderDetails?.userDetails?.isDeleted;
 
   // console.log(avatar)
 
   return (
     <li
-      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${sharedProps.active ? "active" : ""
-        }`}
+      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${
+        sharedProps.active ? 'active' : ''
+      }`}
     >
       <div className="d-flex align-items-center w-100">
         <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} />
@@ -66,8 +65,7 @@ function HistoryItem({ active, ...otherProps }) {
           <div className="d-flex align-items-center justify-content-between">
             <div className="text-dark fw-bold">{name}</div>
 
-
-           {/*<span className="text-info fs-5">
+            {/*<span className="text-info fs-5">
               <FontAwesomeIcon icon={solid("badge-check")} />
       </span> */}
             {/* <IconButton
@@ -79,35 +77,37 @@ function HistoryItem({ active, ...otherProps }) {
             >
               {sharedProps.categoryName}
             </IconButton> */}
-            <span className="btn-sm ms-auto p-0">
-              {getC.getUserRank(xp)}
-
-            </span>
+            <span className="btn-sm ms-auto p-0">{getC.getUserRank(xp)}</span>
           </div>
-          <div className="text-light fs-7">
-          {/*  {
+          <div className="text-light fs-7 fw-semibold">
+            {/*  {
               isDeleted &&
 
               <div className="text-lighter fs-8">Deleted User</div>
             }*/}
-            {
-              type === "donation" ?
-                <>
-                  <FontAwesomeIcon icon={solid("heart")} className="mr-6p" />
+            {type === 'donation' ? (
+              <>
+                <div className="icon--bg">
+                  <FontAwesomeIcon icon={solid('heart')} className="mr-6p text-lighter" />
                   Donated
-                </>
-                :
-                <>
-                  <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-6p" />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="icon--bg">
+                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" />
                   Bought {item?.quantity} {item?.name}
-                </>
-            }
-
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         <div className="billing__value">
-          <div className="fs-5 fw-bold text-success mb-3p">{currencySymbol ? currencySymbol : "$"}{priceFormat(amount)}</div>
+          <div className="fs-5 fw-bold text-success mb-3p">
+            {currencySymbol ? currencySymbol : '$'}
+            {priceFormat(amount)}
+          </div>
           <div className="fs-8 fw-bold text-light">{moment(date).fromNow()}</div>
         </div>
       </div>

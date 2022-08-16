@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import "./style.scss";
-import { TagTitle,WidgetTitle } from "../../atoms";
+//import { TagTitle,WidgetTitle } from "../../atoms";
 // import WidgetTitle from "../../atoms";
 
 function ProjectDetailMain(props) {
@@ -155,7 +155,7 @@ function ProjectDetailMain(props) {
               </span>
             )}
         </div>
-        <div className="text-light d-flex align-items-center ms-3">
+        <div className="text-light d-flex align-items-center ms-3 gap-1">
           <IconToggle
             activeColor="rgb(246, 100, 97)"
             icon={<FontAwesomeIcon icon={regular("heart")} />}
@@ -388,8 +388,6 @@ function ProjectDetailMain(props) {
           </IconText>
         }
       </div>
-      <TagTitle>Need</TagTitle>
-      <WidgetTitle>Gallery</WidgetTitle>
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div >
   );

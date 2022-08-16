@@ -121,7 +121,7 @@ export default function Index(props) {
   return (
     <>
       <HeaderController />
-      <div className="bg-lighter border-bottom">
+      <div className="bg-lighter border-bottom" style={{maxHeight: '78px'}}>
         <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid>
           <div className="filter__dropdown-wrap mb-2 mb-sm-0 ">
             <FilterDropdown
@@ -220,6 +220,7 @@ export default function Index(props) {
             </div>
             <Button
               variant="outline-primary"
+              style={{border: '2px solid'}}
               className="btn__cart ms-sm-1 mt-2 mt-sm-0"
               onClick={() => props.onClickAddToCart()}
             >
