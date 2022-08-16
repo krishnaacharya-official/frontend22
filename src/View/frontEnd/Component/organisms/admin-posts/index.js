@@ -689,11 +689,11 @@ const AdminPosts = (props) => {
 
 
       formData.organizationCountryId = data.country_id
-      formData.price = price
+      formData.price = Number(price)
       formData.description = description
       formData.category_id = category
       formData.subcategory_id = subcategory
-      formData.displayPrice = displayPrice
+      formData.displayPrice = Number(displayPrice)
 
 
       if (quantity) {

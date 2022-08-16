@@ -32,9 +32,28 @@ function ShareWidget() {
   }, [location])
 
 
+  const onClickShare = ()=>{
+    // if (navigator.share) { 
+      navigator.share({
+         title: 'Donorport',
+         url: currentPageLink,
+         text: 'Check out Social Chain on Donorport',
+       }).then(() => {
+        //  console.log('Thanks for sharing!');
+       })
+       .catch(console.error);
+
+      //  } else {
+      //      shareDialog.classList.remove('hidden');
+      //  }
+  }
+
+
   return (
     <div className="position-relative">
-      <Button variant="link" onClick={() => setActive(!active)} className="btn__share text-light">
+      {/* <Button variant="link" onClick={() => setActive(!active)} className="btn__share text-light"> */}
+      <Button variant="link" onClick={() => onClickShare()} className="btn__share text-light">
+
         <FontAwesomeIcon icon={regular("share-nodes")} />
       </Button>
       {active ? (
