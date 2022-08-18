@@ -12,16 +12,15 @@ const resolvedAliases = Object.fromEntries(
 
 module.exports = {
   webpack: {
-      // create aliases for folders example usage: @dirname/dir/filename
+    // create aliases for folders example usage: @dirname/dir/filename
     alias: resolvedAliases,
   },
   style: {
     sass: {
       loaderOptions: {
         // load style variables, mixins and functions globally
-        prependData: `
-          @import "@styles/scss/config/_index.scss"; 
-        `,
+        additionalData:`
+          @import "@styles/scss/config/_index.scss";`,
       },
     },
   },

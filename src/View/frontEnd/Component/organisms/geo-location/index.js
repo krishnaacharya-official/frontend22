@@ -150,14 +150,19 @@ const GeoLocation = () => {
 
 
   let Obj = {
-    'circle-radius': 100,
-    'circle-color': '#E54E52',
-    'circle-opacity': 0.8
+      "circle-radius": 10,
+      // Color circles by ethnicity, using a `match` expression.
+      "circle-color": "purple",
+      "circle-stroke-color": "purple",
+      "circle-opacity": 0.5,
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 5
   }
 
 
 
   useEffect(() => {
+    // console.log(objectVal)
 
     if (user.distance === '') {
 
@@ -172,9 +177,10 @@ const GeoLocation = () => {
     }
 
     if (!user.isMapLocked) {
-      // console.log(user.isMapLocked)
+      // console.log(objectVal)
       if (objectVal?.includes("© Mapbox ")) {
         const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+        // console.log(after_)
         dispatch(setDistance(after_))
 
       } else {
@@ -183,6 +189,8 @@ const GeoLocation = () => {
       }
 
     }
+
+
 
     // console.log(objectVal)
 
@@ -265,6 +273,7 @@ const GeoLocation = () => {
                 style={mapStyles.day}
                 zoom={[location.zoomlevel]}
                 onRender={(e) => {
+                  console.log('e.boxZoom._container.outerText',e.boxZoom._container.outerText)
                   setObjectVal(e.boxZoom._container.outerText)
 
                 }} //boxZoom._container.outerText
@@ -277,12 +286,9 @@ const GeoLocation = () => {
               // onStyleLoad={onStyleLoad}
 
               >
-                <Layer type="circle" id="circle"
-
-                  paint={Obj}
+                <Layer type="circle" source="mine" id="circle" paint={Obj}
                   // layout={{ 'icon-image': 'custom-marker' }}
                   layout={{ "icon-image": "harbor-15" }}
-
                 >
 
                   <Feature coordinates={[location.lng, location.lat]} />

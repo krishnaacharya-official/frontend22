@@ -334,7 +334,7 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-
+          
             // if (!user.isMapLocked) {
 
             //     if (user.distance?.includes("© Mapbox ")) {
@@ -378,6 +378,7 @@ export default function HomeController() {
                     d = after_.split(" ")[0]
                     // console.log(d)
                 }
+                // console.log(d)
 
                 let productArray = []
 
@@ -396,6 +397,7 @@ export default function HomeController() {
                         }
                     })
                     setTempProductList(productArray)
+                    // console.log(productArray.length)
                     dispatch(setProductCount(productArray.length))
                     // if (user.isUpdateLocationFilter === true) {
                     //     setProductList(productArray)
@@ -452,7 +454,7 @@ export default function HomeController() {
                     )
 
                     setProductTags(productTagsArray)
-                    
+
                     setProductList(tempProductList)
                 }
                 dispatch(setLocationFilter('false'))
