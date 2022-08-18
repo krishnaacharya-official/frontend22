@@ -85,10 +85,10 @@ const FilterDropdown = (props) => {
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
         {
           module === 'HOME' ?
-            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100">
+            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100" style={{minWidth: '136px'}}>
               <div className="d-flex align-items-center justify-content-center">
 
-                <span className="fw-bold">Filters</span>
+                <span className="fw-bold fs-5">Filters</span>
                 <span
                   id="filter__icon"
                   className="lottie__icon ms-1 d-flex align-items-center fs-4"

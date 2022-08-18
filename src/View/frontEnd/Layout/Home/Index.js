@@ -121,8 +121,8 @@ export default function Index(props) {
   return (
     <>
       <HeaderController />
-      <div className="bg-lighter border-bottom" style={{maxHeight: '78px'}}>
-        <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid>
+      <div className="bg-lighter border-bottom">
+        <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid style={{height: '90px'}}>
           <div className="filter__dropdown-wrap mb-2 mb-sm-0 ">
             <FilterDropdown
               organizationList={props.organizationList}
