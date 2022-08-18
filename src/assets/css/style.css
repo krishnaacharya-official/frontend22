@@ -1,3 +1,47 @@
+@font-face {
+  font-family: 'Linotte-Heavy';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-heavy/Linotte-Heavy.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-heavy/Linotte-Heavy.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Bold';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-bold/Linotte-Bold.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-bold/Linotte-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Light';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-light/Linotte-Light.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-light/Linotte-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Regular';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-regular/Linotte-Regular.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-regular/Linotte-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Semibold';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-semibold/Linotte-Semibold.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-semibold/Linotte-Semibold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* body {
+  font-family: 'Linotte-Light' !important;
+} */
+
 .error {
   font-size: 90%;
   margin-top: 2px;
@@ -801,13 +845,13 @@ a.MuiListItemButton-root.active:focus {
 }
 
 .sold--item {
-  bottom: -50%!important;
+  bottom: -50% !important;
   top: 50%;
-  position: absolute!important;
-  right: 50%!important;
-  -webkit-transform: translate(50%,-50%)!important;
-  -ms-transform: translate(50%,-50%)!important;
-  width: 90%!important;
+  position: absolute !important;
+  right: 50% !important;
+  -webkit-transform: translate(50%, -50%) !important;
+  -ms-transform: translate(50%, -50%) !important;
+  width: 90% !important;
 }
 
 .sleeve {

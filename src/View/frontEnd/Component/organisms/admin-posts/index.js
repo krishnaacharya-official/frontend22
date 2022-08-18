@@ -45,6 +45,26 @@ import {
 import moment from "moment";
 
 const AdminPosts = (props) => {
+
+
+
+  const fileuploadinput = {
+    position: "absolute",
+    margin: 0,
+    padding: 0,
+    width: "100%",
+    height: "100%",
+    outline: "none",
+    opacity: 0,
+    cursor: "pointer",
+  }
+
+  const imageuploadwrap = {
+    marginTop: "20px",
+    // border: " 4px dashed #3773c6",
+    position: "relative",
+    width: "100%"
+  }
   const validExtensions = ['jpg', 'png', 'jpeg'];
   const [viewPost, createPost] = useState(false);
   // const [productList, setProductList] = useState([])
@@ -134,6 +154,7 @@ const AdminPosts = (props) => {
     fulfilError: []
 
   })
+  const [tempImgName, setTempImgName] = useState('')
 
   const {
     fulfilMoreImg, videoUrl, receiptFile, fulfilPolicy, fulfilError
@@ -457,10 +478,22 @@ const AdminPosts = (props) => {
 
           }
         }
-        setFulfilMoreTempImages(fmImgtempArry)
+        let old = [...fulfilMoreTempImages]
+        let combine = old.concat(fmImgtempArry)
+        setFulfilMoreTempImages(combine)
+
+        let oldf = [...fulfilMoreImg]
+        let combineMain = oldf.concat(ftempMainFileArry)
+
+        // setFulfilMoreTempImages(fmImgtempArry)
+        // setFulfilState({
+        //   ...fulfilState,
+        //   fulfilMoreImg: ftempMainFileArry
+        // })
+
         setFulfilState({
           ...fulfilState,
-          fulfilMoreImg: ftempMainFileArry
+          fulfilMoreImg: combineMain
         })
 
       }
@@ -468,12 +501,14 @@ const AdminPosts = (props) => {
     } else if (e.target.id === 'receiptFile') {
       let file = e.target.files[0] ? e.target.files[0] : '';
       if (file) {
-        console.log(file)
+        setTempImgName(file.name)
+        // console.log(file)
         setFulfilState({
           ...fulfilState,
           receiptFile: file
         })
       } else {
+        setTempImgName('')
 
         setFulfilState({
           ...fulfilState,
@@ -1046,7 +1081,7 @@ const AdminPosts = (props) => {
 
   const fulfilOrder = async () => {
     let formaerrror = {}
-
+    console.log(fulfilMoreImg)
     if (!fulfilPolicy) {
       formaerrror['fulfilPolicy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
 
@@ -1149,6 +1184,21 @@ const AdminPosts = (props) => {
       setFulfilMoreImages([])
 
     }
+  }
+
+  const removeFulfilTempImages = async (id) => {
+
+    let imgs = [...fulfilMoreTempImages]
+    imgs.splice(id, 1);
+    setFulfilMoreTempImages(imgs)
+
+    let fImg = [...fulfilMoreImg]
+    fImg.splice(id, 1);
+    setFulfilState({
+      ...fulfilState,
+      fulfilMoreImg: fImg
+    })
+
   }
 
 
@@ -1391,7 +1441,7 @@ const AdminPosts = (props) => {
                         </label>
 
 
-                        <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                        {/* <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
                           <div className="upload-wrap" style={{ width: "100%", height: "200px" }}>
                             <FontAwesomeIcon
                               icon={solid("cloud-arrow-up")}
@@ -1405,6 +1455,21 @@ const AdminPosts = (props) => {
                           </div>
 
 
+                        </div> */}
+
+                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap ,backgroundColor: '#e5f4ff',borderRadius: '9px',border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                          <input className="file-upload-input" type='file'
+                            // name="identityDocumentImage" 
+                            // onChange={props.changevalue}
+                            name='receiptFile' id='receiptFile'
+                            onChange={(e) => { changefile(e) }}
+                            style={fileuploadinput} title=" " />
+                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+                            <h3 style={{ fontSize: "inherit" }}>
+                            {tempImgName && tempImgName !== "" ? tempImgName :
+                           fulfilError.receiptFile ? "Please Select File" :
+                              "Drag and drop or select File"}</h3>
+                          </div>
                         </div>
                         {fulfilError && fulfilError.receiptFile && <p className='error'>{fulfilError ? fulfilError.receiptFile ? fulfilError.receiptFile : "" : ""}</p>}
                       </>
@@ -1559,7 +1624,11 @@ const AdminPosts = (props) => {
                           {fulfilMoreTempImages?.length ?
                             fulfilMoreTempImages.map((img, key) => {
                               return (
-                                <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                <div className="img-wrap">
+                                  <span className="close" onClick={() => removeFulfilTempImages(key)}>&times;</span>
+                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                </div>
+
                               )
 
                             })
