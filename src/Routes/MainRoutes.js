@@ -216,7 +216,7 @@ export default function MainRoutes() {
 
             {
 
-                adminAuthToken && location.pathname.startsWith('/admin') ?
+                adminAuthToken ?
 
 
                     <ThemeConfig>
@@ -225,34 +225,35 @@ export default function MainRoutes() {
                         <BaseOptionChartStyle />
                         <AdminPrivateRoutes />
                     </ThemeConfig> :
+                    <></>
 
-                    adminAuthToken && !location.pathname.startsWith('/admin') &&
+                // adminAuthToken && !location.pathname.startsWith('/admin') &&
 
-                    <Routes>
-                        <Route exact path="/" element={<SigninController />} />
-                        <Route exact path="/signin" element={<SigninController />} />
-                        <Route exact path="*" element={<SigninController />} />
-                        <Route exact path="/signup" element={<SignupController />} />
-                        <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
-                        <Route exact path="/otp/:email" element={<ResetPasswordController />} />
-                        <Route exact path="/apply" element={<ApplyOrganizationController />} />
-                        <Route path="/sponsors" element={<Sponsors />} />
-                        <Route path="/partnership" element={<Partnership />} />
-                        <Route path="/about-us" element={<AboutController />} />
-                        <Route path="/verified" element={<VerifiedDonors />} />
-                        <Route path="/terms" element={<Terms />} />
-                        <Route path="/media" element={<Media />} />
-                        <Route path="/ranks" element={<Ranks />} />
-                        <Route path="/trust" element={<Trust />} />
-                        <Route path="/xp" element={<Xp />} />
-                        <Route path="/help" element={<Help />} />
-                        <Route path="/help-category" element={<HelpCategory />} />
-                        <Route path="/help-article" element={<HelpArticle />} />
-                        <Route path="/help-contact" element={<HelpContact />} />
-                        <Route path="/verified" element={<VerifiedDonors />} />
-                        <Route path="/item-tags" element={<ItemTags />} />
-                        <Route exact path="*" element={<SigninController />} />
-                    </Routes>
+                // <Routes>
+                //     <Route exact path="/" element={<SigninController />} />
+                //     <Route exact path="/signin" element={<SigninController />} />
+                //     <Route exact path="*" element={<SigninController />} />
+                //     <Route exact path="/signup" element={<SignupController />} />
+                //     <Route exact path="/forgot-password" element={<ForgotPasswordController />} />
+                //     <Route exact path="/otp/:email" element={<ResetPasswordController />} />
+                //     <Route exact path="/apply" element={<ApplyOrganizationController />} />
+                //     <Route path="/sponsors" element={<Sponsors />} />
+                //     <Route path="/partnership" element={<Partnership />} />
+                //     <Route path="/about-us" element={<AboutController />} />
+                //     <Route path="/verified" element={<VerifiedDonors />} />
+                //     <Route path="/terms" element={<Terms />} />
+                //     <Route path="/media" element={<Media />} />
+                //     <Route path="/ranks" element={<Ranks />} />
+                //     <Route path="/trust" element={<Trust />} />
+                //     <Route path="/xp" element={<Xp />} />
+                //     <Route path="/help" element={<Help />} />
+                //     <Route path="/help-category" element={<HelpCategory />} />
+                //     <Route path="/help-article" element={<HelpArticle />} />
+                //     <Route path="/help-contact" element={<HelpContact />} />
+                //     <Route path="/verified" element={<VerifiedDonors />} />
+                //     <Route path="/item-tags" element={<ItemTags />} />
+                //     <Route exact path="*" element={<SigninController />} />
+                // </Routes>
 
             }
 

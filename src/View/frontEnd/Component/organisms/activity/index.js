@@ -83,7 +83,7 @@ const Activity = (props) => {
                 ""
               )}
 
-              <div className="fw-bold">
+              <div>
                 {state.following
                   ? "Following"
                   : state.settings

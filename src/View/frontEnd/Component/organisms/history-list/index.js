@@ -111,7 +111,9 @@ const HistoryList = (props) => {
                               order.orderItems.map((item, key) => {
                                 // console.log(item)
                                 // console.log(item)
-                                let price = Math.round(Number(item.productPrice) + (totalCharge / 100) * Number(item.productPrice))
+                                // let price = Math.round(Number(item.productPrice) + (totalCharge / 100) * Number(item.productPrice))
+                                let price = item.productPrice
+
                                 // let price = calculatedPrice.priceWithTax(item.productPrice)
 
                                 return (

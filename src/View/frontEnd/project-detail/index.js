@@ -89,6 +89,8 @@ const ProjectDetail = (props) => {
               changevalue={props.changevalue}
               cardNumberWithSpace={props.cardNumberWithSpace}
               donate={props.donate}
+              dCardIcon={props.dCardIcon}
+
 
 
             />
@@ -112,6 +114,8 @@ const ProjectDetail = (props) => {
               projectDetails={props.projectDetails}
               addToCart={props.addToCart}
               checkItemInCart={props.checkItemInCart}
+              followToProject={props.followToProject}
+              isFollow={props.isFollow}
             />
           </Col>
           <Col md="5">

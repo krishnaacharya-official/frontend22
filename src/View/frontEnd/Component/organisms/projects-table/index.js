@@ -14,6 +14,7 @@ import Stack from '@mui/material/Stack';
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
+import { Link } from "react-router-dom";
 
 
 
@@ -27,7 +28,7 @@ const ProjectsTable = (props) => {
     let soldOutQArray = []
     let per = 0
 
-    if (data.length > 0) {
+    if (data?.length > 0) {
       data.map((p, i) => {
         // console.log(p.itemDetails)
         if (!p.itemDetails.unlimited) {
@@ -41,12 +42,12 @@ const ProjectsTable = (props) => {
 
       const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
       const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
-      if (soldout === 0 || total === 0){
+      if (soldout === 0 || total === 0) {
         per = 0
-      }else{
+      } else {
         per = Number(soldout) / Number(total) * 100
       }
-        
+
 
 
     } else {
@@ -143,15 +144,34 @@ const ProjectsTable = (props) => {
                         />
                         <div className="ms-2">
                           <div className="fw-bolder fs-5 mb-3p">{project.name}</div>
+
+
+                          {
+                            project.status === 1 &&
+
+                            <Link variant="link" className="text-light p-0 fw-normal" to={'/project/' + project.slug}>
+                              <FontAwesomeIcon
+                                icon={regular("square-up-right")}
+                                className="me-1"
+                              />{" "}
+                              Go to Project
+                            </Link>
+                          }
                         </div>
                       </div>
-
                       {
                         project.infinity ?
                           <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                             <div className="d-flex align-items-center flex__1 mw-200">
-                              <ProgressBar variant="success" now={100} className="flex__1" />
-                              <span className="text-light ms-1 fw-bold">Infinite</span>
+                              <ProgressBar variant="infinity" now={100} className="flex__1" />
+                              {/* <span className="text-light ms-1 fw-bold">Infinite</span> */}
+                              <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                                <div className="tag tag--ongoing _2">
+                                  <div className="icon icon--unlimited">
+                                    <FontAwesomeIcon icon={solid("infinity")} className="" />
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                           :

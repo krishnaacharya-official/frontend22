@@ -1,8 +1,12 @@
 .project__detail-img {
   height: auto;
+  position: relative;
   max-height: 600px;
   max-width: 400px;
   min-height: 400px;
+  img {
+    max-width: 100%;
+  }
   @include media-breakpoint-down(sm) {
     min-height: 320px;
   }

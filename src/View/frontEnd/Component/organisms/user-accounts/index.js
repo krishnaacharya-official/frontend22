@@ -19,7 +19,7 @@ const UserAccounts = () => {
         </div>
 
         <div className="linked__list d-flex flex-column">
-          <div className="linked__item d-flex align-items-center p-1 border">
+       {/*   <div className="linked__item d-flex align-items-center p-1 border">
             <div className="accounts__icon">
               <ListItemImg
                 size={75}
@@ -33,9 +33,9 @@ const UserAccounts = () => {
             <Button variant="link" className="text-danger">
               unlink
             </Button>
-          </div>
+  </div> */}
 
-          <div className="linked__item d-flex align-items-center p-1 border">
+          <div className="linked__item d-flex align-items-center p-1">
             <div className="accounts__icon">
               <ListItemImg
                 size={75}
@@ -43,12 +43,12 @@ const UserAccounts = () => {
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ebdac028e839bb4a475a131_social.svg"
               />
             </div>
-            <div className="accounts__email fw-bolder flex__1 mx-2 text-break">
+            <div className="accounts__email fw-bold flex__1 mx-2 text-break">
               {data.email}
             </div>
-            <Button variant="link" className="text-danger">
+            {/*<Button variant="link" className="text-danger">
               unlink
-            </Button>
+            </Button>*/}
           </div>
 
           <div className="fs-7">
@@ -79,7 +79,7 @@ const UserAccounts = () => {
               />
             </div>
             <div className="accounts__email fw-bolder flex__1 mx-2 text-break">
-              0x10302e4cdd39080f2fF40AED9d22E32AE38AF971
+              COMING SOON
             </div>
             <Button variant="link" className="text-danger">
               unlink

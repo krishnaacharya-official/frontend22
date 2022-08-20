@@ -33,6 +33,11 @@ const Product = (props) => {
 
   // 30/40*100 = 75.
   let unlimited = props.unlimited
+  let media = props.media ? props.media : false
+
+  let fullAddress = props.address?.split(',')
+  let address = props.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
+
 
   let progress = unlimited ? 100 : Math.round(sold / total * 100)
 
@@ -40,13 +45,17 @@ const Product = (props) => {
 
   const getCalc = getCalculatedPrice();
 
-  let price = getCalc.getData(props.price)
+  // let price = getCalc.getData(props.price)
+  let price = props.displayPrice ? props.displayPrice : props.price
+
   let currencySymbol = getCalc.currencySymbol()
 
 
   let theme_color = props.categoryDetails?.color
   let categorySlug = props.categoryDetails?.slug
   let category = props.subCategoryDetails?.name
+  let isFulfiled = props.isFulfiled
+
 
   let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg')
 
@@ -134,7 +143,7 @@ const Product = (props) => {
   const cart_btn = added_to_cart ? (
     <Button
       variant="success"
-      size="sm"
+      //size="sm"
       className="icon icon__pro"
     // onClick={removeFromCart}
     >
@@ -143,7 +152,7 @@ const Product = (props) => {
   ) : (
     <Button
       variant="primary"
-      size="sm"
+      style={{width: '56px', fontSize: '16px'}}
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
@@ -151,8 +160,8 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold >= total ? (
-      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+    sold >= total || isFulfiled  ? (
+      <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
     );
@@ -220,7 +229,9 @@ const Product = (props) => {
           </div>
           {
             // !CampaignAdminAuthToken &&
-            <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
+            // <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
+            <div className="mt-auto mb-12p"> {btn}</div>
+
 
           }
         </div>
@@ -241,18 +252,22 @@ const Product = (props) => {
               />
             </Link>
           </div>
-          <div className="product__location d-flex align-items-center small mt-auto">
-            {/* <span className="icon icon__pro"></span> */}
-            {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
-            <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+          {
+            address &&
 
-            <span className="date__name">{productDetails?.address}</span>
-          </div>
+            <div className="product__location d-flex align-items-center mt-auto">
+              {/* <span className="icon icon__pro"></span> */}
+              {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
+              <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+
+              <span className="date__name">{address}</span>
+            </div>
+          }
         </div>
       </div>
 
       <div className="product__details border-bottom d-flex align-items-center">
-        <div className="product__date d-flex align-items-center small">
+        <div className="product__date d-flex align-items-center">
           {/* <span className="icon icon__pro-400 date__icon mr-6p"></span> */}
           <FontAwesomeIcon icon={regular("clock")} className="mr-6p" />
 
@@ -276,6 +291,8 @@ const Product = (props) => {
             </span>
           }
 
+
+
           {
             props.tax &&
 
@@ -287,13 +304,23 @@ const Product = (props) => {
 
           }
 
+          {
+            props.media &&
+            <span className="product__type product__type-tab icon icon__solid-900 text-dark">
+              {/* <Icon icon="bxs:purchase-tag" color="#947ada" /> */}
+              {/* <FontAwesomeIcon icon={solid("tag")} color="#947ada" /> */}
+              <FontAwesomeIcon className="fs-3 text-info" icon={solid("image")} />
+
+            </span>
+          }
+
 
 
         </div>
       </div>
 
       <div className="product__category d-flex align-items-center flex-grow-1">
-      {/*  <Link
+        {/*  <Link
           to={"/categories/" + categorySlug}
           className="product__category-icon me-1"
           style={{ backgroundColor: theme_color }}
@@ -306,8 +333,8 @@ const Product = (props) => {
               alt=""
             /> 
         </Link> */}
-        <div className="product__subcategory small d-flex align-items-center text-dark">
-          <div className="product__cat-icon mr-3p">
+        <div className="product__subcategory d-flex align-items-center text-dark">
+          <div className="product__cat-icon mr-6p">
             <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
 
             {/* <svg
@@ -334,7 +361,7 @@ const Product = (props) => {
             </div>
             :
             <div className="product__count d-flex align-items-center ms-auto text-dark">
-              <span>{sold}/{total} sold</span>
+              <span>{sold}&nbsp;/&nbsp;{total} sold</span>
             </div>
         }
 

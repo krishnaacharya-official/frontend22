@@ -12,6 +12,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
+import followApi from "../../Api/frontEnd/follow";
 
 export default function ItemDetailsController() {
 
@@ -29,6 +30,7 @@ export default function ItemDetailsController() {
     const user = useSelector((state) => state.user);
     const [wishListproductIds, setWishListProductIds] = useState([])
     const dispatch = useDispatch()
+    const [isFollow, setIsFollow] = useState(false)
 
 
 
@@ -51,7 +53,10 @@ export default function ItemDetailsController() {
             if (getCategoryProducts.data.data.length > 0) {
                 let tempArray = []
                 getCategoryProducts.data.data.slice(0, 3).map((product, i) => {
-                    tempArray.push(product)
+                    if (product._id !== productDetails._id) {
+                        tempArray.push(product)
+
+                    }
 
                 })
                 setCategoryProducts(tempArray)
@@ -114,7 +119,15 @@ export default function ItemDetailsController() {
             ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
         }
     }
-
+    const checkUserFollow = async (productId) => {
+        let data = {}
+        data.typeId = productId
+        data.type = 'PRODUCT'
+        const check = await followApi.checkUserFollow(userAuthToken, data)
+        if (check) {
+            setIsFollow(check.data.success)
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -141,15 +154,22 @@ export default function ItemDetailsController() {
                 if (getproductDetails.data.data.length) {
                     mydata = getproductDetails.data.data[0]
                     if (user.countryId && user.countryId > 0) {
-                        if (mydata.campaignDetails.country_id !== user.countryId) {
+                        if (mydata.campaignDetails.country_id !== user.countryId || mydata.status === -1) {
                             navigate('/')
                         }
+                        // if(mydata.status === -1){
+                        //     navigate('/')
+
+                        // }
                     }
 
                     setProductDetails(mydata)
                     await productListByCategory(mydata.categoryDetails._id)
                     await allProductList()
                     await getPurchasedItems(mydata._id)
+                    if (userAuthToken) {
+                        await checkUserFollow(mydata._id)
+                    }
                 } else {
                     // console.log('first1')
                     navigate('/')
@@ -233,6 +253,25 @@ export default function ItemDetailsController() {
         }
     }
 
+    const followToProduct = async (e) => {
+        if (userAuthToken) {
+            let data = {}
+            data.organizationId = productDetails.campaignDetails._id
+            data.typeId = productDetails._id
+            data.type = 'PRODUCT'
+
+            const follow = await followApi.follow(userAuthToken, data)
+            if (follow && follow.data.success) {
+                await checkUserFollow(productDetails._id)
+
+            }
+        } else {
+            ToastAlert({ msg: 'Please Login', msgType: 'error' });
+
+        }
+
+    }
+
     return (
         <>
             {/* {console.log(wishListproductIds)} */}
@@ -247,7 +286,8 @@ export default function ItemDetailsController() {
                 purchasedItemList={purchasedItemList}
                 addProductToWishlist={addProductToWishlist}
                 wishListproductIds={wishListproductIds}
-
+                followToProduct={followToProduct}
+                isFollow={isFollow}
             />
         </>
     )

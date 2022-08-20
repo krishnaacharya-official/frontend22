@@ -1,3 +1,47 @@
+@font-face {
+  font-family: 'Linotte-Heavy';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-heavy/Linotte-Heavy.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-heavy/Linotte-Heavy.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Bold';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-bold/Linotte-Bold.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-bold/Linotte-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Light';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-light/Linotte-Light.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-light/Linotte-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Regular';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-regular/Linotte-Regular.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-regular/Linotte-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linotte-Semibold';
+  src: url('../fonts/myfonts_order_4645580669098/linotte-semibold/Linotte-Semibold.otf') format('opentype'), url('../fonts/myfonts_order_4645580669098/linotte-semibold/Linotte-Semibold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* body {
+  font-family: 'Linotte-Light' !important;
+} */
+
 .error {
   font-size: 90%;
   margin-top: 2px;
@@ -225,7 +269,6 @@
 .nav-pills .show>.nav-link {
   color: #fff;
   background-color: #00AB55 !important;
-  display: none !important;
 }
 
 .desktop__tab .nav-pills .nav-link.active,
@@ -256,8 +299,8 @@
   cursor: pointer;
   padding: 10px;
   margin: 10px;
-  background: #e6e6e6;
-  color: black;
+  background: none;
+  color: #585a83;
   border: none;
 }
 
@@ -269,7 +312,7 @@
 
 .ReactTags__tagInput input.ReactTags__tagInputField,
 .ReactTags__tagInput input.ReactTags__tagInputField:focus {
-  height: 31px;
+  height: 52px;
   margin: 0;
   font-size: 12px;
   border: 1px solid #eee;
@@ -387,18 +430,26 @@ span.tag-wrapper.ReactTags__tag {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  padding: 0 0 0 5px;
+  padding: 6px 3px 6px 9px;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #3898ec;
+  color: white;
+  font-weight: 600;
+  border: none;
+  text-transform: lowercase;
 }
 
 button.ReactTags__remove {
   margin-left: 5px !important;
+  color: white !important;
   padding: 0px;
   width: 30px;
   font-size: 20px;
 }
 
 .ReactTags__remove:hover {
-  background-color: #FFBDAD !important;
+  /*background-color: #FFBDAD !important;*/
   color: #DE350B !important;
 }
 
@@ -415,8 +466,8 @@ button.ReactTags__remove {
 }
 
 .grid img {
-  border: 1px solid #ccc;
   max-width: 100%;
+  border-radius: 6px
 }
 
 .input-group {
@@ -484,7 +535,7 @@ button.ReactTags__remove {
   position: relative;
   display: inline-block;
   width: 56px;
-  height: 30px;
+  height: 31px;
 }
 
 .--switch input {
@@ -794,13 +845,12 @@ a.MuiListItemButton-root.active:focus {
 }
 
 .sold--item {
+  bottom: -50% !important;
+  top: 50%;
   position: absolute !important;
-  /* top: 50%; */
-  right: 81% !important;
+  right: 50% !important;
   -webkit-transform: translate(50%, -50%) !important;
   -ms-transform: translate(50%, -50%) !important;
-  /* transform: translate(50%,-50%); */
-  bottom: 56% !important;
   width: 90% !important;
 }
 
@@ -1042,6 +1092,10 @@ a.MuiListItemButton-root.active:focus {
 }
 
 @media screen and (max-width: 540px) {
+  .activity__dropdown {
+    transform: translate(0px, 60px) !important;
+  }
+
   .plans .plan .plan-content img {
     margin-bottom: 20px;
     height: 56px;
@@ -1190,7 +1244,8 @@ li.search__tag {
 }
 
 .geo__dropdown {
-  transform: translate(-28px, 39px) !important;
+  overflow: visible !important;
+  transform: translate(45px, 39px) !important;
   inset: 0px 0px auto auto !important;
   /* transform: unset !important; */
 
@@ -1247,4 +1302,57 @@ li.search__tag {
     inset: 0px auto auto 0px !important;
     transform: translate3d(-204px, -18px, 0px) !important;
   }
+}
+
+
+
+
+/* .imgremove-btn:hover {
+    box-shadow: 0px 0px 3px grey;
+    transition: all .3s ease-in-out;
+}
+.imgremove-btn {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+ 
+  top: -8px;
+  right: 0p;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+} */
+
+.img-wrap {
+  position: relative;
+  display: inline-block;
+  /* border: 1px red solid; */
+  font-size: 0;
+}
+
+.img-wrap .close {
+  position: absolute;
+  /* top: 2px;
+  right: 2px; */
+  top: -9px;
+  right: -6px;
+  z-index: 100;
+  background-color: #FFF;
+  padding: 5px 2px 2px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: .2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+}
+
+.img-wrap:hover .close {
+  opacity: 1;
 }

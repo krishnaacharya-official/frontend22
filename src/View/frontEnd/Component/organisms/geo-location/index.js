@@ -9,19 +9,20 @@ import "rc-slider/assets/index.css";
 
 import "./style.scss";
 import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker, Cluster, ScaleControl } from 'react-mapbox-gl';
-import mapboxgl from 'mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker, ScaleControl, GeoJSONLayer, Source } from 'react-mapbox-gl';
+
+import mapboxgl, { MapTouchEvent } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong ,setLocationFilter} from "../../../../../user/user.action"
+import { setDistance, setLatLong, setLocationFilter, setMapLock, } from "../../../../../user/user.action"
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
 
 
-const Map = ReactMapboxGl({
+let Map = ReactMapboxGl({
   accessToken:
     helper.MapBoxPrimaryKey
 });
@@ -43,7 +44,7 @@ const GeoLocation = () => {
 
 
   const [state, setState] = useState({
-    locked: true
+    locked: false
   })
 
   const [objectVal, setObjectVal] = useState()
@@ -53,7 +54,7 @@ const GeoLocation = () => {
     locationName: "",
     lng: 0,
     lat: 0,
-    zoomlevel: 13
+    zoomlevel: 7
 
   })
   // const scale = new mapboxgl.ScaleControl({
@@ -90,8 +91,17 @@ const GeoLocation = () => {
   const toggleState = () => {
     if (state.locked) {
       setState({ ...state, locked: false })
+      dispatch(setMapLock(false))
     } else {
+      // setLocation({
+      //   ...location,
+      //   lat: user.lat ? Number(user.lat) : 0,
+      //   lng: user.lng ? Number(user.lng) : 0,
+      //   zoomlevel: 13
+      // })
       setState({ ...state, locked: true });
+      dispatch(setMapLock(true))
+
     }
 
   };
@@ -134,14 +144,73 @@ const GeoLocation = () => {
       lng: user.lng ? Number(user.lng) : 0
     })
 
-
+    setState({ ...state, locked: user.isMapLocked });
 
   }, [user])
 
+
+  let Obj = {
+      "circle-radius": 10,
+      // Color circles by ethnicity, using a `match` expression.
+      "circle-color": "purple",
+      "circle-stroke-color": "purple",
+      "circle-opacity": 0.5,
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 5
+  }
+
+
+
   useEffect(() => {
+    // console.log(objectVal)
+
+    if (user.distance === '') {
+
+      if (objectVal?.includes("© Mapbox ")) {
+        const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+        dispatch(setDistance(after_))
+
+      } else {
+        dispatch(setDistance(objectVal))
+
+      }
+    }
+
+    if (!user.isMapLocked) {
+      // console.log(objectVal)
+      if (objectVal?.includes("© Mapbox ")) {
+        const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
+        // console.log(after_)
+        dispatch(setDistance(after_))
+
+      } else {
+        dispatch(setDistance(objectVal))
+
+      }
+
+    }
+
+
 
     // console.log(objectVal)
-    dispatch(setDistance(objectVal))
+
+    // Map.setPaintProperty("point-blip", "circle-radius", 8)
+    // Map.on("load", () => {
+    //   Map.addLayer({
+    //     id: "snotel-sites-circle",
+    //     type: "circle",
+    //     source: "snotel-sites",
+    //     paint: {
+    //       "circle-color": "#1d1485",
+    //       "circle-radius": 8,
+    //       "circle-stroke-color": "#ffffff",
+    //       "circle-stroke-width": 2,
+    //     },
+    //   })
+    // })
+
+
+    // console.log(Map)
 
   }, [objectVal])
 
@@ -158,7 +227,7 @@ const GeoLocation = () => {
           </span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="geo__dropdown dropdown-top-arrow w-310">
+        <Dropdown.Menu className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310">
           <div className="dropdown__inner position-relative">
             <div className="geo_dropdown-top d-flex align-items-center">
               <InputGroup className="input-group__alpha">
@@ -178,7 +247,8 @@ const GeoLocation = () => {
 
               <div className="geo__distance" id="scale">
                 <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1" style={{ fontSize: 'small' }}>
-                  {objectVal}
+                  {/* {objectVal} */}
+                  {user.distance}
                 </div>
               </div>
 
@@ -189,7 +259,7 @@ const GeoLocation = () => {
                   onClick={() => toggleState()}
                 >
                   <span className="d-flex align-items-center icon">
-                    {state.locked ? (
+                    {!state.locked ? (
                       <FontAwesomeIcon icon={light('lock-open')} />
                     ) : (
                       <FontAwesomeIcon icon={solid('lock')} />
@@ -202,18 +272,62 @@ const GeoLocation = () => {
               <Map
                 style={mapStyles.day}
                 zoom={[location.zoomlevel]}
-                onRender={(e) => setObjectVal(e.boxZoom._container.outerText)} //boxZoom._container.outerText
+                onRender={(e) => {
+                  console.log('e.boxZoom._container.outerText',e.boxZoom._container.outerText)
+                  setObjectVal(e.boxZoom._container.outerText)
+
+                }} //boxZoom._container.outerText
                 containerStyle={{
                   height: '300px',
-                  width: '310px'
+                  //width: '310px'
                 }}
                 center={[location.lng, location.lat]}
 
+              // onStyleLoad={onStyleLoad}
+
               >
-                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
+                <Layer type="circle" source="mine" id="circle" paint={Obj}
+                  // layout={{ 'icon-image': 'custom-marker' }}
+                  layout={{ "icon-image": "harbor-15" }}
+                >
+
                   <Feature coordinates={[location.lng, location.lat]} />
                 </Layer>
+
+                {/* <Source
+                  id="point"
+                  geoJsonSource={{
+                    type: "geojson",
+                    data: {
+                      type: "Point",
+                      coordinates: [0, 0]
+                    }
+                  }}
+                /> */}
+
+
+                {/* <Layer
+                  id="point-blip"
+                  type="circle"
+                  sourceId="point"
+                  paint={{
+                    "circle-radius": 8,
+                    "circle-radius-transition": { duration: 0 },
+                    "circle-opacity-transition": { duration: 0 },
+                    "circle-color": "#007cbf"
+                  }}
+                /> */}
+                {/* <Layer
+                  id="point"
+                  type="circle"
+                  sourceId="point"
+                  paint={{
+                    "circle-radius": 8,
+                    "circle-color": "#007cbf"
+                  }}
+                /> */}
                 <ScaleControl />
+
 
                 <Marker
                   coordinates={[location.lng, location.lat]}
@@ -240,14 +354,14 @@ const GeoLocation = () => {
                 max={220}
                 value={location.zoomlevel * 10}
                 railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
-                disabled={!state.locked}
+                disabled={state.locked}
                 onChange={(e) => setLocation({ ...location, zoomlevel: e / 10 })}
               />
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button variant="success" onClick={()=>dispatch(setLocationFilter(true))}>
-                Update Results {user.locationProductCount> 0 ? ' ( ' +user.locationProductCount+ ' ) ' : ''}
+              <Button className="toggle__btn" variant="success" onClick={() => dispatch(setLocationFilter('true'))}>
+                Update Results {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
               </Button>
             </div>
           </div>

@@ -13,7 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
-import helper from "../../Common/Helper";
+import helper, { GetCardTypeByNumber, getCardIcon } from "../../Common/Helper";
+import followApi from "../../Api/frontEnd/follow";
 
 
 
@@ -38,7 +39,9 @@ export default function OrganizationDetailsController() {
     const [donationList, setDonationList] = useState([])
     const dispatch = useDispatch()
 
+    const [isFollow, setIsFollow] = useState(false)
 
+    const [dCardIcon, setDCardIcon] = useState('')
 
 
     const [state, setstate] = useState({
@@ -56,6 +59,7 @@ export default function OrganizationDetailsController() {
         cvv: "",
         error: []
     })
+
     const {
         name, cardNumber, month, year, cvv, error,
     } = state;
@@ -71,9 +75,20 @@ export default function OrganizationDetailsController() {
             }
         }
     }
+    const getCardNumber = async (num) => {
+        if (num) {
+            let cardType = GetCardTypeByNumber(num);
+            let cardIcon = getCardIcon(cardType)
+
+            setDCardIcon(cardIcon)
+        } else {
+            setDCardIcon('')
+
+        }
+    }
 
 
-    const changevalue = (e) => {
+    const changevalue = async (e) => {
         let value = e.target.value;
         if (e.target.name === "cardNumber") {
             let cardVal = e.target.value;
@@ -82,6 +97,8 @@ export default function OrganizationDetailsController() {
                 ...state,
                 [e.target.name]: value
             })
+            await getCardNumber(value)
+
         } else {
             setstate({
                 ...state,
@@ -220,6 +237,8 @@ export default function OrganizationDetailsController() {
                 data.organizationId = organizationDetails._id
                 data.organizationLogo = helper.CampaignAdminLogoPath + organizationDetails.logo
                 data.organizationName = organizationDetails.name
+                data.organizationCountryId = organizationDetails.country_id
+
 
 
                 // console.log(data)
@@ -242,7 +261,7 @@ export default function OrganizationDetailsController() {
                         dispatch(setUserXp(user.xp + addXp))
                         /*ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });*/
                         setLoading(false)
-                        navigate('/donate/'+donateToOrganization.data.donationId)
+                        navigate('/donate/' + donateToOrganization.data.donationId)
                     }
 
                 } else {
@@ -279,6 +298,16 @@ export default function OrganizationDetailsController() {
 
     }
 
+    const checkUserFollow = async (orgId) => {
+        let data = {}
+        data.typeId = orgId
+        data.type = 'ORGANIZATION'
+        const check = await followApi.checkUserFollow(userAuthToken, data)
+        if (check) {
+            setIsFollow(check.data.success)
+        }
+    }
+
     useEffect(() => {
         (async () => {
             setLoading(false)
@@ -299,6 +328,9 @@ export default function OrganizationDetailsController() {
                     await getOrganizationList()
                     await getPurchasedItems(orgdata._id)
                     await getDonationList(orgdata._id)
+                    if (userAuthToken) {
+                        await checkUserFollow(orgdata._id)
+                    }
 
                 } else {
                     navigate('/')
@@ -310,10 +342,32 @@ export default function OrganizationDetailsController() {
 
         })()
     }, [params.name, user])
+
+    const followToOrganization = async (e) => {
+        if (userAuthToken) {
+            let data = {}
+            data.organizationId = organizationDetails._id
+            data.typeId = organizationDetails._id
+            data.type = 'ORGANIZATION'
+
+            const follow = await followApi.follow(userAuthToken, data)
+            if (follow && follow.data.success) {
+                await checkUserFollow(organizationDetails._id)
+
+            }
+        } else {
+            ToastAlert({ msg: 'Please Login', msgType: 'error' });
+
+        }
+
+    }
+
+
+
     return (
         <>
             {/* {console.log(user)} */}
-                {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <OrganisationDetail
                 organizationDetails={organizationDetails}
                 projectList={projectList}
@@ -328,6 +382,9 @@ export default function OrganizationDetailsController() {
                 selectedValue={selectedValue}
                 setSelectedValue={setSelectedValue}
                 donationList={donationList}
+                followToOrganization={followToOrganization}
+                isFollow={isFollow}
+                dCardIcon={dCardIcon}
             />
 
         </>

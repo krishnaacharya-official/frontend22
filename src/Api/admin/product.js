@@ -22,6 +22,7 @@ function product() {
         }
         data.append('unlimited', cdata.unlimited);
         data.append('organizationCountryId', cdata.organizationCountryId);
+        data.append('media', cdata.media);
 
         data.append('tax', cdata.tax);
         data.append('postTag', cdata.postTag);
@@ -55,6 +56,8 @@ function product() {
         data.append('image', cdata.image);
         data.append('organizationId', cdata.organizationId);
         data.append('price', cdata.price);
+        data.append('displayPrice', cdata.displayPrice);
+
         data.append('description', cdata.description);
         data.append('category_id', cdata.category_id);
         data.append('subcategory_id', cdata.subcategory_id);
@@ -153,6 +156,8 @@ function product() {
         data.append('headline', cdata.headline);
 
         data.append('unlimited', cdata.unlimited);
+        data.append('media', cdata.media);
+
         data.append('tax', cdata.tax);
         data.append('postTag', cdata.postTag);
 
@@ -188,6 +193,7 @@ function product() {
         }
         data.append('organizationId', cdata.organizationId);
         data.append('price', cdata.price);
+        data.append('displayPrice', cdata.displayPrice);
         data.append('description', cdata.description);
         data.append('categoryId', cdata.category_id);
         data.append('subcategoryId', cdata.subcategory_id);
@@ -289,6 +295,67 @@ function product() {
     }
 
 
+    const deleteProductImages = async (authToken, id) => {
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}product/image/${id}`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+    const fulfilOrder = async (authToken, cdata) => {
+
+        const data = new FormData();
+        if (cdata.moreImg && cdata.moreImg.length > 0) {
+            for (let i = 0; i < cdata.moreImg.length; i++) {
+                data.append('moreImg', cdata.moreImg[i]);
+            }
+        }
+        data.append('image', cdata.image);
+        data.append('organizationId', cdata.organizationId);
+        data.append('productId', cdata.productId);
+        if (cdata.video) {
+            data.append('video', cdata.video);
+        }
+        data.append('organizationCountryId', cdata.organizationCountryId);
+
+        let res = {};
+        await axios({
+            method: 'Post',
+            url: `${helper.ApiUrl}product/fulfil`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
+
+
     return {
         add,
         list,
@@ -296,7 +363,9 @@ function product() {
         updateProduct,
         listByOrganization,
         publishProduct,
-        productDetailsById
+        productDetailsById,
+        deleteProductImages,
+        fulfilOrder
 
 
 

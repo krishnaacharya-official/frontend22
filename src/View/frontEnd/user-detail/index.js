@@ -22,6 +22,7 @@ import helper, { ImageExist } from "../../../Common/Helper"
 // import { UserContext } from '../../../App';
 import noimg from "../../../assets/images/noimg.jpg"
 import { useSelector, useDispatch } from "react-redux";
+import NoFooter from "../Component/templates/no-footer";
 
 
 

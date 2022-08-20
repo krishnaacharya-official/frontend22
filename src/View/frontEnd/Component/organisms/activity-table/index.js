@@ -63,7 +63,7 @@ const ActivityTable = (props) => {
                         </div>
                         <div className="position-relative d-flex">
                           <Avatar
-                            size={62}
+                            size={52}
                             avatarUrl={list.userDetails?.image ? helper.DonorImagePath + list.userDetails?.image : AvatarImg}
                             border={0}
                             shadow={false}

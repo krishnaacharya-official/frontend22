@@ -82,8 +82,10 @@ const AddPost = (props) => {
   let stateData = props.stateData
   const user = useSelector((state) => state.user);
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng
+    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, media, displayPrice
   } = props.stateData;
+
+  // console.log(displayPrice)
 
   let submitProductForm = props.submitProductForm
   let changevalue = props.changevalue
@@ -272,7 +274,7 @@ const AddPost = (props) => {
 
 
                   <div className="post-location-wrap">
-                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                    <div className="px-3 py-20p bg-lighter rounded-3 my-20p">
                       <div className="d-flex align-items-center">
                         <div className="icon-wrap mr-20p">
 
@@ -391,7 +393,7 @@ const AddPost = (props) => {
                       <div className="price-group-wrap d-flex align-items-center gap-2 mb-3">
                         <div className="form-group">
                           <label htmlFor="priceInput" className="form__label">
-                            Price
+                            Unit Price
                           </label>
                           <input
                             type="text"
@@ -402,6 +404,21 @@ const AddPost = (props) => {
                           />
 
                           {error && error.price && <p className="error">{error ? error.price ? error.price : "" : ""}</p>}
+                        </div>
+
+                        <div className="form-group">
+                          <label htmlFor="priceInput" className="form__label">
+                            Display Price
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="$0"
+                            className="form-control form-control-lg"
+                            disabled
+                            // id="priceInput"
+                            name='displayprice' id="displayprice" value={displayPrice}
+                          />
+
                         </div>
                         <div className="form-group quantity-from-group">
                           <label
@@ -420,7 +437,7 @@ const AddPost = (props) => {
                           {error && error.quantity && <p className="error">{error ? error.quantity ? error.quantity : "" : ""}</p>}
                         </div>
                         <div className="form-group unlimited-switch-wrap">
-                          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p text-white">
+                          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p mb-2 text-white">
                             Unlimited
                             <FontAwesomeIcon
                               icon={solid("infinity")}
@@ -429,12 +446,20 @@ const AddPost = (props) => {
                           </div>
                           <ToggleSwitch id="unlimited" checked={unlimited} name="unlimited" changevalue={changevalue} />
                         </div>
+
+
+                      </div>
+                      <div className="note note--info mb-3">
+
+                        <span className="text-dark">
+                          Enter the unit price before taxes. Your <span style={{ color: "#3a94d4" }}>regional sales tax</span> will be automatically applied to the price of the item.
+                        </span>
                       </div>
                       <div className="keyword-tags-wrap">
                         <div className="form-group">
                           <label
                             htmlFor="keywordsInput"
-                            className="form__label"
+                            className="form__label pb-3"
                           >
                             <FontAwesomeIcon
                               icon={solid("magnifying-glass")}
@@ -506,15 +531,15 @@ const AddPost = (props) => {
                               <ToggleSwitch id="postTag" checked={postTag} name="postTag" changevalue={changevalue} />
                             </div>
                           </div>
-                          {/* <div className="d-flex align-items-center image__switch-wrap">
+                          <div className="d-flex align-items-center image__switch-wrap">
                             <FontAwesomeIcon
                               className="fs-3 text-info"
                               icon={solid("image")}
                             />
                             <div className="d-flex py-12p px-18p">
-                              <ToggleSwitch />
+                              <ToggleSwitch checked={media} name="media" changevalue={changevalue} />
                             </div>
-                          </div> */}
+                          </div>
                         </div>
                         <div className="post-type-note p-18p bg-lighter rounded-3 text-light mb-4">
                           Will you be uploading media after you have purchased
@@ -678,14 +703,25 @@ const AddPost = (props) => {
                               })
 
                               :
-                              moreImages?.length ?
-                                moreImages.map((img, key) => {
-                                  return (
-                                    <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                  )
+                              <></>
+                            }
+                            {moreImages?.length ?
+                              moreImages.map((img, key) => {
+                                // console.log(img)
+                                return (
+                                  <>
+                                    {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                    <span> X</span> */}
 
-                                })
-                                : ""
+                                    <div className="img-wrap">
+                                      <span className="close" onClick={() => props.deleteProductImage(img.id, 'More')}>&times;</span>
+                                      <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
+                                    </div>
+                                  </>
+                                )
+
+                              })
+                              : ""
 
                             }
 
@@ -866,7 +902,7 @@ const AddPost = (props) => {
                           </label>
                         </div>
 
-                        <div className='grid mt-3 mb-3' style={{ display: "" }}>
+                        <div className='grid mt-3 mb-3' style={{ display: "grid" }}>
                           {gallaryTempImages?.length ?
                             gallaryTempImages.map((img, key) => {
                               return (
@@ -876,14 +912,24 @@ const AddPost = (props) => {
                             })
 
                             :
-                            gallaryImages?.length ?
-                              gallaryImages.map((img, key) => {
-                                return (
-                                  <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                )
+                            <></>
+                          }
+                          {gallaryImages?.length ?
+                            gallaryImages.map((img, key) => {
+                              return (
+                                <>
 
-                              })
-                              : ""
+                                  {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> */}
+
+                                  <div className="img-wrap">
+                                    <span className="close" onClick={() => props.deleteProductImage(img.id, 'Gallary')} style={{ right: "7px" }}>&times;</span>
+                                    <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
+                                  </div>
+                                </>
+                              )
+
+                            })
+                            : ""
 
                           }
 
@@ -974,7 +1020,7 @@ const AddPost = (props) => {
               the post will be closed.
             </label>
           </div>
-          
+
         </div>
         {error && error.policy && <p className='error'>{error ? error.policy ? error.policy : "" : ""}</p>}
 

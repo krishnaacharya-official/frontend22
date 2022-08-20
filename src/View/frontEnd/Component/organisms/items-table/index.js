@@ -63,7 +63,9 @@ const ItemsTable = (props) => {
             orderItemList.map((item, key) => {
               // console.log(item)
               // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
-              let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
+              // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
+              let price =item.itemDetails.displayPrice ? item.itemDetails.displayPrice : item.itemDetails.price 
+
 
               return (
                 <li className="table__list-item p-2" key={key} >
@@ -99,7 +101,7 @@ const ItemsTable = (props) => {
                               <></>
                           }
                           <ProgressBar
-                            variant={!item.itemDetails?.unlimited ? "success" : "info"}
+                            variant={!item.itemDetails?.unlimited ? "success" : "infinity"}
                             now={!item.itemDetails?.unlimited ? Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100) : 100}
                             className="flex-grow-1"
                           />

@@ -87,6 +87,8 @@ const OrganisationDetail = (props) => {
               donate={props.donate}
               selectedValue={props.selectedValue}
               setSelectedValue={props.setSelectedValue}
+              dCardIcon={props.dCardIcon}
+
 
 
             />
@@ -98,12 +100,13 @@ const OrganisationDetail = (props) => {
       <Container fluid className="py-5">
         <Row>
           <Col md="7" className="mb-4">
-            <OrganisationDetailMain organizationDetails={organizationDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
+                
+            <OrganisationDetailMain followToOrganization={props.followToOrganization} organizationDetails={organizationDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} isFollow={props.isFollow}  />
           </Col>
           <Col md="5">
-            <div className="mb-4">
+           {/*}  <div className="mb-4">
               <OrganisationTeamWidget />
-            </div>
+          </div>*/}
             <History list={props.purchasedItemList} donationList={props.donationList} />
           </Col>
         </Row>

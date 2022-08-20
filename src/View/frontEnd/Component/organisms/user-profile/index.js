@@ -16,7 +16,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserLanguage, setProfileImage, setUserCountry, setUserState, setLogout } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice,setUserCountrySort, setUserLanguage, setProfileImage, setUserCountry, setUserState, setLogout } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
 import cartApi from "../../../../../Api/frontEnd/cart";
 // import { useSelector, useDispatch } from "react-redux";
@@ -442,15 +442,15 @@ const UserProfile = () => {
         } else {
           await clearCart()
           // console.log(country,country)
-          // dispatch(setUserCountry(country))
+          dispatch(setUserCountry(country))
 
           let temp = countryCurrency.find(x => x.id === country)
 
           let UsercountryObj = {}
           UsercountryObj.currency = temp?.label
           UsercountryObj.currencySymbol = temp?.icon
-          // dispatch(setCurrency(UsercountryObj))
-          // dispatch(setUserState(stateId))
+          dispatch(setCurrency(UsercountryObj))
+          dispatch(setUserState(stateId))
 
 
           // let currencyData = {}
@@ -638,7 +638,7 @@ const UserProfile = () => {
               name="country"
               options={countryList}
               onChange={onChangeCountry}
-              isDisabled
+              // isDisabled
             />
             <span className="input__span">Country</span>
           </label>

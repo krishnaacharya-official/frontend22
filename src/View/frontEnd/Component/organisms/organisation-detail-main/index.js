@@ -55,7 +55,9 @@ function OrganisationDetailMain(props) {
             <IconToggle
               icon={<FontAwesomeIcon icon={regular("bell")} />}
               checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
-              ischecked={true}
+              ischecked={props.isFollow}
+              name='organization'
+              onClickFilter={(e)=>props.followToOrganization(e)}
             />
 
             <ShareWidget />
@@ -90,17 +92,17 @@ function OrganisationDetailMain(props) {
                 src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c38e4fd28a71363f4ac5d_Tree-Frog-Logo-Mock.png"
               />
             </span>
-          </Button> */}
+          </Button> 
           <Button
             size="lg"
             variant="secondary"
             className=" text-decoration-none"
           >
             <span className="fs-6" style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
-          </Button>
+          </Button>*/}
         </div>
 
-        <h4>{organizationDetails?.headline}</h4>
+        <h4 className="page__blurb">{organizationDetails?.headline}</h4>
         <div className="page__paragraph">
           {organizationDetails?.description}
         </div>

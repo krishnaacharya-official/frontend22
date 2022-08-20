@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button, ProgressBar } from "react-bootstrap";
+import { Button, ProgressBar,Card } from "react-bootstrap";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -16,14 +16,21 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import "./style.scss";
+//import { TagTitle,WidgetTitle } from "../../atoms";
+// import WidgetTitle from "../../atoms";
 
 function ProjectDetailMain(props) {
   let productDetails = props.productDetails
   const getCalc = getCalculatedPrice();
-  let price = getCalc.getData(productDetails?.price)
+  // let price = getCalc.getData(productDetails?.price)
+  let price = productDetails?.displayPrice ? productDetails?.displayPrice : productDetails?.price
+
   let currencySymbol = getCalc.currencySymbol()
 
   let per = productDetails.soldout / productDetails.quantity * 100
+
+  let fullAddress = productDetails?.address?.split(',')
+  let address = productDetails?.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
 
   const [quantity, setQuantity] = useState(1)
 
@@ -64,8 +71,8 @@ function ProjectDetailMain(props) {
     <Button
       variant="success"
       size="lg"
-      className="icon icon__pro"
-
+      className="icon icon__pro fw-semibold"
+      style={{width: "250px"}}
     >
       Added In cart &nbsp;
       <FontAwesomeIcon icon={solid("circle-check")} />
@@ -74,13 +81,14 @@ function ProjectDetailMain(props) {
     <Button
       variant="primary"
       size="lg"
-      className="icon icon__pro"
+      className="btn--addtocart fw-semibold"
+      style={{minWidth: "250px"}}
       onClick={() => {
         props.addToCart(productDetails._id, quantity)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
-      Add to cart ( {quantity} )
+      Add to cart ({quantity})
     </Button>
   );
   const btn =
@@ -96,9 +104,9 @@ function ProjectDetailMain(props) {
     <div className="project__detail-main">
       <h4 className="project__detail-label mb-3p">Item</h4>
       <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
-      <h5 className="project__detail-sublabel">Product</h5>
+      <h5 className="project__detail-sublabel mb-0">Product</h5>
       <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
-      <div className="project__detail-price fs-2 text-success">{currencySymbol} {priceFormat(price)}</div>
+      <div className="project__detail-price fs-2 text-price">{currencySymbol}{priceFormat(price)}</div>
       <div className="project__detail-meta d-flex align-items-center">
         <div className="d-flex align-items-center">
           <FontAwesomeIcon icon={regular("clock")} className="me-1" />
@@ -112,7 +120,7 @@ function ProjectDetailMain(props) {
               icon={regular("circle-location-arrow")}
               className="me-1"
             />
-            {productDetails?.address}
+            {address}
           </div>
         }
       </div>
@@ -123,20 +131,22 @@ function ProjectDetailMain(props) {
         <img
           className="img-fluid"
           alt=""
-          src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c26551110ec14dd05ef15_image%20(1).png"
+          src={helper.CampaignProductFullImagePath + productDetails?.image}
         />
       </div>
       <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="page__bar d-flex align-items-center flex-grow-1">
+        <div className="page__bar d-flex align-items-center">
           <ProgressBar
-            variant={unlimited ? 'infinity' : 'success'}
-            now={productDetails.unlimited ?100 : per}
+            style={{width: "180px"}}
+            variant={productDetails.
+              unlimited ? 'infinity' : 'success'}
+            now={productDetails.unlimited ? 100 : per}
             className="page__progress flex-grow-1 me-1"
           />
           {productDetails.
             unlimited
             ? (
-              <span className="tag tag__ongoing tag__rounded fs-5">
+              <span className="tag tag__ongoing tag__rounded fs-9">
                 <FontAwesomeIcon icon={regular("infinity")} />
               </span>
             ) : (
@@ -145,7 +155,7 @@ function ProjectDetailMain(props) {
               </span>
             )}
         </div>
-        <div className="text-light d-flex align-items-center ms-3">
+        <div className="text-light d-flex align-items-center ms-3 gap-1">
           <IconToggle
             activeColor="rgb(246, 100, 97)"
             icon={<FontAwesomeIcon icon={regular("heart")} />}
@@ -158,7 +168,9 @@ function ProjectDetailMain(props) {
           <IconToggle
             icon={<FontAwesomeIcon icon={regular("bell")} />}
             checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
-            onClickFilter={() => { }}
+            onClickFilter={(e) => props.followToProduct(e)}
+            name='Product'
+            ischecked={props.isFollow}
           />
 
           <ShareWidget />
@@ -208,9 +220,9 @@ function ProjectDetailMain(props) {
             />
           </span>
         </Button> */}
-        <Button size="lg" variant="success" className=" text-decoration-none">
+       {/* <Button size="lg" variant="success" className=" text-decoration-none">
           <span className="fs-6">Shelter</span>
-        </Button>
+        </Button>*/}
       </div>
       {
         productDetails.galleryUrl && isIframe(productDetails.galleryUrl) &&
@@ -222,77 +234,138 @@ function ProjectDetailMain(props) {
       }
 
 
-      <h4>{productDetails.needheadline}</h4>
+      <h4 className="page__blurb">{productDetails.needheadline}</h4>
       <div className="page__paragraph">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
-      <div className="project__calculate mt-4">
-        <div className="sub__total">
-          <div className="text-dark fw-bold me-2">Subtotal:</div>
-          <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
-        </div>
-        <div className="d-flex align-items-center fs-5 py-1 mb-3">
-          <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
-          <div className="flex-grow-1 mx-2">
-            <Slider
-              handleStyle={{
-                width: "26px",
-                height: "26px",
-                border: "none",
-                background: "#3596F3",
-                marginTop: "-10px",
-                opacity: 1,
-              }}
-              min={1}
-              max={maxQuentity}
-              railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
-              onChange={(e) => setQuantity(e)}
-            />
+      {
+        productDetails.isFulfiled ?
+          <>
+            <div className="note note-info d-flex align-items-center mt-5">
+              <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                <FontAwesomeIcon icon={solid("circle-check")} />
+              </span>
+              <span className="fs-6 text-subtext">
+                This item has been fully funded.
+              </span>
+            </div>
+            {
+              productDetails.fulfiledproductsDetails.video && isIframe(productDetails.fulfiledproductsDetails.video) &&
+
+              <div className="note note-info align-items-center mt-5">
+
+                <Card.Header className="post__accordion-header pb-3">
+
+                  <span className="fs-3 fw-bolder text-dark">Followup</span>
+
+                </Card.Header>
+
+
+                <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: productDetails.fulfiledproductsDetails.video }} >
+
+                </div>
+              </div>
+            }
+          </>
+          :
+          <div className="project__calculate mt-4">
+            <div className="sub__total">
+              <div className="text-dark fw-bold me-2">Subtotal:</div>
+              <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
+            </div>
+            <div className="d-flex align-items-center fs-5 py-1 mb-3">
+              <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
+              <div className="flex-grow-1 mx-2">
+                <Slider
+                  handleStyle={{
+                    width: "26px",
+                    height: "26px",
+                    border: "none",
+                    background: "#3596F3",
+                    marginTop: "-10px",
+                    opacity: 1,
+                  }}
+                  min={1}
+                  max={maxQuentity}
+                  railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
+                  onChange={(e) => setQuantity(e)}
+                />
+              </div>
+              <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
+            </div>
+
+            {/* <Button size="lg" className="w-100">
+            <span className="fw-bold">Add to cart ( {quantity} )</span>
+          </Button> */}
+
+            {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
+            {!CampaignAdminAuthToken && btn}
           </div>
-          <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
-        </div>
 
-        {/* <Button size="lg" className="w-100">
-          <span className="fw-bold">Add to cart ( {quantity} )</span>
-        </Button> */}
+      }
 
-        {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
-        {!CampaignAdminAuthToken && btn}
-      </div>
 
-      <div className="product__badge mt-5">
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon
-              icon={solid("infinity")}
-              className="fs-4 text-info pt-12p pb-12p"
-            />
-          }
-        >
-          Item is ongoing - there is no fixed quantity.
-        </IconText>
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon
-              icon={solid("calculator-simple")}
-              className="fs-4 text-info"
-            />
-          }
-        >
-          Item was already purchased by the organization. Your purchase will
-          cover those costs.
-        </IconText>
-        <IconText
-          className="pt-12p pb-12p"
-          icon={
-            <FontAwesomeIcon icon={solid("image")} className="fs-4 text-info" />
-          }
-        >
-          These items are tax deductible.
-        </IconText>
+
+      <div className="product__badge mt-5 text-light">
+      {
+          productDetails.postTag &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("tag")}
+                className="fs-3 text-info pt-12p pb-12p"
+              />
+            }
+          >
+            Item was already purchased by the organization. Your purchase will cover those costs.
+          </IconText>
+        }
+        {
+          productDetails.unlimited &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("infinity")}
+                className="fs-3 text-info pt-12p pb-12p"
+              />
+            }
+          >
+            Item is ongoing - there is no fixed quantity.
+          </IconText>
+        }
+
+        {
+          productDetails.tax &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon
+                icon={solid("calculator-simple")}
+                className="fs-3 text-info"
+              />
+            }
+          >
+            These items are tax deductible.
+          </IconText>
+        }
+        {
+          productDetails.media &&
+
+          <IconText
+            className="pt-12p pb-12p"
+            icon={
+              <FontAwesomeIcon icon={solid("image")} className="fs-3 text-info" />
+            }
+          >
+            The organization has indicated that they will upload follow-up media from their purchase.
+          </IconText>
+        }
         {
           productDetails?.advertisements?.length > 0 &&
 
@@ -300,7 +373,7 @@ function ProjectDetailMain(props) {
             className="pt-12p pb-12p"
             icon={
               // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
-              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-4 text-info" />
+              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-3 text-info" />
             }
           >
             {
@@ -315,7 +388,6 @@ function ProjectDetailMain(props) {
           </IconText>
         }
       </div>
-
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div >
   );

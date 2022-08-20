@@ -5,7 +5,12 @@
   font-size: 24px;
   align-items: center;
   justify-content: center;
-
+  min-width: 68px;
+  max-width: 68px;
+  height: 68px;
+  min-height: 68px;
+  border-radius: 9px;
+  border: 1px solid #e6e6e6;
   img {
     display: flex;
     max-width: 65%;

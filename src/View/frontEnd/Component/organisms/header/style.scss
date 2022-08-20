@@ -1,5 +1,6 @@
 .frontend_pages {
   .main-header {
+    min-height: 80px;
     background: #fff;
     border-bottom: 1px solid $border-color;
     padding: 20px 0;
@@ -9,7 +10,7 @@
     z-index: 100;
 
     .header__right {
-      gap: 8px;
+      gap: 12px;
     }
 
     .icon__btn {

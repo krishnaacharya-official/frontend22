@@ -214,7 +214,7 @@ export default function AddProductForm(props) {
                                     resetSearch={false} />
 
                                 <div className="post-location-wrap">
-                                    <div className="px-3 py-20p bg-lighter rounded-3 mb-20p">
+                                    <div className="px-3 py-20p bg-lighter rounded-3 my-20p">
                                         <div className="d-flex align-items-center">
                                             <div className="icon-wrap mr-20p">
 
@@ -541,7 +541,7 @@ export default function AddProductForm(props) {
                             {
 
                                 stateData.galleryUrl && isIframe(stateData.galleryUrl) &&
-                                <div className="project-video-wrap mb-4 mt-4" style={{ height: "200px", width: "500px" }} dangerouslySetInnerHTML={{ __html: stateData.galleryUrl }} >
+                                <div className="project-video-wrap mb-4 mt-4" dangerouslySetInnerHTML={{ __html: stateData.galleryUrl }} >
 
                                 </div>
                                 // <iframe className='mt-4' width="400" height="200" title="myFrame" src={embedlink} frameBorder="0" allowFullScreen=""></iframe>

@@ -9,24 +9,59 @@ import moment from "moment";
 
 function ActivityItem(props) {
 
+  // const countProjectProcess = (data) => {
+  //   // console.log(data)
+  //   let totalQArray = []
+  //   let soldOutQArray = []
+  //   let per = 0
+
+  //   if (data.length > 0) {
+  //     data.map((p, i) => {
+  //       // console.log(p.itemDetails)
+  //       totalQArray.push(Number(p.itemDetails.quantity))
+  //       soldOutQArray.push(Number(p.itemDetails.soldout))
+  //     })
+
+  //     const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+  //     per = soldout / total * 100
+  //   } else {
+  //     per = 0;
+
+  //   }
+  //   return Math.round(per);
+
+  // }
   const countProjectProcess = (data) => {
     // console.log(data)
     let totalQArray = []
     let soldOutQArray = []
     let per = 0
 
-    if (data.length > 0) {
+    if (data?.length > 0) {
       data.map((p, i) => {
         // console.log(p.itemDetails)
-        totalQArray.push(Number(p.itemDetails.quantity))
-        soldOutQArray.push(Number(p.itemDetails.soldout))
+        if (!p.itemDetails.unlimited) {
+          totalQArray.push(Number(p.itemDetails.quantity))
+          soldOutQArray.push(Number(p.itemDetails.soldout))
+        }
+
       })
+
+
 
       const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
       const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+      if (soldout === 0 || total === 0) {
+        per = 0
+      } else {
+        per = Number(soldout) / Number(total) * 100
+      }
 
 
-      per = soldout / total * 100
+
     } else {
       per = 0;
 
@@ -34,7 +69,6 @@ function ActivityItem(props) {
     return Math.round(per);
 
   }
-
 
   const [active, setActive] = useState(false);
   let notification = props.notification
@@ -46,7 +80,12 @@ function ActivityItem(props) {
   // let watched = notification.watched
   let watched = notification?.userNotificationDetails?.watched ? notification?.userNotificationDetails?.watched : false
 
-  let date = notification.type === 'PRODUCT' ? notification?.productDetails?.created_at : notification?.projectDetails?.created_at
+  let date = notification.created_at
+
+  let info = notification.info
+
+
+  let orgLogo = helper.CampaignAdminLogoPath + notification?.campaignadminDetails?.logo
 
 
 
@@ -70,13 +109,27 @@ function ActivityItem(props) {
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={image} />
+        <ListItemImg imgSrc={info ? orgLogo : image} />
         <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">
-            <div className="ad__activity__name">{name}</div>
-            <div className="ad__activity__sub-name">{organizationName}</div>
             {
-              notification.type === 'PROJECT' &&
+              info ?
+                <div className="ad__activity__name">{organizationName}</div>
+                :
+                <div className="ad__activity__name">{name}</div>
+            }
+            {/* <div className="ad__activity__name">{name}</div> */}
+            {
+              info ?
+                <div className="ad__activity__sub-name">{info}</div>
+                :
+                <div className="ad__activity__sub-name">{organizationName}</div>
+
+
+            }
+
+            {
+              notification.type === 'PROJECT' && !info &&
               <div className="ad__activity__title fs-7">{countProjectProcess(notification.productDetails)}% Funded</div>
 
             }
@@ -98,7 +151,7 @@ function ActivityItem(props) {
         </div>
       </div>
       <div className="ad__activity__remove ms-auto">
-        <Button variant="link" className="btn__link-light text-decoration-none" onClick={()=>props.removeNotification(notification._id)}>
+        <Button variant="link" className="btn__link-light text-decoration-none" onClick={() => props.removeNotification(notification._id)}>
           <FontAwesomeIcon icon={solid("xmark")} />
         </Button>
       </div>

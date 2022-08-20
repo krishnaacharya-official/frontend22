@@ -18,7 +18,8 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
-import { Link ,Outlet, useOutletContext } from 'react-router-dom';
+import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { DataArraySharp } from "@mui/icons-material";
 
 
 const PaymentMethod = () => {
@@ -78,9 +79,12 @@ const PaymentMethod = () => {
     identityDocumentImage: "",
     status: 1,
     error: [],
+    taxRate: '',
+    paymentLoginId: '',
+    transectionKey: ''
   })
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber,
+    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate, paymentLoginId, transectionKey
   } = state;
 
   useEffect(() => {
@@ -113,6 +117,22 @@ const PaymentMethod = () => {
     }
 
   }, [countryList])
+
+  useEffect(() => {
+    (async () => {
+      // console.log(data._id)
+      setstate({
+        ...state,
+        taxRate: data.taxRate,
+        paymentLoginId: data.paymentLoginId,
+        transectionKey: data.transectionKey,
+
+
+      })
+
+
+    })()
+  }, [data])
 
 
   const getCountryList = async () => {
@@ -619,6 +639,84 @@ const PaymentMethod = () => {
 
   }
 
+  const onChangeTaxRate = (e) => {
+    let value = e.target.value
+
+    if (e.target.name === 'taxRate') {
+      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+    }
+
+    setstate({
+      ...state,
+      [e.target.name]: value
+    })
+  }
+
+  function myFunction(field) {
+    let rule = {}
+    rule[field] = 'required'
+
+    // const rules = {
+    //   taxRate: 'required',
+
+    // }
+    const rules = rule
+    const message = {
+      'taxRate.required': 'Tax Rate is Required.',
+      'paymentLoginId.required': 'Api Login Id is Required.',
+      'transectionKey.required': 'Transection Key is Required.',
+
+    }
+    validateAll(state, rules, message).then(async () => {
+      const formaerrror = {};
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+      let fdata = {}
+      fdata.field = field
+      if(field === 'taxRate'){
+        fdata.value = Number(taxRate)
+      }
+
+      if(field === 'paymentLoginId'){
+        fdata.value = paymentLoginId
+      }
+
+      if(field === 'transectionKey'){
+        fdata.value = transectionKey
+      }
+
+      // console.log('first')
+      const updateSalesTax = await adminCampaignApi.updateSalesTax(token, fdata)
+      if (updateSalesTax && updateSalesTax.data.success) {
+        // ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+
+      }
+
+    }).catch(errors => {
+      // console.log(errors)
+      setLoading(false)
+      const formaerrror = {};
+      if (errors && errors.length) {
+        errors.forEach(element => {
+          formaerrror[element.field] = element.message
+        });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+      }
+
+      setstate({
+        ...state,
+        error: formaerrror
+      })
+
+    });
+
+  }
+
 
   return (
     <>
@@ -635,8 +733,8 @@ const PaymentMethod = () => {
             <div className="linked__item d-flex align-items-center p-1 border">
               <div className="accounts__icon">
                 <ListItemImg
-                  size={75}
-                  className="bg-white"
+                  size={45}
+                  className="bg-white border-0"
                   imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
                 />
               </div>
@@ -653,8 +751,8 @@ const PaymentMethod = () => {
             <div className="linked__item d-flex align-items-center p-1 border">
               <div className="accounts__icon">
                 <ListItemImg
-                  size={75}
-                  className="rounded-circle"
+                  size={45}
+                  className="rounded-circle border-0"
                   imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e7b0e93af1ec003cd9a58_paypal-seeklogo.com.svg"
                 />
               </div>
@@ -678,7 +776,33 @@ const PaymentMethod = () => {
           </div>
         </div>
 
-        <div className="mb-5">
+
+        <h4 className="fw-bolder">Tax Rate</h4>
+        <div className="text-subtext mb-3">
+          What is your regional sales tax?
+        </div>
+
+
+        <div className="input__wrap mb-3">
+          <label className="input__label flex__1">
+            <input type="text" name="taxRate" value={taxRate} className={state.error && state.error.taxRate ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
+              // onFocu={()=>alert('okk')} 
+              onBlur={() => myFunction('taxRate')}
+            />
+            <span className="input__span">Ex: HST/ON 13%</span>
+          </label>
+          {state.error && state.error.taxRate && <p className="error">{state.error.taxRate}</p>}
+        </div>
+
+
+
+        <div className="note text-dark mb-5">
+          The tax rate will be automatically added to the unit price of items you post to make sure you enough funds to cover the sales tax when you purchase the items.
+
+        </div>
+
+
+        {/* <div className="mb-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>
           <div className="d-flex align-items-center mb-3">
             <span className="text-subtext flex__1">
@@ -709,7 +833,7 @@ const PaymentMethod = () => {
               defaultTypeOfBusiness={defaultTypeOfBusiness}
               setDefaultTypeOfBusiness={setDefaultTypeOfBusiness}
               defaultHomeCountry={defaultHomeCountry}
-            // setLoading={setLoading}
+
             />
           </div>
 
@@ -731,8 +855,7 @@ const PaymentMethod = () => {
                     </div>
                     <div className=" flex__1 mx-2 text-break">
                       <div className="accounts__email fw-bold">{list.accountNumber}</div>
-                      {/* <div className="fs-7 mb-3p">TD Bank</div> */}
-                      {/* <div className="fs-7 text-subtext">11456 - 009</div> */}
+       
                     </div>
 
                     <div className="flex__1">
@@ -765,9 +888,56 @@ const PaymentMethod = () => {
             fully funded or you receive donations from users (both one-time &
             recurring).
           </div>
-        </div>
+        </div> */}
+
 
         <div className="mb-5">
+          <h4 className="fw-bolder">Direct Deposit Accounts</h4>(Authorize.Net)
+
+
+          <div className="input__wrap mb-3 mt-3">
+            <label className="input__label flex__1">
+              <input type="text" placeholder="EX : 66GdU46mhuFQ" name="paymentLoginId" value={paymentLoginId} className={state.error && state.error.paymentLoginId ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
+              // onFocu={()=>alert('okk')} 
+              onBlur={() => myFunction('paymentLoginId')}
+              />
+              <span className="input__span">API LOGIN ID</span>
+            </label>
+            {state.error && state.error.paymentLoginId && <p className="error">{state.error.paymentLoginId}</p>}
+          </div>
+
+
+
+          <div className="input__wrap mb-3">
+            <label className="input__label flex__1">
+              <input type="text" placeholder="EX : 74AZP5Hxr972nPEn" name="transectionKey" value={transectionKey} className={state.error && state.error.transectionKey ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
+              // onFocu={()=>alert('okk')} 
+              onBlur={() => myFunction('transectionKey')}
+              />
+              <span className="input__span">TRANSACTION KEY</span>
+            </label>
+            {state.error && state.error.transectionKey && <p className="error">{state.error.transectionKey}</p>}
+          </div>
+
+
+
+
+
+          <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
+            <FontAwesomeIcon
+              icon={solid("shield-halved")}
+              className="fs-5 text-primary me-2"
+            />
+            This method will be used for deposits from donations / items you post.
+          </div>
+
+          <div className="note text-dark">
+            Funds will be deposited into this account when items you post are
+            fully funded or you receive donations from users (both one-time &
+            recurring).
+          </div>
+        </div>
+        {/*<div className="mb-5">
           <h4 className="fw-bolder">Cryptocurrencyies</h4>
           <div className="text-subtext mb-4">
             Allow your donors to send funds via cryptocurrency. Choose the coins
@@ -816,7 +986,7 @@ const PaymentMethod = () => {
               <ToggleSwitch checked={false} changevalue={() => { }} />
             </li>
           </ul>
-        </div>
+            </div>*/}
       </div>
     </>
   );

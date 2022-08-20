@@ -2,7 +2,9 @@
   color: $gray-700;
   max-width: 500px;
 }
-
+.project__detail-label {
+  font-weight: 900;
+}
 .project__detail-subtitle {
   font-size: 16px;
   font-weight: $font-weight-extra-bold;
@@ -39,10 +41,13 @@
 .category__icons {
   gap: 12px;
 }
-
+.page__blurb {
+  font-weight: 900;
+}
 .page__paragraph {
   color: #6f6f90ad;
   line-height: 1.6;
+  font-size: 16px;
 }
 
 .sub__total {

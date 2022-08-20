@@ -4,8 +4,9 @@ import { Button } from "react-bootstrap";
 import { ListItemImg } from "../../atoms";
 import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { regular,solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import helper,{getCalculatedPrice,priceFormat} from "../../../../../Common/Helper";
+import { Link } from "react-router-dom";
 
 function WishlistItem(props) {
   let item = props.item
@@ -19,7 +20,7 @@ function WishlistItem(props) {
 
         <div className="wishlist__item__main pl-12p">
           <div className="wishlist__item__title pr-12p">
-          <Link variant="link" className="wishlist__item__name" to={'/item/' + product.slug}>
+          <Link variant="link" className="wishlist__item__name" to={'/item/' + item.productDetails.slug}>
           {item.productDetails.headline}
            </Link>
             {/* <div className="wishlist__item__location">Canada</div> */}

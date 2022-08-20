@@ -67,6 +67,13 @@ const AdvertiseSetting = (props) => {
     };
 
 
+    const [categoryValue, setCategoryValue] = useState('1');
+
+    const handleChangeCategory = (event, newValue) => {
+        setCategoryValue(newValue);
+    };
+
+
     return (
         <>
             <Dialog
@@ -120,6 +127,8 @@ const AdvertiseSetting = (props) => {
                             <TabList onChange={handleChange} aria-label="lab API tabs example">
                                 <Tab label="Products" value="1" />
                                 <Tab label="HomePage" value="2" />
+                                <Tab label="Category Page" value="3" />
+
 
 
 
@@ -208,7 +217,7 @@ const AdvertiseSetting = (props) => {
                                                             </div>
 
                                                             <div className="col-sm-3">
-                                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 3.32px', fontWeight: '700' }}>{product.headline}</h6>
+                                                                <h6 style={{ lineHeight: '5rem', color: '#bdc1c8', letterSpacing: ' 2.32px', fontWeight: '700' }}>{product.headline}</h6>
                                                             </div>
 
                                                             <div className="col-sm-3">
@@ -253,7 +262,7 @@ const AdvertiseSetting = (props) => {
                                     <TabList onChange={handleChangeHome} aria-label="lab API tabs example">
                                         <Tab label="All" value="1" />
                                         <Tab label="Country" value="2" />
-                                        <Tab label="Category" value="3" />
+                                        {/* <Tab label="Category" value="3" /> */}
 
 
                                     </TabList>
@@ -296,7 +305,7 @@ const AdvertiseSetting = (props) => {
                                             value={props.defaultCountry}
                                             name="country"
                                             options={countryList}
-                                            onChange={(e) => props.onChangeCountry(e, advertisementDetails._id)}
+                                            onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, 'home')}
                                             placeholder="Select Country"
                                         />
 
@@ -370,10 +379,46 @@ const AdvertiseSetting = (props) => {
 
                                 </TabPanel>
 
-                                <TabPanel value="3">
+
+
+                            </TabContext>
+
+                        </TabPanel>
+
+                        <TabPanel value="3">
+
+                            <TabContext value={categoryValue}>
+                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                    <TabList onChange={handleChangeCategory} aria-label="lab API tabs example">
+                                        <Tab label="Country" value="1" />
+                                        <Tab label="Country & State" value="2" />
+
+
+
+                                    </TabList>
+                                </Box>
+
+                                <TabPanel value="1">
                                     <div style={{ overflow: "auto", height: "450px" }}>
 
-                                        {categoryList.length > 0 &&
+                                        <div className="input__wrap d-flex mb-2">
+
+                                            <Select
+                                                className="basic-single"
+                                                classNamePrefix="select"
+                                                value={props.defaultCountryCategory}
+                                                name="country"
+                                                options={countryList}
+                                                onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, 'category')}
+                                                placeholder="Select Country"
+                                            />
+
+                                        </div>
+
+                                        {
+
+                                            props.categoryCountry &&
+                                            categoryList.length > 0 &&
                                             categoryList.map((category, i) => {
                                                 // console.log(category)
                                                 return (
@@ -417,7 +462,98 @@ const AdvertiseSetting = (props) => {
 
                                 </TabPanel>
 
+                                <TabPanel value="2">
+                                    <div style={{ overflow: "auto", height: "450px" }}>
+
+                                        <div className="input__wrap d-flex mb-2">
+
+                                            <Select
+                                                className="basic-single"
+                                                classNamePrefix="select"
+                                                value={props.defaultStateCountryCategory}
+                                                name="country"
+                                                options={countryList}
+                                                onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, '')}
+                                                placeholder="Select Country"
+                                            />
+
+                                        </div>
+
+                                        {
+                                            props.categoryStateCountry &&
+
+                                            <div className="input__wrap d-flex mb-2">
+
+                                                <Select
+                                                    className="basic-single"
+                                                    classNamePrefix="select"
+                                                    value={props.defaultStateCategory}
+                                                    name="country"
+                                                    options={props.categoryStateList}
+                                                    getOptionLabel={e => (
+                                                        e.state
+                                                    )}
+
+                                                    getOptionValue={e => (
+                                                        e.id
+                                                    )}
+                                                    onChange={(e) => props.onChangeState(e, advertisementDetails._id)}
+                                                    placeholder="Select State"
+                                                />
+
+                                            </div>
+                                        }
+
+                                        {
+
+                                            props.categoryState &&
+                                            categoryList.length > 0 &&
+                                            categoryList.map((category, i) => {
+                                                // console.log(category)
+                                                return (
+                                                    <div className="px-5 pt-3 mt-0 mb-2" key={i}>
+                                                        <div className="row" style={{ height: "5rem", border: "1px solid " + category.color }}>
+
+
+                                                            <div className="col-sm-4">
+                                                                <h6 style={{ lineHeight: '5rem', color: category.color, letterSpacing: ' 3.32px', fontWeight: '700' }}>{category.name}</h6>
+                                                            </div>
+
+                                                            <div className="col-sm-4">
+                                                                <i className={category.iconDetails[0]?.class} style={{ lineHeight: '5rem', fontFamily: "fontAwesome", color: category.color, fontStyle: "normal" }}></i>
+                                                            </div>
+
+
+
+                                                            <div className="col-sm-4">
+                                                                <label className="--switch mt-1" style={{ top: "18%", float: "right" }}>
+                                                                    <input type="checkbox" id="prioritySupport" checked={props.publisedStateCatIds.includes(category._id)} name="BASIC" onChange={() => props.publishOrRemoveAdFromCategoryState(category._id, advertisementDetails._id)} />
+                                                                    <span className="--slider">
+                                                                        <i className="fa fa-check"></i>
+                                                                        <i className="fa fa-times"></i>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                )
+                                            })
+                                        }
+
+
+
+
+
+                                    </div>
+
+                                </TabPanel>
+
+
                             </TabContext>
+
 
                         </TabPanel>
 

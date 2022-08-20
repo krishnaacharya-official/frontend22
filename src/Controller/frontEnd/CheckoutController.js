@@ -25,6 +25,8 @@ export default function CheckoutController() {
 
     const [total, setTotal] = useState(0)
     const [salesTax, setSalesTax] = useState(0);
+    const [stripeTax, setStripeTax] = useState(0);
+
 
     const [xp, setXp] = useState(0)
     const CalculatedPrice = getCalculatedPrice()
@@ -141,11 +143,13 @@ export default function CheckoutController() {
                         // let totalCharge = Number(transectionFee) + Number(platformFee)
 
                         // let price = CalculatedPrice.getData(item.productDetails?.price) 
-                        let price = CalculatedPrice.getData(item.productDetails?.price)
+                        // let price = CalculatedPrice.getData(item.productDetails?.price)
+                        let price = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price
+
                         // console.log('first',price)
 
                         tempPriceArray.push(price * item.quantity)
-                        tempProductPriceArray.push(item.productDetails?.price * item.quantity)
+                        tempProductPriceArray.push(price * item.quantity)
 
                     })
 
@@ -158,8 +162,14 @@ export default function CheckoutController() {
                     setXp(xpSum * xpForeEachItem)
                     setSubtotalWithTax(sumSubTotal)
                     let salesTax = CalculatedPrice.calculateSalesTax(sum)
-                    setSalesTax(salesTax)
-                    setTotal(sum + salesTax)
+                    // setSalesTax(salesTax)
+                    setTotal(CalculatedPrice.priceWithTax(sum));
+                    setStripeTax(CalculatedPrice.getTaxValueOfPrice(sum))
+
+                    // setTotal(sum + salesTax)
+
+                    // setTotal(sum)
+
                     setSubTotal(sum)
                 } else {
                     navigate('/')
@@ -262,11 +272,14 @@ export default function CheckoutController() {
                             tempObj.soldOut = item.productDetails.soldout
                             tempObj.productName = item.productDetails.headline
                             tempObj.productImage = item.productDetails.image
-                            tempObj.productPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price)
+                            // tempObj.productPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price)
+                            tempObj.productPrice = item.productDetails.displayPrice ? item.productDetails.displayPrice : item.productDetails.price
                             tempObj.tax = item.productDetails.tax
                             tempObj.unlimited = item.productDetails.unlimited
                             tempObj.postTag = item.productDetails.postTag
-                            tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
+                            // tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
+                            tempObj.totalPrice = item.productDetails.displayPrice ? item.productDetails.displayPrice : item.productDetails.price * item.quantity
+
                             tempObj.organizationId = item.productDetails.organizationId
                             tempObj.organizationCountryId = item.productDetails?.organizationDetails?.country_id
                             tempObj.productXp = item.quantity * Number(xpForeEachItem)
@@ -291,7 +304,7 @@ export default function CheckoutController() {
                     orderDetails.products = productDetails
                     orderDetails.xpToadd = xp
                     orderDetails.salesTaxPer = user.salesTax
-                    orderDetails.salesTax = salesTax
+                    orderDetails.salesTax = stripeTax
 
 
                     if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -378,7 +391,7 @@ export default function CheckoutController() {
     return (
         <>
             {/* {console.log(cartItem)} */}
-                {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <Checkout
                 cartItem={cartItem}
                 total={total}
@@ -393,6 +406,7 @@ export default function CheckoutController() {
                 subtotal={subtotal}
                 salesTaxPer={user.salesTax}
                 transectionFee={user.transectionFee}
+                stripeTax={stripeTax}
             // pricingFees={pricingFees}
 
             />

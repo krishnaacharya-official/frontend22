@@ -72,7 +72,7 @@ $border-radius-lg: 4px;
 
 $primary: #6b68f8;
 $secondary: #5fc996;
-$success: #45bb82;
+$success: #5fc996;
 $warning: #f8b22f;
 $danger: #f15e5e;
 $info: #3898ec;
@@ -92,11 +92,12 @@ $theme-colors: (
   "danger": $danger,
   "light": $light,
   "dark": $dark,
+  "infinity": $infinity,
   "ldanger": #fd7a7a,
 ) !default;
 
 $progress-height: 0.75rem;
-$progress-border-radius: 4px;
+$progress-border-radius: 35px;
 
 $font-weight-normal: 400;
 $font-weight-medium: 500;
@@ -214,3 +215,7 @@ $modal-xl:                          1140px !default;
 
 $modal-content-border-width:        0;
 $modal-content-border-radius:       8px;
+
+
+$font-weight-semi-bold: 600;
+$font-weight-semibold: 600;

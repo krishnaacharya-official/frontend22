@@ -8,16 +8,21 @@ import Logo from "../Component/atoms/logo";
 import Avatar from "../Component/atoms/avatar";
 import SummaryContent from "../Component/organisms/summary-content";
 import useWindowSize from "../../../hooks/device-check";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style.scss";
 import { Link } from "react-router-dom";
 
 const Checkout = (props) => {
+  const user = useSelector((state) => state.user);
+
   let cartItem = props.cartItem
   const [summary, showSummary] = useState(false);
   const isTab = useWindowSize() <= 991;
   const summaryElementRef = useRef(null);
   let stateData = props.stateData
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
   // console.log(summaryElementRef.current?.clientHeight);
 
@@ -60,7 +65,7 @@ const Checkout = (props) => {
           >
             <div ref={summaryElementRef} className="summary__section pe-4 pt-0">
               <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal} salesTaxPer=
-              {props.salesTaxPer} transectionFee={props.transectionFee} />
+                {props.salesTaxPer} transectionFee={props.transectionFee} stripeTax={props.stripeTax} />
             </div>
           </div>
         </>
@@ -113,11 +118,11 @@ const Checkout = (props) => {
             >
               <Avatar
                 size={36}
-                avatarUrl="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d3f994a03c3fe76a42633a6_1.jpg"
+                avatarUrl={user.profileImage}
                 border={0}
                 shadow={false}
               />
-              <span className="ml-12p fs-7 fw-semibold">David Abbott</span>
+              <span className="ml-12p fs-7 fw-semibold">{userAuthToken ? userData.name : 'USER'}</span>
               <span className="ml-12p fs-7 fw-normal pe-1">signout</span>
             </Button>
           </div>
@@ -231,10 +236,10 @@ const Checkout = (props) => {
                     placeholder="•••• •••• •••• ••••"
                     value={stateData.cardNumber}
                     name="cardNumber"
-                    onChange={(e)=>props.changevalue(e)}
+                    onChange={(e) => props.changevalue(e)}
                     maxLength={16}
                   />
-                    {stateData.error && stateData.error.cardNumber && <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>}
+                  {stateData.error && stateData.error.cardNumber && <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>}
                 </Form.Group>
 
                 <div className="d-sm-flex gap-3 align-items-center">
@@ -242,30 +247,30 @@ const Checkout = (props) => {
                     <Form.Label className="fw-bold text-dark fs-7">
                       Expiration Month
                     </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpMonth} name="cardExpMonth"  onChange={(e)=>props.changevalue(e)} />
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpMonth} name="cardExpMonth" onChange={(e) => props.changevalue(e)} />
                     {stateData.error && stateData.error.cardExpMonth && <p className="error">{stateData.error ? stateData.error.cardExpMonth ? stateData.error.cardExpMonth : "" : ""}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3 flex__1">
                     <Form.Label className="fw-bold text-dark fs-7">
                       Expiration Year
                     </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpYear} name="cardExpYear"  onChange={(e)=>props.changevalue(e)} />
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpYear} name="cardExpYear" onChange={(e) => props.changevalue(e)} />
                     {stateData.error && stateData.error.cardExpYear && <p className="error">{stateData.error ? stateData.error.cardExpYear ? stateData.error.cardExpYear : "" : ""}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3 flex__1">
                     <Form.Label className="fw-bold text-dark fs-7">
                       CVC/CVV
                     </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardCVC} name="cardCVC"  onChange={(e)=>props.changevalue(e)} />
+                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardCVC} name="cardCVC" onChange={(e) => props.changevalue(e)} />
                     {stateData.error && stateData.error.cardCVC && <p className="error">{stateData.error ? stateData.error.cardCVC ? stateData.error.cardCVC : "" : ""}</p>}
                   </Form.Group>
                 </div>
 
                 <div className="d-flex aling-items-center py-8">
-                  <Form.Check type="checkbox" className="fs-4 lh-1" />
+                {/*}  <Form.Check type="checkbox" className="fs-4 lh-1" />
                   <span className="fs-7 text-subtext d-flex align-items-center lh-1 h-auto ms-1">
                     Pay with this card
-                  </span>
+      </span>*/}
                 </div>
               </div>
             </div>
@@ -280,7 +285,7 @@ const Checkout = (props) => {
             </div>
 
             <div className="d-flex align-items-center pb-20p">
-              <Button variant="success" size="lg" className="fs-6 fw-bold" onClick={()=>props.pay()}>
+              <Button variant="success" size="lg" className="fs-6 fw-bold" onClick={() => props.pay()}>
                 Complete Transaction
               </Button>
               <Link
@@ -319,7 +324,7 @@ const Checkout = (props) => {
         ) : (
           <div className="summary__section">
             <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal} salesTaxPer=
-              {props.salesTaxPer} transectionFee={props.transectionFee}  />
+              {props.salesTaxPer} transectionFee={props.transectionFee} stripeTax={props.stripeTax} />
           </div>
         )}
       </Container>

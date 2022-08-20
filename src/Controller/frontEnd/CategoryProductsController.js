@@ -10,7 +10,7 @@ import adminCampaignApi from "../../Api/admin/adminCampaign";
 import categoryApi from "../../Api/admin/category";
 import locationApi from "../../Api/frontEnd/location";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress,setProductCount,setLocationFilter  } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setIsUpdateCart, setUserCountry, setUserAddress, setProductCount, setLocationFilter } from "../../user/user.action"
 import advertisementApi from "../../Api/admin/advertisement";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
@@ -55,6 +55,7 @@ export default function CategoryProductsController() {
     const params = useParams();
     const location = useLocation();
     const [categoryDetails, setCategoryDetails] = useState({
+        id: "",
         name: "",
         color: "",
         icon: ""
@@ -63,6 +64,7 @@ export default function CategoryProductsController() {
     const [cartProductList, setCartProductList] = useState([])
     const [cartProductIds, setCartProductIds] = useState([])
     const [resultTags, setresultTags] = useState([])
+    // const [categoryDetails, setCategoryDetails] = useState({})
 
 
     const [filters, setfilters] = useState({
@@ -109,7 +111,25 @@ export default function CategoryProductsController() {
         })
     }
 
+    const getCategoryDetails = async () => {
+        let data = {}
+        data.slug = params.slug
+        const details = await categoryApi.categoryDetails(token, data)
+        if (details && details.data.success) {
+            if (details.data.data.length > 0) {
+                setCategoryDetails({
+                    ...categoryDetails,
+                    id: details.data.data[0]?._id,
+                    name: details.data.data[0].name,
+                    color: details.data.data[0].color,
+                    icon: details.data.data[0].iconDetails?.class
 
+                })
+            }
+
+        }
+
+    }
 
 
 
@@ -128,25 +148,22 @@ export default function CategoryProductsController() {
     const getCategoryAdList = async (catId) => {
         let data = {}
         data.categoryId = catId
-        const adList = await advertisementApi.listCategoryAdvertisement(token, data)
-        if (adList) {
+        data.countryId = user.countryId
+        data.stateId = user.stateId
 
+        const adList = await advertisementApi.categoryPageAdList(data)
+        if (adList) {
+            // console.log('first')
             if (adList.data.success === true) {
                 if (adList.data.data.length > 0) {
                     let tempArray = []
                     adList.data.data.map((ad, i) => {
-
-                        if (ad.advertisementsDetails.length > 0) {
-                            ad.advertisementsDetails.map((a, i) => {
-                                tempArray.push(a)
-
-                            })
-                        }
-                        // setAdvertisementList([...advertisementList, ad.advertisementsDetails])
+                        tempArray.push(ad.advertisementsDetails)
                     })
                     setCategoryAdvertisementList(tempArray)
 
                 }
+                // console.log(adList.data.data)
                 // setAdvertisementList(adList.data.data)
             }
 
@@ -182,6 +199,12 @@ export default function CategoryProductsController() {
 
     //     return a;
     // }
+
+    useEffect(() => {
+        (async () => {
+            await getCategoryDetails();
+        })()
+    }, [params])
 
     const getWishListProductList = async () => {
         const list = await wishlistApi.list(token)
@@ -296,22 +319,26 @@ export default function CategoryProductsController() {
                 }
             }
 
-            setCategoryDetails({
-                ...categoryDetails,
-                name: location.state.catName,
-                color: location.state.theme_color,
-                icon: location.state.catIcon
-            })
+
+
+            // setCategoryDetails({
+            //     ...categoryDetails,
+            //     name: location.state.catName,
+            //     color: location.state.theme_color,
+            //     icon: location.state.catIcon
+            // })
 
             setPricingFees({
                 ...pricingFees,
                 platformFee: user.platformFee,
                 transectionFee: user.transectionFee
             })
+            if (user.countryId && categoryDetails?.id) {
+                await getCategoryAdList(categoryDetails?.id)
+                await productListByCategory(categoryDetails?.id)
 
-            await getCategoryAdList(location.state.id)
-            await getHomePageAdList()
-            await productListByCategory(location.state.id)
+            }
+            // await getHomePageAdList()
             // await getWishListProductList()
 
 
@@ -319,7 +346,7 @@ export default function CategoryProductsController() {
 
 
         })()
-    }, [user.countryId, location])
+    }, [user.countryId, categoryDetails?.id])
 
 
     useEffect(() => {
@@ -334,7 +361,7 @@ export default function CategoryProductsController() {
 
                 let productArray = []
 
-                if (categoryProducts.length > 0 && d > 1 ) {
+                if (categoryProducts.length > 0 && d > 1) {
                     categoryProducts.map((p, i) => {
                         if (p.lat && p.lng) {
                             let dis = getDistance(
@@ -356,10 +383,10 @@ export default function CategoryProductsController() {
                     }
                 }
             }
-     
+
 
         })()
-    }, [user.distance,user.isUpdateLocationFilter])
+    }, [user.distance, user.isUpdateLocationFilter])
 
     const checkItemInCart = async (id) => {
         let res;
@@ -548,16 +575,18 @@ export default function CategoryProductsController() {
     useEffect(() => {
         (async () => {
             // console.log(params)
-            // console.log(location.state.id)
+            // console.log(params.slug)
 
             setLoading(false)
-            await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+            if (categoryDetails?.id) {
+                await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+            }
             setLoading(false)
 
-            let arr = arrayUnique(categoryadvertisementList.concat(homeadvertisementList))
-            setAdvertisementList(arr);
+            // let arr = arrayUnique(categoryadvertisementList.concat(homeadvertisementList))
+            // setAdvertisementList(categoryadvertisementList);
         })()
-    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, homeadvertisementList])
+    }, [taxEligible, postTag, infinite, seletedCategoryList, lowToHigh, highToLow, oldEst, newEst, user.countryId, HighPrice, lowPrice, homeadvertisementList, categoryDetails?.id])
 
 
     const filterProduct = async (low_price = lowPrice, high_price = HighPrice, search_product = resultTags, userCountry = user.countryId) => {
@@ -566,7 +595,7 @@ export default function CategoryProductsController() {
 
         data.search = search_product
         let temp = []
-        temp.push(location.state.id)
+        temp.push(categoryDetails?.id)
         // console.log(temp)
         data.categoryId = temp
         // console.log(temp)
@@ -742,8 +771,8 @@ export default function CategoryProductsController() {
                 }
 
 
-            }else{
-            setCartProductList([])
+            } else {
+                setCartProductList([])
             }
         } else {
             setCartProductList([])
@@ -827,7 +856,7 @@ export default function CategoryProductsController() {
     return (
         <>
 
-                {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <Index
                 productList={productList}
                 addToCart={addToCart}
@@ -845,7 +874,7 @@ export default function CategoryProductsController() {
                 onChangeFilterOption={onChangeFilterOption}
                 onChangePriceSlider={onChangePriceSlider}
                 onSearchProduct={onSearchProduct}
-                advertisementList={advertisementList}
+                advertisementList={categoryadvertisementList}
                 module='CATEGORY'
                 categoryDetails={categoryDetails}
                 addProductToWishlist={addProductToWishlist}

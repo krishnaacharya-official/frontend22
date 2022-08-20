@@ -21,7 +21,7 @@ const IconText = ({ className, label, size, bgColor, ...otherProps }) => {
   };
   return (
     <div className={`d-flex align-items-center ${className}`}>
-      <ListItemImg icon={sharedProps.icon} className="me-1" />
+      <ListItemImg icon={sharedProps.icon} className="me-3" />
       {sharedProps.children}
     </div>
   );

@@ -1,67 +1,65 @@
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import DefaultLayout from "../Component/templates/default-layout";
-import AvatarImg from "../../../assets/images/avatar.jpeg";
-import Avatar from "../Component/atoms/avatar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import IconButton from "../Component/molecules/icon-button";
-import ListItemImg from "../Component/atoms/list-item-img";
-import settingApi from "../../../Api/admin/setting"
-import FrontLoader from "../../../Common/FrontLoader"
-import "./style.scss";
-import { useSelector, useDispatch } from "react-redux";
-import helper, { priceFormat, getCalculatedPrice } from "../../../Common/Helper";
-import { Link } from "react-router-dom";
+import DefaultLayout from '../Component/templates/default-layout';
+import AvatarImg from '../../../assets/images/avatar.jpeg';
+import Avatar from '../Component/atoms/avatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import IconButton from '../Component/molecules/icon-button';
+import ListItemImg from '../Component/atoms/list-item-img';
+import settingApi from '../../../Api/admin/setting';
+import FrontLoader from '../../../Common/FrontLoader';
+import './style.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import helper, { priceFormat, getCalculatedPrice } from '../../../Common/Helper';
+import { Link } from 'react-router-dom';
 
 const Ranks = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(false)
-  const getC = getCalculatedPrice()
+  const [loading, setLoading] = useState(false);
+  const getC = getCalculatedPrice();
   const [state, setState] = useState({
-    captian: "",
-    admiral: "",
-    pirate: "",
-    narwhal: "",
-    beluga: "",
-    fish: "",
-  })
-  const { captian, admiral, pirate, narwhal, beluga, fish } = state
+    captian: '',
+    admiral: '',
+    pirate: '',
+    narwhal: '',
+    beluga: '',
+    fish: ''
+  });
+  const { captian, admiral, pirate, narwhal, beluga, fish } = state;
 
   useEffect(() => {
     (async () => {
-
-      setLoading(false)
+      setLoading(false);
       // if (userAuthToken || CampaignAdminAuthToken) {
 
+      const getSettingsValue = await settingApi.list(
+        userAuthToken ? userAuthToken : CampaignAdminAuthToken,
+        Object.keys(state)
+      );
+      if (getSettingsValue.data.data.length > 0) {
+        let data = {};
 
-        const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(state));
-        if (getSettingsValue.data.data.length > 0) {
-          let data = {}
+        getSettingsValue.data.data.map((d, i) => {
+          data[d.name] = d.value;
+        });
 
-          getSettingsValue.data.data.map((d, i) => {
-            data[d.name] = d.value
-          })
-
-          setState({
-            ...data
-          })
-        }
+        setState({
+          ...data
+        });
+      }
       // }
-      setLoading(false)
-
-
-
-    })()
-  }, [])
+      setLoading(false);
+    })();
+  }, []);
   return (
     <>
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">
-          {userAuthToken &&
+          {userAuthToken && (
             <div className="d-flex align-items-center py-3 border-bottom">
               <Avatar
                 size={35}
@@ -72,9 +70,7 @@ const Ranks = () => {
               />
 
               <span className="fs-7 text-light me-2">Your Rank</span>
-              {
-                getC.getUserRank(user.xp)
-              }
+              {getC.getUserRank(user.xp)}
               {/* <IconButton
               bgColor="#a278fc"
               className="btn__xs rounded-pill"
@@ -85,7 +81,8 @@ const Ranks = () => {
               <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
                 {priceFormat(user.xp)} xp
               </a>
-            </div>}
+            </div>
+          )}
           <div className="py-20p">
             <div className="note text-dark fs-7 mw-600">
               <div className="mb-12p">
@@ -102,16 +99,15 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="#000"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("anchor")} />}
+                  className="rounded-pill"
+                  icon={<FontAwesomeIcon icon={solid('anchor')} />}
                 >
                   Captain
                 </IconButton>
               </div>
               <div className="mx-sm-4 flex__1 text-light mb-2 mb-sm-0">
-                You have done it. You're the top donor on Donorport. Wear this
-                badge with pride as your contributions have made a major impact in
-                the community
+                You have done it. You're the top donor on Donorport. Wear this badge with pride as
+                your contributions have made a major impact in the community
               </div>
               <span className="fw-bold text-info">{captian} XP</span>
             </div>
@@ -120,15 +116,15 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="#95dbb0"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("ship")} />}
+                  className="rounded-pill"
+                  icon={<FontAwesomeIcon icon={solid('ship')} />}
                 >
                   Admiral
                 </IconButton>
               </div>
               <div className="mx-sm-4 flex__1 text-light mb-2 mb-sm-0">
-                The senior donor, you command the fleet. Your contributions are
-                what drive the platform. You should feel proud of this rank
+                The senior donor, you command the fleet. Your contributions are what drive the
+                platform. You should feel proud of this rank
               </div>
               <span className="fw-bold text-info">{admiral} XP</span>
             </div>
@@ -137,8 +133,8 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="#fc8c63"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("swords")} />}
+                  className="rounded-pill"
+                  icon={<FontAwesomeIcon icon={solid('swords')} />}
                 >
                   Pirate
                 </IconButton>
@@ -153,15 +149,15 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="#a278fc"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("narwhal")} />}
+                  className="rounded-pill"
+                  icon={<FontAwesomeIcon icon={solid('narwhal')} />}
                 >
                   Narwhal
                 </IconButton>
               </div>
               <div className="mx-sm-4 flex__1 text-light mb-2 mb-sm-0">
-                Poking your way around the ports, you're admired for your
-                commitment to helping the community
+                Poking your way around the ports, you're admired for your commitment to helping the
+                community
               </div>
               <span className="fw-bold text-info">{narwhal} XP</span>
             </div>
@@ -170,15 +166,15 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="#78bafc"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("whale")} />}
+                  className="rounded-pill"
+                  icon={<FontAwesomeIcon icon={solid('whale')} />}
                 >
                   Beluga
                 </IconButton>
               </div>
               <div className="mx-sm-4 flex__1 text-light mb-2 mb-sm-0">
-                You've made your presence known on Donorport. We hear your calls
-                to help the community
+                You've made your presence known on Donorport. We hear your calls to help the
+                community
               </div>
               <span className="fw-bold text-info">{beluga} XP</span>
             </div>
@@ -187,15 +183,15 @@ const Ranks = () => {
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton
                   bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
-                  className="rounded-pill rounded-pill--xp"
-                  icon={<FontAwesomeIcon icon={solid("fish")} />}
+                  className="rounded-pill "
+                  icon={<FontAwesomeIcon icon={solid('fish')} />}
                 >
                   Fish
                 </IconButton>
               </div>
               <div className="mx-sm-4 flex__1 text-light mb-2 mb-sm-0">
-                There are plenty of fish in the sea but without you, there
-                wouldn't be anything to fish for
+                There are plenty of fish in the sea but without you, there wouldn't be anything to
+                fish for
               </div>
               <span className="fw-bold text-info">{fish} XP</span>
             </div>

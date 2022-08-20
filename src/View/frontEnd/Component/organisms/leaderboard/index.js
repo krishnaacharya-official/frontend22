@@ -61,13 +61,13 @@ const LeaderBoard = () => {
 
                 <Container luid className="position-relative pb-5 pt-5">
                     <h1 className="fs-2 text-dark fw-bolder" style={{ marginTop: "50px" }}>Leaderboard</h1>
-                    <div className="fs-5 fw-semibold text-light" style={{ marginBottom: "100px" }}>
+                    <div className="fs-5 fw-semibold text-light" style={{ marginBottom: "56px" }}>
                         See where you rank among the top Donors
                     </div>
 
                     <Row className="ml-5 mr-5">
                         <Col lg="6">
-                            <ul>
+                            <ul style={{padding: "0"}}>
                                 {
                                     list.length > 0 &&
                                     list.map((person, i) => {
@@ -82,14 +82,14 @@ const LeaderBoard = () => {
                                                         </div>
                                                         <div className="d-flex align-items-center w-100">
                                                             <Avatar size={46} avatarUrl={person.image ? helper.DonorImagePath + person.image : AvatarImg} border={0} shadow={false} />
-                                                            <div className="ms-2" style={{ flexGrow: "0.5" }}>
+                                                            <div className="ms-2" style={{ flex: "1" }}>
                                                                 <div className="d-flex align-items-center justify-content-start me-3">
                                                                     <div className="text-dark fw-bold">{person.name}</div>
 
 
-                                                                    <span className="text-info fs-5" style={{ marginLeft: "10px" }}>
+                                                                    {/*<span className="text-info fs-5" style={{ marginLeft: "10px" }}>
                                                                         <FontAwesomeIcon icon={solid("badge-check")} />
-                                                                    </span>
+                                            </span>*/}
 
                                                                     <span className="btn-sm">
                                                                         {/* Rank */}

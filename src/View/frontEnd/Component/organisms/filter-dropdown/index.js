@@ -70,16 +70,7 @@ const FilterDropdown = (props) => {
   }, [categoryList, props.seletedCategoryList]);
 
   const marks = {
-    140: 140,
-    280: 280,
-    560: 560,
-    840: 840,
-    1120: 1120,
-    1400: 1400,
-    1680: 1680,
-    1960: 1960,
-    2240: 2240,
-    2560: 2560,
+    0: 0,
     2800: 2800
   };
 
@@ -94,10 +85,10 @@ const FilterDropdown = (props) => {
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
         {
           module === 'HOME' ?
-            <Dropdown.Toggle variant="primary" size="lg" className="no-caret rounded-pill w-100">
+            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100" style={{minWidth: '136px'}}>
               <div className="d-flex align-items-center justify-content-center">
 
-                <span className="fw-bold">Filters</span>
+                <span className="fw-bold fs-5">Filters</span>
                 <span
                   id="filter__icon"
                   className="lottie__icon ms-1 d-flex align-items-center fs-4"
@@ -131,12 +122,11 @@ const FilterDropdown = (props) => {
             />
           </div>
         </Dropdown.Toggle> */}
-
-        <Dropdown.Menu renderOnMount className="filter__dropdown">
+        <Dropdown.Menu renderOnMount className="filter__dropdown mobile__dropdown">
           <div className="filter__dropdown-hd border-bottom">
             <div className="filter__checkboxes d-flex align-items-center">
-              <div className="filter__item text-center text-light flex__1">
-                <div className="filter__label fw-bolder">Tax Eligible</div>
+              <div className="filter__item d-flex justify-content-center text-center text-light flex__1">
+                <div className="filter__label d-flex align-items-center fw-bold">Tax Eligible</div>
                 <div className="filter__toggle fs-4">
                   <IconToggle
                     iconSize={24}
@@ -152,8 +142,8 @@ const FilterDropdown = (props) => {
                 </div>
               </div>
 
-              <div className="filter__item text-center text-light border-start flex__1">
-                <div className="filter__label fw-bolder">Tab</div>
+              <div className="filter__item d-flex justify-content-center text-center text-light flex__1">
+                <div className="filter__label d-flex align-items-center fw-bold">Tab</div>
                 <div className="filter__toggle fs-4">
                   <IconToggle
                     iconSize={24}
@@ -167,8 +157,8 @@ const FilterDropdown = (props) => {
                 </div>
               </div>
 
-              <div className="filter__item text-center text-light border-start flex__1">
-                <div className="filter__label fw-bolder">Ongoing</div>
+              <div className="filter__item d-flex justify-content-center text-center text-light flex__1">
+                <div className="filter__label d-flex align-items-center fw-bold">Ongoing</div>
                 <div className="filter__toggle fs-4">
                   <IconToggle
                     iconSize={24}

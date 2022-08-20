@@ -31,7 +31,7 @@ const Cart = (props) => {
   const minusValue = async (value, id, productId) => {
     if (value > 1) {
       value--;
-      await props.updateCartItem(value, id, productId,'minus')
+      await props.updateCartItem(value, id, productId, 'minus')
     }
     // setQuantity(value)
 
@@ -40,7 +40,7 @@ const Cart = (props) => {
   const plusValue = async (value, id, productId) => {
     value++;
     // setQuantity(value)
-    await props.updateCartItem(value, id, productId,'plus')
+    await props.updateCartItem(value, id, productId, 'plus')
   }
 
   useEffect(() => {
@@ -48,7 +48,10 @@ const Cart = (props) => {
       let tempPriceArray = [];
       props.cartItem.map((item, i) => {
         // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
-        let price = getCalc.getData(item.productDetails?.price);
+        // let price = getCalc.getData(item.productDetails?.price);
+        let price = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price;
+
+
 
         tempPriceArray.push(price * item.quantity);
       });
@@ -57,9 +60,11 @@ const Cart = (props) => {
         return a + b;
       }, 0);
       setSubTotal(sum)
-      let salesTax = getCalc.calculateSalesTax(sum)
-      setSalesTax(getCalc.calculateSalesTax(sum))
-      setTotal(sum + salesTax);
+      // let salesTax = getCalc.calculateSalesTax(sum)
+      setSalesTax(getCalc.getTaxValueOfPrice(sum))
+      // setTotal(sum + salesTax);
+      setTotal(getCalc.priceWithTax(sum));
+
     }
   }, [props.cartItem]);
   return (
@@ -104,7 +109,7 @@ const Cart = (props) => {
                       <ListItemImg
                         size={75}
                         imgSrc={helper.CampaignProductImagePath + item?.productDetails?.image}
-                        className="border"
+                        className="avatar__checkout border"
                       />
                       <div className="ms-2">
                         <Link
@@ -173,7 +178,10 @@ const Cart = (props) => {
                       </span>
                       <span className="fs-5 fw-bold text-success ms-3">
                         {currencySymbol +
-                          priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)}
+                          // priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)
+                          priceFormat((item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price) * item.quantity)
+
+                        }
                       </span>
                     </div>
                   </li>
@@ -187,18 +195,33 @@ const Cart = (props) => {
                 {currencySymbol + priceFormat(subTotal)}
               </span>
             </div>
+
             <div className="d-flex align-items-center py-3 border-bottom">
+           
+              <span className="fw-bolder flex__1">
+              <img
+                className="img-stripe "
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+                alt=""
+                style={{ width: "44px" }}
+              />
+              </span>
+              <span className="fw-bold text-light fs-5">
+                {currencySymbol + salesTax}
+              </span>
+            </div>
+            {/* <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Sales Tax:</span>
               <span className="fw-bold text-success fs-5">
                 {currencySymbol + priceFormat(salesTax)}
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>
             <span className="fw-bold text-success fs-4">{currencySymbol + priceFormat(total)}</span>
           </div>
-          <div className="pb-4 border-bottom d-grid d-sm-block">
+          <div className="py-4 border-bottom d-grid d-sm-block">
             <Button
               variant="danger"
               size="lg"

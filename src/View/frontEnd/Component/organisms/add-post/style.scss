@@ -4,7 +4,16 @@
   height: 58px;
   width: 58px;
 }
-
+.keyword-tags-wrap {
+  margin: 3.3rem 0
+}
+.price-group-wrap {
+  .form-group {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
 .post__accordion-header {
   border-bottom: 1px solid $border-color;
   .accordion__btn {
@@ -135,16 +144,20 @@
 }
 
 .project-video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 .project-video-wrap {
-  height: 226px;
   border: 1px solid #e6e6e6;
   background-color: #f8fafd;
   border-radius: 6px;
+  padding-bottom: 56%;
+  position: relative;
+  overflow: hidden;
 }
 
 .upload-picture-video-block {
