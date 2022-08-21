@@ -8,11 +8,11 @@ import { unescape } from 'lodash';
 export default function AddSubCategoryForm(props) {
     let stateData = props.stateData
     let iconList = props.iconList
-    let code  = '';
+    let code = '';
 
 
-    const htmlDecode = (code) =>{
-        let doc = new DOMParser().parseFromString(code,"text/html")
+    const htmlDecode = (code) => {
+        let doc = new DOMParser().parseFromString(code, "text/html")
         return doc.documentElement.textContent
 
     }
@@ -43,7 +43,7 @@ export default function AddSubCategoryForm(props) {
                         </div>
                     </div>
 
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">SubCategory Icon</label>
                         <div className="col-sm-10">
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="icon" name="icon" style={{fontFamily:"fontAwesome"}}>
@@ -63,6 +63,15 @@ export default function AddSubCategoryForm(props) {
                                 }
 
                             </select>
+
+                            {stateData.error && stateData.error.icon && <p className="error">{stateData.error ? stateData.error.icon ? stateData.error.icon : "" : ""}</p>}
+                        </div>
+                    </div> */}
+                    <div className="form-group row">
+                        <label htmlFor="icon" className="col-sm-2 col-form-label">SVG Icon Code</label>
+                        <div className="col-sm-10">
+                 
+                            <textarea name='icon' id="icon" className="form-control" rows="4" cols="50" onChange={(e) => { props.changevalue(e) }}>{stateData.icon}</textarea>
 
                             {stateData.error && stateData.error.icon && <p className="error">{stateData.error ? stateData.error.icon ? stateData.error.icon : "" : ""}</p>}
                         </div>

@@ -93,7 +93,7 @@ function ProjectDetailMain(props) {
             <TagTitle>Project</TagTitle>
             <h1 className="project__detail-title">{projectDetails.name}</h1>
           </div>
-          <div className="page__logo page__logo--org ms-auto">
+          {/* <div className="page__logo page__logo--org ms-auto">
             <img
               alt=""
               src={
@@ -102,7 +102,7 @@ function ProjectDetailMain(props) {
                   : noImg
               }
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="project__detail-meta d-flex align-items-center mb-2">
@@ -161,10 +161,19 @@ function ProjectDetailMain(props) {
 
           <Button size="lg" variant="link" className="btn__category text-decoration-none">
             <span className="d-flex align-items-center icon__category">
-              <img
+              {/* <img
                 alt=""
                 className="img-fluid"
                 src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c38e4fd28a71363f4ac5d_Tree-Frog-Logo-Mock.png"
+              /> */}
+              <img
+                alt=""
+                className="img-fluid"
+                src={
+                  projectDetails?.campaignDetails?.logo
+                    ? helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo
+                    : noImg
+                }
               />
             </span>
           </Button>

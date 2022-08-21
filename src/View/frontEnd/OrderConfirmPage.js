@@ -15,6 +15,9 @@ const OrderConfirmPage = () => {
   const [orderDetails, setOrderDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  let newSlug = userData?.name.split(/\s/).join('');
+
   const getOrderDetails = async () => {
     let data = {};
     data.orderId = params.id;
@@ -76,12 +79,20 @@ const OrderConfirmPage = () => {
             </center>
           </div>
           <div className="d-flex align-items-center justify-content-center gap-3">
-            <Button size="large" variant="primary" className="fw bold my-5 ">
+            {/* <Button size="large" variant="primary" className="fw bold my-5 ">
               Back To Home
-            </Button>
-            <Button size="large" variant="secondary" className="fw-bold my-5 ">
+            </Button> */}
+            <Link to='/' className="btn btn-primary fw bold my-5 ">
+              Back To Home
+            </Link>
+
+            <Link to={'/user/' + newSlug + '/history'} className="btn btn-secondary fw bold my-5 ">
               Go to Order
-            </Button>
+            </Link>
+
+            {/* <Button size="large" variant="secondary" className="fw-bold my-5 ">
+              Go to Order
+            </Button> */}
           </div>
           <div>
             <center>
@@ -97,6 +108,8 @@ const OrderConfirmPage = () => {
                 >
                   {orderDetails?.orderItems?.length > 0 &&
                     orderDetails?.orderItems.map((itm, i) => {
+
+                      // console.log(itm) 
                       return (
                         <div
                           data-id="product"
@@ -213,12 +226,13 @@ const OrderConfirmPage = () => {
                             <div
                               className="checkout__right d-flex flex-row align-items-center justify-content-end flex-wrap"
                               style={{
-                                flex: 1
+                                flex: 1,
+                              
                               }}
                             >
                               <Link
                                 to={
-                                  '/organization/' + itm?.productDetails?.organizationDetails.slug
+                                  '/organization/' + itm?.campaignadminsDetails.slug
                                 }
                               >
                                 <ListItemImg
@@ -226,7 +240,7 @@ const OrderConfirmPage = () => {
                                   className="ms-2 d-none d-sm-flex"
                                   imgSrc={
                                     helper.CampaignAdminLogoPath +
-                                    itm.productDetails?.organizationDetails?.logo
+                                    itm.campaignadminsDetails?.logo
                                   }
                                 />
                               </Link>
@@ -236,7 +250,8 @@ const OrderConfirmPage = () => {
                                   marginTop: '3px',
                                   flex: '0 auto',
                                   color: '#6f6f90',
-                                  fontSize: '16px'
+                                  fontSize: '16px',
+                                  marginRight: '30px'
                                 }}
                               >
                                 <div className="checkout__itemvalue d-flex align-items-center">

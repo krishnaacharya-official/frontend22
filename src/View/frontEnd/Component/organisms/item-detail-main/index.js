@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button, ProgressBar,Card } from "react-bootstrap";
+import { Button, ProgressBar, Card } from "react-bootstrap";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -72,7 +72,7 @@ function ProjectDetailMain(props) {
       variant="success"
       size="lg"
       className="icon icon__pro fw-semibold"
-      style={{width: "250px"}}
+      style={{ width: "250px" }}
     >
       Added In cart &nbsp;
       <FontAwesomeIcon icon={solid("circle-check")} />
@@ -82,7 +82,7 @@ function ProjectDetailMain(props) {
       variant="primary"
       size="lg"
       className="btn--addtocart fw-semibold"
-      style={{minWidth: "250px"}}
+      style={{ minWidth: "250px" }}
       onClick={() => {
         props.addToCart(productDetails._id, quantity)
         dispatch(setIsUpdateCart(!user.isUpdateCart))
@@ -137,7 +137,7 @@ function ProjectDetailMain(props) {
       <div className="product__top px-0 mb-1 d-flex align-items-center">
         <div className="page__bar d-flex align-items-center">
           <ProgressBar
-            style={{width: "180px"}}
+            style={{ width: "180px" }}
             variant={productDetails.
               unlimited ? 'infinity' : 'success'}
             now={productDetails.unlimited ? 100 : per}
@@ -184,8 +184,14 @@ function ProjectDetailMain(props) {
           className="btn__category text-decoration-none"
         >
           <span className="d-flex align-items-center icon__category" style={{ fontFamily: "fontAwesome", color: productDetails?.categoryDetails?.color, fontStyle: "normal" }}>
-            <span style={{ fontSize: "x-large" }} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span>
-          </span>{" "}
+            {/* <span style={{ fontSize: "x-large" }} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span> */}
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+              <path
+                d={productDetails?.subCategoryDetails?.icon}
+                fill={productDetails?.categoryDetails?.color}
+              ></path> </svg>
+          </span>
+          {" "}
           <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{productDetails?.subCategoryDetails?.name}</span>
         </Button>
         <Link
@@ -220,7 +226,7 @@ function ProjectDetailMain(props) {
             />
           </span>
         </Button> */}
-       {/* <Button size="lg" variant="success" className=" text-decoration-none">
+        {/* <Button size="lg" variant="success" className=" text-decoration-none">
           <span className="fs-6">Shelter</span>
         </Button>*/}
       </div>
@@ -308,7 +314,7 @@ function ProjectDetailMain(props) {
 
 
       <div className="product__badge mt-5 text-light">
-      {
+        {
           productDetails.postTag &&
 
           <IconText

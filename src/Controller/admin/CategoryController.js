@@ -55,10 +55,10 @@ function CategoryController() {
             if (categoryList.data.success === true) {
                 setCategory(categoryList.data.data)
             }
-            const getIconList = await categoryApi.listIcon(adminAuthToken);
-            if (getIconList.data.success === true) {
-                setIconList(getIconList.data.data)
-            }
+            // const getIconList = await categoryApi.listIcon(adminAuthToken);
+            // if (getIconList.data.success === true) {
+            //     setIconList(getIconList.data.data)
+            // }
             setLoading(false)
 
         })()
@@ -119,7 +119,7 @@ function CategoryController() {
 
             let data = {}
             data.name = name
-            data.iconId = icon
+            data.icon = icon
             data.status = status
             data.color = color
 
@@ -153,6 +153,7 @@ function CategoryController() {
             }
 
         }).catch(errors => {
+            console.log(errors)
             setLoading(false)
             const formaerrror = {};
             if (errors.length) {
@@ -223,7 +224,7 @@ function CategoryController() {
                 categoryHdnID: categoryData._id,
                 status: categoryData.status,
                 name: categoryData.name,
-                icon: categoryData.iconId,
+                icon: categoryData.icon,
                 color: categoryData.color
 
             });
@@ -241,7 +242,7 @@ function CategoryController() {
     return (
         <>
                 {/*<FrontLoader loading={loading} />*/}
-            {/* {console.log(color)} */}
+       
             <Index
                 category={category}
                 openModel={openModel}

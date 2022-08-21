@@ -41,7 +41,12 @@ function CategoryCheckbox(props) {
           ""
         ) : (
           // <img className="category__icon" alt={name} src={imgUrl} />
-          <i className={imgUrl} style={{ fontFamily: "fontAwesome", color: categoryColor, fontStyle: "normal", marginLeft: "1.5px" }}></i>
+          // <i className={imgUrl} style={{ fontFamily: "fontAwesome", color: categoryColor, fontStyle: "normal", marginLeft: "1.5px" }}></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+          <path
+            d={imgUrl}
+            fill={categoryColor}
+          ></path> </svg>
 
         )}
         <div className="category__text lh-1" style={{color:checked && "white"}}>{name}</div>

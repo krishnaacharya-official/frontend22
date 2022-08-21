@@ -63,12 +63,12 @@ function SubCategoryController() {
 
     useEffect(() => {
         (async () => {
-            setLoading(false)
-            const getIconList = await categoryApi.listIcon(adminAuthToken);
-            if (getIconList.data.success === true) {
-                setIconList(getIconList.data.data)
-            }
-            setLoading(false)
+            // setLoading(false)
+            // const getIconList = await categoryApi.listIcon(adminAuthToken);
+            // if (getIconList.data.success === true) {
+            //     setIconList(getIconList.data.data)
+            // }
+            // setLoading(false)
 
         })()
     }, [])
@@ -126,7 +126,7 @@ function SubCategoryController() {
 
             let data = {}
             data.name = name
-            data.iconId = icon
+            data.icon = icon
             data.status = status
             data.categoryId = categoryId
 
@@ -230,7 +230,7 @@ function SubCategoryController() {
                 categoryHdnID: categoryData._id,
                 status: categoryData.status,
                 name: categoryData.name,
-                icon: categoryData.iconId
+                icon: categoryData.icon
             });
             setLoading(false)
         } else {

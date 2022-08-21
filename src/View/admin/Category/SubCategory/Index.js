@@ -33,6 +33,19 @@ export default function Index(props) {
     const columns = [
 
         { name: "Name", selector: "name", sortable: true },
+
+
+        {
+            name: "Icon",
+            cell: (row) => 
+            <span className="sw-icon icon--default-symbol-euro sw-icon--fill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+                    <path  fill="#758CA3" d={row.icon}></path> </svg>
+                    </span>
+                ,
+                ignoreRowClick: true,
+                allowOverflow: true,
+        },
         // { name: "Email", selector: "email", sortable: true },
         // {
         //     name: "Role",

@@ -59,7 +59,7 @@ const FilterDropdown = (props) => {
         let tempObj = {};
         tempObj.name = cat.name;
         tempObj.id = cat._id;
-        tempObj.imgUrl = cat.iconDetails[0].class;
+        tempObj.imgUrl = cat.icon;
         tempObj.categoryColor = cat.color;
         tempObj.checked = props.seletedCategoryList.includes(cat._id);
         tempObj.onSelectCategory = props.onSelectCategory;

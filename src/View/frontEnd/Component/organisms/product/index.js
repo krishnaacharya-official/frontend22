@@ -63,7 +63,9 @@ const Product = (props) => {
   let img = props.image
   let date = moment(props.created_at).format('MMM DD');
   let catIcon = props.categoryDetails?.iconDetails?.class;
-  let subCatIcon = props.subCategoryDetails?.iconDetails?.class;
+  // let subCatIcon = props.subCategoryDetails?.iconDetails?.class;
+  let subCatIcon = props.subCategoryDetails?.icon;
+
   // const user = useContext(UserContext)
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -152,7 +154,7 @@ const Product = (props) => {
   ) : (
     <Button
       variant="primary"
-      style={{width: '56px', fontSize: '16px'}}
+      style={{ width: '56px', fontSize: '16px' }}
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
@@ -160,7 +162,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold >= total || isFulfiled  ? (
+    sold >= total || isFulfiled ? (
       <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -335,7 +337,14 @@ const Product = (props) => {
         </Link> */}
         <div className="product__subcategory d-flex align-items-center text-dark">
           <div className="product__cat-icon mr-6p">
-            <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i>
+            {/* <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i> */}
+
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+              <path
+                d={subCatIcon}
+                fill="#6f6f90"
+              ></path> </svg>
 
             {/* <svg
                 viewBox="0 0 25 25"

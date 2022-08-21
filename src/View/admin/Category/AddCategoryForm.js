@@ -11,11 +11,11 @@ import ReactDOM from "react-dom";
 export default function AddCategoryForm(props) {
     let stateData = props.stateData
     let iconList = props.iconList
-    let code  = '';
+    let code = '';
 
 
-    const htmlDecode = (code) =>{
-        let doc = new DOMParser().parseFromString(code,"text/html")
+    const htmlDecode = (code) => {
+        let doc = new DOMParser().parseFromString(code, "text/html")
         return doc.documentElement.textContent
 
     }
@@ -45,7 +45,7 @@ export default function AddCategoryForm(props) {
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
                         </div>
                     </div>
-
+                    {/* 
                     <div className="form-group row">
                         <label className="col-form-label col-sm-2 ">Category Icon</label>
                         <div className="col-sm-10">
@@ -58,7 +58,7 @@ export default function AddCategoryForm(props) {
                                         return (
                                             code = '&'+icon.code+";",
                                             // console.log(icon)
-                                            <option value={icon._id} selected={stateData.icon=== icon._id }>{ htmlDecode(code) + " " + icon.class}</option>
+                                            <option value={icon._id} selected={stateData.icon=== icon._id }>{ htmlDecode(code) + " " + icon.class}</option> 
                                         )
 
                                     })
@@ -69,11 +69,24 @@ export default function AddCategoryForm(props) {
 
                             {stateData.error && stateData.error.icon && <p className="error">{stateData.error ? stateData.error.icon ? stateData.error.icon : "" : ""}</p>}
                         </div>
+                    </div> */}
+
+
+                    <div className="form-group row">
+                        <label htmlFor="icon" className="col-sm-2 col-form-label">SVG Icon Code</label>
+                        <div className="col-sm-10">
+                
+                            <textarea name='icon' id="icon"  className="form-control" rows="4" cols="50"  onChange={(e) => {props.changevalue(e) }}>{stateData.icon}</textarea>
+
+                            {stateData.error && stateData.error.icon && <p className="error">{stateData.error ? stateData.error.icon ? stateData.error.icon : "" : ""}</p>}
+                        </div>
                     </div>
+
+
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Category Color</label>
                         <div className="col-sm-10">
-                        <input type="color" id="color" name="color" value={stateData.color} onChange={(e) => { props.changevalue(e) }} />
+                            <input type="color" id="color" name="color" value={stateData.color} onChange={(e) => { props.changevalue(e) }} />
                         </div>
                     </div>
 
