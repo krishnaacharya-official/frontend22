@@ -1,7 +1,7 @@
 import Header from '../../Component/organisms/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Button, Container, Row, Col, FormControl, InputGroup,ProgressBar } from 'react-bootstrap';
+import { Button, Container, Row, Col, FormControl, InputGroup, ProgressBar } from 'react-bootstrap';
 import { Product, GrabDropdown, FilterDropdown, LadderMenu } from '../../Component/organisms';
 // import { ProgressBar } from "react-bootstrap";
 
@@ -122,7 +122,7 @@ export default function Index(props) {
     <>
       <HeaderController />
       <div className="bg-lighter border-bottom">
-        <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid style={{height: '90px'}}>
+        <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid style={{ height: '90px' }}>
           <div className="filter__dropdown-wrap mb-2 mb-sm-0 ">
             <FilterDropdown
               organizationList={props.organizationList}
@@ -220,14 +220,14 @@ export default function Index(props) {
             </div>
             <Button
               variant="outline-primary"
-              style={{border: '2px solid'}}
+              style={{ border: '2px solid' }}
               className="btn__cart ms-sm-1 mt-2 mt-sm-0"
               onClick={() => props.onClickAddToCart()}
             >
               Add to Cart ({props.cartProductList.length})
             </Button>
-            <div className="p-2 d-sm-flex align-items-center flex-grow-1" style={{fontSize: '14px'}}>
-              <FontAwesomeIcon icon={regular('circle-question')} style={{color: "#5f5df8"}}/>
+            <div className="p-2 d-sm-flex align-items-center flex-grow-1" style={{ fontSize: '14px' }}>
+              <FontAwesomeIcon icon={regular('circle-question')} style={{ color: "#5f5df8" }} />
               &nbsp; How does it work?&nbsp;
               <Link to="/about-us" className="text-light d-inline-block">
                 click here
@@ -253,7 +253,7 @@ export default function Index(props) {
                         className="img-fluid"
                         src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b68ae50b802debdff4ccd_family.svg"
                       /> */}
-                        <i
+                        {/* <i
                           className={c.iconDetails[0].class}
                           style={{
                             fontFamily: 'fontAwesome',
@@ -261,7 +261,14 @@ export default function Index(props) {
                             fontStyle: 'normal',
                             marginLeft: '1.5px'
                           }}
-                        ></i>
+                        ></i> */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+                          <path
+                            d={c.icon}
+                            fill={c.color}
+                          >
+                          </path>
+                        </svg>
                       </span>
                       <span className="flex__1 ms-1 fs-5 fw-semibold text-subtext">{c.name}</span>
                       <Button

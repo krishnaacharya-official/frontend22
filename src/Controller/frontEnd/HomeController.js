@@ -255,6 +255,7 @@ export default function HomeController() {
                                     let currencyData = {}
                                     currencyData.currency = getCountryData.data.data.currency
                                     currencyData.currencySymbol = getCountryData.data.data.symbol
+                                    // console.log(getCountryData.data.data.symbol)
                                     dispatch(setCurrency(currencyData))
 
                                 }

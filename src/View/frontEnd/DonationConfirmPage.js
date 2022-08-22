@@ -15,6 +15,9 @@ const DonationConfirmPage = () => {
   const [doantionDetails, setDonationDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  let newSlug = userData?.name.split(/\s/).join('');
+
   const getDonationDetails = async () => {
     let data = {};
     data.donationId = params.id;
@@ -44,7 +47,7 @@ const DonationConfirmPage = () => {
 
   return (
     <>
-      {console.log(doantionDetails)}
+      {/* {console.log(doantionDetails)} */}
       <DefaultLayout>
         <FrontLoader loading={loading} />
         <div style={{ maxWidth: '980px', margin: 'auto' }}>
@@ -78,12 +81,20 @@ const DonationConfirmPage = () => {
             </center>
           </div>
           <div className="d-flex align-items-center justify-content-center gap-3">
-            <Button size="large" variant="primary" className="fw bold my-5 ">
+            {/* <Button size="large" variant="primary" className="fw bold my-5 ">
               Back To Home
             </Button>
             <Button size="large" variant="secondary" className="fw-bold my-5 ">
               Go to Donation
-            </Button>
+            </Button> */}
+
+            <Link to='/' className="btn btn-primary fw bold my-5 ">
+              Back To Home
+            </Link>
+
+            <Link to={'/user/' + newSlug + '/settings/billing'} className="btn btn-secondary fw bold my-5 ">
+              Go to Order
+            </Link>
           </div>
           <div>
             <center>

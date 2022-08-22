@@ -150,13 +150,22 @@ const GeoLocation = () => {
 
 
   let Obj = {
-      "circle-radius": 10,
-      // Color circles by ethnicity, using a `match` expression.
-      "circle-color": "purple",
-      "circle-stroke-color": "purple",
-      "circle-opacity": 0.5,
+      // "circle-radius": 100,
+      "circle-radius": {
+        stops: [
+          [0, 0],
+          [12, 100]
+        ],
+        base: 2
+      },
+
+      "circle-color": "rgba(29,161,242,.2)",
+      // "circle-stroke-color": "purple",
+      "circle-stroke-color":'rgba(29,161,242,.2)',
+
+      "circle-opacity": 1,
       "circle-stroke-opacity": 1,
-      "circle-stroke-width": 5
+      "circle-stroke-width": 1
   }
 
 
@@ -286,9 +295,10 @@ const GeoLocation = () => {
               // onStyleLoad={onStyleLoad}
 
               >
-                <Layer type="circle" source="mine" id="circle" paint={Obj}
+                <Layer type="circle"  id="circle" paint={Obj}
                   // layout={{ 'icon-image': 'custom-marker' }}
-                  layout={{ "icon-image": "harbor-15" }}
+                  // layout={{ "icon-image": "harbor-15" }}
+                  coordinates={[location.lng, location.lat]}
                 >
 
                   <Feature coordinates={[location.lng, location.lat]} />
