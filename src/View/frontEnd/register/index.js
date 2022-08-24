@@ -77,11 +77,11 @@ const Register = (props) => {
                 <div className="login-header">Sign Up</div>
                 <div className="mb-3">
 
-                  <div className="input__wrap d-flex">
+                  {/* <div className="input__wrap d-flex"> */}
                     {/* <label className="input__label flex__1"> */}
                     {/* <input type="text" value='' /> */}
                     {/* {countrySelect.current} */}
-                    <Select
+                    {/* <Select
                       className="basic-single"
                       // classNamePrefix="select"
                       value={props.defaultCountry}
@@ -89,10 +89,13 @@ const Register = (props) => {
                       options={countryList}
                       onChange={props.onChangeCountry}
                       placeholder="Select Country"
-                    />
+                       components={{
+                          IndicatorSeparator: () => null
+                        }}
+                    /> */}
                     {/* <span className="input__span">Country</span>
                     </label> */}
-                  </div>
+                  {/* </div> */}
                 </div>
 
                 <div className="mb-3">

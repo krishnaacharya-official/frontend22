@@ -55,7 +55,7 @@ const AddBankModal = (props) => {
   const handleChange = props.handleChange
   const value = props.value
 
-// console.log(stateData.dob)
+  // console.log(stateData.dob)
 
   // useEffect(() => {
   //   (async () => {
@@ -265,6 +265,9 @@ const AddBankModal = (props) => {
                           setDefaultCountry(e)
                         }
                         }
+                        components={{
+                          IndicatorSeparator: () => null
+                        }}
 
                       />
                     </div>
@@ -286,6 +289,9 @@ const AddBankModal = (props) => {
                             setDefaultTypeOfBusiness(e)
                           }
                           }
+                          components={{
+                            IndicatorSeparator: () => null
+                          }}
 
                         />
                       </div>
@@ -379,7 +385,7 @@ const AddBankModal = (props) => {
                         </div>
                       </div>
                       <div className="col-sm-6 ">
-                        <p className="ssninstruction text-light">The last 4 digits of your SSN are only used to verify your identity—no credit checks.<br/>SSN number is must same as Last 4 digits of Personal Id Number.</p>
+                        <p className="ssninstruction text-light">The last 4 digits of your SSN are only used to verify your identity—no credit checks.<br />SSN number is must same as Last 4 digits of Personal Id Number.</p>
                       </div>
 
                     </div>
@@ -400,7 +406,10 @@ const AddBankModal = (props) => {
                         value={props.defaultHomeCountry}
                         options={countryList}
                         isDisabled={true}
-                        // onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
+                        components={{
+                          IndicatorSeparator: () => null
+                        }}
+                      // onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
 
                       />
 
@@ -559,6 +568,9 @@ const AddBankModal = (props) => {
                       defaultValue={accountHolderTypes[0]}
                       options={accountHolderTypes}
                       onChange={(e) => props.setstate({ ...stateData, accountHolderType: e.value })}
+                      components={{
+                        IndicatorSeparator: () => null
+                      }}
 
                     />
                   </div>
@@ -743,16 +755,16 @@ const AddBankModal = (props) => {
 
 
                       <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, border: !props.tempImgName && props.tempImgName === "" && stateData.error.identityDocumentImage ? "4px dashed red" : "4px dashed #3773c6" }}>
-                        <input className="file-upload-input" type='file' name="identityDocumentImage" onChange={props.changevalue} accept="image/*" style={fileuploadinput}  title=" " />
+                        <input className="file-upload-input" type='file' name="identityDocumentImage" onChange={props.changevalue} accept="image/*" style={fileuploadinput} title=" " />
                         <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-                          <h3 style={{fontSize:"inherit"}}>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :
+                          <h3 style={{ fontSize: "inherit" }}>{props.tempImgName && props.tempImgName !== "" ? props.tempImgName :
                             stateData.error.identityDocumentImage ? "Please Upload Selected Document" :
                               "Drag and drop a file or select Image"} </h3>
                         </div>
                       </div>
                     </div>
                     <div className="col-sm-6">
-                      {props.tempImg && <img alt="" src={props.tempImg} width="250px" style={{width:"150px",height:"200px",objectFit:"contain"}} />}
+                      {props.tempImg && <img alt="" src={props.tempImg} width="250px" style={{ width: "150px", height: "200px", objectFit: "contain" }} />}
                     </div>
                   </div>
 

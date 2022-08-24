@@ -384,7 +384,8 @@ const AddPost = (props) => {
                           className="form-control form-control-lg"
                           // id="brandInput"
                           placeholder="Slug"
-                          disabled={id ? true : false} name='slug' id="slug" value={slug} onChange={(e) => { changevalue(e) }}
+                          // disabled={id ? true : false}
+                          name='slug' id="slug" value={slug} onChange={(e) => { changevalue(e) }}
                         />
                         {/* <p className="error">Required</p> */}
                         {error && error.slug && <p className="error">{error ? error.slug ? error.slug : "" : ""}</p>}

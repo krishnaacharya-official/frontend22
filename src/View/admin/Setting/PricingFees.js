@@ -356,6 +356,9 @@ export default function PricingFees(props) {
                                             defaultValue={options[0]}
                                             options={countryList}
                                             onChange={onChangeCountry}
+                                             components={{
+                                                IndicatorSeparator: () => null
+                                                }}
 
                                         />
                                     </div>

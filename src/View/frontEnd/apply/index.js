@@ -112,6 +112,9 @@ const Apply = (props) => {
                         name="country"
                         options={countryList}
                         onChange={props.onChangeCountry}
+                        components={{
+                          IndicatorSeparator: () => null
+                        }}
                       />
                       <span className="input__span">Country</span>
                     </label>

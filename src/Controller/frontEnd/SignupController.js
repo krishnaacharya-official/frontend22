@@ -57,7 +57,7 @@ function SignupController() {
 
     useEffect(() => {
         (async () => {
-            await getCountryList()
+            // await getCountryList()
         })()
 
     }, [])
@@ -78,7 +78,7 @@ function SignupController() {
             email: 'required|email',
             password: 'required|min:6',
             cpassword: 'required|same:password',
-            country: 'required',
+            // country: 'required',
 
         }
 
@@ -103,7 +103,7 @@ function SignupController() {
             data.name = name
             data.email = email
             data.password = password
-            data.country_id = Number(country)
+            // data.country_id = Number(country)
 
 
             setLoading(false)

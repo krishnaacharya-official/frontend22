@@ -16,7 +16,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { Button } from "react-bootstrap";
 import helper from "../../../../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice,setUserCountrySort, setUserLanguage, setProfileImage, setUserCountry, setUserState, setLogout } from "../../../../../user/user.action"
+import { setIsUpdateUserDetails, setCurrency, setCurrencyPrice, setUserCountrySort, setUserLanguage, setProfileImage, setUserCountry, setUserState, setLogout } from "../../../../../user/user.action"
 import noImg from "../../../../../assets/images/noimg.jpg"
 import cartApi from "../../../../../Api/frontEnd/cart";
 // import { useSelector, useDispatch } from "react-redux";
@@ -638,7 +638,10 @@ const UserProfile = () => {
               name="country"
               options={countryList}
               onChange={onChangeCountry}
-              // isDisabled
+              components={{
+                IndicatorSeparator: () => null
+              }}
+            // isDisabled
             />
             <span className="input__span">Country</span>
           </label>
@@ -656,6 +659,9 @@ const UserProfile = () => {
               name="state"
               options={stateList}
               onChange={onChangeState}
+              components={{
+                IndicatorSeparator: () => null
+              }}
 
             />
             <span className="input__span">State/Province</span>
@@ -673,6 +679,9 @@ const UserProfile = () => {
               name="city"
               options={cityList}
               onChange={onClickCity}
+              components={{
+                IndicatorSeparator: () => null
+              }}
 
             />
             <span className="input__span">City</span>
@@ -708,6 +717,9 @@ const UserProfile = () => {
               name="language"
               options={options}
               onChange={onChangeLanguage}
+               components={{
+                          IndicatorSeparator: () => null
+                        }}
 
             />
           </div>
@@ -730,6 +742,9 @@ const UserProfile = () => {
               </div>
             )}
             onChange={onChangeCurrency}
+             components={{
+                          IndicatorSeparator: () => null
+                        }}
           />
         </div>
         {error && error.currency && <p className="error">{error.currency}</p>}

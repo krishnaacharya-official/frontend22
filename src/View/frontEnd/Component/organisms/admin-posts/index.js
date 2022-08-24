@@ -317,29 +317,37 @@ const AdminPosts = (props) => {
 
 
     } else if (e.target.name === "headline") {
-      if (id === "") {
-        let productNameVar = value.toLowerCase();
-        productNameVar = productNameVar.replace(/\s+/g, '-');
-        setstate({
-          ...state,
-          slug: productNameVar,
-          [e.target.name]: value
-        })
-      } else {
-        setstate({
-          ...state,
-          [e.target.name]: value
-        })
-      }
+
+      let productNameVar = value.toLowerCase();
+      productNameVar = productNameVar.replace(/\s+/g, '-');
+      setstate({
+        ...state,
+        slug: productNameVar,
+        [e.target.name]: value
+      })
+      // if (id === "") {
+      //   let productNameVar = value.toLowerCase();
+      //   productNameVar = productNameVar.replace(/\s+/g, '-');
+      //   setstate({
+      //     ...state,
+      //     slug: productNameVar,
+      //     [e.target.name]: value
+      //   })
+      // } else {
+      //   setstate({
+      //     ...state,
+      //     [e.target.name]: value
+      //   })
+      // }
     } else if (e.target.name === "slug") {
-      if (id === "") {
-        let productNameVar = value.toLowerCase();
-        productNameVar = productNameVar.replace(/\s+/g, '-');
-        setstate({
-          ...state,
-          slug: productNameVar,
-        })
-      }
+      // if (id === "") {
+      let productNameVar = value.toLowerCase();
+      productNameVar = productNameVar.replace(/\s+/g, '-');
+      setstate({
+        ...state,
+        slug: productNameVar,
+      })
+      // }
 
     } else {
       if (e.target.name === 'unlimited' && value === true) {
@@ -611,7 +619,7 @@ const AdminPosts = (props) => {
         organization: 'required',
         // policy: 'boolean',
 
-        // slug: 'required'
+        slug: 'required'
       }
     } else {
       rules = {
@@ -686,10 +694,10 @@ const AdminPosts = (props) => {
 
       formData.organizationId = data._id
 
-      if (!id && id === '') {
-        formData.productSlug = slug
+      // if (!id && id === '') {
+      formData.productSlug = slug
 
-      }
+      // }
       let tagsArray = []
       if (tags.length > 0) {
         tags.map((ptage, i) => {
@@ -1081,7 +1089,7 @@ const AdminPosts = (props) => {
 
   const fulfilOrder = async () => {
     let formaerrror = {}
-    console.log(fulfilMoreImg)
+    // console.log(fulfilMoreImg)
     if (!fulfilPolicy) {
       formaerrror['fulfilPolicy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
 
@@ -1457,7 +1465,7 @@ const AdminPosts = (props) => {
 
                         </div> */}
 
-                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap ,backgroundColor: '#e5f4ff',borderRadius: '9px',border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
                           <input className="file-upload-input" type='file'
                             // name="identityDocumentImage" 
                             // onChange={props.changevalue}
@@ -1466,9 +1474,9 @@ const AdminPosts = (props) => {
                             style={fileuploadinput} title=" " />
                           <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
                             <h3 style={{ fontSize: "inherit" }}>
-                            {tempImgName && tempImgName !== "" ? tempImgName :
-                           fulfilError.receiptFile ? "Please Select File" :
-                              "Drag and drop or select File"}</h3>
+                              {tempImgName && tempImgName !== "" ? tempImgName :
+                                fulfilError.receiptFile ? "Please Select File" :
+                                  "Drag and drop or select File"}</h3>
                           </div>
                         </div>
                         {fulfilError && fulfilError.receiptFile && <p className='error'>{fulfilError ? fulfilError.receiptFile ? fulfilError.receiptFile : "" : ""}</p>}

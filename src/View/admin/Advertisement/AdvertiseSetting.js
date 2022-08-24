@@ -307,6 +307,9 @@ const AdvertiseSetting = (props) => {
                                             options={countryList}
                                             onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, 'home')}
                                             placeholder="Select Country"
+                                            components={{
+                                                IndicatorSeparator: () => null
+                                              }}
                                         />
 
                                     </div>
@@ -411,6 +414,9 @@ const AdvertiseSetting = (props) => {
                                                 options={countryList}
                                                 onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, 'category')}
                                                 placeholder="Select Country"
+                                                components={{
+                                                    IndicatorSeparator: () => null
+                                                  }}
                                             />
 
                                         </div>
@@ -475,6 +481,9 @@ const AdvertiseSetting = (props) => {
                                                 options={countryList}
                                                 onChange={(e) => props.onChangeCountry(e, advertisementDetails._id, '')}
                                                 placeholder="Select Country"
+                                                components={{
+                                                    IndicatorSeparator: () => null
+                                                  }}
                                             />
 
                                         </div>
@@ -499,6 +508,9 @@ const AdvertiseSetting = (props) => {
                                                     )}
                                                     onChange={(e) => props.onChangeState(e, advertisementDetails._id)}
                                                     placeholder="Select State"
+                                                    components={{
+                                                        IndicatorSeparator: () => null
+                                                      }}
                                                 />
 
                                             </div>

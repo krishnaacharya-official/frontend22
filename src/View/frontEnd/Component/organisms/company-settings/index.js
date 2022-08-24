@@ -463,6 +463,9 @@ const CompanySettings = () => {
               options={countryList}
               onChange={onChangeCountry}
               isDisabled
+              components={{
+                IndicatorSeparator: () => null
+              }}
             />
             <span className="input__span">Country</span>
           </label>
@@ -480,6 +483,9 @@ const CompanySettings = () => {
               name="state"
               options={stateList}
               onChange={onChangeState}
+              components={{
+                IndicatorSeparator: () => null
+              }}
 
             />
             <span className="input__span">State/Province</span>
@@ -497,6 +503,9 @@ const CompanySettings = () => {
               name="city"
               options={cityList}
               onChange={onClickCity}
+              components={{
+                IndicatorSeparator: () => null
+              }}
 
             />
             <span className="input__span">City</span>
