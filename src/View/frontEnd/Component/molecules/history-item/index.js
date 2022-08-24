@@ -87,7 +87,7 @@ function HistoryItem({ active, ...otherProps }) {
             }*/}
             {type === 'donation' ? (
               <>
-                <div className="icon--bg">
+                <div className="d-flex icon--bg" style={{width: 'auto'}}>
                   <FontAwesomeIcon icon={solid('heart')} className="mr-6p text-lighter" />
                   Donated
                 </div>
@@ -103,7 +103,7 @@ function HistoryItem({ active, ...otherProps }) {
           </div>
         </div>
 
-        <div className="billing__value">
+        <div className="billing__value text-end">
           <div className="fs-5 fw-bold text-success mb-3p">
             {currencySymbol ? currencySymbol : '$'}
             {priceFormat(amount)}

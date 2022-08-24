@@ -1,5 +1,6 @@
 .suggested__list {
-  overflow: auto
+  overflow: auto;
+  list-style: unset
 }
 .suggested__list::-webkit-scrollbar {
   height: 0px;

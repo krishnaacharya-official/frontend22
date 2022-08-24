@@ -70,9 +70,9 @@ const OrganisationDetail = (props) => {
     <>
       <HeaderController />
       <SuggestionWrapper>
-        <div className="d-flex align-items-center">
+        <div className="suggested__list d-flex align-items-center container-fluid p-0 mb-0">
           <SuggestedList organizationList={props.organizationList} organizationId={organizationDetails?._id} itemTag="organization" />
-          <div className="ms-auto d-flex align-items-center">
+          <div className="d-flex align-items-center me-2">
             {
               !CampaignAdminAuthToken &&
               <Button size="lg" className="fw-bold" onClick={() => { setModalShow(true) }}>

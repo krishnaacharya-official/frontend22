@@ -9,12 +9,10 @@ const SummaryContent = (props) => {
   let cartItem = props.cartItem;
   // let total = props.CalculatedPrice.getData(props.total)
   let total = props.total;
-  let salesTax = props.salesTax
-  let subtotal = props.subtotal
-  let salesTaxPer = props.salesTaxPer
-  let transectionFee = props.transectionFee
-
-
+  let salesTax = props.salesTax;
+  let subtotal = props.subtotal;
+  let salesTaxPer = props.salesTaxPer;
+  let transectionFee = props.transectionFee;
 
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
@@ -58,17 +56,16 @@ const SummaryContent = (props) => {
                   </div>
                   <span className="fs-5 fw-bold text-success ms-3">
                     {props.currencySymbol +
-
-
                       // priceFormat(
                       //   props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity
 
                       // )
 
-                      priceFormat((item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price) * item.quantity)
-
-
-                    }
+                      priceFormat(
+                        (item.productDetails?.displayPrice
+                          ? item.productDetails?.displayPrice
+                          : item.productDetails?.price) * item.quantity
+                      )}
                   </span>
                 </li>
               );
@@ -82,7 +79,7 @@ const SummaryContent = (props) => {
               {props.currencySymbol + priceFormat(subtotal)}
             </span>
           </div>
-          <div className="d-flex align-items-center pb-20p">
+          {/*} <div className="d-flex align-items-center pb-20p">
 
             <span className="fw-bolder flex__1">
               <img
@@ -95,7 +92,7 @@ const SummaryContent = (props) => {
             <span className="fw-semibold fs-7 text-light">
               {props.currencySymbol + props.stripeTax}
             </span>
-          </div>
+          </div> */}
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
             <span className="fw-bold text-info">{props.xp} xp</span>
@@ -111,12 +108,16 @@ const SummaryContent = (props) => {
       </div>
 
       <div className="note note--info px-0 text-start">
-        All prices include sales tax. The organization(s) will receive the exact amount required to purchase each unit including regional sales tax. The funds provided for these goods is a transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
+        All prices include sales tax. The organization(s) will receive the exact amount required to
+        purchase each unit including regional sales tax and payment processing fees. The funds
+        provided for these goods is a transfer of funds and not a gift-in-kind transaction, no
+        physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
         <br />
         {/* </br> */}
         <br />
         {/* </br> */}
-        Your funds are sent to the organization to purchase the goods on your behalf at their local stores.&nbsp;
+        Your funds are sent to the organization to purchase the goods on your behalf at their local
+        stores.&nbsp;
         <a href="/about-us" className="text-subtext">
           Click here
         </a>{' '}
