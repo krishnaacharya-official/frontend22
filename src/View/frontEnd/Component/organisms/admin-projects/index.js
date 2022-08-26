@@ -380,6 +380,7 @@ const AdminProjects = () => {
       });
 
       let tempProductArray = [];
+      // console.log(projectData.productDetails)
       if (projectData.productDetails.length > 0) {
         projectData.productDetails.map((product, i) => {
           tempProductArray.push(product.productId)

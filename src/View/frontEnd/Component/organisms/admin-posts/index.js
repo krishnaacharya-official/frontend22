@@ -968,15 +968,15 @@ const AdminPosts = (props) => {
   }
 
   const createNewPost = () => {
-    if (data.transectionKey && data.paymentLoginId) {
+    // if (data.transectionKey && data.paymentLoginId) {
       resetForm()
       createPost(true)
-    } else {
-      let path = '/campaign/' + data.slug + '/settings/paymentMethod'
-      navigate(path)
-      ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
+    // } else {
+      // let path = '/campaign/' + data.slug + '/settings/paymentMethod'
+      // navigate(path)
+      // ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
 
-    }
+    // }
   }
 
   const publishProduct = async (id) => {

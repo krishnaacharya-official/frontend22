@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, brands, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -8,11 +8,28 @@ import { solid, brands, regular } from "@fortawesome/fontawesome-svg-core/import
 import IconButton from "../../molecules/icon-button";
 import FooterCategoryLinks from "../../molecules/footer-category-links";
 import { useSelector, useDispatch } from "react-redux";
+import categoryApi from "../../../../../Api/admin/category";
 
 import "./style.scss";
 
 function Footer() {
   const user = useSelector((state) => state.user);
+  const [categoryList, setCategoryList] = useState([])
+
+  const getCategoryList = async () => {
+    const categoryList = await categoryApi.listCategory();
+    if (categoryList.data.success === true) {
+      setCategoryList(categoryList.data.data)
+    }
+  }
+  useEffect(() => {
+    (async() => {
+     await getCategoryList()
+    })()
+
+  }, [])
+  
+
   return (
     <div className="footer border-top px-1">
       <Container fluid className="footer__top">
@@ -102,16 +119,16 @@ function Footer() {
             </p>
           </Col>
           <Col className="footer__block mb-2 mb-sm-0 text-center text-sm-start">
-            <FooterCategoryLinks categoryName="Home" />
+            <FooterCategoryLinks categoryName="Home" list={[]} />
           </Col>
           <Col className="footer__block mb-2 mb-sm-0 text-center text-sm-start">
-            <FooterCategoryLinks categoryName="Support" />
+            <FooterCategoryLinks categoryName="Support" list={[]} />
           </Col>
           <Col className="footer__block text-center text-sm-start">
-            <FooterCategoryLinks categoryName="Information" />
+            <FooterCategoryLinks categoryName="Information" list={[]}/>
           </Col>
           <Col className="footer__block text-center text-sm-start">
-            <FooterCategoryLinks categoryName="Marketplace" />
+            <FooterCategoryLinks categoryName="Marketplace" list={categoryList} />
           </Col>
         </Row>
         <div className="footer__bottom d-sm-flex align-items-center border-top text-center text-sm-start">
@@ -119,8 +136,8 @@ function Footer() {
             <div>© 2022 Donorport, Inc.</div>
           </div>
           <div className="copyright mb-1 mb-sm-0 ms-1">
-          <FontAwesomeIcon icon={regular("earth-americas")} />
-          <span className="logo-span">{user.countryName}</span>
+            <FontAwesomeIcon icon={regular("earth-americas")} />
+            <span className="logo-span">{user.countryName}</span>
           </div>
           <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto">
             <li className="footer__link-item me-4">

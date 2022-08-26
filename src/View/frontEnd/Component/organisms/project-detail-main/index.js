@@ -56,33 +56,64 @@ function ProjectDetailMain(props) {
 
   // }
 
+  // const countProjectProcess = (data) => {
+  //   // console.log(data)
+  //   let totalQArray = [];
+  //   let soldOutQArray = [];
+  //   let per = 0;
+
+  //   if (data?.length > 0) {
+  //     data.map((p, i) => {
+  //       // console.log(p.itemDetails)
+  //       if (!p.itemDetails.unlimited) {
+  //         totalQArray.push(Number(p.itemDetails.quantity));
+  //         soldOutQArray.push(Number(p.itemDetails.soldout));
+  //       }
+  //     });
+
+  //     const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     if (soldout === 0 || total === 0) {
+  //       per = 0;
+  //     } else {
+  //       per = (Number(soldout) / Number(total)) * 100;
+  //     }
+  //   } else {
+  //     per = 0;
+  //   }
+  //   return Math.round(per);
+  // };
+
   const countProjectProcess = (data) => {
-    // console.log(data)
-    let totalQArray = [];
-    let soldOutQArray = [];
-    let per = 0;
+
+    let allProductPer = []
+
+    let per = 0
 
     if (data?.length > 0) {
       data.map((p, i) => {
-        // console.log(p.itemDetails)
-        if (!p.itemDetails.unlimited) {
-          totalQArray.push(Number(p.itemDetails.quantity));
-          soldOutQArray.push(Number(p.itemDetails.soldout));
-        }
-      });
 
-      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
-      const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
-      if (soldout === 0 || total === 0) {
-        per = 0;
-      } else {
-        per = (Number(soldout) / Number(total)) * 100;
-      }
+        if (!p.itemDetails.unlimited) {
+          let itm = Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity) * 100
+          allProductPer.push(itm)
+
+        }else{
+          allProductPer.push(0)
+        }
+
+      })
+
+      const total = allProductPer.reduce((partialSum, a) => partialSum + a, 0);
+      per = total / allProductPer.length
+      per = Math.round(per)
+
     } else {
       per = 0;
+
     }
     return Math.round(per);
-  };
+
+  }
 
   // console.log(projectDetails)
   return (

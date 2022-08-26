@@ -34,33 +34,64 @@ function ActivityItem(props) {
   //   return Math.round(per);
 
   // }
+  // const countProjectProcess = (data) => {
+  //   // console.log(data)
+  //   let totalQArray = []
+  //   let soldOutQArray = []
+  //   let per = 0
+
+  //   if (data?.length > 0) {
+  //     data.map((p, i) => {
+  //       // console.log(p.itemDetails)
+  //       if (!p.itemDetails.unlimited) {
+  //         totalQArray.push(Number(p.itemDetails.quantity))
+  //         soldOutQArray.push(Number(p.itemDetails.soldout))
+  //       }
+
+  //     })
+
+
+
+  //     const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
+  //     if (soldout === 0 || total === 0) {
+  //       per = 0
+  //     } else {
+  //       per = Number(soldout) / Number(total) * 100
+  //     }
+
+
+
+  //   } else {
+  //     per = 0;
+
+  //   }
+  //   return Math.round(per);
+
+  // }
+
   const countProjectProcess = (data) => {
-    // console.log(data)
-    let totalQArray = []
-    let soldOutQArray = []
+
+    let allProductPer = []
+
     let per = 0
 
     if (data?.length > 0) {
       data.map((p, i) => {
-        // console.log(p.itemDetails)
+
         if (!p.itemDetails.unlimited) {
-          totalQArray.push(Number(p.itemDetails.quantity))
-          soldOutQArray.push(Number(p.itemDetails.soldout))
+          let itm = Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity) * 100
+          allProductPer.push(itm)
+
+        } else {
+          allProductPer.push(0)
         }
 
       })
 
-
-
-      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
-      const soldout = soldOutQArray.reduce((partialSum, a) => partialSum + a, 0);
-      if (soldout === 0 || total === 0) {
-        per = 0
-      } else {
-        per = Number(soldout) / Number(total) * 100
-      }
-
-
+      const total = allProductPer.reduce((partialSum, a) => partialSum + a, 0);
+      per = total / allProductPer.length
+      per = Math.round(per)
 
     } else {
       per = 0;
@@ -83,9 +114,22 @@ function ActivityItem(props) {
   let date = notification.created_at
 
   let info = notification.info
+  let infoType = notification.infoType
+
+  let mediaImage = 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5fca4a280e133c01b4a429eb_camera.svg'
+
+
 
 
   let orgLogo = helper.CampaignAdminLogoPath + notification?.campaignadminDetails?.logo
+
+
+  let displayImg = notification.type === 'PRODUCT' && infoType === 'FUNDED' ? image : orgLogo
+
+  if (infoType && infoType === 'MEDIA') {
+    displayImg = mediaImage
+  }
+
 
 
 
@@ -109,16 +153,16 @@ function ActivityItem(props) {
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={info ? orgLogo : image} />
+        <ListItemImg imgSrc={displayImg} />
         <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">
             {
-              info ?
+              info && infoType !== 'FUNDED' ?
                 <div className="ad__activity__name">{organizationName}</div>
                 :
                 <div className="ad__activity__name">{name}</div>
             }
-            {/* <div className="ad__activity__name">{name}</div> */}
+            {/* <div className="ad__activity__name">{ notification.type}</div> */}
             {
               info ?
                 <div className="ad__activity__sub-name">{info}</div>
@@ -129,10 +173,12 @@ function ActivityItem(props) {
             }
 
             {
-              notification.type === 'PROJECT' && !info &&
+              notification.type === 'PROJECT' && infoType !== 'FUNDED' && !info &&
               <div className="ad__activity__title fs-7">{countProjectProcess(notification.productDetails)}% Funded</div>
 
             }
+
+
             <div className="ad__activity__sub-name">{moment(date).fromNow()}</div>
           </div>
         </div>

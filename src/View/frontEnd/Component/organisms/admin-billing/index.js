@@ -111,7 +111,7 @@ const AdminBilling = () => {
               historyList.slice(0, loadMore ? historyList.length : 2).map((list, i) => {
 
                 // console.log(list)
-                let amount = list.type === 'ORDER' ? list.totalPrice : list.amount
+                let amount = list.type === 'ORDER' ? (Number(list.totalPrice)*Number(list.quantity)) : list.amount
                 let currencySymbole = list.type === 'ORDER' ? list.orderDetails.currencySymbol : list.currencySymbol
                 let date = moment(list.created_at).format('DD/MM/YYYY')
                 let donate = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donated'

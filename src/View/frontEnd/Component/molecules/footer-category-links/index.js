@@ -10,11 +10,13 @@ const defaultProps = {
   categoryName: ''
 };
 
-function FooterCategoryLinks({ categoryName, ...otherProps }) {
+function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
   const sharedProps = {
     categoryName,
+    list,
     ...otherProps
   };
+  // console.log(sharedProps.list)
   return (
     <div {...otherProps}>
       <a href="/" className="footer__category-title d-block mb-2">
@@ -53,7 +55,7 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
             <Link to="/apply" className="footer__link">
-               Apply to Post
+              Apply to Post
             </Link>
           </li>
           <li className="footer__link-item">
@@ -91,6 +93,38 @@ function FooterCategoryLinks({ categoryName, ...otherProps }) {
               Post Tags
             </Link>
           </li>
+        </ul>
+      )}
+      {sharedProps.categoryName === 'Marketplace' && (
+        <ul className="list-unstyled footer__links">
+          {
+            sharedProps.list.length > 0 &&
+            sharedProps.list.map((l, i) => {
+              return (
+                <li className="footer__link-item">
+                  <Link to={'/categories/' + l.slug} className="footer__link">
+                    {l.name}
+                  </Link>
+                </li>
+              )
+            })
+
+          }
+          {/* <li className="footer__link-item">
+            <Link to="/trust" className="footer__link">
+              Trust &amp; Safety
+            </Link>
+          </li>
+          <li className="footer__link-item">
+            <Link to="/sponsors" className="footer__link">
+              Become Verified
+            </Link>
+          </li>
+          <li className="footer__link-item">
+            <Link to="/item-tags" className="footer__link">
+              Post Tags
+            </Link>
+          </li> */}
         </ul>
       )}
     </div>
