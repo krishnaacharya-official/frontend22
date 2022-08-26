@@ -185,7 +185,7 @@ function product() {
 
         }
 
-
+        data.append('organizationCountryId', cdata.organizationCountryId);
 
         data.append('status', cdata.status);
         if (cdata.image) {

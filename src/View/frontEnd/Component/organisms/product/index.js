@@ -98,6 +98,8 @@ const Product = (props) => {
   }, [!user.isUpdateCart, props.cartProductIds])
 
 
+  let isFinish = !unlimited && sold >= total ? true : false
+
 
 
 
@@ -162,7 +164,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-    sold >= total || isFulfiled ? (
+  isFinish || isFulfiled ? (
       <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn

@@ -249,6 +249,7 @@ const CompanySettings = () => {
   }, [countryList, data.country_id])
 
   const updateProfile = () => {
+    // alert('k')
     const rules = {
       name: "required",
       mission: "required",
@@ -310,9 +311,9 @@ const CompanySettings = () => {
           setUpdate(!update)
           // user.setUpdateOrg(!user.isUpdateOrg)
           dispatch(setIsUpdateOrganization(!user.isUpdateOrg))
-          // if (tempImg && tempImg !== "") {
-          //   dispatch(setProfileImage(tempImg))
-          // }
+          if (tempImg && tempImg !== "") {
+            dispatch(setProfileImage(tempImg))
+          }
           setData(state)
           setLoading(false)
           ToastAlert({ msg: addUser.data.message, msgType: 'success' });
@@ -326,7 +327,7 @@ const CompanySettings = () => {
 
 
     }).catch(errors => {
-      // console.log(errors)
+      console.log(errors)
       setLoading(false)
       const formaerrror = {};
       if (errors.length) {
@@ -424,6 +425,8 @@ const CompanySettings = () => {
             <input type="text" name="name" value={name} onChange={(e) => changevalue(e)} />
             <span className="input__span">Organisation Name</span>
           </label>
+          {error && error.name && <p className="error">{error.name}</p>}
+
         </div>
 
         <div className="input__wrap mb-3">
@@ -447,6 +450,8 @@ const CompanySettings = () => {
           <div className="helper__text fs-7 text-end text-subtext">
             240 chars remaining
           </div>
+          {error && error.mission && <p className="error">{error.mission}</p>}
+
         </div>
 
 
@@ -530,6 +535,8 @@ const CompanySettings = () => {
               value={promoVideo}
             />
           </label>
+          {error && error.promoVideo && <p className="error">{error.promoVideo}</p>}
+
         </div>
         {
           embedlink && isIframe(embedlink) &&
