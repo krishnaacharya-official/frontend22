@@ -98,7 +98,7 @@ const Footer = () => {
             <a className="footer-title" href="#">
               Marketplace
             </a>
-            <div className="footer-links">
+            <div className="footer-links d-flex flex-column flex-wrap" style={{maxHeight: '275px'}}>
               <a href="#">Animals</a>
               <a href="#">Education</a>
               <a href="#">Environment</a>
