@@ -87,15 +87,15 @@ function HistoryItem({ active, ...otherProps }) {
             }*/}
             {type === 'donation' ? (
               <>
-                <div className="d-flex icon--bg" style={{width: 'auto'}}>
+                <div className="d-flex icon--bg" style={{width: 'auto', whiteSpace: 'nowrap'}}>
                   <FontAwesomeIcon icon={solid('heart')} className="mr-6p text-lighter" />
                   Donated
                 </div>
               </>
             ) : (
               <>
-                <div className="icon--bg">
-                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" />
+                <div className="d-flex icon--bg">
+                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{whiteSpace: 'nowrap'}}/>
                   Bought {item?.quantity} {item?.name}
                 </div>
               </>

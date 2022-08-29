@@ -205,7 +205,7 @@ function ProjectDetailMain(props) {
             {/* <div className="page__logo page__logo--org ms-auto" > */}
             <img
               alt=""
-              style={{ width: "30px" }}
+              style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%'}}
               src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
 
             />

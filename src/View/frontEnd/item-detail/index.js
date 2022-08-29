@@ -109,7 +109,7 @@ const ItemDetail = (props) => {
             />
           </Col>
           <Col md="5">
-            <div className="d-none d-sm-block project__detail-img mb-3">
+            <div className="d-none d-sm-flex project__detail-img mb-3">
               <img
                 className="img-fluid"
                 alt=""
