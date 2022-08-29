@@ -802,7 +802,7 @@ const PaymentMethod = () => {
         </div>
 
 
-        {/* <div className="mb-5">
+        <div className="mb-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>
           <div className="d-flex align-items-center mb-3">
             <span className="text-subtext flex__1">
@@ -888,10 +888,10 @@ const PaymentMethod = () => {
             fully funded or you receive donations from users (both one-time &
             recurring).
           </div>
-        </div> */}
+        </div>
 
 
-        <div className="mb-5">
+        {/* <div className="mb-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>(Authorize.Net)
 
 
@@ -936,7 +936,7 @@ const PaymentMethod = () => {
             fully funded or you receive donations from users (both one-time &
             recurring).
           </div>
-        </div>
+        </div> */}
         {/*<div className="mb-5">
           <h4 className="fw-bolder">Cryptocurrencyies</h4>
           <div className="text-subtext mb-4">

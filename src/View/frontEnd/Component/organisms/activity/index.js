@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import ActivityList from "./activity-list";
 import FollowingList from "./following-list";
@@ -15,6 +15,7 @@ const Activity = (props) => {
     empty: false,
     following: false,
     settings: false,
+    allRead: false
   })
 
   const moreClick = () => {
@@ -27,6 +28,11 @@ const Activity = (props) => {
 
   const showSettings = () => {
     setState({ ...state, settings: true });
+  };
+
+  const markNotification = async () => {
+    // setState({ ...state, allRead: !state.allRead });
+    await props.notificationMarkAsRead(!state.allRead)
   };
 
   const ActivityButton = React.forwardRef(({ children, onClick }, ref) => {
@@ -44,11 +50,45 @@ const Activity = (props) => {
       </Button>
     );
   });
-// let len = !props.notificationList.filter(e => e?.userNotificationDetails) ? props.notificationList :
-// props.notificationList.filter(e => e?.userNotificationDetails?.removed === false)
+  // let len = !props.notificationList.filter(e => e?.userNotificationDetails) ? props.notificationList :
+  // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false)
   // console.log(props.notificationList)
   // console.log(props.notificationList.find(e => e.userNotificationDetails.removed === true))
   // console.log(props.notificationList.filter(e => e.userNotificationDetails.removed === true).length)
+  useEffect(() => {
+
+    if (props.notificationList.length > 0) {
+      let temprray = []
+      props.notificationList.map((notification, i) => {
+        let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
+        if (!isRemoved) {
+          temprray.push(notification)
+        }
+      })
+      // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
+
+      // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
+      if (temprray.filter(e => e.userNotificationDetails?.watched).length > 0) {
+
+        setState({ ...state, allRead: true });
+      } else {
+        setState({ ...state, allRead: false });
+      }
+
+      // console.log(temprray.length)
+
+    }
+
+    // let isRemoved = props.notificationList.filter(e => e.userNotificationDetails.removed === true)
+    // console.log(props.notificationList.filter(e => e?.userNotificationDetails?.removed===true && e?.userNotificationDetails?.watched===false ).length)
+    // if (props.notificationList.filter(e => e.userNotificationDetails.watched === true).length === isRemoved.length) {
+    //   setState({ ...state, allRead: true });
+    // } else {
+    //   setState({ ...state, allRead: false });
+
+    // }
+
+  }, [props.notificationList])
 
 
   return (
@@ -97,7 +137,9 @@ const Activity = (props) => {
                   className="ms-auto view__more-activity btn__link-light px-6p text-decoration-none"
                   onClick={() => moreClick()}
                 >
-                  <i className="fa-regular fa-ellipsis-stroke-vertical"></i>
+                  {/* <i className="fa-regular fa-ellipsis-stroke-vertical"></i> */}
+                  <FontAwesomeIcon icon={solid("ellipsis-stroke-vertical")} />
+
 
                 </Button>
               ) : (
@@ -111,23 +153,29 @@ const Activity = (props) => {
                   <Button
                     variant="link"
                     className="px-0 btn__link-light mark__feed text-decoration-none"
+                    onClick={() => markNotification()}
                   >
-                    Mark all read
+                    {state.allRead ? 'Mark all unread' : 'Mark all read'}
                   </Button>
-                  {/* <Button
+                  <Button
                     variant="link"
                     className="btn__link-light activity__settings ms-auto px-0"
-                    onClick={()=>showSettings()}
+                    onClick={() => showSettings()}
                   >
-                   
+
                     <FontAwesomeIcon icon={solid("gear")} />
-                  </Button> */}
+                  </Button>
                 </div>
               ) : (
                 ""
               )}
 
-              {state.following ? <FollowingList /> : state.settings ? <NotificationSettings /> :
+              {state.following ? <FollowingList
+
+                followedOrganizationList={props.followedOrganizationList}
+                followToOrganization={props.followToOrganization}
+
+              /> : state.settings ? <NotificationSettings /> :
                 <ActivityList
                   notificationList={props.notificationList}
                   setWatchNotification={props.setWatchNotification}

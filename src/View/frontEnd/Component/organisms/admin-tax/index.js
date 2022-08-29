@@ -54,7 +54,7 @@ const AdminTax = () => {
   }, [data._id, update])
 
 
-  const uploadImage = async (e, orderId, email, name) => {
+  const uploadImage = async (e, orderId, email, name,userId) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
 
     let fdata = {}
@@ -63,6 +63,8 @@ const AdminTax = () => {
     fdata.email = email
     fdata.name = name
     fdata.organizationName = data.name
+    fdata.organizationCountryId = data.country_id
+    fdata.userId = userId
 
     setLoading(false)
     const uploadTax = await organizationApi.organizatationTaxUpload(token, fdata)

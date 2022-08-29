@@ -3,7 +3,7 @@ import helper from "../../Common/Helper";
 
 function follow() {
 
-    const follow = async (authToken,data) => {
+    const follow = async (authToken, data) => {
 
         let res = {};
         await axios({
@@ -18,7 +18,7 @@ function follow() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
 
         }).then((response) => {
@@ -52,10 +52,35 @@ function follow() {
     }
 
 
+    const userFollowedOrganizationList = async (authToken) => {
+
+
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}follow/user`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+        
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
 
     return {
         follow,
-        checkUserFollow
+        checkUserFollow,
+        userFollowedOrganizationList
 
 
     }
