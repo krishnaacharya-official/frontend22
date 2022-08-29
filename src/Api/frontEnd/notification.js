@@ -3,7 +3,7 @@ import helper from "../../Common/Helper";
 
 function notification() {
 
-    const list = async (authToken,data) => {
+    const list = async (authToken, data) => {
 
         let res = {};
         await axios({
@@ -18,7 +18,7 @@ function notification() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
@@ -75,12 +75,39 @@ function notification() {
 
 
 
+    const markAsRead = async (authToken, data) => {
+
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}notification/read`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+
 
 
     return {
         list,
         setWatch,
-        removeNotification
+        removeNotification,
+        markAsRead
 
 
 

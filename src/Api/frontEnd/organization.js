@@ -134,7 +134,8 @@ function organization() {
         data.append('email', cdata.email);
         data.append('name', cdata.name);
         data.append('organizationName', cdata.organizationName);
-
+        data.append('organizationCountryId', cdata.organizationCountryId);
+        data.append('userId', cdata.userId);
 
 
 

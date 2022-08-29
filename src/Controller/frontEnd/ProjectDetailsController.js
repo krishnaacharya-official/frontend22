@@ -294,6 +294,7 @@ export default function ProjectDetailsController() {
             data.organizationId = projectDetails.campaignDetails._id
             data.typeId = projectDetails._id
             data.type = 'PROJECT'
+            data.isFollow = e.target.checked
 
             const follow = await followApi.follow(userAuthToken, data)
             if (follow && follow.data.success) {

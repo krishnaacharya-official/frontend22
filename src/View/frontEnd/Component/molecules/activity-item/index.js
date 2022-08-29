@@ -117,6 +117,8 @@ function ActivityItem(props) {
   let infoType = notification.infoType
 
   let mediaImage = 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5fca4a280e133c01b4a429eb_camera.svg'
+  let uploadimage = 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f5837c1ae15bccb8c5c2158_download.svg'
+
 
 
 
@@ -129,7 +131,9 @@ function ActivityItem(props) {
   if (infoType && infoType === 'MEDIA') {
     displayImg = mediaImage
   }
-
+  if (infoType && infoType === 'TAX_RECEIPT') {
+    displayImg = uploadimage
+  }
 
 
 

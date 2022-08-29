@@ -349,6 +349,7 @@ export default function OrganizationDetailsController() {
             data.organizationId = organizationDetails._id
             data.typeId = organizationDetails._id
             data.type = 'ORGANIZATION'
+            data.isFollow = e.target.checked
 
             const follow = await followApi.follow(userAuthToken, data)
             if (follow && follow.data.success) {

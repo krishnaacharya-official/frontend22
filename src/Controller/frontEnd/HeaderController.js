@@ -16,6 +16,7 @@ import wishlistApi from "../../Api/frontEnd/wishlist";
 // import {userAuth as frontEndAuthApi} from "../../Api/frontEnd/auth"
 import userAuthApi from "../../Api/frontEnd/auth";
 import notificationApi from "../../Api/frontEnd/notification";
+import followApi from "../../Api/frontEnd/follow";
 
 
 
@@ -31,6 +32,8 @@ export default function HeaderController() {
     const [loading, setLoading] = useState(false)
     const [update, setIsUpdate] = useState(false)
     const [cartItem, setCartItem] = useState([])
+    const [followedOrganizationList, setFollowedOrganizationList] = useState([])
+
     const navigate = useNavigate();
     // const user = useContext(UserContext)
     const user = useSelector((state) => state.user);
@@ -50,6 +53,21 @@ export default function HeaderController() {
 
     })
     const { platformFee, transectionFee } = pricingFees
+
+
+    const getUserFollowedOrgList = async () => {
+        if (userAuthToken) {
+            const list = await followApi.userFollowedOrganizationList(userAuthToken)
+            if (list && list.data.success) {
+                setFollowedOrganizationList(list.data.data)
+            }
+
+        }
+
+    }
+
+
+
 
     const getWishListProductList = async () => {
         const list = await wishlistApi.list(token)
@@ -177,6 +195,34 @@ export default function HeaderController() {
         })()
     }, [token])
 
+    useEffect(() => {
+        (async () => {
+            await getUserFollowedOrgList()
+        })()
+    }, [])
+
+
+
+    const followToOrganization = async (organizationId, checked) => {
+        if (userAuthToken) {
+            let data = {}
+            data.organizationId = organizationId
+            data.typeId = organizationId
+            data.type = 'ORGANIZATION'
+            data.isFollow = checked
+
+            const follow = await followApi.follow(userAuthToken, data)
+            if (follow && follow.data.success) {
+                await getUserFollowedOrgList()
+                // await checkUserFollow(organizationDetails._id)
+
+            }
+        } else {
+            ToastAlert({ msg: 'Please Login', msgType: 'error' });
+
+        }
+
+    }
 
     const removeCartItem = async (id) => {
         setLoading(false)
@@ -271,6 +317,18 @@ export default function HeaderController() {
         // }
     }
 
+    const notificationMarkAsRead = async (isRead) => {
+
+        let data = {}
+        data.isRead = isRead
+
+        const markAsRead = await notificationApi.markAsRead(userAuthToken, data)
+        if (markAsRead && markAsRead.data.success) {
+            await getNotificationList()
+        }
+
+    }
+
 
 
 
@@ -278,7 +336,7 @@ export default function HeaderController() {
     return (
         <>
 
-                {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <Header
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
@@ -289,6 +347,9 @@ export default function HeaderController() {
                 notificationList={notificationList}
                 setWatchNotification={setWatchNotification}
                 removeNotification={removeNotification}
+                followedOrganizationList={followedOrganizationList}
+                followToOrganization={followToOrganization}
+                notificationMarkAsRead={notificationMarkAsRead}
 
 
 

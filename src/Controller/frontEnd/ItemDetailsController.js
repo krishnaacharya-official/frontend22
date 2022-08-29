@@ -259,6 +259,7 @@ export default function ItemDetailsController() {
             data.organizationId = productDetails.campaignDetails._id
             data.typeId = productDetails._id
             data.type = 'PRODUCT'
+            data.isFollow = e.target.checked
 
             const follow = await followApi.follow(userAuthToken, data)
             if (follow && follow.data.success) {
