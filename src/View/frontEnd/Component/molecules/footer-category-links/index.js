@@ -20,7 +20,7 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
   return (
     <div {...otherProps}>
       <a href="/" className="footer__category-title d-block mb-2">
-        <span className="fw-bold">{sharedProps.categoryName}</span>
+        <span className="fw-bolder">{sharedProps.categoryName}</span>
       </a>
       {sharedProps.categoryName === 'Home' && (
         <ul className="list-unstyled footer__links">

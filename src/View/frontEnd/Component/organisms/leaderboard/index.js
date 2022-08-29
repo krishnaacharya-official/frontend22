@@ -172,7 +172,7 @@ const LeaderBoard = () => {
                                 <div className="rank__top d-flex align-items-center">
                                     <a style={{ backgroundImage: "url(" + user.profileImage + ")" }} href="/user/david" className="rank__avatar w-inline-block"></a>
                                     <div className="rank__header">
-                                        <h3 style={{ marginLeft: "13px", marginBottom: 0 }}>{userData.name}</h3>
+                                        <h3 className="fw-bolder" style={{ marginLeft: "13px", marginBottom: 0 }}>{userData.name}</h3>
                                         <div className="ladder__xp d-flex align-items-center">
                                             {/* <a style={{backgroundColor:"#a278fc"}} href="/ranks" className="btn btn--xpbadge w-inline-block">
                                                 <div className="icon icon--badge">
