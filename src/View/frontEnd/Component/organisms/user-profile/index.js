@@ -85,6 +85,9 @@ const UserProfile = () => {
           })
           setDefaultState([])
           setStateList(tempArray)
+        } else {
+          setDefaultState([])
+          setStateList([])
         }
       }
     }
@@ -106,6 +109,9 @@ const UserProfile = () => {
           })
           setDefaultCity([])
           setCityList(tempArray)
+        } else {
+          setDefaultCity([])
+          setCityList([])
         }
       }
     }

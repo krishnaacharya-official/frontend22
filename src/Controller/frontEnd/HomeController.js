@@ -60,6 +60,11 @@ export default function HomeController() {
     const [cartProductIds, setCartProductIds] = useState([])
 
 
+    const [prodctFilterData, setprodctFilterData] = useState({
+        highestPrice: 3000,
+        lowestPrice: 0,
+    })
+
 
     const [address, setAddress] = useState({
         stateName: "",
@@ -335,7 +340,7 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-          
+
             // if (!user.isMapLocked) {
 
             //     if (user.distance?.includes("© Mapbox ")) {
@@ -484,6 +489,30 @@ export default function HomeController() {
             if (getproductList.data.success === true) {
                 if (getproductList.data.data.length > 0) {
                     // setAllProductList(getproductList.data.data)
+                    // let low = getproductList.data.data.reduce(
+                    //     (acc, loc) =>
+                    //         acc?.displayPrice ? acc?.displayPrice : acc.price < loc?.displayPrice ? loc?.displayPrice : loc.price
+                    //             ? acc
+                    //             : loc
+                    // )
+
+                    // let high = getproductList.data.data.reduce(
+                    //     (acc, loc) =>
+                    //         acc?.displayPrice ? acc?.displayPrice : acc.price > loc?.displayPrice ? loc?.displayPrice : loc.price
+                    //             ? acc
+                    //             : loc
+                    // )
+
+                    let min = Math.min(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
+                    let max = Math.max(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
+
+                    // console.log(min, max)
+
+                    setprodctFilterData({
+                        ...prodctFilterData,
+                        highestPrice: max,
+                        lowestPrice: min,
+                    })
 
                     let productTagsArray = []
                     await Promise.all(getproductList.data.data.map(async (p, i) => {
@@ -1217,6 +1246,7 @@ export default function HomeController() {
                 searchTag={searchTag}
                 deSelectTag={deSelectTag}
                 suggestionTag={suggestionTag}
+                prodctFilterData={prodctFilterData}
 
 
 

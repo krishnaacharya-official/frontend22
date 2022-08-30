@@ -27,9 +27,10 @@ function SuggestedList(props) {
           props.productList?.length > 0 &&
           props.productList.slice(0, 12).map((pro, i) => {
             let sold = pro.unlimited ? pro.isFulfiled : pro.quantity <= pro.soldout
+            let media = pro?.media ? pro.media : false
             return (
               pro._id !== props.productId &&
-              <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={sold} itemTag={props.itemTag} />
+              <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={sold} itemTag={props.itemTag} media={media} />
             )
           })
 

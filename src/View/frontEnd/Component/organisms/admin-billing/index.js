@@ -119,6 +119,8 @@ const AdminBilling = () => {
                 let userName = list.type === 'ORDER' ? list.orderDetails.userDetails.name : list.userDetails.name
                 let CardType = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
                 let lastFourDigits = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.last4 : JSON.parse(list.paymentResponse).payment_method_details?.card?.last4
+                let image = list.type === 'ORDER' ? list.orderDetails.userDetails.image : list.userDetails.image
+                let avatar = image ? helper.DonorImagePath + image :  'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
 
                 return (
                   <div className="billing__item p-2 border-bottom border-bottom-sm-none">
@@ -126,10 +128,10 @@ const AdminBilling = () => {
                       <div className="flex__1 d-flex d-sm-flex-block align-items-center mb-2 mb-sm-0">
                         <Avatar
                           size={52}
-                          avatarUrl="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg"
+                          avatarUrl={avatar}
                           border={0}
                           shadow={false}
-                          className="admin__avatar mr-12p"
+                          className="admin__avatar mr-12p donor_avatar_bg"
                         />
                         <div className="admin__billing__value flex__1">
                           <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole}{amount}</div>

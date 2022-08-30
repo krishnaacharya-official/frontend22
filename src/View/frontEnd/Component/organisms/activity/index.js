@@ -17,6 +17,7 @@ const Activity = (props) => {
     settings: false,
     allRead: false
   })
+  const [allNotificationList, setAllNotificationList] = useState([])
 
   const moreClick = () => {
     setState({ ...state, following: true });
@@ -32,7 +33,7 @@ const Activity = (props) => {
 
   const markNotification = async () => {
     // setState({ ...state, allRead: !state.allRead });
-    await props.notificationMarkAsRead(!state.allRead)
+    await props.notificationMarkAsRead(!state.allRead,allNotificationList)
   };
 
   const ActivityButton = React.forwardRef(({ children, onClick }, ref) => {
@@ -59,12 +60,16 @@ const Activity = (props) => {
 
     if (props.notificationList.length > 0) {
       let temprray = []
+      let n_id = []
+
       props.notificationList.map((notification, i) => {
         let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
         if (!isRemoved) {
+          n_id.push(notification._id)
           temprray.push(notification)
         }
       })
+      setAllNotificationList(n_id)
       // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
 
       // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
@@ -174,6 +179,7 @@ const Activity = (props) => {
 
                 followedOrganizationList={props.followedOrganizationList}
                 followToOrganization={props.followToOrganization}
+                removeFollowedOrganization={props.removeFollowedOrganization}
 
               /> : state.settings ? <NotificationSettings /> :
                 <ActivityList

@@ -55,12 +55,11 @@ function HistoryItem({ active, ...otherProps }) {
 
   return (
     <li
-      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${
-        sharedProps.active ? 'active' : ''
-      }`}
+      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${sharedProps.active ? 'active' : ''
+        }`}
     >
       <div className="d-flex align-items-center w-100">
-        <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} />
+        <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} className="donor_avatar_bg" />
         <div className="ms-2 flex-grow-1">
           <div className="d-flex align-items-center justify-content-between">
             <div className="text-dark fw-bold">{name}</div>
@@ -87,7 +86,7 @@ function HistoryItem({ active, ...otherProps }) {
             }*/}
             {type === 'donation' ? (
               <>
-                <div className="d-flex icon--bg" style={{width: 'auto'}}>
+                <div className="d-flex icon--bg" style={{ width: 'auto' }}>
                   <FontAwesomeIcon icon={solid('heart')} className="mr-6p text-lighter" />
                   Donated
                 </div>

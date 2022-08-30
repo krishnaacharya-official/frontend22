@@ -7,6 +7,7 @@ import Apply from "../../View/frontEnd/apply";
 import FrontLoader from "../../Common/FrontLoader";
 import helper, { getCookie, setCookie, deleteCookie } from "../../Common/Helper";
 import locationApi from "../../Api/frontEnd/location";
+import categoryApi from "../../Api/admin/category";
 
 
 export default function ApplyOrganizationController() {
@@ -16,6 +17,8 @@ export default function ApplyOrganizationController() {
     const navigate = useNavigate();
     const [countryList, setCountryList] = useState([])
     const [defaultCountry, setDefaultCountry] = useState([])
+    const [categoryList, setCategoryList] = useState([])
+    const [defaultCategory, setDefaultCategory] = useState([])
 
 
 
@@ -28,11 +31,12 @@ export default function ApplyOrganizationController() {
         password: "",
         cpassword: "",
         country: "",
+        category: "",
         error: [],
     })
 
     const {
-        error, name, organization, ein, email, confirmEmail, password, cpassword, country
+        error, name, organization, ein, email, confirmEmail, password, cpassword, country,category
     } = state;
 
     const inputStyle = {
@@ -41,6 +45,7 @@ export default function ApplyOrganizationController() {
     useEffect(() => {
         (async () => {
             await getCountryList()
+            await getCategoryList()
         })()
 
     }, [])
@@ -52,6 +57,36 @@ export default function ApplyOrganizationController() {
 
         })
         setDefaultCountry(e)
+    }
+
+
+
+    const onChangeCategory = (e) => {
+        setstate({
+            ...state,
+            category: e.value,
+
+        })
+        setDefaultCategory(e)
+    }
+
+    const getCategoryList = async () => {
+        const getCategoryList = await categoryApi.listCategory();
+        if (getCategoryList.data.success === true) {
+            if (getCategoryList.data.data.length > 0) {
+                let tempArray =[]
+                getCategoryList.data.data.map((category, i) => {
+                    let Obj = {}
+                    Obj.value = category._id
+                    Obj.label = category.name
+                    tempArray.push(Obj)
+                })
+                setCategoryList(tempArray)
+            } else {
+                setCategoryList([])
+
+            }
+        }
     }
 
 
@@ -87,9 +122,11 @@ export default function ApplyOrganizationController() {
             password: "",
             cpassword: "",
             country: "",
+            category: "",
             error: [],
         })
         setDefaultCountry([])
+        setDefaultCategory([])
     }
 
     const changevalue = (e) => {
@@ -161,6 +198,7 @@ export default function ApplyOrganizationController() {
             confirmEmail: 'required|same:email',
             password: 'required|min:6',
             cpassword: 'required|same:password',
+            category: 'required',
 
 
         }
@@ -178,6 +216,8 @@ export default function ApplyOrganizationController() {
             'cpassword.required': 'Confirm Password is Required.',
             'cpassword.same': 'Password and ConfirmPassword Must be same.',
             'country.required': 'Please Select Country.',
+            'category.required': 'Category is Required.',
+
 
 
         }
@@ -197,6 +237,8 @@ export default function ApplyOrganizationController() {
             data.organization = organization
             data.password = password
             data.country = country
+            data.category = category
+
 
 
             const applyCampaignAdmin = await adminCampaignApi.applyCampaignAdmin(data)
@@ -288,7 +330,7 @@ export default function ApplyOrganizationController() {
 
     return (
         <>
-                {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <Apply
                 stateData={state}
                 blocks={blocks}
@@ -300,6 +342,11 @@ export default function ApplyOrganizationController() {
                 countryList={countryList}
                 onChangeCountry={onChangeCountry}
                 defaultCountry={defaultCountry}
+                categoryList={categoryList}
+                defaultCategory={defaultCategory}
+                onChangeCategory={onChangeCategory}
+
+
 
 
 

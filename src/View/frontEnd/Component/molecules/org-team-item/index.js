@@ -26,7 +26,7 @@ function OrganisationTeamItem(props) {
     // </li>
 
     <li className="org__team__item pt-12p pb-12p d-sm-flex align-items-center">
-      <Avatar size={46} avatarUrl={image? image : AvatarImg} border={0} shadow={false} />
+      <Avatar size={46} avatarUrl={image ? image : AvatarImg} border={0} shadow={false} className={member?.type === 'USER' ? 'donor_avatar_bg' : 'charity_avatar_bg'} />
       <div className="org__team__item__main pl-20p flex-grow-1">
         <div className="org__team__item__title pr-12p">
           <div className="org__team__item__name mb-3p text-dark fw-bold">

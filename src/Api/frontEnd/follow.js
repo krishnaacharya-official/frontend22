@@ -68,7 +68,32 @@ function follow() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-        
+
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+    const removeFollowedOrganization = async (authToken, id) => {
+
+
+        let res = {};
+        await axios({
+            method: 'delete',
+            url: `${helper.ApiUrl}follow/` + id,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
 
         }).then((response) => {
             res = response
@@ -80,7 +105,8 @@ function follow() {
     return {
         follow,
         checkUserFollow,
-        userFollowedOrganizationList
+        userFollowedOrganizationList,
+        removeFollowedOrganization
 
 
     }

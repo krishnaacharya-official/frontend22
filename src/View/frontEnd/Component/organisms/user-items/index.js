@@ -17,7 +17,7 @@ import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download,isIframe } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download, isIframe } from "../../../../../Common/Helper";
 
 
 import {
@@ -257,6 +257,7 @@ const UserItems = () => {
                 <ListItemImg
                   size={42}
                   imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
+                  className='charity_avatar_bg'
                 />
               </div>
 
@@ -353,7 +354,7 @@ const UserItems = () => {
                           alt=""
                           width="32"
                           className="img-fluid"
-                          src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c245cfd28a711fcf49f67_HYDRATION-TABS-three-tabs-s.png"
+                          src={helper.CampaignProductImagePath + item.itemDetails?.image}
                         />
                       </div>
                       <div className="ms-2 flex__1 fw-bolder">

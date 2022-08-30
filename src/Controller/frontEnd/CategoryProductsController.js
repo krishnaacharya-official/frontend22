@@ -65,6 +65,10 @@ export default function CategoryProductsController() {
     const [cartProductIds, setCartProductIds] = useState([])
     const [resultTags, setresultTags] = useState([])
     // const [categoryDetails, setCategoryDetails] = useState({})
+    const [prodctFilterData, setprodctFilterData] = useState({
+        highestPrice: 3000,
+        lowestPrice: 0,
+    })
 
 
     const [filters, setfilters] = useState({
@@ -289,6 +293,20 @@ export default function CategoryProductsController() {
             if (getproductList.data.success === true) {
 
                 if (getproductList.data.data.length > 0) {
+
+                    let min = Math.min(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
+                    let max = Math.max(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
+
+               
+
+                    setprodctFilterData({
+                        ...prodctFilterData,
+                        highestPrice: max,
+                        lowestPrice: min,
+                    })
+
+
+
                     let productTagsArray = []
                     await Promise.all(getproductList.data.data.map(async (p, i) => {
 
@@ -888,6 +906,7 @@ export default function CategoryProductsController() {
                 searchTag={searchTag}
                 deSelectTag={deSelectTag}
                 suggestionTag={suggestionTag}
+                prodctFilterData={prodctFilterData}
 
 
 

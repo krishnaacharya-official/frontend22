@@ -67,7 +67,7 @@ const ActivityTable = (props) => {
                             avatarUrl={list.userDetails?.image ? helper.DonorImagePath + list.userDetails?.image : AvatarImg}
                             border={0}
                             shadow={false}
-                            className="mr-12p"
+                            className="mr-12p donor_avatar_bg"
                           />
                         </div>
                         <div className="fw-bold flex__1">{list.userDetails?.name}</div>
@@ -86,13 +86,14 @@ const ActivityTable = (props) => {
                               </span>
                               <div className="">
                                 <span className="text-dark fw-bold">Bought</span>
-                                {/* <div className="d-flex text-light fs-7">
-                                  <FontAwesomeIcon
+                                <div className="d-flex text-light fs-7">
+                                  {/* <FontAwesomeIcon
                                     icon={regular("calendar-clock")}
                                     className="small me-1 fs-6"
                                   />
-                                  / Month
-                                </div> */}
+                                  / Month */}
+                                  {list?.info ? list?.info : ''}
+                                </div>
                               </div>
                             </>
                             : list.type === 'Share' ?

@@ -101,7 +101,7 @@ function AdminDetail() {
                 <div className="user__img-wrap mt-4 mb-5 w-100 d-none d-sm-block">
                   <div className="user__img-content">
                     <div
-                      className="user__img"
+                      className="user__img charity_avatar_bg"
                       style={{
                         backgroundImage:
                           // "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5d379d1d11c09e5a51bdeb78_image-250nw-1124572691.jpg)",

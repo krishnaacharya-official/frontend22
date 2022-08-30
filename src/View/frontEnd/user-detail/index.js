@@ -82,7 +82,7 @@ function UserDetail(props) {
                 <div className="user__img-wrap mt-4 mb-5 w-100 d-none d-sm-block">
                   <div className="user__img-content">
                     <div
-                      className="user__img"
+                      className="user__img donor_avatar_bg"
                       style={{
                         backgroundImage:
                           "url(" + profileImg + ")", width: "120px"

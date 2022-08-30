@@ -138,17 +138,17 @@ const PostsTable = (props) => {
                           <div className="d-flex align-items-center justify-content-center">
                             {product.projectDetails[0].projectMainDetails.projectImages.length >
                               0 && (
-                              <Avatar
-                                size={26}
-                                border={0}
-                                shadow={false}
-                                avatarUrl={
-                                  helper.ProjectImagePath +
-                                  product.projectDetails[0].projectMainDetails.projectImages[0]
-                                    .image
-                                }
-                              />
-                            )}
+                                <Avatar
+                                  size={26}
+                                  border={0}
+                                  shadow={false}
+                                  avatarUrl={
+                                    helper.ProjectImagePath +
+                                    product.projectDetails[0].projectMainDetails.projectImages[0]
+                                      .image
+                                  }
+                                />
+                              )}
                             <span className="ms-1 fs-7">
                               {product.projectDetails[0].projectMainDetails.name}
                             </span>
@@ -200,7 +200,7 @@ const PostsTable = (props) => {
                         )}
 
                         {(product.quantity <= product.soldout && !product.isFulfiled) ||
-                        (product.unlimited && !product.isFulfiled) ? (
+                          (product.unlimited && !product.isFulfiled) ? (
                           <Button
                             variant="success"
                             className="btn-md fw-bold"
@@ -228,17 +228,20 @@ const PostsTable = (props) => {
                                 className="text-warning fs-2 me-2"
                               />
                             </Button>
+                            {
+                              product.soldout <= 0 &&
 
-                            <Button
-                              variant="link"
-                              className="p-0  mr-2"
-                              onClick={() => props.deleteProduct(product._id)}
-                            >
-                              <FontAwesomeIcon
-                                icon={solid('trash')}
-                                className="text-danger fs-2 me-2"
-                              />
-                            </Button>
+                              <Button
+                                variant="link"
+                                className="p-0  mr-2"
+                                onClick={() => props.deleteProduct(product._id)}
+                              >
+                                <FontAwesomeIcon
+                                  icon={solid('trash')}
+                                  className="text-danger fs-2 me-2"
+                                />
+                              </Button>
+                            }
 
                             {product.status === -1 && (
                               <Button

@@ -1356,3 +1356,11 @@ li.search__tag {
 .img-wrap:hover .close {
   opacity: 1;
 }
+
+.charity_avatar_bg {
+  background-size: contain !important;
+}
+
+.donor_avatar_bg {
+  background-size: cover !important;
+}

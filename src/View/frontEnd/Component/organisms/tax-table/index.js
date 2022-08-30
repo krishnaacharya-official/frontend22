@@ -73,7 +73,7 @@ const TaxTable = (props) => {
                         </div>
                         <div className="order-1 order-sm-2 d-flex align-items-center text-dark flex__1">
                           <div className="position-relative">
-                            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} />
+                            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} className='charity_avatar_bg' />
                           </div>
                           <div className="d-sm-flex align-items-center flex__1 ms-2">
                             <div style={{ maxWidth: "300px", minWidth: "300px" }}>
