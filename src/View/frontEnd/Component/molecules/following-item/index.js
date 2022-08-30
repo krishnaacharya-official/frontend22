@@ -35,14 +35,14 @@ function FollowingItem(props) {
     <li
       className="ad__activity__item p-1 d-flex align-items-center border-bottom"
     >
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center w-100">
         <ListItemImg imgSrc={helper.CampaignAdminLogoFullPath + data?.CampaignAdminDetails?.logo} />
-        <div className="ad__activity__main px-12p" style={{ width: "135px" }}>
+        <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">
             <div className="ad__activity__name mb-0">{data?.CampaignAdminDetails?.name}</div>
           </div>
         </div>
-        <div className="ad__activity__right d-flex align-items-center">
+        <div className="ad__activity__right d-flex align-items-center me-2">
           <Button
             variant="link"
             className="btn__link-light p-0 text-decoration-none btn__follow"

@@ -59,7 +59,7 @@ const OrderConfirmPage = () => {
               <img
                 style={{ width: '120px' }}
                 src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f91f5a4baf698de2fbded0_%E2%80%94Pngtree%E2%80%94green%20check%20mark%20icon%20flat_5253210.png"
-                alt=''
+                alt=""
               />
 
               {/*}   <p
@@ -82,7 +82,7 @@ const OrderConfirmPage = () => {
             {/* <Button size="large" variant="primary" className="fw bold my-5 ">
               Back To Home
             </Button> */}
-            <Link to='/' className="btn btn-primary fw bold my-5 ">
+            <Link to="/" className="btn btn-primary fw bold my-5 ">
               Back To Home
             </Link>
 
@@ -96,6 +96,19 @@ const OrderConfirmPage = () => {
           </div>
           <div>
             <center>
+              <p
+                className="fs-5"
+                style={{
+                  padding: '0% 15%',
+                  textAlign: 'left',
+                  color: '#6f6f90'
+                }}
+              >
+                Thanks for donating through Donorport! The organization(s) have received your
+                donation and will purcahse the items on your behalf when the post has been fully
+                funded or the items were listed as ongoing. Navigate to your profile to track
+                updates to your orders including follow-up media from the Organization.
+              </p>
               <div style={{ padding: '0% 15% 0% 15%' }}>
                 <div
                   role="list"
@@ -108,8 +121,7 @@ const OrderConfirmPage = () => {
                 >
                   {orderDetails?.orderItems?.length > 0 &&
                     orderDetails?.orderItems.map((itm, i) => {
-
-                      // console.log(itm) 
+                      // console.log(itm)
                       return (
                         <div
                           data-id="product"
@@ -201,7 +213,8 @@ const OrderConfirmPage = () => {
                                     paddingRight: '0.3rem',
                                     flex: '0 0 auto',
                                     fontSize: '19px',
-                                    maxWidth: '100%'
+                                    maxWidth: '100%',
+                                    color: 'inherit'
                                   }}
                                 >
                                   <div>{itm.itemDetails.headline}</div>
@@ -226,21 +239,15 @@ const OrderConfirmPage = () => {
                             <div
                               className="checkout__right d-flex flex-row align-items-center justify-content-end flex-wrap"
                               style={{
-                                flex: 1,
-                              
+                                flex: 1
                               }}
                             >
-                              <Link
-                                to={
-                                  '/organization/' + itm?.campaignadminsDetails.slug
-                                }
-                              >
+                              <Link to={'/organization/' + itm?.campaignadminsDetails.slug}>
                                 <ListItemImg
                                   size={46}
                                   className="ms-2 d-none d-sm-flex"
                                   imgSrc={
-                                    helper.CampaignAdminLogoPath +
-                                    itm.campaignadminsDetails?.logo
+                                    helper.CampaignAdminLogoPath + itm.campaignadminsDetails?.logo
                                   }
                                 />
                               </Link>
@@ -361,7 +368,9 @@ const OrderConfirmPage = () => {
                     float: 'left'
                   }}
                 >
-                  <p style={{ fontSize: '19px', color: '#6f6f90' }}>Subtotal:</p>
+                  <p className="fw-bold" style={{ fontSize: '19px', color: '#6f6f90' }}>
+                    Subtotal:
+                  </p>
                 </div>
                 <div
                   style={{
@@ -371,7 +380,7 @@ const OrderConfirmPage = () => {
                     float: 'right'
                   }}
                 >
-                  <p style={{ color: '#6f6f90' }}>
+                  <p className="fw-bold" style={{ color: '#6f6f90' }}>
                     <b style={{ fontSize: '16px' }}>
                       {' '}
                       {orderDetails.currencySymbol}
@@ -389,7 +398,7 @@ const OrderConfirmPage = () => {
                     float: 'left'
                   }}
                 >
-                  <p style={{ fontSize: '19px', color: '#6f6f90' }}>
+                  <p style={{ fontSize: '14px', color: '#6f6f90' }}>
                     Stripe :{/* ({orderDetails.salesTaxPer}%): */}
                   </p>
                 </div>
@@ -418,7 +427,9 @@ const OrderConfirmPage = () => {
                     float: 'left'
                   }}
                 >
-                  <p style={{ fontSize: '19px', color: '#6f6f90' }}>XP:</p>
+                  <p className="fw-bold" style={{ fontSize: '19px', color: '#6f6f90' }}>
+                    XP:
+                  </p>
                 </div>
                 <div
                   style={{
@@ -464,7 +475,9 @@ const OrderConfirmPage = () => {
                         float: 'left'
                       }}
                     >
-                      <p style={{ fontSize: '19px', color: '#6f6f90' }}>Total:</p>
+                      <p className="fw-bolder" style={{ fontSize: '19px', color: '#6f6f90' }}>
+                        Total:
+                      </p>
                     </div>
                     <div
                       style={{
@@ -484,19 +497,6 @@ const OrderConfirmPage = () => {
                       </p>
                     </div>
                   </div>
-                  <p
-                    className="fs-5"
-                    style={{
-                      padding: '0% 15%',
-                      textAlign: 'left',
-                      color: '#6f6f90'
-                    }}
-                  >
-                    Thanks for donating through Donorport! The organization(s) have received your
-                    donation and will purcahse the items on your behalf when the post has been fully
-                    funded or the items were listed as ongoing. Navigate to your profile to track
-                    updates to your orders including follow-up media from the Organization.
-                  </p>
                 </center>
               </div>
             </center>

@@ -279,7 +279,7 @@ const UserItems = () => {
                       {item.itemDetails?.headline}
                     </h1>
                     <h5 className="project__detail-sublabel mb-0">Product</h5>
-                    <div className="project__detail-subtitle mb-12p">{item.itemDetails?.brand} ™</div>
+                    <div className="project__detail-subtitle mb-12p fw-bold">{item.itemDetails?.brand} ™</div>
                     <div className="project__detail-price fs-2 text-price">
                       {item.currencySymbol}{price}
                     </div>

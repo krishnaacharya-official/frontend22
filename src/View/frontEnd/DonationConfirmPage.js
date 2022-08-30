@@ -174,7 +174,8 @@ const DonationConfirmPage = () => {
                               paddingRight: '0.3rem',
                               flex: '0 0 auto',
                               fontSize: '19px',
-                              maxWidth: '100%'
+                              maxWidth: '100%',
+                              color: 'inherit'
                             }}
                           >
                             <div>

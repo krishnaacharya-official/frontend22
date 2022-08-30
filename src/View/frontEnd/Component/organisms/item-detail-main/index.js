@@ -105,7 +105,7 @@ function ProjectDetailMain(props) {
       <h4 className="project__detail-label mb-3p">Item</h4>
       <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{productDetails?.headline}</h1>
       <h5 className="project__detail-sublabel mb-0">Product</h5>
-      <div className="project__detail-subtitle mb-12p">{productDetails?.brand} ™</div>
+      <div className="project__detail-subtitle mb-12p fw-bold">{productDetails?.brand} ™</div>
       <div className="project__detail-price fs-2 text-price">{currencySymbol}{priceFormat(price)}</div>
       <div className="project__detail-meta d-flex align-items-center">
         <div className="d-flex align-items-center">

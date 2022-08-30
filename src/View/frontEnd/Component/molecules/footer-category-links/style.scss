@@ -4,7 +4,12 @@
   font-size: 18px;
   line-height: 36px;
 }
-
+.footer__links {
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 .footer__link {
   color: #8a8aab;
 
