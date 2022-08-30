@@ -107,7 +107,7 @@ const UserXp = () => {
             avatarUrl={user.profileImage}
             border={0}
             shadow={false}
-            className="mr-12p"
+            className="mr-12p donor_avatar_bg"
           />
 
           <span className="fs-7 text-light mr-2">Your Rank</span>

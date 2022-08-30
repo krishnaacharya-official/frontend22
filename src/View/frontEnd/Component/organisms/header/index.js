@@ -52,6 +52,7 @@ const Header = (props) => {
                     followedOrganizationList={props.followedOrganizationList}
                     notificationMarkAsRead={props.notificationMarkAsRead}
                     followToOrganization={props.followToOrganization}
+                    removeFollowedOrganization={props.removeFollowedOrganization}
 
 
                   />

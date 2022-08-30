@@ -14,11 +14,12 @@ import ShareWidget from "../share-widget";
 import OrganisationWidget from "../organisation-widget";
 import moment from "moment";
 import helper from "../../../../../Common/Helper";
-
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
 
 function OrganisationDetailMain(props) {
   let organizationDetails = props.organizationDetails
+  const navigate = useNavigate()
   // console.log(organizationDetails)
   let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '')
 
@@ -34,6 +35,7 @@ function OrganisationDetailMain(props) {
             <img
               alt=""
               src={helper.CampaignAdminLogoPath + organizationDetails?.logo}
+              className='charity_avatar_bg'
             />
           </div>
         </div>
@@ -69,13 +71,17 @@ function OrganisationDetailMain(props) {
             size="lg"
             variant="link"
             className="btn__category text-decoration-none"
+            onClick={()=> navigate('/categories/'+organizationDetails?.categoryDetails?.slug)}
           >
             <RoundedIcon
               bgColor={organizationDetails?.categoryDetails?.color}
               size={16}
               className="mr-6p"
               style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal" }}
-              icon={<i style={{ fontStyle: "normal" }} className={organizationDetails?.categoryDetails?.iconDetails?.class}></i>}
+              // icon={<i style={{ fontStyle: "normal" }} className={organizationDetails?.categoryDetails?.iconDetails?.class}></i>}
+              icon={    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 100 563 512">
+              <path fill='white' d={organizationDetails?.categoryDetails?.icon}></path> </svg>}
+
             />
             <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{organizationDetails?.categoryDetails?.name}</span>
           </Button>
@@ -112,7 +118,7 @@ function OrganisationDetailMain(props) {
             className="text-light text-decoration-none fw-normal px-0 fs-6"
             icon={<FontAwesomeIcon icon={solid("building")} />}
           >
-            {organizationDetails?.address}
+          {organizationDetails?.type}  EIN {organizationDetails?.ein}
           </IconButton>
         </div>
       </div>

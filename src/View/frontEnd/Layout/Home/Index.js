@@ -135,6 +135,7 @@ export default function Index(props) {
               onChangePriceSlider={props.onChangePriceSlider}
               module={module}
               categoryDetails={props.categoryDetails}
+              prodctFilterData={props.prodctFilterData}
             />
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
@@ -153,6 +154,10 @@ export default function Index(props) {
                       </li>
                     );
                   })}
+
+
+
+
                 {/* <li className="search__tag" onClick={() => alert('k')} style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>blankets</span><a href="javascript:void(0)">x</a></li>
                 <li className="search__tag " style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>designlab</span><a href="javascript:void(0)">x</a></li> */}
 
@@ -198,7 +203,7 @@ export default function Index(props) {
             <div className="grab__dropdown-wrap ms-sm-2 mb-2 mb-sm-0">{/* <GrabDropdown /> */}</div>
           </div>
         </Container>
-      </div>
+      </div >
       {!CampaignAdminAuthToken && (
         <Container className="d-flex align-items-center" fluid>
           <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
@@ -235,7 +240,8 @@ export default function Index(props) {
             </div>
           </div>
         </Container>
-      )}
+      )
+      }
 
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">
@@ -282,6 +288,67 @@ export default function Index(props) {
                   )
                 );
               })}
+
+
+            {
+              props.filters.taxEligible ?
+                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                  <span className="filter__item-icon">
+                    <FontAwesomeIcon icon={solid('calculator-simple')} color="#3a94d4" />
+                  </span>
+                  <Button
+                    variant="link"
+                    className="ms-2 p-0 fs-4 lh-1"
+                    onClick={() => props.setfilters({
+                      ...props.filters,
+                      taxEligible: false
+                    })}
+                  >
+                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                  </Button>
+                </div>
+                : <></>
+            }
+
+            {
+              props.filters.postTag ?
+                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                  <span className="filter__item-icon">
+                    <FontAwesomeIcon icon={solid('tag')} color="#947ada" />
+                  </span>
+                  <Button
+                    variant="link"
+                    className="ms-2 p-0 fs-4 lh-1"
+                    onClick={() => props.setfilters({
+                      ...props.filters,
+                      postTag: false
+                    })}
+                  >
+                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                  </Button>
+                </div>
+                : <></>
+            }
+
+            {
+              props.filters.infinite ?
+                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                  <span className="filter__item-icon">
+                    <FontAwesomeIcon icon={solid('infinity')} color="#947ada" />
+                  </span>
+                  <Button
+                    variant="link"
+                    className="ms-2 p-0 fs-4 lh-1"
+                    onClick={() => props.setfilters({
+                      ...props.filters,
+                      infinite: false
+                    })}
+                  >
+                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                  </Button>
+                </div>
+                : <></>
+            }
 
             {/* <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
               <span className="filter__item-icon">

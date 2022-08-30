@@ -10,6 +10,8 @@ import './style.scss';
 function FollowingItem(props) {
   const data = props.data
   const followToOrganization = props.followToOrganization
+  const removeFollowedOrganization = props.removeFollowedOrganization
+
 
   const [active, setActive] = useState(false);
 
@@ -20,6 +22,10 @@ function FollowingItem(props) {
   const onClickBell = async () => {
     await followToOrganization(data?.CampaignAdminDetails?._id, !active)
 
+  }
+
+  const removeOrg = async () => {
+    await removeFollowedOrganization(data?._id)
   }
 
 
@@ -53,7 +59,7 @@ function FollowingItem(props) {
         </div>
       </div>
       <div className="ad__activity__remove ms-auto">
-        <Button variant="danger" className="btn__remove-follow text-decoration-none">
+        <Button variant="danger" className="btn__remove-follow text-decoration-none" onClick={() => removeOrg()}>
           <FontAwesomeIcon icon={regular("circle-minus")} />
         </Button>
       </div>

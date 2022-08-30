@@ -317,14 +317,25 @@ export default function HeaderController() {
         // }
     }
 
-    const notificationMarkAsRead = async (isRead) => {
+    const notificationMarkAsRead = async (isRead, allNotificationList) => {
 
         let data = {}
         data.isRead = isRead
+        data.allNotificationList = allNotificationList
+
 
         const markAsRead = await notificationApi.markAsRead(userAuthToken, data)
         if (markAsRead && markAsRead.data.success) {
             await getNotificationList()
+        }
+
+    }
+
+
+    const removeFollowedOrganization = async (id) => {
+        const removeFollow = await followApi.removeFollowedOrganization(userAuthToken, id)
+        if (removeFollow && removeFollow.data.success) {
+            await getUserFollowedOrgList()
         }
 
     }
@@ -350,6 +361,7 @@ export default function HeaderController() {
                 followedOrganizationList={followedOrganizationList}
                 followToOrganization={followToOrganization}
                 notificationMarkAsRead={notificationMarkAsRead}
+                removeFollowedOrganization={removeFollowedOrganization}
 
 
 

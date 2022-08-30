@@ -18,6 +18,8 @@ const Apply = (props) => {
   const changevalue = props.changevalue;
   const applyOrganization = props.apply;
   const countryList = props.countryList;
+  const categoryList = props.categoryList;
+
 
   return (
     <div className="frontend_pages">
@@ -121,6 +123,40 @@ const Apply = (props) => {
                   </div>
                   {error && error.country && <p className="error">{error.country}</p>}
 
+
+
+
+                  <div className="input__wrap d-flex">
+                    <label className="input__label flex__1">
+                      {/* <input type="text" value='' /> */}
+                      {/* {countrySelect.current} */}
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        value={props.defaultCategory}
+                        name="country"
+                        options={categoryList}
+                        onChange={props.onChangeCategory}
+                        components={{
+                          IndicatorSeparator: () => null
+                        }}
+                      />
+                      <span className="input__span">Category</span>
+                    </label>
+                  </div>
+                  {error && error.category && <p className="error">{error.category}</p>}
+
+
+
+
+
+
+
+
+
+
+
+
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
                       <input
@@ -141,7 +177,9 @@ const Apply = (props) => {
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
                       <input type="text" name="ein" value={ein} onChange={(e) => changevalue(e)} />
-                      <span className="input__span">Employer Identification Number (EIN)</span>
+                      {/* <span className="input__span">Employer Identification Number (EIN)</span> */}
+                      <span className="input__span">Charity Registration Number</span>
+
                     </label>
                   </div>
                   {error && error.ein && (

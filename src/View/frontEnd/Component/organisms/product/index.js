@@ -251,7 +251,7 @@ const Product = (props) => {
             <Link to={"/organization/" + props.campaignDetails?.slug} className="">
               <img
                 alt=""
-                className="img-fluid org__img"
+                className="img-fluid org__img charity_avatar_bg"
                 src={organisation}
               />
             </Link>

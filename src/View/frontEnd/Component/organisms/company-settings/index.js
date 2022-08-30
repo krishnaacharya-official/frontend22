@@ -72,6 +72,9 @@ const CompanySettings = () => {
           })
           setDefaultState([])
           setStateList(tempArray)
+        } else {
+          setDefaultState([])
+          setStateList([])
         }
       }
     }
@@ -91,6 +94,9 @@ const CompanySettings = () => {
           })
           setDefaultCity([])
           setCityList(tempArray)
+        } else {
+          setDefaultCity([])
+          setCityList([])
         }
       }
     }
@@ -114,6 +120,9 @@ const CompanySettings = () => {
           setCountryList(tempArray)
 
 
+
+        } else {
+          setCountryList([])
 
         }
       }

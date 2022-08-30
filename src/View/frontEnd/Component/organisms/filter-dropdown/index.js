@@ -26,6 +26,9 @@ const FilterDropdown = (props) => {
   const categoryList = props.categoryList;
   const module = props.module
   const categoryDetails = props.categoryDetails
+  const filters = props.prodctFilterData
+
+  // console.log(filters)
 
   const [hidden, setHidden] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -70,8 +73,8 @@ const FilterDropdown = (props) => {
   }, [categoryList, props.seletedCategoryList]);
 
   const marks = {
-    0: 0,
-    2800: 2800
+    [filters.lowestPrice]: filters.lowestPrice,
+    [filters.highestPrice]: filters.highestPrice
   };
 
   return (
@@ -85,7 +88,7 @@ const FilterDropdown = (props) => {
       <Dropdown className="d-flex w-100" onToggle={onDropdownToggle}>
         {
           module === 'HOME' ?
-            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100" style={{minWidth: '136px'}}>
+            <Dropdown.Toggle variant="primary" className="toggle__btn toggle__btn--filters no-caret w-100" style={{ minWidth: '136px' }}>
               <div className="d-flex align-items-center justify-content-center">
 
                 <span className="fw-bold fs-5">Filters</span>
@@ -176,9 +179,9 @@ const FilterDropdown = (props) => {
           <div className="filter__slider bg-white">
             <Slider
               range
-              min={0}
-              max={2800}
-              defaultValue={[0, 2800]}
+              min={filters.lowestPrice}
+              max={filters.highestPrice}
+              defaultValue={[filters.lowestPrice, filters.highestPrice]}
               marks={marks}
               onChange={(e) => props.onChangePriceSlider(e)}
             />

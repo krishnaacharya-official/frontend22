@@ -135,7 +135,7 @@ const HistoryList = (props) => {
                                       </div>
                                       <ListItemImg
                                         size={42}
-                                        className="rounded-circle"
+                                        className="rounded-circle charity_avatar_bg"
                                         imgSrc={helper.CampaignAdminLogoPath + item?.itemDetails?.campaignadminsDetails.logo}
                                       />
                                     </div>

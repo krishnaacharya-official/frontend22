@@ -61,15 +61,15 @@ const UserSettings = (props) => {
     navigate('/campaign/' + CampaignAdmin?.slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })
 
   }
-const onClickLeaderBoard = ()=> {
-  navigate('/leaderboard');
-}
+  const onClickLeaderBoard = () => {
+    navigate('/leaderboard');
+  }
 
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={UserButton}>
-          <Avatar size={39} style={{border: "", boxShadow: ""}} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
+          <Avatar size={39} className={userData ? 'donor_avatar_bg' : 'charity_avatar_bg'} style={{ border: "", boxShadow: "" }} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
@@ -94,7 +94,7 @@ const onClickLeaderBoard = ()=> {
                 <div>Organizations</div>
               ) : (
                 <div className="d-flex align-items-center w-100">
-                  <Avatar avatarUrl={user.profileImage} />
+                  <Avatar avatarUrl={user.profileImage} className={userData ? 'donor_avatar_bg' : 'charity_avatar_bg'} />
 
                   {
                     CampaignAdmin?.name ?
