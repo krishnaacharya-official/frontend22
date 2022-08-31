@@ -8,6 +8,7 @@ import helper, { getCookie, setCookie, deleteCookie } from "../../../../../Commo
 import FrontLoader from "../../../../../Common/FrontLoader";
 import ToastAlert from "../../../../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
+import removeImg from '../../../../../assets/images/remove-link.svg'
 
 function LinkedOrg(props) {
   // const userAuthToken = localStorage.getItem('userAuthToken');
@@ -23,6 +24,8 @@ function LinkedOrg(props) {
 
   const [orgList, setorgList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [modelShow, setModelShow] = useState(false)
+  const [orgId, setorgId] = useState('')
 
   const list = async () => {
     const list = await organizationApi.teamMemberOrganizationList(token)
@@ -61,7 +64,7 @@ function LinkedOrg(props) {
 
   const removeTeamMember = async (id) => {
     setLoading(false)
-    const deleteAd = await organizationApi.removeTeamMember(token, id)
+    const deleteAd = await organizationApi.removeTeamMember(token, orgId)
     if (deleteAd) {
       if (deleteAd.data.success === false) {
         setLoading(false)
@@ -72,6 +75,7 @@ function LinkedOrg(props) {
           await list()
           await listTeamMembers()
           setLoading(false)
+          setModelShow(false)
 
         }
       }
@@ -184,6 +188,27 @@ function LinkedOrg(props) {
     <>
       <FrontLoader loading={loading} />
 
+
+
+      <div className="modal  common-modal" id="removeModalTwo" tabIndex="-1" aria-labelledby="removeModalTwoLabel"
+        aria-hidden="true" style={{ display: modelShow ? "block" : 'none' }}>
+        <div className="modal-dialog  modal-dialog-centered">
+          <div className="modal-content shadow-lg">
+            <div className="modal-body text-center">
+              <div className="remove-img-wrap">
+                <img src={removeImg} alt="remove link" style={{ width: "70px", marginBottom: "10px" }} />
+              </div>
+              <h5 className="modal-title mb-3" id="removeModalTwoLabel">Unlink Organization ?</h5>
+              <p>Are you sure you want to remove the item?</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-flat btn-link" data-bs-dismiss="modal" onClick={() => setModelShow(false)}>Cancel</button>
+              <button type="button" className="btn btn-flat btn-danger" data-bs-dismiss="modal" onClick={() => removeTeamMember()}>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="linked-org">
         <div className="menu__title">
           {
@@ -217,7 +242,11 @@ function LinkedOrg(props) {
                   <Button
                     variant="link"
                     className="btn__link-light linked__item-unlink ms-auto fs-7 me-1 fw-normal"
-                    onClick={() => removeTeamMember(org._id)}
+                    // onClick={() => removeTeamMember(org._id)}
+                    onClick={() => {
+                      setModelShow(true)
+                      setorgId(org._id)
+                    }}
                   >
                     unlink
                   </Button>
@@ -257,6 +286,7 @@ function LinkedOrg(props) {
             <h6 className="mb-0">Team</h6>
           </div>
         }
+
         <ul className="linked-list list-unstyled mb-0">
           {
             teamMemberList.length > 0 &&

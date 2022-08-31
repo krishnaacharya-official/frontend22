@@ -1,7 +1,7 @@
 import Index from "../../View/frontEnd/Layout/Home/Index";
 import productApi from "../../Api/frontEnd/product";
 import React, { useState, useEffect, useContext } from "react"
-//mport FrontLoader from "../../Common/FrontLoader";
+import FrontLoader from "../../Common/FrontLoader";
 import ToastAlert from "../../Common/ToastAlert";
 import cartApi from "../../Api/frontEnd/cart";
 import settingApi from "../../Api/admin/setting";
@@ -482,7 +482,7 @@ export default function HomeController() {
             // function getLocation() {
             // console.log(user.xp)
             //   }
-            setLoading(false)
+            setLoading(true)
             let obj = {}
             obj.userCountry = user.countryId
             const getproductList = await productApi.list(token, obj);
@@ -1213,7 +1213,7 @@ export default function HomeController() {
         <>
             {/* {console.log(user)} */}
 
-            {/*<FrontLoader loading={loading} />*/}
+            {/* <FrontLoader loading={loading} /> */}
             <Index
                 productList={productList}
                 addToCart={addToCart}

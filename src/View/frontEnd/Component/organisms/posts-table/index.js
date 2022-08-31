@@ -10,6 +10,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import noimg from '../../../../../assets/images/noimg.jpg'
 
 const PostsTable = (props) => {
   let organizationDetails = props.organizationDetails;
@@ -67,17 +68,22 @@ const PostsTable = (props) => {
                       style={{ width: '300px' }}
                     >
                       <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                        <div className="text-success fw-bold fs-5">
-                          {organizationDetails.symbol}
-                          {priceFormat(product.displayPrice ? product.displayPrice : product.price)}
-                        </div>
+                        {
+                          product.status === 1 &&
+
+                          <div className="text-success fw-bold fs-5">
+
+                            {organizationDetails.symbol}
+                            {priceFormat(product.displayPrice ? product.displayPrice : product.price)}
+                          </div>
+                        }
                         <div className="text-light fw-light fs-8">
                           {moment(product.created_at).fromNow()}
                         </div>
                       </div>
                       <ListItemImg
                         size={45}
-                        imgSrc={helper.CampaignProductImagePath + product.image}
+                        imgSrc={product.image ?helper.CampaignProductImagePath + product.image : noimg}
                       />
                       <div className="ms-2">
                         <div className="fw-bolder fs-5 mb-3p">{product.headline}</div>
@@ -96,6 +102,9 @@ const PostsTable = (props) => {
                     </div>
                     <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                       <div className="d-flex align-items-center flex__1">
+                        {
+                          product.status === 1 && 
+                      // }
                         <div className="d-flex align-items-center progress__wrap me-2 flex__1">
                           {!product.unlimited && (
                             <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
@@ -128,6 +137,7 @@ const PostsTable = (props) => {
                             </div>
                           )}
                         </div>
+          }
                       </div>
                     </div>
                     <div className="billing__buttons d-flex align-items-center">
@@ -199,8 +209,8 @@ const PostsTable = (props) => {
                           </Button>
                         )}
 
-                        {(product.quantity <= product.soldout && !product.isFulfiled) ||
-                          (product.unlimited && !product.isFulfiled) ? (
+                        {(product.status === 1 && product.quantity <= product.soldout && !product.isFulfiled) || 
+                          (product.status === 1 && product.unlimited && !product.isFulfiled) ? (
                           <Button
                             variant="success"
                             className="btn-md fw-bold"
@@ -247,7 +257,7 @@ const PostsTable = (props) => {
                               <Button
                                 variant="info"
                                 className=" mr-2"
-                                onClick={() => props.publishProduct(product._id)}
+                                onClick={() => props.publishProduct(product._id,product)}
                               >
                                 Publish
                               </Button>

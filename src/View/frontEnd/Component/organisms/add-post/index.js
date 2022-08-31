@@ -109,6 +109,8 @@ const AddPost = (props) => {
   let gallaryTempImages = props.gallaryTempImages
   let gallaryImages = props.gallaryImages
 
+  const setModelShow = props.setModelShow
+
 
   const [location, setLocation] = useState({
     organizationLocation: "",
@@ -204,7 +206,9 @@ const AddPost = (props) => {
             variant="warning"
             size="lg"
             className="text-white fw-bold fs-6"
-            onClick={() => submitProductForm(-1)}
+            // onClick={() => submitProductForm(-1)}
+            onClick={() => setModelShow(true)}
+
           >
             Save as Draft
           </Button>

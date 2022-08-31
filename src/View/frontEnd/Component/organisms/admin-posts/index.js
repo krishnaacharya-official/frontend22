@@ -90,7 +90,7 @@ const AdminPosts = (props) => {
   const [projectList, setProjectList] = useState([])
   const [update, setUpdate] = useState(false)
   const navigate = useNavigate();
-
+  const [modelShow, setModelShow] = useState(false)
   const [seletedProjectList, setSeletedProjectList] = useState([])
 
 
@@ -574,19 +574,23 @@ const AdminPosts = (props) => {
     window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
-    if (tags.length === 0) {
-      formaerrror['tags'] = "Please Enter Tags"
+
+    if (s === 1) {
+      if (tags.length === 0) {
+        formaerrror['tags'] = "Please Enter Tags"
+      }
+
+      if (!unlimited && !quantity) {
+        formaerrror['quantity'] = "Quantity is required"
+
+      }
+
+      if (!policy) {
+        formaerrror['policy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
+
+      }
     }
 
-    if (!unlimited && !quantity) {
-      formaerrror['quantity'] = "Quantity is required"
-
-    }
-
-    if (!policy) {
-      formaerrror['policy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
-
-    }
     // console.log(formaerrror)
 
     if (!id) {
@@ -604,48 +608,51 @@ const AdminPosts = (props) => {
     }
 
     let rules;
-    if (id) {
-      rules = {
-        brand: 'required',
-        needheadline: 'required',
-        // galleryUrl: 'required',
-        status: 'required',
-        headline: 'required',
-        category: 'required',
-        subcategory: 'required',
-        description: 'required',
-        price: 'required',
-        // quantity: 'required',
-        organization: 'required',
-        // policy: 'boolean',
+    if (s === 1) {
+      if (id) {
+        rules = {
+          brand: 'required',
+          needheadline: 'required',
+          // galleryUrl: 'required',
+          status: 'required',
+          headline: 'required',
+          category: 'required',
+          subcategory: 'required',
+          description: 'required',
+          price: 'required',
+          // quantity: 'required',
+          organization: 'required',
+          // policy: 'boolean',
 
-        slug: 'required'
+          slug: 'required'
+        }
+      } else {
+        rules = {
+          brand: 'required',
+          needheadline: 'required',
+          // galleryUrl: 'required',
+          status: 'required',
+          headline: 'required',
+          category: 'required',
+          subcategory: 'required',
+          description: 'required',
+          price: 'required',
+          image: 'required',
+          // quantity: 'required',
+          slug: 'required',
+          // policy: 'boolean',
+
+        }
+
       }
     } else {
-      rules = {
-        brand: 'required',
-        needheadline: 'required',
-        // galleryUrl: 'required',
-        status: 'required',
-        headline: 'required',
-        category: 'required',
-        subcategory: 'required',
-        description: 'required',
-        price: 'required',
-        image: 'required',
-        // quantity: 'required',
-        slug: 'required',
-        // policy: 'boolean',
-
-      }
-
+      rules = {}
     }
 
     const message = {
       'status.required': 'Status is Required',
       'needheadline.required': 'Need Headline is Required',
       'galleryUrl.required': 'gallery Url is Required',
-
       'brand.required': 'Brand is Required',
       'headline.required': 'Headline is Required',
       'category.required': 'Category is Required',
@@ -732,11 +739,11 @@ const AdminPosts = (props) => {
 
 
       formData.organizationCountryId = data.country_id
-      formData.price = Number(price)
+      formData.price = price ? Number(price) : 0
       formData.description = description
       formData.category_id = category
       formData.subcategory_id = subcategory
-      formData.displayPrice = Number(displayPrice)
+      formData.displayPrice = displayPrice ? Number(displayPrice) : 0
 
 
       if (quantity) {
@@ -772,6 +779,7 @@ const AdminPosts = (props) => {
               setLoading(false)
               setUpdate(!update)
               createPost(false)
+              setModelShow(false)
               ToastAlert({ msg: addProduct.data.message, msgType: 'success' });
             }
           }
@@ -969,33 +977,38 @@ const AdminPosts = (props) => {
 
   const createNewPost = () => {
     // if (data.transectionKey && data.paymentLoginId) {
-      resetForm()
-      createPost(true)
+    resetForm()
+    createPost(true)
     // } else {
-      // let path = '/campaign/' + data.slug + '/settings/paymentMethod'
-      // navigate(path)
-      // ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
+    // let path = '/campaign/' + data.slug + '/settings/paymentMethod'
+    // navigate(path)
+    // ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
 
     // }
   }
 
-  const publishProduct = async (id) => {
-    setLoading(false)
-    const publish = await productApi.publishProduct(token, id)
-    if (publish) {
-      if (publish.data.success === false) {
-        setLoading(false)
-        ToastAlert({ msg: publish.data.message, msgType: 'error' });
-      } else {
-        if (publish.data.success === true) {
-          setLoading(false)
-          setUpdate(!update)
-          ToastAlert({ msg: publish.data.message, msgType: 'success' });
-        }
-      }
+  const publishProduct = async (id, data) => {
+    if (!data || !data.headline || !data.categoryId || !data.subcategoryId || !data.slug || !data.brand || data.tags.length === 0 || !data.
+      needheadline || !data.quantity || !data.image || !data.price === 0 || !data.description) {
+      ToastAlert({ msg: 'Product not Published please fill Required information', msgType: 'error' });
     } else {
       setLoading(false)
-      ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+      const publish = await productApi.publishProduct(token, id)
+      if (publish) {
+        if (publish.data.success === false) {
+          setLoading(false)
+          ToastAlert({ msg: publish.data.message, msgType: 'error' });
+        } else {
+          if (publish.data.success === true) {
+            setLoading(false)
+            setUpdate(!update)
+            ToastAlert({ msg: publish.data.message, msgType: 'success' });
+          }
+        }
+      } else {
+        setLoading(false)
+        ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+      }
     }
 
   }
@@ -1221,6 +1234,29 @@ const AdminPosts = (props) => {
     <>
       {/* {console.log('state', displayPrice)} */}
       <FrontLoader loading={loading} />
+
+      <div className="modal  common-modal" id="removeModalTwo" tabIndex="-1" aria-labelledby="removeModalTwoLabel"
+        aria-hidden="true" style={{ display: modelShow ? "block" : 'none', background: modelShow ? 'hsl(0deg 0% 100% / 75%)' : '' }}>
+        <div className="modal-dialog  modal-dialog-centered">
+          <div className="modal-content shadow-lg">
+            <div className="modal-body text-center">
+              <div className="remove-img-wrap">
+                <img src='https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/6047be327f2bfa3c53385cd6_pencil.svg' alt="remove link" style={{ height: "120px", marginBottom: "10px", maxWidth: '100%' }} />
+              </div>
+              <h5 className="modal-title mb-3" id="removeModalTwoLabel" style={{ fontWeight: '700', fontSize: '24px' }}>Save Draft?</h5>
+              <p>You can view your drafts on the Admin page under Studio</p>
+            </div>
+            <div className="modal-footer" style={{ background: "#f8fafd" }}>
+              <button type="button" className="btn btn-flat btn-link" style={{ color: '#3085d6' }} data-bs-dismiss="modal" onClick={() => setModelShow(false)}>Cancel</button>
+              <button type="button" className="btn btn-flat btn-info" data-bs-dismiss="modal" onClick={() => submitProductForm(-1)}>Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
       {!viewPost ? (
         <div>
           <header className="py-sm-2 mb-3 w-100 d-sm-flex align-items-center">
@@ -1289,6 +1325,7 @@ const AdminPosts = (props) => {
             setstate={setstate}
             data={data}
             deleteProductImage={deleteProductImage}
+            setModelShow={setModelShow}
 
           />
           :
