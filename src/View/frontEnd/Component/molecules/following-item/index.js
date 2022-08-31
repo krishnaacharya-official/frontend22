@@ -28,6 +28,8 @@ function FollowingItem(props) {
     await removeFollowedOrganization(data?._id)
   }
 
+  let avatar = data?.CampaignAdminDetails?.logo ? helper.CampaignAdminLogoFullPath + data?.CampaignAdminDetails?.logo :  'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
+
 
 
 
@@ -36,7 +38,7 @@ function FollowingItem(props) {
       className="ad__activity__item p-1 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={helper.CampaignAdminLogoFullPath + data?.CampaignAdminDetails?.logo} />
+        <ListItemImg imgSrc={avatar} className='charity_avatar_bg' />
         <div className="ad__activity__main px-12p" style={{ width: "135px" }}>
           <div className="ad__activity__title">
             <div className="ad__activity__name mb-0">{data?.CampaignAdminDetails?.name}</div>

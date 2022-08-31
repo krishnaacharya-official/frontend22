@@ -128,6 +128,8 @@ export default function OrganizationDetailsController() {
         const getOrganizationList = await adminCampaignApi.list(token, data)
         if (getOrganizationList.data.success === true) {
             setOrganizationList(getOrganizationList.data.data)
+        } else {
+            setOrganizationList([])
         }
     }
     const getPurchasedItems = async (id) => {
@@ -325,7 +327,7 @@ export default function OrganizationDetailsController() {
 
                     setOrganizationDetails(orgdata)
                     await orgProjectList(orgdata._id)
-                    await getOrganizationList()
+                    // await getOrganizationList()
                     await getPurchasedItems(orgdata._id)
                     await getDonationList(orgdata._id)
                     if (userAuthToken) {
@@ -342,6 +344,16 @@ export default function OrganizationDetailsController() {
 
         })()
     }, [params.name, user])
+
+    useEffect(() => {
+        (async () => {
+            if (user.countryId) {
+                await getOrganizationList()
+            }
+        })()
+    }, [user.countryId])
+
+
 
     const followToOrganization = async (e) => {
         if (userAuthToken) {

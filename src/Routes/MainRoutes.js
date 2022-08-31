@@ -258,7 +258,7 @@ export default function MainRoutes() {
             }
 
             {
-                userAuthToken && !location.pathname.startsWith('/admin') &&
+                userAuthToken && !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/campaign') &&
                 <Routes>
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
