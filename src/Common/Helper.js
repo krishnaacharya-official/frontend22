@@ -75,10 +75,12 @@ export function ImageExist(url) {
 
 }
 
-export function priceFormat(m) {
-    let price = parseInt(m, 10)
-    let nf = new Intl.NumberFormat('en-US');
-    return nf.format(price)
+export function priceFormat(m=0) {
+    // let price = parseInt(m, 10)
+    // let nf = new Intl.NumberFormat('en-US');
+    // return nf.format(price)
+    m = Number(m)
+    return m?.toFixed(2)
 }
 
 export function getCookie(cname) {
@@ -197,8 +199,8 @@ export function getCalculatedPrice() {
 
 
         // Applying to Price
-        let taxPrice = Math.round(price + (totalCharge / 100) * price)
-        return taxPrice;
+        let taxPrice = (price + (totalCharge / 100) * price)
+        return taxPrice.toFixed(2);
 
     }
 
@@ -216,8 +218,10 @@ export function getCalculatedPrice() {
     const calculateSalesTax = (amount) => {
 
         const salesTax = Number(user.salesTax)
-        let taxAmount = Math.round((salesTax / 100) * amount)
-        return taxAmount
+        // let taxAmount = Math.round((salesTax / 100) * amount)
+        let taxAmount = ((salesTax / 100) * amount)
+
+        return taxAmount?.toFixed(2)
 
 
     }
@@ -343,8 +347,10 @@ export function getCalculatedPrice() {
         let totalCharge = Number(transectionFee) + Number(platformFee)
 
         const salesTax = Number(totalCharge)
-        let taxAmount = Math.round((salesTax / 100) * amount)
-        return taxAmount
+        // let taxAmount = Math.round((salesTax / 100) * amount)
+        let taxAmount = ((salesTax / 100) * amount)
+
+        return taxAmount.toFixed(2)
 
 
     }
@@ -451,7 +457,7 @@ export function getCardIcon(card) {
 
 export function priceWithOrganizationTax(price, salesTax) {
 
-    let taxPrice = Math.round(price + (Number(salesTax) / 100) * price)
+    let taxPrice = (price + (Number(salesTax) / 100) * price)
     // console.log(taxPrice)
     return taxPrice;
 

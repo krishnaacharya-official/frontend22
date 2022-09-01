@@ -103,7 +103,9 @@ const SummaryContent = (props) => {
         <span className="fw-bolder flex__1">Total:</span>
         {/* <span className="text-subtext me-2 fs-7">USD</span> */}
         <span className="fw-bold text-success fs-4">
-          {props.currencySymbol + priceFormat(total)}
+          {/* {props.currencySymbol + priceFormat(total ? total : 0)} */}
+          {props.currencySymbol + (total ? total : 0)}
+
         </span>
       </div>
 

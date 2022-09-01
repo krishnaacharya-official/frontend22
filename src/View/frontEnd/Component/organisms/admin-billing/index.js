@@ -12,7 +12,7 @@ import "./style.scss";
 import { Outlet, useOutletContext, Link } from 'react-router-dom';
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper,{getCardIcon} from "../../../../../Common/Helper";
+import helper,{getCardIcon,priceFormat} from "../../../../../Common/Helper";
 
 
 const AdminBilling = () => {
@@ -134,7 +134,7 @@ const AdminBilling = () => {
                           className="admin__avatar mr-12p donor_avatar_bg"
                         />
                         <div className="admin__billing__value flex__1">
-                          <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole}{amount}</div>
+                          <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole}{priceFormat(Number(amount))}</div>
                           <div className="fw-bold text-subtext fs-8">{date}</div>
                         </div>
                         <div className="admin__billing__details pr-3 ms-2 flex__1 d-flex flex-column align-items-start ps-3">

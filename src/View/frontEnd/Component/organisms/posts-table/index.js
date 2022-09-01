@@ -75,6 +75,8 @@ const PostsTable = (props) => {
 
                             {organizationDetails.symbol}
                             {priceFormat(product.displayPrice ? product.displayPrice : product.price)}
+                            {/* {product.displayPrice ? product.displayPrice : product.price} */}
+
                           </div>
                         }
                         <div className="text-light fw-light fs-8">
@@ -83,7 +85,7 @@ const PostsTable = (props) => {
                       </div>
                       <ListItemImg
                         size={45}
-                        imgSrc={product.image ?helper.CampaignProductImagePath + product.image : noimg}
+                        imgSrc={product.image ? helper.CampaignProductImagePath + product.image : noimg}
                       />
                       <div className="ms-2">
                         <div className="fw-bolder fs-5 mb-3p">{product.headline}</div>
@@ -103,41 +105,41 @@ const PostsTable = (props) => {
                     <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                       <div className="d-flex align-items-center flex__1">
                         {
-                          product.status === 1 && 
-                      // }
-                        <div className="d-flex align-items-center progress__wrap me-2 flex__1">
-                          {!product.unlimited && (
-                            <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
-                              {product.soldout}/{product.quantity}
-                            </span>
-                          )}
-                          <ProgressBar
-                            variant={!product.unlimited ? 'success' : 'infinity'}
-                            now={
-                              !product.unlimited
-                                ? Math.round((product.soldout / product.quantity) * 100)
-                                : 100
-                            }
-                            className="flex__1"
-                          />
-                          {!product.unlimited ? (
-                            <span className="text-light ms-1 fw-bold">
-                              {Math.round((product.soldout / product.quantity) * 100)}%
-                            </span>
-                          ) : (
-                            <div
-                              className="unlimited unlimited--home"
-                              style={{ marginLeft: '10px' }}
-                            >
-                              <div className="tag tag--ongoing _2">
-                                <div className="icon icon--unlimited">
-                                  <FontAwesomeIcon icon={solid('infinity')} className="" />
+                          product.status === 1 &&
+                          // }
+                          <div className="d-flex align-items-center progress__wrap me-2 flex__1">
+                            {!product.unlimited && (
+                              <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-sm-1 fw-bold text-light">
+                                {product.soldout}/{product.quantity}
+                              </span>
+                            )}
+                            <ProgressBar
+                              variant={!product.unlimited ? 'success' : 'infinity'}
+                              now={
+                                !product.unlimited
+                                  ? Math.round((product.soldout / product.quantity) * 100)
+                                  : 100
+                              }
+                              className="flex__1"
+                            />
+                            {!product.unlimited ? (
+                              <span className="text-light ms-1 fw-bold">
+                                {Math.round((product.soldout / product.quantity) * 100)}%
+                              </span>
+                            ) : (
+                              <div
+                                className="unlimited unlimited--home"
+                                style={{ marginLeft: '10px' }}
+                              >
+                                <div className="tag tag--ongoing _2">
+                                  <div className="icon icon--unlimited">
+                                    <FontAwesomeIcon icon={solid('infinity')} className="" />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
-          }
+                            )}
+                          </div>
+                        }
                       </div>
                     </div>
                     <div className="billing__buttons d-flex align-items-center">
@@ -209,7 +211,7 @@ const PostsTable = (props) => {
                           </Button>
                         )}
 
-                        {(product.status === 1 && product.quantity <= product.soldout && !product.isFulfiled) || 
+                        {(product.status === 1 && product.quantity <= product.soldout && !product.isFulfiled) ||
                           (product.status === 1 && product.unlimited && !product.isFulfiled) ? (
                           <Button
                             variant="success"
@@ -257,7 +259,7 @@ const PostsTable = (props) => {
                               <Button
                                 variant="info"
                                 className=" mr-2"
-                                onClick={() => props.publishProduct(product._id,product)}
+                                onClick={() => props.publishProduct(product._id, product)}
                               >
                                 Publish
                               </Button>

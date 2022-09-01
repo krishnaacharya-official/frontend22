@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import orderApi from '../../Api/frontEnd/order';
 import FrontLoader from '../../Common/FrontLoader';
-import helper, { purchasedPriceWithTax } from '../../Common/Helper';
+import helper, { purchasedPriceWithTax,priceFormat } from '../../Common/Helper';
 import DefaultLayout from './Component/templates/default-layout';
 import { Button } from 'react-bootstrap';
 import ListItemImg from './Component/atoms/list-item-img';
@@ -304,7 +304,7 @@ const OrderConfirmPage = () => {
                               <h4>
                                 {orderDetails.currencySymbol}
                                 {
-                                  itm.productPrice
+                                  priceFormat(Number(itm.productPrice))
                                   // purchasedPriceWithTax(Number(itm.productPrice), Number(orderDetails.appliedTaxPercentage)) * itm.quantity
                                 }
                               </h4>
@@ -376,7 +376,8 @@ const OrderConfirmPage = () => {
                       {' '}
                       {orderDetails.currencySymbol}
                       {/* {purchasedPriceWithTax(Number(orderDetails.subtotal), Number(orderDetails.appliedTaxPercentage))} */}
-                      {orderDetails.subtotal}
+                      {/* {orderDetails.subtotal} */}
+                     { priceFormat(Number(orderDetails.subtotal))}
                     </b>
                   </p>
                 </div>
@@ -405,7 +406,8 @@ const OrderConfirmPage = () => {
                     <b style={{ fontSize: '16px' }}>
                       {' '}
                       {orderDetails.currencySymbol}
-                      {orderDetails.salesTax}
+                      {/* {orderDetails.salesTax} */}
+                      { priceFormat(Number(orderDetails.salesTax))}
                     </b>
                   </p>
                 </div>

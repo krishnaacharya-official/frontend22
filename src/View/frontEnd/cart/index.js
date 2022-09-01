@@ -60,6 +60,8 @@ const Cart = (props) => {
         return a + b;
       }, 0);
       setSubTotal(sum)
+
+      // console.log(getCalc.getTaxValueOfPrice(sum))
       // let salesTax = getCalc.calculateSalesTax(sum)
       setSalesTax(getCalc.getTaxValueOfPrice(sum))
       // setTotal(sum + salesTax);
@@ -219,7 +221,7 @@ const Cart = (props) => {
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>
-            <span className="fw-bold text-success fs-4">{currencySymbol + priceFormat(total)}</span>
+            <span className="fw-bold text-success fs-4">{currencySymbol + (total)}</span>
           </div>
           <div className="py-4 border-bottom d-grid d-sm-block">
             <Button

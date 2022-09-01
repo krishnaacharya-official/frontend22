@@ -80,7 +80,7 @@ const HistoryList = (props) => {
                             icon={solid("receipt")}
                             className="mr-12p text-dark fs-4"
                           />
-                          <span className="text-success fw-bold fs-4">{order.currencySymbol ? order.currencySymbol : "$"} {priceFormat(order.total)}</span>
+                          <span className="text-success fw-bold fs-4">{order.currencySymbol ? order.currencySymbol : "$"} {priceFormat(Number(order.total))}</span>
                           <span className="ml-6p text-light">{order.currency ? order.currency : "USD"}</span>
                         </span>
                         <span className="text-info fs-5 fw-bold">{order.xp ? order.xp : 200} xp</span>
@@ -131,7 +131,7 @@ const HistoryList = (props) => {
                                           {item.quantity} {item.itemDetails?.headline}
                                         </Button>
                                         <div className="text-light mb-3p">{item.itemDetails?.brand}</div>
-                                        <div className="fs-5 text-success fw-bold">{order.currencySymbol ? order.currencySymbol : "$"} {priceFormat(price)}</div>
+                                        <div className="fs-5 text-success fw-bold">{order.currencySymbol ? order.currencySymbol : "$"} {priceFormat(Number(price))}</div>
                                       </div>
                                       <ListItemImg
                                         size={42}
@@ -141,7 +141,7 @@ const HistoryList = (props) => {
                                     </div>
                                     <div className="order__values d-flex align-items-center">
                                       <span className="text-info fw-bold flex__1">{item.xp ? item.xp : 100} xp</span>
-                                      <span className="fs-5 fw-bold text-success ms-2">{order.currencySymbol ? order.currencySymbol : "$"}{priceFormat(price * item.quantity)}</span>
+                                      <span className="fs-5 fw-bold text-success ms-2">{order.currencySymbol ? order.currencySymbol : "$"}{priceFormat(Number(price * item.quantity))}</span>
                                     </div>
                                   </li>
                                 )

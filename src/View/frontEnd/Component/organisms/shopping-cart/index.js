@@ -115,7 +115,7 @@ const ShoppingCart = (props) => {
               {!state.empty && <div className="cd__cart__controls d-flex align-items-center">
                 <div className="cd__cart__value">
                   <span>Total:</span>
-                  <span className="cd__cart__total ml-6p">{currencySymbol + priceFormat(state.subTotal)}</span>
+                  <span className="cd__cart__total ml-6p">{currencySymbol + priceFormat(Number(state?.subTotal))}</span>
                 </div>
                 {/* <Button variant="info" href="/checkout" className="ms-auto">
                   Checkout

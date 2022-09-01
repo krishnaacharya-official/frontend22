@@ -10,7 +10,7 @@ import "./style.scss";
 function CartItem(props) {
   let cartItem = props.cartItem
 
-  console.log(cartItem)
+  // console.log(cartItem)
   const [quantity, setQuantity] = useState(cartItem?.quantity)
   // const CalculatePrice = getCalculatedPrice()
   // console.log(cartItem)
