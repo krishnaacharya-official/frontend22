@@ -44,7 +44,7 @@ function FollowingItem(props) {
             <div className="ad__activity__name mb-0">{data?.CampaignAdminDetails?.name}</div>
           </div>
         </div>
-        <div className="ad__activity__right d-flex align-items-center">
+        <div className="ad__activity__right d-flex align-items-center me-2">
           <Button
             variant="link"
             className="btn__link-light p-0 text-decoration-none btn__follow"

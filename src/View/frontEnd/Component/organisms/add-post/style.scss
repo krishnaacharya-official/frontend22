@@ -1,5 +1,9 @@
 // @import "@styles/scss/components/custom-select";
 @import '../../../../../assets/scss/components/custom-select';
+
+.react-mapbox-ac-suggestion:hover {
+  background-color: #e6f3fc;
+}
 .studio__thumb {
   height: 58px;
   width: 58px;

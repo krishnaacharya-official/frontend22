@@ -93,8 +93,8 @@ function HistoryItem({ active, ...otherProps }) {
               </>
             ) : (
               <>
-                <div className="icon--bg">
-                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" />
+                <div className="d-flex icon--bg">
+                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{whiteSpace: 'nowrap'}}/>
                   Bought {item?.quantity} {item?.name}
                 </div>
               </>

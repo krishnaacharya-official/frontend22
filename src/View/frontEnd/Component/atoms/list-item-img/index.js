@@ -17,7 +17,7 @@ function ListItemImg({ icon, imgSrc, size, iconSize, className }) {
       className={`list__item-img ${className}`}
     >
       
-      {icon ? icon : <img src={imgSrc} alt=""style={{ width: size + "px", height: size + "px" }}  />}
+      {icon ? icon : <img src={imgSrc} alt=""style={{ maxWidth: size + "px", maxHeight: size + "px" }}  />}
     </div>
   );
 }
