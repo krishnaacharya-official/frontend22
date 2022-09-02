@@ -421,6 +421,8 @@ function adminCampaign() {
         data.append('identityDocumentImage', fromdata.identityDocumentImage);
         data.append('status', fromdata.status);
         data.append('countryId', fromdata.countryId);
+        data.append('currency', fromdata.currency);
+
 
 
 
@@ -574,6 +576,30 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+
+
+    const chekConnectAccount = async (authToken,data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}bank_account/check`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
             data:data
 
         }).then((response) => {
@@ -603,7 +629,8 @@ function adminCampaign() {
         payToCampaignAdmin,
         CampaignAdminPayHistory,
         getCampaignDetailsBySlug,
-        updateSalesTax
+        updateSalesTax,
+        chekConnectAccount
 
     }
 }

@@ -9,7 +9,7 @@ import Checkout from "../../View/frontEnd/checkout";
 import orderApi from "../../Api/frontEnd/order";
 import { validateAll } from "indicative/validator";
 import settingApi from "../../Api/admin/setting";
-import helper, { getCalculatedPrice } from "../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat } from "../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
@@ -160,7 +160,7 @@ export default function CheckoutController() {
 
                     let xpSum = ProductItems.reduce(function (a, b) { return a + b; }, 0);
                     setXp(xpSum * xpForeEachItem)
-                    setSubtotalWithTax(sumSubTotal)
+                    setSubtotalWithTax(priceFormat(Number(sumSubTotal)))
                     let salesTax = CalculatedPrice.calculateSalesTax(sum)
                     // setSalesTax(salesTax)
                     setTotal(CalculatedPrice.priceWithTax(sum));

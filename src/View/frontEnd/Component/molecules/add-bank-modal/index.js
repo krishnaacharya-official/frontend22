@@ -405,11 +405,17 @@ const AddBankModal = (props) => {
                         name="accountHolderType"
                         value={props.defaultHomeCountry}
                         options={countryList}
-                        isDisabled={true}
+                        // isDisabled={true}
                         components={{
                           IndicatorSeparator: () => null
                         }}
-                      // onChange={(e) => props.setstate({ ...stateData, homeCountry: e.value })}
+                        onChange={async (e) => {
+
+                          props.setstate({ ...stateData, homeCountry: e.value, currency: e.currency })
+                          props.setDefaultHomeCountry(e)
+                          await props.getCountryStateList(e.id)
+
+                        }}
 
                       />
 

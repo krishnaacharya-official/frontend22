@@ -20,6 +20,7 @@ import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
 import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import { DataArraySharp } from "@mui/icons-material";
+import Label from "../../../../../components/Label";
 
 
 const PaymentMethod = () => {
@@ -81,11 +82,20 @@ const PaymentMethod = () => {
     error: [],
     taxRate: '',
     paymentLoginId: '',
-    transectionKey: ''
+    transectionKey: '',
+    currency: 'USD'
   })
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate, paymentLoginId, transectionKey
+    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate, paymentLoginId, transectionKey, currency
   } = state;
+
+
+  const getBankAccountList = async () => {
+    const getAccountList = await adminCampaignApi.listBankAccount(token);
+    if (getAccountList.data.success === true) {
+      setBankAccountList(getAccountList.data.data)
+    }
+  }
 
   useEffect(() => {
     (async () => {
@@ -93,12 +103,12 @@ const PaymentMethod = () => {
 
 
       setLoading(false)
-      const getAccountList = await adminCampaignApi.listBankAccount(token);
-      if (getAccountList.data.success === true) {
-        // console.log(getAccountList)
-        setBankAccountList(getAccountList.data.data)
-      }
-
+      // const getAccountList = await adminCampaignApi.listBankAccount(token);
+      // if (getAccountList.data.success === true) {
+      //   // console.log(getAccountList)
+      //   setBankAccountList(getAccountList.data.data)
+      // }
+      await getBankAccountList()
       await getCountryList()
       await getCountryStateList(233)
 
@@ -145,6 +155,8 @@ const PaymentMethod = () => {
             let Obj = {}
             Obj.value = country.iso2
             Obj.label = country.country
+            Obj.id = country.id
+            Obj.currency = country.currency
             tempArray.push(Obj)
 
 
@@ -177,7 +189,7 @@ const PaymentMethod = () => {
   const changevalue = (e) => {
     let value = e.target.value;
 
-    if (e.target.name === 'routingNumber' || e.target.name === 'accountNumber' || e.target.name === 'phoneNo' || e.target.name === 'ssn' || e.target.name === 'personalIdNumber' || e.target.name === 'zip' || e.target.name === 'mcc') {
+    if (e.target.name === 'accountNumber' || e.target.name === 'phoneNo' || e.target.name === 'ssn' || e.target.name === 'personalIdNumber' || e.target.name === 'mcc') {
       value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
     }
     if (e.target.name === 'identity') {
@@ -590,6 +602,8 @@ const PaymentMethod = () => {
         fdata.identityDocumentImage = identityDocumentImage
         fdata.status = status
         fdata.countryId = data.country_id
+        fdata.currency = currency
+
 
 
         const addBank = await adminCampaignApi.addBankAccount(token, fdata)
@@ -675,15 +689,15 @@ const PaymentMethod = () => {
       })
       let fdata = {}
       fdata.field = field
-      if(field === 'taxRate'){
+      if (field === 'taxRate') {
         fdata.value = Number(taxRate)
       }
 
-      if(field === 'paymentLoginId'){
+      if (field === 'paymentLoginId') {
         fdata.value = paymentLoginId
       }
 
-      if(field === 'transectionKey'){
+      if (field === 'transectionKey') {
         fdata.value = transectionKey
       }
 
@@ -715,6 +729,16 @@ const PaymentMethod = () => {
 
     });
 
+  }
+
+  const checkAcc = async (accountId) => {
+    let data = {}
+    data.accountId = accountId
+    const check = await adminCampaignApi.chekConnectAccount(token, data)
+    if (check && check.data.success) {
+      await getBankAccountList()
+
+    }
   }
 
 
@@ -833,6 +857,8 @@ const PaymentMethod = () => {
               defaultTypeOfBusiness={defaultTypeOfBusiness}
               setDefaultTypeOfBusiness={setDefaultTypeOfBusiness}
               defaultHomeCountry={defaultHomeCountry}
+              setDefaultHomeCountry={setDefaultHomeCountry}
+              getCountryStateList={getCountryStateList}
 
             />
           </div>
@@ -855,7 +881,7 @@ const PaymentMethod = () => {
                     </div>
                     <div className=" flex__1 mx-2 text-break">
                       <div className="accounts__email fw-bold">{list.accountNumber}</div>
-       
+
                     </div>
 
                     <div className="flex__1">
@@ -864,6 +890,41 @@ const PaymentMethod = () => {
                         className="fs-3 text-primary"
                       />
                     </div>
+                    {
+                      list.status === 1 ?
+
+                        <div className="flex__1">
+                          <FontAwesomeIcon
+                            icon={solid("badge-check")}
+                            className="fs-3 text-success"
+                          />
+                        </div>
+                        :
+                        list.status === 0 ?
+                          <>
+                            <Button variant="link" className="text-danger" onClick={() => checkAcc(list.stripeAccountId)}>
+                              <FontAwesomeIcon
+                                icon={solid("rotate")}
+                                className="fs-3 text-primary"
+                              />
+                            </Button>
+                          </>
+                          :
+                          <>
+                            <div className="flex__1">
+                              <FontAwesomeIcon
+                                icon={solid("ban")}
+                                className="fs-3 text-danger"
+                              />
+                            </div>
+                          </>
+                    }
+
+                    {/* <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
+                      Verify
+                    </Button> */}
+
+
                     <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
                       unlink
                     </Button>
