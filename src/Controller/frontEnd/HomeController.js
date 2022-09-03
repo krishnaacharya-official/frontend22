@@ -180,7 +180,7 @@ export default function HomeController() {
         const getStateDetails = await locationApi.stateDetailsByName(token, data)
         if (getStateDetails) {
             if (getStateDetails.data.success) {
-                dispatch(setUserState(getStateDetails.data.data.id))
+                dispatch(setUserState(getStateDetails?.data.data?.id))
             }
         }
 

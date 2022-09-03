@@ -89,6 +89,16 @@ const PaymentMethod = () => {
     status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate, paymentLoginId, transectionKey, currency
   } = state;
 
+  const [bankAccount, setBankAccount] = useState({
+    BusinessType: 'individual',
+    country: 'us',
+    companyName: '',
+    fname: '',
+    lname: '',
+    accEmail: '',
+    accError: []
+  })
+  const { BusinessType, country, companyName, fname, lname, accError, accEmail } = bankAccount
 
   const getBankAccountList = async () => {
     const getAccountList = await adminCampaignApi.listBankAccount(token);
@@ -130,7 +140,7 @@ const PaymentMethod = () => {
 
   useEffect(() => {
     (async () => {
-      // console.log(data._id)
+      // console.log(data)
       setstate({
         ...state,
         taxRate: data.taxRate,
@@ -139,10 +149,40 @@ const PaymentMethod = () => {
 
 
       })
+      setBankAccount({
+        ...bankAccount,
+        country: data.iso2
+      })
 
 
     })()
   }, [data])
+
+
+
+  const changevaluebankAc = (e) => {
+    let value = e.target.value;
+    setBankAccount({
+      ...bankAccount,
+      [e.target.name]: value
+    })
+  }
+
+  const hideAccForm = () => {
+    setBankAccount({
+      ...bankAccount,
+      BusinessType: 'individual',
+      country: data.iso2,
+      companyName: '',
+      fname: '',
+      lname: '',
+      accError: []
+
+
+    })
+    setModalShow(false)
+  }
+
 
 
   const getCountryList = async () => {
@@ -742,6 +782,83 @@ const PaymentMethod = () => {
   }
 
 
+  const addExpressAccount = async () => {
+
+    let rules = {}
+    rules.accEmail = 'required|email'
+
+
+    if (BusinessType === 'individual') {
+      rules.lname = 'required'
+      rules.fname = 'required'
+
+    } else {
+      rules.companyName = 'required'
+    }
+
+
+    let message = {
+      'accEmail.required': 'Email is Required.',
+      'accEmail.email': 'please enter valid email.',
+      'lname.required': 'lname is Required.',
+      'fname.required': 'fname is Required.',
+      'companyName.required': 'Company Name is Required.',
+
+    }
+    validateAll(bankAccount, rules, message).then(async () => {
+      const formaerrror = {};
+      setBankAccount({
+        ...bankAccount,
+        accError: formaerrror
+      })
+
+      let formData = {}
+      formData.country = country
+      formData.email = accEmail
+      formData.business_type = BusinessType
+      formData.slug = data.slug
+
+
+      if (BusinessType === 'individual') {
+
+        formData.first_name = fname
+        formData.last_name = lname
+      } else {
+
+        formData.companyName = companyName
+      }
+      setLoading(true)
+      const create = await adminCampaignApi.createExpressAccount(token, formData)
+      if (create && create.data.success) {
+        window.location.replace(create.data.data.url);
+      }
+      setLoading(false)
+
+
+
+
+    }).catch(errors => {
+      // console.log(errors)
+      setLoading(false)
+      const formaerrror = {};
+      if (errors && errors.length) {
+        errors.forEach(element => {
+          formaerrror[element.field] = element.message
+        });
+      } else {
+        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+      }
+
+      setBankAccount({
+        ...bankAccount,
+        accError: formaerrror
+      })
+
+    });
+
+  }
+
+
   return (
     <>
 
@@ -833,8 +950,20 @@ const PaymentMethod = () => {
               Direct Deposit information for contributions from your donors
             </span>
             <Button variant="info" onClick={() => openModel()}>Add Bank</Button>
-
             <AddBankModal
+              show={modalShow}
+              // onHide={() => setModalShow(false)}
+              onHide={() => hideAccForm()}
+              bankAccount={bankAccount}
+              setBankAccount={setBankAccount}
+              changevaluebankAc={changevaluebankAc}
+              addExpressAccount={addExpressAccount}
+            />
+
+
+
+
+            {/* <AddBankModal
               show={modalShow}
               setModalShow={setModalShow}
               changevalue={changevalue}
@@ -860,7 +989,7 @@ const PaymentMethod = () => {
               setDefaultHomeCountry={setDefaultHomeCountry}
               getCountryStateList={getCountryStateList}
 
-            />
+            /> */}
           </div>
 
           {bankAccountList.length > 0 &&
@@ -880,7 +1009,14 @@ const PaymentMethod = () => {
                       />
                     </div>
                     <div className=" flex__1 mx-2 text-break">
-                      <div className="accounts__email fw-bold">{list.accountNumber}</div>
+                      {
+                        list.businessName ?
+                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize" }}>{list.businessName}</div>
+                          :
+                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize" }}>{list.firstName}{" "}{list.lastName}</div>
+
+                      }
+
 
                     </div>
 
@@ -890,7 +1026,7 @@ const PaymentMethod = () => {
                         className="fs-3 text-primary"
                       />
                     </div>
-                    {
+                    {/* {
                       list.status === 1 ?
 
                         <div className="flex__1">
@@ -918,7 +1054,7 @@ const PaymentMethod = () => {
                               />
                             </div>
                           </>
-                    }
+                    } */}
 
                     {/* <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
                       Verify
