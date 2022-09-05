@@ -2,6 +2,8 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState, useEffect } from "react";
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 // import { ListItemImg, ToggleSwitch } from "@components/atoms";
 
@@ -21,7 +23,9 @@ import locationApi from "../../../../../Api/frontEnd/location";
 import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import { DataArraySharp } from "@mui/icons-material";
 import Label from "../../../../../components/Label";
-
+import CheckIcon from '@mui/icons-material/Check';
+import { setIsAccountAdd } from "../../../../../user/user.action";
+import { useSelector, useDispatch } from "react-redux";
 
 const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -37,6 +41,7 @@ const PaymentMethod = () => {
   const [defaultCountry, setDefaultCountry] = useState([])
   const [defaultHomeCountry, setDefaultHomeCountry] = useState([])
   const [data, setData] = useOutletContext();
+  const dispatch = useDispatch()
 
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
@@ -104,6 +109,12 @@ const PaymentMethod = () => {
     const getAccountList = await adminCampaignApi.listBankAccount(token);
     if (getAccountList.data.success === true) {
       setBankAccountList(getAccountList.data.data)
+      if (getAccountList.data.data.length === 0) {
+        dispatch(setIsAccountAdd(false))
+      } else {
+        dispatch(setIsAccountAdd(true))
+
+      }
     }
   }
 
@@ -857,10 +868,22 @@ const PaymentMethod = () => {
     });
 
   }
+  const makeAccountPrimary = async (id) => {
+    let data = {}
+    data.id = id
+
+    const makeAcPrimary = await adminCampaignApi.makeAccountPrimary(token, data)
+    if (makeAcPrimary && makeAcPrimary.data.success) {
+      await getBankAccountList()
+
+    }
+
+  }
 
 
   return (
     <>
+
 
       <FrontLoader loading={loading} />
       <div className="mw-600">
@@ -1011,9 +1034,9 @@ const PaymentMethod = () => {
                     <div className=" flex__1 mx-2 text-break">
                       {
                         list.businessName ?
-                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize" }}>{list.businessName}</div>
+                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.businessName}</div>
                           :
-                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize" }}>{list.firstName}{" "}{list.lastName}</div>
+                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.firstName}{" "}{list.lastName}</div>
 
                       }
 
@@ -1026,6 +1049,16 @@ const PaymentMethod = () => {
                         className="fs-3 text-primary"
                       />
                     </div>
+                    {
+                      list.isPrimary ?
+                        <Chip label="Primary" color="success" variant="outlined" />
+                        :
+                        <Button variant="link" className="text-info" onClick={() => makeAccountPrimary(list._id)}>
+                          Make Primary
+                        </Button>
+                    }
+
+
                     {/* {
                       list.status === 1 ?
 
@@ -1060,10 +1093,14 @@ const PaymentMethod = () => {
                       Verify
                     </Button> */}
 
+                    {
+                      !list.isPrimary &&
 
-                    <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
-                      unlink
-                    </Button>
+                      <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
+                        remove
+                      </Button>
+
+                    }
                   </div>
                 </div>
               )

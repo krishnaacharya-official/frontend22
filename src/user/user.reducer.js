@@ -1,4 +1,4 @@
-import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE, SET_CURRENT_COUNTRY_SORT, SET_DISTANCE, UPDATE_LAT_LONG, UPDATE_PRODUCT_COUNT, SET_LOCATION_FILTER, SET_SET_MAP_LOCK, SET_CHANGE_SLIDER } from "./user.types"
+import { UPDATE_CURRENCY, UPDATE_CART, UPDATE_ORGANIZATION, UPDATE_USER_DETAILS, UPDATE_FEES, UPDATE_USER_LANGUAGE, UPDATE_CURRENCY_PRICE, LOGOUT, SET_PROFILE_IMAGE, SET_USER_COUNTRY, SET_USER_ADDRESS, UPDATE_XP, UPDATE_RANK, UPDATE_STATEID, UPDATE_SALES_TAX, ACTIVE_ORGANIZATION, SET_USER_ROLE, SET_CURRENT_COUNTRY_SORT, SET_DISTANCE, UPDATE_LAT_LONG, UPDATE_PRODUCT_COUNT, SET_LOCATION_FILTER, SET_SET_MAP_LOCK, SET_CHANGE_SLIDER, SET_ACCOUNT_ADD } from "./user.types"
 
 import userInitialState from "./user.initialstate"
 
@@ -184,6 +184,12 @@ const userReducer = (state = userInitialState, action) => {
                 ischangeSlider: action.payload,
 
             }
+        case SET_ACCOUNT_ADD:
+            return {
+                ...state,
+                isAccountAdded: action.payload,
+
+            }
 
         case LOGOUT:
             localStorage.clear();
@@ -216,7 +222,9 @@ const userReducer = (state = userInitialState, action) => {
                 isUpdateLocationFilter: 'false',
                 locationProductCount: 0,
                 isMapLocked: false,
-                ischangeSlider: false
+                ischangeSlider: false,
+                isAccountAdded: false,
+
 
 
 

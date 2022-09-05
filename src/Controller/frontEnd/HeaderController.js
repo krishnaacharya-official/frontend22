@@ -10,14 +10,14 @@ import ToastAlert from "../../Common/ToastAlert";
 // import { UserContext } from '../../App';`
 import settingApi from "../../Api/admin/setting";
 import { useSelector, useDispatch } from "react-redux";
-import { setFees, setIsUpdateCart } from "../../user/user.action";
+import { setFees, setIsUpdateCart, setIsAccountAdd } from "../../user/user.action";
 import { setSettings } from "../../user/setting.action";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 // import {userAuth as frontEndAuthApi} from "../../Api/frontEnd/auth"
 import userAuthApi from "../../Api/frontEnd/auth";
 import notificationApi from "../../Api/frontEnd/notification";
 import followApi from "../../Api/frontEnd/follow";
-
+import adminCampaignApi from "../../Api/admin/adminCampaign";
 
 
 export default function HeaderController() {
@@ -275,8 +275,19 @@ export default function HeaderController() {
         }
     }
 
+    const checkOrgBankAc = async (token) => {
+
+        const check = await adminCampaignApi.chekOrganizationAccount(token)
+        if (check) {
+
+            dispatch(setIsAccountAdd(check.data.success))
+        }
+
+    }
+
     const getAuthToken = async (id, slug) => {
         const getToken = await userAuthApi.getAuthTokenById(id)
+        await checkOrgBankAc(getToken.data.token)
         localStorage.setItem('tempCampaignAdminAuthToken', getToken.data.token)
         localStorage.setItem('type', 'temp')
         navigate('/campaign/' + slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })

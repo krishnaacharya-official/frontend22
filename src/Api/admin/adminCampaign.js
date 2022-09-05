@@ -629,6 +629,48 @@ function adminCampaign() {
         return res;
     }
 
+
+    const makeAccountPrimary = async (authToken,data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}bank_account/primary`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data:data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+    const chekOrganizationAccount = async (authToken) => {
+        let res = {};
+        await axios({
+            method: 'get',
+            url: `${helper.ApiUrl}bank_account/check/organization`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
     return {
         list,
         add,
@@ -651,7 +693,9 @@ function adminCampaign() {
         getCampaignDetailsBySlug,
         updateSalesTax,
         chekConnectAccount,
-        createExpressAccount
+        createExpressAccount,
+        makeAccountPrimary,
+        chekOrganizationAccount
 
     }
 }

@@ -164,7 +164,9 @@ export default function CheckoutController() {
                     let salesTax = CalculatedPrice.calculateSalesTax(sum)
                     // setSalesTax(salesTax)
                     setTotal(CalculatedPrice.priceWithTax(sum));
-                    setStripeTax(CalculatedPrice.getTaxValueOfPrice(sum))
+                    // setStripeTax(CalculatedPrice.getTaxValueOfPrice(sum))
+                    setSalesTax(CalculatedPrice.getTaxValueOfPrice(sum))
+
 
                     // setTotal(sum + salesTax)
 
@@ -192,6 +194,29 @@ export default function CheckoutController() {
         // }
         // console.log(CalculatedPrice.priceWithoutTax(Number(subtotal)))  
         // return false
+
+        let chargesArray = []
+
+        if (cartItem && cartItem.length > 0) {
+            cartItem.map((item, i) => {
+                let tempObj = {}
+
+                if (chargesArray.some(e => e.id === item.productDetails.organizationDetails._id)) {
+                    let objIndex = chargesArray.findIndex((obj => obj.id === item.productDetails.organizationDetails._id));
+                    let amt = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price
+                    chargesArray[objIndex].amount += amt * item.quantity
+                } else {
+                    tempObj.id = item.productDetails.organizationDetails._id
+                    let amt = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price
+                    tempObj.amount = amt * item.quantity
+                    chargesArray.push(tempObj)
+                }
+
+
+            })
+
+        }
+        // console.log(chargesArray)
 
         const rules = {
             cardNumber: "required",
@@ -234,6 +259,8 @@ export default function CheckoutController() {
             data.postalCode = zip
             data.phone = phone
             data.currency = user.currency
+            data.chargesArray = chargesArray
+
 
 
             let productIds = []
@@ -304,7 +331,7 @@ export default function CheckoutController() {
                     orderDetails.products = productDetails
                     orderDetails.xpToadd = xp
                     orderDetails.salesTaxPer = user.salesTax
-                    orderDetails.salesTax = stripeTax
+                    orderDetails.salesTax = salesTax
 
 
                     if (cartItem.find(e => e.productDetails.tax === true)) {

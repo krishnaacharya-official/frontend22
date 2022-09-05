@@ -7,11 +7,12 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../../View/frontEnd/login";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp, setUserRank, setUserRole } from "../../user/user.action"
+import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp, setUserRank, setUserRole, setIsAccountAdd } from "../../user/user.action"
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
 import defaultAvatar from "../../assets/images/avatar_default.png"
+import adminCampaignApi from "../../Api/admin/adminCampaign";
 
 
 
@@ -47,6 +48,18 @@ function SigninController() {
 
         }
     }
+
+    const checkOrgBankAc = async (token) => {
+
+        const check = await adminCampaignApi.chekOrganizationAccount(token)
+        if (check) {
+        
+            dispatch(setIsAccountAdd(check.data.success))
+        }
+
+    }
+
+
 
     const getUserRank = async (token) => {
         const getRank = await userApi.getUserRank(token)
@@ -125,6 +138,7 @@ function SigninController() {
                                 //         }
                                 //     }
                                 // }
+                                await checkOrgBankAc(uselogin.data.accessToken)
                                 let currencyData = {}
                                 currencyData.currency = uselogin.data.currency
                                 currencyData.currencySymbol = uselogin.data.symbol

@@ -79,20 +79,20 @@ const SummaryContent = (props) => {
               {props.currencySymbol + priceFormat(subtotal)}
             </span>
           </div>
-          {/*} <div className="d-flex align-items-center pb-20p">
+          <div className="d-flex align-items-center pb-20p">
 
             <span className="fw-bolder flex__1">
               <img
                 className="img-stripe"
-                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f58f1ce7a1c54afeefc883_Authorize.Net_.svg"
+                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
                 alt=""
                 style={{ width: "44px" }}
               />
             </span>
-            <span className="fw-semibold fs-7 text-light">
-              {props.currencySymbol + props.stripeTax}
+            <span className="fw-bold fs-5 text-light">
+              {props.currencySymbol + props.salesTax}
             </span>
-          </div> */}
+          </div>
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
             <span className="fw-bold text-info">{props.xp} xp</span>

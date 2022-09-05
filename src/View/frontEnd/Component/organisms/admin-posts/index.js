@@ -30,6 +30,7 @@ import { confirmAlert } from "react-confirm-alert"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular, light } from "@fortawesome/fontawesome-svg-core/import.macro";
 import ListItemImg from "../../atoms/list-item-img";
+import { useSelector, useDispatch } from "react-redux";
 
 
 import {
@@ -166,6 +167,7 @@ const AdminPosts = (props) => {
   const [fulfilMoreTempImages, setFulfilMoreTempImages] = useState([])
   const [fulfilmoreImages, setFulfilMoreImages] = useState([])
 
+  const user = useSelector((state) => state.user);
 
 
   const [tags, setTags] = useState([]);
@@ -976,15 +978,15 @@ const AdminPosts = (props) => {
   }
 
   const createNewPost = () => {
-    // if (data.transectionKey && data.paymentLoginId) {
-    resetForm()
-    createPost(true)
-    // } else {
-    // let path = '/campaign/' + data.slug + '/settings/paymentMethod'
-    // navigate(path)
-    // ToastAlert({ msg: 'Please fill these Fields.', msgType: 'error' });
+    if (user.isAccountAdded) {
+      resetForm()
+      createPost(true)
+    } else {
+      let path = '/campaign/' + data.slug + '/settings/paymentMethod'
+      navigate(path)
+      ToastAlert({ msg: 'Please add Bank Account.', msgType: 'error' });
 
-    // }
+    }
   }
 
   const publishProduct = async (id, data) => {

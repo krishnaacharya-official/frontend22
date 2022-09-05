@@ -16,7 +16,9 @@ import CompanySettings from "../company-settings";
 import AdminBilling from "../admin-billing";
 import AdminControl from "../admin-control";
 import AdminAdmin from "../admin-admin";
-import { Outlet, Link, useLocation,useOutletContext } from "react-router-dom";
+import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 
 
 import "./style.scss";
@@ -24,6 +26,7 @@ import "./style.scss";
 const AdminSettingsTab = () => {
   const [data, setData] = useOutletContext();
   // console.log(data)
+  const user = useSelector((state) => state.user);
 
   const [selectedTabKey, setSelectedTabKey] = useState("");
   return (
@@ -35,6 +38,16 @@ const AdminSettingsTab = () => {
           </h1>
         </div>
       </header>
+      {
+        !user.isAccountAdded &&
+
+        <div id="error_bank" className="note note--attention" style={{
+          display: 'flex', maxWidth: '100%', paddingTop: '9px',
+          paddingBottom: '9px',
+          background: '#fffbdf',
+          color: '#3d4279',
+        }}><div>Your account is actively receiving donations. Please add a <span className="note__span note__span--text" style={{ color: "#3a94d4" }}>payment method</span> to receive your deposits.</div></div>
+      }
       <Tab.Container
         defaultActiveKey={selectedTabKey}
         onSelect={(key) => setSelectedTabKey(key)}
@@ -42,7 +55,7 @@ const AdminSettingsTab = () => {
         <div className="d-md-flex align-items-start">
           <SettingsTabsAdmin activeKey={selectedTabKey} data={data} />
           <div className="user__settings-content flex-grow-1">
-            <Outlet context={[data, setData]}  />
+            <Outlet context={[data, setData]} />
           </div>
           {/* <Tab.Content className="user__settings-content flex-grow-1">
             <Tab.Pane eventKey="company">
