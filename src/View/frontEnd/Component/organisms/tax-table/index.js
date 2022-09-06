@@ -8,6 +8,7 @@ import moment from "moment";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import helper, { priceFormat } from "../../../../../Common/Helper";
+import { List } from "@mui/material";
 
 const TaxTable = (props) => {
   return (
@@ -57,92 +58,159 @@ const TaxTable = (props) => {
             }
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "550px", minHeight: "550px" }}>
+        <ul className="list-unstyled mb-0 list__table-list">
 
           {
             props.taxList.length > 0 ?
               props.taxList.map((item, i) => {
                 // console.log(item)
                 return (
-                  <li className="table__list-item p-2">
-                    <div className="d-sm-flex align-items-center flex-grow-1">
-                      <div className="d-flex align-items-center flex__1 mb-2">
-                        <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
-                          <div className="text-success fw-bold fs-5">{item.currencySymbol}{priceFormat(item.amount)}</div>
-                          <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
-                        </div>
-                        <div className="order-1 order-sm-2 d-flex align-items-center text-dark flex__1">
-                          <div className="position-relative">
-                            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} className='charity_avatar_bg' />
+                  <>
+                    <li className="table__list-item p-2">
+                      <div className="d-sm-flex align-items-center flex-grow-1">
+                        <div className="d-flex align-items-center flex__1 mb-2">
+                          <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
+                            <div className="text-success fw-bold fs-5">{item.currencySymbol}{priceFormat(item.amount)}</div>
+                            <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                           </div>
-                          <div className="d-sm-flex align-items-center flex__1 ms-2">
-                            <div style={{ maxWidth: "300px", minWidth: "300px" }}>
-                              <div className="fw-bold fs-5 billing__name mb-6p">
-                                {item.organizationDetails.name}
-                              </div>
-                              <div className="text-light">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div>
+                          <div className="order-1 order-sm-2 d-flex align-items-center text-dark flex__1">
+                            <div className="position-relative">
+                              <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} className='charity_avatar_bg' />
                             </div>
+                            <div className="d-sm-flex align-items-center flex__1 ms-2">
+                              <div style={{ maxWidth: "300px", minWidth: "300px" }}>
+                                <div className="fw-bold fs-5 billing__name mb-6p">
+                                  {item.organizationDetails.name}
+                                </div>
+                                <div className="text-light">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div>
+                              </div>
 
-                            <span className="text-light fw-semibold flex__1">
-                              {
-                                item.type === 'Purchased' ?
-                                  <>
-                                    <FontAwesomeIcon
-                                      icon={regular("wallet")}
-                                      className="small me-1"
-                                    />
-                                    Purchased
-                                  </>
-                                  :
-                                  <>
-                                    <FontAwesomeIcon
-                                      icon={regular("heart")}
-                                      className="small me-1"
-                                    />
-                                    Donated
-                                  </>
-                              }
+                              <span className="text-light fw-semibold flex__1">
+                                {
+                                  item.type === 'Purchased' ?
+                                    <>
+                                      <FontAwesomeIcon
+                                        icon={regular("wallet")}
+                                        className="small me-1"
+                                      />
+                                      Purchased
+                                    </>
+                                    :
+                                    <>
+                                      <FontAwesomeIcon
+                                        icon={regular("heart")}
+                                        className="small me-1"
+                                      />
+                                      Donated
+                                    </>
+                                }
 
-                            </span>
+                              </span>
 
 
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="d-flex align-items-center">
-                        {/* <Button
+                        <div className="d-flex align-items-center">
+                          {/* <Button
                           variant="ldanger"
                           className="text-white fs-7 rounded-pill flex-grow-1"
                         >
                           Cancel
                         </Button> */}
 
-                        {
-                          item.receipt ?
-                            <a href={helper.recieptPath + item.receipt} download
-                              variant="info"
-                              className="text-white fs-7 rounded-pill flex-grow-1 btn btn-info"
-                            >
-                              Download
-                            </a>
-                            :
-                            <Button
-                              variant="link"
-                              className="text-decoration-none ms-2 p-0"
-                            >
+                          {
+                            item.receipt ?
+                              <a href={helper.recieptPath + item.receipt} download
+                                variant="info"
+                                className="text-white fs-7 rounded-pill flex-grow-1 btn btn-info"
+                              >
+                                Download
+                              </a>
+                              :
+                              <Button
+                                variant="link"
+                                className="text-decoration-none ms-2 p-0"
+                              >
 
-                              <FontAwesomeIcon
-                                icon={solid("clock")}
-                                className="fs-3 text-warning"
-                              />
-                            </Button>
-                        }
+                                <FontAwesomeIcon
+                                  icon={solid("clock")}
+                                  className="fs-3 text-warning"
+                                />
+                              </Button>
+                          }
 
 
 
+                        </div>
                       </div>
-                    </div>
-                  </li>
+                    </li>
+                    {
+                      item.type === 'Purchased' &&
+                      <>
+                        <div className="container-fluid">
+                          {
+                            item.pro.
+                            length > 0 &&
+                            item.pro.map((i1, k) => {
+
+                              // if (item[0].type === 'Purchased') {
+
+
+                                return (
+                                  <>
+                                    <hr />
+                                    <li className="table__list-item p-2">
+                                      <div className="d-sm-flex align-items-center flex-grow-1">
+                                        <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                          <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
+                                            <div className="text-success fw-bold fs-5">{item.currencySymbol}{i1.tax}</div>
+                                            <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
+                                          </div>
+
+                                        </div>
+                                        <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                          <div className="pe-1 p-sm-2 mr-12p">
+                                            <img
+                                              loading="lazy"
+                                              width={36}
+                                              src={helper.CampaignProductImagePath + i1?.orderItemDetails.productImage}
+                                              alt=""
+                                            />
+                                          </div>
+                                          <div>
+                                            <div>
+                                              <Button variant="link" className="text-dark px-0 py-3p">
+                                                {i1?.orderItemDetails.productName}
+                                              </Button>
+                                            </div>
+                                            <div className="text-light fs-7">
+                                              <FontAwesomeIcon
+                                                icon={regular("wallet")}
+                                                className="mr-3p"
+                                              />
+                                              Bought {i1?.orderItemDetails.quantity}
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                    </li>
+
+                                  </>
+                                )
+                              // }
+
+                            })
+                          }
+
+                        </div>
+
+                        <hr />
+                      </>
+
+          }
+                  </>
                 )
               })
 

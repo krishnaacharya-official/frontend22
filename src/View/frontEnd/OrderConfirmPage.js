@@ -72,7 +72,7 @@ const OrderConfirmPage = () => {
                 Hi {orderDetails?.userDetails?.name},
             </p>*/}
               <br />
-              <h1 className="fs-1 fw-bolder">Transcation Completed</h1>
+              <h1 className="fs-1 fw-bolder">Transaction Completed</h1>
               <span className="fs-3" style={{ color: '#6f6f90' }}>
                 Order #{orderDetails.uniqueTransactionId}
               </span>

@@ -125,7 +125,7 @@ const UserXp = () => {
             Norwhal
           </IconButton> */}
           <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-            {priceFormat(user.xp)} xp
+            {(user.xp)} xp
           </a>
           <ShareWidget />
         </div>

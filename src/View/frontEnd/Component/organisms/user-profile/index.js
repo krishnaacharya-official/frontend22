@@ -236,12 +236,22 @@ const UserProfile = () => {
 
   const changefile = (e) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
-    setTempImg(URL.createObjectURL(file))
+    if (file) {
+      setTempImg(URL.createObjectURL(file))
 
-    setState({
-      ...state,
-      image: file
-    })
+      setState({
+        ...state,
+        image: file
+      })
+    } else {
+      setTempImg('')
+
+      setState({
+        ...state,
+        image: ''
+      })
+    }
+
   }
 
   const onChangeCurrency = (e) => {

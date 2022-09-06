@@ -42,7 +42,7 @@ const UserDashboard = () => {
         >
           Norwhal
         </IconButton> */}
-        <span className="text-info fw-bold fs-5">{priceFormat(user.xp)} xp</span>
+        <span className="text-info fw-bold fs-5">{(user.xp)} xp</span>
       </header>
       <div className="text-light text-center text-sm-left page__sub-title py-3 mb-12p">
         You have donated a total of{" "}

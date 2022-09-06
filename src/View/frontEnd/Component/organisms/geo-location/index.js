@@ -148,24 +148,26 @@ const GeoLocation = () => {
 
   }, [user])
 
-
   let Obj = {
-      // "circle-radius": 100,
-      "circle-radius": {
-        stops: [
-          [0, 0],
-          [12, 100]
-        ],
-        base: 2
-      },
+    // "circle-radius": 100,
+    "circle-radius": {
+      stops: [
+        [0, 0],
+        // [12, 100]
+        // [12, 2],
+        [10, 220]
+      ],
+      base: 2
+    },
 
-      "circle-color": "rgba(29,161,242,.2)",
-      // "circle-stroke-color": "purple",
-      "circle-stroke-color":'rgba(29,161,242,.2)',
 
-      "circle-opacity": 1,
-      "circle-stroke-opacity": 1,
-      "circle-stroke-width": 1
+    "circle-color": "rgba(29,161,242,.2)",
+    // "circle-stroke-color": "purple",
+    "circle-stroke-color": 'rgba(29,161,242,.2)',
+
+    "circle-opacity": 1,
+    "circle-stroke-opacity": 1,
+    "circle-stroke-width": 1
   }
 
 
@@ -186,6 +188,7 @@ const GeoLocation = () => {
     }
 
     if (!user.isMapLocked) {
+      dispatch(setLocationFilter('false'))
       // console.log(objectVal)
       if (objectVal?.includes("© Mapbox ")) {
         const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
@@ -282,7 +285,7 @@ const GeoLocation = () => {
                 style={mapStyles.day}
                 zoom={[location.zoomlevel]}
                 onRender={(e) => {
-                  console.log('e.boxZoom._container.outerText',e.boxZoom._container.outerText)
+                  // console.log('e.boxZoom._container.outerText', e.boxZoom._container.outerText)
                   setObjectVal(e.boxZoom._container.outerText)
 
                 }} //boxZoom._container.outerText
@@ -295,7 +298,7 @@ const GeoLocation = () => {
               // onStyleLoad={onStyleLoad}
 
               >
-                <Layer type="circle"  id="circle" paint={Obj}
+                <Layer type="circle" id="circle" paint={Obj}
                   // layout={{ 'icon-image': 'custom-marker' }}
                   // layout={{ "icon-image": "harbor-15" }}
                   coordinates={[location.lng, location.lat]}

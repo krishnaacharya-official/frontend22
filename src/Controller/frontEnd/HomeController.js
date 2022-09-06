@@ -340,7 +340,7 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-
+            console.log(343)
             // if (!user.isMapLocked) {
 
             //     if (user.distance?.includes("© Mapbox ")) {
@@ -371,24 +371,26 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
             // if (user.isMapLocked) {
+                // console.log(user.distance, 'user.distance')
+
+                // console.log(374)
 
 
-            // console.log(user.distance) 
-            let str = user.distance
-            const after_ = str?.substring(str.indexOf('map') + 3);
-            // console.log(user.lng)
-            if (user.distance && user.distance.split(" ").length > 0) {
-                let d = Number(user.distance.split(" ")[0])
-                // console.log(d)
-                if (isNaN(d)) {
-                    d = after_.split(" ")[0]
+                let str = user.distance
+                const after_ = str?.substring(str.indexOf('map') + 3);
+                // console.log(user.lng)
+                if (user.distance && user.distance.split(" ").length > 0) {
+                    let d = Number(user.distance.split(" ")[0])
                     // console.log(d)
-                }
-                // console.log(d)
+                    if (isNaN(d)) {
+                        d = after_.split(" ")[0]
+                        // console.log(d)
+                    }
+                    // console.log(d)
 
-                let productArray = []
+                    let productArray = []
 
-                if (Number(d) > 1) {
+                    // if (Number(d) > 1) {
                     allProductList.map((p, i) => {
                         if (p.lat && p.lng) {
                             let dis = getDistance(
@@ -409,12 +411,12 @@ export default function HomeController() {
                     //     setProductList(productArray)
                     //     dispatch(setLocationFilter(false))
                     // }
-                } else {
-                    await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
-                    dispatch(setProductCount(0))
-                    // dispatch(setLocationFilter(false))
+                    // } else {
+                    //     await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+                    //     dispatch(setProductCount(0))
+                    //     // dispatch(setLocationFilter(false))
+                    // }
                 }
-            }
 
             // }
             // console.log(user.isUpdateLocationFilter)
@@ -428,9 +430,13 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
+            // console.log(432)
+
             // console.log(user.isUpdateLocationFilter)
             // if (user.isMapLocked) {
             if (user.isUpdateLocationFilter === 'true') {
+                // console.log('tr')
+
                 // console.log(user.isUpdateLocationFilter)
                 if (tempProductList.length > 0) {
 
@@ -478,6 +484,7 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
+            // console.log(487)
 
             // function getLocation() {
             // console.log(user.xp)
