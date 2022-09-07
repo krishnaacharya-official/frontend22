@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-
+import { useState, useEffect } from "react";
 import ListItemImg from "../../atoms/list-item-img";
 import "./style.scss";
 import moment from "moment";
@@ -9,8 +9,11 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import helper, { priceFormat } from "../../../../../Common/Helper";
 import { List } from "@mui/material";
+import CSVExportBtn from '../../../CSVExportBtn';
+
 
 const TaxTable = (props) => {
+
   return (
     <>
       <div className="list__table">
@@ -151,54 +154,54 @@ const TaxTable = (props) => {
                         <div className="container-fluid">
                           {
                             item.pro.
-                            length > 0 &&
+                              length > 0 &&
                             item.pro.map((i1, k) => {
 
                               // if (item[0].type === 'Purchased') {
 
 
-                                return (
-                                  <>
-                                    <hr />
-                                    <li className="table__list-item p-2">
-                                      <div className="d-sm-flex align-items-center flex-grow-1">
-                                        <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
-                                          <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                                            <div className="text-success fw-bold fs-5">{item.currencySymbol}{i1.tax}</div>
-                                            <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
-                                          </div>
-
-                                        </div>
-                                        <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                                          <div className="pe-1 p-sm-2 mr-12p">
-                                            <img
-                                              loading="lazy"
-                                              width={36}
-                                              src={helper.CampaignProductImagePath + i1?.orderItemDetails.productImage}
-                                              alt=""
-                                            />
-                                          </div>
-                                          <div>
-                                            <div>
-                                              <Button variant="link" className="text-dark px-0 py-3p">
-                                                {i1?.orderItemDetails.productName}
-                                              </Button>
-                                            </div>
-                                            <div className="text-light fs-7">
-                                              <FontAwesomeIcon
-                                                icon={regular("wallet")}
-                                                className="mr-3p"
-                                              />
-                                              Bought {i1?.orderItemDetails.quantity}
-                                            </div>
-                                          </div>
+                              return (
+                                <>
+                                  <hr />
+                                  <li className="table__list-item p-2">
+                                    <div className="d-sm-flex align-items-center flex-grow-1">
+                                      <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                        <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
+                                          <div className="text-success fw-bold fs-5">{item.currencySymbol}{i1.tax}</div>
+                                          <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
                                         </div>
 
                                       </div>
-                                    </li>
+                                      <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                        <div className="pe-1 p-sm-2 mr-12p">
+                                          <img
+                                            loading="lazy"
+                                            width={36}
+                                            src={helper.CampaignProductImagePath + i1?.orderItemDetails.productImage}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <div>
+                                            <Button variant="link" className="text-dark px-0 py-3p">
+                                              {i1?.orderItemDetails.productName}
+                                            </Button>
+                                          </div>
+                                          <div className="text-light fs-7">
+                                            <FontAwesomeIcon
+                                              icon={regular("wallet")}
+                                              className="mr-3p"
+                                            />
+                                            Bought {i1?.orderItemDetails.quantity}
+                                          </div>
+                                        </div>
+                                      </div>
 
-                                  </>
-                                )
+                                    </div>
+                                  </li>
+
+                                </>
+                              )
                               // }
 
                             })
@@ -209,7 +212,7 @@ const TaxTable = (props) => {
                         <hr />
                       </>
 
-          }
+                    }
                   </>
                 )
               })
@@ -268,7 +271,20 @@ const TaxTable = (props) => {
               </Stack>
               : <></>}
           </div>}
+   
       </div>
+
+      {
+          props.taxList.length > 0 &&
+          <div className="mt-5  mb-5">
+          <CSVExportBtn
+            headers={props.headers}
+            csvData={props.csvData}
+            label='Export'
+            prifix='_user_tax'
+          />
+          </div>
+        }
     </>
   );
 };

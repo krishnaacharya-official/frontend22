@@ -12,7 +12,8 @@ import "./style.scss";
 import { Outlet, useOutletContext, Link } from 'react-router-dom';
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper,{getCardIcon,priceFormat} from "../../../../../Common/Helper";
+import helper, { getCardIcon, priceFormat } from "../../../../../Common/Helper";
+import CSVExportBtn from '../../../CSVExportBtn';
 
 
 const AdminBilling = () => {
@@ -26,16 +27,42 @@ const AdminBilling = () => {
   const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
   const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
   const [data, setData] = useOutletContext();
+  const [csvData, setCsvData] = useState([])
 
+  const headers = [
+    { label: "Date", key: "date" },
+    { label: "Amount", key: "amount" },
+    { label: "Name", key: "name" },
+    { label: "Email", key: "email" },
+    { label: "Description", key: "description" },
+    { label: "Card", key: "card" },
+    { label: "Last Four", key: "lastfour" }
+
+
+  ];
   const getPaymentHistory = async () => {
     let fdata = {}
     fdata.organizationId = data._id
     const peymentHistory = await organizationApi.getPaymentHistory(token, fdata)
     if (peymentHistory.data.success === true) {
-
-      // console.log(peymentHistory.data.data)
-
       setHistoryList(peymentHistory.data.data)
+      if (peymentHistory.data.data.length > 0) {
+        let tempAr = []
+        peymentHistory.data.data.map((list, i) => {
+          let tempObj = {}
+          tempObj.date = moment(list.created_at).format('DD/MM/YYYY')
+          tempObj.amount = list.type === 'ORDER' ? (Number(list.totalPrice) * Number(list.quantity)) : list.amount
+          tempObj.name = list.type === 'ORDER' ? list.orderDetails.userDetails.name : list.userDetails.name
+          tempObj.email = list.type === 'ORDER' ? list.orderDetails.userDetails.email : list.userDetails.email
+          tempObj.description = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donated'
+          tempObj.card = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
+          tempObj.lastfour = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.last4 : JSON.parse(list.paymentResponse).payment_method_details?.card?.last4
+          tempAr.push(tempObj)
+        })
+        setCsvData(tempAr)
+
+      }
+
     }
   }
 
@@ -54,6 +81,8 @@ const AdminBilling = () => {
 
     })()
   }, [data])
+
+
 
 
 
@@ -101,6 +130,16 @@ const AdminBilling = () => {
                 All transactions related to your Admin account
               </div>
             </div>
+            {
+              historyList.length > 0 &&
+              <CSVExportBtn
+                headers={headers}
+                csvData={csvData}
+                label='Export'
+                prifix='_billing'
+              />
+
+            }
             {/* <Button variant="info" size="lg" className="btn__export">
               <span className="fw-bold fs-6">Export</span>
             </Button> */}
@@ -111,7 +150,7 @@ const AdminBilling = () => {
               historyList.slice(0, loadMore ? historyList.length : 2).map((list, i) => {
 
                 // console.log(list)
-                let amount = list.type === 'ORDER' ? (Number(list.totalPrice)*Number(list.quantity)) : list.amount
+                let amount = list.type === 'ORDER' ? (Number(list.totalPrice) * Number(list.quantity)) : list.amount
                 let currencySymbole = list.type === 'ORDER' ? list.orderDetails.currencySymbol : list.currencySymbol
                 let date = moment(list.created_at).format('DD/MM/YYYY')
                 let donate = list.type === 'ORDER' ? list.quantity + ' ' + list.productName : 'Donated'
@@ -120,7 +159,7 @@ const AdminBilling = () => {
                 let CardType = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
                 let lastFourDigits = list.type === 'ORDER' ? JSON.parse(list.orderDetails.paymentResponse).data?.payment_method_details?.card?.last4 : JSON.parse(list.paymentResponse).payment_method_details?.card?.last4
                 let image = list.type === 'ORDER' ? list.orderDetails.userDetails.image : list.userDetails.image
-                let avatar = image ? helper.DonorImagePath + image :  'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
+                let avatar = image ? helper.DonorImagePath + image : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
 
                 return (
                   <div className="billing__item p-2 border-bottom border-bottom-sm-none">
@@ -157,7 +196,7 @@ const AdminBilling = () => {
                             />
                           </div>
                           <div className="billing__card fs-7">
-                            <div style={{textTransform:"capitalize"}}>{CardType}</div>
+                            <div style={{ textTransform: "capitalize" }}>{CardType}</div>
                             <div className="linked__date">{lastFourDigits}</div>
                           </div>
                         </div>
@@ -212,12 +251,12 @@ const AdminBilling = () => {
               </div>
             </div> */}
             {
-            !loadMore &&
-            historyList.length > 2 &&
-            <div className="more__log">
-              <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
-            </div>
-          }
+              !loadMore &&
+              historyList.length > 2 &&
+              <div className="more__log">
+                <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
+              </div>
+            }
 
             {/* <div className="more__bills mt-3">
               <Button variant="info" className="fs-6 pt-12p pb-12p w-100">

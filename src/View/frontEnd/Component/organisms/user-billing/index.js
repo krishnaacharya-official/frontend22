@@ -5,7 +5,8 @@ import userApi from "../../../../../Api/frontEnd/user";
 import { useState, useEffect } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper,{getCardIcon} from "../../../../../Common/Helper";
+import helper, { getCardIcon } from "../../../../../Common/Helper";
+import CSVExportBtn from '../../../CSVExportBtn';
 
 import "./style.scss";
 
@@ -14,12 +15,44 @@ const UserBilling = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const [loading, setLoading] = useState(false)
   const [loadMore, setLoadMore] = useState(false)
+  const [csvData, setCsvData] = useState([])
+
+  const headers = [
+    { label: "Date", key: "date" },
+    { label: "Amount", key: "amount" },
+    { label: "Transection Id", key: "transectionId" },
+    { label: "Type", key: "type" },
+    { label: "Description", key: "description" },
+    { label: "Card", key: "card" },
+    { label: "Last Four", key: "lastfour" }
+
+
+  ];
 
   const getUserPaymentHistory = async () => {
     const peymentHistory = await userApi.getUserPaymentHistory(userAuthToken)
     if (peymentHistory.data.success === true) {
-      // console.log(peymentHistory.data)
       setHistoryList(peymentHistory.data.data)
+
+      if (peymentHistory.data.data.length > 0) {
+        let tempAr = []
+        peymentHistory.data.data.map((list, i) => {
+          let tempObj = {}
+          tempObj.date = moment(list.created_at).format('DD/MM/YYYY')
+          tempObj.amount = list.type === 'ORDER' ? list.total : list.amount
+          tempObj.transectionId = list.uniqueTransactionId ? list.uniqueTransactionId : list.transactionId
+          tempObj.type = list.type === 'ORDER' ? 'Bought' : 'Donate'
+          tempObj.description = list.type === 'ORDER' ? 'Debited' : list.type === 'PROJECT' ? list.projectDetails.name : list.organizationDetails.name
+          tempObj.card = list.type === 'ORDER' ? JSON.parse(list.paymentResponse).data?.payment_method_details?.card?.brand : JSON.parse(list.paymentResponse).payment_method_details?.card?.brand
+          tempObj.lastfour = list.type === 'ORDER' ? JSON.parse(list.paymentResponse).data?.payment_method_details?.card?.last4 : JSON.parse(list.paymentResponse).payment_method_details?.card?.last4
+          tempAr.push(tempObj)
+        })
+        setCsvData(tempAr)
+
+      }
+
+
+
     }
   }
 
@@ -47,11 +80,21 @@ const UserBilling = () => {
               All transactions related to your Admin account
             </div>
           </div>
+          {
+            historyList.length > 0 &&
+            <CSVExportBtn
+              headers={headers}
+              csvData={csvData}
+              label='Export'
+              prifix='_user_billing'
+            />
+          }
+
           {/* <Button variant="info" size="lg" className="btn__export">
             <span className="fw-bold fs-6">Export</span>
           </Button> */}
         </div>
-        <div className="billing__list mw-600" style={{overflowY:loadMore ?"scroll":"",height:loadMore ?"500px":""}}>
+        <div className="billing__list mw-600" style={{ overflowY: loadMore ? "scroll" : "", height: loadMore ? "500px" : "" }}>
 
           {
             historyList.length > 0 &&

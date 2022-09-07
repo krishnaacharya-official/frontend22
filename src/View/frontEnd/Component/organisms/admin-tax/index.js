@@ -8,6 +8,10 @@ import { useState, useEffect } from "react";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import ToastAlert from "../../../../../Common/ToastAlert"
+import { CSVLink, CSVDownload } from "react-csv";
+import moment from "moment";
+import CSVExportBtn from '../../../CSVExportBtn';
+
 
 const AdminTax = () => {
   const [data, setData] = useOutletContext();
@@ -23,6 +27,21 @@ const AdminTax = () => {
   const [update, setUpdate] = useState(false)
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
+  const [csvData, setCsvData] = useState([])
+
+  const headers = [
+    { label: "Date", key: "date" },
+    { label: "Amount", key: "amount" },
+    { label: "Name", key: "name" },
+    { label: "Email", key: "email" },
+    { label: "Type", key: "type" }
+  ];
+
+  // let csvData = [
+  //   { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
+  //   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
+  //   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
+  // ];
 
   const getTaxList = async (page, field, type) => {
     let formData = {}
@@ -30,7 +49,7 @@ const AdminTax = () => {
     formData.sortField = field
     formData.sortType = type
     formData.organizationId = data._id
-
+    formData.isAll = false
 
 
     const taxList = await organizationApi.organizatationTaxlist(token, formData)
@@ -39,6 +58,21 @@ const AdminTax = () => {
       // console.log(taxList.data.data)
       setTotalPages(taxList.data.totalPages)
       setTotalRecord(taxList.data.totalRecord)
+
+      if (taxList.data.allData.length > 0) {
+        let tempAr = []
+        taxList.data.allData.map((v, k) => {
+          let tempObj = {}
+          tempObj.date = moment(v[0].created_at).format('DD MMMM YYYY')
+          tempObj.amount = v[0].currencySymbol + totalVal(v)
+          tempObj.name = v[0].userDetails?.name
+          tempObj.email = v[0].userDetails?.email
+          tempObj.type = v[0].type
+          tempAr.push(tempObj)
+        })
+        setCsvData(tempAr)
+        // done(true);
+      }
     }
 
   }
@@ -54,7 +88,7 @@ const AdminTax = () => {
   }, [data._id, update])
 
 
-  const uploadImage = async (e, orderId, email, name,userId) => {
+  const uploadImage = async (e, orderId, email, name, userId) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
 
     let fdata = {}
@@ -93,6 +127,23 @@ const AdminTax = () => {
     await getTaxList(Number(v), sortField, order)
   }
 
+  const totalVal = (data) => {
+    let tempSub = []
+    let sum
+    if (data.length > 0) {
+      data.map((i, k) => {
+        tempSub.push(i.amount)
+      })
+      sum = tempSub.reduce(function (a, b) { return a + b; }, 0);
+    } else {
+      sum = 0
+    }
+    return sum;
+  }
+
+
+
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -105,6 +156,16 @@ const AdminTax = () => {
         </div>
         <div className="ms-sm-auto d-flex">
           {/* <Button variant="info" size="lg" className='me-2 flex__1'>Download CSV</Button> */}
+          {
+            taxList.length > 0 &&
+            <CSVExportBtn
+              headers={headers}
+              csvData={csvData}
+              label='Download CSV'
+              prifix='_tax'
+            />
+
+          }
           {/* <LadderMenuXp /> */}
         </div>
       </header>

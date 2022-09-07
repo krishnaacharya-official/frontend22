@@ -21,28 +21,58 @@ const UserTax = () => {
   const [order, setOrder] = useState("asc");
   const [taxList, setTaxList] = useState([])
 
+  const [csvData, setCsvData] = useState([])
+
+  const headers = [
+    { label: "Date", key: "date" },
+    { label: "Amount", key: "amount" },
+    { label: "Transection Id", key: "transectionId" },
+    { label: "Type", key: "type" },
+
+  ];
+
   const getTaxDataList = async (page, field, type) => {
     setLoading(false)
     let formData = {}
     formData.pageNo = page
     formData.sortField = field
     formData.sortType = type
+    formData.isAll = false
+
     const getTaxDataList = await userApi.userTaxlist(userAuthToken, formData);
     if (getTaxDataList.data.success === true) {
       // console.log(getTaxDataList.data.data_temp)
       setTaxList(getTaxDataList.data.data)
       setTotalPages(getTaxDataList.data.totalPages)
       setTotalRecord(getTaxDataList.data.totalRecord)
+
+      if (getTaxDataList.data.allData.length > 0) {
+        let tempAr = []
+        getTaxDataList.data.allData.map((item, k) => {
+          let tempobj = {}
+          tempobj.date = moment(item.created_at).format('DD MMMM YY')
+          tempobj.amount = item.currencySymbol + item.amount
+          tempobj.transectionId = item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId
+          tempobj.type = item.type
+          tempAr.push(tempobj)
+
+
+
+        })
+        setCsvData(tempAr)
+      }
     }
     setLoading(false)
 
-
   }
+
 
   useEffect(() => {
     (async () => {
 
       await getTaxDataList(pageNo, sortField, order)
+
+
 
     })()
   }, [data._id])
@@ -93,6 +123,8 @@ const UserTax = () => {
         order={order}
         sortField={sortField}
         taxList={taxList}
+        csvData={csvData}
+        headers={headers}
       />
     </>
   );
