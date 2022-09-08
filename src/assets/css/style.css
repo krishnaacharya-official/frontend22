@@ -1367,3 +1367,8 @@ li.search__tag {
 .donor_avatar_bg {
   background-size: cover !important;
 }
+
+canvas {
+  position: absolute;
+  top: -2000px;
+}

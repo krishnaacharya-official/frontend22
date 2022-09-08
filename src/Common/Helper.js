@@ -520,3 +520,31 @@ export function GetCardTypeByNumber(number) {
     return "";
 }
 
+export function hasAlpha(file) {
+    return new Promise((resolve, reject) => {
+      let hasAlpha = false;
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      console.log(ctx)
+    
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onerror = reject;
+      img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+      
+        ctx.drawImage(img, 0, 0);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      
+        for (let j = 0; j < imgData.length; j += 4) {
+          if (imgData[j + 3] < 255) {
+            hasAlpha = true;
+            break;
+          }
+        }
+        resolve(hasAlpha);
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  }

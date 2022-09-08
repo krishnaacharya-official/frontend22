@@ -17,7 +17,7 @@ import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
 import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
-import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download, isIframe } from "../../../../../Common/Helper";
+import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download, isIframe, getCardIcon } from "../../../../../Common/Helper";
 
 
 import {
@@ -181,8 +181,8 @@ const UserItems = () => {
 
           // let purchasedPrice = (Math.round(purchasedPriceWithTax(Number(item.productPrice), item.appliedTaxPer)))
           let purchasedPrice = item.productPrice
-
-
+          let cardType = JSON.parse(item.paymentResponse).data?.payment_method_details?.card?.brand
+          let lastFourDigits = JSON.parse(item.paymentResponse).data?.payment_method_details?.card?.last4
           // console.log(purchasedPrice)
 
 
@@ -383,14 +383,14 @@ const UserItems = () => {
                     <div className="bg-lighter d-flex align-items-center p-20p rounded">
                       <div className="order__logo me-2">
                         <img
-                          src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                          src={getCardIcon(cardType)}
                           alt=""
                           className="img-fluid"
                         />
                       </div>
                       <div className="order__card fs-7">
                         <div className="text-dark fw-semibold mb-6p">
-                          5432 XXXX XXXX 4809
+                          XXXX XXXX XXXX {lastFourDigits}
                         </div>
                         <div className="text-light fw-semibold">
                           <div>Transaction: {moment(item.created_at).format('MMMM DD,YYYY')}</div>

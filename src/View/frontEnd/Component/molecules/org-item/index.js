@@ -29,8 +29,10 @@ function OrganisationItem(props) {
   let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
   let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
   let slug = props.tagTitle === "Project" ? product?.itemDetails?.slug : product?.slug
+  let isFulfiled = props.tagTitle === "Project" ? product?.itemDetails?.isFulfiled : product?.isFulfiled
 
 
+  let isFinish = !infinite && soldout >= quantity ? true : false
 
   const [addedToCard, setAddedToCard] = useState(false)
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
@@ -60,11 +62,18 @@ function OrganisationItem(props) {
     </Button>
   );
 
-  
+
+
+  // const btn =
+  //   soldout >= quantity ? (
+  //     <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+  //   ) : (
+  //     cart_btn
+  //   );
 
   const btn =
-    soldout === quantity ? (
-      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+    isFinish || isFulfiled ? (
+      <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
     );
@@ -97,7 +106,7 @@ function OrganisationItem(props) {
         <div className="org__item__main pl-12p flex-grow-1">
           <div className="org__item__title pr-12p">
             <Link
-              to={"/item/"+slug}
+              to={"/item/" + slug}
               className="org__item__name mb-3p text-dark d-inline-block"
             >
               {headline}
@@ -125,7 +134,7 @@ function OrganisationItem(props) {
               }}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
               min={1}
-              max={infinite ? 1 : 10}
+              max={infinite ? 1000 : Number(quantity)}
 
               // onChange={(e) => setTotalPrice({
               //   ...props.productPrice,
@@ -142,7 +151,7 @@ function OrganisationItem(props) {
               {/* <div className="icon icon--unlimited"></div> */}
               <FontAwesomeIcon icon={solid("infinity")} className="icon icon--unlimited" />
             </div>
-            : 10}</div>
+            : quantity}</div>
         </div>
         {/* <span className="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
           ${totalPrice}

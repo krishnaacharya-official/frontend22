@@ -8,9 +8,9 @@ import "./style.scss";
 const propTypes = {
   items: PropTypes.array,
 };
-
+const currentYear = new Date().getFullYear();
 const defaultProps = {
-  items: ["Show All", "2020", "2021", "2022"],
+  items: ["Show All", currentYear - 2, currentYear - 1, currentYear],
 };
 
 const LadderMenu = ({ items, activeKey, onChangeFilterOption }) => {
@@ -36,7 +36,7 @@ const LadderMenu = ({ items, activeKey, onChangeFilterOption }) => {
           <li className="ladder__menu-item" onClick={() => {
             setActive(false)
             // setSelectedKey(index)
-            onChangeFilterOption(index)
+            onChangeFilterOption(index,item)
           }} key={index}>
             {item}
           </li>

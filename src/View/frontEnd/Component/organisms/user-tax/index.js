@@ -20,6 +20,11 @@ const UserTax = () => {
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
   const [taxList, setTaxList] = useState([])
+  const [activeKey, setActiveKey] = useState(0)
+  const [activeYear, setActiveYear] = useState('Show All')
+  const [all, setAll] = useState([])
+  const userData = JSON.parse(localStorage.getItem('userData'));
+
 
   const [csvData, setCsvData] = useState([])
 
@@ -31,21 +36,23 @@ const UserTax = () => {
 
   ];
 
-  const getTaxDataList = async (page, field, type) => {
+  const getTaxDataList = async (page, field, type, year) => {
     setLoading(false)
     let formData = {}
     formData.pageNo = page
     formData.sortField = field
     formData.sortType = type
     formData.isAll = false
+    formData.year = year
+
 
     const getTaxDataList = await userApi.userTaxlist(userAuthToken, formData);
-    if (getTaxDataList.data.success === true) {
+    if (getTaxDataList.data.success) {
       // console.log(getTaxDataList.data.data_temp)
       setTaxList(getTaxDataList.data.data)
       setTotalPages(getTaxDataList.data.totalPages)
       setTotalRecord(getTaxDataList.data.totalRecord)
-
+      setAll(getTaxDataList.data.allData)
       if (getTaxDataList.data.allData.length > 0) {
         let tempAr = []
         getTaxDataList.data.allData.map((item, k) => {
@@ -61,6 +68,10 @@ const UserTax = () => {
         })
         setCsvData(tempAr)
       }
+    } else {
+      setTaxList([])
+      setTotalPages(0)
+      setTotalRecord(0)
     }
     setLoading(false)
 
@@ -70,8 +81,7 @@ const UserTax = () => {
   useEffect(() => {
     (async () => {
 
-      await getTaxDataList(pageNo, sortField, order)
-
+      await getTaxDataList(pageNo, sortField, order, activeYear)
 
 
     })()
@@ -80,7 +90,7 @@ const UserTax = () => {
   const handleClick = async (e, v) => {
 
     setPageNo(Number(v))
-    await getTaxDataList(Number(v), sortField, order)
+    await getTaxDataList(Number(v), sortField, order, activeYear)
   }
 
 
@@ -90,10 +100,44 @@ const UserTax = () => {
       accessor === sortField && order === "asc" ? "desc" : "asc";
     setSortField(accessor);
     setOrder(sortOrder);
-    await getTaxDataList(pageNo, accessor, sortOrder)
+    await getTaxDataList(pageNo, accessor, sortOrder, activeYear)
 
 
   };
+  const onChangeFilterOption = async (e, v) => {
+    await getTaxDataList(pageNo, sortField, order, v)
+    setActiveYear(v)
+    setActiveKey(e)
+
+  }
+
+
+  const countProjectAmount = (data) => {
+    // console.log(data)
+    let totalQArray = []
+    let soldOutQArray = []
+    let per = 0
+
+    if (data?.length > 0) {
+      data?.map((p, i) => {
+        // console.log(p.itemDetails)
+        if (p.currency === userData.currency) {
+          totalQArray.push(Number(p.amount))
+        }
+      })
+
+      const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+
+      per = total
+    } else {
+      per = 0;
+
+    }
+    return Math.round(per);
+
+  }
 
   return (
     <>
@@ -109,10 +153,16 @@ const UserTax = () => {
             email or download your receipts here.
           </p>
         </div>
+
         <div className="ms-sm-auto">
-          {/* <LadderMenu /> */}
+          <LadderMenu
+            activeKey={activeKey}
+            onChangeFilterOption={onChangeFilterOption}
+          />
         </div>
       </header>
+
+      <h4 >Total : <small>{userData.currency} </small> <span style={{ color: "#45bb82" }}>{userData.symbol}{countProjectAmount(all)}</span></h4>
 
       <TaxTable
         handleClick={handleClick}

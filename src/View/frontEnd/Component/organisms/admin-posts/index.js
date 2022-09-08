@@ -22,7 +22,7 @@ import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
 import { WithContext as ReactTags } from "react-tag-input";
 import noimg from "../../../../../assets/images/noimg.jpg"
-import helper, { priceWithOrganizationTax, priceFormat, isIframe, download } from "../../../../../Common/Helper";
+import helper, { priceWithOrganizationTax, priceFormat, isIframe, download, hasAlpha } from "../../../../../Common/Helper";
 import { validateAll } from "indicative/validator";
 import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
@@ -396,12 +396,16 @@ const AdminPosts = (props) => {
       if (file) {
         let extension = file.name.substr(file.name.lastIndexOf('.') + 1)
         if (validExtensions.includes(extension)) {
+
           setTempImg(URL.createObjectURL(file))
           setstate({
             ...state,
             image: file
           })
+          // if (!hasAlpha(file)) {
+          //   alert('Not Transperent Bg')
 
+          // }
         } else {
           setstate({
             ...state,
@@ -435,11 +439,29 @@ const AdminPosts = (props) => {
             gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
           }
         }
-        setGallaryTempImages(gImgtempArry)
+        let oldG = [...gallaryTempImages]
+        let combine = oldG.concat(gImgtempArry)
+        setGallaryTempImages(combine)
+
+
+        let oldMG = [...galleryImg]
+        let combineMainG = oldMG.concat(tempGallaryFileArry)
+
+
         setstate({
           ...state,
-          galleryImg: tempGallaryFileArry
+          galleryImg: combineMainG
         })
+
+        // setGallaryTempImages(gImgtempArry)
+
+
+
+
+        // setstate({
+        //   ...state,
+        //   galleryImg: tempGallaryFileArry
+        // })
 
       }
 
@@ -573,6 +595,8 @@ const AdminPosts = (props) => {
   }
 
   const submitProductForm = (s) => {
+
+    console.log(galleryImg)
     window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
@@ -1224,6 +1248,24 @@ const AdminPosts = (props) => {
 
   }
 
+  const removeGallaryempImages = async (id) => {
+
+
+    let imgs = [...gallaryTempImages]
+    imgs.splice(id, 1);
+    setGallaryTempImages(imgs)
+
+    let fImg = [...galleryImg]
+    fImg.splice(id, 1);
+
+
+    setstate({
+      ...state,
+      galleryImg: fImg
+    })
+
+  }
+
 
   // function download(dataurl, filename) {
   //   const link = document.createElement("a");
@@ -1328,6 +1370,7 @@ const AdminPosts = (props) => {
             data={data}
             deleteProductImage={deleteProductImage}
             setModelShow={setModelShow}
+            removeGallaryempImages={removeGallaryempImages}
 
           />
           :

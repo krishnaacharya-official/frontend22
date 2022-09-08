@@ -168,7 +168,7 @@ const TaxTable = (props) => {
                                       <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
                                           <div className="text-success fw-bold fs-5">{item.currencySymbol}{i1.tax}</div>
-                                          <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
+                                          <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                                         </div>
 
                                       </div>

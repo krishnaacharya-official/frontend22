@@ -665,6 +665,7 @@ const AddPost = (props) => {
                           </label>
                         </div>
                         <p className='error'>{error ? error.image ? error.image : "" : ""}</p>
+                        {/* <canvas></canvas> */}
 
                       </div>
                       <div className="note note--info mb-3">
@@ -911,7 +912,11 @@ const AddPost = (props) => {
                           {gallaryTempImages?.length ?
                             gallaryTempImages.map((img, key) => {
                               return (
+                                <div className="img-wrap">
+                                <span className="close" onClick={() => props.removeGallaryempImages(key)} style={{ right: "7px" }}>&times;</span>
                                 <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                </div>
+
                               )
 
                             })
