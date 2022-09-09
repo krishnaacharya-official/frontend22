@@ -14,33 +14,53 @@ import OrganisationItem from "../../molecules/org-item";
 
 import "./style.scss";
 import helper, { getCalculatedPrice } from "../../../../../Common/Helper"
+import cartApi from "../../../../../Api/frontEnd/cart";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsUpdateCart } from "../../../../../user/user.action"
+import { useNavigate } from "react-router-dom";
 
 function OrganisationWidget(props) {
   const [check, setCheck] = useState(0);
   const [loadMore, setLoadMore] = useState(false)
+  const [price, setPrice] = useState()
+  const [cartProductList, setCartProductList] = useState([])
+  const [cartProductIds, setCartProductIds] = useState([])
+  const [availabileProducts, setAvailabileProducts] = useState([])
 
   const [productPrice, setproductPrice] = useState({});
   const getCalc = getCalculatedPrice()
-
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector((state) => state.user);
   let productDetails = props.productDetails
   let currencySymbol = getCalc.currencySymbol()
+
   useEffect(() => {
     (async () => {
       if (productDetails?.length > 0) {
         let obj = {}
+        let tempP = []
         if (props.tagTitle === 'Project') {
           productDetails.map((product, i) => {
             // obj[product?.itemDetails?._id] = getCalc.getData(product?.itemDetails?.price)
             obj[product?.itemDetails?._id] = product?.itemDetails?.displayPrice ? product?.itemDetails?.displayPrice : product?.itemDetails?.price
-
+      
           })
         } else {
           productDetails.map((product, i) => {
             // console.log(product)
             // obj[product._id] = getCalc.getData(product?.price)
             obj[product._id] = product?.displayPrice ? product?.displayPrice : product?.price
+
+
+          
+
+
           })
         }
+        // setAvailabileProducts(tempP)
+        // console.log(currencySymbol)
 
         setproductPrice(obj)
         setLoadMore(false)
@@ -49,6 +69,165 @@ function OrganisationWidget(props) {
   }, [productDetails])
 
   // console.log(productPrice)
+
+
+
+  const onChangeDonatePrice = async (e) => {
+    let value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+    setPrice(value)
+    if (Number(value) > 0) {
+
+
+      let cart = [];
+      let cartTotal = 0;
+      // let p = productList.filter(e => getCalc.getData(e.price) < value)
+      let p;
+      if (props.tagTitle === 'Project') {
+        p = productDetails.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value)
+
+      } else {
+        p = productDetails.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value)
+
+      }
+
+
+
+
+      if (p.length > 0) {
+        p.map((itm, key) => {
+          let price1;
+
+
+          if (props.tagTitle === 'Project') {
+
+            price1 = itm.itemDetails?.displayPrice ? itm.itemDetails?.displayPrice : itm.itemDetails?.price
+          } else {
+            price1 = itm.displayPrice ? itm.displayPrice : itm.price
+          }
+          // if (value > cartTotal + getCalc.getData(itm.price)) {
+          if (value > cartTotal + price1) {
+            let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
+
+            cart.push(pID)
+            setCartProductList(cart)
+            // cartTotal += getCalc.getData(itm.price)
+            cartTotal += price1
+
+          }
+
+        })
+
+        if (value - cartTotal > 0) {
+
+          while (p.length > 0) {
+            // let price2 = e.displayPrice ? e.displayPrice : e.price
+
+
+            if (props.tagTitle === 'Project') {
+              p = productDetails.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value - cartTotal)
+
+              // price2 = e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price
+            } else {
+              p = productDetails.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
+            }
+
+            // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+            // p = availabileProducts.filter(e => price2 < value - cartTotal)
+
+
+
+            if (p.length > 0) {
+              p.map((itm, key) => {
+                let price3;
+
+
+                if (props.tagTitle === 'Project') {
+
+                  price3 = itm.itemDetails?.displayPrice ? itm.itemDetails?.displayPrice : itm.itemDetails?.price
+                } else {
+                  price3 = itm.displayPrice ? itm.displayPrice : itm.price
+
+                }
+
+                let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
+
+                // if (value > cartTotal + getCalc.getData(itm.price)) {
+                if (value > cartTotal + price3) {
+
+                  cart.push(pID)
+                  setCartProductList(cart)
+                  // cartTotal += getCalc.getData(itm.price)
+                  cartTotal += price3
+
+
+                }
+
+              })
+            }
+          }
+
+        }
+
+
+      } else {
+        setCartProductList([])
+      }
+    } else {
+      setCartProductList([])
+    }
+
+  }
+
+  const onClickAddToCart = async () => {
+    if (userAuthToken) {
+
+
+      if (cartProductList.length > 0) {
+        let data = {}
+        let tempArray = []
+        cartProductList.map((itm, i) => {
+          let tempobj = {}
+          if (tempArray.some(e => e.productId === itm)) {
+            let objIndex = tempArray.findIndex((obj => obj.productId === itm));
+            tempArray[objIndex].qty += 1
+          } else {
+            tempobj.productId = itm
+            tempobj.qty = 1
+            tempArray.push(tempobj)
+          }
+
+
+        })
+
+
+        data.productIds = tempArray
+        // setLoading(false)
+        const addMultiple = await cartApi.addMultiple(userAuthToken, data)
+
+        if (addMultiple) {
+          if (!addMultiple.data.success) {
+            // setLoading(false)
+            // ToastAlert({ msg: addMultiple.data.message, msgType: 'error' });
+          } else {
+            // setIsUpdate(!update)
+            dispatch(setIsUpdateCart(!user.isUpdateCart))
+            setCartProductList([])
+            setPrice('')
+            /*ToastAlert({ msg: addMultiple.data.message, msgType: 'success' });*/
+            // setLoading(false)
+          }
+
+        } else {
+          // setLoading(false)
+          // ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
+        }
+      }
+    } else {
+      navigate('/signin')
+    }
+
+
+  }
 
 
   return (
@@ -63,9 +242,9 @@ function OrganisationWidget(props) {
           <span>Donate:</span>
           <InputGroup className="donate__control">
             <InputGroup.Text className="">
-              $
+              {currencySymbol}
             </InputGroup.Text>
-            <FormControl type="number" />
+            <FormControl type="text" value={price} onChange={(e) => onChangeDonatePrice(e)} />
           </InputGroup>
 
           <div className="d-flex align-items-center ms-auto">
@@ -76,8 +255,10 @@ function OrganisationWidget(props) {
             />
           </div>
         </div>
-        <Button variant="outline-primary" className="organisation__cart-btn" style={{border: '2px solid'}}>
-          Add to cart (0)
+        <Button variant="outline-primary" className="organisation__cart-btn" style={{ border: '2px solid' }} onClick={() => onClickAddToCart()}>
+          Add to cart (
+          {cartProductList.length}
+          )
         </Button>
       </div>
       <div className="note note__info mb-12p">

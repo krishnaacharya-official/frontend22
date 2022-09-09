@@ -75,7 +75,7 @@ export function ImageExist(url) {
 
 }
 
-export function priceFormat(m=0) {
+export function priceFormat(m = 0) {
     // let price = parseInt(m, 10)
     // let nf = new Intl.NumberFormat('en-US');
     // return nf.format(price)
@@ -520,31 +520,65 @@ export function GetCardTypeByNumber(number) {
     return "";
 }
 
-export function hasAlpha(file) {
-    return new Promise((resolve, reject) => {
-      let hasAlpha = false;
-      const canvas = document.querySelector('canvas');
-      const ctx = canvas.getContext('2d');
-      console.log(ctx)
-    
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onerror = reject;
-      img.onload = function() {
-        canvas.width = img.width;
-        canvas.height = img.height;
-      
-        ctx.drawImage(img, 0, 0);
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      
-        for (let j = 0; j < imgData.length; j += 4) {
-          if (imgData[j + 3] < 255) {
-            hasAlpha = true;
-            break;
-          }
+export  function  hasAlpha(file) {
+
+    let canvas1 = document.getElementById("canvas1");
+    let ctx1 = canvas1.getContext("2d");
+
+    let img1 = new Image();
+    img1.crossOrigin = 'anonymous'
+    img1.onload =  start1;
+    img1.src = file;
+     function start1() {
+
+        canvas1.width = img1.width;
+        canvas1.height = img1.height;
+
+        ctx1.drawImage(img1, 0, 0);
+
+        let imgData =  ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+        let data = imgData.data;
+        let found1 = false;
+        for (let i = 0; i < data.length; i += 4) {
+            if (data[i + 3] < 255) {
+                found1 = true;
+                break;
+            }
         }
-        resolve(hasAlpha);
-      };
-      img.src = URL.createObjectURL(file);
-    });
-  }
+        return found1
+
+        //   $p1.text(found1);
+
+    }
+    // return start1;
+
+
+
+
+    // return new Promise((resolve, reject) => {
+    //   let hasAlpha = false;
+    //   const canvas = document.querySelector('canvas');
+    //   const ctx = canvas.getContext('2d');
+    //   console.log(ctx)
+
+    //   const img = new Image();
+    //   img.crossOrigin = 'Anonymous';
+    //   img.onerror = reject;
+    //   img.onload = function() {
+    //     canvas.width = img.width;
+    //     canvas.height = img.height;
+
+    //     ctx.drawImage(img, 0, 0);
+    //     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+    //     for (let j = 0; j < imgData.length; j += 4) {
+    //       if (imgData[j + 3] < 255) {
+    //         hasAlpha = true;
+    //         break;
+    //       }
+    //     }
+    //     resolve(hasAlpha);
+    //   };
+    //   img.src = URL.createObjectURL(file);
+    // });
+}

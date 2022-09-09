@@ -7,7 +7,7 @@ import Select from 'react-select'
 import "./style.scss";
 
 const AddBankModal = (props) => {
-  console.log(props.bankAccount.accError)
+  // console.log(props.bankAccount.accError)
 
   const accountHolderTypes = [
     { value: 'individual', label: 'Individual' },

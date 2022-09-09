@@ -123,6 +123,7 @@ export default function MainRoutes() {
                         <Route path="/campaign/:name/settings" element={<AdminSettingsTab />} >
                             <Route path="/campaign/:name/settings/company" element={<CompanySettings />} />
                             <Route path="/campaign/:name/settings/paymentMethod" element={<PaymentMethod />} />
+                            <Route path="/campaign/:name/settings/paymentMethod/:accountId" element={<PaymentMethod />} />
                             <Route path="/campaign/:name/settings/administrators" element={<AdminAdmin />} />
                             <Route path="/campaign/:name/settings/billing" element={<AdminBilling />} />
                             <Route path="/campaign/:name/settings/controls" element={<AdminControl />} />

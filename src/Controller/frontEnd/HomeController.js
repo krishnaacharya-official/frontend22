@@ -340,7 +340,7 @@ export default function HomeController() {
 
     useEffect(() => {
         (async () => {
-            console.log(343)
+            // console.log(343)
             // if (!user.isMapLocked) {
 
             //     if (user.distance?.includes("© Mapbox ")) {
@@ -371,52 +371,52 @@ export default function HomeController() {
     useEffect(() => {
         (async () => {
             // if (user.isMapLocked) {
-                // console.log(user.distance, 'user.distance')
+            // console.log(user.distance, 'user.distance')
 
-                // console.log(374)
+            // console.log(374)
 
 
-                let str = user.distance
-                const after_ = str?.substring(str.indexOf('map') + 3);
-                // console.log(user.lng)
-                if (user.distance && user.distance.split(" ").length > 0) {
-                    let d = Number(user.distance.split(" ")[0])
+            let str = user.distance
+            const after_ = str?.substring(str.indexOf('map') + 3);
+            // console.log(user.lng)
+            if (user.distance && user.distance.split(" ").length > 0) {
+                let d = Number(user.distance.split(" ")[0])
+                // console.log(d)
+                if (isNaN(d)) {
+                    d = after_.split(" ")[0]
                     // console.log(d)
-                    if (isNaN(d)) {
-                        d = after_.split(" ")[0]
-                        // console.log(d)
-                    }
-                    // console.log(d)
-
-                    let productArray = []
-
-                    // if (Number(d) > 1) {
-                    allProductList.map((p, i) => {
-                        if (p.lat && p.lng) {
-                            let dis = getDistance(
-                                { latitude: user.lat, longitude: user.lng },
-                                { latitude: p.lat, longitude: p.lng },
-                            );
-                            // console.log('dis', dis / 1000)
-                            if (Number(d) > dis / 1000) {
-                                productArray.push(p)
-                            }
-                            //   console.log(dis/1000)
-                        }
-                    })
-                    setTempProductList(productArray)
-                    // console.log(productArray.length)
-                    dispatch(setProductCount(productArray.length))
-                    // if (user.isUpdateLocationFilter === true) {
-                    //     setProductList(productArray)
-                    //     dispatch(setLocationFilter(false))
-                    // }
-                    // } else {
-                    //     await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
-                    //     dispatch(setProductCount(0))
-                    //     // dispatch(setLocationFilter(false))
-                    // }
                 }
+                // console.log(d)
+
+                let productArray = []
+
+                // if (Number(d) > 1) {
+                allProductList.map((p, i) => {
+                    if (p.lat && p.lng) {
+                        let dis = getDistance(
+                            { latitude: user.lat, longitude: user.lng },
+                            { latitude: p.lat, longitude: p.lng },
+                        );
+                        // console.log('dis', dis / 1000)
+                        if (Number(d) > dis / 1000) {
+                            productArray.push(p)
+                        }
+                        //   console.log(dis/1000)
+                    }
+                })
+                setTempProductList(productArray)
+                // console.log(productArray.length)
+                dispatch(setProductCount(productArray.length))
+                // if (user.isUpdateLocationFilter === true) {
+                //     setProductList(productArray)
+                //     dispatch(setLocationFilter(false))
+                // }
+                // } else {
+                //     await filterProduct(lowPrice, HighPrice, resultTags, user.countryId)
+                //     dispatch(setProductCount(0))
+                //     // dispatch(setLocationFilter(false))
+                // }
+            }
 
             // }
             // console.log(user.isUpdateLocationFilter)
@@ -1116,17 +1116,23 @@ export default function HomeController() {
 
             let cart = [];
             let cartTotal = 0;
-            let p = productList.filter(e => getCalc.getData(e.price) < value)
+            // let p = productList.filter(e => getCalc.getData(e.price) < value)
+            let p = productList.filter(e => e.displayPrice ? e.displayPrice : e.price < value)
+
 
 
 
             if (p.length > 0) {
                 p.map((itm, key) => {
+                    let price1 = itm.displayPrice ? itm.displayPrice : itm.price
+                    // if (value > cartTotal + getCalc.getData(itm.price)) {
+                    if (value > cartTotal + price1) {
 
-                    if (value > cartTotal + getCalc.getData(itm.price)) {
                         cart.push(itm._id)
                         setCartProductList(cart)
-                        cartTotal += getCalc.getData(itm.price)
+                        // cartTotal += getCalc.getData(itm.price)
+                        cartTotal += price1
+
                     }
 
                 })
@@ -1134,16 +1140,25 @@ export default function HomeController() {
                 if (value - cartTotal > 0) {
 
                     while (p.length > 0) {
-                        p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+                        let price2 = e.displayPrice ? e.displayPrice : e.price
+
+                        // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+                        p = productList.filter(e => price2 < value - cartTotal)
+
 
 
                         if (p.length > 0) {
                             p.map((itm, key) => {
+                                let price3 = itm.displayPrice ? itm.displayPrice : itm.price
 
-                                if (value > cartTotal + getCalc.getData(itm.price)) {
+                                // if (value > cartTotal + getCalc.getData(itm.price)) {
+                                if (value > cartTotal + price3) {
+
                                     cart.push(itm._id)
                                     setCartProductList(cart)
-                                    cartTotal += getCalc.getData(itm.price)
+                                    // cartTotal += getCalc.getData(itm.price)
+                                    cartTotal += price3
+
 
                                 }
 

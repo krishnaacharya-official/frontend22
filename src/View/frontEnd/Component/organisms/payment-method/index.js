@@ -20,7 +20,7 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
-import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { DataArraySharp } from "@mui/icons-material";
 import Label from "../../../../../components/Label";
 import CheckIcon from '@mui/icons-material/Check';
@@ -42,7 +42,7 @@ const PaymentMethod = () => {
   const [defaultHomeCountry, setDefaultHomeCountry] = useState([])
   const [data, setData] = useOutletContext();
   const dispatch = useDispatch()
-
+  const params = useParams();
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [defaultState, setDefaultState] = useState([])
@@ -117,11 +117,19 @@ const PaymentMethod = () => {
       }
     }
   }
+  const addAccountDetails = async (accountId) => {
+    let data = {}
+    data.accountId = accountId
+    const makeAcPrimary = await adminCampaignApi.addAccountDetails(token, data)
+    if (makeAcPrimary && makeAcPrimary.data.success) {
+      await getBankAccountList()
+    }
 
+  }
   useEffect(() => {
     (async () => {
 
-
+      // console.log(params.accountId)
 
       setLoading(false)
       // const getAccountList = await adminCampaignApi.listBankAccount(token);
@@ -132,12 +140,19 @@ const PaymentMethod = () => {
       await getBankAccountList()
       await getCountryList()
       await getCountryStateList(233)
-
-
       setLoading(false)
 
     })()
   }, [update])
+
+  useEffect(() => {
+    (async () => {
+      if (params?.accountId) {
+        await addAccountDetails(params?.accountId)
+      }
+
+    })()
+  }, [params?.accountId])
 
 
   useEffect(() => {
@@ -871,7 +886,6 @@ const PaymentMethod = () => {
   const makeAccountPrimary = async (id) => {
     let data = {}
     data.id = id
-
     const makeAcPrimary = await adminCampaignApi.makeAccountPrimary(token, data)
     if (makeAcPrimary && makeAcPrimary.data.success) {
       await getBankAccountList()
@@ -879,6 +893,8 @@ const PaymentMethod = () => {
     }
 
   }
+
+
 
 
   return (
@@ -1038,20 +1054,41 @@ const PaymentMethod = () => {
                           :
                           <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.firstName}{" "}{list.lastName}</div>
 
+
+                      }
+
+                      {
+                        list.bankName &&
+                        <>
+                          <span className="input__span" style={{ color: '#6f6f90' }}>{list.bankName}</span><br />
+                        </>
+
+
+                      }
+                      {
+                        list.accountNumber &&
+                        <span className="input__span" style={{ color: '#aaa9c2' }}>{list.
+                          accountNumber
+                        }</span>
+
                       }
 
 
+
                     </div>
 
-                    <div className="flex__1">
-                      <FontAwesomeIcon
-                        icon={solid("shield-halved")}
-                        className="fs-3 text-primary"
-                      />
-                    </div>
+
                     {
                       list.isPrimary ?
-                        <Chip label="Primary" color="success" variant="outlined" />
+                        <>
+                          <div className="flex__1">
+                            <FontAwesomeIcon
+                              icon={solid("shield-halved")}
+                              className="fs-3 text-primary"
+                            />
+                          </div>
+                        </>
+                        // <Chip label="Primary" color="success" variant="outlined" />
                         :
                         <Button variant="link" className="text-info" onClick={() => makeAccountPrimary(list._id)}>
                           Make Primary

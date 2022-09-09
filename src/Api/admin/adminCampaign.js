@@ -586,7 +586,7 @@ function adminCampaign() {
 
 
 
-    const chekConnectAccount = async (authToken,data) => {
+    const chekConnectAccount = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -600,14 +600,14 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
         });
         return res;
     }
-    const createExpressAccount = async (authToken,data) => {
+    const createExpressAccount = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -621,7 +621,7 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
@@ -630,7 +630,7 @@ function adminCampaign() {
     }
 
 
-    const makeAccountPrimary = async (authToken,data) => {
+    const makeAccountPrimary = async (authToken, data) => {
         let res = {};
         await axios({
             method: 'post',
@@ -644,7 +644,7 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
-            data:data
+            data: data
 
         }).then((response) => {
             res = response
@@ -665,6 +665,28 @@ function adminCampaign() {
                 withCredentials: true,
                 mode: 'no-cors',
             },
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+    }
+
+    const addAccountDetails = async (authToken, data) => {
+        let res = {};
+        await axios({
+            method: 'post',
+            url: `${helper.ApiUrl}bank_account/details`,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
 
         }).then((response) => {
             res = response
@@ -695,7 +717,8 @@ function adminCampaign() {
         chekConnectAccount,
         createExpressAccount,
         makeAccountPrimary,
-        chekOrganizationAccount
+        chekOrganizationAccount,
+        addAccountDetails
 
     }
 }

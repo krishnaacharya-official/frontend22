@@ -33,7 +33,7 @@ const Activity = (props) => {
 
   const markNotification = async () => {
     // setState({ ...state, allRead: !state.allRead });
-    await props.notificationMarkAsRead(!state.allRead,allNotificationList)
+    await props.notificationMarkAsRead(!state.allRead, allNotificationList)
   };
 
   const ActivityButton = React.forwardRef(({ children, onClick }, ref) => {
@@ -73,14 +73,16 @@ const Activity = (props) => {
       // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
 
       // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
-      if (temprray.filter(e => e.userNotificationDetails?.watched).length > 0) {
+      if (temprray.length > 0 && temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
 
         setState({ ...state, allRead: true });
       } else {
         setState({ ...state, allRead: false });
       }
 
-      // console.log(temprray.length)
+      // console.log('watched', temprray.filter(e => e.userNotificationDetails?.watched).length)
+      // console.log('total', temprray.length)
+
 
     }
 
@@ -101,7 +103,7 @@ const Activity = (props) => {
       <Dropdown className="d-flex" autoClose="outside">
         {
           // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false).length > 0 &&
-
+          !state.allRead &&
           <div className="c__badge" style={{ width: "12px", height: "12px", background: '#cb6f74', }}>
           </div>
         }

@@ -665,7 +665,7 @@ const AddPost = (props) => {
                           </label>
                         </div>
                         <p className='error'>{error ? error.image ? error.image : "" : ""}</p>
-                        {/* <canvas></canvas> */}
+                        <canvas id="canvas1" width={300} height={300}></canvas>
 
                       </div>
                       <div className="note note--info mb-3">

@@ -388,7 +388,7 @@ const AdminPosts = (props) => {
 
   }
 
-  const changefile = (e) => {
+  const changefile = async(e) => {
     // console.log(e.target.id)
     if (e.target.id === 'mainImg') {
       let file = e.target.files[0] ? e.target.files[0] : '';
@@ -402,8 +402,11 @@ const AdminPosts = (props) => {
             ...state,
             image: file
           })
-          // if (!hasAlpha(file)) {
-          //   alert('Not Transperent Bg')
+          // if (hasAlpha(URL.createObjectURL(file))) {
+          //   alert(hasAlpha(URL.createObjectURL(file)))
+
+          // } else {
+          //   alert('error')
 
           // }
         } else {
@@ -444,24 +447,24 @@ const AdminPosts = (props) => {
         setGallaryTempImages(combine)
 
 
-        let oldMG = [...galleryImg]
-        let combineMainG = oldMG.concat(tempGallaryFileArry)
+        // let oldMG = [...galleryImg]
+        // let combineMainG = oldMG.concat(tempGallaryFileArry)
+        // console.log(oldMG)
 
-
-        setstate({
-          ...state,
-          galleryImg: combineMainG
-        })
+        // setstate({
+        //   ...state,
+        //   galleryImg: combineMainG
+        // })
 
         // setGallaryTempImages(gImgtempArry)
 
 
 
 
-        // setstate({
-        //   ...state,
-        //   galleryImg: tempGallaryFileArry
-        // })
+        setstate({
+          ...state,
+          galleryImg: tempGallaryFileArry
+        })
 
       }
 
