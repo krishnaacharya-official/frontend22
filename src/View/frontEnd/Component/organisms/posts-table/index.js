@@ -149,18 +149,28 @@ const PostsTable = (props) => {
                         >
                           <div className="d-flex align-items-center justify-content-center">
                             {product.projectDetails[0].projectMainDetails.projectImages.length >
-                              0 && (
-                                <Avatar
-                                  size={26}
-                                  border={0}
-                                  shadow={false}
-                                  avatarUrl={
-                                    helper.ProjectImagePath +
-                                    product.projectDetails[0].projectMainDetails.projectImages[0]
-                                      .image
-                                  }
-                                />
-                              )}
+                              0 ? (
+                              <Avatar
+                                size={26}
+                                border={0}
+                                shadow={false}
+                                avatarUrl={
+                                  helper.ProjectImagePath +
+                                  product.projectDetails[0].projectMainDetails.projectImages[0]
+                                    .image
+                                }
+                              />
+                            ) :
+                              <Avatar
+                                size={26}
+                                border={0}
+                                shadow={false}
+                                avatarUrl=
+                                'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
+
+                              />
+
+                            }
                             <span className="ms-1 fs-7">
                               {product.projectDetails[0].projectMainDetails.name}
                             </span>

@@ -114,6 +114,8 @@ export default function OrganizationDetailsController() {
         formData.sortField = 'created_at'
         formData.sortType = 'asc'
         formData.organizationId = orgId
+        formData.type = 'product'
+
 
         const getProjectList = await projectApi.projectListByOrganization(token, formData)
         if (getProjectList.data.success) {

@@ -34,7 +34,11 @@ const AdminTax = () => {
     { label: "Amount", key: "amount" },
     { label: "Name", key: "name" },
     { label: "Email", key: "email" },
-    { label: "Type", key: "type" }
+    { label: "Type", key: "type" },
+    { label: "Address", key: "address" },
+    { label: "Products", key: "products" }
+
+
   ];
 
   // let csvData = [
@@ -42,6 +46,17 @@ const AdminTax = () => {
   //   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
   //   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
   // ];
+
+  const getProductsName = (products) => {
+    let pr = ''
+    if (products.length > 0) {
+      products.map((p, i) => {
+        pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+      })
+    }
+    return pr
+
+  }
 
   const getTaxList = async (page, field, type) => {
     let formData = {}
@@ -68,10 +83,21 @@ const AdminTax = () => {
           tempObj.name = v[0].userDetails?.name
           tempObj.email = v[0].userDetails?.email
           tempObj.type = v[0].type
+          tempObj.address = v[0].userDetails.street + ' , ' + v[0].userDetails.cityDetails?.city + ' , ' + v[0].userDetails.stateDetails?.state + ' ' + v[0].userDetails.zip + ' , ' + v[0].userDetails.countryDetails?.country
+          if (v[0].type === 'Purchased') {
+            tempObj.products = getProductsName(v)
+
+          } else {
+            tempObj.products = ' - '
+          }
+
+          // console.log(v)
           tempAr.push(tempObj)
         })
         setCsvData(tempAr)
         // done(true);
+      } else {
+        setCsvData([])
       }
     }
 

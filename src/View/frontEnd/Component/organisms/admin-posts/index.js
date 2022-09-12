@@ -599,7 +599,7 @@ const AdminPosts = (props) => {
 
   const submitProductForm = (s) => {
 
-    console.log(galleryImg)
+    // console.log(galleryImg)
     window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
@@ -937,6 +937,8 @@ const AdminPosts = (props) => {
           setSeletedProjectList([])
 
         }
+        // console.log(productData.projectDetails)
+
 
         let tempMImgArray = []
 

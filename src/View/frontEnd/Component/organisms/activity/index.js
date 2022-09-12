@@ -59,8 +59,8 @@ const Activity = (props) => {
   useEffect(() => {
 
     if (props.notificationList.length > 0) {
-      let temprray = []
       let n_id = []
+      let temprray = []
 
       props.notificationList.map((notification, i) => {
         let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
@@ -80,11 +80,14 @@ const Activity = (props) => {
         setState({ ...state, allRead: false });
       }
 
-      // console.log('watched', temprray.filter(e => e.userNotificationDetails?.watched).length)
-      // console.log('total', temprray.length)
 
 
+
+    }else{
+      setState({ ...state, allRead: true });
+      
     }
+
 
     // let isRemoved = props.notificationList.filter(e => e.userNotificationDetails.removed === true)
     // console.log(props.notificationList.filter(e => e?.userNotificationDetails?.removed===true && e?.userNotificationDetails?.watched===false ).length)

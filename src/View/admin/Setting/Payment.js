@@ -39,9 +39,10 @@ export default function Payment(props) {
     const [state, setState] = useState({
         publishableKey: "",
         secretKey: "",
+        currency: ""
 
     })
-    const { publishableKey, secretKey } = state
+    const { publishableKey, secretKey, currency } = state
 
 
     const savePaymentSettings = async () => {
@@ -49,12 +50,16 @@ export default function Payment(props) {
         const rules = {
             publishableKey: "required",
             secretKey: "required",
+            currency: "required",
+
 
         }
 
         const message = {
             'publishableKey.required': 'Publishable key is Required.',
             'secretKey.required': 'Secret key is Required.',
+            'currency.required': 'Currency is Required.',
+
 
         }
 
@@ -156,7 +161,7 @@ export default function Payment(props) {
                         <form className="mb-4 p-4">
                             <label htmlFor="headerLogo"> Stripe Secret key</label>
                             <div className="form-group row">
-                                <div className="col-sm-12">
+                                <div className="col-sm-12 mt-1">
                                     <input
                                         type="text"
                                         className="form-control"
@@ -174,7 +179,7 @@ export default function Payment(props) {
 
                             <label htmlFor="headerLogo"> Stripe Publishable key</label>
                             <div className="form-group row">
-                                <div className="col-sm-12">
+                                <div className="col-sm-12 mt-1">
                                     <input
                                         type="text"
                                         className="form-control"
@@ -186,6 +191,25 @@ export default function Payment(props) {
 
                                     {error && error.publishableKey && <p className="error">{error ? error.publishableKey ? error.publishableKey : "" : ""}</p>}
 
+
+                                </div>
+
+                            </div>
+
+                            <label htmlFor="headerLogo">Default Currency</label>
+                            <div className="form-group row">
+                                <div className="col-sm-12">
+
+                                    <select className="form-control mt-1" onChange={(e) => { changevalue(e) }} id="currency" name="currency">
+                                        <option selected disabled value="">Select Default Currency</option>
+                                        <option selected={currency === 'USD' ? "selected" : ""} value="USD">USD</option>
+                                        <option selected={currency === 'INR' ? "selected" : ""} value="INR">INR</option>
+                                        <option selected={currency === 'CAD' ? "selected" : ""} value="CAD">CAD</option>
+                                        <option selected={currency === 'EUR' ? "selected" : ""} value="EUR">EUR</option>
+                                        <option selected={currency === 'GBP' ? "selected" : ""} value="GBP">GBP</option>
+                                    </select>
+
+                                    {error && error.currency && <p className="error">{error ? error.currency ? error.currency : "" : ""}</p>}
 
                                 </div>
 

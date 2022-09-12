@@ -107,17 +107,24 @@ export default function Currency(props) {
                     </Stack>
                     <Card>
                         <form className="mb-4 p-4">
-                            <label htmlFor="headerLogo">Currency</label>
+                            <label htmlFor="headerLogo">Default Currency</label>
                             <div className="form-group row">
                                 <div className="col-sm-12">
-                                    <input
+                                    {/* <input
                                         type="text"
                                         className="form-control"
                                         id="currency"
                                         name="currency"
                                         value={currency}
                                         onChange={(e) => changevalue(e)}
-                                    />
+                                    /> */}
+                                    <select className="form-control mt-1" onChange={(e) => { changevalue(e) }} id="currency" name="currency">
+                                        <option selected={currency === 'USD' ? "selected" : ""} value="USD">USD</option>
+                                        <option selected={currency === 'INR' ? "selected" : ""} value="INR">INR</option>
+                                        <option selected={currency === 'CAD' ? "selected" : ""} value="CAD">CAD</option>
+                                        <option selected={currency === 'EUR' ? "selected" : ""} value="EUR">EUR</option>
+                                        <option selected={currency === 'GBP' ? "selected" : ""} value="GBP">GBP</option>
+                                    </select>
 
                                     <p className="error">
 

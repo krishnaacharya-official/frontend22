@@ -49,7 +49,7 @@ export default function Settings() {
                     <div className="sw-card__content">
                         <div id="sw-settings__content-grid-shop" className="sw-settings__content-grid">
 
-                            <Link to="/admin/setting/currency" className="sw-settings-item" id="sw-settings-currency">
+                            {/* <Link to="/admin/setting/currency" className="sw-settings-item" id="sw-settings-currency">
                                 <div className="sw-settings-item__icon background--enabled">
                                     <span className="sw-icon icon--default-symbol-euro sw-icon--fill">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@ export default function Settings() {
                                     </span>
                                 </div>
                                 <div className="sw-settings-item__label">Currencies</div>
-                            </Link>
+                            </Link> */}
 
                             <Link to="/admin/setting/rank" className="sw-settings-item" id="sw-settings-address">
                                 <div className="sw-settings-item__icon background--enabled">

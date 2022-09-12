@@ -35,7 +35,7 @@ const ProjectsTable = (props) => {
           let itm = Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity) * 100
           allProductPer.push(itm)
 
-        }else{
+        } else {
           allProductPer.push(0)
         }
 
@@ -154,29 +154,34 @@ const ProjectsTable = (props) => {
                           }
                         </div>
                       </div>
+
+
                       {
-                        project.infinity ?
-                          <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
-                            <div className="d-flex align-items-center flex__1 mw-200">
-                              <ProgressBar variant="infinity" now={100} className="flex__1" />
-                              {/* <span className="text-light ms-1 fw-bold">Infinite</span> */}
-                              <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
-                                <div className="tag tag--ongoing _2">
-                                  <div className="icon icon--unlimited">
-                                    <FontAwesomeIcon icon={solid("infinity")} className="" />
+                        project.status === 1 ?
+
+                          project.infinity ?
+                            <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
+                              <div className="d-flex align-items-center flex__1 mw-200">
+                                <ProgressBar variant="infinity" now={100} className="flex__1" />
+                                {/* <span className="text-light ms-1 fw-bold">Infinite</span> */}
+                                <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
+                                  <div className="tag tag--ongoing _2">
+                                    <div className="icon icon--unlimited">
+                                      <FontAwesomeIcon icon={solid("infinity")} className="" />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          :
-                          <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
-                            <div className="d-flex align-items-center flex__1 mw-200">
-                              <ProgressBar variant="success" now={countProjectProcess(project.productDetails)} className="flex__1" />
-                              <span className="text-light ms-1 fw-bold">{countProjectProcess(project.productDetails)}%</span>
+                            :
+                            <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
+                              <div className="d-flex align-items-center flex__1 mw-200">
+                                <ProgressBar variant="success" now={countProjectProcess(project.productDetails)} className="flex__1" />
+                                <span className="text-light ms-1 fw-bold">{countProjectProcess(project.productDetails)}%</span>
+                              </div>
                             </div>
+                          : <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                           </div>
-
                       }
 
                       <div className="billing__buttons d-flex align-items-center">
