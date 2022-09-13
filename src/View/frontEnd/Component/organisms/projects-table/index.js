@@ -128,7 +128,7 @@ const ProjectsTable = (props) => {
                     <div className="d-xl-flex align-items-center flex-grow-1">
                       <div className="billing__main d-flex align-items-center text-dark me-sm-3 mb-2">
                         <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                          <div className="text-success fw-bold fs-5">{props.data?.symbol}{countProjectAmount(project.productDetails)}</div>
+                          {project.status === 1 && <div className="text-success fw-bold fs-5">{props.data?.symbol}{countProjectAmount(project.productDetails)}</div>}
                           <div className="text-light fs-8">{moment(project.created_at).fromNow()}</div>
                         </div>
                         <Avatar
@@ -200,7 +200,7 @@ const ProjectsTable = (props) => {
                           </Button>
                           {
                             project.status === -1 &&
-                            <Button variant="info" className="fw-bold" onClick={() => props.publishProject(project._id)}>
+                            <Button variant="info" className="fw-bold" onClick={() => props.publishProject(project._id, project)}>
                               Publish
                             </Button>
                           }

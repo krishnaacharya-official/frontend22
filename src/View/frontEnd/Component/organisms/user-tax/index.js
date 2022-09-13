@@ -33,8 +33,20 @@ const UserTax = () => {
     { label: "Amount", key: "amount" },
     { label: "Transection Id", key: "transectionId" },
     { label: "Type", key: "type" },
+    { label: "Products", key: "products" }
+
 
   ];
+  const getProductsName = (products) => {
+    let pr = ''
+    if (products.length > 0) {
+      products.map((p, i) => {
+        pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+      })
+    }
+    return pr
+
+  }
 
   const getTaxDataList = async (page, field, type, year) => {
     setLoading(false)
@@ -61,6 +73,12 @@ const UserTax = () => {
           tempobj.amount = item.currencySymbol + item.amount
           tempobj.transectionId = item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId
           tempobj.type = item.type
+          if (item.type === 'Purchased') {
+            tempobj.products = getProductsName(item.pro)
+
+          } else {
+            tempobj.products = ' - '
+          }
           tempAr.push(tempobj)
 
 

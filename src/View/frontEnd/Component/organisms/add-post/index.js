@@ -904,7 +904,7 @@ const AddPost = (props) => {
                             className="icon-cloud"
                           />
                           <label>
-                            <input name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { changefile(e) }} />
+                            <input name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.jpeg,.png" multiple onChange={(e) => { changefile(e) }} />
                           </label>
                         </div>
 

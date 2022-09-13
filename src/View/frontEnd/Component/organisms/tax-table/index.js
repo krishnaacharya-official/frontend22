@@ -90,22 +90,58 @@ const TaxTable = (props) => {
 
                               <span className="text-light fw-semibold flex__1">
                                 {
-                                  item.type === 'Purchased' ?
-                                    <>
-                                      <FontAwesomeIcon
+                                  item.type === 'Purchased' && item.pro.
+                                    length === 1 &&
+                                  <>
+                                    <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                      <div className="pe-1 p-sm-2 mr-12p">
+                                        <img
+                                          loading="lazy"
+                                          width={36}
+                                          src={helper.CampaignProductImagePath + item.pro[0]?.orderItemDetails.productImage}
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div>
+                                        <div>
+                                          <Button variant="link" className="text-dark px-0 py-3p">
+                                            {item.pro[0]?.orderItemDetails.productName}
+                                          </Button>
+                                        </div>
+                                        <div className="text-light fs-7">
+                                          <FontAwesomeIcon
+                                            icon={regular("wallet")}
+                                            className="mr-3p"
+                                          />
+                                          Bought {item.pro[0]?.orderItemDetails.quantity}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {/* <FontAwesomeIcon
                                         icon={regular("wallet")}
                                         className="small me-1"
                                       />
-                                      Purchased
-                                    </>
-                                    :
-                                    <>
-                                      <FontAwesomeIcon
-                                        icon={regular("heart")}
-                                        className="small me-1"
-                                      />
-                                      Donated
-                                    </>
+                                      Purchased */}
+                                  </>
+                                  // :
+                                  // <>
+                                  //   <FontAwesomeIcon
+                                  //     icon={regular("heart")}
+                                  //     className="small me-1"
+                                  //   />
+                                  //   Donated
+                                  // </>
+
+                                }
+                                {
+                                  item.type !== 'Purchased' &&
+                                  <>
+                                    <FontAwesomeIcon
+                                      icon={regular("heart")}
+                                      className="small me-1"
+                                    />
+                                    Donated Cash
+                                  </>
                                 }
 
                               </span>
@@ -154,7 +190,7 @@ const TaxTable = (props) => {
                         <div className="container-fluid">
                           {
                             item.pro.
-                              length > 0 &&
+                              length > 1 &&
                             item.pro.map((i1, k) => {
 
                               // if (item[0].type === 'Purchased') {
@@ -271,20 +307,20 @@ const TaxTable = (props) => {
               </Stack>
               : <></>}
           </div>}
-   
+
       </div>
 
       {
-          props.taxList.length > 0 &&
-          <div className="mt-5  mb-5">
+        props.taxList.length > 0 &&
+        <div className="mt-5  mb-5">
           <CSVExportBtn
             headers={props.headers}
             csvData={props.csvData}
             label='Export'
             prifix='_user_tax'
           />
-          </div>
-        }
+        </div>
+      }
     </>
   );
 };

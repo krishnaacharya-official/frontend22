@@ -388,7 +388,7 @@ const AdminPosts = (props) => {
 
   }
 
-  const changefile = async(e) => {
+  const changefile = async (e) => {
     // console.log(e.target.id)
     if (e.target.id === 'mainImg') {
       let file = e.target.files[0] ? e.target.files[0] : '';
@@ -448,8 +448,9 @@ const AdminPosts = (props) => {
 
 
         // let oldMG = [...galleryImg]
-        // let combineMainG = oldMG.concat(tempGallaryFileArry)
-        // console.log(oldMG)
+        // console.log(galleryImg)
+        // let combineMainG = oldMG?.concat(tempGallaryFileArry)
+
 
         // setstate({
         //   ...state,
@@ -457,14 +458,27 @@ const AdminPosts = (props) => {
         // })
 
         // setGallaryTempImages(gImgtempArry)
+        if (galleryImg && galleryImg.length) {
+
+          let oldMG = [...galleryImg]
+          // console.log(galleryImg)
+          let combineMainG = oldMG?.concat(tempGallaryFileArry)
+
+
+          setstate({
+            ...state,
+            galleryImg: combineMainG
+          })
+
+        } else {
+          setstate({
+            ...state,
+            galleryImg: tempGallaryFileArry
+          })
+        }
 
 
 
-
-        setstate({
-          ...state,
-          galleryImg: tempGallaryFileArry
-        })
 
       }
 
@@ -600,7 +614,8 @@ const AdminPosts = (props) => {
   const submitProductForm = (s) => {
 
     // console.log(galleryImg)
-    window.scrollTo(0, 0);
+
+    // window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
 
@@ -618,6 +633,11 @@ const AdminPosts = (props) => {
         formaerrror['policy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
 
       }
+    }
+    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH
+    let checkImg = id ? (gallaryImages?.length + galleryImg?.length) : (galleryImg?.length)
+    if (checkImg > MAX_IMAGE_LENGTH) {
+      formaerrror['galleryImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
     }
 
     // console.log(formaerrror)
@@ -816,6 +836,9 @@ const AdminPosts = (props) => {
           setLoading(false)
           ToastAlert({ msg: 'Product not save', msgType: 'error' });
         }
+      }else{
+        setModelShow(false)
+
       }
 
     }).catch(errors => {

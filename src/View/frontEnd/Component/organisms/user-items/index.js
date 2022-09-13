@@ -241,6 +241,7 @@ const UserItems = () => {
                             </div>
                           </div>
                       }
+
                       {/* <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
                         {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
                       </span>
@@ -251,6 +252,13 @@ const UserItems = () => {
                       />
                       <span className="text-light ms-1 fw-bold">{Math.round(item.itemDetails?.soldout / item.itemDetails?.quantity * 100)}%</span> */}
                     </div>
+                    {
+                      item.itemDetails?.tax &&
+
+                      <span className="product__type product__type-tax icon icon__solid-900" style={{ fontSize: "x-large" }}>
+                        <FontAwesomeIcon icon={solid("calculator-simple")} />
+                      </span>
+                    }
                   </div>
                 </div>
 
@@ -259,6 +267,7 @@ const UserItems = () => {
                   imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
                   className='charity_avatar_bg'
                 />
+
               </div>
 
               <div className="d-sm-none pt-20p pb-20p">
@@ -343,7 +352,9 @@ const UserItems = () => {
                   <div className="d-flex align-items-center mb-3">
                     <div className="flex__1 fs-5">
                       <div className="fw-bolder mb-6p">Order Number</div>
-                      <div className="text-subtext">#{item.orderId}</div>
+                      {/* <div className="text-subtext">#{item.orderId}</div> */}
+                      <div className="text-subtext">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div>
+
                     </div>
                     <ShareWidget />
                   </div>

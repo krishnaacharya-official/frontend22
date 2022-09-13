@@ -37,7 +37,9 @@ let helper = {
     websitePath: "https://www.donorport.org",
     FulfilRecieptPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/fulfil/receipt/',
 
-    MapBoxPrimaryKey: 'pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg'
+    MapBoxPrimaryKey: 'pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg',
+
+    MAX_IMAGE_LENGTH: 5
 
     //Kyle's Mapbox key: pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg
     // Developers key: pk.eyJ1IjoibmlrdWx0YWthIiwiYSI6ImNrOWZvZnY0cDBkZWMzZHFtbjFjNG5kbnUifQ.W2ASgey35JrovH2ODIDvXQ
@@ -520,23 +522,23 @@ export function GetCardTypeByNumber(number) {
     return "";
 }
 
-export  function  hasAlpha(file) {
+export function hasAlpha(file) {
 
     let canvas1 = document.getElementById("canvas1");
     let ctx1 = canvas1.getContext("2d");
 
     let img1 = new Image();
     img1.crossOrigin = 'anonymous'
-    img1.onload =  start1;
+    img1.onload = start1;
     img1.src = file;
-     function start1() {
+    function start1() {
 
         canvas1.width = img1.width;
         canvas1.height = img1.height;
 
         ctx1.drawImage(img1, 0, 0);
 
-        let imgData =  ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+        let imgData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
         let data = imgData.data;
         let found1 = false;
         for (let i = 0; i < data.length; i += 4) {

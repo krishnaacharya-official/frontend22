@@ -41,12 +41,6 @@ const AdminTax = () => {
 
   ];
 
-  // let csvData = [
-  //   { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
-  //   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
-  //   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
-  // ];
-
   const getProductsName = (products) => {
     let pr = ''
     if (products.length > 0) {
@@ -83,7 +77,7 @@ const AdminTax = () => {
           tempObj.name = v[0].userDetails?.name
           tempObj.email = v[0].userDetails?.email
           tempObj.type = v[0].type
-          tempObj.address = v[0].userDetails.street + ' , ' + v[0].userDetails.cityDetails?.city + ' , ' + v[0].userDetails.stateDetails?.state + ' ' + v[0].userDetails.zip + ' , ' + v[0].userDetails.countryDetails?.country
+          tempObj.address = v[0].userDetails.street + ' , ' + v[0].userDetails.cityDetails[0]?.city + ' , ' + v[0].userDetails.stateDetails[0]?.state + ' ' + v[0].userDetails.zip + ' , ' + v[0].userDetails.countryDetails[0]?.country
           if (v[0].type === 'Purchased') {
             tempObj.products = getProductsName(v)
 
@@ -167,6 +161,17 @@ const AdminTax = () => {
     return sum;
   }
 
+  const handleSortingChange = async (accessor) => {
+
+    const sortOrder =
+      accessor === sortField && order === "asc" ? "desc" : "asc";
+    setSortField(accessor);
+    setOrder(sortOrder);
+    await getTaxList(pageNo, accessor, sortOrder)
+
+
+  };
+
 
 
 
@@ -203,6 +208,9 @@ const AdminTax = () => {
         totalRecord={totalRecord}
         pageNo={pageNo}
         handleClick={handleClick}
+        handleSortingChange={handleSortingChange}
+        order={order}
+        sortField={sortField}
       />
     </>
   );

@@ -200,23 +200,27 @@ const AdminProjects = () => {
   const submitProjectForm = (s) => {
     window.scrollTo(0, 0);
     const formaerrror = {}
+    let rules = {}
+    if (s === 1) {
 
-    if (!id) {
-      // if (images.length <= 1) {
-      //   formaerrror['images'] = "Please select more then one Image"
-      // }
-    }
+      if (!id) {
+        // if (images.length <= 1) {
+        //   formaerrror['images'] = "Please select more then one Image"
+        // }
+      }
 
-    if (seletedProductList.length === 0) {
-      formaerrror['products'] = "Please select product"
-    }
+      if (seletedProductList.length === 0) {
+        formaerrror['products'] = "Please select product"
+      }
 
 
-    const rules = {
-      name: 'required',
-      headline: 'required',
-      video: 'required',
-      description: 'required',
+      rules = {
+        name: 'required',
+        headline: 'required',
+        video: 'required',
+        description: 'required',
+      }
+
     }
 
     const message = {
@@ -410,23 +414,27 @@ const AdminProjects = () => {
 
 
 
-  const publishProject = async (id) => {
-    setLoading(false)
-    const publish = await projectApi.publishProject(CampaignAdminAuthToken, id)
-    if (publish) {
-      if (publish.data.success === false) {
-        setLoading(false)
-        ToastAlert({ msg: publish.data.message, msgType: 'error' });
-      } else {
-        if (publish.data.success === true) {
-          setLoading(false)
-          setUpdate(!update)
-          ToastAlert({ msg: publish.data.message, msgType: 'success' });
-        }
-      }
+  const publishProject = async (id, projectData) => {
+    if (!projectData.name || !projectData.description || !projectData.video || !projectData.headline || projectData.productDetails.length === 0) {
+      ToastAlert({ msg: 'Project not Published please fill Required information', msgType: 'error' });
     } else {
       setLoading(false)
-      ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+      const publish = await projectApi.publishProject(CampaignAdminAuthToken, id)
+      if (publish) {
+        if (publish.data.success === false) {
+          setLoading(false)
+          ToastAlert({ msg: publish.data.message, msgType: 'error' });
+        } else {
+          if (publish.data.success === true) {
+            setLoading(false)
+            setUpdate(!update)
+            ToastAlert({ msg: publish.data.message, msgType: 'success' });
+          }
+        }
+      } else {
+        setLoading(false)
+        ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+      }
     }
 
   }
@@ -455,9 +463,9 @@ const AdminProjects = () => {
     const deleteImg = await projectApi.deleteProjectImages(token, id)
 
     if (deleteImg.data.success) {
-        let imgs = [...projectImages]
-        imgs = imgs.filter((item) => item.id !== id)
-        setProjectImages(imgs)
+      let imgs = [...projectImages]
+      imgs = imgs.filter((item) => item.id !== id)
+      setProjectImages(imgs)
 
     }
     setLoading(false)

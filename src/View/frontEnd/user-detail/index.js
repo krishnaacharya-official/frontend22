@@ -21,6 +21,7 @@ import helper, { ImageExist } from "../../../Common/Helper"
 
 // import { UserContext } from '../../../App';
 import noimg from "../../../assets/images/noimg.jpg"
+import AvatarImg from "../../../assets/images/avatar.png";
 import { useSelector, useDispatch } from "react-redux";
 import NoFooter from "../Component/templates/no-footer";
 
@@ -50,7 +51,7 @@ function UserDetail(props) {
       if (getUserDetails) {
         if (getUserDetails.data.success) {
           // console.log(getUserDetails.data.data)
-          setProfileImg((helper.DonorImagePath + getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : noimg)
+          setProfileImg((getUserDetails.data.data?.image) ? helper.DonorImagePath + getUserDetails.data.data?.image : AvatarImg)
           setData(getUserDetails.data.data)
         } else {
           localStorage.clear()
@@ -86,6 +87,7 @@ function UserDetail(props) {
                       style={{
                         backgroundImage:
                           "url(" + profileImg + ")", width: "120px"
+
                       }}
                     ></div>
                   </div>

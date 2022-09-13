@@ -42,12 +42,18 @@ const AdminTaxTable = (props) => {
             <Button
               variant="link"
               className="btn__sort px-0 text-decoration-none"
+              onClick={() => props.handleSortingChange('created_at')}
             >
               Date
-              <FontAwesomeIcon
+              {props.sortField === 'created_at' && props.order === 'asc' ? (
+                <FontAwesomeIcon icon={solid('angle-up')} className="small ml-6p" />
+              ) : (
+                <FontAwesomeIcon icon={solid('angle-down')} className="small ml-6p" />
+              )}
+              {/* <FontAwesomeIcon
                 icon={solid("angle-up")}
                 className="small ml-6p"
-              />
+              /> */}
             </Button>
           </div>
           <Button
@@ -87,10 +93,13 @@ const AdminTaxTable = (props) => {
                           <div className="text__wrap mw-200">
                             <div className="fw-bolder fs-5">{item[0].userDetails?.name}</div>
                             <div className="fs-7 text-light mb-6p">{item[0].userDetails?.email}</div>
-                            {/* <div className="fs-7 text-light">
-                            255 West Baker St.
-                            <br /> Dallas TX, USA 118098
-                          </div> */}
+                            <div className="fs-7 text-light">
+                              {item[0].userDetails.street + ' , ' + item[0].userDetails.cityDetails[0]?.city}
+                              <br />
+                              {item[0].userDetails.stateDetails[0]?.state + ' , ' + item[0].userDetails.countryDetails[0]?.country + ' , ' + item[0].userDetails.zip}
+                              {/* 255 West Baker St. */}
+                              {/* <br /> Dallas TX, USA 118098 */}
+                            </div>
                           </div>
                         </div>
                         <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
@@ -122,6 +131,36 @@ const AdminTaxTable = (props) => {
                               </div>
                             </>
                           }
+                          {
+                            item.length === 1 && item[0].type !== 'Donated' &&
+                            <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                              <div className="pe-1 p-sm-2 mr-12p">
+                                <img
+                                  loading="lazy"
+                                  width={36}
+                                  src={helper.CampaignProductImagePath + item[0].orderItemDetails?.productImage}
+                                  alt=""
+                                />
+                              </div>
+                              <div>
+                                <div>
+                                  <Button variant="link" className="text-dark px-0 py-3p">
+                                    {item[0].orderItemDetails?.productName}
+                                  </Button>
+                                </div>
+                                <div className="text-light fs-7">
+                                  <FontAwesomeIcon
+                                    icon={regular("wallet")}
+                                    className="mr-3p"
+                                  />
+                                  Bought {item[0].orderItemDetails?.quantity}
+                                </div>
+                              </div>
+                            </div>
+
+
+                          }
+
                           {
                             item.length > 0 &&
                               item[0].receipt ?
@@ -192,7 +231,7 @@ const AdminTaxTable = (props) => {
 
                     <div className="container-fluid">
                       {
-                        item.length > 0 &&
+                        item.length > 1 &&
                         item.map((i1, k) => {
                           // console.log(item[0].type)
                           if (item[0].type === 'Purchased') {
