@@ -41,11 +41,13 @@ function OrganisationWidget(props) {
       if (productDetails?.length > 0) {
         let obj = {}
         let tempP = []
+        let tempnotw = []
+
         if (props.tagTitle === 'Project') {
           productDetails.map((product, i) => {
             // obj[product?.itemDetails?._id] = getCalc.getData(product?.itemDetails?.price)
             obj[product?.itemDetails?._id] = product?.itemDetails?.displayPrice ? product?.itemDetails?.displayPrice : product?.itemDetails?.price
-      
+
           })
         } else {
           productDetails.map((product, i) => {
@@ -54,16 +56,44 @@ function OrganisationWidget(props) {
             obj[product._id] = product?.displayPrice ? product?.displayPrice : product?.price
 
 
-          
+
 
 
           })
         }
+
+
+
         // setAvailabileProducts(tempP)
         // console.log(currencySymbol)
 
+
+
         setproductPrice(obj)
         setLoadMore(false)
+
+        productDetails.map((pr, i) => {
+          let product = pr
+
+          let infinite = props.tagTitle === "Project" ? product?.itemDetails?.unlimited : product?.unlimited
+    
+          let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
+          let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
+          let isFulfiled = props.tagTitle === "Project" ? product?.itemDetails?.isFulfiled : product?.isFulfiled
+          let isFinish = !infinite && soldout >= quantity ? true : false
+
+          if (isFinish || isFulfiled) {
+            tempnotw.push(pr)
+          } else {
+            tempP.push(pr)
+          }
+
+
+        })
+
+        setAvailabileProducts(tempP)
+
+
       }
     })()
   }, [productDetails])
@@ -83,10 +113,10 @@ function OrganisationWidget(props) {
       // let p = productList.filter(e => getCalc.getData(e.price) < value)
       let p;
       if (props.tagTitle === 'Project') {
-        p = productDetails.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value)
+        p = availabileProducts.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value)
 
       } else {
-        p = productDetails.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value)
+        p = availabileProducts.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value)
 
       }
 
@@ -124,11 +154,11 @@ function OrganisationWidget(props) {
 
 
             if (props.tagTitle === 'Project') {
-              p = productDetails.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value - cartTotal)
+              p = availabileProducts.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value - cartTotal)
 
               // price2 = e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price
             } else {
-              p = productDetails.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
+              p = availabileProducts.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
             }
 
             // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)

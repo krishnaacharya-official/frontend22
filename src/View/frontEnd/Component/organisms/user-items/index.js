@@ -18,7 +18,7 @@ import userApi from "../../../../../Api/frontEnd/user";
 import FrontLoader from "../../../../../Common/FrontLoader";
 import moment from "moment";
 import helper, { getCalculatedPrice, priceFormat, purchasedPriceWithTax, download, isIframe, getCardIcon } from "../../../../../Common/Helper";
-
+import { GalleryImg } from "../../atoms";
 
 import {
   Button,
@@ -173,6 +173,9 @@ const UserItems = () => {
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
           // console.log(item)
+
+          let fullAddress = item.itemDetails?.address?.split(',')
+          let address = item.itemDetails?.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
           // console.log(item.appliedTaxPer)
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
           // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
@@ -302,7 +305,9 @@ const UserItems = () => {
                           icon={regular("circle-location-arrow")}
                           className="me-1"
                         />
-                        Toronto, ON
+                        {/* Toronto, ON */}
+
+                        {address}
                       </div>
                     </div>
 
@@ -343,6 +348,24 @@ const UserItems = () => {
                             </div>
 
                           }
+                          
+                            <div className="gallery__container m-2">
+                              {item.itemDetails?.fulfil.length > 0 &&
+
+                                item.itemDetails?.fulfil.map((im, ky) => {
+                                  return (
+                                    <GalleryImg
+                                      key={ky}
+                                      thumbImgSrc={helper.CampaignProductFullImagePath + im.image
+                                      }
+                                      bigImgSrc={helper.CampaignProductFullImagePath + im.image
+                                      }
+                                    />
+                                  )
+                                })}
+                            </div>
+
+                          
                         </>
                     }
 

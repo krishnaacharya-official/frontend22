@@ -11,8 +11,7 @@ import projectApi from '../../../../../Api/admin/project'
 import productApi from '../../../../../Api/admin/product'
 // import { Outlet, useOutletContext } from 'react-router-dom';
 import { Outlet, useOutletContext, Link, useLocation } from "react-router-dom";
-
-
+import helper from "../../../../../Common/Helper";
 import "./style.scss";
 
 const AdminProjects = () => {
@@ -48,13 +47,15 @@ const AdminProjects = () => {
   const [pageNo, setPageNo] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [totalRecord, setTotalRecord] = useState(1)
+  const [listBy, setListBy] = useState('Show All')
+
 
 
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
 
 
-  const getProjectList = async (page, field, type) => {
+  const getProjectList = async (page, field, type,filterBy) => {
 
     let formData = {}
     formData.organizationId = data._id
@@ -63,6 +64,8 @@ const AdminProjects = () => {
     formData.sortType = type
     formData.filter = true
     formData.type = 'project'
+    formData.filterBy = filterBy
+
 
     const getProjectList = await projectApi.projectListByOrganization(token, formData)
     if (getProjectList.data.success) {
@@ -104,7 +107,7 @@ const AdminProjects = () => {
     (async () => {
       setLoading(false)
       await getProductList()
-      await getProjectList(pageNo, sortField, order)
+      await getProjectList(pageNo, sortField, order,listBy)
       setLoading(false)
       // console.log(location?.state?.type)
 
@@ -222,6 +225,14 @@ const AdminProjects = () => {
       }
 
     }
+
+
+    let checkImg = id ? (projectImages?.length + images?.length) : (images?.length)
+    if (checkImg > helper.MAX_IMAGE_LENGTH) {
+      formaerrror['images'] = "Image length Must be less then " + helper.MAX_IMAGE_LENGTH
+    }
+
+
 
     const message = {
 
@@ -401,6 +412,9 @@ const AdminProjects = () => {
           tempImgArray.push(tempObj)
         })
         setProjectImages(tempImgArray)
+      } else {
+        setProjectImages([])
+
       }
       createProject(true);
     }
@@ -442,7 +456,7 @@ const AdminProjects = () => {
   const handleClick = async (e, v) => {
 
     setPageNo(Number(v))
-    await getProjectList(Number(v), sortField, order)
+    await getProjectList(Number(v), sortField, order,listBy)
   }
 
 
@@ -452,7 +466,7 @@ const AdminProjects = () => {
       accessor === sortField && order === "asc" ? "desc" : "asc";
     setSortField(accessor);
     setOrder(sortOrder);
-    await getProjectList(pageNo, accessor, sortOrder)
+    await getProjectList(pageNo, accessor, sortOrder,listBy)
 
 
   };
@@ -471,6 +485,11 @@ const AdminProjects = () => {
     setLoading(false)
   }
 
+  const onChangeDropDown = async (e) => {
+    setListBy(e)
+    await getProjectList(pageNo, sortField, order,e)
+  }
+
   return (
     <>
       <FrontLoader loading={loading} />
@@ -485,7 +504,11 @@ const AdminProjects = () => {
 
             <div className="d-flex align-items-center ms-sm-auto text-nowrap">
               <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => openModel()}>Create New</Button>
-              <LadderMenuItems />
+              <LadderMenuItems
+                listBy={listBy}
+                onChangeDropDown={onChangeDropDown}
+
+              />
             </div>
           </header>
 

@@ -108,6 +108,7 @@ const ItemDetail = (props) => {
               isFollow={props.isFollow}
             />
           </Col>
+          
           <Col md="5">
             <div className="d-none d-sm-flex project__detail-img mb-3">
               <img
@@ -135,13 +136,15 @@ const ItemDetail = (props) => {
                     return (
                       <GalleryImg
                         key={i}
-                        thumbImgSrc={helper.CampaignProductImagePath + img.image}
+                        thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
                         bigImgSrc={helper.CampaignProductFullImagePath + img.image}
                       />
                     );
                   }
                 })}
             </div>
+
+      
 
             <History list={props.purchasedItemList} />
           </Col>

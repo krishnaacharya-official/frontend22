@@ -79,6 +79,7 @@ import CategoryProductsController from '../Controller/frontEnd/CategoryProductsC
 import LeaderBoard from '../View/frontEnd/Component/organisms/leaderboard';
 import OrderConfirmPage from '../View/frontEnd/OrderConfirmPage';
 import DonationConfirmPage from '../View/frontEnd/DonationConfirmPage';
+import Pricing from '../View/frontEnd/pricing';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
     top: 0,
@@ -143,6 +144,8 @@ export default function MainRoutes() {
                         <Route exact path="/change-password" element={<ChangePassword />} />
                         <Route path="/partnership" element={<Partnership />} />
                         <Route path="/sponsors" element={<Sponsors />} />
+                        <Route path="/pricing" element={<Pricing />} />
+
                         <Route path="/help" element={<Help />} />
                         <Route path="/trust" element={<Trust />} />
                         <Route path="/plans" element={<PlansController />} />
@@ -209,6 +212,7 @@ export default function MainRoutes() {
                             <Route path="/help-contact" element={<HelpContact />} />
                             <Route path="/verified" element={<VerifiedDonors />} />
                             <Route path="/item-tags" element={<ItemTags />} />
+                            <Route path="/pricing" element={<Pricing />} />
                             <Route exact path="*" element={<SigninController />} />
                         </Routes>
                     </>
@@ -288,6 +292,7 @@ export default function MainRoutes() {
                         <Route path="/donate/:id" element={<DonationConfirmPage />} />
                         <Route path="/verified" element={<VerifiedDonors />} />
                         <Route path="/terms" element={<Terms />} />
+                        <Route path="/pricing" element={<Pricing />} />
                         <Route path="user" element={<UserDetail />} >
                             <Route path="/user/:name/dashboard" element={<UserDashboard />} />
                             <Route path="/user/:name/items" element={<UserItems />} />

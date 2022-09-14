@@ -77,6 +77,26 @@ function AccordionToggle({ children, eventKey, callback }) {
 
 const AddPost = (props) => {
 
+  const fileuploadinput = {
+    position: "absolute",
+    margin: 0,
+    padding: 0,
+    width: "100%",
+    height: "100%",
+    outline: "none",
+    opacity: 0,
+    cursor: "pointer",
+  }
+
+  const imageuploadwrap = {
+    marginTop: "20px",
+    // border: " 4px dashed #3773c6",
+    position: "relative",
+    width: "100%"
+  }
+
+
+
 
   let organizationDetails = props.organizationDetails
   let stateData = props.stateData
@@ -689,7 +709,7 @@ const AddPost = (props) => {
                           </div>
                         </div>
                         <div className="d-flex align-items-center flex-wrap gap-2 mb-3">
-                          <div className="upload-wrap" style={{ width: "100%" }}>
+                          {/* <div className="upload-wrap" style={{ width: "100%" }}>
                             <FontAwesomeIcon
                               icon={solid("cloud-arrow-up")}
                               className="icon-cloud"
@@ -697,13 +717,36 @@ const AddPost = (props) => {
                             <label >
                               <input name='moreImg[]' id='moreImg' type="file" accept=".jpg,.gif,.png" multiple onChange={(e) => { changefile(e) }} />
                             </label>
+                          </div> */}
+
+                          <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                            <input className="file-upload-input" type='file'
+                              // name="identityDocumentImage" 
+                              // onChange={props.changevalue}
+                              name='moreImg[]' id='moreImg'
+                              accept=".jpg,.gif,.png"
+                              multiple
+                              onChange={(e) =>  changefile(e) }
+                              style={fileuploadinput}/>
+                            <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+
+                              <FontAwesomeIcon
+                                icon={solid("cloud-arrow-up")}
+                                className="icon-cloud"
+                              />
+                            </div>
                           </div>
-                          {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}
+
+
                           <div className='grid mt-3 mb-3' style={{ display: "contents" }}>
                             {moreTempImages?.length ?
                               moreTempImages.map((img, key) => {
                                 return (
-                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                  <div className="img-wrap">
+                                    <span className="close" onClick={() => props.removeGallaryempImages(key, 'moreImg')}>&times;</span>
+                                    <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                  </div>
+
                                 )
 
                               })
@@ -732,6 +775,7 @@ const AddPost = (props) => {
                             }
 
                           </div>
+                          {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}
 
                           {/* <p className='error'>{stateData.error ? stateData.error.moreImg ? stateData.error.moreImg : "" : ""}</p> */}
 
@@ -898,7 +942,7 @@ const AddPost = (props) => {
                     </div>
                     <div className="">
                       <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
-                        <div className="upload-wrap" style={{ width: "100%" }}>
+                        {/* <div className="upload-wrap" style={{ width: "100%" }}>
                           <FontAwesomeIcon
                             icon={solid("cloud-arrow-up")}
                             className="icon-cloud"
@@ -906,6 +950,23 @@ const AddPost = (props) => {
                           <label>
                             <input name='galleryImg[]' id='galleryImg' type="file" accept=".jpg,.jpeg,.png" multiple onChange={(e) => { changefile(e) }} />
                           </label>
+                        </div> */}
+
+                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                          <input className="file-upload-input" type='file'
+               
+                            name='galleryImg[]' id='galleryImg'
+                            accept=".jpg,.gif,.png"
+                            multiple
+                            onChange={(e) => { changefile(e) }}
+                            style={fileuploadinput} title=" " />
+                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+
+                            <FontAwesomeIcon
+                              icon={solid("cloud-arrow-up")}
+                              className="icon-cloud"
+                            />
+                          </div>
                         </div>
 
                         <div className='grid mt-3 mb-3' style={{ display: "grid" }}>
@@ -913,8 +974,8 @@ const AddPost = (props) => {
                             gallaryTempImages.map((img, key) => {
                               return (
                                 <div className="img-wrap">
-                                <span className="close" onClick={() => props.removeGallaryempImages(key)} style={{ right: "7px" }}>&times;</span>
-                                <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                  <span className="close" onClick={() => props.removeGallaryempImages(key, 'galleryImg')} style={{ right: "7px" }}>&times;</span>
+                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                 </div>
 
                               )

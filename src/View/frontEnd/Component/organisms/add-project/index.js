@@ -31,6 +31,23 @@ const AddProject = (props) => {
   let submitProjectForm = props.submitProjectForm
   let discardProject = props.discardProject
 
+  const fileuploadinput = {
+    position: "absolute",
+    margin: 0,
+    padding: 0,
+    width: "100%",
+    height: "100%",
+    outline: "none",
+    opacity: 0,
+    cursor: "pointer",
+  }
+
+  const imageuploadwrap = {
+    marginTop: "20px",
+    // border: " 4px dashed #3773c6",
+    position: "relative",
+    width: "100%"
+  }
 
 
 
@@ -194,7 +211,7 @@ const AddProject = (props) => {
               </div>
             </div> */}
             <div className="d-flex align-items-center flex-wrap gap-2 mb-3">
-              <div className="upload-wrap" style={{ width: "100%" }}>
+              {/* <div className="upload-wrap" style={{ width: "100%" }}>
                 <FontAwesomeIcon
                   icon={solid("cloud-arrow-up")}
                   className="icon-cloud"
@@ -202,6 +219,24 @@ const AddProject = (props) => {
                 <label >
                   <input name='moreImg[]' id='moreImg' type="file" multiple onChange={(e) => { props.changefile(e) }} />
                 </label>
+              </div> */}
+              <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                <input className="file-upload-input" type='file'
+                  // name="identityDocumentImage" 
+                  // onChange={props.changevalue}
+                  name='moreImg[]' id='moreImg'
+                  accept=".jpg,.gif,.png"
+                  multiple
+                  onChange={(e) => props.changefile(e)}
+                  title=" "
+                  style={fileuploadinput} />
+                <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+
+                  <FontAwesomeIcon
+                    icon={solid("cloud-arrow-up")}
+                    className="icon-cloud"
+                  />
+                </div>
               </div>
               {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}
               <div className='grid mt-3 mb-3' style={{ display: "contents" }}>
@@ -319,7 +354,7 @@ const AddProject = (props) => {
             Disregard
           </Button>
           <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProjectForm(1)}>
-            {!id ? "Create Project" : "Update Project"}
+            {/* {!id ? "Create Project" : "Update Project"} */} Publish
           </Button>
         </div>
       </div>

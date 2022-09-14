@@ -64,7 +64,7 @@ const ItemsTable = (props) => {
               // console.log(item)
               // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
               // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
-              let price =item.itemDetails.displayPrice ? item.itemDetails.displayPrice : item.itemDetails.price 
+              let price = item.itemDetails.displayPrice ? item.itemDetails.displayPrice : item.itemDetails.price
 
 
               return (
@@ -133,17 +133,29 @@ const ItemsTable = (props) => {
                         </Button>
                       </div>
                       <div className="d-none d-sm-block billing__buttons d-flex align-items-center">
-                        <Button
-                          variant="link"
-                          className="category__link p-1 text-decoration-none"
-                        >
-                          <FontAwesomeIcon
-                            icon={solid("receipt")}
-                            className="fs-3 text-success"
-                          />
-                        </Button>
                         {
-                          item.postTag &&
+                          item.itemDetails?.tax &&
+
+                          <span className="product__type product__type-tax icon icon__solid-900" style={{ fontSize: "x-large" }}>
+                            <FontAwesomeIcon icon={solid("calculator-simple")} />
+                          </span>
+                        }
+                        {
+                          item.fulfilDetails.length > 0 && item.fulfilDetails[0]?.receipt &&
+
+
+                          <Button
+                            variant="link"
+                            className="category__link p-1 text-decoration-none"
+                          >
+                            <FontAwesomeIcon
+                              icon={solid("receipt")}
+                              className="fs-3 text-success"
+                            />
+                          </Button>
+                        }
+                        {
+                          item.itemDetails.postTag &&
                           <Button
                             variant="link"
                             className="category__link p-1 text-decoration-none"
@@ -157,15 +169,19 @@ const ItemsTable = (props) => {
 
                           </Button>
                         }
-                        <Button
-                          variant="link"
-                          className="category__link p-1 text-decoration-none"
-                        >
-                          <FontAwesomeIcon
-                            icon={solid("clapperboard-play")}
-                            className="fs-3 text-info"
-                          />
-                        </Button>
+                        {
+                          item.fulfilDetails.length > 0 && item.fulfilDetails[0]?.video &&
+
+                          <Button
+                            variant="link"
+                            className="category__link p-1 text-decoration-none"
+                          >
+                            <FontAwesomeIcon
+                              icon={solid("clapperboard-play")}
+                              className="fs-3 text-info"
+                            />
+                          </Button>
+                        }
                       </div>
                     </div>
                   </div>

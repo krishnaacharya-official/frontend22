@@ -16,6 +16,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
 import "./style.scss";
+import { GalleryImg } from "../../atoms";
 //import { TagTitle,WidgetTitle } from "../../atoms";
 // import WidgetTitle from "../../atoms";
 
@@ -205,7 +206,7 @@ function ProjectDetailMain(props) {
             {/* <div className="page__logo page__logo--org ms-auto" > */}
             <img
               alt=""
-              style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%'}}
+              style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%' }}
               src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
 
             />
@@ -394,6 +395,24 @@ function ProjectDetailMain(props) {
           </IconText>
         }
       </div>
+
+
+      <div className="gallery__container m-2">
+        {productDetails?.productImages &&
+          productDetails?.productImages.length > 0 &&
+          productDetails?.productImages.map((img, i) => {
+            if (img.type === 'fulfillImage') {
+              return (
+                <GalleryImg
+                  key={i}
+                  thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
+                  bigImgSrc={helper.CampaignProductFullImagePath + img.image}
+                />
+              );
+            }
+          })}
+      </div>
+
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div >
   );

@@ -141,7 +141,7 @@ function OrganisationItem(props) {
               //   [product?.itemDetails?._id]:e*productPrice
               // })}
               onChange={(e) => {
-                setTotalPrice(e * productPrice)
+                setTotalPrice((e * productPrice).toFixed(2))
                 setTotalQuantity(e)
               }}
             />

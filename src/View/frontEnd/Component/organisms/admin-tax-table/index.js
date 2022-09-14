@@ -11,11 +11,12 @@ import {
 import helper from "../../../../../Common/Helper";
 
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar.jpeg"
+import AvatarImg from "../../../../../assets/images/avatar_default.jpeg"
 import moment from "moment";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import "./style.scss";
+// import AvatarImg from "../../../assets/images/avatar.png";
 
 const AdminTaxTable = (props) => {
   const taxList = props.taxList
@@ -84,7 +85,7 @@ const AdminTaxTable = (props) => {
                           <div className="position-relative d-flex">
                             <Avatar
                               size={52}
-                              avatarUrl={helper.DonorImageResizePath + item[0].userDetails.image}
+                              avatarUrl={item[0].userDetails.image ? helper.DonorImageResizePath + item[0].userDetails.image : AvatarImg}
                               border={0}
                               shadow={false}
                               className="mr-12p donor_avatar_bg"

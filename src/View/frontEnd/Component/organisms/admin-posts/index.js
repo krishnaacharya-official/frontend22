@@ -44,6 +44,7 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import moment from "moment";
+import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
 
 const AdminPosts = (props) => {
 
@@ -109,6 +110,8 @@ const AdminPosts = (props) => {
   const [sortField, setSortField] = useState("created_at");
   const [order, setOrder] = useState("asc");
   const [fulfilProductDetails, setFulfilProductDetails] = useState({})
+  const [primaryBankDetails, setPrimaryBankDetails] = useState({})
+
 
   const [state, setstate] = useState({
     id: '',
@@ -187,6 +190,7 @@ const AdminPosts = (props) => {
       }
 
       if (data._id) await orgProjectList()
+      await getPrimaryBankAccount()
       setLoading(false)
 
     })()
@@ -206,6 +210,15 @@ const AdminPosts = (props) => {
     if (getProjectList.data.success) {
       setProjectList(getProjectList.data.data)
     }
+
+  }
+
+  const getPrimaryBankAccount = async () => {
+    const acc = await adminCampaignApi.getPrimaryBankAccount(token)
+    if (acc.data.success) {
+      setPrimaryBankDetails(acc.data.data)
+    }
+
 
   }
 
@@ -389,6 +402,7 @@ const AdminPosts = (props) => {
   }
 
   const changefile = async (e) => {
+    console.log('gg')
     // console.log(e.target.id)
     if (e.target.id === 'mainImg') {
       let file = e.target.files[0] ? e.target.files[0] : '';
@@ -426,6 +440,7 @@ const AdminPosts = (props) => {
       // console.log(URL.createObjectURL(file))
 
     } else if (e.target.id === 'galleryImg') {
+
 
       let gImgtempArry = []
       let gImgtempObj = []
@@ -501,11 +516,39 @@ const AdminPosts = (props) => {
 
           }
         }
-        setMoreTempImages(mImgtempArry)
-        setstate({
-          ...state,
-          moreImg: tempMainFileArry
-        })
+        let oldG = [...moreTempImages]
+        let combined = oldG.concat(mImgtempArry)
+        setMoreTempImages(combined)
+
+
+        if (moreImg && moreImg.length) {
+
+          let oldMG = [...moreImg]
+
+          let combineMainG = oldMG?.concat(tempMainFileArry)
+
+
+          setstate({
+            ...state,
+            moreImg: combineMainG
+          })
+
+        } else {
+          setstate({
+            ...state,
+            moreImg: tempMainFileArry
+          })
+        }
+
+
+
+
+
+
+        // setstate({
+        //   ...state,
+        //   moreImg: tempMainFileArry
+        // })
 
       }
 
@@ -615,7 +658,7 @@ const AdminPosts = (props) => {
 
     // console.log(galleryImg)
 
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     // console.log(tags)
     const formaerrror = {}
 
@@ -635,10 +678,20 @@ const AdminPosts = (props) => {
       }
     }
     const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH
+
     let checkImg = id ? (gallaryImages?.length + galleryImg?.length) : (galleryImg?.length)
     if (checkImg > MAX_IMAGE_LENGTH) {
       formaerrror['galleryImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
     }
+
+    let checkMore = id ? (moreImages?.length + moreImg?.length) : (moreImg?.length)
+    if (checkMore > MAX_IMAGE_LENGTH) {
+      formaerrror['moreImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
+
+    }
+
+
+
 
     // console.log(formaerrror)
 
@@ -836,7 +889,7 @@ const AdminPosts = (props) => {
           setLoading(false)
           ToastAlert({ msg: 'Product not save', msgType: 'error' });
         }
-      }else{
+      } else {
         setModelShow(false)
 
       }
@@ -905,6 +958,9 @@ const AdminPosts = (props) => {
 
   const editProduct = async (productData) => {
 
+    setGallaryTempImages([])
+    setMoreTempImages([])
+    setTempImg('')
     setLoading(false)
     let formData = {}
     formData.productId = productData._id
@@ -1123,6 +1179,8 @@ const AdminPosts = (props) => {
 
   }
 
+
+
   const handleSortingChange = async (accessor) => {
 
     const sortOrder =
@@ -1139,15 +1197,24 @@ const AdminPosts = (props) => {
     const deleteImg = await productApi.deleteProductImages(token, id)
 
     if (deleteImg.data.success) {
-      if (type === 'More') {
-        let imgs = [...moreImages]
-        imgs = imgs.filter((item) => item.id !== id)
-        setMoreImages(imgs)
-      } else {
-        let gImg = [...gallaryImages]
-        gImg = gImg.filter((item) => item.id !== id)
-        setGallaryImages(gImg)
+      if (type === 'Fulfil') {
 
+        let imgs = [...fulfilmoreImages]
+        imgs = imgs.filter((item) => item.id !== id)
+        setFulfilMoreImages(imgs)
+
+      } else {
+
+        if (type === 'More') {
+          let imgs = [...moreImages]
+          imgs = imgs.filter((item) => item.id !== id)
+          setMoreImages(imgs)
+        } else {
+          let gImg = [...gallaryImages]
+          gImg = gImg.filter((item) => item.id !== id)
+          setGallaryImages(gImg)
+
+        }
       }
 
     }
@@ -1156,6 +1223,10 @@ const AdminPosts = (props) => {
 
   const fulfilOrder = async () => {
     let formaerrror = {}
+    if (fulfilMoreImg.length > helper.MAX_IMAGE_LENGTH) {
+      formaerrror['fulfilMoreImg'] = "Image length Must be less then " + helper.MAX_IMAGE_LENGTH
+
+    }
     // console.log(fulfilMoreImg)
     if (!fulfilPolicy) {
       formaerrror['fulfilPolicy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
@@ -1276,23 +1347,40 @@ const AdminPosts = (props) => {
 
   }
 
-  const removeGallaryempImages = async (id) => {
+  const removeGallaryempImages = async (id, type) => {
+
+    if (type === 'galleryImg') {
+      let imgs = [...gallaryTempImages]
+      imgs.splice(id, 1);
+      setGallaryTempImages(imgs)
+
+      let fImg = [...galleryImg]
+      fImg.splice(id, 1);
 
 
-    let imgs = [...gallaryTempImages]
-    imgs.splice(id, 1);
-    setGallaryTempImages(imgs)
+      setstate({
+        ...state,
+        galleryImg: fImg
+      })
+    } else {
 
-    let fImg = [...galleryImg]
-    fImg.splice(id, 1);
+      let imgs = [...moreTempImages]
+      imgs.splice(id, 1);
+      setMoreTempImages(imgs)
+
+      let fImg = [...moreImg]
+      fImg.splice(id, 1);
 
 
-    setstate({
-      ...state,
-      galleryImg: fImg
-    })
+      setstate({
+        ...state,
+        moreImg: fImg
+      })
+
+    }
 
   }
+
 
 
   // function download(dataurl, filename) {
@@ -1339,7 +1427,7 @@ const AdminPosts = (props) => {
 
             <div className="d-flex align-items-center ms-sm-auto">
               <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createNewPost()}>Create New</Button>
-              <LadderMenuItems />
+              {/* <LadderMenuItems /> */}
             </div>
           </header>
 
@@ -1524,13 +1612,23 @@ const AdminPosts = (props) => {
                           <ListItemImg
                             size={45}
                             className="bg-white"
-                            imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                            // imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
+                            icon={
+                              <FontAwesomeIcon
+                                icon={regular("building-columns")}
+                                className="fs-3 text-subtext"
+                              />
+                            }
                           />
                         </div>
                         <div className=" flex__1 mx-2 text-break">
-                          <div className="accounts__email fw-bold">Ending in 7709</div>
-                          <div className="fs-7 mb-3p">Mastercard</div>
-                          <div className="fs-7 text-subtext">8 / 2019</div>
+                          <div className="accounts__email fw-bold">{primaryBankDetails?.businessName ? primaryBankDetails?.businessName : primaryBankDetails?.firstName + ' ' + primaryBankDetails?.lastName}</div>
+                          {/* <div className="fs-7 mb-3p">Mastercard</div> */}
+                          <div className="fs-7 mb-3p">{primaryBankDetails?.
+                            bankName
+                          }</div>
+
+                          <div className="fs-7 text-subtext">{primaryBankDetails?.accountNumber}</div>
                         </div>
                         {/* <Button variant="link" className="text-danger fs-7">
                       remove
@@ -1725,16 +1823,32 @@ const AdminPosts = (props) => {
                         {
                           !fulfilProductDetails?.isFulfiled &&
 
-                          <div className="upload-wrap" style={{ width: "100%" }}>
-                            <FontAwesomeIcon
-                              icon={solid("cloud-arrow-up")}
-                              className="icon-cloud"
-                            />
-                            <label>
-                              <input name='fulfilmoreImages[]' id='fulfilmoreImages' type="file" accept=".jpg,.gif,.png" multiple
-                                onChange={(e) => { changefile(e) }}
+                          // <div className="upload-wrap" style={{ width: "100%" }}>
+                          //   <FontAwesomeIcon
+                          //     icon={solid("cloud-arrow-up")}
+                          //     className="icon-cloud"
+                          //   />
+                          //   <label>
+                          //     <input name='fulfilmoreImages[]' id='fulfilmoreImages' type="file" accept=".jpg,.gif,.png" multiple
+                          //       onChange={(e) => { changefile(e) }}
+                          //     />
+                          //   </label>
+                          // </div>
+                          <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                            <input className="file-upload-input" type='file'
+
+                              name='fulfilmoreImages[]' id='fulfilmoreImages'
+                              accept=".jpg,.gif,.png"
+                              multiple
+                              onChange={(e) => { changefile(e) }}
+                              style={fileuploadinput} title=" " />
+                            <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+
+                              <FontAwesomeIcon
+                                icon={solid("cloud-arrow-up")}
+                                className="icon-cloud"
                               />
-                            </label>
+                            </div>
                           </div>
                         }
 
@@ -1762,7 +1876,7 @@ const AdminPosts = (props) => {
 
 
                                   <div className="img-wrap">
-                                    {/* <span className="close" onClick={() => props.deleteProductImage(img.id, 'Gallary')} style={{ right: "7px" }}>&times;</span> */}
+                                    <span className="close" onClick={() => deleteProductImage(img.id, 'Fulfil')} style={{ right: "7px" }}>&times;</span>
                                     <img src={img.img ? img.img !== "" ? helper.CampaignProductFullImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                   </div>
                                 </>
@@ -1774,6 +1888,7 @@ const AdminPosts = (props) => {
                           }
 
                         </div>
+                        {fulfilError && fulfilError.fulfilMoreImg && <p className='error'>{fulfilError ? fulfilError.fulfilMoreImg ? fulfilError.fulfilMoreImg : "" : ""}</p>}
 
 
 

@@ -27,7 +27,7 @@ function ActivityList(props) {
         <div className="empty__block pt-5">
           <div className="empty__cart mb-2">
             <img
-              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ebdad9db6362385218c8cc5_interface.svg"
+              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ebb02894add114eeaa5681e_mute.svg"
               alt=""
               width='90%'
             />

@@ -967,7 +967,7 @@ const PaymentMethod = () => {
           <label className="input__label flex__1">
             <input type="text" name="taxRate" value={taxRate} className={state.error && state.error.taxRate ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
               // onFocu={()=>alert('okk')} 
-              onBlur={() => myFunction('taxRate')}
+              // onBlur={() => myFunction('taxRate')}
             />
             <span className="input__span">Ex: HST/ON 13%</span>
           </label>
@@ -975,14 +975,14 @@ const PaymentMethod = () => {
         </div>
 
 
-
         <div className="note text-dark mb-5">
           The tax rate will be automatically added to the unit price of items you post to make sure you enough funds to cover the sales tax when you purchase the items.
 
         </div>
+        <Button variant="info" onClick={() =>  myFunction('taxRate')}>Save</Button>
 
 
-        <div className="mb-5">
+        <div className="mb-5 mt-3">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>
           <div className="d-flex align-items-center mb-3">
             <span className="text-subtext flex__1">

@@ -36,7 +36,7 @@ const Product = (props) => {
   let media = props.media ? props.media : false
 
   let fullAddress = props.address?.split(',')
-  let address = props.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
+  let address = props.address ? fullAddress[fullAddress?.length - 2] :""
 
 
   let progress = unlimited ? 100 : Math.round(sold / total * 100)
