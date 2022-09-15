@@ -45,7 +45,15 @@ const AdminTax = () => {
     let pr = ''
     if (products.length > 0) {
       products.map((p, i) => {
-        pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+        if (p.type === "Purchased") {
+
+          pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+
+        } else {
+
+          pr += i + 1 + ') ' + 'Donate' + ' '
+
+        }
       })
     }
     return pr
@@ -71,6 +79,7 @@ const AdminTax = () => {
       if (taxList.data.allData.length > 0) {
         let tempAr = []
         taxList.data.allData.map((v, k) => {
+          console.log(v)
           let tempObj = {}
           tempObj.date = moment(v[0].created_at).format('DD MMMM YYYY')
           tempObj.amount = v[0].currencySymbol + totalVal(v)
@@ -78,12 +87,12 @@ const AdminTax = () => {
           tempObj.email = v[0].userDetails?.email
           tempObj.type = v[0].type
           tempObj.address = v[0].userDetails.street + ' , ' + v[0].userDetails.cityDetails[0]?.city + ' , ' + v[0].userDetails.stateDetails[0]?.state + ' ' + v[0].userDetails.zip + ' , ' + v[0].userDetails.countryDetails[0]?.country
-          if (v[0].type === 'Purchased') {
-            tempObj.products = getProductsName(v)
+          // if (v.type === 'Purchased') {
+          tempObj.products = getProductsName(v)
 
-          } else {
-            tempObj.products = ' - '
-          }
+          // } else {
+          //   tempObj.products = ' - '
+          // }
 
           // console.log(v)
           tempAr.push(tempObj)

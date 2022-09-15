@@ -11,7 +11,7 @@ import {
 import helper from "../../../../../Common/Helper";
 
 import Avatar from "../../atoms/avatar";
-import AvatarImg from "../../../../../assets/images/avatar_default.jpeg"
+import AvatarImg from "../../../../../assets/images/avatar.png"
 import moment from "moment";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -104,7 +104,7 @@ const AdminTaxTable = (props) => {
                           </div>
                         </div>
                         <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                          {
+                          {/* {
                             item[0].type === 'Donated' &&
 
                             <>
@@ -122,18 +122,12 @@ const AdminTaxTable = (props) => {
                                     Donated
                                   </Button>
                                 </div>
-                                {/* <div className="text-light fs-7">
-                            <FontAwesomeIcon
-                              icon={regular("wallet")}
-                              className="mr-3p"
-                            />
-                            Bought 4
-                          </div> */}
+                 
                               </div>
                             </>
-                          }
+                          } */}
                           {
-                            item.length === 1 && item[0].type !== 'Donated' &&
+                            item.length === 1 &&
                             <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
                               <div className="pe-1 p-sm-2 mr-12p">
                                 <img
@@ -234,53 +228,74 @@ const AdminTaxTable = (props) => {
                       {
                         item.length > 1 &&
                         item.map((i1, k) => {
+                          let Aimg = i1.type === 'Purchased' ? helper.CampaignProductImagePath + i1.orderItemDetails?.productImage : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg'
+
+                          // console.log('li', i1)
+
+                          let Name = i1.type === 'Purchased' ? i1.orderItemDetails?.productName : 'Donation'
                           // console.log(item[0].type)
-                          if (item[0].type === 'Purchased') {
+                          // if (item[0].type === 'Purchased') {
 
 
-                            return (
-                              <>
-                                <hr />
-                                <li className="table__list-item p-2">
-                                  <div className="d-sm-flex align-items-center flex-grow-1">
-                                    <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
-                                      <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                                        <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
-                                        <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
-                                      </div>
-
-                                    </div>
-                                    <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                                      <div className="pe-1 p-sm-2 mr-12p">
-                                        <img
-                                          loading="lazy"
-                                          width={36}
-                                          src={helper.CampaignProductImagePath + i1.orderItemDetails?.productImage}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <div>
-                                          <Button variant="link" className="text-dark px-0 py-3p">
-                                            {i1.orderItemDetails?.productName}
-                                          </Button>
-                                        </div>
-                                        <div className="text-light fs-7">
-                                          <FontAwesomeIcon
-                                            icon={regular("wallet")}
-                                            className="mr-3p"
-                                          />
-                                          Bought {i1.orderItemDetails?.quantity}
-                                        </div>
-                                      </div>
+                          return (
+                            <>
+                              <hr />
+                              <li className="table__list-item p-2">
+                                <div className="d-sm-flex align-items-center flex-grow-1">
+                                  <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                    <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
+                                      <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
+                                      <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
                                     </div>
 
                                   </div>
-                                </li>
-                                {/* <hr /> */}
-                              </>
-                            )
-                          }
+                                  <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                    <div className="pe-1 p-sm-2 mr-12p">
+                                      <img
+                                        loading="lazy"
+                                        width={36}
+                                        src={Aimg}
+                                        alt=""
+                                      />
+                                    </div>
+                                    <div>
+                                      <div>
+                                        <Button variant="link" className="text-dark px-0 py-3p">
+                                          {/* {i1.orderItemDetails?.productName} */}
+                                          {Name}
+                                        </Button>
+                                      </div>
+                                      <div className="text-light fs-7">
+                                        {
+                                          i1.type === 'Purchased' ?
+                                            <>
+                                              <FontAwesomeIcon
+                                                icon={regular("wallet")}
+                                                className="mr-3p"
+                                              />
+                                              Bought {i1.orderItemDetails?.quantity}
+                                            </>
+
+                                            :
+                                            <>
+                                              <FontAwesomeIcon
+                                                icon={regular("heart")}
+                                                className="mr-3p"
+                                              />
+                                              Donated
+                                            </>
+
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </li>
+                              {/* <hr /> */}
+                            </>
+                          )
+                          // }
 
                         })
                       }

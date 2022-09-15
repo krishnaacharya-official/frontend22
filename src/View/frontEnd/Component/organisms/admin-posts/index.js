@@ -402,7 +402,7 @@ const AdminPosts = (props) => {
   }
 
   const changefile = async (e) => {
-    console.log('gg')
+    // console.log('gg')
     // console.log(e.target.id)
     if (e.target.id === 'mainImg') {
       let file = e.target.files[0] ? e.target.files[0] : '';

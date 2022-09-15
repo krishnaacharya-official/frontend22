@@ -73,12 +73,18 @@ const Activity = (props) => {
       // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
 
       // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
-      if (temprray.length > 0 && temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
+        if(temprray.length>0){
+      if (temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
 
         setState({ ...state, allRead: true });
       } else {
         setState({ ...state, allRead: false });
       }
+    }else{
+      setState({ ...state, allRead: true });
+    }
+      // console.log('watched',temprray.filter(e => e.userNotificationDetails?.watched).length )
+      // console.log('all',temprray.length )
 
 
 

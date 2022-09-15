@@ -59,7 +59,7 @@ const ItemsTable = (props) => {
         </div>
         <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "500px", minHeight: "500px" }}>
           {
-            orderItemList.length > 0 &&
+            orderItemList.length > 0 ?
             orderItemList.map((item, key) => {
               // console.log(item)
               // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
@@ -189,6 +189,8 @@ const ItemsTable = (props) => {
               )
 
             })
+            :
+            <li className="table__list-item p-2 fw-bold d-flex justify-content-center">No entries to show</li>
           }
 
         </ul>

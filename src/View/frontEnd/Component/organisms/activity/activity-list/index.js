@@ -1,18 +1,40 @@
-import React from "react";
 import ActivityItem from "../../../molecules/activity-item";
+import React, { useState, useEffect } from "react";
 
 function ActivityList(props) {
-
+  const [allNotificationList, setAllNotificationList] = useState([])
   let notificationList = props.notificationList
+
+
+  useEffect(() => {
+
+    if (notificationList.length > 0) {
+      let temp = []
+      notificationList.map((notification, i) => {
+        let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
+        if (!isRemoved) {
+          temp.push(notification)
+        }
+      })
+      setAllNotificationList(temp)
+    } else {
+      setAllNotificationList([])
+    }
+
+    }, [notificationList])
+
+
+
+
   // console.log(notificationList)
   return (
 
-    notificationList.length > 0 ?
+    allNotificationList.length > 0 ?
 
       <ul className="cd__cart__list list-unstyled mb-0">
         {
-          notificationList.length > 0 &&
-          notificationList.map((notification, i) => {
+          allNotificationList.length > 0 &&
+          allNotificationList.map((notification, i) => {
             let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
             return (
               !isRemoved &&
@@ -32,10 +54,11 @@ function ActivityList(props) {
               width='90%'
             />
           </div>
-          <div className="no__items-found fw-bold">No notification yet.</div>
+          <div className="no__items-found fw-bold">You have no notifications.</div>
         </div>
       </>
   );
 }
+
 
 export default ActivityList;

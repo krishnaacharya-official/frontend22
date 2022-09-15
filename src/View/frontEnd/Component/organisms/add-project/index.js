@@ -243,7 +243,11 @@ const AddProject = (props) => {
                 {tempImages?.length ?
                   tempImages.map((img, key) => {
                     return (
-                      <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                      <div className="img-wrap">
+                        <span className="close" onClick={() => props.removeTempImages(key)}>&times;</span>
+                        <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                      </div>
+
                     )
 
                   })

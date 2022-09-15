@@ -138,10 +138,16 @@ const UserTax = () => {
 
     if (data?.length > 0) {
       data?.map((p, i) => {
+
+        p?.map((p1, i1) => {
+          if (p1.currency === userData.currency) {
+            totalQArray.push(Number(p1.amount))
+          }
+        })
+
+
         // console.log(p.itemDetails)
-        if (p.currency === userData.currency) {
-          totalQArray.push(Number(p.amount))
-        }
+
       })
 
       const total = totalQArray.reduce((partialSum, a) => partialSum + a, 0);

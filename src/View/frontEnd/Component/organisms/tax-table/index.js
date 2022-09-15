@@ -14,6 +14,21 @@ import CSVExportBtn from '../../../CSVExportBtn';
 
 const TaxTable = (props) => {
 
+
+  const totalVal = (data) => {
+    let tempSub = []
+    let sum
+    if (data.length > 0) {
+      data.map((i, k) => {
+        tempSub.push(i.amount)
+      })
+      sum = tempSub.reduce(function (a, b) { return a + b; }, 0);
+    } else {
+      sum = 0
+    }
+    return sum;
+  }
+
   return (
     <>
       <div className="list__table">
@@ -73,90 +88,92 @@ const TaxTable = (props) => {
                       <div className="d-sm-flex align-items-center flex-grow-1">
                         <div className="d-flex align-items-center flex__1 mb-2">
                           <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
-                            <div className="text-success fw-bold fs-5">{item.currencySymbol}{priceFormat(item.amount)}</div>
-                            <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
+                            <div className="text-success fw-bold fs-5">{item[0].currencySymbol}{totalVal(item)}</div>
+                            <div className="text-light fs-8">{moment(item[0].created_at).fromNow()}</div>
                           </div>
                           <div className="order-1 order-sm-2 d-flex align-items-center text-dark flex__1">
                             <div className="position-relative">
-                              <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item.organizationDetails.logo} className='charity_avatar_bg' />
+                              <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item[0].organizationDetails?.logo} className='charity_avatar_bg' />
                             </div>
                             <div className="d-sm-flex align-items-center flex__1 ms-2">
                               <div style={{ maxWidth: "300px", minWidth: "300px" }}>
                                 <div className="fw-bold fs-5 billing__name mb-6p">
-                                  {item.organizationDetails.name}
+                                  {item[0].organizationDetails?.name}
                                 </div>
-                                <div className="text-light">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div>
+                                {/* <div className="text-light">#{item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId}</div> */}
                               </div>
 
-                              <span className="text-light fw-semibold flex__1">
-                                {
-                                  item.type === 'Purchased' && item.pro.
-                                    length === 1 &&
-                                  <>
-                                    <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
-                                      <div className="pe-1 p-sm-2 mr-12p">
-                                        <img
-                                          loading="lazy"
-                                          width={36}
-                                          src={helper.CampaignProductImagePath + item.pro[0]?.orderItemDetails.productImage}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <div>
-                                          <Button variant="link" className="text-dark px-0 py-3p">
-                                            {item.pro[0]?.orderItemDetails.productName}
-                                          </Button>
-                                        </div>
-                                        <div className="text-light fs-7">
-                                          <FontAwesomeIcon
-                                            icon={regular("wallet")}
-                                            className="mr-3p"
-                                          />
-                                          Bought {item.pro[0]?.orderItemDetails.quantity}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    {/* <FontAwesomeIcon
-                                        icon={regular("wallet")}
-                                        className="small me-1"
-                                      />
-                                      Purchased */}
-                                  </>
-                                  // :
-                                  // <>
-                                  //   <FontAwesomeIcon
-                                  //     icon={regular("heart")}
-                                  //     className="small me-1"
-                                  //   />
-                                  //   Donated
-                                  // </>
 
-                                }
-                                {
-                                  item.type !== 'Purchased' &&
-                                  <>
-                                    <FontAwesomeIcon
-                                      icon={regular("heart")}
-                                      className="small me-1"
-                                    />
-                                    Donated Cash
-                                  </>
-                                }
-
-                              </span>
 
 
                             </div>
                           </div>
                         </div>
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center ">
                           {/* <Button
                           variant="ldanger"
                           className="text-white fs-7 rounded-pill flex-grow-1"
                         >
                           Cancel
                         </Button> */}
+
+                          {
+                            item.length === 1 &&
+
+
+                            <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                              <div className="pe-1 p-sm-2 mr-12p">
+                                <img
+                                  loading="lazy"
+                                  width={36}
+                                  // src={helper.CampaignProductImagePath + item[0].orderItemDetails?.productImage}
+                                  src={item[0].type === 'Purchased' ? helper.CampaignProductImagePath + item[0]?.orderItemDetails?.productImage : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg'}
+
+                                  alt=""
+                                />
+                              </div>
+                              <div>
+                                <div>
+                                  <Button variant="link" className="text-dark px-0 py-3p">
+                                    {/* {item[0].orderItemDetails?.productName} */}
+                                    {item[0].type === 'Purchased' ? item[0].orderItemDetails?.productName : 'Donation'}
+                                  </Button>
+                                </div>
+                                <div className="text-light fs-7">
+                                  {/* <FontAwesomeIcon
+                                    icon={regular("wallet")}
+                                    className="mr-3p"
+                                  />
+                                  Bought {item[0].orderItemDetails?.quantity} */}
+                                  {
+                                    item[0].type === 'Purchased' ?
+                                      <>
+                                        <FontAwesomeIcon
+                                          icon={regular("wallet")}
+                                          className="mr-3p"
+                                        />
+                                        Bought {item[0].orderItemDetails?.quantity}
+                                      </>
+
+                                      :
+                                      <>
+                                        <FontAwesomeIcon
+                                          icon={regular("heart")}
+                                          className="mr-3p"
+                                        />
+                                        Donated
+                                      </>
+
+                                  }
+                                </div>
+                              </div>
+                            </div>
+
+
+                          }
+
+
+
 
                           {
                             item.receipt ?
@@ -185,15 +202,16 @@ const TaxTable = (props) => {
                       </div>
                     </li>
                     {
-                      item.type === 'Purchased' &&
+                      // item.type === 'Purchased' &&
                       <>
                         <div className="container-fluid">
                           {
-                            item.pro.
+                            item.
                               length > 1 &&
-                            item.pro.map((i1, k) => {
-
+                            item.map((i1, k) => {
+                              let Aimg = i1.type === 'Purchased' ? helper.CampaignProductImagePath + i1?.orderItemDetails?.productImage : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg'
                               // if (item[0].type === 'Purchased') {
+                              let Name = i1.type === 'Purchased' ? i1.orderItemDetails?.productName : 'Donation'
 
 
                               return (
@@ -203,8 +221,8 @@ const TaxTable = (props) => {
                                     <div className="d-sm-flex align-items-center flex-grow-1">
                                       <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                                         <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                                          <div className="text-success fw-bold fs-5">{item.currencySymbol}{i1.tax}</div>
-                                          <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
+                                          <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
+                                          <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
                                         </div>
 
                                       </div>
@@ -213,27 +231,52 @@ const TaxTable = (props) => {
                                           <img
                                             loading="lazy"
                                             width={36}
-                                            src={helper.CampaignProductImagePath + i1?.orderItemDetails.productImage}
+                                            src={Aimg}
                                             alt=""
                                           />
                                         </div>
                                         <div>
                                           <div>
                                             <Button variant="link" className="text-dark px-0 py-3p">
-                                              {i1?.orderItemDetails.productName}
+                                              {/* {i1?.orderItemDetails?.productName} */}
+                                              {Name}
                                             </Button>
                                           </div>
                                           <div className="text-light fs-7">
-                                            <FontAwesomeIcon
+                                            {/* <FontAwesomeIcon
                                               icon={regular("wallet")}
                                               className="mr-3p"
                                             />
-                                            Bought {i1?.orderItemDetails.quantity}
+                                            Bought {i1?.orderItemDetails?.quantity} */}
+                                            {
+                                              i1.type === 'Purchased' ?
+                                                <>
+                                                  <FontAwesomeIcon
+                                                    icon={regular("wallet")}
+                                                    className="mr-3p"
+                                                  />
+                                                  Bought {i1.orderItemDetails?.quantity}
+                                                </>
+
+                                                :
+                                                <>
+                                                  <FontAwesomeIcon
+                                                    icon={regular("heart")}
+                                                    className="mr-3p"
+                                                  />
+                                                  Donated
+                                                </>
+
+                                            }
                                           </div>
+
+
                                         </div>
+
                                       </div>
 
                                     </div>
+
                                   </li>
 
                                 </>

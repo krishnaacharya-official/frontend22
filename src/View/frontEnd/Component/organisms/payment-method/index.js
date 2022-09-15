@@ -20,7 +20,7 @@ import ToastAlert from "../../../../../Common/ToastAlert"
 import { confirmAlert } from "react-confirm-alert"
 import { encryptData, decryptData } from "../../../../../Common/Helper";
 import locationApi from "../../../../../Api/frontEnd/location";
-import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom';
+import { Link, Outlet, useOutletContext, useParams,useNavigate } from 'react-router-dom';
 import { DataArraySharp } from "@mui/icons-material";
 import Label from "../../../../../components/Label";
 import CheckIcon from '@mui/icons-material/Check';
@@ -43,6 +43,7 @@ const PaymentMethod = () => {
   const [data, setData] = useOutletContext();
   const dispatch = useDispatch()
   const params = useParams();
+  const navigate =useNavigate()
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [defaultState, setDefaultState] = useState([])
@@ -123,6 +124,7 @@ const PaymentMethod = () => {
     const makeAcPrimary = await adminCampaignApi.addAccountDetails(token, data)
     if (makeAcPrimary && makeAcPrimary.data.success) {
       await getBankAccountList()
+
     }
 
   }
@@ -1052,7 +1054,7 @@ const PaymentMethod = () => {
                         list.businessName ?
                           <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.businessName}</div>
                           :
-                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.firstName}{" "}{list.lastName}</div>
+                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.personalEmail}</div>
 
 
                       }

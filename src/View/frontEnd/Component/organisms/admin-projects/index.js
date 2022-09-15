@@ -55,7 +55,7 @@ const AdminProjects = () => {
   const [order, setOrder] = useState("asc");
 
 
-  const getProjectList = async (page, field, type,filterBy) => {
+  const getProjectList = async (page, field, type, filterBy) => {
 
     let formData = {}
     formData.organizationId = data._id
@@ -107,7 +107,7 @@ const AdminProjects = () => {
     (async () => {
       setLoading(false)
       await getProductList()
-      await getProjectList(pageNo, sortField, order,listBy)
+      await getProjectList(pageNo, sortField, order, listBy)
       setLoading(false)
       // console.log(location?.state?.type)
 
@@ -162,11 +162,39 @@ const AdminProjects = () => {
           tempArry.push(URL.createObjectURL(tempObj[0][i]))
         }
       }
-      setstate({
-        ...state,
-        images: tempFileArry
-      })
-      setTempImages(tempArry)
+
+      let oldG = [...tempImages]
+      let combine = oldG.concat(tempArry)
+      setTempImages(combine)
+
+
+      if (images && images.length) {
+
+        let oldMG = [...images]
+        let combineMainG = oldMG?.concat(tempFileArry)
+
+
+        setstate({
+          ...state,
+          images: combineMainG
+        })
+
+      } else {
+        setstate({
+          ...state,
+          images: tempFileArry
+        })
+      }
+
+
+
+
+
+      // setstate({
+      //   ...state,
+      //   images: tempFileArry
+      // })
+      // setTempImages(tempArry)
 
     }
 
@@ -456,7 +484,7 @@ const AdminProjects = () => {
   const handleClick = async (e, v) => {
 
     setPageNo(Number(v))
-    await getProjectList(Number(v), sortField, order,listBy)
+    await getProjectList(Number(v), sortField, order, listBy)
   }
 
 
@@ -466,10 +494,28 @@ const AdminProjects = () => {
       accessor === sortField && order === "asc" ? "desc" : "asc";
     setSortField(accessor);
     setOrder(sortOrder);
-    await getProjectList(pageNo, accessor, sortOrder,listBy)
+    await getProjectList(pageNo, accessor, sortOrder, listBy)
 
 
   };
+  const removeTempImages = async (id) => {
+
+
+      let imgs = [...tempImages]
+      imgs.splice(id, 1);
+      setTempImages(imgs)
+
+      let fImg = [...images]
+      fImg.splice(id, 1);
+
+
+      setstate({
+        ...state,
+        images: fImg
+      })
+    
+
+  }
 
 
   const deleteProjectImage = async (id) => {
@@ -487,7 +533,7 @@ const AdminProjects = () => {
 
   const onChangeDropDown = async (e) => {
     setListBy(e)
-    await getProjectList(pageNo, sortField, order,e)
+    await getProjectList(pageNo, sortField, order, e)
   }
 
   return (
@@ -542,6 +588,7 @@ const AdminProjects = () => {
           discardProject={discardProject}
           slug={data.slug}
           deleteProjectImage={deleteProjectImage}
+          removeTempImages={removeTempImages}
 
         />}
     </>
