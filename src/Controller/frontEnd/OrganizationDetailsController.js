@@ -15,7 +15,7 @@ import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
 import helper, { GetCardTypeByNumber, getCardIcon } from "../../Common/Helper";
 import followApi from "../../Api/frontEnd/follow";
-
+import Page from '../../components/Page';
 
 
 
@@ -144,6 +144,8 @@ export default function OrganizationDetailsController() {
         const getDonationList = await organizationApi.organizationDonatedItemHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
         if (getDonationList.data.success === true) {
             setDonationList(getDonationList.data.data)
+        }else{
+            setDonationList([])
         }
     }
 
@@ -383,25 +385,26 @@ export default function OrganizationDetailsController() {
         <>
             {/* {console.log(user)} */}
             {/*<FrontLoader loading={loading} />*/}
-            <OrganisationDetail
-                organizationDetails={organizationDetails}
-                projectList={projectList}
-                organizationList={organizationList}
-                addToCart={addToCart}
-                checkItemInCart={checkItemInCart}
-                purchasedItemList={purchasedItemList}
-                stateData={state}
-                cardNumberWithSpace={cardNumberWithSpace}
-                changevalue={changevalue}
-                donate={donate}
-                selectedValue={selectedValue}
-                setSelectedValue={setSelectedValue}
-                donationList={donationList}
-                followToOrganization={followToOrganization}
-                isFollow={isFollow}
-                dCardIcon={dCardIcon}
-            />
-
+            <Page title={"Donorport | " + organizationDetails?.name}>
+                <OrganisationDetail
+                    organizationDetails={organizationDetails}
+                    projectList={projectList}
+                    organizationList={organizationList}
+                    addToCart={addToCart}
+                    checkItemInCart={checkItemInCart}
+                    purchasedItemList={purchasedItemList}
+                    stateData={state}
+                    cardNumberWithSpace={cardNumberWithSpace}
+                    changevalue={changevalue}
+                    donate={donate}
+                    selectedValue={selectedValue}
+                    setSelectedValue={setSelectedValue}
+                    donationList={donationList}
+                    followToOrganization={followToOrganization}
+                    isFollow={isFollow}
+                    dCardIcon={dCardIcon}
+                />
+            </Page>
         </>
     )
 

@@ -7,6 +7,7 @@ import ToastAlert from "../../Common/ToastAlert";
 import { validateAll } from "indicative/validator";
 import userAuthApi from "../../Api/frontEnd/auth";
 import ForgotPassword from "../../View/frontEnd/forgot-password";
+import Page from '../../components/Page';
 
 
 
@@ -22,7 +23,7 @@ export default function ForgotPasswordController() {
         error: [],
     })
     const {
-        error, email, 
+        error, email,
         // password,cpassword,otp,
     } = state;
     const navigate = useNavigate()
@@ -102,14 +103,14 @@ export default function ForgotPasswordController() {
 
     return (
         <>
-                {/*<FrontLoader loading={loading} />*/}
-    
-                <ForgotPassword 
-                changevalue={changevalue}
-                stateData={state}
-                sendOtp={sendOtp}
+            {/*<FrontLoader loading={loading} />*/}
+            <Page title="Donorport | Forgot Password " >
+                <ForgotPassword
+                    changevalue={changevalue}
+                    stateData={state}
+                    sendOtp={sendOtp}
                 />
-
+            </Page>
         </>
     )
 }

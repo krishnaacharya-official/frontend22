@@ -7,6 +7,7 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Register from "../../View/frontEnd/register";
 import locationApi from "../../Api/frontEnd/location";
+import Page from '../../components/Page';
 
 
 function SignupController() {
@@ -165,22 +166,22 @@ function SignupController() {
     }
     return (
         <>
+            <Page title="Donorport | Sign Up">
+                <Register
+                    stateData={state}
+                    changevalue={changevalue}
+                    signUp={signUp}
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
+                    showCPassword={showCPassword}
+                    setShowCPassword={setShowCPassword}
+                    countryList={countryList}
+                    defaultCountry={defaultCountry}
+                    onChangeCountry={onChangeCountry}
 
-            <Register
-                stateData={state}
-                changevalue={changevalue}
-                signUp={signUp}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
-                showCPassword={showCPassword}
-                setShowCPassword={setShowCPassword}
-                countryList={countryList}
-                defaultCountry={defaultCountry}
-                onChangeCountry={onChangeCountry}
-
-            />
-            <FrontLoader loading={loading} />
-
+                />
+                <FrontLoader loading={loading} />
+            </Page>
         </>
     )
 }

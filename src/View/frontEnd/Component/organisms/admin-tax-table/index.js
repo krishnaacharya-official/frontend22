@@ -103,7 +103,7 @@ const AdminTaxTable = (props) => {
                             </div>
                           </div>
                         </div>
-                        <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                        <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0" style={{justifyContent:"end"}}>
                           {/* {
                             item[0].type === 'Donated' &&
 
@@ -128,27 +128,75 @@ const AdminTaxTable = (props) => {
                           } */}
                           {
                             item.length === 1 &&
+                            // <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                            //   <div className="pe-1 p-sm-2 mr-12p">
+                            //     <img
+                            //       loading="lazy"
+                            //       width={36}
+                            //       src={helper.CampaignProductImagePath + item[0].orderItemDetails?.productImage}
+                            //       alt=""
+                            //     />
+                            //   </div>
+                            //   <div>
+                            //     <div>
+                            //       <Button variant="link" className="text-dark px-0 py-3p">
+                            //         {item[0].orderItemDetails?.productName}
+                            //       </Button>
+                            //     </div>
+                            //     <div className="text-light fs-7">
+                            //       <FontAwesomeIcon
+                            //         icon={regular("wallet")}
+                            //         className="mr-3p"
+                            //       />
+                            //       Bought {item[0].orderItemDetails?.quantity}
+                            //     </div>
+                            //   </div>
+                            // </div>
+
                             <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
                               <div className="pe-1 p-sm-2 mr-12p">
                                 <img
                                   loading="lazy"
                                   width={36}
-                                  src={helper.CampaignProductImagePath + item[0].orderItemDetails?.productImage}
+                                  // src={helper.CampaignProductImagePath + item[0].orderItemDetails?.productImage}
+                                  src={item[0].type === 'Purchased' ? helper.CampaignProductImagePath + item[0]?.orderItemDetails?.productImage : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/60088347cb80b5186f9e1ead_donate.svg'}
+
                                   alt=""
                                 />
                               </div>
                               <div>
                                 <div>
                                   <Button variant="link" className="text-dark px-0 py-3p">
-                                    {item[0].orderItemDetails?.productName}
+                                    {/* {item[0].orderItemDetails?.productName} */}
+                                    {item[0].type === 'Purchased' ? item[0].orderItemDetails?.productName : 'Donation'}
                                   </Button>
                                 </div>
                                 <div className="text-light fs-7">
-                                  <FontAwesomeIcon
+                                  {/* <FontAwesomeIcon
                                     icon={regular("wallet")}
                                     className="mr-3p"
                                   />
-                                  Bought {item[0].orderItemDetails?.quantity}
+                                  Bought {item[0].orderItemDetails?.quantity} */}
+                                  {
+                                    item[0].type === 'Purchased' ?
+                                      <>
+                                        <FontAwesomeIcon
+                                          icon={regular("wallet")}
+                                          className="mr-3p"
+                                        />
+                                        Bought {item[0].orderItemDetails?.quantity}
+                                      </>
+
+                                      :
+                                      <>
+                                        <FontAwesomeIcon
+                                          icon={regular("heart")}
+                                          className="mr-3p"
+                                        />
+                                        Donated
+                                      </>
+
+                                  }
                                 </div>
                               </div>
                             </div>
@@ -158,8 +206,9 @@ const AdminTaxTable = (props) => {
 
                           {
                             item.length > 0 &&
+                            
                               item[0].receipt ?
-                              <div className="d-flex align-items-center ms-sm-2 btn__wrap">
+                              <div className="d-flex align-items-center ms-sm-2 btn__wrap" >
                                 <Button
                                   variant="link"
                                   className="d-flex align-items-center p-0 text-decoration-none me-2"
@@ -172,50 +221,51 @@ const AdminTaxTable = (props) => {
                                     <div className="file__name text-dark mb-3p fw-normal">
                                       {item[0].receipt}
                                     </div>
-                                    {/* <div className="text-light fs-7 fw-normal">
-                                    3 days ago - 1.3 Mb
-                                  </div> */}
+                                    <div className="text-light fs-7 fw-normal">
+                                      {/* 3 days ago - 1.3 Mb */}
+                                      {moment(item[0].updated_at).fromNow()}
+                                    </div>
                                   </div>
                                 </Button>
-                                {/* <Dropdown className="d-flex ms-auto" autoClose="outside">
-                                <Dropdown.Toggle
-                                  variant="link"
-                                  className="no-caret text-decoration-none"
-                                >
-                                  <FontAwesomeIcon
-                                    icon={regular("ellipsis-vertical")}
-                                    className="text-light fs-3"
-                                  />
-                                </Dropdown.Toggle>
+                                <Dropdown className="d-flex ms-auto" autoClose="outside">
+                                  <Dropdown.Toggle
+                                    variant="link"
+                                    className="no-caret text-decoration-none"
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={regular("ellipsis-vertical")}
+                                      className="text-light fs-3"
+                                    />
+                                  </Dropdown.Toggle>
 
-                                <Dropdown.Menu className="">
-                                  <Dropdown.Item className="d-flex align-items-center p-2">
-                                    <span className="fw-bold fs-7 flex__1">View</span>
-                                    <FontAwesomeIcon
-                                      icon={solid("magnifying-glass")}
-                                      className="ms-1"
-                                    />
-                                  </Dropdown.Item>
-                                  <Dropdown.Divider />
-                                  <Dropdown.Item className="d-flex align-items-center p-2">
-                                    <span className="fw-bold fs-7 flex__1">Edit</span>
-                                    <FontAwesomeIcon icon={light("pen")} className="ms-1" />
-                                  </Dropdown.Item>
-                                  <Dropdown.Divider />
-                                  <Dropdown.Item className="d-flex align-items-center p-2">
-                                    <span className="fw-bold fs-7 flex__1">Delete</span>
-                                    <FontAwesomeIcon
-                                      icon={regular("trash")}
-                                      className="ms-1"
-                                    />
-                                  </Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown> */}
+                                  <Dropdown.Menu className="">
+                                    <Dropdown.Item className="d-flex align-items-center p-2">
+                                      <span className="fw-bold fs-7 flex__1">View</span>
+                                      <FontAwesomeIcon
+                                        icon={solid("magnifying-glass")}
+                                        className="ms-1"
+                                      />
+                                    </Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item className="d-flex align-items-center p-2">
+                                      <span className="fw-bold fs-7 flex__1">Edit</span>
+                                      <FontAwesomeIcon icon={light("pen")} className="ms-1" />
+                                    </Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item className="d-flex align-items-center p-2">
+                                      <span className="fw-bold fs-7 flex__1">Delete</span>
+                                      <FontAwesomeIcon
+                                        icon={regular("trash")}
+                                        className="ms-1"
+                                      />
+                                    </Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
                               </div>
                               :
                               <Button variant="warning" className="d-flex align-items-center ms-auto text-white" >
                                 <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-                                <input type="file" size="60" style={{ position: "absolute", opacity: "0" }} onChange={(e) => props.uploadImage(e, item[0].orderId, item[0].userDetails?.email, item[0].userDetails?.name, item[0].userDetails?._id)} />
+                                <input type="file" size="60" style={{ position: "absolute", opacity: "0" }} onChange={(e) => props.uploadImage(e, item[0].uniqueTransactionId, item[0].userDetails?.email, item[0].userDetails?.name, item[0].userDetails?._id)} />
                                 Upload
                               </Button>
                           }

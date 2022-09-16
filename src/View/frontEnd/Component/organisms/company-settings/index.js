@@ -13,7 +13,7 @@ import { setIsUpdateCart, setIsUpdateOrganization, setProfileImage, setLogout } 
 import locationApi from "../../../../../Api/frontEnd/location";
 import Select from "react-select"
 import { confirmAlert } from "react-confirm-alert"
-
+import categoryApi from "../../../../../Api/admin/category";
 
 
 const CompanySettings = () => {
@@ -42,20 +42,26 @@ const CompanySettings = () => {
   const [defaultState, setDefaultState] = useState([])
   const [defaultCity, setDefaultCity] = useState([])
 
+  const [defaultCategory, setDefaultCategory] = useState([])
+  const [categoryList, setCategoryList] = useState([])
+
 
 
   const [state, setState] = useState({
     logo: "",
     name: "",
+    ein: "",
     headline: "",
     mission: "",
     promoVideo: "",
     city: "",
     stateId: "",
     country: "",
+    category: "",
+    url: "",
     error: []
   })
-  const { name, headline, mission, promoVideo, logo, city, stateId, country, error } = state
+  const { name, headline, mission, promoVideo, logo, city, stateId, country, ein, category, url, error } = state
 
 
   const getCountryStateList = async (countryId) => {
@@ -205,10 +211,29 @@ const CompanySettings = () => {
     }
   }
 
+  const getCategoryList = async () => {
+    const getCategoryList = await categoryApi.listCategory();
+    if (getCategoryList.data.success === true) {
+      if (getCategoryList.data.data.length > 0) {
+        let tempArray = []
+        getCategoryList.data.data.map((category, i) => {
+          let Obj = {}
+          Obj.value = category._id
+          Obj.label = category.name
+          tempArray.push(Obj)
+        })
+        setCategoryList(tempArray)
+      } else {
+        setCategoryList([])
+
+      }
+    }
+  }
+
   useEffect(() => {
     (async () => {
 
-      // console.log(data.description)
+      // console.log(data)
       setLoading(false)
       setState({
         ...state,
@@ -220,12 +245,17 @@ const CompanySettings = () => {
         city: data.city_id,
         country: data.country_id,
         stateId: data.state_id,
+        category: data.category_id,
+        ein: data.ein,
+        url: data.url
+
+
 
       })
-      let url = data.promoVideo;
+      let urlV = data.promoVideo;
       // let id = url && url.split("?v=")[1];
       // let embedUrl = url ? "http://www.youtube.com/embed/" + id : "";
-      setEmbedlink(url)
+      setEmbedlink(urlV)
 
       if (data.country_id && data.country_id !== null) {
         await getCountryStateList(data.country_id)
@@ -235,6 +265,8 @@ const CompanySettings = () => {
 
       }
       await getCountryList()
+      await getCategoryList()
+
       setLoading(false)
     })()
 
@@ -255,7 +287,11 @@ const CompanySettings = () => {
 
     }
 
-  }, [countryList, data.country_id])
+    if (categoryList.length > 0 && data.category_id) {
+      setDefaultCategory(categoryList.find(x => x.value === data.category_id));
+    }
+
+  }, [countryList, data.country_id, data.category_id, categoryList])
 
   const updateProfile = () => {
     // alert('k')
@@ -266,17 +302,20 @@ const CompanySettings = () => {
       city: "required",
       stateId: "required",
       country: "required",
+      category: 'required',
+      ein: 'required',
+
     }
 
     const message = {
       'name.required': 'Name is Required.',
       'mission.required': 'mission is Required.',
       'promoVideo.required': 'Promo Video is Required.',
-
+      'ein.required': 'Ein Number is Required.',
       'stateId.required': 'State is Required.',
       'city.required': 'City is Required.',
       'country.required': 'Country is Required.',
-
+      'category.required': 'Category is Required.',
 
 
 
@@ -300,6 +339,12 @@ const CompanySettings = () => {
       fdata.state_id = stateId
       fdata.country_id = country
       fdata.organizationId = data._id
+      fdata.category_id = category
+      fdata.ein = ein
+      fdata.url = url ? url : ""
+
+
+
 
 
 
@@ -396,6 +441,15 @@ const CompanySettings = () => {
     });
 
   }
+
+  const onChangeCategory = (e) => {
+    setState({
+      ...state,
+      category: e.value,
+
+    })
+    setDefaultCategory(e)
+  }
   return (
     <>
       <FrontLoader loading={loading} />
@@ -438,6 +492,28 @@ const CompanySettings = () => {
 
         </div>
 
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            <input type="text" name="ein" value={ein} onChange={(e) => changevalue(e)} />
+            {/* <span className="input__span">Employer Identification Number (EIN)</span> */}
+            <span className="input__span">Charity Registration Number</span>
+
+          </label>
+        </div>
+        {error && error.ein && (
+          <p className="error">{error ? (error.ein ? error.ein : '') : ''}</p>
+        )}
+
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            <input type="text" name="url" value={url} onChange={(e) => changevalue(e)} />
+            {/* <span className="input__span">Employer Identification Number (EIN)</span> */}
+            <span className="input__span">Website</span>
+
+          </label>
+        </div>
+
+
         <div className="input__wrap mb-3">
           <label className="input__label mb-2">
             <input type="text" name="headline" value={headline} onChange={(e) => changevalue(e)} />
@@ -451,6 +527,29 @@ const CompanySettings = () => {
           A headline is the subtitle that appears on your organization's page
           that describes your cause in 120 characters or less.
         </div>
+
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            {/* <input type="text" value='' /> */}
+            {/* {countrySelect.current} */}
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              value={defaultCategory}
+              name="country"
+              options={categoryList}
+              onChange={onChangeCategory}
+              components={{
+                IndicatorSeparator: () => null
+              }}
+            />
+            <span className="input__span">Category</span>
+          </label>
+        </div>
+        {error && error.category && <p className="error">{error.category}</p>}
+
+
+
         <div className="input__wrap mb-3">
           <label className="input__label mb-2">
             <textarea rows="6" name="mission" value={mission} onChange={(e) => changevalue(e)}></textarea>

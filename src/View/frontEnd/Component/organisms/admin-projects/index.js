@@ -279,7 +279,7 @@ const AdminProjects = () => {
 
       let formData = {}
 
-      formData.name = name
+      formData.name = name.trim()
       formData.headline = headline
       formData.video = video
       formData.description = description

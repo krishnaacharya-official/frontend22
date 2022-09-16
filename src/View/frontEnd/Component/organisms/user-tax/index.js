@@ -32,7 +32,7 @@ const UserTax = () => {
     { label: "Date", key: "date" },
     { label: "Amount", key: "amount" },
     { label: "Transection Id", key: "transectionId" },
-    { label: "Type", key: "type" },
+    // { label: "Type", key: "type" },
     { label: "Products", key: "products" }
 
 
@@ -41,11 +41,34 @@ const UserTax = () => {
     let pr = ''
     if (products.length > 0) {
       products.map((p, i) => {
-        pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+        // pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+        if (p.type === "Purchased") {
+
+          pr += i + 1 + ') ' + p.orderItemDetails?.productName + ' '
+
+        } else {
+
+          pr += i + 1 + ') ' + 'Donate' + ' '
+
+        }
       })
     }
     return pr
 
+  }
+
+  const totalVal = (data) => {
+    let tempSub = []
+    let sum
+    if (data.length > 0) {
+      data.map((i, k) => {
+        tempSub.push(i.amount)
+      })
+      sum = tempSub.reduce(function (a, b) { return a + b; }, 0);
+    } else {
+      sum = 0
+    }
+    return sum;
   }
 
   const getTaxDataList = async (page, field, type, year) => {
@@ -70,15 +93,15 @@ const UserTax = () => {
         getTaxDataList.data.allData.map((item, k) => {
           let tempobj = {}
           tempobj.date = moment(item.created_at).format('DD MMMM YY')
-          tempobj.amount = item.currencySymbol + item.amount
-          tempobj.transectionId = item.uniqueTransactionId ? item.uniqueTransactionId : item.orderId
-          tempobj.type = item.type
-          if (item.type === 'Purchased') {
-            tempobj.products = getProductsName(item.pro)
+          tempobj.amount = item[0].currencySymbol + totalVal(item)
+          tempobj.transectionId = item[0].uniqueTransactionId ? item[0].uniqueTransactionId : item[0].orderId
+          // tempobj.type = item.type
+          // if (item.type === 'Purchased') {
+            tempobj.products = getProductsName(item)
 
-          } else {
-            tempobj.products = ' - '
-          }
+          // } else {
+          //   tempobj.products = ' - '
+          // }
           tempAr.push(tempobj)
 
 

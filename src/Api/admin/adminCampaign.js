@@ -50,6 +50,8 @@ function adminCampaign() {
         data.append('slug', cdata.slug);
         data.append('headline', cdata.headline);
         data.append('promoVideo', cdata.promoVideo);
+        data.append('ein', cdata.ein);
+
 
 
 
@@ -102,6 +104,7 @@ function adminCampaign() {
         data.append('headline', cdata.headline);
         data.append('promoVideo', cdata.promoVideo);
 
+        data.append('ein', cdata.ein);
 
 
         let res = {};
@@ -329,6 +332,9 @@ function adminCampaign() {
         data.append('city_id', cdata.city_id);
         data.append('state_id', cdata.state_id);
         data.append('organizationId', cdata.organizationId);
+        data.append('category_id', cdata.category_id);
+
+        data.append('ein', cdata.ein);
 
         // if (cdata.password) {
         //     data.append('password', cdata.password);
@@ -341,8 +347,9 @@ function adminCampaign() {
         // data.append('twitter', cdata.twitter);
         // data.append('facebook', cdata.facebook);
         // data.append('linkedin', cdata.linkedin);
-        // data.append('url', cdata.url);
-
+        if (cdata.url) {
+            data.append('url', cdata.url);
+        }
         // data.append('address', cdata.address);
         // data.append('category_id', cdata.category_id);
 

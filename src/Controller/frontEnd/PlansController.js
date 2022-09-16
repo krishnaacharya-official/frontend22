@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
 import Plans from "../../View/frontEnd/plans";
 import planApi from "../../Api/admin/plan";
+import Page from '../../components/Page';
 
 export default function PlansController() {
     const [loading, setLoading] = useState(false)
@@ -85,11 +86,13 @@ export default function PlansController() {
     return (
         <>
             <FrontLoader loading={loading} />
-            <Plans
-                basicData={basicData}
-                proData={proData}
-                enterpriseData={enterpriseData}
-            />
+            <Page title="Donorport | Plan">
+                <Plans
+                    basicData={basicData}
+                    proData={proData}
+                    enterpriseData={enterpriseData}
+                />
+            </Page>
 
         </>
     )

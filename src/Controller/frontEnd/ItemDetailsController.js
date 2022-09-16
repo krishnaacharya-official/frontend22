@@ -13,6 +13,8 @@ import cartApi from "../../Api/frontEnd/cart";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 import { setCurrency, setUserLanguage, setCurrencyPrice, setIsUpdateCart, setProfileImage, setUserCountry, setUserAddress, setUserState, setSalesTax } from "../../user/user.action"
 import followApi from "../../Api/frontEnd/follow";
+import Page from '../../components/Page';
+
 
 export default function ItemDetailsController() {
 
@@ -60,6 +62,9 @@ export default function ItemDetailsController() {
 
                 })
                 setCategoryProducts(tempArray)
+            }else{
+                setCategoryProducts([])
+
             }
 
         }
@@ -276,20 +281,22 @@ export default function ItemDetailsController() {
     return (
         <>
             {/* {console.log(wishListproductIds)} */}
-                {/*<FrontLoader loading={loading} />*/}
-            <ItemDetail
-                productDetails={productDetails}
-                categoryProducts={categoryProducts}
-                checkItemInCart={checkItemInCart}
-                addToCart={addToCart}
-                removeCartItem={removeCartItem}
-                productList={productList}
-                purchasedItemList={purchasedItemList}
-                addProductToWishlist={addProductToWishlist}
-                wishListproductIds={wishListproductIds}
-                followToProduct={followToProduct}
-                isFollow={isFollow}
-            />
+            {/*<FrontLoader loading={loading} />*/}
+            <Page title={"Donorport | " + productDetails?.headline}>
+                <ItemDetail
+                    productDetails={productDetails}
+                    categoryProducts={categoryProducts}
+                    checkItemInCart={checkItemInCart}
+                    addToCart={addToCart}
+                    removeCartItem={removeCartItem}
+                    productList={productList}
+                    purchasedItemList={purchasedItemList}
+                    addProductToWishlist={addProductToWishlist}
+                    wishListproductIds={wishListproductIds}
+                    followToProduct={followToProduct}
+                    isFollow={isFollow}
+                />
+            </Page>
         </>
     )
 

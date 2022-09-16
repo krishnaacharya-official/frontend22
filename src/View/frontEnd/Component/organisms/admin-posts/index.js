@@ -151,6 +151,7 @@ const AdminPosts = (props) => {
 
 
   const [fulfilState, setFulfilState] = useState({
+    fulfilId: "",
     fulfilMoreImg: [],
     videoUrl: '',
     receiptFile: '',
@@ -161,7 +162,7 @@ const AdminPosts = (props) => {
   const [tempImgName, setTempImgName] = useState('')
 
   const {
-    fulfilMoreImg, videoUrl, receiptFile, fulfilPolicy, fulfilError
+    fulfilId, fulfilMoreImg, videoUrl, receiptFile, fulfilPolicy, fulfilError
   } = fulfilState
 
 
@@ -784,7 +785,7 @@ const AdminPosts = (props) => {
       formData.status = s
 
       formData.brand = brand
-      formData.needheadline = needheadline
+      formData.needheadline = needheadline.trim()
       if (galleryUrl && galleryUrl !== '') {
         formData.galleryUrl = galleryUrl
 
@@ -1170,6 +1171,7 @@ const AdminPosts = (props) => {
 
     setFulfilState({
       ...fulfilState,
+      fulfilId: "",
       fulfilMoreImg: [],
       videoUrl: '',
       receiptFile: '',
@@ -1223,18 +1225,30 @@ const AdminPosts = (props) => {
 
   const fulfilOrder = async () => {
     let formaerrror = {}
-    if (fulfilMoreImg.length > helper.MAX_IMAGE_LENGTH) {
-      formaerrror['fulfilMoreImg'] = "Image length Must be less then " + helper.MAX_IMAGE_LENGTH
+    let rules = {}
 
+    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH
+
+    let checkMore = fulfilId ? (fulfilmoreImages?.length + fulfilMoreImg?.length) : (fulfilMoreImg?.length)
+    if (checkMore > MAX_IMAGE_LENGTH) {
+      formaerrror['fulfilMoreImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
     }
+
+    // if (fulfilMoreImg.length > helper.MAX_IMAGE_LENGTH) {
+    //   formaerrror['fulfilMoreImg'] = "Image length Must be less then " + helper.MAX_IMAGE_LENGTH
+
+    // }
     // console.log(fulfilMoreImg)
     if (!fulfilPolicy) {
       formaerrror['fulfilPolicy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
 
     }
-    const rules = {
-      receiptFile: 'required',
+    if (!fulfilId) {
+      rules.receiptFile = 'required'
     }
+    //  rules = {
+    //   receiptFile: 'required',
+    // }
 
     const message = {
       'receiptFile.required': 'Receipt is Required',
@@ -1254,7 +1268,9 @@ const AdminPosts = (props) => {
         if (fulfilMoreImg?.length > 0) {
           formData.moreImg = fulfilMoreImg
         }
-        formData.image = receiptFile
+        if (receiptFile) {
+          formData.image = receiptFile
+        }
         formData.organizationId = data._id
         formData.productId = fulfilProductDetails._id
         formData.organizationCountryId = data.country_id
@@ -1264,7 +1280,13 @@ const AdminPosts = (props) => {
           formData.video = videoUrl
         }
 
-        const fulfil = await productApi.fulfilOrder(token, formData)
+        let fulfil;
+        if (fulfilId) {
+          fulfil = await productApi.updateFulfilOrder(token, formData, fulfilId)
+        } else {
+          fulfil = await productApi.fulfilOrder(token, formData)
+        }
+
         if (fulfil && fulfil.data.success) {
           closeFulfilForm()
           setUpdate(!update)
@@ -1302,16 +1324,18 @@ const AdminPosts = (props) => {
   }
 
   const showFulfillOrder = async (data) => {
+    // console.log(data)
     setFulfilProductDetails(data)
     createPost(true)
     setFulfil(true)
 
     setFulfilState({
       ...fulfilState,
+      fulfilId: data.fulfilDetails?._id,
       // fulfilMoreImg: [],
       videoUrl: data.fulfilDetails.video,
       receiptFile: '',
-      fulfilPolicy: false,
+      fulfilPolicy: data?.isFulfiled,
       fulfilError: []
     })
     let tempMImgArray = []
@@ -1691,6 +1715,29 @@ const AdminPosts = (props) => {
                       </>
                       :
                       <>
+                        <label htmlFor="videoInput" className="form__label py-3">
+                          Update Receipt
+                          &nbsp;
+                          <span className="post-type-text" style={{ color: '#dd4646' }}>(required)</span>
+                        </label>
+
+                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
+                          <input className="file-upload-input" type='file'
+                            // name="identityDocumentImage" 
+                            // onChange={props.changevalue}
+                            name='receiptFile' id='receiptFile'
+                            onChange={(e) => { changefile(e) }}
+                            style={fileuploadinput} title=" " />
+                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
+                            <h3 style={{ fontSize: "inherit" }}>
+                              {tempImgName && tempImgName !== "" ? tempImgName :
+                                fulfilError.receiptFile ? "Please Select File" :
+                                  "Drag and drop or select File"}</h3>
+                          </div>
+                        </div>
+                        {fulfilError && fulfilError.receiptFile && <p className='error'>{fulfilError ? fulfilError.receiptFile ? fulfilError.receiptFile : "" : ""}</p>}
+
+
                         <Card.Header className="post__accordion-header pb-3 mt-3">
 
                           <span className="fs-3 fw-bolder text-dark">Sales Receipt</span>
@@ -1821,7 +1868,7 @@ const AdminPosts = (props) => {
 
                       <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
                         {
-                          !fulfilProductDetails?.isFulfiled &&
+                          // !fulfilProductDetails?.isFulfiled &&
 
                           // <div className="upload-wrap" style={{ width: "100%" }}>
                           //   <FontAwesomeIcon
@@ -1906,7 +1953,7 @@ const AdminPosts = (props) => {
             </Card>
 
             {
-              !fulfilProductDetails?.isFulfiled &&
+              // !fulfilProductDetails?.isFulfiled &&
               <>
                 <div className="fulfilling-check-wrap">
                   <div className="form-check">
@@ -1944,13 +1991,17 @@ const AdminPosts = (props) => {
                 {fulfilError && fulfilError.fulfilPolicy && <p className='error'>{fulfilError ? fulfilError.fulfilPolicy ? fulfilError.fulfilPolicy : "" : ""}</p>}
 
                 <div className="products-detial-footer py-5">
-                  <Button variant="danger" size="lg" className="fw-bold fs-6" onClick={() => {
-                    closeFulfilForm()
-                  }}>Disregard</Button>
+                  {
+                    !fulfilProductDetails?.isFulfiled &&
+
+                    <Button variant="danger" size="lg" className="fw-bold fs-6" onClick={() => {
+                      closeFulfilForm()
+                    }}>Disregard</Button>
+                  }
                   <Button variant="success" size="lg" className="fw-bold fs-6"
                     onClick={() => fulfilOrder()}
                   >
-                    Fulfil Order</Button>
+                    {fulfilProductDetails?.isFulfiled ? 'Update' : 'Fulfil Order'}</Button>
                 </div>
               </>
             }

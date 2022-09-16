@@ -7,6 +7,7 @@ import authApi from "../../Api/admin/auth";
 import ToastAlert from "../../Common/ToastAlert";
 // import { UserContext } from '../../App';
 import settingApi from "../../Api/admin/setting";
+import Page from '../../components/Page';
 
 
 export default function CartController() {
@@ -143,16 +144,18 @@ export default function CartController() {
     }
     return (
         <>
-               {/*<FrontLoader loading={loading} />*/}
-            <Cart
-                cartItem={cartItem}
-                removeCartItem={removeCartItem}
-                clearCart={clearCart}
-                updateCartItem={updateCartItem}
-                checkout={checkout}
-                pricingFees={pricingFees}
+            {/*<FrontLoader loading={loading} />*/}
+            <Page title="Donorport | Cart">
+                <Cart
+                    cartItem={cartItem}
+                    removeCartItem={removeCartItem}
+                    clearCart={clearCart}
+                    updateCartItem={updateCartItem}
+                    checkout={checkout}
+                    pricingFees={pricingFees}
 
-            />
+                />
+            </Page>
         </>
     )
 

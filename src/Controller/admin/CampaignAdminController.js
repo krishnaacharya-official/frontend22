@@ -52,13 +52,14 @@ function CampaignAdminController() {
         promoVideo: "",
         status: 1,
         account: "",
-        amount: ""
+        amount: "",
+        ein: ""
 
 
     })
 
     const {
-        name, error, email, promoVideo, slug, password, id, status, headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo, amount
+        name, error, email, promoVideo, slug, password, id, status, headline, category, address, stateid, city, country, url, linkedin, facebook, twitter, description, logo, amount, ein
     } = state;
 
     const [countryList, setCountryList] = useState([])
@@ -93,6 +94,7 @@ function CampaignAdminController() {
             slug: "",
             headline: "",
             promoVideo: "",
+            ein: "",
             status: 1
         })
     }
@@ -224,6 +226,8 @@ function CampaignAdminController() {
             data.slug = slug
             data.headline = headline
             data.promoVideo = promoVideo
+            data.ein = ein
+
 
 
 
@@ -348,6 +352,7 @@ function CampaignAdminController() {
                 slug: data.slug,
                 headline: data.headline,
                 promoVideo: data.promoVideo,
+                ein: data.ein,
                 error: [],
             })
             setLoading(false)
@@ -432,6 +437,8 @@ function CampaignAdminController() {
             // data.status = status
             data.headline = headline
             data.promoVideo = promoVideo
+            data.ein = ein
+
 
 
 
@@ -663,7 +670,7 @@ function CampaignAdminController() {
 
     return (
         <>
-                 {/*<FrontLoader loading={loading} />*/}
+            {/*<FrontLoader loading={loading} />*/}
             <CampaignAdminForm
                 modal={modal}
                 setModal={setModal}

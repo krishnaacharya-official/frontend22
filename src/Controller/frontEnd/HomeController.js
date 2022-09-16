@@ -16,6 +16,7 @@ import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 import { useNavigate } from "react-router-dom";
 import { getDistance } from 'geolib';
+import Page from '../../components/Page';
 
 
 export default function HomeController() {
@@ -1236,43 +1237,45 @@ export default function HomeController() {
             {/* {console.log(user)} */}
 
             {/* <FrontLoader loading={loading} /> */}
-            <Index
-                productList={productList}
-                addToCart={addToCart}
-                removeCartItem={removeCartItem}
-                checkItemInCart={checkItemInCart}
-                pricingFees={pricingFees}
-                organizationList={organizationList}
-                categoryList={categoryList}
-                onSelectCategory={onSelectCategory}
-                seletedCategoryList={seletedCategoryList}
-                removeCatFromFilter={removeCatFromFilter}
-                filterProduct={filterProduct}
-                setfilters={setfilters}
-                filters={filters}
-                onClickFilter={onClickFilter}
-                selectedKey={selectedKey}
-                setSelectedKey={setSelectedKey}
-                onChangeFilterOption={onChangeFilterOption}
-                onChangePriceSlider={onChangePriceSlider}
-                onSearchProduct={onSearchProduct}
-                advertisementList={advertisementList}
-                module='HOME'
-                addProductToWishlist={addProductToWishlist}
-                wishListproductIds={wishListproductIds}
-                price={price}
-                onChangeDonatePrice={onChangeDonatePrice}
-                cartProductList={cartProductList}
-                onClickAddToCart={onClickAddToCart}
-                cartProductIds={cartProductIds}
-                searchTag={searchTag}
-                deSelectTag={deSelectTag}
-                suggestionTag={suggestionTag}
-                prodctFilterData={prodctFilterData}
+            <Page title="Donorport | Home">
+                <Index
+                    productList={productList}
+                    addToCart={addToCart}
+                    removeCartItem={removeCartItem}
+                    checkItemInCart={checkItemInCart}
+                    pricingFees={pricingFees}
+                    organizationList={organizationList}
+                    categoryList={categoryList}
+                    onSelectCategory={onSelectCategory}
+                    seletedCategoryList={seletedCategoryList}
+                    removeCatFromFilter={removeCatFromFilter}
+                    filterProduct={filterProduct}
+                    setfilters={setfilters}
+                    filters={filters}
+                    onClickFilter={onClickFilter}
+                    selectedKey={selectedKey}
+                    setSelectedKey={setSelectedKey}
+                    onChangeFilterOption={onChangeFilterOption}
+                    onChangePriceSlider={onChangePriceSlider}
+                    onSearchProduct={onSearchProduct}
+                    advertisementList={advertisementList}
+                    module='HOME'
+                    addProductToWishlist={addProductToWishlist}
+                    wishListproductIds={wishListproductIds}
+                    price={price}
+                    onChangeDonatePrice={onChangeDonatePrice}
+                    cartProductList={cartProductList}
+                    onClickAddToCart={onClickAddToCart}
+                    cartProductIds={cartProductIds}
+                    searchTag={searchTag}
+                    deSelectTag={deSelectTag}
+                    suggestionTag={suggestionTag}
+                    prodctFilterData={prodctFilterData}
 
 
 
-            />
+                />
+            </Page>
         </>
     )
 

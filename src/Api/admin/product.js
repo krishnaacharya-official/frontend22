@@ -355,6 +355,45 @@ function product() {
         return res;
 
     }
+    const updateFulfilOrder = async (authToken, cdata, id) => {
+
+        const data = new FormData();
+        if (cdata.moreImg && cdata.moreImg.length > 0) {
+            for (let i = 0; i < cdata.moreImg.length; i++) {
+                data.append('moreImg', cdata.moreImg[i]);
+            }
+        }
+        if (cdata.image) {
+            data.append('image', cdata.image);
+        }
+        data.append('organizationId', cdata.organizationId);
+        data.append('productId', cdata.productId);
+        if (cdata.video) {
+            data.append('video', cdata.video);
+        }
+        data.append('organizationCountryId', cdata.organizationCountryId);
+
+        let res = {};
+        await axios({
+            method: 'put',
+            url: `${helper.ApiUrl}product/fulfil/` + id,
+            responseType: 'json',
+            headers: {
+                "x-access-token": authToken,
+                "Access-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Credentials': 'true',
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                withCredentials: true,
+                mode: 'no-cors',
+            },
+            data: data
+
+        }).then((response) => {
+            res = response
+        });
+        return res;
+
+    }
 
 
     return {
@@ -366,7 +405,8 @@ function product() {
         publishProduct,
         productDetailsById,
         deleteProductImages,
-        fulfilOrder
+        fulfilOrder,
+        updateFulfilOrder
 
 
 

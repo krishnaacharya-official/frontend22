@@ -13,7 +13,7 @@ import IconButton from "../../molecules/icon-button";
 import ShareWidget from "../share-widget";
 import OrganisationWidget from "../organisation-widget";
 import moment from "moment";
-import helper from "../../../../../Common/Helper";
+import helper, { isIframe } from "../../../../../Common/Helper";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 
@@ -41,11 +41,12 @@ function OrganisationDetailMain(props) {
         </div>
 
         <div className="project__detail-meta d-flex align-items-center mb-2">
-          <div className="d-flex align-items-center">
+          {/* <div className="d-flex align-items-center">
             <FontAwesomeIcon icon={regular("clock")} className="me-1" />
-            {/* December 27, 2018 */}
+       
             {moment(organizationDetails?.created_at).format('MMMM DD , Y')}
-          </div>
+          </div> */}
+      
           <div className="d-flex align-items-center ms-2">
             <FontAwesomeIcon
               icon={regular("circle-location-arrow")}
@@ -53,13 +54,20 @@ function OrganisationDetailMain(props) {
             />
             {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
           </div>
+
+
+          <div className="d-flex align-items-center ms-2">
+            <FontAwesomeIcon icon={regular("link")} className="me-1" />
+    
+            <a href={organizationDetails?.url} className='text-light'  rel="noreferrer" target="_blank">{organizationDetails?.url}</a>
+          </div>
           <div className="text-light d-flex align-items-center ms-2">
             <IconToggle
               icon={<FontAwesomeIcon icon={regular("bell")} />}
               checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
               ischecked={props.isFollow}
               name='organization'
-              onClickFilter={(e)=>props.followToOrganization(e)}
+              onClickFilter={(e) => props.followToOrganization(e)}
             />
 
             <ShareWidget />
@@ -71,7 +79,7 @@ function OrganisationDetailMain(props) {
             size="lg"
             variant="link"
             className="btn__category text-decoration-none"
-            onClick={()=> navigate('/categories/'+organizationDetails?.categoryDetails?.slug)}
+            onClick={() => navigate('/categories/' + organizationDetails?.categoryDetails?.slug)}
           >
             <RoundedIcon
               bgColor={organizationDetails?.categoryDetails?.color}
@@ -79,8 +87,8 @@ function OrganisationDetailMain(props) {
               className="mr-6p"
               style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal" }}
               // icon={<i style={{ fontStyle: "normal" }} className={organizationDetails?.categoryDetails?.iconDetails?.class}></i>}
-              icon={    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 100 563 512">
-              <path fill='white' d={organizationDetails?.categoryDetails?.icon}></path> </svg>}
+              icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 100 563 512">
+                <path fill='white' d={organizationDetails?.categoryDetails?.icon}></path> </svg>}
 
             />
             <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{organizationDetails?.categoryDetails?.name}</span>
@@ -107,6 +115,13 @@ function OrganisationDetailMain(props) {
             <span className="fs-6" style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
           </Button>*/}
         </div>
+        {organizationDetails.promoVideo
+          && isIframe(organizationDetails.promoVideo
+          ) &&
+          <div className="project-video-wrap mb-4 mt-4" dangerouslySetInnerHTML={{ __html: organizationDetails.promoVideo }} >
+
+          </div>
+        }
 
         <h4 className="page__blurb">{organizationDetails?.headline}</h4>
         <div className="page__paragraph">
@@ -118,7 +133,7 @@ function OrganisationDetailMain(props) {
             className="text-light text-decoration-none fw-normal px-0 fs-6"
             icon={<FontAwesomeIcon icon={solid("building")} />}
           >
-          {organizationDetails?.type}  EIN {organizationDetails?.ein}
+            {organizationDetails?.type}  EIN {organizationDetails?.ein}
           </IconButton>
         </div>
       </div>

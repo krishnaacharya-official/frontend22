@@ -16,6 +16,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { arrayUnique, getCalculatedPrice } from "../../Common/Helper";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 import { getDistance } from 'geolib';
+import Page from '../../components/Page';
 
 
 export default function CategoryProductsController() {
@@ -297,7 +298,7 @@ export default function CategoryProductsController() {
                     let min = Math.min(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
                     let max = Math.max(...getproductList.data.data.map(item => item?.displayPrice ? item?.displayPrice : item.price));
 
-               
+
 
                     setprodctFilterData({
                         ...prodctFilterData,
@@ -875,44 +876,46 @@ export default function CategoryProductsController() {
         <>
 
             {/*<FrontLoader loading={loading} />*/}
-            <Index
-                productList={productList}
-                addToCart={addToCart}
-                removeCartItem={removeCartItem}
-                checkItemInCart={checkItemInCart}
-                pricingFees={pricingFees}
-                organizationList={organizationList}
-                categoryList={categoryList}
-                seletedCategoryList={seletedCategoryList}
-                setfilters={setfilters}
-                filters={filters}
-                onClickFilter={onClickFilter}
-                selectedKey={selectedKey}
-                setSelectedKey={setSelectedKey}
-                onChangeFilterOption={onChangeFilterOption}
-                onChangePriceSlider={onChangePriceSlider}
-                onSearchProduct={onSearchProduct}
-                advertisementList={categoryadvertisementList}
-                module='CATEGORY'
-                categoryDetails={categoryDetails}
-                addProductToWishlist={addProductToWishlist}
-                wishListproductIds={wishListproductIds}
-                price={price}
-                onChangeDonatePrice={onChangeDonatePrice}
-                cartProductList={cartProductList}
-                onClickAddToCart={onClickAddToCart}
-                cartProductIds={cartProductIds}
+            <Page title={"Donorport | " + categoryDetails?.name}>
+                <Index
+                    productList={productList}
+                    addToCart={addToCart}
+                    removeCartItem={removeCartItem}
+                    checkItemInCart={checkItemInCart}
+                    pricingFees={pricingFees}
+                    organizationList={organizationList}
+                    categoryList={categoryList}
+                    seletedCategoryList={seletedCategoryList}
+                    setfilters={setfilters}
+                    filters={filters}
+                    onClickFilter={onClickFilter}
+                    selectedKey={selectedKey}
+                    setSelectedKey={setSelectedKey}
+                    onChangeFilterOption={onChangeFilterOption}
+                    onChangePriceSlider={onChangePriceSlider}
+                    onSearchProduct={onSearchProduct}
+                    advertisementList={categoryadvertisementList}
+                    module='CATEGORY'
+                    categoryDetails={categoryDetails}
+                    addProductToWishlist={addProductToWishlist}
+                    wishListproductIds={wishListproductIds}
+                    price={price}
+                    onChangeDonatePrice={onChangeDonatePrice}
+                    cartProductList={cartProductList}
+                    onClickAddToCart={onClickAddToCart}
+                    cartProductIds={cartProductIds}
 
-                searchTag={searchTag}
-                deSelectTag={deSelectTag}
-                suggestionTag={suggestionTag}
-                prodctFilterData={prodctFilterData}
-
-
-
+                    searchTag={searchTag}
+                    deSelectTag={deSelectTag}
+                    suggestionTag={suggestionTag}
+                    prodctFilterData={prodctFilterData}
 
 
-            />
+
+
+
+                />
+            </Page>
         </>
     )
 

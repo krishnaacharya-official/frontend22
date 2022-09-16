@@ -9,6 +9,7 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import ForgotPassword from "../../View/frontEnd/forgot-password";
 import ResetPassword from "../../View/frontEnd/reset-password";
 import CryptoJS from 'crypto-js';
+import Page from '../../components/Page';
 
 
 
@@ -133,13 +134,13 @@ export default function ResetPasswordController() {
     return (
         <>
             <FrontLoader loading={loading} />
-
-            <ResetPassword
-                stateData={state}
-                changevalue={changevalue}
-                reset={reset}
-            />
-
+            <Page title="Donorport | Reset Password" >
+                <ResetPassword
+                    stateData={state}
+                    changevalue={changevalue}
+                    reset={reset}
+                />
+            </Page>
         </>
     )
 }

@@ -13,6 +13,7 @@ import helper, { getCalculatedPrice, priceFormat } from "../../Common/Helper";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserXp, setUserRank } from "../../user/user.action"
 import userApi from "../../Api/frontEnd/user";
+import Page from '../../components/Page';
 
 
 export default function CheckoutController() {
@@ -419,24 +420,26 @@ export default function CheckoutController() {
         <>
             {/* {console.log(cartItem)} */}
             {/*<FrontLoader loading={loading} />*/}
-            <Checkout
-                cartItem={cartItem}
-                total={total}
-                stateData={state}
-                pay={pay}
-                changevalue={changevalue}
-                removeCartItem={removeCartItem}
-                CalculatedPrice={CalculatedPrice}
-                currencySymbol={currencySymbol}
-                xp={xp}
-                salesTax={salesTax}
-                subtotal={subtotal}
-                salesTaxPer={user.salesTax}
-                transectionFee={user.transectionFee}
-                stripeTax={stripeTax}
-            // pricingFees={pricingFees}
+            <Page title="Donorport | Checkout ">
+                <Checkout
+                    cartItem={cartItem}
+                    total={total}
+                    stateData={state}
+                    pay={pay}
+                    changevalue={changevalue}
+                    removeCartItem={removeCartItem}
+                    CalculatedPrice={CalculatedPrice}
+                    currencySymbol={currencySymbol}
+                    xp={xp}
+                    salesTax={salesTax}
+                    subtotal={subtotal}
+                    salesTaxPer={user.salesTax}
+                    transectionFee={user.transectionFee}
+                    stripeTax={stripeTax}
+                // pricingFees={pricingFees}
 
-            />
+                />
+            </Page>
         </>
     )
 

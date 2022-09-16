@@ -38,7 +38,7 @@ function History(props) {
           </div>
           <div className="action__info">
             <div className="log__title">
-              <div>{donationList?.length ?donationList?.length : 0 + list?.length ? list?.length : 0 } Recent Donations</div>
+              <div>{donationList?.length ? donationList?.length : 0 + list?.length ? list?.length : 0} Recent Donations</div>
               <div className="billing__type">48 hours</div>
             </div>
           </div>
@@ -47,11 +47,26 @@ function History(props) {
 
           {
             donationList?.length > 0 &&
-            donationList.map((item, i) => {
-              return (
-                <HistoryItem categoryName="Fish" type="donation" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.userDetails?._id : false} />
-              )
-            })
+            donationList
+              .sort(function (a, b) {
+                let keyA = userAuthToken ? userData.id : new Date(a.updated_at)
+                let keyB = userAuthToken ? a?.userDetails?._id : new Date(b.updated_at);
+                // Compare the 2 dates
+                if (!userAuthToken) {
+                  if (keyA < keyB) return -1;
+                  if (keyA > keyB) return 1;
+                } else {
+                  if (keyA === keyB) return -1;
+                  if (keyA !== keyB) return 1;
+                }
+
+                return 0;
+              })
+              .map((item, i) => {
+                return (
+                  <HistoryItem categoryName="Fish" type="donation" categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item} active={userAuthToken ? userData.id === item?.userDetails?._id : false} />
+                )
+              })
 
           }
           {
@@ -76,7 +91,7 @@ function History(props) {
           <div className="more__log">
             <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
           </div>
-        } */} 
+        } */}
       </div>
     </>
   );

@@ -13,6 +13,7 @@ import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
 import defaultAvatar from "../../assets/images/avatar_default.png"
 import adminCampaignApi from "../../Api/admin/adminCampaign";
+import Page from '../../components/Page';
 
 
 
@@ -53,7 +54,7 @@ function SigninController() {
 
         const check = await adminCampaignApi.chekOrganizationAccount(token)
         if (check) {
-        
+
             dispatch(setIsAccountAdd(check.data.success))
         }
 
@@ -318,16 +319,17 @@ function SigninController() {
                 setShowPassword={setShowPassword}
 
             /> */}
-            <Login
-                signIn={signIn}
-                changevalue={changevalue}
-                stateData={state}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
+            <Page title="Donorport | Sign in">
+                <Login
+                    signIn={signIn}
+                    changevalue={changevalue}
+                    stateData={state}
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
 
-            />
-            <FrontLoader loading={loading} />
-
+                />
+                <FrontLoader loading={loading} />
+            </Page>
         </>
     )
 }

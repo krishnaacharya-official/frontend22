@@ -132,9 +132,9 @@ export default function ApplyOrganizationController() {
     const changevalue = (e) => {
         let value = e.target.value;
 
-        if (e.target.name === 'ein') {
-            value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-        }
+        // if (e.target.name === 'ein') {
+        //     value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        // }
         setstate({
             ...state,
             [e.target.name]: value

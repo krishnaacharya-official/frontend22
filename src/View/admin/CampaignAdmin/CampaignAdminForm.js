@@ -9,7 +9,7 @@ export default function CampaignAdminForm(props) {
 
     let url = stateData.promoVideo;
     let id = url?.split("?v=")[1];
-    let embedlink =url? "http://www.youtube.com/embed/" + id:"";
+    let embedlink = url ? "http://www.youtube.com/embed/" + id : "";
 
     // console.log(stateData)
     return (
@@ -47,6 +47,14 @@ export default function CampaignAdminForm(props) {
                             <input type="text" className="form-control " name='name' id="name" value={stateData.name} onChange={(e) => { props.changevalue(e) }} />
 
                             {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">ein</label>
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control " name='ein' id="ein" value={stateData.ein} onChange={(e) => { props.changevalue(e) }} />
+
+                            {stateData.error && stateData.error.ein && <p className="error">{stateData.error ? stateData.error.ein ? stateData.error.ein : "" : ""}</p>}
                         </div>
                     </div>
 
@@ -157,7 +165,7 @@ export default function CampaignAdminForm(props) {
                             <select className="form-control" onChange={(e) => { props.changevalue(e) }} id="category" name="category">
                                 <option selected disabled value=" ">Select Category</option>
                                 {props.categoryList.length > 0 &&
-                                    props.categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'})).map((cat, i) => {
+                                    props.categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })).map((cat, i) => {
 
                                         return (
                                             cat.status === 1 &&

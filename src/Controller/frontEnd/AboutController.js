@@ -2,6 +2,7 @@ import FrontLoader from "../../Common/FrontLoader";
 import React, { useState, useEffect } from "react";
 import About from "../../View/frontEnd/about";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
+import Page from '../../components/Page';
 
 export default function AboutController() {
     const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ export default function AboutController() {
         (async () => {
 
             setLoading(false)
-            const getCampaignAdminList = await adminCampaignApi.list(userAuthToken ?userAuthToken:CampaignAdminAuthToken)
+            const getCampaignAdminList = await adminCampaignApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken)
             if (getCampaignAdminList.data.success) {
                 setCampaignAdminList(getCampaignAdminList.data.data)
             }
@@ -26,11 +27,12 @@ export default function AboutController() {
 
     return (
         <>
-                 {/*<FrontLoader loading={loading} />*/}
-            <About
-                campaignAdminList={campaignAdminList}
-            />
-
+            {/*<FrontLoader loading={loading} />*/}
+            <Page title="Donorport | About Us">
+                <About
+                    campaignAdminList={campaignAdminList}
+                />
+            </Page>
         </>
     )
 

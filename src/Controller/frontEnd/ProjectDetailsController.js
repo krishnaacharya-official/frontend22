@@ -12,9 +12,10 @@ import ToastAlert from "../../Common/ToastAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { validateAll } from "indicative/validator";
 import { setUserXp, setUserRank } from "../../user/user.action"
-import helper,{GetCardTypeByNumber,getCardIcon} from "../../Common/Helper";
+import helper, { GetCardTypeByNumber, getCardIcon } from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";
 import followApi from "../../Api/frontEnd/follow";
+import Page from '../../components/Page';
 
 
 
@@ -84,7 +85,7 @@ export default function ProjectDetailsController() {
     }
 
 
-    const changevalue = async(e) => {
+    const changevalue = async (e) => {
         let value = e.target.value;
         if (e.target.name === "cardNumber") {
             let cardVal = e.target.value;
@@ -347,25 +348,27 @@ export default function ProjectDetailsController() {
     return (
         <>
             <FrontLoader loading={loading} />
-            <ProjectDetail
-                projectDetails={projectDetails}
-                projectList={projectList}
-                addToCart={addToCart}
-                checkItemInCart={checkItemInCart}
-                purchasedItemList={purchasedItemList}
-                selectedValue={selectedValue}
-                setSelectedValue={setSelectedValue}
-                stateData={state}
-                cardNumberWithSpace={cardNumberWithSpace}
-                changevalue={changevalue}
-                donate={donate}
-                donationList={donationList}
-                followToProject={followToProject}
-                isFollow={isFollow}
-                dCardIcon={dCardIcon}
+            <Page title={"Donorport | " + projectDetails?.name}>
+                <ProjectDetail
+                    projectDetails={projectDetails}
+                    projectList={projectList}
+                    addToCart={addToCart}
+                    checkItemInCart={checkItemInCart}
+                    purchasedItemList={purchasedItemList}
+                    selectedValue={selectedValue}
+                    setSelectedValue={setSelectedValue}
+                    stateData={state}
+                    cardNumberWithSpace={cardNumberWithSpace}
+                    changevalue={changevalue}
+                    donate={donate}
+                    donationList={donationList}
+                    followToProject={followToProject}
+                    isFollow={isFollow}
+                    dCardIcon={dCardIcon}
 
 
-            />
+                />
+            </Page>
 
         </>
     )
