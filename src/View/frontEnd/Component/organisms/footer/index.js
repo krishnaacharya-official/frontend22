@@ -133,7 +133,7 @@ function Footer() {
         </Row>
         <div className="footer__bottom d-sm-flex align-items-center border-top text-center text-sm-start">
           <div className="copyright mb-1 mb-sm-0">
-            <div>© 2022 Donorport, Inc.</div>
+            <div>© {new Date().getFullYear()} Donorport, Inc.</div>
           </div>
           <div className="copyright mb-1 mb-sm-0 ms-1">
             <FontAwesomeIcon icon={regular("earth-americas")} />

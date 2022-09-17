@@ -79,10 +79,15 @@ const ItemDetail = (props) => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken;
 
-  const isSold = productDetails.unlimited
-    ? productDetails.isFulfiled
-    : productDetails.quantity <= productDetails.soldout;
+  // const isSold = productDetails.unlimited
+  //   ? productDetails.isFulfiled
+  //   : productDetails.quantity <= productDetails.soldout;
 
+
+  let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
+  let isFulfiled = productDetails.isFulfiled
+
+  const isSold = isFinish || isFulfiled ? true : false
   return (
     <>
       <HeaderController />
@@ -108,7 +113,7 @@ const ItemDetail = (props) => {
               isFollow={props.isFollow}
             />
           </Col>
-          
+
           <Col md="5">
             <div className="d-none d-sm-flex project__detail-img mb-3">
               <img
@@ -144,7 +149,7 @@ const ItemDetail = (props) => {
                 })}
             </div>
 
-      
+
 
             <History list={props.purchasedItemList} />
           </Col>
@@ -156,42 +161,42 @@ const ItemDetail = (props) => {
           productDetails?.projectDetails.length > 0 &&
           productDetails?.projectDetails.map((project, i) => {
             return (
-                <div>
-                  <Row className="py-5 border-top">
-                    <Col md="6" className="mb-4 mb-0">
+              <div>
+                <Row className="py-5 border-top">
+                  <Col md="6" className="mb-4 mb-0">
                     <TagTitle>Projects</TagTitle>
 
-                      <div>
+                    <div>
                       <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
 
-                        <div className="gallery__container m-2">
-                          {project.projectDetails?.projectImages &&
-                            project.projectDetails?.projectImages.length > 0 &&
-                            project.projectDetails?.projectImages.map((img, i) => {
-                              // if (img.type === 'moreImage') {
+                      <div className="gallery__container m-2">
+                        {project.projectDetails?.projectImages &&
+                          project.projectDetails?.projectImages.length > 0 &&
+                          project.projectDetails?.projectImages.map((img, i) => {
+                            // if (img.type === 'moreImage') {
 
-                              return (
-                                <GalleryImg
-                                  key={i}
-                                  thumbImgSrc={helper.ProjectImagePath + img.image}
-                                  bigImgSrc={helper.ProjectImagePath + img.image}
-                                />
-                              );
-                              // }
-                            })}
-                        </div>
-
-                        <Link
-                          to={'/project/' + project.projectDetails?.slug}
-                          variant="link"
-                          className=" btn btn-info text-white"
-                        >
-                          <span className="fs-6">Go to Project</span>
-                        </Link>
+                            return (
+                              <GalleryImg
+                                key={i}
+                                thumbImgSrc={helper.ProjectImagePath + img.image}
+                                bigImgSrc={helper.ProjectImagePath + img.image}
+                              />
+                            );
+                            // }
+                          })}
                       </div>
-                    </Col>
-                  </Row>
-                </div>
+
+                      <Link
+                        to={'/project/' + project.projectDetails?.slug}
+                        variant="link"
+                        className=" btn btn-info text-white"
+                      >
+                        <span className="fs-6">Go to Project</span>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
             );
           })}
 

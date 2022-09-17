@@ -57,10 +57,11 @@ const Activity = (props) => {
   // console.log(props.notificationList.find(e => e.userNotificationDetails.removed === true))
   // console.log(props.notificationList.filter(e => e.userNotificationDetails.removed === true).length)
   useEffect(() => {
-
+    console.log(props.notificationList)
     if (props.notificationList.length > 0) {
       let n_id = []
       let temprray = []
+
 
       props.notificationList.map((notification, i) => {
         let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false

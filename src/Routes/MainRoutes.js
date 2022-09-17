@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useLayoutEffect  } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Link as RouterLink } from 'react-router-dom'
 // import { Link as RouterLink } from 'react-router-dom';
 // material
@@ -103,6 +103,11 @@ export default function MainRoutes() {
     const token = tempCampaignAdminAuthToken ? tempCampaignAdminAuthToken : CampaignAdminAuthToken
 
     const location = useLocation();
+
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+      }, [location.pathname]);
 
 
 

@@ -44,7 +44,7 @@ const LeaderBoard = () => {
     useEffect(() => {
         (async () => {
             setLoading(false)
-            if(user.countryId){
+            if (user.countryId) {
                 await getList()
             }
             setLoading(false)
@@ -67,7 +67,7 @@ const LeaderBoard = () => {
 
                     <Row className="ml-5 mr-5">
                         <Col lg="6">
-                            <ul style={{padding: "0"}}>
+                            <ul style={{ padding: "0" }}>
                                 {
                                     list.length > 0 &&
                                     list.map((person, i) => {
@@ -180,11 +180,15 @@ const LeaderBoard = () => {
                                                 </div>
                                                 <div className="text text--badge">Narwhal</div>
                                             </a> */}
-                                            <span className="btn-sm ">
-                                                {getC.getUserRank(user.xp)}
+                                            {
+                                                // getC.getUserRank(user.xp) !== "" &&
 
-                                            </span>
-                                            <a href="#" className="ladder__xp ladder__xp--user w-inline-block">
+                                                <span className="btn-sm ">
+                                                    {getC.getUserRank(user.xp)}
+
+                                                </span>
+                                            }
+                                            <a href="#" className="ladder__xp ladder__xp--user w-inline-block" >
                                                 <div className="tag tag--xp tag--xp_nobg w-embed" style={{ fontSize: "15px", marginLeft: "10px" }}>{user.xp}&nbsp;XP</div>
                                             </a>
                                         </div>

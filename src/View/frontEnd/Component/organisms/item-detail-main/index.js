@@ -257,23 +257,43 @@ function ProjectDetailMain(props) {
                 This item has been fully funded.
               </span>
             </div>
+
             {
               productDetails.fulfiledproductsDetails.video && isIframe(productDetails.fulfiledproductsDetails.video) &&
+              <>
+                <div className="note note-info align-items-center mt-5">
 
-              <div className="note note-info align-items-center mt-5">
+                  <Card.Header className="post__accordion-header pb-3">
 
-                <Card.Header className="post__accordion-header pb-3">
+                    <span className="fs-3 fw-bolder text-dark">Followup</span>
 
-                  <span className="fs-3 fw-bolder text-dark">Followup</span>
-
-                </Card.Header>
+                  </Card.Header>
 
 
-                <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: productDetails.fulfiledproductsDetails.video }} >
+                  <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: productDetails.fulfiledproductsDetails.video }} >
 
+                  </div>
                 </div>
-              </div>
+
+              </>
+
             }
+
+            <div className="gallery__container m-2">
+              {productDetails?.productImages &&
+                productDetails?.productImages.length > 0 &&
+                productDetails?.productImages.map((img, i) => {
+                  if (img.type === 'fulfillImage') {
+                    return (
+                      <GalleryImg
+                        key={i}
+                        thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
+                        bigImgSrc={helper.CampaignProductFullImagePath + img.image}
+                      />
+                    );
+                  }
+                })}
+            </div>
           </>
           :
           <div className="project__calculate mt-4">
@@ -309,6 +329,9 @@ function ProjectDetailMain(props) {
             {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
             {!CampaignAdminAuthToken && btn}
           </div>
+
+
+
 
       }
 
@@ -397,7 +420,7 @@ function ProjectDetailMain(props) {
       </div>
 
 
-      <div className="gallery__container m-2">
+      {/* <div className="gallery__container m-2">
         {productDetails?.productImages &&
           productDetails?.productImages.length > 0 &&
           productDetails?.productImages.map((img, i) => {
@@ -411,7 +434,7 @@ function ProjectDetailMain(props) {
               );
             }
           })}
-      </div>
+      </div> */}
 
       <ProjectGallery className="mt-5 mb-3" tagTitle="Products" images={productDetails?.productImages} />
     </div >

@@ -24,6 +24,7 @@ import moment from 'moment';
 import helper, { getCalculatedPrice, priceFormat, isIframe } from '../../../../../Common/Helper';
 
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 function ProjectDetailMain(props) {
   let projectDetails = props.projectDetails;
@@ -97,7 +98,7 @@ function ProjectDetailMain(props) {
           let itm = Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity) * 100
           allProductPer.push(itm)
 
-        }else{
+        } else {
           allProductPer.push(0)
         }
 
@@ -190,14 +191,14 @@ function ProjectDetailMain(props) {
             <span className="fs-6 text-dark fw-bold">Shelter</span>
             </Button>*/}
 
-          <Button size="lg" variant="link" className="btn__category text-decoration-none">
+          <Link size="lg" variant="link" className="btn__category text-decoration-none" to={'/categories/' + projectDetails?.campaignDetails?.categoryDetails?.slug}>
             <span className="d-flex align-items-center icon__category">
               {/* <img
                 alt=""
                 className="img-fluid"
                 src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c38e4fd28a71363f4ac5d_Tree-Frog-Logo-Mock.png"
               /> */}
-              <img
+              {/* <img
                 alt=""
                 className="img-fluid"
                 src={
@@ -205,9 +206,18 @@ function ProjectDetailMain(props) {
                     ? helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo
                     : noImg
                 }
-              />
+              /> */}
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+                <path
+                  d={projectDetails?.campaignDetails?.categoryDetails?.icon}
+                  fill={projectDetails?.campaignDetails?.categoryDetails?.color}
+                ></path> </svg>
+
             </span>
-          </Button>
+            {projectDetails?.campaignDetails?.categoryDetails?.name}
+          </Link>
+
           <Button size="lg" variant="secondary" className=" text-decoration-none">
             <span className="fs-6">Shelter</span>
           </Button>

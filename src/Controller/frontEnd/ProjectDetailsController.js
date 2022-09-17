@@ -325,6 +325,7 @@ export default function ProjectDetailsController() {
                             navigate('/')
                         }
                     }
+                    // console.log(projdata)
                     setProjectDetails(projdata)
                     await getAllProjectList()
                     await getPurchasedItems(projdata._id)

@@ -34,7 +34,7 @@ let helper = {
     sponsorLogoResizePath: AWS_S3_BUCKET_BASE_URL + 'images/sponsor/logo/resize/',
 
     recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/',
-    websitePath: window.location.hostname === 'localhost' ?"http://localhost:3000" : 'https://www.donorport.org',
+    websitePath: window.location.hostname === 'localhost' ? "http://localhost:3000" : 'https://www.donorport.org',
     FulfilRecieptPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/fulfil/receipt/',
 
     MapBoxPrimaryKey: 'pk.eyJ1IjoibW9vZmF3c2F3IiwiYSI6ImNpem4yZGtpcDAyZTYycW83azdlZnJkbmcifQ.PbOw8hTUeOgWWGw8WEuUYg',
@@ -248,9 +248,7 @@ export function getCalculatedPrice() {
         switch (true) {
 
             case (UserXp < fish):
-                rank = <div style={{ width: "100px" }}>
-
-                </div>
+                rank = ''
                 break;
 
             case (UserXp >= fish && UserXp < beluga):
@@ -331,7 +329,7 @@ export function getCalculatedPrice() {
 
                 break;
             default:
-                rank = <></>
+                rank = " "
                 break;
 
 

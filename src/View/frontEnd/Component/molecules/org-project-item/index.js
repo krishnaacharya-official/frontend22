@@ -1,11 +1,14 @@
 import { Button } from "react-bootstrap";
 import moment from "moment"
 import { Link } from "react-router-dom"
+import helper from "../../../../../Common/Helper";
 
 import "./style.scss";
 
 function OrganisationProjectItem(props) {
   let project = props.project
+  let img = project.imageDetails.length > 0 ? helper.ProjectFullImagePath + project.imageDetails[0].image : 'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bcffaeab823417be2a23023_east_africa_crisis_appeal_disastersemergencycomittee_credit_colin-crowley_save-the-children_0.jpg'
+
   // console.log(project)
   return (
     <li className="org__project__item pt-12p pb-12p d-sm-flex align-items-center">
@@ -21,7 +24,7 @@ function OrganisationProjectItem(props) {
             className="circle__progress-img"
             style={{
               backgroundImage:
-                "url(https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bcffaeab823417be2a23023_east_africa_crisis_appeal_disastersemergencycomittee_credit_colin-crowley_save-the-children_0.jpg",
+                "url("+img+")",
             }}
           ></div>
         </div>

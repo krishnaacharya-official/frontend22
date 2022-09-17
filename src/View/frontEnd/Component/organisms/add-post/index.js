@@ -726,8 +726,8 @@ const AddPost = (props) => {
                               name='moreImg[]' id='moreImg'
                               accept=".jpg,.gif,.png"
                               multiple
-                              onChange={(e) =>  changefile(e) }
-                              style={fileuploadinput}/>
+                              onChange={(e) => changefile(e)}
+                              style={fileuploadinput} />
                             <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
 
                               <FontAwesomeIcon
@@ -954,7 +954,7 @@ const AddPost = (props) => {
 
                         <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
                           <input className="file-upload-input" type='file'
-               
+
                             name='galleryImg[]' id='galleryImg'
                             accept=".jpg,.gif,.png"
                             multiple
@@ -1096,7 +1096,11 @@ const AddPost = (props) => {
         {error && error.policy && <p className='error'>{error ? error.policy ? error.policy : "" : ""}</p>}
 
         <div className="products-detial-footer py-5">
-          <Button variant="info" size="lg" className="fw-bold fs-6">Preview</Button>
+          {
+            stateData.status === 1 &&
+
+            <Button variant="info" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(-1)}>Un-publish</Button>
+          }
           <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(1)}>Post Ad</Button>
         </div>
       </div>

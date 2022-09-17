@@ -35,9 +35,9 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
             </Link>
           </li>
           <li className="footer__link-item">
-            <a href="/leaderboard" className="footer__link">
+            <Link to="/leaderboard" className="footer__link">
               Leaderboard
-            </a>
+            </Link>
           </li>
           <li className="footer__link-item">
             <Link to="/xp" className="footer__link">
