@@ -1,4 +1,4 @@
-import React, { useState,useLayoutEffect  } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Link as RouterLink } from 'react-router-dom'
 // import { Link as RouterLink } from 'react-router-dom';
 // material
@@ -105,16 +105,16 @@ export default function MainRoutes() {
     const location = useLocation();
 
 
-    useLayoutEffect(() => {
-        window.scrollTo(0, 0);
-      }, [location.pathname]);
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [location.pathname]);
 
 
 
 
     return (
 
-        <>
+        <div id="full-content">
             {
                 token && location.pathname.startsWith('/campaign') &&
 
@@ -328,7 +328,7 @@ export default function MainRoutes() {
 
 
 
-        </>
+        </div>
 
 
 

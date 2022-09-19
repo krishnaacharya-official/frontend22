@@ -28,7 +28,7 @@ export default function AboutController() {
     return (
         <>
             {/*<FrontLoader loading={loading} />*/}
-            <Page title="Donorport | About Us">
+            <Page title="Donorport | About Us" description="The world's first and largest crowd-funding platform for non-profits & charities. Donate directly to the needs of the organization and help them fund all of ...">
                 <About
                     campaignAdminList={campaignAdminList}
                 />

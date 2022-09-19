@@ -9,12 +9,15 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
+import ScrollToTop from './components/ScrollToTop';
+
 
 // ----------------------------------------------------------------------
 
 ReactDOM.render(
   <HelmetProvider>
     <BrowserRouter>
+    <ScrollToTop />
       <App />
     </BrowserRouter>
   </HelmetProvider>,

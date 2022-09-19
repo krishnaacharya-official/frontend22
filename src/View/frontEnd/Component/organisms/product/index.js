@@ -36,7 +36,7 @@ const Product = (props) => {
   let media = props.media ? props.media : false
 
   let fullAddress = props.address?.split(',')
-  let address = props.address ? fullAddress[fullAddress?.length - 2] :""
+  let address = props.address ? fullAddress[fullAddress?.length - 2] : ""
 
 
   let progress = unlimited ? 100 : Math.round(sold / total * 100)
@@ -164,7 +164,7 @@ const Product = (props) => {
     </Button>
   );
   const btn =
-  isFinish || isFulfiled ? (
+    isFinish || isFulfiled ? (
       <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -280,7 +280,7 @@ const Product = (props) => {
           <span className="date__name">{date}</span>
         </div>
         <div className="product__meta d-flex align-items-center ms-auto">
-          {props.projectDetails?.length > 0 &&
+          {props.projectDetails?.length > 0 || props.projectProducts.length > 0 &&
             <span className="product__type icon icon__solid-900 text-dark">
               {/*  */}
               {/* <Icon icon="bi:lightning-charge-fill" /> */}

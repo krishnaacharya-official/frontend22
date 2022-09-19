@@ -13,7 +13,7 @@ import "./style.scss";
 
 function OrganisationProjectsWidget(props) {
   let projectList = props.projectList
-  console.log(projectList)
+  // console.log(projectList)
   const [loadMore, setLoadMore] = useState(false)
   return (
     <>

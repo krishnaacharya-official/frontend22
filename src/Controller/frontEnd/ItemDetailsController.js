@@ -282,7 +282,7 @@ export default function ItemDetailsController() {
         <>
             {/* {console.log(wishListproductIds)} */}
             {/*<FrontLoader loading={loading} />*/}
-            <Page title={"Donorport | " + productDetails?.headline}>
+            <Page title={"Donorport | " + productDetails?.headline} description={productDetails?.description}>
                 <ItemDetail
                     productDetails={productDetails}
                     categoryProducts={categoryProducts}

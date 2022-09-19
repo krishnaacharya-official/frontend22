@@ -153,7 +153,7 @@ function ActivityItem(props) {
 
   return (
     <li
-      style={{ background: !active ? "#f8fafd" : "#fff" }}
+      style={{ background: active ? "#f8fafd" : "#fff" }}
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
@@ -192,7 +192,7 @@ function ActivityItem(props) {
             className="text-decoration-none"
             onClick={() => props.setWatchNotification(!active, notification._id)}
           >
-            {active ? (
+            {!active ? (
               <FontAwesomeIcon icon={solid("circle")} />
             ) : (
               <FontAwesomeIcon icon={regular("circle")} />

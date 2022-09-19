@@ -1237,7 +1237,7 @@ export default function HomeController() {
             {/* {console.log(user)} */}
 
             {/* <FrontLoader loading={loading} /> */}
-            <Page title="Donorport | Home">
+            <Page title="Donorport | Home" description="Donorport is a platform that connects our users with non-profits and charities and does not have non-profit or charity status. Donations made on Donorport ...">
                 <Index
                     productList={productList}
                     addToCart={addToCart}

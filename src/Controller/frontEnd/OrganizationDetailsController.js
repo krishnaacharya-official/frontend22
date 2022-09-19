@@ -34,6 +34,8 @@ export default function OrganizationDetailsController() {
     const [projectList, setProjectList] = useState([])
     const [purchasedItemList, setPurchasedItemList] = useState([])
     const user = useSelector((state) => state.user);
+    const setting = useSelector((state) => state.setting);
+
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [selectedValue, setSelectedValue] = useState(25);
     const [donationList, setDonationList] = useState([])
@@ -144,7 +146,7 @@ export default function OrganizationDetailsController() {
         const getDonationList = await organizationApi.organizationDonatedItemHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
         if (getDonationList.data.success === true) {
             setDonationList(getDonationList.data.data)
-        }else{
+        } else {
             setDonationList([])
         }
     }
@@ -263,7 +265,7 @@ export default function OrganizationDetailsController() {
                         // if (userAuthToken) {
                         //     //    await getUserRank()
                         // }
-                        let addXp = Number(selectedValue * 10)
+                        let addXp = Number(donateToOrganization.data.xpToAdd)
                         dispatch(setUserXp(user.xp + addXp))
                         /*ToastAlert({ msg: donateToOrganization.data.message, msgType: 'success' });*/
                         setLoading(false)
@@ -347,6 +349,7 @@ export default function OrganizationDetailsController() {
             setLoading(false)
 
         })()
+        // console.log(setting?.forEachDonation)
     }, [params.name, user])
 
     useEffect(() => {
@@ -370,6 +373,20 @@ export default function OrganizationDetailsController() {
             const follow = await followApi.follow(userAuthToken, data)
             if (follow && follow.data.success) {
                 await checkUserFollow(organizationDetails._id)
+                if (e.target.checked) {
+                    // console.log('true')
+
+                    let addXp = Number(follow.data.xpToAdd)
+                    // console.log(addXp)
+
+                    dispatch(setUserXp(Number(user.xp) + addXp))
+                } else {
+                    console.log('false')
+                    let addXp = Number(follow.data.xpToAdd)
+                    console.log(addXp)
+                    dispatch(setUserXp(Number(user.xp) - addXp))
+                }
+
 
             }
         } else {
@@ -385,7 +402,7 @@ export default function OrganizationDetailsController() {
         <>
             {/* {console.log(user)} */}
             {/*<FrontLoader loading={loading} />*/}
-            <Page title={"Donorport | " + organizationDetails?.name}>
+            <Page title={"Donorport | " + organizationDetails?.name} description={organizationDetails?.description}>
                 <OrganisationDetail
                     organizationDetails={organizationDetails}
                     projectList={projectList}

@@ -10,8 +10,8 @@ import ToastAlert from "../../Common/ToastAlert";
 // import { UserContext } from '../../App';`
 import settingApi from "../../Api/admin/setting";
 import { useSelector, useDispatch } from "react-redux";
-import { setFees, setIsUpdateCart, setIsAccountAdd } from "../../user/user.action";
-import { setSettings } from "../../user/setting.action";
+import { setFees, setIsUpdateCart, setIsAccountAdd,setUserXp } from "../../user/user.action";
+import { setSettings, setXpSettings } from "../../user/setting.action";
 import wishlistApi from "../../Api/frontEnd/wishlist";
 // import {userAuth as frontEndAuthApi} from "../../Api/frontEnd/auth"
 import userAuthApi from "../../Api/frontEnd/auth";
@@ -50,6 +50,12 @@ export default function HeaderController() {
         narwhal: "",
         beluga: "",
         fish: "",
+        topDonator: "",
+        topDonation: "",
+        forEachItem: "",
+        forEachDonation: "",
+        forEachShare: "",
+        forEachOrganization: "",
 
     })
     const { platformFee, transectionFee } = pricingFees
@@ -184,6 +190,17 @@ export default function HeaderController() {
                     rankData.fish = data.fish
                     dispatch(setSettings(rankData))
 
+
+                    let xpData = {}
+                    xpData.topDonator = data.topDonator
+                    xpData.topDonation = data.topDonation
+                    xpData.forEachItem = data.forEachItem
+                    xpData.forEachDonation = data.forEachDonation
+                    xpData.forEachShare = data.forEachShare
+                    xpData.forEachOrganization = data.forEachOrganization
+                    dispatch(setXpSettings(xpData))
+
+
                     // user.setTransectionFee(data.transectionFee)
                     // user.setPlatformFee(data.platformFee)
 
@@ -214,6 +231,14 @@ export default function HeaderController() {
             const follow = await followApi.follow(userAuthToken, data)
             if (follow && follow.data.success) {
                 await getUserFollowedOrgList()
+
+                if (checked) {
+                    let addXp = Number(follow.data.xpToAdd)
+                    dispatch(setUserXp(user.xp + addXp))
+                } else {
+                    let addXp = Number(follow.data.xpToAdd)
+                    dispatch(setUserXp(user.xp - addXp))
+                }
                 // await checkUserFollow(organizationDetails._id)
 
             }

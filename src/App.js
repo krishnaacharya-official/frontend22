@@ -38,6 +38,7 @@ export default function App() {
             {/* <UserContext.Provider value={UserProviderContext}> */}
             <Provider store={store}>
                 <ToastContainer />
+                <ScrollToTop />
                 <MainRoutes />
             </Provider>
             {/* </UserContext.Provider> */}

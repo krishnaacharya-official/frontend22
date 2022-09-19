@@ -238,7 +238,8 @@ export default function ProjectDetailsController() {
                         setLoading(false)
                         ToastAlert({ msg: donateToProject.data.message, msgType: 'error' });
                     } else {
-                        let addXp = Number(selectedValue * 10)
+                        // let addXp = Number(selectedValue * 10)
+                        let addXp = Number(donateToProject.data.xpToAdd)
                         dispatch(setUserXp(user.xp + addXp))
                         // await getUserRank()
                         /*ToastAlert({ msg: donateToProject.data.message, msgType: 'success' });*/
@@ -301,6 +302,14 @@ export default function ProjectDetailsController() {
             if (follow && follow.data.success) {
                 await checkUserFollow(projectDetails._id)
 
+                if (e.target.checked) {
+                    let addXp = Number(follow.data.xpToAdd)
+                    dispatch(setUserXp(user.xp + addXp))
+                } else {
+                    let addXp = Number(follow.data.xpToAdd)
+                    dispatch(setUserXp(user.xp - addXp))
+                }
+
             }
         } else {
             ToastAlert({ msg: 'Please Login', msgType: 'error' });
@@ -349,7 +358,7 @@ export default function ProjectDetailsController() {
     return (
         <>
             <FrontLoader loading={loading} />
-            <Page title={"Donorport | " + projectDetails?.name}>
+            <Page title={"Donorport | " + projectDetails?.name} description={projectDetails?.description}>
                 <ProjectDetail
                     projectDetails={projectDetails}
                     projectList={projectList}

@@ -876,7 +876,9 @@ export default function CategoryProductsController() {
         <>
 
             {/*<FrontLoader loading={loading} />*/}
-            <Page title={"Donorport | " + categoryDetails?.name}>
+            <Page title={"Donorport | " + categoryDetails?.name} 
+            description="Donorport promises to remain a neutral platform and will never 
+            prevent a registered charity from posting and reciving funds from our donors.">
                 <Index
                     productList={productList}
                     addToCart={addToCart}

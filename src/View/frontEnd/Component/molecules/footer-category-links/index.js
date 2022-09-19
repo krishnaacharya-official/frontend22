@@ -40,7 +40,7 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
             </Link>
           </li>
           <li className="footer__link-item">
-            <Link to="/xp" className="footer__link">
+            <Link to="/xp" className="footer__link" >
               XP
             </Link>
           </li>

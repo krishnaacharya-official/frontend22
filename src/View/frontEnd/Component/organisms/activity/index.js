@@ -57,7 +57,7 @@ const Activity = (props) => {
   // console.log(props.notificationList.find(e => e.userNotificationDetails.removed === true))
   // console.log(props.notificationList.filter(e => e.userNotificationDetails.removed === true).length)
   useEffect(() => {
-    console.log(props.notificationList)
+    // console.log(props.notificationList)
     if (props.notificationList.length > 0) {
       let n_id = []
       let temprray = []
@@ -74,25 +74,25 @@ const Activity = (props) => {
       // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
 
       // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
-        if(temprray.length>0){
-      if (temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
+      if (temprray.length > 0) {
+        if (temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
 
-        setState({ ...state, allRead: true });
+          setState({ ...state, allRead: true });
+        } else {
+          setState({ ...state, allRead: false });
+        }
       } else {
-        setState({ ...state, allRead: false });
+        setState({ ...state, allRead: true });
       }
-    }else{
-      setState({ ...state, allRead: true });
-    }
       // console.log('watched',temprray.filter(e => e.userNotificationDetails?.watched).length )
       // console.log('all',temprray.length )
 
 
 
 
-    }else{
+    } else {
       setState({ ...state, allRead: true });
-      
+
     }
 
 

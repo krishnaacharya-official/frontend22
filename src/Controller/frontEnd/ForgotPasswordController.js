@@ -104,7 +104,7 @@ export default function ForgotPasswordController() {
     return (
         <>
             {/*<FrontLoader loading={loading} />*/}
-            <Page title="Donorport | Forgot Password " >
+            <Page title="Donorport | Forgot Password "description="The world's first and largest crowd-funding platform for non-profits & charities. Donate directly to the needs of the organization and help them fund all of ..." >
                 <ForgotPassword
                     changevalue={changevalue}
                     stateData={state}

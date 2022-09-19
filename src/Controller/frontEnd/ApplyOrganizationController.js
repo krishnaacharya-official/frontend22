@@ -8,6 +8,7 @@ import FrontLoader from "../../Common/FrontLoader";
 import helper, { getCookie, setCookie, deleteCookie } from "../../Common/Helper";
 import locationApi from "../../Api/frontEnd/location";
 import categoryApi from "../../Api/admin/category";
+import Page from '../../components/Page';
 
 
 export default function ApplyOrganizationController() {
@@ -36,7 +37,7 @@ export default function ApplyOrganizationController() {
     })
 
     const {
-        error, name, organization, ein, email, confirmEmail, password, cpassword, country,category
+        error, name, organization, ein, email, confirmEmail, password, cpassword, country, category
     } = state;
 
     const inputStyle = {
@@ -74,7 +75,7 @@ export default function ApplyOrganizationController() {
         const getCategoryList = await categoryApi.listCategory();
         if (getCategoryList.data.success === true) {
             if (getCategoryList.data.data.length > 0) {
-                let tempArray =[]
+                let tempArray = []
                 getCategoryList.data.data.map((category, i) => {
                     let Obj = {}
                     Obj.value = category._id
@@ -331,20 +332,21 @@ export default function ApplyOrganizationController() {
     return (
         <>
             {/*<FrontLoader loading={loading} />*/}
-            <Apply
-                stateData={state}
-                blocks={blocks}
-                activateCode={activateCode}
-                selected={selected}
-                onValueChange={onValueChange}
-                changevalue={changevalue}
-                apply={apply}
-                countryList={countryList}
-                onChangeCountry={onChangeCountry}
-                defaultCountry={defaultCountry}
-                categoryList={categoryList}
-                defaultCategory={defaultCategory}
-                onChangeCategory={onChangeCategory}
+            <Page title="Donorport | About Us" description="Apply for an account. Let us know if you want to post on Donorport. For more information about the application process click here. Charity Nonprofit">
+                <Apply
+                    stateData={state}
+                    blocks={blocks}
+                    activateCode={activateCode}
+                    selected={selected}
+                    onValueChange={onValueChange}
+                    changevalue={changevalue}
+                    apply={apply}
+                    countryList={countryList}
+                    onChangeCountry={onChangeCountry}
+                    defaultCountry={defaultCountry}
+                    categoryList={categoryList}
+                    defaultCategory={defaultCategory}
+                    onChangeCategory={onChangeCategory}
 
 
 
@@ -352,7 +354,8 @@ export default function ApplyOrganizationController() {
 
 
 
-            />
+                />
+            </Page>
         </>
     )
 }

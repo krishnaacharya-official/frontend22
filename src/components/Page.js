@@ -6,13 +6,17 @@ import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-const Page = forwardRef(({ children, title = '', ...other }, ref) => (
+const Page = forwardRef(({ children, title = '', description = '', ...other }, ref) => (
+
   <Box ref={ref} {...other}>
     <Helmet>
       <title>{title}</title>
+      <meta name="title" content={title} />
+      <meta name="description" content={description} />
     </Helmet>
     {children}
   </Box>
+
 ));
 
 Page.propTypes = {

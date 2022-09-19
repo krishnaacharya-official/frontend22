@@ -60,6 +60,30 @@ const XpTable = (props) => {
         </div>)
         break;
 
+
+      case 'FOLLOWED':
+        Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
+          <div className="position-relative">
+            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
+          </div>
+
+          <div className="d-sm-flex align-items-center flex__1 ms-2">
+            <div className="fw-bold fs-5 billing__name">{data?.organizationDetails?.name}</div>
+            <span className="text-light fw-semibold flex__1">
+              <FontAwesomeIcon
+                icon={regular("heart")}
+                className="small me-1"
+              />
+              Followed
+              {/* Bought {data.quantity} */}
+            </span>
+          </div>
+          <div className="d-flex align-items-center">
+            {/* <span className="text-success fw-bold fs-5">{data.currencySymbol}{data.amount}</span> */}
+          </div>
+        </div>)
+        break;
+
       default:
 
 

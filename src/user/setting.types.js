@@ -1,1 +1,2 @@
 export const SET_SETTING_VALUES = "SET_SETTING_VALUES";
+export const SET_XP_VALUES = "SET_XP_VALUES";

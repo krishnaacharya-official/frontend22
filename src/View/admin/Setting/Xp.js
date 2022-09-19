@@ -272,7 +272,7 @@ export default function Xp(props) {
 
 
 
-                            <label htmlFor="forEachOrganization">Have the top donation to an organization over $500</label>
+                            <label htmlFor="forEachOrganization">For each Organization / Project you follow</label>
                             <div className="form-group row">
                                 <div className="col-sm-12">
                                     <div className="input-group">

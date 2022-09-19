@@ -1,5 +1,5 @@
 import settingInitialState from "./setting.initialstate";
-import { SET_SETTING_VALUES } from "./setting.types";
+import { SET_SETTING_VALUES,SET_XP_VALUES } from "./setting.types";
 
 
 const settingReducer = (state = settingInitialState, action) => {
@@ -16,6 +16,17 @@ const settingReducer = (state = settingInitialState, action) => {
                 narwhal: action.payload.narwhal,
                 beluga: action.payload.beluga,
                 fish: action.payload.fish,
+            }
+
+        case SET_XP_VALUES:
+            return {
+                ...state,
+                topDonator: action.payload.topDonator,
+                topDonation: action.payload.topDonation,
+                forEachItem: action.payload.forEachItem,
+                forEachDonation: action.payload.forEachDonation,
+                forEachShare: action.payload.forEachShare,
+                forEachOrganization: action.payload.forEachOrganization,
             }
 
 

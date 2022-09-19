@@ -170,9 +170,10 @@ const UserItems = () => {
           />
         </div>
       ) : (
+        // const item = detail
         orderItemList.length > 0 &&
         orderItemList.map((item, i) => {
-          // console.log(item)
+          // item = detail
 
           let fullAddress = item.itemDetails?.address?.split(',')
           let address = item.itemDetails?.address ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1] : ""
@@ -180,16 +181,17 @@ const UserItems = () => {
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
           // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
 
-          let price = item.itemDetails.displayPrice ? item.itemDetails.displayPrice : item.itemDetails.price
+          let price = item?.itemDetails?.displayPrice ? item?.itemDetails?.displayPrice : item?.itemDetails?.price
 
           // let purchasedPrice = (Math.round(purchasedPriceWithTax(Number(item.productPrice), item.appliedTaxPer)))
           let purchasedPrice = item.productPrice
-          let cardType = JSON.parse(item.paymentResponse).data?.payment_method_details?.card?.brand
+          let cardType = JSON.parse(item?.paymentResponse)?.data?.payment_method_details?.card?.brand
           let lastFourDigits = JSON.parse(item.paymentResponse).data?.payment_method_details?.card?.last4
           // console.log(purchasedPrice)
 
 
           return (
+
 
             <div className={detail.show && Number(detail.key) === i ? "" : "d-none"}>
               <div className="d-flex align-items-center flex-grow-1 pb-20p border-bottom">
@@ -327,7 +329,35 @@ const UserItems = () => {
                       item.fulfilDetails.length === 0 ?
 
                         <div className="empty_state mt-5">
-                          <div className="note note-info d-flex align-items-center">
+                          {
+                            item.itemDetails.galleryUrl &&
+                            <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.itemDetails.galleryUrl }} >
+
+                            </div>
+
+
+                          }
+
+                          <div className="gallery__container m-2">
+                            {item.itemDetails?.galleryImage.length > 0 && Number(detail.key) === i &&
+
+                              item.itemDetails?.galleryImage.map((im, ky) => {
+                                if (im.type === "galleryImage") {
+
+                                  return (
+                                    <GalleryImg
+                                      key={ky}
+                                      thumbImgSrc={helper.CampaignProductFullImagePath + im.image
+                                      }
+                                      bigImgSrc={helper.CampaignProductFullImagePath + im.image
+                                      }
+                                    />
+                                  )
+                                }
+                              })}
+                          </div>
+
+                          {/* <div className="note note-info d-flex align-items-center">
                             <span className="post__badge post__badge--sold me-2 text-primary fs-3">
                               <FontAwesomeIcon icon={solid("photo-film")} />
                             </span>
@@ -335,7 +365,7 @@ const UserItems = () => {
                               Giveaway media appears here when the post has been fully
                               funded.
                             </span>
-                          </div>
+                          </div> */}
                         </div>
                         :
                         <>
@@ -348,24 +378,24 @@ const UserItems = () => {
                             </div>
 
                           }
-                          
-                            <div className="gallery__container m-2">
-                              {item.itemDetails?.fulfil.length > 0 &&
 
-                                item.itemDetails?.fulfil.map((im, ky) => {
-                                  return (
-                                    <GalleryImg
-                                      key={ky}
-                                      thumbImgSrc={helper.CampaignProductFullImagePath + im.image
-                                      }
-                                      bigImgSrc={helper.CampaignProductFullImagePath + im.image
-                                      }
-                                    />
-                                  )
-                                })}
-                            </div>
+                          <div className="gallery__container m-2">
+                            {item.itemDetails?.fulfil.length > 0 && Number(detail.key) === i &&
 
-                          
+                              item.itemDetails?.fulfil.map((im, ky) => {
+                                return (
+                                  <GalleryImg
+                                    key={ky}
+                                    thumbImgSrc={helper.CampaignProductFullImagePath + im.image
+                                    }
+                                    bigImgSrc={helper.CampaignProductFullImagePath + im.image
+                                    }
+                                  />
+                                )
+                              })}
+                          </div>
+
+
                         </>
                     }
 

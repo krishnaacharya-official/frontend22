@@ -28,7 +28,7 @@ function FollowingItem(props) {
     await removeFollowedOrganization(data?._id)
   }
 
-  let avatar = data?.CampaignAdminDetails?.logo ? helper.CampaignAdminLogoFullPath + data?.CampaignAdminDetails?.logo :  'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
+  let avatar = data?.CampaignAdminDetails?.logo ? helper.CampaignAdminLogoPath + data?.CampaignAdminDetails?.logo :  'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
 
 
 
