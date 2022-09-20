@@ -1100,7 +1100,7 @@ const AdminPosts = (props) => {
 
   const publishProduct = async (id, data) => {
     if (!data || !data.headline || !data.categoryId || !data.subcategoryId || !data.slug || !data.brand || data.tags.length === 0 || !data.
-      needheadline || !data.quantity || !data.image || !data.price === 0 || !data.description) {
+      needheadline || !data.unlimited && !data.quantity || !data.image || !data.price === 0 || !data.description) {
       ToastAlert({ msg: 'Product not Published please fill Required information', msgType: 'error' });
     } else {
       setLoading(false)

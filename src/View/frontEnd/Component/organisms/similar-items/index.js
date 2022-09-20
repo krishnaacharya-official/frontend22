@@ -13,6 +13,9 @@ function SimilarItems(props) {
   let productDetails = props.productDetails;
   let categoryProducts = props.categoryProducts;
   return (
+
+    categoryProducts.length > 0 &&
+
     <>
       <TagTitle>Similar Items</TagTitle>
       <WidgetTitle href="/family">{productDetails.categoryDetails?.name}</WidgetTitle>

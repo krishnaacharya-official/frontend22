@@ -15,6 +15,7 @@ import "./style.scss";
 function Footer() {
   const user = useSelector((state) => state.user);
   const [categoryList, setCategoryList] = useState([])
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
   const getCategoryList = async () => {
     const categoryList = await categoryApi.listCategory();
@@ -23,12 +24,13 @@ function Footer() {
     }
   }
   useEffect(() => {
-    (async() => {
-     await getCategoryList()
+    (async () => {
+      // console.log(user)
+      await getCategoryList()
     })()
 
   }, [])
-  
+
 
   return (
     <div className="footer border-top px-1">
@@ -125,7 +127,7 @@ function Footer() {
             <FooterCategoryLinks categoryName="Support" list={[]} />
           </Col>
           <Col className="footer__block text-center text-sm-start">
-            <FooterCategoryLinks categoryName="Information" list={[]}/>
+            <FooterCategoryLinks categoryName="Information" list={[]} />
           </Col>
           <Col className="footer__block text-center text-sm-start">
             <FooterCategoryLinks categoryName="Marketplace" list={categoryList} />
@@ -137,7 +139,8 @@ function Footer() {
           </div>
           <div className="copyright mb-1 mb-sm-0 ms-1">
             <FontAwesomeIcon icon={regular("earth-americas")} />
-            <span className="logo-span">{user.countryName}</span>
+            <span className="logo-span">{user.countryName ? user.countryName : userData ? userData.country
+              : ""}</span>
           </div>
           <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto">
             <li className="footer__link-item me-4">

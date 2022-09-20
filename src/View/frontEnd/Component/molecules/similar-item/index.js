@@ -40,9 +40,9 @@ function SimilarItem(props) {
 
     })()
 
-  }, [!user.isUpdateCart])
+  }, [!user.isUpdateCart,product._id])
 
-
+  let isFinish = !product.unlimited && product.soldout >= product.quantity ? true : false
 
   const cart_btn = addedToCart ? (
     <Button
@@ -73,13 +73,13 @@ function SimilarItem(props) {
   );
 
   const btn =
-  product.soldout >= product.quantity || product.isFulfiled
-    // product.soldout === product.quantity 
-    ? (
-      <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
-    ) : (
-      cart_btn
-    );
+    isFinish || product.isFulfiled && !product.unlimited
+      // product.soldout === product.quantity 
+      ? (
+        <span className="btn btn-outline-danger btn-sm btn__sold">Sold</span>
+      ) : (
+        cart_btn
+      );
   return (
     <li className="similar__item__item pt-12p pb-12p d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">

@@ -313,7 +313,7 @@ const UserItems = () => {
                       </div>
                     </div>
 
-                    <h5 className="page__blurb">{item.itemDetails?.needheadline}</h5>
+                    {/* <h5 className="page__blurb">{item.itemDetails?.needheadline}</h5> */}
                     <div className="page__paragraph mb-3">
                       {item.itemDetails?.descriptions}
                     </div>
@@ -331,10 +331,14 @@ const UserItems = () => {
                         <div className="empty_state mt-5">
                           {
                             item.itemDetails.galleryUrl &&
-                            <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.itemDetails.galleryUrl }} >
+                            <>
+                              <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.itemDetails.galleryUrl }} >
 
-                            </div>
+                              </div>
+                              <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
+                              <p className="mt-2">{item.itemDetails?.description}</p>
 
+                            </>
 
                           }
 
@@ -397,6 +401,21 @@ const UserItems = () => {
 
 
                         </>
+                    }
+
+
+                    {
+                      !item.itemDetails?.isFulfiled &&
+
+                      <div className="note note-info d-flex align-items-center">
+                        <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                          <FontAwesomeIcon icon={solid("photo-film")} />
+                        </span>
+                        <span className="fs-6 text-subtext">
+                          Giveaway media appears here when the post has been fully
+                          funded.
+                        </span>
+                      </div>
                     }
 
                   </div>

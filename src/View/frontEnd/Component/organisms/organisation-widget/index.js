@@ -20,12 +20,14 @@ import { setIsUpdateCart } from "../../../../../user/user.action"
 import { useNavigate } from "react-router-dom";
 
 function OrganisationWidget(props) {
-  const [check, setCheck] = useState(0);
+  const [check, setCheck] = useState(false);
   const [loadMore, setLoadMore] = useState(false)
   const [price, setPrice] = useState()
   const [cartProductList, setCartProductList] = useState([])
   const [cartProductIds, setCartProductIds] = useState([])
   const [availabileProducts, setAvailabileProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([])
+
 
   const [productPrice, setproductPrice] = useState({});
   const getCalc = getCalculatedPrice()
@@ -76,13 +78,14 @@ function OrganisationWidget(props) {
           let product = pr
 
           let infinite = props.tagTitle === "Project" ? product?.itemDetails?.unlimited : product?.unlimited
-    
+          let tax = props.tagTitle === "Project" ? product?.itemDetails?.tax : product?.tax
+
           let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
           let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
           let isFulfiled = props.tagTitle === "Project" ? product?.itemDetails?.isFulfiled : product?.isFulfiled
           let isFinish = !infinite && soldout >= quantity ? true : false
 
-          if (isFinish || isFulfiled) {
+          if (isFinish || isFulfiled && !infinite) {
             tempnotw.push(pr)
           } else {
             tempP.push(pr)
@@ -95,8 +98,47 @@ function OrganisationWidget(props) {
 
 
       }
+      setAllProducts(productDetails)
     })()
   }, [productDetails])
+
+
+  const onChangeTax = (e) => {
+    setCheck(e)
+    if (e) {
+      setAvailabileProducts(productDetails.filter(e => props.tagTitle === "Project" ? e.itemDetails.tax === true : e.tax === true))
+      setAllProducts(productDetails.filter(e => props.tagTitle === "Project" ? e.itemDetails.tax === true : e.tax === true))
+    } else {
+      let tempP = []
+      let tempnotw = []
+      if (productDetails.length > 0) {
+        productDetails.map((pr, i) => {
+          let product = pr
+
+          let infinite = props.tagTitle === "Project" ? product?.itemDetails?.unlimited : product?.unlimited
+          let tax = props.tagTitle === "Project" ? product?.itemDetails?.tax : product?.tax
+
+          let soldout = props.tagTitle === "Project" ? product?.itemDetails?.soldout : product?.soldout
+          let quantity = props.tagTitle === "Project" ? product?.itemDetails?.quantity : product?.quantity
+          let isFulfiled = props.tagTitle === "Project" ? product?.itemDetails?.isFulfiled : product?.isFulfiled
+          let isFinish = !infinite && soldout >= quantity ? true : false
+
+          if (isFinish || isFulfiled && !infinite) {
+            tempnotw.push(pr)
+          } else {
+            tempP.push(pr)
+          }
+
+
+        })
+      }
+
+      setAvailabileProducts(tempP)
+      setAllProducts(productDetails)
+
+    }
+
+  }
 
   // console.log(productPrice)
 
@@ -281,7 +323,7 @@ function OrganisationWidget(props) {
             <span className="fs-7 me-1">Tax Receipt?</span>
             <ToggleSwitch
               checked={check}
-              changevalue={() => setCheck(!check)}
+              changevalue={() => onChangeTax(!check)}
             />
           </div>
         </div>
@@ -300,8 +342,8 @@ function OrganisationWidget(props) {
       </div>
       <ul className="list-unstyled mb-0">
         {
-          productDetails?.length > 0 ?
-            productDetails.slice(0, loadMore ? productDetails.length : 3).map((product, i) => {
+          allProducts?.length > 0 ?
+            allProducts.slice(0, loadMore ? allProducts.length : 3).map((product, i) => {
 
               return (
                 <OrganisationItem product={product} productPrice={productPrice} setproductPrice={setproductPrice} tagTitle={props.tagTitle} key={i}
@@ -316,7 +358,7 @@ function OrganisationWidget(props) {
       </ul>
       {
         !loadMore &&
-        productDetails?.length > 3 &&
+        allProducts?.length > 3 &&
         <div className="more__log">
           <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
         </div>

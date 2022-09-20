@@ -273,6 +273,7 @@ export default function MainRoutes() {
                     <Route path="/" element={<FrontEndLayOut />} >
                         <Route path="/" element={<HomeController />} />
                         <Route path="/categories/:slug" element={<CategoryProductsController />} />
+                        <Route exact path="/apply" element={<ApplyOrganizationController />} />
                         <Route path="/about-us" element={<AboutController />} />
                         <Route path="/xp" element={<Xp />} />
                         <Route path="/leaderboard" element={<LeaderBoard />} />

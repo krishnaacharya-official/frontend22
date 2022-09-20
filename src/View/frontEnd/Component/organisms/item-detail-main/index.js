@@ -51,6 +51,7 @@ function ProjectDetailMain(props) {
     (async () => {
       if (!CampaignAdminAuthToken) {
         const checkItem = await props.checkItemInCart(productDetails._id)
+        // console.log(checkItem)
         if (checkItem === true) {
           setAddedToCard(true)
         } else {
@@ -60,7 +61,7 @@ function ProjectDetailMain(props) {
       }
 
     })()
-  }, [!user.isUpdateCart])
+  }, [!user.isUpdateCart,productDetails._id])
 
 
   const onClickFilter = async (e) => {

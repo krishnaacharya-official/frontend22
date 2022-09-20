@@ -752,17 +752,20 @@ export default function CategoryProductsController() {
 
             let cart = [];
             let cartTotal = 0;
-            let p = productList.filter(e => getCalc.getData(e.price) < value)
+            // let p = productList.filter(e => getCalc.getData(e.price) < value)
+            let p = productList.filter(e => e.displayPrice ? e.displayPrice : e.price < value)
 
 
 
             if (p.length > 0) {
                 p.map((itm, key) => {
-
-                    if (value > cartTotal + getCalc.getData(itm.price)) {
+                    let price1 = itm.displayPrice ? itm.displayPrice : itm.price
+                    // if (value > cartTotal + getCalc.getData(itm.price)) {
+                    if (value > cartTotal + price1) {
                         cart.push(itm._id)
                         setCartProductList(cart)
-                        cartTotal += getCalc.getData(itm.price)
+                        // cartTotal += getCalc.getData(itm.price)
+                        cartTotal += price1
                     }
 
                 })
@@ -770,16 +773,20 @@ export default function CategoryProductsController() {
                 if (value - cartTotal > 0) {
 
                     while (p.length > 0) {
-                        p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+                        let price2 = e.displayPrice ? e.displayPrice : e.price
+                        // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
+                        p = productList.filter(e => price2 < value - cartTotal)
 
 
                         if (p.length > 0) {
                             p.map((itm, key) => {
-
-                                if (value > cartTotal + getCalc.getData(itm.price)) {
+                                let price3 = itm.displayPrice ? itm.displayPrice : itm.price
+                                // if (value > cartTotal + getCalc.getData(itm.price)) {
+                                if (value > cartTotal + price3) {
                                     cart.push(itm._id)
                                     setCartProductList(cart)
-                                    cartTotal += getCalc.getData(itm.price)
+                                    // cartTotal += getCalc.getData(itm.price)
+                                    cartTotal += price3
 
                                 }
 
@@ -876,8 +883,8 @@ export default function CategoryProductsController() {
         <>
 
             {/*<FrontLoader loading={loading} />*/}
-            <Page title={"Donorport | " + categoryDetails?.name} 
-            description="Donorport promises to remain a neutral platform and will never 
+            <Page title={"Donorport | " + categoryDetails?.name}
+                description="Donorport promises to remain a neutral platform and will never 
             prevent a registered charity from posting and reciving funds from our donors.">
                 <Index
                     productList={productList}

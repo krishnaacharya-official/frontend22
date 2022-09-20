@@ -40,6 +40,9 @@ export default function Index(props) {
               addProductToWishlist={props.addProductToWishlist}
               wishListproductIds={props.wishListproductIds}
               cartProductIds={props.cartProductIds}
+              filters={props.filters}
+              t={props.productList.length}
+
             />
           </Col>
         )

@@ -217,6 +217,25 @@ function ProjectDetailMain(props) {
             </span>
             {projectDetails?.campaignDetails?.categoryDetails?.name}
           </Link>
+          <Link
+            size="lg"
+            variant="link"
+            className="btn__category text-decoration-none"
+            to={'/organization/' + projectDetails?.campaignDetails?.slug}
+          >
+            <span className="d-flex align-items-center icon__category">
+              {/* <CategoryIcon /> */}
+              {/* <div className="page__logo page__logo--org ms-auto" > */}
+              <img
+                alt=""
+                style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%' }}
+                src={helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo}
+
+              />
+              {/* </div> */}
+            </span>
+            <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{projectDetails?.campaignDetails?.name}</span>
+          </Link>
 
           <Button size="lg" variant="secondary" className=" text-decoration-none">
             <span className="fs-6">Shelter</span>

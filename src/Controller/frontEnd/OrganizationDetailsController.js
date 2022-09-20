@@ -381,9 +381,9 @@ export default function OrganizationDetailsController() {
 
                     dispatch(setUserXp(Number(user.xp) + addXp))
                 } else {
-                    console.log('false')
+                    // console.log('false')
                     let addXp = Number(follow.data.xpToAdd)
-                    console.log(addXp)
+                    // console.log(addXp)
                     dispatch(setUserXp(Number(user.xp) - addXp))
                 }
 

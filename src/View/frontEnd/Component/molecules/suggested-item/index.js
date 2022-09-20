@@ -22,7 +22,9 @@ function SuggestedItem({ sold, media, ...otherProps }) {
     media,
     ...otherProps,
   };
+  // console.log(sharedProps?.product?.imageDetails.filter(e => e.type === "galleryImage").length)
   let slug = sharedProps.itemTag === 'organization' ? "/organization/" + sharedProps.organization.slug : '/item/' + sharedProps.product.slug
+  let flag = sharedProps.itemTag !== 'organization' ? sharedProps?.product?.imageDetails.filter(e => e.type === "galleryImage").length > 0 ? true : false : false
   return (
     <li className="suggest__item">
       <Link to={slug} className="d-block">
@@ -41,7 +43,7 @@ function SuggestedItem({ sold, media, ...otherProps }) {
 
         <div className="product__thumb d-flex align-items-center">
           {
-            sharedProps.itemTag === 'product' && media &&
+            sharedProps.itemTag === 'product' && sharedProps?.product.galleryUrl !== '' || flag ?
 
             <a style={{
               backgroundColor: "#84c8e8",
@@ -66,6 +68,7 @@ function SuggestedItem({ sold, media, ...otherProps }) {
                 />
               </div>
             </a>
+            :<></>
           }
           <img className="img-fluid mx-auto" alt="" src={sharedProps.imgUrl} />
         </div>

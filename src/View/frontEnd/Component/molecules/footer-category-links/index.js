@@ -25,53 +25,53 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
       {sharedProps.categoryName === 'Home' && (
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
-            <Link to="/about-us" className="footer__link">
+            <a href="/about-us" className="footer__link">
               About Us
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/media" className="footer__link">
+            <a href="/media" className="footer__link">
               Press &amp; Media
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/leaderboard" className="footer__link">
+            <a href="/leaderboard" className="footer__link">
               Leaderboard
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/xp" className="footer__link" >
+            <a href="/xp" className="footer__link" >
               XP
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/ranks" className="footer__link">
+            <a href="/ranks" className="footer__link">
               Ranks
-            </Link>
+            </a>
           </li>
         </ul>
       )}
       {sharedProps.categoryName === 'Support' && (
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
-            <Link to="/apply" className="footer__link">
+            <a href="/apply" className="footer__link">
               Apply to Post
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/help" className="footer__link">
+            <a href="/help" className="footer__link">
               Help Center
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/partnership" className="footer__link">
+            <a href="/partnership" className="footer__link">
               Partnerships
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/sponsors" className="footer__link">
+            <a href="/sponsors" className="footer__link">
               Sponsorships
-            </Link>
+            </a>
           </li>
         </ul>
       )}
@@ -79,19 +79,19 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
       {sharedProps.categoryName === 'Information' && (
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
-            <Link to="/trust" className="footer__link">
+            <a href="/trust" className="footer__link">
               Trust &amp; Safety
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/sponsors" className="footer__link">
+            <a href="/sponsors" className="footer__link">
               Become Verified
-            </Link>
+            </a>
           </li>
           <li className="footer__link-item">
-            <Link to="/item-tags" className="footer__link">
+            <a href="/item-tags" className="footer__link">
               Post Tags
-            </Link>
+            </a>
           </li>
         </ul>
       )}
@@ -102,9 +102,9 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
             sharedProps.list.map((l, i) => {
               return (
                 <li className="footer__link-item">
-                  <Link to={'/categories/' + l.slug} className="footer__link">
+                  <a href={'/categories/' + l.slug} className="footer__link">
                     {l.name}
-                  </Link>
+                  </a>
                 </li>
               )
             })
