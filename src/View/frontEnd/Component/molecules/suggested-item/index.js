@@ -25,6 +25,7 @@ function SuggestedItem({ sold, media, ...otherProps }) {
   // console.log(sharedProps?.product?.imageDetails.filter(e => e.type === "galleryImage").length)
   let slug = sharedProps.itemTag === 'organization' ? "/organization/" + sharedProps.organization.slug : '/item/' + sharedProps.product.slug
   let flag = sharedProps.itemTag !== 'organization' ? sharedProps?.product?.imageDetails.filter(e => e.type === "galleryImage").length > 0 ? true : false : false
+  let f2 = sharedProps.itemTag !== 'organization' ? sharedProps?.product.galleryUrl ? true : false : false
   return (
     <li className="suggest__item">
       <Link to={slug} className="d-block">
@@ -43,32 +44,32 @@ function SuggestedItem({ sold, media, ...otherProps }) {
 
         <div className="product__thumb d-flex align-items-center">
           {
-            sharedProps.itemTag === 'product' && sharedProps?.product.galleryUrl !== '' || flag ?
+            sharedProps.itemTag === 'product' && f2 || flag ?
 
-            <a style={{
-              backgroundColor: "#84c8e8",
-              position: 'absolute',
-              left: 'auto',
-              top: '12%',
-              right: '12%',
-              bottom: 'auto',
-              width: '21px',
-              height: '21px',
-              borderRadius: '50%',
-              fontSize: '11px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }} href="#" className="project__indicator project__indicator--small w-inline-block">
-              <div>
-                <FontAwesomeIcon
-                  // className="fs-3"
-                  icon={solid("image")}
-                  color='white'
-                />
-              </div>
-            </a>
-            :<></>
+              <a style={{
+                backgroundColor: "#84c8e8",
+                position: 'absolute',
+                left: 'auto',
+                top: '12%',
+                right: '12%',
+                bottom: 'auto',
+                width: '21px',
+                height: '21px',
+                borderRadius: '50%',
+                fontSize: '11px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }} href="#" className="project__indicator project__indicator--small w-inline-block">
+                <div>
+                  <FontAwesomeIcon
+                    // className="fs-3"
+                    icon={solid("image")}
+                    color='white'
+                  />
+                </div>
+              </a>
+              : <></>
           }
           <img className="img-fluid mx-auto" alt="" src={sharedProps.imgUrl} />
         </div>

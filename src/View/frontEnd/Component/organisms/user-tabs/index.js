@@ -40,7 +40,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
     }
 
 
-    setCurrentOption(location.pathname.split('/')[3])
+    // setCurrentOption(location.pathname.split('/')[3])
   }, [location.pathname])
 
 
@@ -55,7 +55,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item >
             <Nav.Link
               eventKey="dashboard"
-              className={currentOption === "dashboard" ? "tab__btn d-flex flex-direction-column align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "dashboard" ? "tab__btn d-flex flex-direction-column align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon" >
                 <DashboardIcon active={activeKey === "dashboard"} />
@@ -69,7 +69,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item >
             <Nav.Link
               eventKey="items"
-              className={currentOption === "items" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "items" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon">
                 <ItemsIcon active={activeKey === "items"} />
@@ -84,7 +84,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item  >
             <Nav.Link
               eventKey="xp"
-              className={currentOption === "xp" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "xp" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon">
                 <XpIcon active={activeKey === "xp"} />
@@ -98,7 +98,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item >
             <Nav.Link
               eventKey="tax"
-              className={currentOption === "tax" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "tax" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon">
                 <TaxIcon active={activeKey === "tax"} />
@@ -113,7 +113,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item >
             <Nav.Link
               eventKey="history"
-              className={currentOption === "history" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "history" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon">
                 <HistoryIcon active={activeKey === "history"} />
@@ -128,7 +128,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           <Nav.Item className="">
             <Nav.Link
               eventKey="settings"
-              className={currentOption === "settings" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={activeKey === "settings" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
             >
               <span className="tab__icon">
                 <SettingsIcon active={activeKey === "settings"} />

@@ -12,13 +12,22 @@ import './style.scss';
 function SimilarItems(props) {
   let productDetails = props.productDetails;
   let categoryProducts = props.categoryProducts;
+
+  let similerProductsCount = categoryProducts.filter(e => e._id !== productDetails._id).length
+
+
   return (
 
-    categoryProducts.length > 0 &&
+    // categoryProducts.length > 0 &&
 
     <>
-      <TagTitle>Similar Items</TagTitle>
-      <WidgetTitle href="/family">{productDetails.categoryDetails?.name}</WidgetTitle>
+      {
+        similerProductsCount > 0 &&
+        <>
+          <TagTitle>Similar Items</TagTitle>
+          <WidgetTitle href="/family">{productDetails.categoryDetails?.name}</WidgetTitle>
+        </>
+      }
 
       <ul className="similar__items list-unstyled mb-0">
         {categoryProducts.length > 0

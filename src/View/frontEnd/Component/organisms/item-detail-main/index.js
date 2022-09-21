@@ -61,7 +61,7 @@ function ProjectDetailMain(props) {
       }
 
     })()
-  }, [!user.isUpdateCart,productDetails._id])
+  }, [!user.isUpdateCart, productDetails._id])
 
 
   const onClickFilter = async (e) => {
@@ -242,9 +242,27 @@ function ProjectDetailMain(props) {
       }
 
 
+
       <h4 className="page__blurb">{productDetails.needheadline}</h4>
       <div className="page__paragraph">
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+      </div>
+
+      
+      <div className="gallery__container m-2">
+        {productDetails?.productImages &&
+          productDetails?.productImages.length > 0 &&
+          productDetails?.productImages.map((img, i) => {
+            if (img.type === 'fulfillImage') {
+              return (
+                <GalleryImg
+                  key={i}
+                  thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
+                  bigImgSrc={helper.CampaignProductFullImagePath + img.image}
+                />
+              );
+            }
+          })}
       </div>
 
       {
@@ -280,21 +298,7 @@ function ProjectDetailMain(props) {
 
             }
 
-            <div className="gallery__container m-2">
-              {productDetails?.productImages &&
-                productDetails?.productImages.length > 0 &&
-                productDetails?.productImages.map((img, i) => {
-                  if (img.type === 'fulfillImage') {
-                    return (
-                      <GalleryImg
-                        key={i}
-                        thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
-                        bigImgSrc={helper.CampaignProductFullImagePath + img.image}
-                      />
-                    );
-                  }
-                })}
-            </div>
+
           </>
           :
           <div className="project__calculate mt-4">

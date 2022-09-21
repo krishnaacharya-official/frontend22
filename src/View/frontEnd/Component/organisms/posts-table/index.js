@@ -276,6 +276,15 @@ const PostsTable = (props) => {
                             )}
                           </>
                         )}
+                        {product.isFulfiled && product.status === -1 && (
+                          <Button
+                            variant="info"
+                            className=" mr-2"
+                            onClick={() => props.publishProduct(product._id, product)}
+                          >
+                            Publish
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>

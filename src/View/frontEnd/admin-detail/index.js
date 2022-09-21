@@ -88,6 +88,7 @@ function AdminDetail() {
 
       setLoading(false);
     })();
+    setSelectedTabKey(location.pathname.split('/')[3])
   }, [user.isUpdateOrg, location]);
 
   // let data ={}

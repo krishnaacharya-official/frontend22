@@ -248,7 +248,7 @@ function product() {
     }
 
 
-    const publishProduct = async (authToken, id) => {
+    const publishProduct = async (authToken, id,type) => {
         let res = {};
         await axios({
             method: 'Post',
@@ -263,7 +263,9 @@ function product() {
                 mode: 'no-cors',
             },
             data: {
-                id: id
+                id: id,
+                type: type
+
             }
 
         }).then((response) => {

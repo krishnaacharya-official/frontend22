@@ -1104,7 +1104,8 @@ const AdminPosts = (props) => {
       ToastAlert({ msg: 'Product not Published please fill Required information', msgType: 'error' });
     } else {
       setLoading(false)
-      const publish = await productApi.publishProduct(token, id)
+
+      const publish = await productApi.publishProduct(token, id, 'PUBLISH')
       if (publish) {
         if (publish.data.success === false) {
           setLoading(false)
@@ -1121,6 +1122,29 @@ const AdminPosts = (props) => {
         ToastAlert({ msg: 'Product not Published', msgType: 'error' });
       }
     }
+
+  }
+  const unPublishProduct = async (id) => {
+
+    const publish = await productApi.publishProduct(token, id, 'UNPUBLISH')
+    if (publish) {
+      if (publish.data.success === false) {
+        setLoading(false)
+        // ToastAlert({ msg: publish.data.message, msgType: 'error' });
+      } else {
+        if (publish.data.success === true) {
+          setLoading(false)
+          setUpdate(!update)
+          setFulfil(false)
+          createPost(false)
+          // ToastAlert({ msg: publish.data.message, msgType: 'success' });
+        }
+      }
+    } else {
+      setLoading(false)
+      ToastAlert({ msg: 'Product not Published', msgType: 'error' });
+    }
+
 
   }
 
@@ -1998,6 +2022,14 @@ const AdminPosts = (props) => {
                       closeFulfilForm()
                     }}>Disregard</Button>
                   }
+                  {
+                    fulfilProductDetails?.isFulfiled &&fulfilProductDetails.status === 1 &&
+                    <Button variant="info" size="lg" className="fw-bold fs-6" onClick={() => {
+                      unPublishProduct(fulfilProductDetails._id )
+                    }}>Unpublish</Button>
+
+                  }
+
                   <Button variant="success" size="lg" className="fw-bold fs-6"
                     onClick={() => fulfilOrder()}
                   >
@@ -2005,9 +2037,10 @@ const AdminPosts = (props) => {
                 </div>
               </>
             }
-
+         
 
           </>
+
         // : ""
 
 

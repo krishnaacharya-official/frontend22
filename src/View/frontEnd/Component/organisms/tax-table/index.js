@@ -26,7 +26,7 @@ const TaxTable = (props) => {
     } else {
       sum = 0
     }
-    return sum;
+    return sum.toFixed(2);
   }
 
   return (
@@ -279,7 +279,7 @@ const TaxTable = (props) => {
                                 <div className="d-sm-flex align-items-center flex-grow-1">
                                   <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                                     <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
-                                      <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount}</div>
+                                      <div className="text-success fw-bold fs-5">{i1.currencySymbol}{i1.amount.toFixed(2)}</div>
                                       <div className="text-light fs-8">{moment(i1.created_at).fromNow()}</div>
                                     </div>
 

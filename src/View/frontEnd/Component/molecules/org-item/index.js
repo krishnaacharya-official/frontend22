@@ -72,7 +72,7 @@ function OrganisationItem(props) {
   //   );
 
   const btn =
-    isFinish || isFulfiled ? (
+    isFinish || isFulfiled && !infinite ? (
       <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -82,7 +82,7 @@ function OrganisationItem(props) {
 
   useEffect(() => {
     (async () => {
-      setTotalPrice(productPrice)
+      setTotalPrice(productPrice.toFixed(2))
       if (!CampaignAdminAuthToken) {
         const checkItem = await props.checkItemInCart(productId)
         if (checkItem === true) {
@@ -113,7 +113,7 @@ function OrganisationItem(props) {
             </Link>
             <div className="org__item__location mb-6p">{moment(created_at).fromNow()}</div>
           </div>
-          <div className="org__item__price">{props.currencySymbol}{productPrice}</div>
+          <div className="org__item__price">{props.currencySymbol}{productPrice.toFixed(2)}</div>
         </div>
 
         <span className="org__item-subtotal d-sm-none text-success fw-bolder">

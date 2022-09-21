@@ -297,7 +297,7 @@ function OrganisationWidget(props) {
     } else {
       navigate('/signin')
     }
-
+    setCheck(false)
 
   }
 

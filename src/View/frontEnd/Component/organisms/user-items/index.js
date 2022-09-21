@@ -335,12 +335,13 @@ const UserItems = () => {
                               <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.itemDetails.galleryUrl }} >
 
                               </div>
-                              <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
-                              <p className="mt-2">{item.itemDetails?.description}</p>
-
                             </>
 
                           }
+                          <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
+                          <p className="mt-2">{item.itemDetails?.description}</p>
+
+
 
                           <div className="gallery__container m-2">
                             {item.itemDetails?.galleryImage.length > 0 && Number(detail.key) === i &&

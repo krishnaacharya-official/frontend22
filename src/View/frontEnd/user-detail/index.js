@@ -42,6 +42,7 @@ function UserDetail(props) {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const [profileImg, setProfileImg] = useState("");
+  const location = useLocation()
 
 
   useEffect(() => {
@@ -65,7 +66,8 @@ function UserDetail(props) {
       setLoading(false)
 
     })()
-
+    // console.log(location.pathname.split('/')[3])
+    setSelectedTabKey(location.pathname.split('/')[3])
   }, [user.isUpdateUserDetails])
 
 

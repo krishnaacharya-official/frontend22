@@ -74,7 +74,7 @@ function History(props) {
             list.slice(0, loadMore ? list.length : 3).
               sort(function (a, b) {
                 let keyA = userAuthToken ? userData.id : new Date(a.updated_at)
-                let keyB = userAuthToken ? a?.userDetails?._id : new Date(b.updated_at);
+                let keyB = userAuthToken ? a?.orderDetails.userDetails?._id : new Date(b.updated_at);
                 // Compare the 2 dates
                 if (!userAuthToken) {
                   if (keyA < keyB) return -1;

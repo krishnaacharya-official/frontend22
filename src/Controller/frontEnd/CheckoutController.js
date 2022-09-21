@@ -295,6 +295,7 @@ export default function CheckoutController() {
                     if (cartItem && cartItem.length > 0) {
                         cartItem.map((item, i) => {
                             let tempObj = {}
+                            let price = item.productDetails.displayPrice ? item.productDetails.displayPrice : item.productDetails.price
                             tempObj.id = item.productDetails._id
                             tempObj.quantity = item.quantity
                             tempObj.soldOut = item.productDetails.soldout
@@ -306,7 +307,9 @@ export default function CheckoutController() {
                             tempObj.unlimited = item.productDetails.unlimited
                             tempObj.postTag = item.productDetails.postTag
                             // tempObj.totalPrice = CalculatedPrice.priceWithoutTax(item.productDetails.price) * item.quantity
-                            tempObj.totalPrice = item.productDetails.displayPrice ? item.productDetails.displayPrice : item.productDetails.price * item.quantity
+                            tempObj.totalPrice = price * item.quantity
+                            tempObj.taxPrice = (price - item.productDetails.price) * item.quantity
+
 
                             tempObj.organizationId = item.productDetails.organizationId
                             tempObj.organizationCountryId = item.productDetails?.organizationDetails?.country_id

@@ -182,7 +182,7 @@ const UserTax = () => {
       per = 0;
 
     }
-    return Math.round(per);
+    return (per).toFixed(2);
 
   }
 

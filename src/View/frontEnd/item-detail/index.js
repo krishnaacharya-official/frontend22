@@ -200,6 +200,53 @@ const ItemDetail = (props) => {
             );
           })}
 
+        {productDetails?.projectProducts
+          &&
+          productDetails?.projectProducts
+            .length > 0 &&
+          productDetails?.projectProducts
+            .map((project, i) => {
+              return (
+                <div>
+                  <Row className="py-5 border-top">
+                    <Col md="6" className="mb-4 mb-0">
+                      <TagTitle>Projects</TagTitle>
+
+                      <div>
+                        <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
+
+                        <div className="gallery__container m-2">
+                          {project.projectDetails?.projectImages &&
+                            project.projectDetails?.projectImages.length > 0 &&
+                            project.projectDetails?.projectImages.map((img, i) => {
+                              // if (img.type === 'moreImage') {
+
+                              return (
+                                <GalleryImg
+                                  key={i}
+                                  thumbImgSrc={helper.ProjectImagePath + img.image}
+                                  bigImgSrc={helper.ProjectImagePath + img.image}
+                                />
+                              );
+                              // }
+                            })}
+                        </div>
+
+                        <Link
+                          to={'/project/' + project.projectDetails?.slug}
+                          variant="link"
+                          className=" btn btn-info text-white"
+                        >
+                          <span className="fs-6">Go to Project</span>
+                        </Link>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              );
+            })}
+        {/* {console.log(productDetails)} */}
+
         <Row className="py-5 border-top">
           <Col md="6" className="mb-4 mb-0">
             <SimilarItems
