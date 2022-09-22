@@ -226,6 +226,7 @@ export default function ItemDetailsController() {
                     setLoading(false)
                     ToastAlert({ msg: addItemToCart.data.message, msgType: 'error' });
                 } else {
+                    dispatch(setIsUpdateCart(!user.isUpdateCart))
                     /*ToastAlert({ msg: addItemToCart.data.message, msgType: 'success' });*/
                     setLoading(false)
                 }

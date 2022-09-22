@@ -51,7 +51,7 @@ function SimilarItems(props) {
               );
             }
           })
-          : 'Products Not Found'}
+          : ''}
         {/* <SimilarItem />
          <SimilarItem />
          <SimilarItem /> */}

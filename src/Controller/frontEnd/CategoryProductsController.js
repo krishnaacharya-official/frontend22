@@ -753,19 +753,26 @@ export default function CategoryProductsController() {
             let cart = [];
             let cartTotal = 0;
             // let p = productList.filter(e => getCalc.getData(e.price) < value)
-            let p = productList.filter(e => e.displayPrice ? e.displayPrice : e.price < value)
+            let p = productList.filter(e => Number(e.displayPrice ? e.displayPrice : e.price) < value)
 
 
 
             if (p.length > 0) {
                 p.map((itm, key) => {
-                    let price1 = itm.displayPrice ? itm.displayPrice : itm.price
+                    let price1 = Number(itm.displayPrice ? itm.displayPrice : itm.price)
                     // if (value > cartTotal + getCalc.getData(itm.price)) {
-                    if (value > cartTotal + price1) {
+                    // if (value >( cartTotal + price1)) {
+                    //     cart.push(itm._id)
+                    //     setCartProductList(cart)
+                    //     // cartTotal += getCalc.getData(itm.price)
+                    //     cartTotal += price1
+                    // }
+                    if (value > (cartTotal + (price1 *2))) {
+                        cart.push(itm._id)
                         cart.push(itm._id)
                         setCartProductList(cart)
                         // cartTotal += getCalc.getData(itm.price)
-                        cartTotal += price1
+                        cartTotal += (price1*2)
                     }
 
                 })
@@ -773,16 +780,16 @@ export default function CategoryProductsController() {
                 if (value - cartTotal > 0) {
 
                     while (p.length > 0) {
-                        let price2 = e.displayPrice ? e.displayPrice : e.price
+                        let price2 = Number(e.displayPrice ? e.displayPrice : e.price)
                         // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
-                        p = productList.filter(e => price2 < value - cartTotal)
+                        p = productList.filter(e => Number(e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
 
 
                         if (p.length > 0) {
                             p.map((itm, key) => {
                                 let price3 = itm.displayPrice ? itm.displayPrice : itm.price
                                 // if (value > cartTotal + getCalc.getData(itm.price)) {
-                                if (value > cartTotal + price3) {
+                                if (value > (cartTotal + price3)) {
                                     cart.push(itm._id)
                                     setCartProductList(cart)
                                     // cartTotal += getCalc.getData(itm.price)

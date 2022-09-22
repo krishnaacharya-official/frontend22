@@ -87,14 +87,18 @@ function ProjectDetailMain(props) {
       style={{ minWidth: "250px" }}
       onClick={() => {
         props.addToCart(productDetails._id, quantity)
-        dispatch(setIsUpdateCart(!user.isUpdateCart))
+        // dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
       Add to cart ({quantity})
     </Button>
   );
+  let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
+
+  // isFinish || productDetails.isFulfiled && !productDetails.unlimited
+  // sold >= total
   const btn =
-    productDetails.soldout === productDetails.quantity ? (
+    isFinish || productDetails.isFulfiled && !productDetails.unlimited ? (
       <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -248,7 +252,7 @@ function ProjectDetailMain(props) {
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
-      
+
       <div className="gallery__container m-2">
         {productDetails?.productImages &&
           productDetails?.productImages.length > 0 &&

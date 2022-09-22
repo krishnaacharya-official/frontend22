@@ -87,7 +87,14 @@ const ItemDetail = (props) => {
   let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
   let isFulfiled = productDetails.isFulfiled
 
-  const isSold = isFinish || isFulfiled ? true : false
+  const isSold = isFinish || isFulfiled && !productDetails.unlimited ? true : false
+  
+  let allProjects = productDetails?.projectProducts?.concat(productDetails?.projectDetails)
+  allProjects = allProjects?.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+      t.projectId === value.projectId
+    ))
+  )
   return (
     <>
       <HeaderController />
@@ -157,7 +164,7 @@ const ItemDetail = (props) => {
       </Container>
 
       <Container fluid>
-        {productDetails?.projectDetails &&
+        {/* {productDetails?.projectDetails &&
           productDetails?.projectDetails.length > 0 &&
           productDetails?.projectDetails.map((project, i) => {
             return (
@@ -198,13 +205,14 @@ const ItemDetail = (props) => {
                 </Row>
               </div>
             );
-          })}
+          })} */}
+        {/* {          console.log(productDetails?.projectProducts)} */}
 
-        {productDetails?.projectProducts
+        {allProjects
           &&
-          productDetails?.projectProducts
+          allProjects
             .length > 0 &&
-          productDetails?.projectProducts
+          allProjects
             .map((project, i) => {
               return (
                 <div>

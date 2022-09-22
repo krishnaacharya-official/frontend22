@@ -280,7 +280,7 @@ const Product = (props) => {
           <span className="date__name">{date}</span>
         </div>
         <div className="product__meta d-flex align-items-center ms-auto">
-          {props.projectDetails?.length > 0 || props.projectProducts.length > 0 &&
+          {(props.projectDetails?.length > 0 || props.projectProducts.length > 0) &&
             <span className="product__type icon icon__solid-900 text-dark">
               {/*  */}
               {/* <Icon icon="bi:lightning-charge-fill" /> */}

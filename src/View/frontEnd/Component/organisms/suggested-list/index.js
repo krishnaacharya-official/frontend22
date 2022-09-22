@@ -27,11 +27,17 @@ function SuggestedList(props) {
           props.productList?.length > 0 &&
           props.productList.slice(0, 12).map((pro, i) => {
             let sold = pro.unlimited ? pro.isFulfiled : pro.quantity <= pro.soldout
+            // let isFulfiled = pro.isFulfiled
             let media = pro?.media ? pro.media : false
+
+            let isFinish = !pro.unlimited && pro.soldout >= pro.quantity ? true : false
+            let isFulfiled = pro.isFulfiled
+          
+            const isSold = isFinish || isFulfiled && !pro.unlimited ? true : false
             // console.log(pro)
             return (
               pro._id !== props.productId &&
-              <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={sold} itemTag={props.itemTag} media={media} />
+              <SuggestedItem imgUrl={helper.CampaignProductImagePath + pro.image} product={pro} sold={isSold} itemTag={props.itemTag} media={media} />
             )
           })
 
