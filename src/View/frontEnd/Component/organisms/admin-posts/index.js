@@ -1164,7 +1164,20 @@ const AdminPosts = (props) => {
 
     const getOrganizationProducts = await productApi.listByOrganization(token, formData);
     if (getOrganizationProducts.data.success === true) {
-      setProductList(getOrganizationProducts.data.data)
+      if (getOrganizationProducts.data.data.length > 0) {
+
+
+        let productDetails = getOrganizationProducts.data.data.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t._id === value._id
+          ))
+        )
+        setProductList(productDetails)
+      } else {
+        setProductList([])
+
+      }
+      // setProductList(getOrganizationProducts.data.data)
       setTotalPages(getOrganizationProducts.data.totalPages)
       setTotalRecord(getOrganizationProducts.data.totalRecord)
     }
@@ -2023,9 +2036,9 @@ const AdminPosts = (props) => {
                     }}>Disregard</Button>
                   }
                   {
-                    fulfilProductDetails?.isFulfiled &&fulfilProductDetails.status === 1 &&
+                    fulfilProductDetails?.isFulfiled && fulfilProductDetails.status === 1 &&
                     <Button variant="info" size="lg" className="fw-bold fs-6" onClick={() => {
-                      unPublishProduct(fulfilProductDetails._id )
+                      unPublishProduct(fulfilProductDetails._id)
                     }}>Unpublish</Button>
 
                   }
@@ -2037,7 +2050,7 @@ const AdminPosts = (props) => {
                 </div>
               </>
             }
-         
+
 
           </>
 

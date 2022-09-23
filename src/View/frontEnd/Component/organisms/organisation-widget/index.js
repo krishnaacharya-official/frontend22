@@ -104,7 +104,29 @@ function OrganisationWidget(props) {
       productDetails = productDetails?.filter(function (item, pos, self) {
         return self.indexOf(item) === pos;
       })
-      setAllProducts(productDetails)
+
+      if (props.tagTitle === "Project") {
+
+        productDetails = productDetails.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t.itemDetails?._id === value.itemDetails?._id
+          ))
+        )
+        setAllProducts(productDetails)
+
+      } else {
+
+        productDetails = productDetails.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t._id === value._id
+          ))
+        )
+        setAllProducts(productDetails)
+
+      }
+
+
+
     })()
   }, [productDetails])
 
