@@ -253,21 +253,7 @@ function ProjectDetailMain(props) {
       </div>
 
 
-      <div className="gallery__container m-2">
-        {productDetails?.productImages &&
-          productDetails?.productImages.length > 0 &&
-          productDetails?.productImages.map((img, i) => {
-            if (img.type === 'fulfillImage') {
-              return (
-                <GalleryImg
-                  key={i}
-                  thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
-                  bigImgSrc={helper.CampaignProductFullImagePath + img.image}
-                />
-              );
-            }
-          })}
-      </div>
+
 
       {
         productDetails.isFulfiled ?
@@ -301,48 +287,65 @@ function ProjectDetailMain(props) {
               </>
 
             }
+            <div className="gallery__container m-2">
+              {productDetails?.productImages &&
+                productDetails?.productImages.length > 0 &&
+                productDetails?.productImages.map((img, i) => {
+                  if (img.type === 'fulfillImage') {
+                    return (
+                      <GalleryImg
+                        key={i}
+                        thumbImgSrc={helper.CampaignProductFullImagePath + img.image}
+                        bigImgSrc={helper.CampaignProductFullImagePath + img.image}
+                      />
+                    );
+                  }
+                })}
+            </div>
 
 
           </>
           :
-          <div className="project__calculate mt-4">
-            <div className="sub__total">
-              <div className="text-dark fw-bold me-2">Subtotal:</div>
-              <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
-            </div>
-            <div className="d-flex align-items-center fs-5 py-1 mb-3">
-              <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
-              <div className="flex-grow-1 mx-2">
-                <Slider
-                  handleStyle={{
-                    width: "26px",
-                    height: "26px",
-                    border: "none",
-                    background: "#3596F3",
-                    marginTop: "-10px",
-                    opacity: 1,
-                  }}
-                  min={1}
-                  max={maxQuentity}
-                  railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
-                  onChange={(e) => setQuantity(e)}
-                />
-              </div>
-              <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
-            </div>
+          <></>
+      }
+      <div className="project__calculate mt-4">
+        <div className="sub__total">
+          <div className="text-dark fw-bold me-2">Subtotal:</div>
+          <div className="price fs-4 fw-bold text-success">{currencySymbol}{priceFormat(price * quantity)}</div>
+        </div>
+        <div className="d-flex align-items-center fs-5 py-1 mb-3">
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">1</div>
+          <div className="flex-grow-1 mx-2">
+            <Slider
+              handleStyle={{
+                width: "26px",
+                height: "26px",
+                border: "none",
+                background: "#3596F3",
+                marginTop: "-10px",
+                opacity: 1,
+              }}
+              min={1}
+              max={maxQuentity}
+              railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
+              onChange={(e) => setQuantity(e)}
+            />
+          </div>
+          <div className="project__count d-flex align-items-center justify-content-center mt-3p">{maxQuentity}</div>
+        </div>
 
-            {/* <Button size="lg" className="w-100">
+        {/* <Button size="lg" className="w-100">
             <span className="fw-bold">Add to cart ( {quantity} )</span>
           </Button> */}
 
-            {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
-            {!CampaignAdminAuthToken && btn}
-          </div>
+        {/* {productDetails.quantity !== productDetails.soldout && cart_btn} */}
+        {!CampaignAdminAuthToken && btn}
+      </div>
 
 
 
 
-      }
+
 
 
 

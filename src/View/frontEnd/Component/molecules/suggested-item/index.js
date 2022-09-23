@@ -47,7 +47,8 @@ function SuggestedItem({ sold, media, ...otherProps }) {
             sharedProps.itemTag === 'product' && f2 || flag ?
 
               <a style={{
-                backgroundColor: "#84c8e8",
+                // backgroundColor: "#84c8e8",
+                backgroundColor: sharedProps?.product.categoryDetails.color,
                 position: 'absolute',
                 left: 'auto',
                 top: '12%',

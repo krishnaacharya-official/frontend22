@@ -761,19 +761,37 @@ export default function CategoryProductsController() {
                 p.map((itm, key) => {
                     let price1 = Number(itm.displayPrice ? itm.displayPrice : itm.price)
                     // if (value > cartTotal + getCalc.getData(itm.price)) {
-                    // if (value >( cartTotal + price1)) {
+                    if (value >( cartTotal + price1)) {
                     //     cart.push(itm._id)
                     //     setCartProductList(cart)
                     //     // cartTotal += getCalc.getData(itm.price)
                     //     cartTotal += price1
                     // }
-                    if (value > (cartTotal + (price1 *2))) {
-                        cart.push(itm._id)
-                        cart.push(itm._id)
-                        setCartProductList(cart)
-                        // cartTotal += getCalc.getData(itm.price)
-                        cartTotal += (price1*2)
+                    if (itm.unlimited) {
+                        if (value > (cartTotal + (price1 * 2))) {
+                            cart.push(itm._id)
+                            cart.push(itm._id)
+                            setCartProductList(cart)
+                            // cartTotal += getCalc.getData(itm.price)
+                            cartTotal += (price1 * 2)
+                        }
+
+                    } else {
+                        let counts = {}
+                        cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                        let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+
+                        if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
+
+                            cart.push(itm._id)
+
+                            setCartProductList(cart)
+                            // cartTotal += getCalc.getData(itm.price)
+                            cartTotal += price1
+
+                        }
                     }
+                }
 
                 })
 
@@ -790,12 +808,38 @@ export default function CategoryProductsController() {
                                 let price3 = itm.displayPrice ? itm.displayPrice : itm.price
                                 // if (value > cartTotal + getCalc.getData(itm.price)) {
                                 if (value > (cartTotal + price3)) {
-                                    cart.push(itm._id)
-                                    setCartProductList(cart)
-                                    // cartTotal += getCalc.getData(itm.price)
-                                    cartTotal += price3
+                                //     cart.push(itm._id)
+                                //     setCartProductList(cart)
+                                //     // cartTotal += getCalc.getData(itm.price)
+                                //     cartTotal += price3
 
+                                // }
+
+                                if (itm.unlimited) {
+                                    if (value > (cartTotal + (price3 * 2))) {
+                                        cart.push(itm._id)
+                                        cart.push(itm._id)
+                                        setCartProductList(cart)
+                                        // cartTotal += getCalc.getData(itm.price)
+                                        cartTotal += (price3 * 2)
+                                    }
+
+                                } else {
+                                    let counts = {}
+                                    cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                                    let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+
+                                    if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
+
+                                        cart.push(itm._id)
+
+                                        setCartProductList(cart)
+                                        // cartTotal += getCalc.getData(itm.price)
+                                        cartTotal += price3
+
+                                    }
                                 }
+                            }
 
                             })
                         }

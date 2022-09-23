@@ -27,6 +27,9 @@ function History(props) {
     if (list?.length > 0) {
       list.map((v, k) => {
         v.listType = 'order'
+        tempOrderList = tempOrderList.filter(function (item, pos, self) {
+          return self.indexOf(item) === pos;
+        })
         tempOrderList.push(v)
       })
     }
@@ -34,6 +37,9 @@ function History(props) {
     if (donationList?.length > 0) {
       donationList.map((v1, k1) => {
         v1.listType = 'donation'
+        tempDonationList = tempDonationList.filter(function (item, pos, self) {
+          return self.indexOf(item) === pos;
+        })
         tempDonationList.push(v1)
       })
     }

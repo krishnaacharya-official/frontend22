@@ -105,9 +105,9 @@ export default function MainRoutes() {
     const location = useLocation();
 
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);
-    // }, [location.pathname]);
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
 
 
 

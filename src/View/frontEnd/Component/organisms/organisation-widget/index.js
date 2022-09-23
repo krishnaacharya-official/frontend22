@@ -13,7 +13,7 @@ import ToggleSwitch from '../../atoms/toggle-switch'
 import OrganisationItem from "../../molecules/org-item";
 
 import "./style.scss";
-import helper, { getCalculatedPrice } from "../../../../../Common/Helper"
+import helper, { getCalculatedPrice, countInArray } from "../../../../../Common/Helper"
 import cartApi from "../../../../../Api/frontEnd/cart";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsUpdateCart } from "../../../../../user/user.action"
@@ -93,11 +93,17 @@ function OrganisationWidget(props) {
 
 
         })
+        tempP = tempP?.filter(function (item, pos, self) {
+          return self.indexOf(item) === pos;
+        })
 
         setAvailabileProducts(tempP)
 
 
       }
+      productDetails = productDetails?.filter(function (item, pos, self) {
+        return self.indexOf(item) === pos;
+      })
       setAllProducts(productDetails)
     })()
   }, [productDetails])
@@ -132,8 +138,14 @@ function OrganisationWidget(props) {
 
         })
       }
+      tempP = tempP?.filter(function (item, pos, self) {
+        return self.indexOf(item) === pos;
+      })
 
       setAvailabileProducts(tempP)
+      productDetails = productDetails?.filter(function (item, pos, self) {
+        return self.indexOf(item) === pos;
+      })
       setAllProducts(productDetails)
 
     }
@@ -179,11 +191,38 @@ function OrganisationWidget(props) {
           // if (value > cartTotal + getCalc.getData(itm.price)) {
           if (value > cartTotal + price1) {
             let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
+            let unlimited = props.tagTitle === 'Project' ? itm.itemDetails?.unlimited : itm.unlimited
 
-            cart.push(pID)
-            setCartProductList(cart)
-            // cartTotal += getCalc.getData(itm.price)
-            cartTotal += price1
+
+            if (unlimited) {
+              cart.push(pID)
+
+              setCartProductList(cart)
+              // cartTotal += getCalc.getData(itm.price)
+              cartTotal += price1
+            } else {
+              // console.log(cart)
+              // console.log('pid', typeof (pID))
+              let counts = {}
+              cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+              let checkQ = props.tagTitle === 'Project' ? (Number(itm.itemDetails?.quantity) - Number(itm.itemDetails?.soldout)) :
+                (Number(itm.quantity) - Number(itm.soldout))
+              // console.log('count', cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 }))
+              // console.log(counts)
+
+              // console.log(cart.filter(item => item === pID).length)
+              if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
+
+                cart.push(pID)
+
+                setCartProductList(cart)
+                // cartTotal += getCalc.getData(itm.price)
+                cartTotal += price1
+
+              }
+            }
+
+
 
           }
 
@@ -225,11 +264,35 @@ function OrganisationWidget(props) {
 
                 // if (value > cartTotal + getCalc.getData(itm.price)) {
                 if (value > cartTotal + price3) {
+                  let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
+                  let unlimited = props.tagTitle === 'Project' ? itm.itemDetails?.unlimited : itm.unlimited
 
-                  cart.push(pID)
-                  setCartProductList(cart)
-                  // cartTotal += getCalc.getData(itm.price)
-                  cartTotal += price3
+
+                  if (unlimited) {
+                    cart.push(pID)
+
+                    setCartProductList(cart)
+                    // cartTotal += getCalc.getData(itm.price)
+                    cartTotal += price3
+                  } else {
+                    let counts = {}
+                    cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                    let checkQ = props.tagTitle === 'Project' ? (Number(itm.itemDetails?.quantity) - Number(itm.itemDetails?.soldout)) :
+                      (Number(itm.quantity) - Number(itm.soldout))
+                    // console.log('count', cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 }))
+                    // console.log('2', counts)
+                    // console.log(cart.filter(item => item === pID).length)
+                    if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
+
+                      cart.push(pID)
+
+                      setCartProductList(cart)
+                      // cartTotal += getCalc.getData(itm.price)
+                      cartTotal += price3
+
+                    }
+                  }
+
 
 
                 }

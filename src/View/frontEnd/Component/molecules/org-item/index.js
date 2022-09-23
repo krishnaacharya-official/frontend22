@@ -58,7 +58,7 @@ function OrganisationItem(props) {
         dispatch(setIsUpdateCart(!user.isUpdateCart))
       }}
     >
-      {props.currencySymbol}{totalPrice}
+      {props.currencySymbol}{Number(totalPrice).toFixed(2)}
     </Button>
   );
 

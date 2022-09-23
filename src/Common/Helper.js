@@ -582,3 +582,6 @@ export function hasAlpha(file) {
     //   img.src = URL.createObjectURL(file);
     // });
 }
+export function countInArray(array, what) {
+    return array.filter(item => item === what).length;
+}
