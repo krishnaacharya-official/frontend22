@@ -749,6 +749,7 @@ export default function CategoryProductsController() {
         setPrice(value)
         if (Number(value) > 0) {
 
+            let p_ids = {};
 
             let cart = [];
             let cartTotal = 0;
@@ -761,46 +762,80 @@ export default function CategoryProductsController() {
                 p.map((itm, key) => {
                     let price1 = Number(itm.displayPrice ? itm.displayPrice : itm.price)
                     // if (value > cartTotal + getCalc.getData(itm.price)) {
-                    if (value >( cartTotal + price1)) {
-                    //     cart.push(itm._id)
-                    //     setCartProductList(cart)
-                    //     // cartTotal += getCalc.getData(itm.price)
-                    //     cartTotal += price1
-                    // }
-                    if (itm.unlimited) {
-                        if (value > (cartTotal + (price1 * 2))) {
-                            cart.push(itm._id)
-                            cart.push(itm._id)
-                            setCartProductList(cart)
-                            // cartTotal += getCalc.getData(itm.price)
-                            cartTotal += (price1 * 2)
-                        }
+                    if (value > (cartTotal + price1)) {
+                        //     cart.push(itm._id)
+                        //     setCartProductList(cart)
+                        //     // cartTotal += getCalc.getData(itm.price)
+                        //     cartTotal += price1
+                        // }
+                        if (itm.unlimited) {
+                            if (value > (cartTotal + (price1 * 2))) {
+                                cart.push(itm._id)
+                                cart.push(itm._id)
+                                setCartProductList(cart)
+                                // cartTotal += getCalc.getData(itm.price)
+                                cartTotal += (price1 * 2)
+                            }
 
-                    } else {
-                        let counts = {}
-                        cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
-                        let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+                        } else {
+                            let counts = {}
+                            // cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                            let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+                            if (!p_ids[itm._id]) {
+                                p_ids[itm._id] = 1
+                            }
 
-                        if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
+                            // if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
+                            if (p_ids[itm._id] < checkQ) {
 
-                            cart.push(itm._id)
 
-                            setCartProductList(cart)
-                            // cartTotal += getCalc.getData(itm.price)
-                            cartTotal += price1
+                                if (p_ids[itm._id]) {
+                                    p_ids[itm._id] += 1
 
+                                } else {
+                                    p_ids[itm._id] = 1
+                                }
+
+                                cart.push(itm._id)
+
+                                setCartProductList(cart)
+                                // cartTotal += getCalc.getData(itm.price)
+                                cartTotal += price1
+
+                            }
                         }
                     }
-                }
 
                 })
 
                 if (value - cartTotal > 0) {
 
+                    p = productList?.filter(e => !e.unlimited && (Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && p_ids[e._id] < (Number(e?.quantity) - Number(e?.soldout)))
+
+
+                    let p2 = productList?.filter(e => (Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && e.unlimited)
+
+                    if (!p.length) {
+                        p = p2
+                    } else {
+                        p = p?.concat(p2)
+                    }
+
                     while (p.length > 0) {
-                        let price2 = Number(e.displayPrice ? e.displayPrice : e.price)
+                        // let price2 = Number(e.displayPrice ? e.displayPrice : e.price)
                         // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
-                        p = productList.filter(e => Number(e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
+                        // p = productList.filter(e => Number(e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
+
+                        p = productList?.filter(e => !e.unlimited && (Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && p_ids[e._id] < (Number(e?.quantity) - Number(e?.soldout)))
+
+
+                        let p2 = productList?.filter(e => (Number(e?.displayPrice ? e?.displayPrice : e?.price) < (value - cartTotal)) && e.unlimited)
+                        // console.log(p2)
+                        if (!p.length) {
+                            p = p2
+                        } else {
+                            p = p?.concat(p2)
+                        }
 
 
                         if (p.length > 0) {
@@ -808,38 +843,48 @@ export default function CategoryProductsController() {
                                 let price3 = itm.displayPrice ? itm.displayPrice : itm.price
                                 // if (value > cartTotal + getCalc.getData(itm.price)) {
                                 if (value > (cartTotal + price3)) {
-                                //     cart.push(itm._id)
-                                //     setCartProductList(cart)
-                                //     // cartTotal += getCalc.getData(itm.price)
-                                //     cartTotal += price3
+                                    //     cart.push(itm._id)
+                                    //     setCartProductList(cart)
+                                    //     // cartTotal += getCalc.getData(itm.price)
+                                    //     cartTotal += price3
 
-                                // }
+                                    // }
 
-                                if (itm.unlimited) {
-                                    if (value > (cartTotal + (price3 * 2))) {
-                                        cart.push(itm._id)
-                                        cart.push(itm._id)
-                                        setCartProductList(cart)
-                                        // cartTotal += getCalc.getData(itm.price)
-                                        cartTotal += (price3 * 2)
-                                    }
+                                    if (itm.unlimited) {
+                                        if (value > (cartTotal + (price3))) {
+                                            cart.push(itm._id)
+                                            // cart.push(itm._id)
+                                            setCartProductList(cart)
+                                            // cartTotal += getCalc.getData(itm.price)
+                                            cartTotal += (price3)
+                                        }
 
-                                } else {
-                                    let counts = {}
-                                    cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
-                                    let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+                                    } else {
+                                        let counts = {}
+                                        // cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                                        let checkQ = (Number(itm.quantity) - Number(itm.soldout))
+                                        if (!p_ids[itm._id]) {
+                                            p_ids[itm._id] = 1
+                                        }
+                                        if (p_ids[itm._id] < checkQ) {
 
-                                    if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
+                                            if (p_ids[itm._id]) {
+                                                p_ids[itm._id] += 1
 
-                                        cart.push(itm._id)
+                                            } else {
+                                                p_ids[itm._id] = 1
+                                            }
+                                            // if (Number(counts[itm._id] ? counts[itm._id] : 0) < checkQ) {
 
-                                        setCartProductList(cart)
-                                        // cartTotal += getCalc.getData(itm.price)
-                                        cartTotal += price3
+                                            cart.push(itm._id)
 
+                                            setCartProductList(cart)
+                                            // cartTotal += getCalc.getData(itm.price)
+                                            cartTotal += price3
+
+                                        }
                                     }
                                 }
-                            }
 
                             })
                         }

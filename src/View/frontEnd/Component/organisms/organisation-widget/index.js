@@ -38,6 +38,16 @@ function OrganisationWidget(props) {
   let productDetails = props.productDetails
   let currencySymbol = getCalc.currencySymbol()
 
+
+  function getOccurrence(array, value) {
+    let count = 0;
+    // array.forEach((v) => (v === value && count++));
+    // return count;
+    count = array.filter(x => x === value).length;
+    return count;
+
+  }
+
   useEffect(() => {
     (async () => {
       if (productDetails?.length > 0) {
@@ -107,7 +117,7 @@ function OrganisationWidget(props) {
 
       if (props.tagTitle === "Project") {
 
-        productDetails = productDetails.filter((value, index, self) =>
+        productDetails = productDetails?.filter((value, index, self) =>
           index === self.findIndex((t) => (
             t.itemDetails?._id === value.itemDetails?._id
           ))
@@ -116,7 +126,7 @@ function OrganisationWidget(props) {
 
       } else {
 
-        productDetails = productDetails.filter((value, index, self) =>
+        productDetails = productDetails?.filter((value, index, self) =>
           index === self.findIndex((t) => (
             t._id === value._id
           ))
@@ -183,11 +193,14 @@ function OrganisationWidget(props) {
     setPrice(value)
     if (Number(value) > 0) {
 
-
+      let p_ids = {};
       let cart = [];
+      let tempcart = [];
+
       let cartTotal = 0;
-      // let p = productList.filter(e => getCalc.getData(e.price) < value)
-      let p;
+
+
+      let p = [];
       if (props.tagTitle === 'Project') {
         p = availabileProducts.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value)
 
@@ -195,6 +208,7 @@ function OrganisationWidget(props) {
         p = availabileProducts.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value)
 
       }
+      // console.log(p)
 
 
 
@@ -210,7 +224,7 @@ function OrganisationWidget(props) {
           } else {
             price1 = itm.displayPrice ? itm.displayPrice : itm.price
           }
-          // if (value > cartTotal + getCalc.getData(itm.price)) {
+
           if (value > cartTotal + price1) {
             let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
             let unlimited = props.tagTitle === 'Project' ? itm.itemDetails?.unlimited : itm.unlimited
@@ -220,25 +234,32 @@ function OrganisationWidget(props) {
               cart.push(pID)
 
               setCartProductList(cart)
-              // cartTotal += getCalc.getData(itm.price)
+
               cartTotal += price1
             } else {
-              // console.log(cart)
-              // console.log('pid', typeof (pID))
-              let counts = {}
-              cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+
+              // let counts = {}
+              // cart?.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
               let checkQ = props.tagTitle === 'Project' ? (Number(itm.itemDetails?.quantity) - Number(itm.itemDetails?.soldout)) :
                 (Number(itm.quantity) - Number(itm.soldout))
-              // console.log('count', cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 }))
-              // console.log(counts)
+              if (!p_ids[pID]) {
+                p_ids[pID] = 1
+              }
+              // if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
+              // if (getOccurrence(tempcart, pID) < checkQ) {
+              if (p_ids[pID] < checkQ) {
+                if (p_ids[pID]) {
+                  p_ids[pID] += 1
 
-              // console.log(cart.filter(item => item === pID).length)
-              if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
-
+                } else {
+                  p_ids[pID] = 1
+                }
                 cart.push(pID)
+                tempcart.push(pID)
+
 
                 setCartProductList(cart)
-                // cartTotal += getCalc.getData(itm.price)
+
                 cartTotal += price1
 
               }
@@ -252,64 +273,139 @@ function OrganisationWidget(props) {
 
         if (value - cartTotal > 0) {
 
+          if (props.tagTitle === 'Project') {
+            p = availabileProducts?.filter(e =>!e.itemDetails?.unlimited && ((e?.itemDetails?.displayPrice ? e?.itemDetails?.displayPrice : e?.itemDetails?.price) < value - cartTotal) && p_ids[e?.itemDetails?._id] < (Number(e?.itemDetails?.quantity) - Number(e?.itemDetails?.soldout)))
+
+
+            let p2 = availabileProducts?.filter(e =>(Number(e?.itemDetails.displayPrice ? e?.itemDetails.displayPrice : e?.itemDetails.price) < value - cartTotal) && e.itemDetails.unlimited)
+
+            if (!p.length) {
+              p = p2
+            }else{
+              p = p?.concat(p2)
+            }
+
+
+          } else {
+            p = availabileProducts?.filter(e => !e.unlimited && (Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && p_ids[e._id] < (Number(e?.quantity) - Number(e?.soldout)))
+
+           
+  
+
+            let p2 = availabileProducts?.filter(e =>(Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && e.unlimited)
+
+            if (!p.length) {
+              p = p2
+            }else{
+              p = p?.concat(p2)
+            }
+
+
+
+            // console.log(p2)
+
+
+          }
+          // console.log('before', p)
+          // console.log(value - cartTotal)
+
           while (p.length > 0) {
-            // let price2 = e.displayPrice ? e.displayPrice : e.price
+
+            // console.log(p)
+
 
 
             if (props.tagTitle === 'Project') {
-              p = availabileProducts.filter(e => (e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price) < value - cartTotal)
+              p = availabileProducts?.filter(e => ((e?.itemDetails?.displayPrice ? e?.itemDetails?.displayPrice : e?.itemDetails?.price) < value - cartTotal) && p_ids[e?.itemDetails?._id] < (Number(e?.itemDetails?.quantity) - Number(e?.itemDetails?.soldout)))
 
-              // price2 = e.itemDetails?.displayPrice ? e.itemDetails?.displayPrice : e.itemDetails?.price
+
+              let p2 = availabileProducts?.filter(e =>(Number(e?.itemDetails.displayPrice ? e?.itemDetails.displayPrice : e?.itemDetails.price) < value - cartTotal) && e?.itemDetails.unlimited)
+
+              if (!p.length) {
+                p = p2
+              }else{
+                p = p?.concat(p2)
+              }
+
+
             } else {
-              p = availabileProducts.filter(e => (e.displayPrice ? e.displayPrice : e.price) < value - cartTotal)
+              p = availabileProducts?.filter(e => !e.unlimited && (Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && p_ids[e._id] < (Number(e?.quantity) - Number(e?.soldout)))
+
+           
+  
+
+              let p2 = availabileProducts?.filter(e =>(Number(e?.displayPrice ? e?.displayPrice : e?.price) < value - cartTotal) && e.unlimited)
+
+              if (!p.length) {
+                p = p2
+              }else{
+                p = p?.concat(p2)
+              }
+
+              // console.log(p?.concat(p2))
+
+              // p = p?.concat(p2)
             }
 
-            // p = productList.filter(e => getCalc.getData(e.price) < value - cartTotal)
-            // p = availabileProducts.filter(e => price2 < value - cartTotal)
+            // console.log('after', p)
+
 
 
 
             if (p.length > 0) {
+
+
+
+
               p.map((itm, key) => {
                 let price3;
 
 
                 if (props.tagTitle === 'Project') {
 
-                  price3 = itm.itemDetails?.displayPrice ? itm.itemDetails?.displayPrice : itm.itemDetails?.price
+                  price3 = itm?.itemDetails?.displayPrice ? itm?.itemDetails?.displayPrice : itm?.itemDetails?.price
                 } else {
-                  price3 = itm.displayPrice ? itm.displayPrice : itm.price
+                  price3 = itm?.displayPrice ? itm?.displayPrice : itm?.price
 
                 }
 
-                let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
 
-                // if (value > cartTotal + getCalc.getData(itm.price)) {
+
                 if (value > cartTotal + price3) {
-                  let pID = props.tagTitle === 'Project' ? itm.itemDetails?._id : itm._id
-                  let unlimited = props.tagTitle === 'Project' ? itm.itemDetails?.unlimited : itm.unlimited
+                  let pID = props.tagTitle === 'Project' ? itm?.itemDetails?._id : itm?._id
+                  let unlimited = props.tagTitle === 'Project' ? itm?.itemDetails?.unlimited : itm?.unlimited
 
 
                   if (unlimited) {
                     cart.push(pID)
 
                     setCartProductList(cart)
-                    // cartTotal += getCalc.getData(itm.price)
+
                     cartTotal += price3
                   } else {
                     let counts = {}
-                    cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
-                    let checkQ = props.tagTitle === 'Project' ? (Number(itm.itemDetails?.quantity) - Number(itm.itemDetails?.soldout)) :
-                      (Number(itm.quantity) - Number(itm.soldout))
-                    // console.log('count', cart.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 }))
-                    // console.log('2', counts)
-                    // console.log(cart.filter(item => item === pID).length)
-                    if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
+                    // cart?.forEach(function (x) { counts[x] = (counts[x] || 0) + 1 })
+                    let checkQ = props.tagTitle === 'Project' ? (Number(itm?.itemDetails?.quantity) - Number(itm?.itemDetails?.soldout)) :
+                      (Number(itm?.quantity) - Number(itm?.soldout))
 
+                    if (!p_ids[pID]) {
+                      p_ids[pID] = 1
+                    }
+
+                    // if (Number(counts[pID] ? counts[pID] : 0) < checkQ) {
+                    // if (getOccurrence(tempcart, pID) < checkQ) {
+                    if (p_ids[pID] < checkQ) {
+
+                      if (p_ids[pID]) {
+                        p_ids[pID] += 1
+
+                      } else {
+                        p_ids[pID] = 1
+                      }
                       cart.push(pID)
-
+                      tempcart.push(pID)
                       setCartProductList(cart)
-                      // cartTotal += getCalc.getData(itm.price)
+
                       cartTotal += price3
 
                     }
@@ -319,8 +415,14 @@ function OrganisationWidget(props) {
 
                 }
 
+
+
               })
+            } else {
+              // console.log('else')
+              break;
             }
+
           }
 
         }
@@ -332,6 +434,7 @@ function OrganisationWidget(props) {
     } else {
       setCartProductList([])
     }
+
 
   }
 
@@ -389,6 +492,7 @@ function OrganisationWidget(props) {
 
   return (
     <>
+      {/* {console.log('in rander')} */}
       <TagTitle>Organisation</TagTitle>
       <div className="mb-2">
         <WidgetTitle>Items</WidgetTitle>
@@ -401,7 +505,7 @@ function OrganisationWidget(props) {
             <InputGroup.Text className="">
               {currencySymbol}
             </InputGroup.Text>
-            <FormControl type="text" value={price} onChange={(e) => onChangeDonatePrice(e)} />
+            <FormControl type="text" maxLength={6} value={price} onChange={(e) => onChangeDonatePrice(e)} />
           </InputGroup>
 
           <div className="d-flex align-items-center ms-auto">

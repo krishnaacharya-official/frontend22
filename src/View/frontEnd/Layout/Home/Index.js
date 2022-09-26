@@ -219,6 +219,7 @@ export default function Index(props) {
                 <FormControl
                   type="text"
                   placeholder="0"
+                  maxLength={6}
                   className="donate-value-input"
                   value={props.price}
                   onChange={(e) => props.onChangeDonatePrice(e)}
