@@ -1215,12 +1215,12 @@ export default function HomeController() {
                                     // }
 
                                     if (itm.unlimited) {
-                                        if (value > (cartTotal + (price3 * 2))) {
+                                        if (value > (cartTotal + (price3 ))) {
                                             cart.push(itm._id)
-                                            cart.push(itm._id)
+                                            // cart.push(itm._id)
                                             setCartProductList(cart)
                                             // cartTotal += getCalc.getData(itm.price)
-                                            cartTotal += (price3 * 2)
+                                            cartTotal += (price3 )
                                         }
 
                                     } else {

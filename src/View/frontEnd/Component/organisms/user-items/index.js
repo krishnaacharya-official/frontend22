@@ -325,8 +325,7 @@ const UserItems = () => {
                         {helper.websitePath + '/' + item.itemDetails?.slug}
                       </span>
                     </a>
-                    {
-                      item.fulfilDetails.length === 0 ?
+                      {/* // item.fulfilDetails.length === 0 ? */}
 
                         <div className="empty_state mt-5">
                           {
@@ -372,10 +371,8 @@ const UserItems = () => {
                             </span>
                           </div> */}
                         </div>
-                        :
-                        <>
-                          {
-                            item.fulfilDetails[0].video && isIframe(item.fulfilDetails[0].video) &&
+                      {
+                           item.itemDetails?.isFulfiled && item.fulfilDetails[0].video && isIframe(item.fulfilDetails[0].video) &&
 
                             <div className="project-video-wrap mt-4" dangerouslySetInnerHTML={{ __html: item.fulfilDetails[0].video }} >
                               {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
@@ -401,8 +398,8 @@ const UserItems = () => {
                           </div>
 
 
-                        </>
-                    }
+                        {/* </> */}
+                    {/* } */}
 
 
                     {
