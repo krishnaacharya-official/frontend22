@@ -43,7 +43,7 @@ function HistoryItem({ active, ...otherProps }) {
     type === 'donation' ? item?.userDetails?.image : item?.orderDetails?.userDetails?.image;
 
   let name = type === 'donation' ? item?.userDetails?.name : item?.orderDetails?.userDetails?.name;
-  let amount = type === 'donation' ? item?.amount : item?.orderDetails?.total;
+  let amount = type === 'donation' ? item?.amount : item?. totalPrice;
   let date = type === 'donation' ? item?.created_at : item?.orderDetails?.created_at;
   let currencySymbol =
     type === 'donation' ? item?.currencySymbol : item?.orderDetails?.currencySymbol;
@@ -95,7 +95,7 @@ function HistoryItem({ active, ...otherProps }) {
               <>
                 <div className="d-flex">
                   <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{whiteSpace: 'nowrap'}}/>
-                  Bought {item?.quantity} {item?.name}
+                  Bought {item?.quantity} {item?.productName}
                 </div>
               </>
             )}

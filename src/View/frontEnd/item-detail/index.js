@@ -88,7 +88,7 @@ const ItemDetail = (props) => {
   let isFulfiled = productDetails.isFulfiled
 
   const isSold = isFinish || isFulfiled && !productDetails.unlimited ? true : false
-  
+
   let allProjects = productDetails?.projectProducts?.concat(productDetails?.projectDetails)
   allProjects = allProjects?.filter((value, index, self) =>
     index === self.findIndex((t) => (
@@ -145,6 +145,7 @@ const ItemDetail = (props) => {
                 productDetails?.productImages.length > 0 &&
                 productDetails?.productImages.map((img, i) => {
                   if (img.type === 'moreImage') {
+                    // console.log(img)
                     return (
                       <GalleryImg
                         key={i}
@@ -226,14 +227,14 @@ const ItemDetail = (props) => {
                         <div className="gallery__container m-2">
                           {project.projectDetails?.projectImages &&
                             project.projectDetails?.projectImages.length > 0 &&
-                            project.projectDetails?.projectImages.map((img, i) => {
+                            project.projectDetails?.projectImages.map((img2, i) => {
                               // if (img.type === 'moreImage') {
 
                               return (
                                 <GalleryImg
                                   key={i}
-                                  thumbImgSrc={helper.ProjectImagePath + img.image}
-                                  bigImgSrc={helper.ProjectImagePath + img.image}
+                                  thumbImgSrc={helper.ProjectImagePath + img2.image}
+                                  bigImgSrc={helper.ProjectFullImagePath + img2?.image}
                                 />
                               );
                               // }

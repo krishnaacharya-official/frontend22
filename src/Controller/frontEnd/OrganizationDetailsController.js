@@ -139,6 +139,7 @@ export default function OrganizationDetailsController() {
     const getPurchasedItems = async (id) => {
         const getPurchasedItems = await organizationApi.organizationPurchasedItemHistory(userAuthToken ? userAuthToken : CampaignAdminAuthToken, id);
         if (getPurchasedItems.data.success === true) {
+            console.log(getPurchasedItems.data.data )
             setPurchasedItemList(getPurchasedItems.data.data)
         }
     }

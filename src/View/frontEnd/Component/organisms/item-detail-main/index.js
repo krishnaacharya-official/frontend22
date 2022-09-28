@@ -93,13 +93,16 @@ function ProjectDetailMain(props) {
       Add to cart ({quantity})
     </Button>
   );
-  let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
+  // let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
+  let isFinish = !productDetails.unlimited && productDetails.quantity <= productDetails.soldout ? true : false
+
 
   // isFinish || productDetails.isFulfiled && !productDetails.unlimited
   // sold >= total
   const btn =
     isFinish || productDetails.isFulfiled && !productDetails.unlimited ? (
-      <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
+      // <span className="btn btn-outline-danger btn-lg btn__sold">Sold</span>
+      <></>
     ) : (
       cart_btn
     );
@@ -252,23 +255,34 @@ function ProjectDetailMain(props) {
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
       </div>
 
-
+      {
+        isFinish || productDetails.isFulfiled && !productDetails.unlimited ?
+        <div className="note note-info d-flex align-items-center mt-5">
+          <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+            <FontAwesomeIcon icon={solid("circle-check")} />
+          </span>
+          <span className="fs-6 text-subtext">
+            This item has been fully funded.
+          </span>
+        </div>
+        :<></>
+      }
 
 
       {
         productDetails.isFulfiled ?
           <>
-            <div className="note note-info d-flex align-items-center mt-5">
+            {/* <div className="note note-info d-flex align-items-center mt-5">
               <span className="post__badge post__badge--sold me-2 text-primary fs-3">
                 <FontAwesomeIcon icon={solid("circle-check")} />
               </span>
               <span className="fs-6 text-subtext">
                 This item has been fully funded.
               </span>
-            </div>
+            </div> */}
 
             {
-              productDetails.fulfiledproductsDetails.video && isIframe(productDetails.fulfiledproductsDetails.video) &&
+              productDetails.isFulfiled && productDetails.fulfiledproductsDetails.video && isIframe(productDetails.fulfiledproductsDetails.video) &&
               <>
                 <div className="note note-info align-items-center mt-5">
 
@@ -356,89 +370,92 @@ function ProjectDetailMain(props) {
 
 
 
+      {
+        !isFinish &&
 
 
-      <div className="product__badge mt-5 text-light">
-        {
-          productDetails.postTag &&
+        <div className="product__badge mt-5 text-light">
+          {
+            productDetails.postTag &&
 
-          <IconText
-            className="pt-12p pb-12p"
-            icon={
-              <FontAwesomeIcon
-                icon={solid("tag")}
-                className="fs-3 text-info pt-12p pb-12p"
-              />
-            }
-          >
-            Item was already purchased by the organization. Your purchase will cover those costs.
-          </IconText>
-        }
-        {
-          productDetails.unlimited &&
+            <IconText
+              className="pt-12p pb-12p"
+              icon={
+                <FontAwesomeIcon
+                  icon={solid("tag")}
+                  className="fs-3 text-info pt-12p pb-12p"
+                />
+              }
+            >
+              Item was already purchased by the organization. Your purchase will cover those costs.
+            </IconText>
+          }
+          {
+            productDetails.unlimited &&
 
-          <IconText
-            className="pt-12p pb-12p"
-            icon={
-              <FontAwesomeIcon
-                icon={solid("infinity")}
-                className="fs-3 text-info pt-12p pb-12p"
-              />
-            }
-          >
-            Item is ongoing - there is no fixed quantity.
-          </IconText>
-        }
+            <IconText
+              className="pt-12p pb-12p"
+              icon={
+                <FontAwesomeIcon
+                  icon={solid("infinity")}
+                  className="fs-3 text-info pt-12p pb-12p"
+                />
+              }
+            >
+              Item is ongoing - there is no fixed quantity.
+            </IconText>
+          }
 
-        {
-          productDetails.tax &&
+          {
+            productDetails.tax &&
 
-          <IconText
-            className="pt-12p pb-12p"
-            icon={
-              <FontAwesomeIcon
-                icon={solid("calculator-simple")}
-                className="fs-3 text-info"
-              />
-            }
-          >
-            These items are tax deductible.
-          </IconText>
-        }
-        {
-          productDetails.media &&
+            <IconText
+              className="pt-12p pb-12p"
+              icon={
+                <FontAwesomeIcon
+                  icon={solid("calculator-simple")}
+                  className="fs-3 text-info"
+                />
+              }
+            >
+              These items are tax deductible.
+            </IconText>
+          }
+          {
+            productDetails.media &&
 
-          <IconText
-            className="pt-12p pb-12p"
-            icon={
-              <FontAwesomeIcon icon={solid("image")} className="fs-3 text-info" />
-            }
-          >
-            The organization has indicated that they will upload follow-up media from their purchase.
-          </IconText>
-        }
-        {
-          productDetails?.advertisements?.length > 0 &&
+            <IconText
+              className="pt-12p pb-12p"
+              icon={
+                <FontAwesomeIcon icon={solid("image")} className="fs-3 text-info" />
+              }
+            >
+              The organization has indicated that they will upload follow-up media from their purchase.
+            </IconText>
+          }
+          {
+            productDetails?.advertisements?.length > 0 &&
 
-          <IconText
-            className="pt-12p pb-12p"
-            icon={
-              // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
-              <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-3 text-info" />
-            }
-          >
-            {
-              productDetails?.advertisements.map((ad, i) => {
-                return (
-                  <a href={ad.advertisementsData?.website} target="_blank" rel="noreferrer" key={i}>
-                    <img src={helper.sponsorLogoResizePath + ad.advertisementsData?.logo} alt='sponsor' className="p-1" style={{ width: "50px" }}></img>
-                  </a>
-                )
-              })
-            }
-          </IconText>
-        }
-      </div>
+            <IconText
+              className="pt-12p pb-12p"
+              icon={
+                // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
+                <FontAwesomeIcon icon={solid("rectangle-ad")} className="fs-3 text-info" />
+              }
+            >
+              {
+                productDetails?.advertisements.map((ad, i) => {
+                  return (
+                    <a href={ad.advertisementsData?.website} target="_blank" rel="noreferrer" key={i}>
+                      <img src={helper.sponsorLogoResizePath + ad.advertisementsData?.logo} alt='sponsor' className="p-1" style={{ width: "50px" }}></img>
+                    </a>
+                  )
+                })
+              }
+            </IconText>
+          }
+        </div>
+      }
 
 
       {/* <div className="gallery__container m-2">

@@ -336,7 +336,7 @@ export default function ProjectDetailsController() {
                     }
                     // console.log(projdata)
                     setProjectDetails(projdata)
-                    await getAllProjectList()
+                    // await getAllProjectList()
                     await getPurchasedItems(projdata._id)
                     await getDonationList(projdata._id)
 
@@ -355,6 +355,17 @@ export default function ProjectDetailsController() {
 
         })()
     }, [params.name])
+
+
+    
+    useEffect(() => {
+        (async () => {
+            if(user.countryId){
+                await getAllProjectList()
+            }
+
+        })()
+    }, [user.countryId])
     return (
         <>
             <FrontLoader loading={loading} />

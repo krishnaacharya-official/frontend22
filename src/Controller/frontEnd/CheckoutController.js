@@ -265,6 +265,8 @@ export default function CheckoutController() {
 
 
             let productIds = []
+            let p_ids = []
+
 
             if (cartItem && cartItem.length > 0) {
                 cartItem.map((item, i) => {
@@ -272,9 +274,10 @@ export default function CheckoutController() {
                     tempObj.id = item.productDetails._id
                     tempObj.quantity = item.quantity
                     productIds.push(tempObj)
+                    p_ids.push(item.productDetails._id)
                 })
                 data.productIds = productIds
-
+                data.p_ids = p_ids
 
             }
 
