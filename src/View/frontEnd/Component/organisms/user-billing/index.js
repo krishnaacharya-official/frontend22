@@ -179,7 +179,7 @@ const UserBilling = () => {
 
                       <div className="billing__details pr-3 ms-sm-2 flex__1">
                         <div className="fw-bold mb-3p">{PurchaseName}</div>
-                        <div className="text-subtext">
+                        <div className="text-subtext fs-7">
                           {PurchaseIcon}
                           {PurchaseType}
                         </div>
@@ -229,7 +229,7 @@ const UserBilling = () => {
 
                           <div className="billing__details pr-3 ms-sm-2 flex__1">
                             <div className="fw-bold mb-3p">{o_itm.organizationDetails.name}</div>
-                            <div className="text-subtext">
+                            <div className="text-subtext fs-7">
                               {PurchaseIcon}
                               {/* {PurchaseType} */}
                               {o_itm.quantity} {o_itm.productName}

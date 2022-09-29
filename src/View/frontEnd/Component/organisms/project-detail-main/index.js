@@ -86,35 +86,28 @@ function ProjectDetailMain(props) {
   // };
 
   const countProjectProcess = (data) => {
+    let allProductPer = [];
 
-    let allProductPer = []
-
-    let per = 0
+    let per = 0;
 
     if (data?.length > 0) {
       data.map((p, i) => {
-
         if (!p.itemDetails.unlimited) {
-          let itm = Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity) * 100
-          allProductPer.push(itm)
-
+          let itm = (Number(p.itemDetails.soldout) / Number(p.itemDetails.quantity)) * 100;
+          allProductPer.push(itm);
         } else {
-          allProductPer.push(0)
+          allProductPer.push(0);
         }
-
-      })
+      });
 
       const total = allProductPer.reduce((partialSum, a) => partialSum + a, 0);
-      per = total / allProductPer.length
-      per = Math.round(per)
-
+      per = total / allProductPer.length;
+      per = Math.round(per);
     } else {
       per = 0;
-
     }
     return Math.round(per);
-
-  }
+  };
 
   // console.log(projectDetails)
   return (
@@ -191,7 +184,12 @@ function ProjectDetailMain(props) {
             <span className="fs-6 text-dark fw-bold">Shelter</span>
             </Button>*/}
 
-          <Link size="lg" variant="link" className="btn__category text-decoration-none" to={'/categories/' + projectDetails?.campaignDetails?.categoryDetails?.slug}>
+          <Link
+            size="lg"
+            variant="link"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
+            to={'/categories/' + projectDetails?.campaignDetails?.categoryDetails?.slug}
+          >
             <span className="d-flex align-items-center icon__category">
               {/* <img
                 alt=""
@@ -212,15 +210,15 @@ function ProjectDetailMain(props) {
                 <path
                   d={projectDetails?.campaignDetails?.categoryDetails?.icon}
                   fill={projectDetails?.campaignDetails?.categoryDetails?.color}
-                ></path> </svg>
-
+                ></path>{' '}
+              </svg>
+              {projectDetails?.campaignDetails?.categoryDetails?.name}
             </span>
-            {projectDetails?.campaignDetails?.categoryDetails?.name}
           </Link>
           <Link
             size="lg"
             variant="link"
-            className="btn__category text-decoration-none"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
             to={'/organization/' + projectDetails?.campaignDetails?.slug}
           >
             <span className="d-flex align-items-center icon__category">
@@ -230,16 +228,13 @@ function ProjectDetailMain(props) {
                 alt=""
                 style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%' }}
                 src={helper.CampaignAdminLogoPath + projectDetails?.campaignDetails?.logo}
-
               />
               {/* </div> */}
             </span>
-            <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{projectDetails?.campaignDetails?.name}</span>
+            <span className="fs-6 text-dark fw-bold" style={{ textTransform: 'capitalize' }}>
+              {projectDetails?.campaignDetails?.name}
+            </span>
           </Link>
-
-          <Button size="lg" variant="secondary" className=" text-decoration-none">
-            <span className="fs-6">Shelter</span>
-          </Button>
         </div>
         {/*   <div className="iframe__wrapper">
           {/* <iframe

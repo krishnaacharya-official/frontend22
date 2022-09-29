@@ -63,7 +63,7 @@ const UserAccounts = () => {
         </div>
       </div>
 
-      <div className="mb-5">
+     {/* <div className="mb-5">
         <h4 className="fw-bolder">Crypto Wallets</h4>
         <div className="text-subtext mb-3">
           You have linked the following wallets:
@@ -86,7 +86,7 @@ const UserAccounts = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

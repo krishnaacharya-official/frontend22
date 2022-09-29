@@ -269,6 +269,13 @@ const UserItems = () => {
 
                 <ListItemImg
                   size={42}
+                  style={{
+                    borderRadius: "50%",
+                    maxHeight: "46px",
+                    maxWidth: "46px",
+                    minHeight: "46px",
+                    minHeight: "46px",
+                  }}
                   imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
                   className='charity_avatar_bg'
                 />
@@ -338,7 +345,7 @@ const UserItems = () => {
 
                           }
                           <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
-                          <p className="mt-2">{item.itemDetails?.description}</p>
+                          <p className="mt-2 page__paragraph">{item.itemDetails?.description}</p>
 
 
 

@@ -120,8 +120,8 @@ const HistoryList = (props) => {
                                   <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
                                     <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
                                       <ListItemImg
-                                        size={75}
                                         imgSrc={helper.CampaignProductImagePath + item.productImage}
+                                        style={{border: "unset", background: "unset"}}
                                       />
                                       <div className="ms-2 order__id">
                                         <Button
