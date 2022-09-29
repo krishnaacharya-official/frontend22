@@ -75,7 +75,7 @@ function History(props) {
           <div className="action__info">
             <div className="log__title">
               <div>{historyList?.length} Recent Donations</div>
-              <div className="billing__type">48 hours</div>
+              <div className="billing__type">15 days</div>
             </div>
           </div>
         </div>
