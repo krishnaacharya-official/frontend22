@@ -6,6 +6,7 @@ import Avatar from '../../atoms/avatar';
 import AvatarImg from '../../../../../assets/images/avatar_default.png';
 import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
 import moment from 'moment';
+import { useLocation } from 'react-router-dom';
 
 import './style.scss';
 
@@ -23,6 +24,8 @@ const defaultProps = {
 
 function HistoryItem({ active, ...otherProps }) {
   const getC = getCalculatedPrice();
+  const location = useLocation()
+
   const sharedProps = {
     active,
     ...otherProps
@@ -43,15 +46,16 @@ function HistoryItem({ active, ...otherProps }) {
     type === 'donation' ? item?.userDetails?.image : item?.orderDetails?.userDetails?.image;
 
   let name = type === 'donation' ? item?.userDetails?.name : item?.orderDetails?.userDetails?.name;
-  let amount = type === 'donation' ? item?.amount : item?. totalPrice;
+  let amount = type === 'donation' ? item?.amount : item?.totalPrice;
   let date = type === 'donation' ? item?.created_at : item?.orderDetails?.created_at;
   let currencySymbol =
     type === 'donation' ? item?.currencySymbol : item?.orderDetails?.currencySymbol;
   let xp = type === 'donation' ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp;
   let isDeleted =
     type === 'donation' ? item?.userDetails?.isDeleted : item?.orderDetails?.userDetails?.isDeleted;
+  const page = location.pathname.split('/').length > 0 && location.pathname.split('/')[1]
 
-  // console.log(avatar)
+  // console.log(location.pathname.split('/')[1])
 
   return (
     <li
@@ -94,8 +98,8 @@ function HistoryItem({ active, ...otherProps }) {
             ) : (
               <>
                 <div className="d-flex">
-                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{whiteSpace: 'nowrap'}}/>
-                  Bought {item?.quantity} {item?.productName}
+                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{ whiteSpace: 'nowrap' }} />
+                  Bought {item?.quantity} {page !== 'item' && item?.productName}
                 </div>
               </>
             )}
