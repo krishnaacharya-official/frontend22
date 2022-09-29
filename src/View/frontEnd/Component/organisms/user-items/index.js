@@ -274,7 +274,7 @@ const UserItems = () => {
                     maxHeight: "46px",
                     maxWidth: "46px",
                     minHeight: "46px",
-                    minHeight: "46px",
+                    // minHeight: "46px",
                   }}
                   imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
                   className='charity_avatar_bg'
