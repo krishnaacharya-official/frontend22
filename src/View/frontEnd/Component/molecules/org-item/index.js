@@ -42,7 +42,6 @@ function OrganisationItem(props) {
   const cart_btn = addedToCard ? (
     <Button
       variant="success"
-      size="sm"
       className="icon icon__pro"
 
     >
@@ -51,7 +50,6 @@ function OrganisationItem(props) {
   ) : (
     <Button
       variant="primary"
-      size="sm"
       className="icon icon__pro"
       onClick={() => {
         props.addToCart(productId, totalQuantity)

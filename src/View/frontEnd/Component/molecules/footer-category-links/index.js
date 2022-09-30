@@ -68,11 +68,6 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
               Partnerships
             </a>
           </li>
-          <li className="footer__link-item">
-            <a href="/sponsors" className="footer__link">
-              Sponsorships
-            </a>
-          </li>
         </ul>
       )}
 
@@ -85,7 +80,7 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
           </li>
           <li className="footer__link-item">
             <a href="/sponsors" className="footer__link">
-              Become Verified
+              Sponsorships
             </a>
           </li>
           <li className="footer__link-item">

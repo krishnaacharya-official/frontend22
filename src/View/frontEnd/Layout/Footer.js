@@ -62,9 +62,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="col-sm-6 col-lg-2">
-            <a className="footer-title" href="#">
-              Home
-            </a>
+            <span className="footer-title">Home</span>
             <div className="footer-links">
               <a href="#">About Us</a>
               <a href="#">Press &amp; Media</a>
@@ -74,31 +72,27 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-sm-6 col-lg-2">
-            <a className="footer-title" href="#">
-              Support
-            </a>
+            <span className="footer-title">Support</span>
             <div className="footer-links">
               <a href="#">Apply to Post</a>
               <a href="#">Help Center</a>
               <a href="#">Partnerships</a>
-              <a href="#">Sponsorships</a>
             </div>
           </div>
           <div className="col-sm-6 col-lg-2">
-            <a className="footer-title" href="#">
-              Information
-            </a>
+            <span className="footer-title">Information</span>
             <div className="footer-links">
               <a href="#">Trust &amp; Safety</a>
-              <a href="#">Become Verified</a>
+              <a href="#">Sponsorships</a>
               <a href="#">Post Tags</a>
             </div>
           </div>
           <div className="col-sm-6 col-lg-2">
-            <a className="footer-title" href="#">
-              Marketplace
-            </a>
-            <div className="footer-links d-flex flex-column flex-wrap" style={{maxHeight: '275px'}}>
+            <span className="footer-title">Marketplace</span>
+            <div
+              className="footer-links d-flex flex-column flex-wrap"
+              style={{ maxHeight: '275px' }}
+            >
               <a href="#">Animals</a>
               <a href="#">Education</a>
               <a href="#">Environment</a>

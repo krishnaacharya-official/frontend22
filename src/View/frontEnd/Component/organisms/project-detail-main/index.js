@@ -212,6 +212,8 @@ function ProjectDetailMain(props) {
                   fill={projectDetails?.campaignDetails?.categoryDetails?.color}
                 ></path>{' '}
               </svg>
+            </span>
+            <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
               {projectDetails?.campaignDetails?.categoryDetails?.name}
             </span>
           </Link>
@@ -231,7 +233,7 @@ function ProjectDetailMain(props) {
               />
               {/* </div> */}
             </span>
-            <span className="fs-6 text-dark fw-bold" style={{ textTransform: 'capitalize' }}>
+            <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
               {projectDetails?.campaignDetails?.name}
             </span>
           </Link>

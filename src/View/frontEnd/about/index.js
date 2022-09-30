@@ -26,7 +26,12 @@ const About = (props) => {
                   charities spend your money.
                 </p>
                 <div className="d-flex align-items-center gap-2 mb-2 pb-5">
-                  <Button variant="primary" className="fw-bold fs-16 px-14" size="lg">
+                  <Button
+                    onClick={() => navigate('/apply')}
+                    variant="primary"
+                    className="fw-bold fs-16 px-14"
+                    size="lg"
+                  >
                     Start Listing
                   </Button>
                   <Link to="/home" className="about-nobg w-bold fs-6 px-4">
@@ -276,7 +281,7 @@ const About = (props) => {
                   <p className="fs-5 text-light lh-1.5">
                     To learn more check out our&nbsp;
                     <Link to="/home" className="text-dark">
-                     partnerships page.
+                      partnerships page.
                     </Link>
                   </p>
                 </div>

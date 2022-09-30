@@ -120,6 +120,7 @@ const HistoryList = (props) => {
                                   <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
                                     <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
                                       <ListItemImg
+                                        size={48}
                                         imgSrc={helper.CampaignProductImagePath + item.productImage}
                                         style={{border: "unset", background: "unset"}}
                                       />
@@ -135,7 +136,7 @@ const HistoryList = (props) => {
                                       </div>
                                       <ListItemImg
                                         size={42}
-                                        className="rounded-circle charity_avatar_bg"
+                                        className="rounded-circle img--nobg"
                                         imgSrc={helper.CampaignAdminLogoPath + item?.itemDetails?.campaignadminsDetails.logo}
                                       />
                                     </div>

@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import { Button, InputGroup, FormControl } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
 // import { Logo } from "@components/atoms";
 // import { Footer } from "@components/organisms";
 
 import Logo from '../Component/atoms/logo';
 import Footer from '../Component/organisms/footer';
-import Select from "react-select"
+import Select from 'react-select';
 
-import "./style.scss";
+import './style.scss';
 
 const Register = (props) => {
   let stateData = props.stateData;
-  const countryList = props.countryList
-
+  const countryList = props.countryList;
 
   const [showPassword, togglePassword] = useState(false);
   return (
@@ -43,10 +42,7 @@ const Register = (props) => {
                 </div>
                 <div className="clear"></div>
                 <div className="from-me">
-                  <p>
-                    You pay for things non-profits need instead of just giving
-                    them money
-                  </p>
+                  <p>You pay for things non-profits need instead of just giving them money</p>
                 </div>
                 <div className="clear"></div>
                 <div className="from-them">
@@ -55,14 +51,10 @@ const Register = (props) => {
               </div>
               <div className="chat-info-wrap">
                 <a href="/" className="d-flex">
-                  <FontAwesomeIcon
-                    icon={regular("circle-info")}
-                    className="text-info"
-                  />
+                  <FontAwesomeIcon icon={regular('circle-info')} className="text-info" />
                 </a>
                 <span className="lh-1">
-                  For information on how Donorport works{" "}
-                  <a href="/"> click here.</a>
+                  For information on how Donorport works <a href="/"> click here.</a>
                 </span>
               </div>
             </div>
@@ -76,12 +68,11 @@ const Register = (props) => {
               <form className="login__form">
                 <div className="login-header">Sign Up</div>
                 <div className="mb-3">
-
                   {/* <div className="input__wrap d-flex"> */}
-                    {/* <label className="input__label flex__1"> */}
-                    {/* <input type="text" value='' /> */}
-                    {/* {countrySelect.current} */}
-                    {/* <Select
+                  {/* <label className="input__label flex__1"> */}
+                  {/* <input type="text" value='' /> */}
+                  {/* {countrySelect.current} */}
+                  {/* <Select
                       className="basic-single"
                       // classNamePrefix="select"
                       value={props.defaultCountry}
@@ -93,35 +84,50 @@ const Register = (props) => {
                           IndicatorSeparator: () => null
                         }}
                     /> */}
-                    {/* <span className="input__span">Country</span>
+                  {/* <span className="input__span">Country</span>
                     </label> */}
                   {/* </div> */}
                 </div>
 
                 <div className="mb-3">
-
-                  {stateData.error && stateData.error.country && <p className="error">{stateData.error.country}</p>}
-                  <input type="text" className="form-control" name="name" id="name" value={stateData.name} onChange={(e) => props.changevalue(e)} placeholder="Name" />
-                  {stateData.error && stateData.error.name && <p className="error">{stateData.error ? stateData.error.name ? stateData.error.name : "" : ""}</p>}
+                  {stateData.error && stateData.error.country && (
+                    <p className="error">{stateData.error.country}</p>
+                  )}
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    id="name"
+                    value={stateData.name}
+                    onChange={(e) => props.changevalue(e)}
+                    placeholder="Name"
+                  />
+                  {stateData.error && stateData.error.name && (
+                    <p className="error">
+                      {stateData.error ? (stateData.error.name ? stateData.error.name : '') : ''}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-3">
-
                   <input
                     type="email"
                     className="form-control"
                     id="email"
                     placeholder="Email"
-                    name="email" value={stateData.email}
+                    name="email"
+                    value={stateData.email}
                     onChange={(e) => props.changevalue(e)}
                   />
-                  {stateData.error && stateData.error.email && <p className="error">{stateData.error ? stateData.error.email ? stateData.error.email : "" : ""}</p>}
+                  {stateData.error && stateData.error.email && (
+                    <p className="error">
+                      {stateData.error ? (stateData.error.email ? stateData.error.email : '') : ''}
+                    </p>
+                  )}
                 </div>
-
-
 
                 <InputGroup className="input-group__alpha ">
                   <FormControl
-                    type={!showPassword ? "password" : "text"}
+                    type={!showPassword ? 'password' : 'text'}
                     placeholder="Password"
                     className="bg-white pl-12p"
                     name="password"
@@ -130,17 +136,26 @@ const Register = (props) => {
                   />
 
                   <Button variant="link" onClick={() => togglePassword(!showPassword)}>
-                    <FontAwesomeIcon icon={solid("eye")} className={`${showPassword ? 'text-primary' : 'text-light'}`} />
+                    <FontAwesomeIcon
+                      icon={solid('eye')}
+                      className={`${showPassword ? 'text-primary' : 'text-light'}`}
+                    />
                   </Button>
-
                 </InputGroup>
-                {stateData.error && stateData.error.password && <p className="error">{stateData.error ? stateData.error.password ? stateData.error.password : "" : ""}</p>}
-
+                {stateData.error && stateData.error.password && (
+                  <p className="error">
+                    {stateData.error
+                      ? stateData.error.password
+                        ? stateData.error.password
+                        : ''
+                      : ''}
+                  </p>
+                )}
 
                 <InputGroup className="input-group__alpha mt-3 ">
                   <FormControl
                     // type={!showPassword ? "password" : "text"}
-                    type={!props.showCPassword ? "password" : "text"}
+                    type={!props.showCPassword ? 'password' : 'text'}
                     placeholder="Confirm Password"
                     className="bg-white pl-12p"
                     name="cpassword"
@@ -148,13 +163,25 @@ const Register = (props) => {
                     id="inputPassword"
                   />
 
-                  <Button variant="link" onClick={() => props.setShowCPassword(!props.showCPassword)}>
-                    <FontAwesomeIcon icon={solid("eye")} className={`${props.showCPassword ? 'text-primary' : 'text-light'}`} />
+                  <Button
+                    variant="link"
+                    onClick={() => props.setShowCPassword(!props.showCPassword)}
+                  >
+                    <FontAwesomeIcon
+                      icon={solid('eye')}
+                      className={`${props.showCPassword ? 'text-primary' : 'text-light'}`}
+                    />
                   </Button>
-
                 </InputGroup>
-                {stateData.error && stateData.error.cpassword && <p className="error">{stateData.error ? stateData.error.cpassword ? stateData.error.cpassword : "" : ""}</p>}
-
+                {stateData.error && stateData.error.cpassword && (
+                  <p className="error">
+                    {stateData.error
+                      ? stateData.error.cpassword
+                        ? stateData.error.cpassword
+                        : ''
+                      : ''}
+                  </p>
+                )}
 
                 {/* <div className="form-check-wrap mt-3 mb-5">
                   <div className="form-check d-flex align-items-center">
@@ -171,7 +198,7 @@ const Register = (props) => {
                     Forgot Password?
                   </a>
                 </div> */}
-                <Button
+                {/* <Button
                   variant="outline-light"
                   className="btn__google mb-4 w-100  mt-3"
                 >
@@ -181,8 +208,8 @@ const Register = (props) => {
                     alt=""
                   />
                   <span className="fw-bold">Sign Up with Google</span>
-                </Button>
-                <Button size="lg" className="w-100 mb-4" onClick={() => props.signUp()}>
+              </Button>*/}
+                <Button size="lg" className="w-100 mb-4 mt-4" onClick={() => props.signUp()}>
                   Register
                 </Button>
                 {/* <Button
@@ -192,10 +219,10 @@ const Register = (props) => {
                 >
                   Don’t have an account? Sign up
                 </Button> */}
-                <Link className="text-light w-100 p-0 fw-normal" to='/signin'>Already have an account? Sign in</Link>
+                <Link className="text-light w-100 p-0 fw-normal" to="/signin">
+                  Already have an account? Sign in
+                </Link>
                 {/* <Link to='/signin' className="btn btn-link">Already have an account? Sign in</Link> */}
-
-
               </form>
             </div>
           </div>

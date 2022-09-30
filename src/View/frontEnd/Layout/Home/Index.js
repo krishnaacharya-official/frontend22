@@ -42,7 +42,6 @@ export default function Index(props) {
               cartProductIds={props.cartProductIds}
               filters={props.filters}
               t={props.productList.length}
-
             />
           </Col>
         )
@@ -125,7 +124,11 @@ export default function Index(props) {
     <>
       <HeaderController />
       <div className="bg-lighter border-bottom">
-        <Container className="d-flex flex-column flex-sm-row align-items-center py-2 " fluid style={{ height: '90px' }}>
+        <Container
+          className="d-flex flex-column flex-sm-row align-items-center py-2 "
+          fluid
+          style={{ minHeight: '90px' }}
+        >
           <div className="filter__dropdown-wrap mb-2 mb-sm-0 ">
             <FilterDropdown
               organizationList={props.organizationList}
@@ -157,9 +160,6 @@ export default function Index(props) {
                       </li>
                     );
                   })}
-
-
-
 
                 {/* <li className="search__tag" onClick={() => alert('k')} style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>blankets</span><a href="javascript:void(0)">x</a></li>
                 <li className="search__tag " style={{ backgroundColor: "rgb(34, 144, 143)", marginRight: "10px" }}><span>designlab</span><a href="javascript:void(0)">x</a></li> */}
@@ -206,7 +206,7 @@ export default function Index(props) {
             <div className="grab__dropdown-wrap ms-sm-2 mb-2 mb-sm-0">{/* <GrabDropdown /> */}</div>
           </div>
         </Container>
-      </div >
+      </div>
       {!CampaignAdminAuthToken && (
         <Container className="d-flex align-items-center" fluid>
           <div className="donate-section mt-2 p-2 d-sm-flex align-items-center flex-grow-1">
@@ -235,8 +235,11 @@ export default function Index(props) {
             >
               Add to Cart ({props.cartProductList.length})
             </Button>
-            <div className="p-2 d-sm-flex align-items-center flex-grow-1" style={{ fontSize: '14px' }}>
-              <FontAwesomeIcon icon={regular('circle-question')} style={{ color: "#5f5df8" }} />
+            <div
+              className="p-2 d-sm-flex align-items-center flex-grow-1"
+              style={{ fontSize: '14px' }}
+            >
+              <FontAwesomeIcon icon={regular('circle-question')} style={{ color: '#5f5df8' }} />
               &nbsp; How does it work?&nbsp;
               <Link to="/about-us" className="text-light d-inline-block">
                 click here
@@ -244,8 +247,7 @@ export default function Index(props) {
             </div>
           </div>
         </Container>
-      )
-      }
+      )}
 
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">
@@ -272,12 +274,13 @@ export default function Index(props) {
                             marginLeft: '1.5px'
                           }}
                         ></i> */}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
-                          <path
-                            d={c.icon}
-                            fill={c.color}
-                          >
-                          </path>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 640 512"
+                        >
+                          <path d={c.icon} fill={c.color}></path>
                         </svg>
                       </span>
                       <span className="flex__1 ms-1 fs-5 fw-semibold text-subtext">{c.name}</span>
@@ -293,66 +296,71 @@ export default function Index(props) {
                 );
               })}
 
-
-            {
-              props.filters.taxEligible ?
-                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
-                  <span className="filter__item-icon">
-                    <FontAwesomeIcon icon={solid('calculator-simple')} color="#3a94d4" />
-                  </span>
-                  <Button
-                    variant="link"
-                    className="ms-2 p-0 fs-4 lh-1"
-                    onClick={() => props.setfilters({
+            {props.filters.taxEligible ? (
+              <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                <span className="filter__item-icon">
+                  <FontAwesomeIcon icon={solid('calculator-simple')} color="#3a94d4" />
+                </span>
+                <Button
+                  variant="link"
+                  className="ms-2 p-0 fs-4 lh-1"
+                  onClick={() =>
+                    props.setfilters({
                       ...props.filters,
                       taxEligible: false
-                    })}
-                  >
-                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
-                  </Button>
-                </div>
-                : <></>
-            }
+                    })
+                  }
+                >
+                  <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
 
-            {
-              props.filters.postTag ?
-                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
-                  <span className="filter__item-icon">
-                    <FontAwesomeIcon icon={solid('tag')} color="#947ada" />
-                  </span>
-                  <Button
-                    variant="link"
-                    className="ms-2 p-0 fs-4 lh-1"
-                    onClick={() => props.setfilters({
+            {props.filters.postTag ? (
+              <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                <span className="filter__item-icon">
+                  <FontAwesomeIcon icon={solid('tag')} color="#947ada" />
+                </span>
+                <Button
+                  variant="link"
+                  className="ms-2 p-0 fs-4 lh-1"
+                  onClick={() =>
+                    props.setfilters({
                       ...props.filters,
                       postTag: false
-                    })}
-                  >
-                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
-                  </Button>
-                </div>
-                : <></>
-            }
+                    })
+                  }
+                >
+                  <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
 
-            {
-              props.filters.infinite ?
-                <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
-                  <span className="filter__item-icon">
-                    <FontAwesomeIcon icon={solid('infinity')} color="#947ada" />
-                  </span>
-                  <Button
-                    variant="link"
-                    className="ms-2 p-0 fs-4 lh-1"
-                    onClick={() => props.setfilters({
+            {props.filters.infinite ? (
+              <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
+                <span className="filter__item-icon">
+                  <FontAwesomeIcon icon={solid('infinity')} color="#947ada" />
+                </span>
+                <Button
+                  variant="link"
+                  className="ms-2 p-0 fs-4 lh-1"
+                  onClick={() =>
+                    props.setfilters({
                       ...props.filters,
                       infinite: false
-                    })}
-                  >
-                    <FontAwesomeIcon icon={solid('close')} className="text-light" />
-                  </Button>
-                </div>
-                : <></>
-            }
+                    })
+                  }
+                >
+                  <FontAwesomeIcon icon={solid('close')} className="text-light" />
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
 
             {/* <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
               <span className="filter__item-icon">
@@ -376,7 +384,8 @@ export default function Index(props) {
           {props.advertisementList.length > 0 && (
             <div>
               <IconText
-                className="pt-12p pb-12p"
+                size={42}
+                style={{ border: 'unset' }}
                 icon={
                   // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
                   <FontAwesomeIcon icon={solid('rectangle-ad')} className="fs-4 text-info" />
@@ -389,7 +398,7 @@ export default function Index(props) {
                         src={helper.sponsorLogoResizePath + ad.logo}
                         alt="sponsor"
                         className="px-2"
-                        style={{ maxWidth: '50px', maxHeight: "55px" }}
+                        style={{ maxHeight: '55px' }}
                       ></img>
                     </a>
                   );

@@ -20,7 +20,7 @@ const Trust = () => {
               Feel confident choosing Donorport as your donation platform.
             </div>
 
-            <div className="about__list d-flex align-items-center">
+            {/*  <div className="about__list d-flex align-items-center">
               <div className="about__item d-flex flex-column align-items-center justify-content-center fs-5 text-center pb-20p">
                 <img
                   src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f319c8063bf1f134af89412_money.svg"
@@ -62,7 +62,7 @@ const Trust = () => {
                 </div>
               </div>
             </div>
-
+  */}
             <ul className="list-unstyled mb-0 mb-sm-5">
               <li className="d-sm-flex text-center align-items-center py-3">
                 <div className="trust__thumb-wrap text-center mr-20p">
