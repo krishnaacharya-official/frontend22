@@ -1,48 +1,38 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { Nav } from "react-bootstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Nav } from 'react-bootstrap';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  DashboardIcon,
-  ItemsIcon,
-  XpIcon,
-  TaxIcon,
-  HistoryIcon,
-  SettingsIcon,
-} from "./tab-icons";
+import { DashboardIcon, ItemsIcon, XpIcon, TaxIcon, HistoryIcon, SettingsIcon } from './tab-icons';
 
-import "./style.scss";
+import './style.scss';
 
 const propTypes = {
-  activeKey: PropTypes.string,
+  activeKey: PropTypes.string
 };
 const navItemStyle = {
-  display: "inline-grid"
-}
+  display: 'inline-grid'
+};
 
 function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   const userAuthToken = localStorage.getItem('userAuthToken');
 
-  const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[3])
+  const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[3]);
 
   // let currentOption = location.pathname.split('/')[3]
   // let userName = data?.name
   // let newSlug =userName?.split(/\s/).join('');
 
   useEffect(() => {
-
     if (!userAuthToken) {
-      navigate('/signin')
+      navigate('/signin');
     }
 
-
     // setCurrentOption(location.pathname.split('/')[3])
-  }, [location.pathname])
-
+  }, [location.pathname]);
 
   const userData = JSON.parse(localStorage.getItem('userData'));
   let newSlug = userData?.name.split(/\s/).join('');
@@ -50,88 +40,114 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   return (
     <>
       <Nav variant="pills" {...otherProps} onClick={_onClick} style={navItemStyle}>
-
-        <Link to={'/user/' + newSlug + '/dashboard'}>
-          <Nav.Item >
+        <Link>
+          <Nav.Item>
             <Nav.Link
+              to={'/user/' + newSlug + '/dashboard'}
               eventKey="dashboard"
-              className={activeKey === "dashboard" ? "tab__btn d-flex flex-direction-column align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'dashboard'
+                  ? 'tab__btn d-flex flex-direction-column align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
-              <span className="tab__icon" >
-                <DashboardIcon active={activeKey === "dashboard"} />
+              <span className="tab__icon">
+                <DashboardIcon active={activeKey === 'dashboard'} />
               </span>
               <span className="tab__text">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
         </Link>
 
-        <Link to={'/user/' + newSlug + '/items'}>
-          <Nav.Item >
+        <Link>
+          <Nav.Item>
             <Nav.Link
+              to={'/user/' + newSlug + '/items'}
               eventKey="items"
-              className={activeKey === "items" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'items'
+                  ? 'tab__btn d-flex align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
               <span className="tab__icon">
-                <ItemsIcon active={activeKey === "items"} />
+                <ItemsIcon active={activeKey === 'items'} />
               </span>
               <span className="tab__text">Items</span>
             </Nav.Link>
           </Nav.Item>
         </Link>
 
-
-        <Link to={'/user/' + newSlug + '/xp'}>
-          <Nav.Item  >
+        <Link>
+          <Nav.Item>
             <Nav.Link
+              to={'/user/' + newSlug + '/xp'}
               eventKey="xp"
-              className={activeKey === "xp" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'xp'
+                  ? 'tab__btn d-flex align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
               <span className="tab__icon">
-                <XpIcon active={activeKey === "xp"} />
+                <XpIcon active={activeKey === 'xp'} />
               </span>
               <span className="tab__text">XP</span>
             </Nav.Link>
           </Nav.Item>
         </Link>
 
-        <Link to={'/user/' + newSlug + '/tax'}>
-          <Nav.Item >
+        <Link>
+          <Nav.Item>
             <Nav.Link
+              to={'/user/' + newSlug + '/tax'}
               eventKey="tax"
-              className={activeKey === "tax" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'tax'
+                  ? 'tab__btn d-flex align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
               <span className="tab__icon">
-                <TaxIcon active={activeKey === "tax"} />
+                <TaxIcon active={activeKey === 'tax'} />
               </span>
               <span className="tab__text">Tax</span>
             </Nav.Link>
           </Nav.Item>
         </Link>
 
-
-        <Link to={'/user/' + newSlug + '/history'}>
-          <Nav.Item >
+        <Link>
+          <Nav.Item>
             <Nav.Link
+              to={'/user/' + newSlug + '/history'}
               eventKey="history"
-              className={activeKey === "history" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'history'
+                  ? 'tab__btn d-flex align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
               <span className="tab__icon">
-                <HistoryIcon active={activeKey === "history"} />
+                <HistoryIcon active={activeKey === 'history'} />
               </span>
               <span className="tab__text">History</span>
             </Nav.Link>
           </Nav.Item>
         </Link>
 
-
-        <Link to={'/user/' + newSlug + '/settings/profile'}>
+        <Link>
           <Nav.Item className="">
             <Nav.Link
+              to={'/user/' + newSlug + '/settings/profile'}
               eventKey="settings"
-              className={activeKey === "settings" ? "tab__btn d-flex align-items-center text-dark active d-none d-sm-flex" : "tab__btn d-flex align-items-center text-dark"}
+              className={
+                activeKey === 'settings'
+                  ? 'tab__btn d-flex align-items-center text-dark active d-none d-sm-flex'
+                  : 'tab__btn d-flex align-items-center text-dark'
+              }
             >
               <span className="tab__icon">
-                <SettingsIcon active={activeKey === "settings"} />
+                <SettingsIcon active={activeKey === 'settings'} />
               </span>
               <span className="tab__text">Settings</span>
             </Nav.Link>
