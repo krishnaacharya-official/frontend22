@@ -40,10 +40,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   return (
     <>
       <Nav variant="pills" {...otherProps} onClick={_onClick} style={navItemStyle}>
-        <Link>
+        <Link to={'/user/' + newSlug + '/dashboard'}>
           <Nav.Item>
             <Nav.Link
-              to={'/user/' + newSlug + '/dashboard'}
               eventKey="dashboard"
               className={
                 activeKey === 'dashboard'
@@ -59,10 +58,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        <Link>
+        <Link to={'/user/' + newSlug + '/items'}>
           <Nav.Item>
             <Nav.Link
-              to={'/user/' + newSlug + '/items'}
               eventKey="items"
               className={
                 activeKey === 'items'
@@ -78,10 +76,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        <Link>
+        <Link to={'/user/' + newSlug + '/xp'}>
           <Nav.Item>
             <Nav.Link
-              to={'/user/' + newSlug + '/xp'}
               eventKey="xp"
               className={
                 activeKey === 'xp'
@@ -97,10 +94,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        <Link>
+        <Link to={'/user/' + newSlug + '/tax'}>
           <Nav.Item>
             <Nav.Link
-              to={'/user/' + newSlug + '/tax'}
               eventKey="tax"
               className={
                 activeKey === 'tax'
@@ -116,10 +112,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        <Link>
+        <Link to={'/user/' + newSlug + '/history'}>
           <Nav.Item>
             <Nav.Link
-              to={'/user/' + newSlug + '/history'}
               eventKey="history"
               className={
                 activeKey === 'history'
@@ -135,10 +130,9 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
           </Nav.Item>
         </Link>
 
-        <Link>
+        <Link to={'/user/' + newSlug + '/settings/profile'}>
           <Nav.Item className="">
             <Nav.Link
-              to={'/user/' + newSlug + '/settings/profile'}
               eventKey="settings"
               className={
                 activeKey === 'settings'

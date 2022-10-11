@@ -252,8 +252,6 @@ function ProjectDetailMain(props) {
       </div>
 
       <div className="mt-5">
-        <h5 className="project__detail-sublabel mb-0 fw-bolder">Need</h5>
-        <div className="project__detail-subtitle mb-12p fw-bold">Gallery</div>
         <ProjectGallery
           className="mb-3"
           tagTitle="Products"

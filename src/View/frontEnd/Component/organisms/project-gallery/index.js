@@ -26,29 +26,26 @@ function ProjectGallery(props) {
         ''
       )}
       <Fancybox>
+        <h5 className="project__detail-sublabel mb-0 fw-bolder">Need</h5>
+        <div className="project__detail-subtitle mb-12p fw-bold">Gallery</div>
         <div className="gallery__container">
           {images?.length > 0 &&
             images.map((img, i) => {
               // console.log(img)
               if (props.tagTitle === 'Project' || img.type === 'galleryImage') {
-
                 return (
                   <GalleryImg
                     key={i}
                     thumbImgSrc={
                       props.tagTitle === 'Project'
                         ? helper.ProjectImagePath + img.image
-
-                        :
-                        img.type === 'galleryImage' &&
-                        helper.CampaignProductImagePath + img.image
+                        : img.type === 'galleryImage' && helper.CampaignProductImagePath + img.image
                     }
                     bigImgSrc={
                       props.tagTitle === 'Project'
                         ? helper.ProjectFullImagePath + img.image
-                        :
-                        img.type === 'galleryImage' &&
-                        helper.CampaignProductFullImagePath + img.image
+                        : img.type === 'galleryImage' &&
+                          helper.CampaignProductFullImagePath + img.image
                     }
                   />
                 );

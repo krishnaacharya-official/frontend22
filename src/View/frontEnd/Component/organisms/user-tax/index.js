@@ -175,7 +175,7 @@ const UserTax = () => {
       </header>
 
       <div className="fs-4 fw-bold d-flex align-items-center gap-1 mb-2">
-        <span className="fs-4 text-light fw-bold flex-grow-1">DONATION HISTORY</span>
+        <span className="fs-7 text-light fw-bolder flex-grow-1">DONATION HISTORY</span>
         Total :
         <span className="text-success">
           {userData.symbol}

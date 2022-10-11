@@ -88,7 +88,7 @@ const HistoryList = (props) => {
                       <div>
                         <Button
                           variant="link"
-                          className="text-dark p-0 mb-1"
+                          className="text-dark fs-5 p-0 mb-1"
                           // onClick={() => setOpenData({ ...openData, key: order._id, activeDetail: !activeDetail })}
                           onClick={() => showDetails(order._id)}
 
@@ -97,7 +97,7 @@ const HistoryList = (props) => {
                         </Button>
                       </div>
                       {/* <div className="fw-bold fs-7 text-light">July 21, 2020</div> */}
-                      <div className="fw-bold fs-7 text-light">{moment(order.created_at).format('MMMM DD , YYYY')}</div>
+                      <div className="fs-6 text-lighter">{moment(order.created_at).format('MMMM DD , YYYY')}</div>
 
                     </div>
                     {
