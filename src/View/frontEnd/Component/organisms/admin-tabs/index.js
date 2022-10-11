@@ -25,10 +25,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
   return (
     <>
       <Nav variant="pills" {...otherProps} onClick={_onClick}>
-        <div>
+        <Link to={'/campaign/' + data?.slug + '/dashboard'}>
           <Nav.Item>
             <Nav.Link
-              to={'/campaign/' + data?.slug + '/dashboard'}
               eventKey="dashboard"
               className={
                 currentOption === 'dashboard'
@@ -42,12 +41,11 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
 
-        <div>
+        <Link to={'/campaign/' + data?.slug + '/posts'}>
           <Nav.Item>
             <Nav.Link
-              to={'/campaign/' + data?.slug + '/posts'}
               eventKey="posts"
               className={
                 currentOption === 'posts'
@@ -61,10 +59,10 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Posts</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
 
-        <div>
-          <Nav.Item to={'/campaign/' + data?.slug + '/activity'} onClick={_onClick}>
+        <Link to={'/campaign/' + data?.slug + '/activity'}>
+          <Nav.Item onClick={_onClick}>
             <Nav.Link
               eventKey="activity"
               className={
@@ -79,12 +77,11 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Activity</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
 
-        <div>
+        <Link to={'/campaign/' + data?.slug + '/tax'}>
           <Nav.Item onClick={_onClick}>
             <Nav.Link
-              to={'/campaign/' + data?.slug + '/tax'}
               eventKey="tax"
               className={
                 currentOption === 'tax'
@@ -98,12 +95,11 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Tax</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
 
-        <div>
+        <Link to={'/campaign/' + data?.slug + '/project'}>
           <Nav.Item onClick={_onClick}>
             <Nav.Link
-              to={'/campaign/' + data?.slug + '/project'}
               eventKey="project"
               className={
                 currentOption === 'project'
@@ -117,12 +113,11 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Project</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
 
-        <div>
+        <Link to={'/campaign/' + data?.slug + '/settings/company'}>
           <Nav.Item className="" onClick={_onClick}>
             <Nav.Link
-              to={'/campaign/' + data?.slug + '/settings/company'}
               eventKey="settings"
               className={
                 currentOption === 'settings'
@@ -136,7 +131,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Settings</span>
             </Nav.Link>
           </Nav.Item>
-        </div>
+        </Link>
       </Nav>
     </>
   );
