@@ -25,7 +25,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
   return (
     <>
       <Nav variant="pills" {...otherProps} onClick={_onClick}>
-        <Link>
+        <div>
           <Nav.Item>
             <Nav.Link
               to={'/campaign/' + data?.slug + '/dashboard'}
@@ -42,9 +42,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
 
-        <Link>
+        <div>
           <Nav.Item>
             <Nav.Link
               to={'/campaign/' + data?.slug + '/posts'}
@@ -61,9 +61,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Posts</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
 
-        <Link>
+        <div>
           <Nav.Item to={'/campaign/' + data?.slug + '/activity'} onClick={_onClick}>
             <Nav.Link
               eventKey="activity"
@@ -79,9 +79,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Activity</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
 
-        <Link>
+        <div>
           <Nav.Item onClick={_onClick}>
             <Nav.Link
               to={'/campaign/' + data?.slug + '/tax'}
@@ -98,9 +98,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Tax</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
 
-        <Link>
+        <div>
           <Nav.Item onClick={_onClick}>
             <Nav.Link
               to={'/campaign/' + data?.slug + '/project'}
@@ -117,9 +117,9 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Project</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
 
-        <Link>
+        <div>
           <Nav.Item className="" onClick={_onClick}>
             <Nav.Link
               to={'/campaign/' + data?.slug + '/settings/company'}
@@ -136,7 +136,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Settings</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </div>
       </Nav>
     </>
   );
