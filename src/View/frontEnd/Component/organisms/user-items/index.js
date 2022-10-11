@@ -322,7 +322,7 @@ const UserItems = () => {
                         <FontAwesomeIcon icon={regular("square-up-right")} />
                       </span>
                       <span className="date__name date__name--url">
-                        {helper.websitePath + '/items/' + item.itemDetails?.slug}
+                        {helper.websitePath + '/' + item.itemDetails?.slug}
                       </span>
                     </a>
                       {/* // item.fulfilDetails.length === 0 ? */}
@@ -338,7 +338,7 @@ const UserItems = () => {
 
                           }
                           <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
-                          <p className="mt-2 page__paragraph">{item.itemDetails?.description}</p>
+                          <p className="page__paragraph mt-2">{item.itemDetails?.description}</p>
 
 
 
