@@ -78,7 +78,7 @@ function OrganisationDetailMain(props) {
           <Button
             size="lg"
             variant="link"
-            className="btn__category text-decoration-none"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
             onClick={() => navigate('/categories/' + organizationDetails?.categoryDetails?.slug)}
           >
             <RoundedIcon
@@ -97,7 +97,7 @@ function OrganisationDetailMain(props) {
           {/* <Button
             size="lg"
             variant="link"
-            className="btn__category text-decoration-none"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
           >
             <span className="d-flex align-items-center icon__category">
               <img

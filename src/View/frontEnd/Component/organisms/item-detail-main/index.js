@@ -205,7 +205,7 @@ function ProjectDetailMain(props) {
         <Link
           size="lg"
           variant="link"
-          className="btn__category text-decoration-none"
+          className="btn__category text-decoration-none btn btn-link btn-lg"
           to={'/organization/' + productDetails?.campaignDetails?.slug}
         >
           <span className="d-flex align-items-center icon__category">
@@ -225,7 +225,7 @@ function ProjectDetailMain(props) {
         {/* <Button
           size="lg"
           variant="link"
-          className="btn__category text-decoration-none"
+          className="btn__category text-decoration-none btn btn-link btn-lg"
         >
           <span className="d-flex align-items-center icon__category">
             <img

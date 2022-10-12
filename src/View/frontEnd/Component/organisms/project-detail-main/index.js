@@ -173,7 +173,7 @@ function ProjectDetailMain(props) {
           {/*} <Button
             size="lg"
             variant="link"
-            className="btn__category text-decoration-none"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
           >
             <RoundedIcon
               bgColor="#c13e40"

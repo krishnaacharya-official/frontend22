@@ -26,8 +26,6 @@ function ProjectGallery(props) {
         ''
       )}
       <Fancybox>
-        <h5 className="project__detail-sublabel mb-0 fw-bolder">Need</h5>
-        <div className="project__detail-subtitle mb-12p fw-bold">Gallery</div>
         <div className="gallery__container">
           {images?.length > 0 &&
             images.map((img, i) => {
