@@ -38,7 +38,7 @@ function FollowingItem(props) {
       className="ad__activity__item p-1 d-flex align-items-center border-bottom"
     >
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={avatar} className='charity_avatar_bg' />
+        <ListItemImg size={68} imgSrc={avatar} className='charity_avatar_bg' />
         <div className="ad__activity__main px-12p" style={{ width: "135px" }}>
           <div className="ad__activity__title">
             <div className="ad__activity__name mb-0">{data?.CampaignAdminDetails?.name}</div>

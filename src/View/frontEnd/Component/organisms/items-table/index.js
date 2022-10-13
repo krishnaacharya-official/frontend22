@@ -80,7 +80,7 @@ const ItemsTable = (props) => {
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>
                       <div className="position-relative">
-                        <ListItemImg imgSrc={helper.CampaignProductImagePath + item.itemDetails?.image} />
+                        <ListItemImg size={68} imgSrc={helper.CampaignProductImagePath + item.itemDetails?.image} />
                         <span className="badge list__img-badge" style={{ position: "absolute" }}>{item.quantity}</span>
                       </div>
                       <div className="ms-2">
@@ -199,7 +199,7 @@ const ItemsTable = (props) => {
 
           {props.totalPages > 1 ?
             < Stack spacing={2} >
-              <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+              <Pagination pageSize={15} count={props.totalPages} color="primary" shape="rounded" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
             : <></>}
         </div>

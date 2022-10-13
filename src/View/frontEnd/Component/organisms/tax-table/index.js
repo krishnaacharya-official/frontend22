@@ -92,7 +92,7 @@ const TaxTable = (props) => {
                             <div className="text-light fs-8">{moment(item[0].created_at).fromNow()}</div>
                           </div>
                           <div className="position-relative d-flex mr-12p">
-                            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + item[0].organizationDetails?.logo} className='charity_avatar_bg' />
+                            <ListItemImg size={68} imgSrc={helper.CampaignAdminLogoPath + item[0].organizationDetails?.logo} className='charity_avatar_bg' />
                           </div>
                           <div className="text__wrap mw-200">
                             <div className="fw-bolder fs-5">{item[0].organizationDetails?.name}</div>
@@ -407,7 +407,7 @@ const TaxTable = (props) => {
 
             {props.totalPages > 1 ?
               < Stack spacing={2} >
-                <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+                <Pagination count={props.totalPages} shape="rounded" page={props.pageNo} onChange={props.handleClick} />
               </Stack>
               : <></>}
           </div>}

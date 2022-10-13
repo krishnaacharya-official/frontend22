@@ -905,7 +905,7 @@ const PaymentMethod = () => {
 
       <FrontLoader loading={loading} />
       <div className="mw-600">
-        <div className="mb-5">
+       {/* <div className="mb-5">
           <h4 className="fw-bolder">Saved Payment Methods</h4>
           <div className="text-subtext mb-3">
             Credit Cards you saved when donating
@@ -956,7 +956,7 @@ const PaymentMethod = () => {
               </span>
             </div>
           </div>
-        </div>
+        </div>*/}
 
 
         <h4 className="fw-bolder">Tax Rate</h4>
@@ -977,14 +977,14 @@ const PaymentMethod = () => {
         </div>
 
 
-        <div className="note text-dark mb-5">
+        <div className="note text-dark mb-2">
           The tax rate will be automatically added to the unit price of items you post to make sure you enough funds to cover the sales tax when you purchase the items.
 
         </div>
-        <Button variant="info" onClick={() =>  myFunction('taxRate')}>Save</Button>
+        <Button className="mb-3" variant="info" onClick={() =>  myFunction('taxRate')}>Save</Button>
 
 
-        <div className="mb-5 mt-3">
+        <div className="mb-5 mt-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>
           <div className="d-flex align-items-center mb-3">
             <span className="text-subtext flex__1">

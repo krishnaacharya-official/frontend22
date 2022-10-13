@@ -13,6 +13,8 @@ function OrganisationTeamItem(props) {
   let name = member?.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name
   let email = member?.type === 'USER' ? member.userDetails?.email : member?.orgDetails?.email
 
+  let avatar = helper.CampaignAdminLogoPath + member?.campaignadminDetails?.logo
+
   return (
     // <li className="org__team__item pt-12p pb-12p d-sm-flex align-items-center">
     //   <Avatar size={46} avatarUrl={AvatarImg} border={0} shadow={false} />
@@ -40,10 +42,11 @@ function OrganisationTeamItem(props) {
             ""
           )}
         </div>
-        <div className="org__team__item__price fs-8 text-light">{moment(member?.created_at).format('MMMM DD, YYYY')}</div>
-        <div className="org__team__item__price fs-8 text-light">{member?.campaignadminDetails?.name}</div>
+        <div className="org__team__item__price fs-7 text-light">{moment(member?.created_at).format('MMMM DD, YYYY')}</div>
+        <div className="org__team__item__price fs-8 text-light">{member?.campaignadminDetails?.name}</div>   
 
       </div>
+      <Avatar style={{borderRadius : "unset"}} className="charity_avatar_bg" size={46} avatarUrl={avatar} border={0} shadow={false}/>
       {props.showContact ? (
         <Button variant="outline-info" size="lg" className="ms-auto fw-bold">
           Contact

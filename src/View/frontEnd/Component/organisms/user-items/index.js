@@ -259,7 +259,7 @@ const UserItems = () => {
                 </div>
 
                 <ListItemImg
-                  size={42}
+                  size={68}
                   imgSrc={
                     helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo
                   }
@@ -325,12 +325,6 @@ const UserItems = () => {
                             className="project-video-wrap mt-4"
                             dangerouslySetInnerHTML={{ __html: item.itemDetails.galleryUrl }}
                           ></div>
-                        </>
-                      )}
-
-                      {item.itemDetails?.galleryImage.length > 0 && (
-                        <>
-                          <span>Gallery is set!</span>
                         </>
                       )}
 

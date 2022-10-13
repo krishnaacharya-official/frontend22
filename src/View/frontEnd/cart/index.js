@@ -145,7 +145,7 @@ const Cart = (props) => {
                       <Link to={'/organization/' + item?.productDetails?.organizationDetails.slug}>
                         <ListItemImg
                           size={52}
-                          className="ms-2 d-none d-sm-flex"
+                          className="ms-2 d-none d-sm-flex no-bg"
                           imgSrc={
                             helper.CampaignAdminLogoPath +
                             item.productDetails?.organizationDetails?.logo

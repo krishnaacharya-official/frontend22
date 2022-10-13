@@ -54,7 +54,7 @@ function CartItem(props) {
   return (
     <li className="cd__cart__item px-1 py-2 d-flex align-items-center border-bottom">
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={helper.CampaignProductImagePath + cartItem?.productDetails?.image} />
+        <ListItemImg size={62} imgSrc={helper.CampaignProductImagePath + cartItem?.productDetails?.image} />
         <div className="cd__cart__main pl-12p">
           <div className="cd__cart__title pr-12p">
             <div className="cd__cart__name">{cartItem?.productDetails?.headline}</div>

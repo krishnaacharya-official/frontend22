@@ -298,7 +298,7 @@ const CompanySettings = () => {
     const rules = {
       name: "required",
       mission: "required",
-      promoVideo: "required",
+      //promoVideo: "required",
       city: "required",
       stateId: "required",
       country: "required",
@@ -310,7 +310,7 @@ const CompanySettings = () => {
     const message = {
       'name.required': 'Name is Required.',
       'mission.required': 'mission is Required.',
-      'promoVideo.required': 'Promo Video is Required.',
+      //'promoVideo.required': 'Promo Video is Required.',
       'ein.required': 'Ein Number is Required.',
       'stateId.required': 'State is Required.',
       'city.required': 'City is Required.',

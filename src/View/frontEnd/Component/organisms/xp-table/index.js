@@ -21,7 +21,7 @@ const XpTable = (props) => {
         // let Image = data.organizationDetails.logo;
         Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
           <div className="position-relative">
-            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
+            <ListItemImg size={68} imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
           </div>
 
           <div className="d-sm-flex align-items-center flex__1 ms-2">
@@ -42,7 +42,7 @@ const XpTable = (props) => {
       case 'BOUGHT':
         Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
           <div className="position-relative">
-            <ListItemImg imgSrc={helper.CampaignProductImagePath + data?.productDetails?.image} />
+            <ListItemImg size={68} imgSrc={helper.CampaignProductImagePath + data?.productDetails?.image} />
           </div>
 
           <div className="d-sm-flex align-items-center flex__1 ms-2">
@@ -64,7 +64,7 @@ const XpTable = (props) => {
       case 'FOLLOWED':
         Res = (<div className="order-1 order-sm-2 d-flex align-items-center text-dark me-sm-3 flex__1">
           <div className="position-relative">
-            <ListItemImg imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
+            <ListItemImg size={68} imgSrc={helper.CampaignAdminLogoPath + data.organizationDetails.logo} />
           </div>
 
           <div className="d-sm-flex align-items-center flex__1 ms-2">
@@ -234,7 +234,7 @@ const XpTable = (props) => {
 
           {props.totalPages > 1 ?
             < Stack spacing={2} >
-              <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+              <Pagination count={props.totalPages} shape="rounded" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
             : <></>}
         </div>

@@ -120,7 +120,7 @@ const HistoryList = (props) => {
                                   <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
                                     <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
                                       <ListItemImg
-                                        size={48}
+                                        size={68}
                                         imgSrc={helper.CampaignProductImagePath + item.productImage}
                                         style={{border: "unset", background: "unset"}}
                                       />
@@ -135,7 +135,7 @@ const HistoryList = (props) => {
                                         <div className="fs-5 text-success fw-bold">{order.currencySymbol ? order.currencySymbol : "$"} {priceFormat(Number(price))}</div>
                                       </div>
                                       <ListItemImg
-                                        size={42}
+                                        size={68}
                                         className="rounded-circle img--nobg"
                                         imgSrc={helper.CampaignAdminLogoPath + item?.itemDetails?.campaignadminsDetails.logo}
                                       />
@@ -196,7 +196,7 @@ const HistoryList = (props) => {
 
         {props.totalPages > 1 ?
           < Stack spacing={2} >
-            <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+            <Pagination count={props.totalPages} shape="rounded" page={props.pageNo} onChange={props.handleClick} />
           </Stack>
           : <></>}
       </div>

@@ -153,7 +153,7 @@ function ProjectDetailMain(props) {
               <FontAwesomeIcon icon={regular('infinity')} />
             </span>
           ) : (
-            <span className="fw-bold" style={{whiteSpace: "nowrap"}}>
+            <span className="fw-bold" style={{ whiteSpace: 'nowrap' }}>
               {productDetails.soldout} / {productDetails.quantity}{' '}
               <span className="fs-9 fw-normal">sold</span>
             </span>
@@ -252,6 +252,12 @@ function ProjectDetailMain(props) {
       </div>
 
       <div className="mt-5">
+        {productDetails?.productImages && (
+          <>
+            <h5 className="project__detail-sublabel mb-0 fw-bolder">Need</h5>
+            <div className="project__detail-subtitle mb-12p fw-bold">Gallery</div>
+          </>
+        )}
         <ProjectGallery
           className="mb-3"
           tagTitle="Products"

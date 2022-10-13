@@ -84,7 +84,7 @@ function SimilarItem(props) {
     <li className="similar__item__item pt-12p pb-12p d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <a href="/" className="d-block">
-          <ListItemImg imgSrc={helper.CampaignProductImagePath + product.image} />
+          <ListItemImg size={56} imgSrc={helper.CampaignProductImagePath + product.image} />
         </a>
         <div className="similar__item__main pl-12p flex-grow-1">
           <div className="similar__item__title pr-12p">

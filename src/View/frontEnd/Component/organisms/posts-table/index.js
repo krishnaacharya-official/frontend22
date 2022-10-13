@@ -84,7 +84,7 @@ const PostsTable = (props) => {
                         </div>
                       </div>
                       <ListItemImg
-                        size={45}
+                        size={68}
                         imgSrc={product.image ? helper.CampaignProductImagePath + product.image : noimg}
                       />
                       <div className="ms-2">
@@ -399,8 +399,7 @@ const PostsTable = (props) => {
             <Stack spacing={2}>
               <Pagination
                 count={props.totalPages}
-                variant="outlined"
-                color="primary"
+                shape="rounded"
                 page={props.pageNo}
                 onChange={props.handleClick}
               />

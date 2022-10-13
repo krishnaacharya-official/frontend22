@@ -80,18 +80,8 @@ const SummaryContent = (props) => {
             </span>
           </div>
           <div className="d-flex align-items-center pb-20p">
-
-            <span className="fw-bolder flex__1">
-              <img
-                className="img-stripe"
-                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
-                alt=""
-                style={{ width: "44px" }}
-              />
-            </span>
-            <span className="fw-bold fs-5 text-light">
-              {props.currencySymbol + props.salesTax}
-            </span>
+            <span className="fw-bolder flex__1">Merchant Fee</span>
+            <span className="fw-bold fs-5 text-light">{props.currencySymbol + props.salesTax}</span>
           </div>
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
@@ -105,25 +95,18 @@ const SummaryContent = (props) => {
         <span className="fw-bold text-success fs-4">
           {/* {props.currencySymbol + priceFormat(total ? total : 0)} */}
           {props.currencySymbol + (total ? total : 0)}
-
         </span>
       </div>
 
       <div className="note note--info px-0 text-start">
-        All prices include sales tax. The organization(s) will receive the exact amount required to
-        purchase each unit including regional sales tax and payment processing fees. The funds
-        provided for these goods is a transfer of funds and not a gift-in-kind transaction, no
-        physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
-        <br />
+        All prices include merchant fees & sales tax. The organization(s) will receive the exact
+        amount required to purchase each unit. By completing the transaction, you have agreed to a
+        transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or
+        delivered to the organization upon the completion of the sale. <br />
         {/* </br> */}
         <br />
         {/* </br> */}
-        Your funds are sent to the organization to purchase the goods on your behalf at their local
-        stores.&nbsp;
-        <a href="/about-us" className="text-subtext">
-          Click here
-        </a>{' '}
-        to learn more.
+        <a href="/pricing">Click here</a> to learn more.
       </div>
     </div>
   );

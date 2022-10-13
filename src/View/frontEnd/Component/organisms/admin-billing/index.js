@@ -101,7 +101,7 @@ const AdminBilling = () => {
           </Link>
         </div>
 
-        <div className="mb-5">
+       {/* <div className="mb-5">
           <div className="flex__1 mb-3">
             <h4 className="fw-bolder">Payment Schedule</h4>
             <div className="text-subtext">
@@ -120,7 +120,7 @@ const AdminBilling = () => {
               <span className="text-light ms-2">Monthly</span>
             </li>
           </ul>
-        </div>
+        </div>*/}
 
         <div className="mb-5">
           <div className="d-sm-flex align-items-center mb-5 mb-sm-3">
@@ -174,7 +174,7 @@ const AdminBilling = () => {
                         />
                         <div className="admin__billing__value flex__1">
                           <div className="text-success fw-bold fs-5 mb-3p">+ {currencySymbole}{priceFormat(Number(amount))}</div>
-                          <div className="fw-bold text-subtext fs-8">{date}</div>
+                          <div className="fw-bold text-light fs-7">{date}</div>
                         </div>
                         <div className="admin__billing__details pr-3 ms-2 flex__1 d-flex flex-column align-items-start ps-3">
                           <div className="fw-bold mb-6p">{userName}</div>

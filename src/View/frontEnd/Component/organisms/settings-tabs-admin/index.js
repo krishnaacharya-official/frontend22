@@ -51,7 +51,7 @@ function SettingsTabsAdmin({ activeKey, data, _onClick, ...otherProps }) {
               <span className="stab__icon">
                 <PaymentIcon active={activeKey === "paymentMethod"} />
               </span>
-              <span className="stab__text">Payment Methods</span>
+              <span className="stab__text">Payments</span>
               <div className="tab__active--indicator"></div>
             </Nav.Link>
           </Nav.Item>

@@ -22,7 +22,7 @@ const ItemTags = () => {
             <ul className="list-unstyled mb-0 mb-sm-5">
               <li className="d-flex align-items-center py-3">
                 <ListItemImg
-                  size="84"
+                  size={84}
                   className="flex-shrink-0"
                   icon={
                     <FontAwesomeIcon
@@ -43,7 +43,7 @@ const ItemTags = () => {
 
               <li className="d-flex align-items-center py-3">
                 <ListItemImg
-                  size="84"
+                  size={84}
                   className="flex-shrink-0"
                   icon={
                     <FontAwesomeIcon
@@ -64,7 +64,7 @@ const ItemTags = () => {
               </li>
               <li className="d-flex align-items-center py-3">
                 <ListItemImg
-                  size="84"
+                  size={84}
                   className="flex-shrink-0"
                   icon={<FontAwesomeIcon icon={solid('bolt')} className="fs-2 text-success p-3" />}
                 />
@@ -79,7 +79,7 @@ const ItemTags = () => {
               </li>
               <li className="d-flex align-items-center py-3">
                 <ListItemImg
-                  size="84"
+                  size={84}
                   className="flex-shrink-0"
                   icon={
                     <FontAwesomeIcon

@@ -221,7 +221,7 @@ const ProjectsTable = (props) => {
 
 
             < Stack spacing={2} >
-              <Pagination count={props.totalPages} variant="outlined" color="primary" page={props.pageNo} onChange={props.handleClick} />
+              <Pagination count={props.totalPages} shape="rounded" page={props.pageNo} onChange={props.handleClick} />
             </Stack>
 
           </div> : <></>}

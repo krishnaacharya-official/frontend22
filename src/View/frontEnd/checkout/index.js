@@ -1,31 +1,31 @@
-import { useState, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Container, Button, Form } from "react-bootstrap";
+import { useState, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Container, Button, Form } from 'react-bootstrap';
 
 // import { Logo, Avatar } from "@components/atoms";
-import Logo from "../Component/atoms/logo";
-import Avatar from "../Component/atoms/avatar";
-import SummaryContent from "../Component/organisms/summary-content";
-import useWindowSize from "../../../hooks/device-check";
-import { useSelector, useDispatch } from "react-redux";
+import Logo from '../Component/atoms/logo';
+import Avatar from '../Component/atoms/avatar';
+import SummaryContent from '../Component/organisms/summary-content';
+import useWindowSize from '../../../hooks/device-check';
+import { useSelector, useDispatch } from 'react-redux';
 
-import "./style.scss";
-import { Link } from "react-router-dom";
+import './style.scss';
+import { Link } from 'react-router-dom';
+import { sortedLastIndex } from 'lodash';
 
 const Checkout = (props) => {
   const user = useSelector((state) => state.user);
-
-  let cartItem = props.cartItem
+  let total = props.total;
+  let cartItem = props.cartItem;
   const [summary, showSummary] = useState(false);
   const isTab = useWindowSize() <= 991;
   const summaryElementRef = useRef(null);
-  let stateData = props.stateData
+  let stateData = props.stateData;
   const userAuthToken = localStorage.getItem('userAuthToken');
   const userData = JSON.parse(localStorage.getItem('userData'));
 
   // console.log(summaryElementRef.current?.clientHeight);
-
 
   return (
     <div className="checkout__page">
@@ -39,38 +39,41 @@ const Checkout = (props) => {
             onClick={() => showSummary(!summary)}
           >
             <div className="d-flex align-items-center flex__1">
-              <FontAwesomeIcon
-                icon={regular("cart-shopping")}
-                className="me-2"
-              />
-              <span>{summary ? "Hide" : "Show"} order summary</span>
-              <span
-                className={`d-block rotate__icon ms-2 ${summary ? "rotate-180" : ""
-                  }`}
-              >
-                <FontAwesomeIcon icon={regular("chevron-down")} />
+              <FontAwesomeIcon icon={regular('cart-shopping')} className="me-2" />
+              <span>{summary ? 'Hide' : 'Show'} order summary</span>
+              <span className={`d-block rotate__icon ms-2 ${summary ? 'rotate-180' : ''}`}>
+                <FontAwesomeIcon icon={regular('chevron-down')} />
               </span>
             </div>
 
-            <span className="fw-bold text-success fs-4">$319</span>
+            <span className="fw-bold text-success fs-4">{props.currencySymbol + (total ? total : 0)}</span>
           </div>
 
           <div
             className="mobile__summary"
             style={{
-              height: summary
-                ? summaryElementRef.current?.clientHeight + "px"
-                : "0",
+              height: summary ? summaryElementRef.current?.clientHeight + 'px' : '0'
             }}
           >
             <div ref={summaryElementRef} className="summary__section pe-4 pt-0">
-              <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal} salesTaxPer=
-                {props.salesTaxPer} transectionFee={props.transectionFee} stripeTax={props.stripeTax} />
+              <SummaryContent
+                currencySymbol={props.currencySymbol}
+                cartItem={cartItem}
+                total={props.total}
+                removeCartItem={props.removeCartItem}
+                CalculatedPrice={props.CalculatedPrice}
+                xp={props.xp}
+                salesTax={props.salesTax}
+                subtotal={props.subtotal}
+                salesTaxPer={props.salesTaxPer}
+                transectionFee={props.transectionFee}
+                stripeTax={props.stripeTax}
+              />
             </div>
           </div>
         </>
       ) : (
-        ""
+        ''
       )}
 
       <Container fluid className="d-flex flex-column flex-lg-row mw-1280">
@@ -80,55 +83,44 @@ const Checkout = (props) => {
               <Logo />
             </div>
             <div className="cart__steps fs-7 pt-3 pt-sm-0">
-
               <Link
                 to="/cart"
                 variant="link"
                 className="p-0 me-1 fw-normal fs-7 text-decoration-none"
               >
                 Cart
-                <FontAwesomeIcon
-                  icon={regular("chevron-right")}
-                  className="ms-1"
-                />
+                <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Link>
               <span className="active me-1">
                 Checkout
-                <FontAwesomeIcon
-                  icon={regular("chevron-right")}
-                  className="ms-1"
-                />
+                <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </span>
-              <Button
-                variant="link"
-                className="p-0 me-1 fw-normal fs-7 text-decoration-none"
-              >
+              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none">
                 Order
-                <FontAwesomeIcon
-                  icon={regular("chevron-right")}
-                  className="ms-1"
-                />
+                <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Button>
             </div>
           </header>
-          <div className="pt-5 mt-1 mb-3">
-            <Button
-              variant=""
-              className="btn__signout d-flex align-items-center p-1 rounded-pill"
-            >
-              <Avatar
-                size={36}
-                avatarUrl={user.profileImage}
-                border={0}
-                shadow={false}
-              />
-              <span className="ml-12p fs-7 fw-semibold">{userAuthToken ? userData.name : 'USER'}</span>
-              <span className="ml-12p fs-7 fw-normal pe-1">signout</span>
+          <div className="d-flex align-items-center pt-5 mt-1 mb-3">
+            <Button variant="" className="btn__signout d-flex align-items-center p-1 rounded-pill">
+              <Avatar size={36} avatarUrl={user.profileImage} border={0} shadow={false} />
+              <span className="ml-12p fs-7 fw-semibold">
+                {userAuthToken ? userData.name : 'USER'}
+              </span>
+              {/*<span className="ml-12p fs-7 fw-normal pe-1">signout</span>*/}
             </Button>
+            <Link
+              variant="link"
+              size="lg"
+              className="fs-6 text-light fw-normal px-0 ms-3"
+              to="/cart"
+            >
+              Return to cart
+            </Link>
           </div>
 
-          <div className="py-20p">
-            <div className="mb-20p pt-1">
+          <div className="py-20p" style={{ maxWidth: '480px' }}>
+            {/* <div className="mb-20p pt-1">
               <div className="ex__checkout d-flex align-items-center flex-column flex-md-row gap-2 p-2 position-relative border rounded-3">
                 <div className="group__label fw-bold">Express Checkout</div>
                 <Button className="btn__checkout rounded-2 flex__1">
@@ -153,7 +145,7 @@ const Checkout = (props) => {
                   />
                 </Button>
               </div>
-            </div>
+      </div>
 
             <div className="or__divider text-light fs-7 py-1 mb-2">
               <span className="or__divider-text">OR</span>
@@ -195,12 +187,10 @@ const Checkout = (props) => {
             <div className="or__divider text-light fs-7 py-1 mb-20p">
               <span className="or__divider-text">OR</span>
             </div>
-
+          */}
             <div className="checkout__block border rounded-3 mb-20p">
-              <div className="checkout__block-hd d-sm-flex align-items-center">
-                <div className="flex__1 fw-boler fs-5 fw-bold mb-2 mb-sm-0">
-                  Credit card
-                </div>
+              <div className="checkout__block-hd d-sm-flex align-items-center border-bottom">
+                {/* <div className="flex__1 fw-boler fs-5 fw-bold mb-2 mb-sm-0">Credit card</div>*/}
                 <div className="checkout__cards d-flex align-items-center rounded-bottom-start-3 rounded-bottom-end-3">
                   <img
                     src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/610adf19a8c7f2d46c613d2e_Payment%20Method-2.svg"
@@ -227,9 +217,7 @@ const Checkout = (props) => {
               </div>
               <div className="checkout__block-bd">
                 <Form.Group className="mb-3">
-                  <Form.Label className="fw-bold text-darkfs-7">
-                    Card Number
-                  </Form.Label>
+                  <Form.Label className="fw-bold text-dark fs-7">Card Number</Form.Label>
                   <Form.Control
                     type="text"
                     size="lg"
@@ -239,35 +227,82 @@ const Checkout = (props) => {
                     onChange={(e) => props.changevalue(e)}
                     maxLength={16}
                   />
-                  {stateData.error && stateData.error.cardNumber && <p className="error">{stateData.error ? stateData.error.cardNumber ? stateData.error.cardNumber : "" : ""}</p>}
+                  {stateData.error && stateData.error.cardNumber && (
+                    <p className="error">
+                      {stateData.error
+                        ? stateData.error.cardNumber
+                          ? stateData.error.cardNumber
+                          : ''
+                        : ''}
+                    </p>
+                  )}
                 </Form.Group>
 
                 <div className="d-sm-flex gap-3 align-items-center">
                   <Form.Group className="mb-3 flex__1">
-                    <Form.Label className="fw-bold text-dark fs-7">
-                      Expiration Month
-                    </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpMonth} name="cardExpMonth" onChange={(e) => props.changevalue(e)} />
-                    {stateData.error && stateData.error.cardExpMonth && <p className="error">{stateData.error ? stateData.error.cardExpMonth ? stateData.error.cardExpMonth : "" : ""}</p>}
+                    <Form.Label className="fw-bold text-dark fs-7">Exp Month</Form.Label>
+                    <Form.Control
+                      type="text"
+                      size="lg"
+                      placeholder="••"
+                      value={stateData.cardExpMonth}
+                      name="cardExpMonth"
+                      onChange={(e) => props.changevalue(e)}
+                    />
+                    {stateData.error && stateData.error.cardExpMonth && (
+                      <p className="error">
+                        {stateData.error
+                          ? stateData.error.cardExpMonth
+                            ? stateData.error.cardExpMonth
+                            : ''
+                          : ''}
+                      </p>
+                    )}
                   </Form.Group>
                   <Form.Group className="mb-3 flex__1">
-                    <Form.Label className="fw-bold text-dark fs-7">
-                      Expiration Year
-                    </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardExpYear} name="cardExpYear" onChange={(e) => props.changevalue(e)} />
-                    {stateData.error && stateData.error.cardExpYear && <p className="error">{stateData.error ? stateData.error.cardExpYear ? stateData.error.cardExpYear : "" : ""}</p>}
+                    <Form.Label className="fw-bold text-dark fs-7">Exp Year</Form.Label>
+                    <Form.Control
+                      type="text"
+                      size="lg"
+                      placeholder="••"
+                      value={stateData.cardExpYear}
+                      name="cardExpYear"
+                      onChange={(e) => props.changevalue(e)}
+                    />
+                    {stateData.error && stateData.error.cardExpYear && (
+                      <p className="error">
+                        {stateData.error
+                          ? stateData.error.cardExpYear
+                            ? stateData.error.cardExpYear
+                            : ''
+                          : ''}
+                      </p>
+                    )}
                   </Form.Group>
                   <Form.Group className="mb-3 flex__1">
-                    <Form.Label className="fw-bold text-dark fs-7">
-                      CVC/CVV
-                    </Form.Label>
-                    <Form.Control type="text" size="lg" placeholder="•••" value={stateData.cardCVC} name="cardCVC" onChange={(e) => props.changevalue(e)} />
-                    {stateData.error && stateData.error.cardCVC && <p className="error">{stateData.error ? stateData.error.cardCVC ? stateData.error.cardCVC : "" : ""}</p>}
+                    <Form.Label className="fw-bold text-dark fs-7">CVC/CCV</Form.Label>
+                    <Form.Control
+                      type="text"
+                      size="lg"
+                      placeholder="•••"
+                      value={stateData.cardCVC}
+                      name="cardCVC"
+                      onChange={(e) => props.changevalue(e)}
+                    />
+                    {stateData.error && stateData.error.cardCVC && (
+                      <p className="error">
+                        {stateData.error
+                          ? stateData.error.cardCVC
+                            ? stateData.error.cardCVC
+                            : ''
+                          : ''}
+                      </p>
+                    )}
                   </Form.Group>
                 </div>
 
                 <div className="d-flex aling-items-center py-8">
-                {/*}  <Form.Check type="checkbox" className="fs-4 lh-1" />
+                  {/*}  <Form.Check type="checkbox" className="fs-4 lh-1" />
                   <span className="fs-7 text-subtext d-flex align-items-center lh-1 h-auto ms-1">
                     Pay with this card
       </span>*/}
@@ -275,32 +310,39 @@ const Checkout = (props) => {
               </div>
             </div>
             <div className="note note--info mb-3">
-              Your payment will be processed when you click Complete
-              Transaction. By clicking Complete Transaction you agree to
-              Donorport's{" "}
+              Your payment will be processed when you click Pay. By doing so you agree to
+              Donorport's{' '}
               <a href="#">
                 <span className="text-subtext">Terms and Conditions.</span>
               </a>
-              .
             </div>
 
             <div className="d-flex align-items-center pb-20p">
-              <Button variant="success" size="lg" className="fs-6 fw-bold" onClick={() => props.pay()}>
-                Complete Transaction
-              </Button>
-              <Link
-                variant="link"
+              <Button
+                style={{ width: '100%' }}
+                variant="primary"
                 size="lg"
-                className="fs-6 text-light fw-normal px-0 ms-3"
-                to='/cart'
+                className="fs-6 fw-bold"
+                onClick={() => props.pay()}
               >
-                Return to cart
-              </Link>
+                Pay {props.currencySymbol + (total ? total : 0)}
+              </Button>
+            </div>
+
+            <div className="fs-6 d-flex justify-content-center mt-3 pb-20p">
+              <FontAwesomeIcon icon={solid('lock-keyhole')} className="me-1" /> Payments are secure
+              and encrypted
             </div>
           </div>
 
-          <footer className="py-3 py-sm-2 border-top">
-            <ul className="d-flex align-items-center justify-content-between justify-content-sm-start list-unstyled fs-7">
+          <footer style={{ maxWidth: '480px' }} className="d-flex py-3 py-sm-2 border-top">
+            <img
+              className="me-3 img-stripe"
+              src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/63475460c46f3a43441688d4_Powered%20by%20Stripe%20-%20blurple.svg"
+              alt=""
+              style={{ width: '146px' }}
+            />
+            <ul className="mt-3 d-flex align-items-center justify-content-center justify-content-sm-center list-unstyled fs-7">
               <li className="me-3">
                 <a href="/donorport-refund-policy" className="text-subtext">
                   Refund policy
@@ -320,11 +362,22 @@ const Checkout = (props) => {
           </footer>
         </div>
         {isTab ? (
-          ""
+          ''
         ) : (
           <div className="summary__section">
-            <SummaryContent currencySymbol={props.currencySymbol} cartItem={cartItem} total={props.total} removeCartItem={props.removeCartItem} CalculatedPrice={props.CalculatedPrice} xp={props.xp} salesTax={props.salesTax} subtotal={props.subtotal} salesTaxPer=
-              {props.salesTaxPer} transectionFee={props.transectionFee} stripeTax={props.stripeTax} />
+            <SummaryContent
+              currencySymbol={props.currencySymbol}
+              cartItem={cartItem}
+              total={props.total}
+              removeCartItem={props.removeCartItem}
+              CalculatedPrice={props.CalculatedPrice}
+              xp={props.xp}
+              salesTax={props.salesTax}
+              subtotal={props.subtotal}
+              salesTaxPer={props.salesTaxPer}
+              transectionFee={props.transectionFee}
+              stripeTax={props.stripeTax}
+            />
           </div>
         )}
       </Container>
