@@ -1,6 +1,8 @@
 .project__detail-main {
   color: $gray-700;
   max-width: 500px;
+  display: flex;
+    flex-direction: column;
 }
 .project__detail-label {
   font-weight: 900;

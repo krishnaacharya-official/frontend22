@@ -907,7 +907,7 @@ const AddPost = (props) => {
                       <textarea
                         className="form-control form-control-lg mb-2"
                         // id="needDescriptionTextarea"
-                        rows="1"
+                        rows="6"
                         data-length="240"
                         placeholder="Enter some details about your need"
                         name='description' id="description" value={description} onChange={(e) => { changevalue(e) }}

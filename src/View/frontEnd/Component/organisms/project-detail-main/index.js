@@ -112,7 +112,7 @@ function ProjectDetailMain(props) {
   // console.log(projectDetails)
   return (
     <div className="project__detail-main">
-      <div className="mb-4">
+      <div className="d-flex flex-column mb-4">
         <div className="d-flex align-items-center mb-1">
           <div>
             <TagTitle>Project</TagTitle>
@@ -131,11 +131,11 @@ function ProjectDetailMain(props) {
         </div>
 
         <div className="project__detail-meta d-flex align-items-center mb-2">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('clock')} className="me-1" />
             {/* December 27, 2018 */} {moment(projectDetails.created_at).format('MMMM DD , YYYY')}
           </div>
-          <div className="d-flex align-items-center ms-2">
+          <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
             Toronto, ON
           </div>
@@ -169,7 +169,7 @@ function ProjectDetailMain(props) {
           </div>
         </div>
 
-        <div className="category__icons d-flex align-items-center mb-2">
+        <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
           {/*} <Button
             size="lg"
             variant="link"

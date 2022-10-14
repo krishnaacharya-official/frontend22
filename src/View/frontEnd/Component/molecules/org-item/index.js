@@ -118,17 +118,18 @@ function OrganisationItem(props) {
           {props.currencySymbol}{productPrice}
         </span>
       </div>
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center mt-2 mt-sm-0">
         <div className="d-flex align-items-center flex-grow-1 fs-5 me-2">
           <div className="org__item__count mt-3p">1</div>
           <div className="org__item-slider flex-grow-1 mx-2">
             <Slider
               handleStyle={{
-                width: "26px",
-                height: "26px",
-                border: "none",
-                background: "#3596F3",
-                marginTop: "-10px",
+                width: '26px',
+                height: '26px',
+                border: 'none',
+                background: '#3596F3',
+                marginTop: '-10px',
+                opacity: "1"
               }}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
               min={1}
@@ -147,7 +148,7 @@ function OrganisationItem(props) {
           <div className="org__item__count mt-3p">{infinite ?
             <div className="tag tag--ongoing" style={{ height: "26px", width: "26px", backgroundColor: "#a976f0", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
               {/* <div className="icon icon--unlimited"></div> */}
-              <FontAwesomeIcon icon={solid("infinity")} className="icon icon--unlimited" />
+              <FontAwesomeIcon icon={solid("infinity")} className="d-flex icon icon--unlimited" />
             </div>
             : quantity}</div>
         </div>

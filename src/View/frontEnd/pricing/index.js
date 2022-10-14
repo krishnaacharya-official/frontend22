@@ -65,7 +65,7 @@ const Pricing = () => {
 
   }
   return (
-    <Page title="Donorport | Home" description="Pricing and Fees ; Platform Fee. 0%. Donorport does not take a fee. Organizations receive 100% of your donation ; Transaction Fees. 2.9%. + $0.30 per item donated">
+    <Page title="Donorport | Pricing" description="Pricing and Fees ; Platform Fee. 0%. Donorport does not take a fee. Organizations receive 100% of your donation ; Transaction Fees. 2.9%. + $0.30 per item donated">
       <DefaultLayout>
         <div className="password-reset position-relative">
           <Container fluid className="position-relative pb-5 pt-5">

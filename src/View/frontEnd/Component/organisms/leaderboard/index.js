@@ -1,140 +1,140 @@
-import DefaultLayout from "../../templates/default-layout";
-import "./style.scss";
+import DefaultLayout from '../../templates/default-layout';
+import './style.scss';
 import {
-    Button,
-    Accordion,
-    AccordionContext,
-    useAccordionButton,
-    Card,
-    Col,
-    Row,
-    Dropdown,
-    Container
-} from "react-bootstrap";
+  Button,
+  Accordion,
+  AccordionContext,
+  useAccordionButton,
+  Card,
+  Col,
+  Row,
+  Dropdown,
+  Container
+} from 'react-bootstrap';
 import LadderMenu from '../ladder-menu';
-import Avatar from "../../atoms/avatar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
-import { useSelector, useDispatch } from "react-redux";
-import userApi from "../../../../../Api/frontEnd/user";
-import React, { useState, useEffect } from "react";
-import FrontLoader from "../../../../../Common/FrontLoader";
-import AvatarImg from "../../../../../assets/images/avatar_default.png";
-import Page from "../../../../../components/Page";
+import Avatar from '../../atoms/avatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
+import { useSelector, useDispatch } from 'react-redux';
+import userApi from '../../../../../Api/frontEnd/user';
+import React, { useState, useEffect } from 'react';
+import FrontLoader from '../../../../../Common/FrontLoader';
+import AvatarImg from '../../../../../assets/images/avatar_default.png';
+import Page from '../../../../../components/Page';
 
 const LeaderBoard = () => {
-    const getC = getCalculatedPrice()
-    const user = useSelector((state) => state.user);
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const userAuthToken = localStorage.getItem('userAuthToken');
-    const [loading, setLoading] = useState(false)
-    const [list, setList] = useState([])
+  const getC = getCalculatedPrice();
+  const user = useSelector((state) => state.user);
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userAuthToken = localStorage.getItem('userAuthToken');
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
 
-    const getList = async () => {
-        let data = {}
-        data.countryId = user.countryId
-        const list = await userApi.getUserHighXpList(userAuthToken, data)
-        if (list && list.data.success) {
-            setList(list.data.data)
-        }
-
+  const getList = async () => {
+    let data = {};
+    data.countryId = user.countryId;
+    const list = await userApi.getUserHighXpList(userAuthToken, data);
+    if (list && list.data.success) {
+      setList(list.data.data);
     }
+  };
 
-    useEffect(() => {
-        (async () => {
-            setLoading(false)
-            if (user.countryId) {
-                await getList()
-            }
-            setLoading(false)
+  useEffect(() => {
+    (async () => {
+      setLoading(false);
+      if (user.countryId) {
+        await getList();
+      }
+      setLoading(false);
+    })();
+  }, [user.countryId]);
 
-        })()
+  return (
+    <>
+      <Page
+        title="Donorport | Leaderboard"
+        description="See where you rank among the top Donors. All Time.. All Time; Locally; Recent. 1. Karl Martin.. 1005 XP.. Captain. 2. Dusty Selkirk.. 855 XP."
+      >
+        <FrontLoader loading={loading} />
+        <DefaultLayout>
+          <Container luid className="position-relative pb-5 pt-5">
+            <h1 className="fs-2 text-dark fw-bolder" style={{ marginTop: '50px' }}>
+              Leaderboard
+            </h1>
+            <div className="fs-5 fw-semibold text-light" style={{ marginBottom: '56px' }}>
+              See where you rank among the top Donors in{' '}
+              {user.countryName ? user.countryName : userData ? userData.country : ''}
+            </div>
 
-    }, [user.countryId])
+            <Row className="ml-5 mr-5">
+              <Col lg="6">
+                <ul style={{ padding: '0' }}>
+                  {list.length > 0 &&
+                    list.map((person, i) => {
+                      if (person.xp > 0) {
+                        return (
+                          <li className="similar__item__wrap  d-flex align-items-center">
+                            <div
+                              className="d-flex align-items-center w-100 "
+                              style={{ borderBottom: '1px solid #f5f5f5', height: '90px' }}
+                            >
+                              <div className="">
+                                <div className="fs-5 fw-bold mb-3p" style={{ marginRight: '30px' }}>
+                                  {i + 1}
+                                </div>
+                              </div>
+                              <div className="d-flex align-items-center w-100">
+                                <Avatar
+                                  size={46}
+                                  avatarUrl={
+                                    person.image ? helper.DonorImagePath + person.image : AvatarImg
+                                  }
+                                  border={0}
+                                  shadow={false}
+                                />
+                                <div className="ms-2" style={{ flex: '1' }}>
+                                  <div className="d-flex align-items-center justify-content-start me-3">
+                                    <div className="text-dark fw-bold">{person.name}</div>
 
-
-    return (
-        <>
-            <Page title="Donorport | Leaderboard" description="See where you rank among the top Donors. All Time.. All Time; Locally; Recent. 1. Karl Martin.. 1005 XP.. Captain. 2. Dusty Selkirk.. 855 XP.">
-                <FrontLoader loading={loading} />
-                <DefaultLayout>
-
-                    <Container luid className="position-relative pb-5 pt-5">
-                        <h1 className="fs-2 text-dark fw-bolder" style={{ marginTop: "50px" }}>Leaderboard</h1>
-                        <div className="fs-5 fw-semibold text-light" style={{ marginBottom: "56px" }}>
-                            See where you rank among the top Donors in {user.countryName ? user.countryName : userData ? userData.country : ''}
-                        </div>
-
-                        <Row className="ml-5 mr-5">
-                            <Col lg="6">
-                                <ul style={{ padding: "0" }}>
-                                    {
-                                        list.length > 0 &&
-                                        list.map((person, i) => {
-                                            if (person.xp > 0) {
-
-                                                return (
-                                                    <li className="similar__item__wrap  d-flex align-items-center">
-                                                        <div className="d-flex align-items-center w-100 " style={{ borderBottom: "1px solid #f5f5f5", height: "90px" }}>
-                                                            <div className="">
-                                                                <div className="fs-5 fw-bold mb-3p" style={{ marginRight: "30px" }}>{i + 1}</div>
-
-                                                            </div>
-                                                            <div className="d-flex align-items-center w-100">
-                                                                <Avatar size={46} avatarUrl={person.image ? helper.DonorImagePath + person.image : AvatarImg} border={0} shadow={false} />
-                                                                <div className="ms-2" style={{ flex: "1" }}>
-                                                                    <div className="d-flex align-items-center justify-content-start me-3">
-                                                                        <div className="text-dark fw-bold">{person.name}</div>
-
-
-                                                                        {/*<span className="text-info fs-5" style={{ marginLeft: "10px" }}>
+                                    {/*<span className="text-info fs-5" style={{ marginLeft: "10px" }}>
                                                                         <FontAwesomeIcon icon={solid("badge-check")} />
                                             </span>*/}
 
-                                                                        <span className="btn-sm">
-                                                                            {/* Rank */}
-
-                                                                        </span>
-                                                                    </div>
-                                                                    {/* <div className="text-lighter fs-8">
+                                    <span className="btn-sm">{/* Rank */}</span>
+                                  </div>
+                                  {/* <div className="text-lighter fs-8">
         
         
         
                                                     </div> */}
-                                                                </div>
+                                </div>
 
-                                                                <div className="billing__value">
-                                                                    <div className="fs-5 fw-bold text-info mb-3p">{person.xp} XP</div>
+                                <div className="billing__value">
+                                  <div className="d-flex justify-content-end pe-4 s-5 fw-bold text-info mb-3p">{person.xp} XP</div>
+                                </div>
+                                <div
+                                  className="d-flex justify-content-end"
+                                  style={{ width: '110px' }}
+                                >
+                                  <span className="btn-sm ">
+                                    {getC.getUserRank(Number(person.xp))}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      }
+                    })}
+                </ul>
+              </Col>
 
-                                                                </div>
+              <Col lg="1"></Col>
 
-
-
-
-                                                                <span className="btn-sm ">
-                                                                    {getC.getUserRank(Number(person.xp))}
-
-                                                                </span>
-
-                                                            </div>
-                                                        </div>
-
-                                                    </li>
-                                                )
-                                            }
-                                        })
-                                    }
-
-                                </ul >
-                            </Col >
-
-                            <Col lg="1">
-                            </Col>
-
-                            <Col lg="5">
-                                <div role="listitem" className="rank__item w-dyn-item">
-                                    {/* <div className="share-dialog share-dialog--leaderboard hidden">
+              <Col lg="5">
+                <div role="listitem" className="rank__item w-dyn-item">
+                  {/* <div className="share-dialog share-dialog--leaderboard hidden">
                                     <div className="sh__box">
                                         <div className="sh__header">
                                             <a href="#" className="icon icon--close w-inline-block">
@@ -170,32 +170,40 @@ const LeaderBoard = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                                    <div className="rank__top d-flex align-items-center">
-                                        <a style={{ backgroundImage: "url(" + user.profileImage + ")" }} href="/user/david" className="rank__avatar w-inline-block"></a>
-                                        <div className="rank__header">
-                                            <h3 className="fw-bolder" style={{ marginLeft: "13px", marginBottom: 0 }}>{userData.name}</h3>
-                                            <div className="ladder__xp d-flex align-items-center">
-                                                {/* <a style={{backgroundColor:"#a278fc"}} href="/ranks" className="btn btn--xpbadge w-inline-block">
+                  <div className="rank__top d-flex align-items-center">
+                    <a
+                      style={{ backgroundImage: 'url(' + user.profileImage + ')' }}
+                      href="/user/david"
+                      className="rank__avatar w-inline-block"
+                    ></a>
+                    <div className="rank__header">
+                      <h3 className="fw-bolder" style={{ marginLeft: '13px', marginBottom: 0 }}>
+                        {userData.name}
+                      </h3>
+                      <div className="ladder__xp d-flex align-items-center">
+                        {/* <a style={{backgroundColor:"#a278fc"}} href="/ranks" className="btn btn--xpbadge w-inline-block">
                                                 <div className="icon icon--badge">
                                                     <div></div>
                                                 </div>
                                                 <div className="text text--badge">Narwhal</div>
                                             </a> */}
-                                                {
-                                                    // getC.getUserRank(user.xp) !== "" &&
+                        {
+                          // getC.getUserRank(user.xp) !== "" &&
 
-                                                    <span className="btn-sm ">
-                                                        {getC.getUserRank(user.xp)}
-
-                                                    </span>
-                                                }
-                                                <a href="#" className="ladder__xp ladder__xp--user w-inline-block" >
-                                                    <div className="tag tag--xp tag--xp_nobg w-embed" style={{ fontSize: "15px", marginLeft: "10px" }}>{user.xp}&nbsp;XP</div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <div className="rank__bottom">
+                          <span className="btn-sm ">{getC.getUserRank(user.xp)}</span>
+                        }
+                        <div className="ladder__xp ladder__xp--user w-inline-block">
+                          <div
+                            className="tag tag--xp tag--xp_nobg w-embed"
+                            style={{ fontSize: '15px', marginLeft: '10px' }}
+                          >
+                            {user.xp}&nbsp;XP
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* <div className="rank__bottom">
                                     <div className="rank__stats">
                                         <div className="rank__list rank__list--leaderboard">
                                             <div className="rank__user">
@@ -237,14 +245,13 @@ const LeaderBoard = () => {
                                         </a>
                                     </div>
                                 </div> */}
-                                </div>
-                            </Col>
-                        </Row >
-
-                    </Container >
-                </DefaultLayout >
-            </Page>
-        </>
-    )
-}
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </DefaultLayout>
+      </Page>
+    </>
+  );
+};
 export default LeaderBoard;

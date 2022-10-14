@@ -28,7 +28,7 @@ const Header = (props) => {
         {
           // adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
 
-          <div className="ms-auto header__right d-flex">
+          <div className="ms-auto header__right d-flex gap-1">
             <GeoLocation />
             {/* {
               userAuthToken || CampaignAdminAuthToken ?

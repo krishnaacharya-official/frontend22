@@ -65,13 +65,13 @@
 .display-4,
 .h1,.h2,.h3,.h4,.h5,.h6,
 h1,h2,h3,h4,h5,h6{
-	font-family: 'Linotte',Arial,sans-serif;
+	font-family: "Jcfonts linotte",Arial,sans-serif;
 	/*font-family: "Poppins", "Trebuchet MS", "PT Sans", "Helvetica Neue", "HelveticaNeue-Light", Helvetica, Arial, sans-serif;*/
 	letter-spacing: -0.04em;
 	font-weight: bold;
 }
 
 body{
-	font-family: 'Linotte',Arial,sans-serif;
+	font-family: "Jcfonts linotte",Arial,sans-serif;
 	/*font-family: "Segoe UI", "Trebuchet MS", "PT Sans", "Helvetica Neue", "HelveticaNeue-Light", Helvetica, Arial, sans-serif;*/
 }

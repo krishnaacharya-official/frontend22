@@ -28,6 +28,8 @@
 .project__detail-main {
   color: $gray-700;
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 .project__detail-title {
   font-size: 52px;
@@ -121,5 +123,8 @@
   .btn--addtocart {
     width: 100%;
     max-width: 100% !important;
+  }
+  .category__icons {
+    order: -1;
   }
 }

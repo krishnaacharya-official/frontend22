@@ -1,99 +1,94 @@
 // import React from "react";
-import { Button } from "react-bootstrap";
-import Avatar from "../../atoms/avatar";
-import "./style.scss";
-import organizationApi from "../../../../../Api/frontEnd/organization";
-import React, { useState, useEffect } from "react";
-import helper, { getCookie, setCookie, deleteCookie } from "../../../../../Common/Helper";
-import FrontLoader from "../../../../../Common/FrontLoader";
-import ToastAlert from "../../../../../Common/ToastAlert";
-import { useSelector, useDispatch } from "react-redux";
-import removeImg from '../../../../../assets/images/remove-link.svg'
+import { Button } from 'react-bootstrap';
+import Avatar from '../../atoms/avatar';
+import './style.scss';
+import organizationApi from '../../../../../Api/frontEnd/organization';
+import React, { useState, useEffect } from 'react';
+import helper, { getCookie, setCookie, deleteCookie } from '../../../../../Common/Helper';
+import FrontLoader from '../../../../../Common/FrontLoader';
+import ToastAlert from '../../../../../Common/ToastAlert';
+import { useSelector, useDispatch } from 'react-redux';
+import removeImg from '../../../../../assets/images/remove-link.svg';
 
 function LinkedOrg(props) {
   // const userAuthToken = localStorage.getItem('userAuthToken');
   const user = useSelector((state) => state.user);
   const userAuthToken = localStorage.getItem('userAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken ? CampaignAdminAuthToken : ""
-  const [teamMemberList, setTeamMemberList] = useState([])
+  const token = userAuthToken
+    ? userAuthToken
+    : CampaignAdminAuthToken
+    ? CampaignAdminAuthToken
+    : '';
+  const [teamMemberList, setTeamMemberList] = useState([]);
 
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id
+  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id;
 
-  const [orgList, setorgList] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [modelShow, setModelShow] = useState(false)
-  const [orgId, setorgId] = useState('')
+  const [orgList, setorgList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [modelShow, setModelShow] = useState(false);
+  const [orgId, setorgId] = useState('');
 
   const list = async () => {
-    const list = await organizationApi.teamMemberOrganizationList(token)
+    const list = await organizationApi.teamMemberOrganizationList(token);
     if (list) {
       if (list.data.success) {
-        setorgList(list.data.data)
+        setorgList(list.data.data);
       }
     }
-
-  }
+  };
 
   const listTeamMembers = async () => {
-
-
-    const list = await organizationApi.listUserTeamMember(token)
+    const list = await organizationApi.listUserTeamMember(token);
     if (list) {
       if (list.data.success) {
-        setTeamMemberList(list.data.data)
+        setTeamMemberList(list.data.data);
       } else {
-        setTeamMemberList([])
+        setTeamMemberList([]);
       }
     }
-
-  }
+  };
 
   useEffect(() => {
     (async () => {
       if (token) {
-        await list()
-        await listTeamMembers()
-
+        await list();
+        await listTeamMembers();
       }
-    })()
-
-  }, [!user.isActiveOrg])
+    })();
+  }, [!user.isActiveOrg]);
 
   const removeTeamMember = async (id) => {
-    setLoading(false)
-    const deleteAd = await organizationApi.removeTeamMember(token, orgId)
+    setLoading(false);
+    const deleteAd = await organizationApi.removeTeamMember(token, orgId);
     if (deleteAd) {
       if (deleteAd.data.success === false) {
-        setLoading(false)
+        setLoading(false);
         ToastAlert({ msg: deleteAd.data.message, msgType: 'error' });
       } else {
         if (deleteAd.data.success === true) {
           ToastAlert({ msg: deleteAd.data.message, msgType: 'success' });
-          await list()
-          await listTeamMembers()
-          setLoading(false)
-          setModelShow(false)
-
+          await list();
+          await listTeamMembers();
+          setLoading(false);
+          setModelShow(false);
         }
       }
     } else {
-      setLoading(false)
+      setLoading(false);
       ToastAlert({ msg: 'Member not Removed', msgType: 'error' });
     }
-
-  }
-
+  };
 
   const elemRefs = [];
   const inputStyle = {
-    backgroundColor: "#f8fafd"
-  }
+    backgroundColor: '#f8fafd'
+  };
 
   const autoTab = (e, i) => {
-    setCookie(e.target.name, e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, ""), 1)
+    setCookie(e.target.name, e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, ''), 1);
     const BACKSPACE_KEY = 8;
     const DELETE_KEY = 46;
     let tabindex = i || 0;
@@ -107,7 +102,6 @@ function LinkedOrg(props) {
     if (elem) {
       elem.current.focus();
     }
-
   };
 
   const Input = (props) => {
@@ -119,7 +113,7 @@ function LinkedOrg(props) {
         data-index={props.index}
         ref={ref}
         maxLength={1}
-        name={"code" + (props.index + 1)}
+        name={'code' + (props.index + 1)}
         // value={val}
         // onChange={(e) => setCode(e, props.index)}
         onKeyUp={(e) => props.autoTab(e, props.index)}
@@ -132,106 +126,119 @@ function LinkedOrg(props) {
     <Input key={index} index={index} autoTab={autoTab} />
   ));
 
-
   const activateCode = async () => {
-    setLoading(false)
-    let code1 = getCookie("code1")
-    let code2 = getCookie("code2")
-    let code3 = getCookie("code3")
-    let code4 = getCookie("code4")
+    setLoading(false);
+    let code1 = getCookie('code1');
+    let code2 = getCookie('code2');
+    let code3 = getCookie('code3');
+    let code4 = getCookie('code4');
 
     if (code1 && code2 && code3 && code4) {
-      let finalCode = code1 + code2 + code3 + code4
+      let finalCode = code1 + code2 + code3 + code4;
 
+      let data = {};
+      data.otp = Number(finalCode);
 
-      let data = {}
-      data.otp = Number(finalCode)
-
-      const verifyOtp = await organizationApi.teamMemberActivation(token, data)
-      deleteCookie("code1")
-      deleteCookie("code2")
-      deleteCookie("code3")
-      deleteCookie("code4")
+      const verifyOtp = await organizationApi.teamMemberActivation(token, data);
+      deleteCookie('code1');
+      deleteCookie('code2');
+      deleteCookie('code3');
+      deleteCookie('code4');
       if (verifyOtp) {
-
         if (!verifyOtp.data.success) {
-
-          setLoading(false)
+          setLoading(false);
           ToastAlert({ msg: verifyOtp.data.message, msgType: 'error' });
         } else {
-
-          setLoading(false)
+          setLoading(false);
           ToastAlert({ msg: verifyOtp.data.message, msgType: 'success' });
           // dispatch(setIsActiveOrg(!user.isActiveOrg))
-          await list()
-
+          await list();
         }
       } else {
-        setLoading(false)
+        setLoading(false);
         ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
       }
     } else {
-
-      deleteCookie("code1")
-      deleteCookie("code2")
-      deleteCookie("code3")
-      deleteCookie("code4")
+      deleteCookie('code1');
+      deleteCookie('code2');
+      deleteCookie('code3');
+      deleteCookie('code4');
 
       ToastAlert({ msg: 'Please Enter Valid an Activation Code', msgType: 'error' });
     }
-
-  }
-
-
+  };
 
   return (
     <>
       <FrontLoader loading={loading} />
 
-
-
-      <div className="modal  common-modal" id="removeModalTwo" tabIndex="-1" aria-labelledby="removeModalTwoLabel"
-        aria-hidden="true" style={{ display: modelShow ? "block" : 'none' }}>
+      <div
+        className="modal  common-modal"
+        id="removeModalTwo"
+        tabIndex="-1"
+        aria-labelledby="removeModalTwoLabel"
+        aria-hidden="true"
+        style={{ display: modelShow ? 'block' : 'none' }}
+      >
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content shadow-lg">
             <div className="modal-body text-center">
               <div className="remove-img-wrap">
-                <img src={removeImg} alt="remove link" style={{ width: "70px", marginBottom: "10px" }} />
+                <img
+                  src={removeImg}
+                  alt="remove link"
+                  style={{ width: '70px', marginBottom: '10px' }}
+                />
               </div>
-              <h5 className="modal-title mb-3" id="removeModalTwoLabel">Unlink Organization ?</h5>
+              <h5 className="modal-title mb-3" id="removeModalTwoLabel">
+                Unlink Organization ?
+              </h5>
               <p>Are you sure you want to remove the item?</p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-flat btn-link" data-bs-dismiss="modal" onClick={() => setModelShow(false)}>Cancel</button>
-              <button type="button" className="btn btn-flat btn-danger" data-bs-dismiss="modal" onClick={() => removeTeamMember()}>Remove</button>
+              <button
+                type="button"
+                className="btn btn-flat btn-link"
+                data-bs-dismiss="modal"
+                onClick={() => setModelShow(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-flat btn-danger"
+                data-bs-dismiss="modal"
+                onClick={() => removeTeamMember()}
+              >
+                Remove
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <div className="linked-org">
-        <div className="menu__title">
-          {
-            orgList.length > 0 &&
-            <h6 className="mb-0">Linked</h6>
-          }
-
-        </div>
+        <div className="menu__title">{orgList.length > 0 && <h6 className="mb-0">Linked</h6>}</div>
         <ul className="linked-list list-unstyled mb-0">
-          {
-            orgList.length > 0 &&
+          {orgList.length > 0 &&
             orgList.map((org, i) => {
               return (
                 <li className="linked__item py-2 d-flex align-items-center" key={i}>
                   <Button
                     variant="link"
                     // href={'/campaign/' + org?.organizationDetails?.slug + '/dashboard'}
-                    onClick={() => props.getAuthToken(org?.organizationDetails?._id, org?.organizationDetails?.slug)}
+                    onClick={() =>
+                      props.getAuthToken(
+                        org?.organizationDetails?._id,
+                        org?.organizationDetails?.slug
+                      )
+                    }
                     className="linked__item-link py-0 d-flex align-items-center flex-grow-1 text-decoration-none"
                   >
                     <div className="linked__item-img-wrap">
                       <img
-                        className="linked__item-img img-fluid" alt="a"
+                        className="linked__item-img img-fluid"
+                        alt="a"
                         src={helper.CampaignAdminLogoPath + org?.organizationDetails?.logo}
                       />
                     </div>
@@ -244,16 +251,15 @@ function LinkedOrg(props) {
                     className="btn__link-light linked__item-unlink ms-auto fs-7 me-1 fw-normal"
                     // onClick={() => removeTeamMember(org._id)}
                     onClick={() => {
-                      setModelShow(true)
-                      setorgId(org._id)
+                      setModelShow(true);
+                      setorgId(org._id);
                     }}
                   >
                     unlink
                   </Button>
                 </li>
-              )
-            })
-          }
+              );
+            })}
 
           {/* <li className="linked__item py-2 d-flex align-items-center">
           <Button
@@ -279,55 +285,51 @@ function LinkedOrg(props) {
           </Button>
         </li> */}
         </ul>
-        {
-          teamMemberList.length > 0 &&
-
+        {teamMemberList.length > 0 && (
           <div className="menu__title">
             <h6 className="mb-0">Team</h6>
           </div>
-        }
+        )}
 
         <ul className="linked-list list-unstyled mb-0">
-          {
-            teamMemberList.length > 0 &&
+          {teamMemberList.length > 0 &&
             teamMemberList.map((member, i) => {
-              let image = member.type === 'USER' ? helper.DonorImageResizePath + member?.userDetails?.image : helper.CampaignAdminLogoPath + member?.orgDetails?.logo
-              let name = member.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name
+              let image =
+                member.type === 'USER'
+                  ? helper.DonorImageResizePath + member?.userDetails?.image
+                  : helper.CampaignAdminLogoPath + member?.orgDetails?.logo;
+              let name =
+                member.type === 'USER' ? member.userDetails?.name : member?.orgDetails?.name;
               // console.log(member)
               return (
-                member.typeId !== currentId &&
-                <li className="linked__item py-2">
-                  <div className="linked__item-link px-12p d-flex align-items-center flex-grow-1">
-                    <Avatar
-                      size={42}
-                      border={0}
-                      shadow={false}
-                      avatarUrl={image}
-                    />
-                    <div className="linked__item-label fs-7 fw-bold pl-12p">
-                      <div className="mb-3p">{name}</div>
-                      <div className="team__role fs-7 fw-normal">{member.status ? 'Active' : 'InActive'}</div>
-                      <div className="org__team__item__price fs-7 text-light">{member?.campaignadminDetails?.name}</div>
+                member.typeId !== currentId && (
+                  <li className="linked__item py-2">
+                    <div className="linked__item-link px-12p d-flex align-items-center flex-grow-1">
+                      <Avatar size={42} border={0} shadow={false} avatarUrl={image} />
+                      <div className="linked__item-label fs-7 fw-bold pl-12p">
+                        <div className="mb-3p">{name}</div>
+                        <div className="team__role fs-7 fw-normal">
+                          {member.status ? 'Active' : 'InActive'}
+                        </div>
+                        <div className="org__team__item__price fs-7 text-light">
+                          {member?.campaignadminDetails?.name}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              )
-
-            })
-
-          }
-
-
+                  </li>
+                )
+              );
+            })}
         </ul>
         <div className="menu__title">
           <h6 className="mb-0 fs-7">Add an Organization</h6>
 
-          <Button
-            variant="link"
+          <a
+            href="https://donorport.org/apply"
             className="p-0 btn__link-light linked__item-unlink ms-auto fs-7 me-1 fw-normal"
           >
             request access
-          </Button>
+          </a>
         </div>
         <div className="activate">
           <div className="activate__icon">
@@ -359,9 +361,7 @@ function LinkedOrg(props) {
               className="activate__input"
               name="verifyCode5"
             /> */}
-            {
-              blocks
-            }
+            {blocks}
           </div>
           <Button variant="info" className="ms-auto" onClick={() => activateCode()}>
             Activate
@@ -369,7 +369,6 @@ function LinkedOrg(props) {
         </div>
       </div>
     </>
-
   );
 }
 

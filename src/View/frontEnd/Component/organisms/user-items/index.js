@@ -230,7 +230,7 @@ const UserItems = () => {
                       ) : (
                         <div className="unlimited unlimited--home" style={{ marginLeft: '10px' }}>
                           <div className="tag tag--ongoing _2">
-                            <div className="icon icon--unlimited">
+                            <div className="d-flex icon icon--unlimited">
                               <FontAwesomeIcon icon={solid('infinity')} className="" />
                             </div>
                           </div>
@@ -295,7 +295,7 @@ const UserItems = () => {
                         <FontAwesomeIcon icon={regular('clock')} className="me-1" />
                         {moment(item.itemDetails?.created_at).format('MMMM DD, YYYY')}
                       </div>
-                      <div className="d-flex align-items-center ms-2">
+                      <div className="d-flex align-items-center me-2">
                         <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
                         {/* Toronto, ON */}
 
@@ -331,7 +331,7 @@ const UserItems = () => {
                       <h5 className="page__blurb  mt-2">{item.itemDetails?.needheadline}</h5>
                       <p className="page__paragraph mt-2">{item.itemDetails?.description}</p>
 
-                      <div className="gallery__container m-2">
+                      <div className="gallery__container my-2">
                         {item.itemDetails?.galleryImage.length > 0 &&
                           Number(detail.key) === i &&
                           item.itemDetails?.galleryImage.map((im, ky) => {
@@ -368,7 +368,7 @@ const UserItems = () => {
                         </div>
                       )}
 
-                    <div className="gallery__container m-2">
+                    <div className="gallery__container my-2">
                       {item.itemDetails?.fulfil.length > 0 &&
                         Number(detail.key) === i &&
                         item.itemDetails?.fulfil.map((im, ky) => {

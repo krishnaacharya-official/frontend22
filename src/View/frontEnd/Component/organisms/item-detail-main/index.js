@@ -109,8 +109,12 @@ function ProjectDetailMain(props) {
 
   return (
     <div className="project__detail-main">
+
+
+      <div className="d-flex flex-column">
+
       <h4 className="project__detail-label mb-3p">Item</h4>
-      <h1 className="project__detail-title" style={{ textTransform: 'capitalize' }}>
+      <h1 className="project__detail-title text-dark" style={{ textTransform: 'capitalize' }}>
         {productDetails?.headline}
       </h1>
       <h5 className="project__detail-sublabel mb-0 fw-bolder">Product</h5>
@@ -120,12 +124,12 @@ function ProjectDetailMain(props) {
         {priceFormat(price)}
       </div>
       <div className="project__detail-meta d-flex align-items-center">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center me-2">
           <FontAwesomeIcon icon={regular('clock')} className="me-1" />
           {moment(productDetails?.created_at).format('MMMM DD, YYYY')}
         </div>
         {productDetails?.address && (
-          <div className="d-flex align-items-center ms-2">
+          <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
             {address}
           </div>
@@ -134,13 +138,16 @@ function ProjectDetailMain(props) {
 
       {/* show for mobile view */}
 
-      <div className="d-sm-none project__detail-img mb-3">
+      <div className="note d-sm-none project__detail-img mb-3">
         <img
           className="img-fluid"
           alt=""
           src={helper.CampaignProductFullImagePath + productDetails?.image}
         />
       </div>
+
+
+
       <div className="product__top px-0 mb-1 d-flex align-items-center">
         <div className="page__bar d-flex align-items-center flex-grow-1">
           <ProgressBar
@@ -179,8 +186,7 @@ function ProjectDetailMain(props) {
           <ShareWidget />
         </div>
       </div>
-
-      <div className="category__icons d-flex align-items-center mb-4">
+      <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
         <Button size="lg" variant="link" className="btn__category text-decoration-none">
           <span
             className="d-flex align-items-center icon__category ms-1"
@@ -239,6 +245,10 @@ function ProjectDetailMain(props) {
           <span className="fs-6">Shelter</span>
         </Button>*/}
       </div>
+
+
+</div>
+
       {productDetails.galleryUrl && isIframe(productDetails.galleryUrl) && (
         <div
           className="project-video-wrap mb-4"
@@ -289,7 +299,7 @@ function ProjectDetailMain(props) {
                     border: 'none',
                     background: '#3596F3',
                     marginTop: '-10px',
-                    opacity: 1
+                    opacity: "1"
                   }}
                   min={1}
                   max={maxQuentity}
@@ -421,7 +431,7 @@ function ProjectDetailMain(props) {
                     }}
                   ></div>
 
-                  <div className="gallery__container m-2">
+                  <div className="gallery__container my-2">
                     {productDetails?.productImages &&
                       productDetails?.productImages.length > 0 &&
                       productDetails?.productImages.map((img, i) => {
@@ -444,7 +454,7 @@ function ProjectDetailMain(props) {
         <></>
       )}
 
-      {/* <div className="gallery__container m-2">
+      {/* <div className="gallery__container my-2">
         {productDetails?.productImages &&
           productDetails?.productImages.length > 0 &&
           productDetails?.productImages.map((img, i) => {

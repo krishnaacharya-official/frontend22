@@ -52,10 +52,12 @@
 .inputerror {
   border-color: #dc3545 !important;
 }
-.inputerrorLable{
+
+.inputerrorLable {
   color: #dc3545 !important;
 
 }
+
 .inputerror:focus {
   border-color: #dc3545 !important;
   box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .25) !important;
@@ -649,11 +651,16 @@ button.ReactTags__remove {
 }
 
 .cart__dropdown {
-  position: absolute !important;
+  position: fixed !important;
   inset: 0px 0px auto auto !important;
-  transform: translate(0px, 39px) !important;
+  transform: translate(-15px,39px)!important;
+  overflow: visible !important;
 }
-
+@include media-breakpoint-down(sm) {
+  .cart__dropdown {
+    top: 50px !important;
+  }
+}
 #insta {
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
   -webkit-background-clip: text;
@@ -667,11 +674,16 @@ button.ReactTags__remove {
 }
 
 .activity__dropdown {
-  position: absolute !important;
+  position: fixed !important;
   inset: 0px 0px auto auto !important;
-  transform: translate(0px, 39px) !important;
+  transform: translate(-15px,39px)!important;
+  overflow: visible !important;
 }
-
+@include media-breakpoint-down(sm) {
+  .activity__dropdown {
+    top: 50px !important;
+  }
+}
 .invoice table {
   width: 100%;
   border-collapse: collapse;
@@ -1095,9 +1107,9 @@ a.MuiListItemButton-root.active:focus {
 }
 
 @media screen and (max-width: 540px) {
-  .activity__dropdown {
+ /* .activity__dropdown {
     transform: translate(0px, 60px) !important;
-  }
+  }*/
 
   .plans .plan .plan-content img {
     margin-bottom: 20px;
@@ -1247,12 +1259,10 @@ li.search__tag {
 }
 
 .geo__dropdown {
-  overflow: visible !important;
-  transform: translate(45px, 39px) !important;
+  position: fixed !important;
   inset: 0px 0px auto auto !important;
-  /* transform: unset !important; */
-
-  /* transform:  translate(0px, 39px) !important */
+  transform: translate(-15px,39px)!important;
+  overflow: visible !important;
 }
 
 .mapboxgl-user-location-dot:after {
@@ -1301,10 +1311,10 @@ li.search__tag {
 
 @media only screen and (max-width: 600px) {
 
-  .geo__dropdown {
+/*  .geo__dropdown {
     inset: 0px auto auto 0px !important;
     transform: translate3d(-204px, -18px, 0px) !important;
-  }
+  }*/
 }
 
 

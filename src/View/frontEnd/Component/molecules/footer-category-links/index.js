@@ -19,9 +19,9 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
   // console.log(sharedProps.list)
   return (
     <div {...otherProps}>
-      <a href="/" className="footer__category-title d-block mb-2">
+      <div className="footer__category-title d-block mb-2">
         <span className="fw-bolder">{sharedProps.categoryName}</span>
-      </a>
+      </div>
       {sharedProps.categoryName === 'Home' && (
         <ul className="list-unstyled footer__links">
           <li className="footer__link-item">
@@ -40,7 +40,7 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
             </a>
           </li>
           <li className="footer__link-item">
-            <a href="/xp" className="footer__link" >
+            <a href="/xp" className="footer__link">
               XP
             </a>
           </li>
@@ -68,6 +68,11 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
               Partnerships
             </a>
           </li>
+          <li className="footer__link-item">
+            <a href="/sponsors" className="footer__link">
+              Sponsorships
+            </a>
+          </li>
         </ul>
       )}
 
@@ -79,21 +84,20 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
             </a>
           </li>
           <li className="footer__link-item">
-            <a href="/sponsors" className="footer__link">
-              Sponsorships
+            <a href="/item-tags" className="footer__link">
+              Post Tags
             </a>
           </li>
           <li className="footer__link-item">
-            <a href="/item-tags" className="footer__link">
-              Post Tags
+            <a href="/pricing" className="footer__link">
+              Pricing
             </a>
           </li>
         </ul>
       )}
       {sharedProps.categoryName === 'Marketplace' && (
         <ul className="list-unstyled footer__links">
-          {
-            sharedProps.list.length > 0 &&
+          {sharedProps.list.length > 0 &&
             sharedProps.list.map((l, i) => {
               return (
                 <li className="footer__link-item">
@@ -101,10 +105,8 @@ function FooterCategoryLinks({ categoryName, list, ...otherProps }) {
                     {l.name}
                   </a>
                 </li>
-              )
-            })
-
-          }
+              );
+            })}
           {/* <li className="footer__link-item">
             <Link to="/trust" className="footer__link">
               Trust &amp; Safety

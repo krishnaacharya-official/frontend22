@@ -166,7 +166,7 @@ const ProjectsTable = (props) => {
                                 {/* <span className="text-light ms-1 fw-bold">Infinite</span> */}
                                 <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
                                   <div className="tag tag--ongoing _2">
-                                    <div className="icon icon--unlimited">
+                                    <div className="d-flex icon icon--unlimited">
                                       <FontAwesomeIcon icon={solid("infinity")} className="" />
                                     </div>
                                   </div>

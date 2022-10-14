@@ -236,7 +236,7 @@ export default function Index(props) {
               Add to Cart ({props.cartProductList.length})
             </Button>
             <div
-              className="p-2 d-sm-flex align-items-center flex-grow-1"
+              className="p-2 d-sm-flex align-items-center flex-grow-1 mt-sm-0 mt-2"
               style={{ fontSize: '14px' }}
             >
               <FontAwesomeIcon icon={regular('circle-question')} style={{ color: '#5f5df8' }} />
@@ -382,7 +382,7 @@ export default function Index(props) {
             </div> */}
           </div>
           {props.advertisementList.length > 0 && (
-            <div>
+            <div className="mb-3 mb-sm-0">
               <IconText
                 size={42}
                 style={{ border: 'unset' }}

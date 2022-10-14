@@ -103,7 +103,7 @@ function Footer() {
                 className="svg__logo"
               />
 
-              <div className="svg__name ms-1">Donorport</div>
+              <div className="svg__name ms-1 text-dark">Donorport</div>
             </a>
             <p>
               The world's first and largest crowd-funding platform for non-profits
@@ -125,7 +125,7 @@ function Footer() {
           </Col>
         </Row>
         <div className="footer__bottom d-sm-flex align-items-center border-top text-center text-sm-start">
-          <div className="d-flex justify-content-center mb-sm-2">
+          <div className="d-flex justify-content-center mb-2 mb-sm-0">
             <div className="copyright mb-1 mb-sm-0">
               <div>© {new Date().getFullYear()} Donorport, Inc.</div>
             </div>
@@ -136,7 +136,7 @@ function Footer() {
               </span>
             </div>
           </div>
-          <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto">
+          <ul className="list-unstyled mb-0 d-flex align-items-center justify-content-center justify-content-sm-start ms-auto mt-3 mt-sm-0">
             <li className="footer__link-item me-4">
               <a href="#" className="footer__link">
                 Privacy Policy

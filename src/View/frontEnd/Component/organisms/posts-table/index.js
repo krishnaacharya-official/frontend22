@@ -132,7 +132,7 @@ const PostsTable = (props) => {
                                 style={{ marginLeft: '10px' }}
                               >
                                 <div className="tag tag--ongoing _2">
-                                  <div className="icon icon--unlimited">
+                                  <div className="d-flex icon icon--unlimited">
                                     <FontAwesomeIcon icon={solid('infinity')} className="" />
                                   </div>
                                 </div>

@@ -140,7 +140,7 @@ const ItemDetail = (props) => {
                 ''
               )}
             </div>
-            <div className="gallery__container m-2">
+            <div className="gallery__container my-2">
               {productDetails?.productImages &&
                 productDetails?.productImages.length > 0 &&
                 productDetails?.productImages.map((img, i) => {
@@ -177,7 +177,7 @@ const ItemDetail = (props) => {
                     <div>
                       <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
 
-                      <div className="gallery__container m-2">
+                      <div className="gallery__container my-2">
                         {project.projectDetails?.projectImages &&
                           project.projectDetails?.projectImages.length > 0 &&
                           project.projectDetails?.projectImages.map((img, i) => {
@@ -224,7 +224,7 @@ const ItemDetail = (props) => {
                       <div>
                         <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
 
-                        <div className="gallery__container m-2">
+                        <div className="gallery__container my-2">
                           {project.projectDetails?.projectImages &&
                             project.projectDetails?.projectImages.length > 0 &&
                             project.projectDetails?.projectImages.map((img2, i) => {

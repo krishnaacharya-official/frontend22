@@ -97,7 +97,7 @@ const ShoppingCart = (props) => {
         <Dropdown.Menu className="cart__dropdown w-310 dropdown-top-arrow">
           <div className="dropdown__inner">
             <div className="d-flex cart__dropdown-header">
-              <div className="fw-bold">Cart</div>
+              <div className="fw-bolder">Cart</div>
               {
                 !state.empty &&
                 <Link

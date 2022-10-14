@@ -332,7 +332,7 @@ export default function ApplyOrganizationController() {
     return (
         <>
             {/*<FrontLoader loading={loading} />*/}
-            <Page title="Donorport | About Us" description="Apply for an account. Let us know if you want to post on Donorport. For more information about the application process click here. Charity Nonprofit">
+            <Page title="Donorport | Apply" description="Apply for an account. Let us know if you want to post on Donorport. For more information about the application process click here. Charity Nonprofit">
                 <Apply
                     stateData={state}
                     blocks={blocks}

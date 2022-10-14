@@ -16,7 +16,7 @@ function WishlistItem(props) {
   return (
     <li className="wishlist__item p-1 d-flex align-items-center border-bottom">
       <div className="d-flex align-items-center">
-        <ListItemImg imgSrc={helper.CampaignProductImagePath+ item.productDetails.image}/>
+        <ListItemImg size={56} imgSrc={helper.CampaignProductImagePath+ item.productDetails.image}/>
 
         <div className="wishlist__item__main pl-12p">
           <div className="wishlist__item__title pr-12p">

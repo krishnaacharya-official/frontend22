@@ -1,5 +1,4 @@
 .similar__ {
-
   // .similar__item__main
   &item__main {
     flex: 1;
@@ -38,4 +37,14 @@
   align-items: center;
   color: $gray-700;
   font-weight: $font-weight-semibold;
+}
+.btn__sold {
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.btn__sold:hover {
+  background: unset;
+  color: #f15e5e;
 }

@@ -1,41 +1,42 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Button } from 'react-bootstrap';
 
 // import { IconToggle, RoundedIcon, TagTitle } from "../../Component";
-import IconToggle from "../../atoms/icon-toggle"
-import RoundedIcon from "../../atoms/rounded-icon"
+import IconToggle from '../../atoms/icon-toggle';
+import RoundedIcon from '../../atoms/rounded-icon';
 // import WidgetTitle from "../widget-title"
-import TagTitle from "../../atoms/tag-title"
+import TagTitle from '../../atoms/tag-title';
 
-
-import IconButton from "../../molecules/icon-button";
-import ShareWidget from "../share-widget";
-import OrganisationWidget from "../organisation-widget";
-import moment from "moment";
-import helper, { isIframe } from "../../../../../Common/Helper";
-import { useNavigate } from "react-router-dom";
-import "./style.scss";
+import IconButton from '../../molecules/icon-button';
+import ShareWidget from '../share-widget';
+import OrganisationWidget from '../organisation-widget';
+import moment from 'moment';
+import helper, { isIframe } from '../../../../../Common/Helper';
+import { useNavigate } from 'react-router-dom';
+import './style.scss';
 
 function OrganisationDetailMain(props) {
-  let organizationDetails = props.organizationDetails
-  const navigate = useNavigate()
+  let organizationDetails = props.organizationDetails;
+  const navigate = useNavigate();
   // console.log(organizationDetails)
-  let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '')
+  let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '');
 
   return (
     <div className="project__detail-main">
-      <div className="mb-4">
+      <div className="d-flex flex-column mb-4">
         <div className="d-flex align-items-center mb-1">
           <div>
-            <TagTitle>Organization</TagTitle>
-            <h1 className="project__detail-title" style={{ textTransform: "capitalize" }}>{organizationDetails?.name}</h1>
+            <h4 className="project__detail-label mb-3p">Organization</h4>
+            <h1 className="project__detail-title text-dark" style={{ textTransform: 'capitalize' }}>
+              {organizationDetails?.name}
+            </h1>
           </div>
           <div className="page__logo page__logo--org ms-auto">
             <img
               alt=""
               src={helper.CampaignAdminLogoPath + organizationDetails?.logo}
-              className='charity_avatar_bg'
+              className="charity_avatar_bg"
             />
           </div>
         </div>
@@ -46,27 +47,30 @@ function OrganisationDetailMain(props) {
        
             {moment(organizationDetails?.created_at).format('MMMM DD , Y')}
           </div> */}
-      
-          <div className="d-flex align-items-center ms-2">
-            <FontAwesomeIcon
-              icon={regular("circle-location-arrow")}
-              className="me-1"
-            />
+
+          <div className="d-flex align-items-center me-2">
+            <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
             {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
           </div>
 
+          <div className="d-flex align-items-center me-2">
+            <FontAwesomeIcon icon={regular('link')} className="me-1" />
 
-          <div className="d-flex align-items-center ms-2">
-            <FontAwesomeIcon icon={regular("link")} className="me-1" />
-    
-            <a href={organizationDetails?.url} className='text-light'  rel="noreferrer" target="_blank">{organizationDetails?.url}</a>
+            <a
+              href={organizationDetails?.url}
+              className="text-light"
+              rel="noreferrer"
+              target="_blank"
+            >
+              {organizationDetails?.url}
+            </a>
           </div>
-          <div className="text-light d-flex align-items-center ms-2">
+          <div className="text-light d-flex align-items-center me-2">
             <IconToggle
-              icon={<FontAwesomeIcon icon={regular("bell")} />}
-              checkedIcon={<FontAwesomeIcon icon={solid("bell")} />}
+              icon={<FontAwesomeIcon icon={regular('bell')} />}
+              checkedIcon={<FontAwesomeIcon icon={solid('bell')} />}
               ischecked={props.isFollow}
-              name='organization'
+              name="organization"
               onClickFilter={(e) => props.followToOrganization(e)}
             />
 
@@ -74,7 +78,7 @@ function OrganisationDetailMain(props) {
           </div>
         </div>
 
-        <div className="category__icons d-flex align-items-center mb-2">
+        <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
           <Button
             size="lg"
             variant="link"
@@ -85,13 +89,22 @@ function OrganisationDetailMain(props) {
               bgColor={organizationDetails?.categoryDetails?.color}
               size={16}
               className="mr-6p"
-              style={{ fontFamily: "fontAwesome", color: "white", fontStyle: "normal" }}
+              style={{ fontFamily: 'fontAwesome', color: 'white', fontStyle: 'normal' }}
               // icon={<i style={{ fontStyle: "normal" }} className={organizationDetails?.categoryDetails?.iconDetails?.class}></i>}
-              icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 100 563 512">
-                <path fill='white' d={organizationDetails?.categoryDetails?.icon}></path> </svg>}
-
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 100 563 512"
+                >
+                  <path fill="white" d={organizationDetails?.categoryDetails?.icon}></path>{' '}
+                </svg>
+              }
             />
-            <span className="fs-6 text-dark fw-bold" style={{ textTransform: "capitalize" }}>{organizationDetails?.categoryDetails?.name}</span>
+            <span className="fs-6 text-dark fw-bold" style={{ textTransform: 'capitalize' }}>
+              {organizationDetails?.categoryDetails?.name}
+            </span>
           </Button>
 
           {/* <Button
@@ -115,31 +128,32 @@ function OrganisationDetailMain(props) {
             <span className="fs-6" style={{ textTransform: "capitalize" }}>{organizationDetails?.countryDetails?.country}</span>
           </Button>*/}
         </div>
-        {organizationDetails.promoVideo
-          && isIframe(organizationDetails.promoVideo
-          ) &&
-          <div className="project-video-wrap mb-4 mt-4" dangerouslySetInnerHTML={{ __html: organizationDetails.promoVideo }} >
-
-          </div>
-        }
+        {organizationDetails.promoVideo && isIframe(organizationDetails.promoVideo) && (
+          <div
+            className="project-video-wrap mb-4"
+            dangerouslySetInnerHTML={{ __html: organizationDetails.promoVideo }}
+          ></div>
+        )}
 
         <h4 className="page__blurb">{organizationDetails?.headline}</h4>
-        <div className="page__paragraph">
-          {organizationDetails?.description}
-        </div>
-        <div>
+        <div className="page__paragraph">{organizationDetails?.description}</div>
+        <div className="mt-2">
           <IconButton
             variant="link"
             className="text-light text-decoration-none fw-normal px-0 fs-6"
-            icon={<FontAwesomeIcon icon={solid("building")} />}
+            icon={<FontAwesomeIcon icon={solid('building')} />}
           >
-            {organizationDetails?.type}  EIN {organizationDetails?.ein}
+            {organizationDetails?.type} EIN {organizationDetails?.ein}
           </IconButton>
         </div>
       </div>
 
-      <OrganisationWidget tagTitle="Organization" productDetails={organizationDetails?.productsDetails} addToCart={props.addToCart} checkItemInCart={props.checkItemInCart} />
-
+      <OrganisationWidget
+        tagTitle="Organization"
+        productDetails={organizationDetails?.productsDetails}
+        addToCart={props.addToCart}
+        checkItemInCart={props.checkItemInCart}
+      />
     </div>
   );
 }
