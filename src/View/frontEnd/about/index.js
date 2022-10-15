@@ -2,14 +2,16 @@ import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MarqueeList from '../Component/molecules/marquee-list';
 import DefaultLayout from '../Component/templates/default-layout';
 
 import './style.scss';
 
+
 const About = (props) => {
   // console.log(props.campaignAdminList)
+  const navigate = useNavigate();
   return (
     <DefaultLayout className="about">
       <div className="section--hero section--design">
