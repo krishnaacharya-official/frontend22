@@ -132,12 +132,12 @@ const UserBilling = () => {
 
           {
             historyList.length > 0 &&
-            historyList.slice(0, loadMore ? historyList.length : 2).map((list, i) => {
+            historyList.slice(0, loadMore ? historyList.length : 6).map((list, i) => {
 
               let amount = list.type === 'ORDER' ? list.total : list.amount
               let currencySymbole = list.currencySymbol
               let date = moment(list.created_at).format('DD/MM/YYYY')
-              let PurchaseType = list.type === 'ORDER' ? 'Bought' : 'Donate'
+              let PurchaseType = list.type === 'ORDER' ? 'Bought' : 'Donated'
               let PurchaseIcon = list.type === 'ORDER' ? <FontAwesomeIcon icon={solid("bag-shopping")} className="mr-3p" /> : <FontAwesomeIcon icon={solid("heart")} className="mr-3p" />
               let PurchaseName = list.type === 'ORDER' ? 'Debited' : list.type === 'PROJECT' ? list.projectDetails.name : list.organizationDetails.name
               let transectionId = list.uniqueTransactionId ? list.uniqueTransactionId : list.transactionId

@@ -78,7 +78,7 @@ function OrganisationDetailMain(props) {
           </div>
         </div>
 
-        <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
+        <div className="category__icons d-flex align-items-center mb-4 order--1 order-sm-0">
           <Button
             size="lg"
             variant="link"

@@ -153,7 +153,7 @@ function ProjectDetailMain(props) {
                 <FontAwesomeIcon icon={regular('infinity')} />
               </span>
             ) : (
-              <span className="fw-bold">{countProjectProcess(projectDetails.productDetails)}%</span>
+              <span className="text-light">{countProjectProcess(projectDetails.productDetails)}%</span>
             )}
           </div>
           <div className="text-light d-flex align-items-center ms-3">
@@ -169,7 +169,7 @@ function ProjectDetailMain(props) {
           </div>
         </div>
 
-        <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
+        <div className="category__icons d-flex align-items-center mb-4 order--1 order-sm-0">
           {/*} <Button
             size="lg"
             variant="link"

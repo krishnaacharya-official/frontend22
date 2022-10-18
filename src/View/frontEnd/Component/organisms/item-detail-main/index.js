@@ -109,126 +109,121 @@ function ProjectDetailMain(props) {
 
   return (
     <div className="project__detail-main">
-
-
       <div className="d-flex flex-column">
-
-      <h4 className="project__detail-label mb-3p">Item</h4>
-      <h1 className="project__detail-title text-dark" style={{ textTransform: 'capitalize' }}>
-        {productDetails?.headline}
-      </h1>
-      <h5 className="project__detail-sublabel mb-0 fw-bolder">Product</h5>
-      <div className="project__detail-subtitle mb-12p fw-bold">{productDetails?.brand} ™</div>
-      <div className="project__detail-price fs-2 text-price">
-        {currencySymbol}
-        {priceFormat(price)}
-      </div>
-      <div className="project__detail-meta d-flex align-items-center">
-        <div className="d-flex align-items-center me-2">
-          <FontAwesomeIcon icon={regular('clock')} className="me-1" />
-          {moment(productDetails?.created_at).format('MMMM DD, YYYY')}
+        <h4 className="project__detail-label mb-3p">Item</h4>
+        <h1 className="project__detail-title text-dark" style={{ textTransform: 'capitalize' }}>
+          {productDetails?.headline}
+        </h1>
+        <h5 className="project__detail-sublabel mb-0 fw-bolder">Product</h5>
+        <div className="project__detail-subtitle mb-12p fw-bold">{productDetails?.brand} ™</div>
+        <div className="project__detail-price fs-2 text-price">
+          {currencySymbol}
+          {priceFormat(price)}
         </div>
-        {productDetails?.address && (
+        <div className="project__detail-meta d-flex align-items-center">
           <div className="d-flex align-items-center me-2">
-            <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
-            {address}
+            <FontAwesomeIcon icon={regular('clock')} className="me-1" />
+            {moment(productDetails?.created_at).format('MMMM DD, YYYY')}
           </div>
-        )}
-      </div>
-
-      {/* show for mobile view */}
-
-      <div className="note d-sm-none project__detail-img mb-3">
-        <img
-          className="img-fluid"
-          alt=""
-          src={helper.CampaignProductFullImagePath + productDetails?.image}
-        />
-      </div>
-
-
-
-      <div className="product__top px-0 mb-1 d-flex align-items-center">
-        <div className="page__bar d-flex align-items-center flex-grow-1">
-          <ProgressBar
-            variant={productDetails.unlimited ? 'infinity' : 'success'}
-            now={productDetails.unlimited ? 100 : per}
-            className="page__progress flex-grow-1 me-1"
-          />
-          {productDetails.unlimited ? (
-            <span className="tag tag__ongoing tag__rounded fs-9">
-              <FontAwesomeIcon icon={regular('infinity')} />
-            </span>
-          ) : (
-            <span className="fw-bold" style={{ whiteSpace: 'nowrap' }}>
-              {productDetails.soldout} / {productDetails.quantity}{' '}
-              <span className="fs-9 fw-normal">sold</span>
-            </span>
+          {productDetails?.address && (
+            <div className="d-flex align-items-center me-2">
+              <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
+              {address}
+            </div>
           )}
         </div>
-        <div className="text-light d-flex align-items-center ms-3 gap-1">
-          <IconToggle
-            activeColor="rgb(246, 100, 97)"
-            icon={<FontAwesomeIcon icon={regular('heart')} />}
-            ischecked={props.wishListproductIds.includes(productDetails._id)}
-            checkedIcon={<FontAwesomeIcon icon={solid('heart')} />}
-            onClickFilter={onClickFilter}
-          />
 
-          <IconToggle
-            icon={<FontAwesomeIcon icon={regular('bell')} />}
-            checkedIcon={<FontAwesomeIcon icon={solid('bell')} />}
-            onClickFilter={(e) => props.followToProduct(e)}
-            name="Product"
-            ischecked={props.isFollow}
-          />
+        {/* show for mobile view */}
 
-          <ShareWidget />
+        <div className="note d-sm-none project__detail-img mb-3">
+          <img
+            className="img-fluid"
+            alt=""
+            src={helper.CampaignProductFullImagePath + productDetails?.image}
+          />
         </div>
-      </div>
-      <div className="category__icons d-flex align-items-center mb-4 order-sm-1">
-        <Button size="lg" variant="link" className="btn__category text-decoration-none">
-          <span
-            className="d-flex align-items-center icon__category ms-1"
-            style={{
-              fontFamily: 'fontAwesome',
-              color: productDetails?.categoryDetails?.color,
-              fontStyle: 'normal'
-            }}
-          >
-            {/* <span style={{ fontSize: "x-large" }} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span> */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
-              <path
-                d={productDetails?.subCategoryDetails?.icon}
-                fill={productDetails?.categoryDetails?.color}
-              ></path>{' '}
-            </svg>
-          </span>{' '}
-          <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
-            {productDetails?.subCategoryDetails?.name}
-          </span>
-        </Button>
-        <Link
-          size="lg"
-          variant="link"
-          className="btn__category text-decoration-none btn btn-link btn-lg"
-          to={'/organization/' + productDetails?.campaignDetails?.slug}
-        >
-          <span className="d-flex align-items-center icon__category">
-            {/* <CategoryIcon /> */}
-            {/* <div className="page__logo page__logo--org ms-auto" > */}
-            <img
-              alt=""
-              style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%' }}
-              src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
+
+        <div className="product__top px-0 mb-1 d-flex align-items-center">
+          <div className="page__bar d-flex align-items-center flex-grow-1">
+            <ProgressBar
+              variant={productDetails.unlimited ? 'infinity' : 'success'}
+              now={productDetails.unlimited ? 100 : per}
+              className="page__progress flex-grow-1 me-1"
             />
-            {/* </div> */}
-          </span>
-          <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
-            {productDetails?.campaignDetails?.name}
-          </span>
-        </Link>
-        {/* <Button
+            {productDetails.unlimited ? (
+              <span className="tag tag__ongoing tag__rounded fs-9">
+                <FontAwesomeIcon icon={regular('infinity')} />
+              </span>
+            ) : (
+              <span className="fw-bold" style={{ whiteSpace: 'nowrap' }}>
+                {productDetails.soldout} / {productDetails.quantity}{' '}
+                <span className="fs-9 fw-normal">sold</span>
+              </span>
+            )}
+          </div>
+          <div className="text-light d-flex align-items-center ms-3 gap-1">
+            <IconToggle
+              activeColor="rgb(246, 100, 97)"
+              icon={<FontAwesomeIcon icon={regular('heart')} />}
+              ischecked={props.wishListproductIds.includes(productDetails._id)}
+              checkedIcon={<FontAwesomeIcon icon={solid('heart')} />}
+              onClickFilter={onClickFilter}
+            />
+
+            <IconToggle
+              icon={<FontAwesomeIcon icon={regular('bell')} />}
+              checkedIcon={<FontAwesomeIcon icon={solid('bell')} />}
+              onClickFilter={(e) => props.followToProduct(e)}
+              name="Product"
+              ischecked={props.isFollow}
+            />
+
+            <ShareWidget />
+          </div>
+        </div>
+        <div className="category__icons d-flex align-items-center mb-4 order--1 order-sm-0">
+          <Button size="lg" variant="link" className="btn__category text-decoration-none">
+            <span
+              className="d-flex align-items-center icon__category ms-1"
+              style={{
+                fontFamily: 'fontAwesome',
+                color: productDetails?.categoryDetails?.color,
+                fontStyle: 'normal'
+              }}
+            >
+              {/* <span style={{ fontSize: "x-large" }} className={productDetails?.subCategoryDetails?.iconDetails.class} ></span> */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
+                <path
+                  d={productDetails?.subCategoryDetails?.icon}
+                  fill={productDetails?.categoryDetails?.color}
+                ></path>{' '}
+              </svg>
+            </span>{' '}
+            <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
+              {productDetails?.subCategoryDetails?.name}
+            </span>
+          </Button>
+          <Link
+            size="lg"
+            variant="link"
+            className="btn__category text-decoration-none btn btn-link btn-lg"
+            to={'/organization/' + productDetails?.campaignDetails?.slug}
+          >
+            <span className="d-flex align-items-center icon__category">
+              {/* <CategoryIcon /> */}
+              {/* <div className="page__logo page__logo--org ms-auto" > */}
+              <img
+                alt=""
+                style={{ width: 'auto', maxHeight: '90%', maxWidth: '90%' }}
+                src={helper.CampaignAdminLogoPath + productDetails?.campaignDetails?.logo}
+              />
+              {/* </div> */}
+            </span>
+            <span className="fs-6 text-dark fw-bold ms-1" style={{ textTransform: 'capitalize' }}>
+              {productDetails?.campaignDetails?.name}
+            </span>
+          </Link>
+          {/* <Button
           size="lg"
           variant="link"
           className="btn__category text-decoration-none btn btn-link btn-lg"
@@ -241,13 +236,11 @@ function ProjectDetailMain(props) {
             />
           </span>
         </Button> */}
-        {/* <Button size="lg" variant="success" className=" text-decoration-none">
+          {/* <Button size="lg" variant="success" className=" text-decoration-none">
           <span className="fs-6">Shelter</span>
         </Button>*/}
+        </div>
       </div>
-
-
-</div>
 
       {productDetails.galleryUrl && isIframe(productDetails.galleryUrl) && (
         <div
@@ -261,19 +254,16 @@ function ProjectDetailMain(props) {
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, '')}
       </div>
 
-      <div className="mt-5">
-        {productDetails?.productImages && (
-          <>
-            <h5 className="project__detail-sublabel mb-0 fw-bolder">Need</h5>
-            <div className="project__detail-subtitle mb-12p fw-bold">Gallery</div>
-          </>
-        )}
-        <ProjectGallery
-          className="mb-3"
-          tagTitle="Products"
-          images={productDetails?.productImages}
-        />
-      </div>
+      {productDetails?.productImages && productDetails?.productImages.length > 0 && (
+        <div className="mt-5">
+          <ProjectGallery
+            className="mb-3"
+            title={true}
+            tagTitle="Products"
+            images={productDetails?.productImages}
+          />
+        </div>
+      )}
 
       <div className="project__calculate mt-4">
         {isFinish || (productDetails.isFulfiled && !productDetails.unlimited) ? (
@@ -299,7 +289,7 @@ function ProjectDetailMain(props) {
                     border: 'none',
                     background: '#3596F3',
                     marginTop: '-10px',
-                    opacity: "1"
+                    opacity: '1'
                   }}
                   min={1}
                   max={maxQuentity}

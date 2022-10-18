@@ -470,14 +470,32 @@ function OrganisationWidget(props) {
       </div>
 
       <div className="d-sm-flex align-items-center mb-1 pb-2 border-bottom">
-        <div className="d-flex align-items-center flex-grow-1 mb-2 mb-sm-0">
-          <span>Donate:</span>
-          <InputGroup className="donate__control">
+        <div
+          className="donate-section d-flex align-items-center flex-grow-1 mb-2 mb-sm-0"
+          style={{ border: 'unset', background: 'unset' }}
+        >
+          <span className="fw-6 me-2">Donate:</span>
+
+          {/*<InputGroup className="donate__control">
             <InputGroup.Text className="">{currencySymbol}</InputGroup.Text>
             <FormControl
               type="text"
               maxLength={6}
               placeholder="0"
+              className="donate-value-input"
+              value={price}
+              onChange={(e) => onChangeDonatePrice(e)}
+            />
+          </InputGroup>*/}
+
+          <InputGroup className="donate-value-control">
+            <InputGroup.Text id="btnGroupAddon" className="donate-value-symbol">
+              {currencySymbol}
+            </InputGroup.Text>
+            <FormControl
+              type="text"
+              placeholder="0"
+              maxLength={6}
               className="donate-value-input"
               value={price}
               onChange={(e) => onChangeDonatePrice(e)}
@@ -498,7 +516,7 @@ function OrganisationWidget(props) {
           Add to cart ({cartProductList.length})
         </Button>
       </div>
-      <div className="note note__info mb-12p">
+      <div className="note note__info mb-12p mt-1">
         <FontAwesomeIcon icon={regular('circle-info')} className="text-info mr-6p" />
         Item availability will be confirmed at checkout.
       </div>
@@ -519,7 +537,7 @@ function OrganisationWidget(props) {
             );
           })
         ) : (
-          <p>product Not Found</p>
+          <p className="fs-5 mt-2">There are no tax eligible products for this Project</p>
         )}
         {/* <OrganisationItem />
         <OrganisationItem /> */}

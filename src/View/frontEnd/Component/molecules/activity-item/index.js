@@ -156,7 +156,7 @@ function ActivityItem(props) {
       style={{ background: active ? "#f8fafd" : "#fff" }}
       className="ad__activity__item px-1 py-2 d-flex align-items-center border-bottom"
     >
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center flex__1">
         <ListItemImg size={56} imgSrc={displayImg} />
         <div className="ad__activity__main px-12p">
           <div className="ad__activity__title">

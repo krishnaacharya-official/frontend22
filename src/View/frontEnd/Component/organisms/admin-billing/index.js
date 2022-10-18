@@ -147,7 +147,7 @@ const AdminBilling = () => {
           <div className="billing__list mb-3">
             {
               historyList.length > 0 &&
-              historyList.slice(0, loadMore ? historyList.length : 2).map((list, i) => {
+              historyList.slice(0, loadMore ? historyList.length : 6).map((list, i) => {
 
                 // console.log(list)
                 let amount = list.type === 'ORDER' ? (Number(list.totalPrice) * Number(list.quantity)) : list.amount

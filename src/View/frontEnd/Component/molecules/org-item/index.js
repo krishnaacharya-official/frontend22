@@ -118,9 +118,9 @@ function OrganisationItem(props) {
           {props.currencySymbol}{productPrice}
         </span>
       </div>
-      <div className="d-flex align-items-center mt-2 mt-sm-0">
+      <div className="price__slider d-flex align-items-center mt-2 mt-sm-0">
         <div className="d-flex align-items-center flex-grow-1 fs-5 me-2">
-          <div className="org__item__count mt-3p">1</div>
+          <div className="org__item__count mt-3p me-1">1</div>
           <div className="org__item-slider flex-grow-1 mx-2">
             <Slider
               handleStyle={{
@@ -133,7 +133,7 @@ function OrganisationItem(props) {
               }}
               railStyle={{ backgroundColor: "#C7E3FB", height: "8px" }}
               min={1}
-              max={infinite ? 1000 : Number(quantity)}
+              max={infinite ? 999 : Number(quantity)}
 
               // onChange={(e) => setTotalPrice({
               //   ...props.productPrice,

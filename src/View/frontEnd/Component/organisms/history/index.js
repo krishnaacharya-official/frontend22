@@ -1,62 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
 // import { WidgetTitle, TagTitle } from "../../Component";
-import WidgetTitle from "../../atoms/widget-title"
-import TagTitle from "../../atoms/tag-title"
-import HistoryItem from "../../molecules/history-item";
-import "./style.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import WidgetTitle from '../../atoms/widget-title';
+import TagTitle from '../../atoms/tag-title';
+import HistoryItem from '../../molecules/history-item';
+import './style.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 function History(props) {
-  const [loadMore, setLoadMore] = useState(false)
+  const [loadMore, setLoadMore] = useState(false);
   const userAuthToken = localStorage.getItem('userAuthToken');
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const [historyList, setHistoryList] = useState([])
+  const [historyList, setHistoryList] = useState([]);
 
+  let list = props.list;
+  let donationList = props.donationList;
 
-  let list = props.list
-  let donationList = props.donationList
-
-  let tempOrderList = []
-  let tempDonationList = []
-
+  let tempOrderList = [];
+  let tempDonationList = [];
 
   useEffect(() => {
     if (list?.length > 0) {
       list.map((v, k) => {
-        v.listType = 'order'
+        v.listType = 'order';
         tempOrderList = tempOrderList.filter(function (item, pos, self) {
           return self.indexOf(item) === pos;
-        })
-        tempOrderList.push(v)
-      })
+        });
+        tempOrderList.push(v);
+      });
     }
 
     if (donationList?.length > 0) {
       donationList.map((v1, k1) => {
-        v1.listType = 'donation'
+        v1.listType = 'donation';
         tempDonationList = tempDonationList.filter(function (item, pos, self) {
           return self.indexOf(item) === pos;
-        })
-        tempDonationList.push(v1)
-      })
+        });
+        tempDonationList.push(v1);
+      });
     }
 
-    let finalList = tempDonationList.concat(tempOrderList)
-    setHistoryList(finalList)
-    setLoadMore(false)
-
-
-  }, [list, donationList])
-
-
-
+    let finalList = tempDonationList.concat(tempOrderList);
+    setHistoryList(finalList);
+    setLoadMore(false);
+  }, [list, donationList]);
 
   // console.log("donationList", donationList)
   // console.log("list", list)
-
 
   return (
     <>
@@ -68,8 +60,7 @@ function History(props) {
           <div className="log__avatar avatar--title">
             <div className="log__avatar__img avatar__img--recent">
               {/* <i className="fa-solid fa-clock"></i> */}
-              <FontAwesomeIcon icon={solid("clock")} />
-
+              <FontAwesomeIcon icon={solid('clock')} />
             </div>
           </div>
           <div className="action__info">
@@ -80,13 +71,15 @@ function History(props) {
           </div>
         </div>
         <ul className="list-unstyled">
-
-          {
-            historyList?.length > 0 &&
+          {historyList?.length > 0 &&
             historyList
               .sort(function (a, b) {
-                let keyA = userAuthToken ? userData.id : new Date(a.created_at)
-                let keyB = userAuthToken ? a.listType === 'donation' ? a?.userDetails?._id : a?.orderDetails.userDetails?._id : new Date(b.created_at);
+                let keyA = userAuthToken ? userData.id : new Date(a.created_at);
+                let keyB = userAuthToken
+                  ? a.listType === 'donation'
+                    ? a?.userDetails?._id
+                    : a?.orderDetails.userDetails?._id
+                  : new Date(b.created_at);
                 // Compare the 2 dates
                 // console.log(keyA,keyB)
                 if (!userAuthToken) {
@@ -98,20 +91,24 @@ function History(props) {
                 }
 
                 return 0;
-              }).slice(0, loadMore ? historyList.length : 3)
-              .map((item, i) => {
-                let uid = item.listType === 'donation' ? item?.userDetails?._id : item?.orderDetails.userDetails?._id
-                return (
-
-                  <HistoryItem categoryName="Fish" type={item.listType} categoryColor="hsla(0, 96.46%, 76.14%, 1.00)" item={item}
-                    active={userAuthToken ? userData.id === uid : false}
-                  // active={item.listType === 'donation' ? item?.userDetails?._id : item?.orderDetails.userDetails?._id}
-                  />
-                )
               })
-
-          }
-
+              .slice(0, loadMore ? historyList.length : 6)
+              .map((item, i) => {
+                let uid =
+                  item.listType === 'donation'
+                    ? item?.userDetails?._id
+                    : item?.orderDetails.userDetails?._id;
+                return (
+                  <HistoryItem
+                    categoryName="Fish"
+                    type={item.listType}
+                    categoryColor="hsla(0, 96.46%, 76.14%, 1.00)"
+                    item={item}
+                    active={userAuthToken ? userData.id === uid : false}
+                    // active={item.listType === 'donation' ? item?.userDetails?._id : item?.orderDetails.userDetails?._id}
+                  />
+                );
+              })}
           {/* {
             list?.length > 0 &&
             list.slice(0, loadMore ? list.length : 3).
@@ -143,13 +140,17 @@ function History(props) {
           />
           <HistoryItem categoryName="Captain" categoryColor="#000" /> */}
         </ul>
-        {
-          !loadMore && historyList.length > 3 &&
-
+        {!loadMore && historyList.length > 3 && (
           <div className="more__log">
-            <Button variant="info" className="fs-6 pt-12p pb-12p w-100" onClick={() => setLoadMore(true)}>Load More . . .</Button>
+            <Button
+              variant="info"
+              className="fs-6 pt-12p pb-12p w-100"
+              onClick={() => setLoadMore(true)}
+            >
+              Load More . . .
+            </Button>
           </div>
-        }
+        )}
       </div>
     </>
   );

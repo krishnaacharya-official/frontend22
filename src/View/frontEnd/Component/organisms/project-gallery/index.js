@@ -19,8 +19,8 @@ function ProjectGallery(props) {
     <div className={`${props.className}`}>
       {props.title ? (
         <>
-          <TagTitle>Project</TagTitle>
-          <WidgetTitle>E03 Virus</WidgetTitle>
+          <TagTitle>Need</TagTitle>
+          <WidgetTitle>Gallery</WidgetTitle>
         </>
       ) : (
         ''

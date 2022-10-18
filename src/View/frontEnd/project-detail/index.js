@@ -68,20 +68,21 @@ const ProjectDetail = (props) => {
     <>
       <HeaderController />
       <SuggestionWrapper>
-        <div className="d-flex align-items-center">
+        <div className="d-flex container-fluid">
           <ProjectSuggestionList
             projectList={props.projectList}
             projectId={props.projectDetails?._id}
           />
           <div className="ms-auto d-flex align-items-center">
-            {
-              !CampaignAdminAuthToken &&
-
+            {!CampaignAdminAuthToken && (
               <Button size="lg" className="fw-bold" onClick={() => setModalShow(true)}>
                 Donate
               </Button>
-            }
-            <DonateModal show={modalShow} onHide={() => setModalShow(false)} type="project"
+            )}
+            <DonateModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              type="project"
               projectDetails={props.projectDetails}
               selectedValue={props.selectedValue}
               setSelectedValue={props.setSelectedValue}
@@ -90,9 +91,6 @@ const ProjectDetail = (props) => {
               cardNumberWithSpace={props.cardNumberWithSpace}
               donate={props.donate}
               dCardIcon={props.dCardIcon}
-
-
-
             />
             {/* <GrabDropdown /> */}
           </div>
@@ -119,7 +117,12 @@ const ProjectDetail = (props) => {
             />
           </Col>
           <Col md="5">
-            <History tagTitle="Activity" title="User Log" list={props.purchasedItemList} donationList={props.donationList} />
+            <History
+              tagTitle="Activity"
+              title="User Log"
+              list={props.purchasedItemList}
+              donationList={props.donationList}
+            />
           </Col>
         </Row>
       </Container>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import PropTypes from "prop-types";
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 import "./style.scss";
 
@@ -16,7 +17,12 @@ const defaultProps = {
 const LadderMenu = ({ items, activeKey, onChangeFilterOption }) => {
   const [active, setActive] = useState(0);
 
+  const handleClose = () => {
+    setActive(false);
+  };
+
   return (
+    <ClickAwayListener onClickAway={handleClose}>
     <div className="ladder__menu position-relative" style={{ minWidth: "200px" }}>
       <div
         className="ladder__dropdown--selected"
@@ -43,6 +49,7 @@ const LadderMenu = ({ items, activeKey, onChangeFilterOption }) => {
         ))}
       </ul>
     </div>
+    </ClickAwayListener>
   );
 };
 

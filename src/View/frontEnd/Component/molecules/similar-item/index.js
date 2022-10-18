@@ -23,7 +23,10 @@ function SimilarItem(props) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  let currencySymbol = getCalc.currencySymbol()
+  let currencySymbol = getCalc.currencySymbol();
+  let maxQuentity = product.unlimited
+  ? '∞'
+  : product.quantity - product.soldout;
 
 
   useEffect(() => {
@@ -81,7 +84,7 @@ function SimilarItem(props) {
         cart_btn
       );
   return (
-    <li className="similar__item__item pt-12p pb-12p d-flex align-items-center">
+    <li className="similar__item__item pt-12p pb-3 d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <a href="/" className="d-block">
           <ListItemImg size={56} imgSrc={helper.CampaignProductImagePath + product.image} />
@@ -101,7 +104,7 @@ function SimilarItem(props) {
 
         </div>
 
-        {!CampaignAdminAuthToken && <div className="qty__tag ms-auto me-5">1</div>}
+        {!CampaignAdminAuthToken && <div className="qty__tag ms-auto me-5">{maxQuentity}</div>}
       </div>
       <div className="similar__item__remove ms-auto">
         {/* <IconButton

@@ -290,8 +290,8 @@ const UserItems = () => {
                       {item.currencySymbol}
                       {price}
                     </div>
-                    <div className="project__detail-meta d-flex align-items-center mb-4">
-                      <div className="d-flex align-items-center">
+                    <div className="project__detail-meta d-flex align-items-center">
+                      <div className="d-flex align-items-center me-2">
                         <FontAwesomeIcon icon={regular('clock')} className="me-1" />
                         {moment(item.itemDetails?.created_at).format('MMMM DD, YYYY')}
                       </div>
@@ -318,7 +318,7 @@ const UserItems = () => {
                     </a>
                     {/* // item.fulfilDetails.length === 0 ? */}
 
-                    <div className="empty_state mt-5">
+                    <div>
                       {item.itemDetails.galleryUrl && (
                         <>
                           <div

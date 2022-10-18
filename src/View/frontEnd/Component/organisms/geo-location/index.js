@@ -1,62 +1,66 @@
-import React, { useState, useEffect } from "react";
-import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
-import { ReactComponent as SearchIcon } from "../../../../../assets/svg/search.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import React, { useState, useEffect } from 'react';
+import { Button, Dropdown, FormControl, InputGroup } from 'react-bootstrap';
+import { ReactComponent as SearchIcon } from '../../../../../assets/svg/search.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
-import "./style.scss";
-import helper from "../../../../../Common/Helper";
-import ReactMapboxGl, { Layer, Feature, Marker, ScaleControl, GeoJSONLayer, Source } from 'react-mapbox-gl';
+import './style.scss';
+import helper from '../../../../../Common/Helper';
+import ReactMapboxGl, {
+  Layer,
+  Feature,
+  Marker,
+  ScaleControl,
+  GeoJSONLayer,
+  Source
+} from 'react-mapbox-gl';
 
 import mapboxgl, { MapTouchEvent } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
-import { useSelector, useDispatch } from "react-redux";
-import { setDistance, setLatLong, setLocationFilter, setMapLock, } from "../../../../../user/user.action"
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setDistance,
+  setLatLong,
+  setLocationFilter,
+  setMapLock
+} from '../../../../../user/user.action';
 
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
 
-
 let Map = ReactMapboxGl({
-  accessToken:
-    helper.MapBoxPrimaryKey
+  accessToken: helper.MapBoxPrimaryKey
 });
 
-
-
-
 const GeoLocation = () => {
-
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch()
-
-
+  const dispatch = useDispatch();
+  const [hidden, setHidden] = useState(false);
   const mapStyles = {
-    "day": "mapbox://styles/mapbox/navigation-day-v1",
-    "night": "mapbox://styles/mapbox/navigation-night-v1"
+    day: 'mapbox://styles/mapbox/navigation-day-v1',
+    night: 'mapbox://styles/mapbox/navigation-night-v1'
   };
-
-
 
   const [state, setState] = useState({
     locked: false
-  })
-
-  const [objectVal, setObjectVal] = useState()
+  });
+  const onDropdownToggle = (state) => {
+    setHidden(state);
+  };
+  const [objectVal, setObjectVal] = useState();
 
   const [location, setLocation] = useState({
-    organizationLocation: "",
-    locationName: "",
+    organizationLocation: '',
+    locationName: '',
     lng: 0,
     lat: 0,
     zoomlevel: 7
-
-  })
+  });
   // const scale = new mapboxgl.ScaleControl({
   //   unit: "imperial"
   // });
@@ -66,11 +70,7 @@ const GeoLocation = () => {
   // console.log(scale)
   // document.getElementById("scale").appendChild(scale.onAdd(Map));
   // scale.onAdd(Map)
-  // 
-
-
-
-
+  //
 
   const ToggleButton = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -90,8 +90,8 @@ const GeoLocation = () => {
 
   const toggleState = () => {
     if (state.locked) {
-      setState({ ...state, locked: false })
-      dispatch(setMapLock(false))
+      setState({ ...state, locked: false });
+      dispatch(setMapLock(false));
     } else {
       // setLocation({
       //   ...location,
@@ -100,10 +100,8 @@ const GeoLocation = () => {
       //   zoomlevel: 13
       // })
       setState({ ...state, locked: true });
-      dispatch(setMapLock(true))
-
+      dispatch(setMapLock(true));
     }
-
   };
 
   const sugg = (result, lat, lng, text) => {
@@ -125,32 +123,28 @@ const GeoLocation = () => {
       locationName: result,
       lat: lat,
       lng: lng
-    })
+    });
 
-    let locationData = {}
-    locationData.lat = lat
-    locationData.lng = lng
-    dispatch(setLatLong(locationData))
-
-  }
+    let locationData = {};
+    locationData.lat = lat;
+    locationData.lng = lng;
+    dispatch(setLatLong(locationData));
+  };
 
   useEffect(() => {
-
-
     setLocation({
       ...location,
       organizationLocation: user.countrySortName,
       lat: user.lat ? Number(user.lat) : 0,
       lng: user.lng ? Number(user.lng) : 0
-    })
+    });
 
     setState({ ...state, locked: user.isMapLocked });
-
-  }, [user])
+  }, [user]);
 
   let Obj = {
     // "circle-radius": 100,
-    "circle-radius": {
+    'circle-radius': {
       stops: [
         [0, 0],
         // [12, 100]
@@ -160,49 +154,38 @@ const GeoLocation = () => {
       base: 2
     },
 
-
-    "circle-color": "rgba(29,161,242,.2)",
+    'circle-color': 'rgba(29,161,242,.2)',
     // "circle-stroke-color": "purple",
-    "circle-stroke-color": 'rgba(29,161,242,.2)',
+    'circle-stroke-color': 'rgba(29,161,242,.2)',
 
-    "circle-opacity": 1,
-    "circle-stroke-opacity": 1,
-    "circle-stroke-width": 1
-  }
-
-
+    'circle-opacity': 1,
+    'circle-stroke-opacity': 1,
+    'circle-stroke-width': 1
+  };
 
   useEffect(() => {
     // console.log(objectVal)
 
     if (user.distance === '') {
-
-      if (objectVal?.includes("© Mapbox ")) {
+      if (objectVal?.includes('© Mapbox ')) {
         const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
-        dispatch(setDistance(after_))
-
+        dispatch(setDistance(after_));
       } else {
-        dispatch(setDistance(objectVal))
-
+        dispatch(setDistance(objectVal));
       }
     }
 
     if (!user.isMapLocked) {
-      dispatch(setLocationFilter('false'))
+      dispatch(setLocationFilter('false'));
       // console.log(objectVal)
-      if (objectVal?.includes("© Mapbox ")) {
+      if (objectVal?.includes('© Mapbox ')) {
         const after_ = objectVal?.substring(objectVal.indexOf('map') + 3);
         // console.log(after_)
-        dispatch(setDistance(after_))
-
+        dispatch(setDistance(after_));
       } else {
-        dispatch(setDistance(objectVal))
-
+        dispatch(setDistance(objectVal));
       }
-
     }
-
-
 
     // console.log(objectVal)
 
@@ -221,21 +204,20 @@ const GeoLocation = () => {
     //   })
     // })
 
-
     // console.log(Map)
-
-  }, [objectVal])
-
-
-
-
+  }, [objectVal]);
 
   return (
     <>
-      <Dropdown className="d-flex" autoClose="outside" >
+      <div
+        className={`selected__overlay ${!hidden ? 'hidden' : ''}`}
+        onClick={() => setHidden(true)}
+      ></div>
+
+      <Dropdown className="d-flex" autoClose="outside" onToggle={onDropdownToggle}>
         <Dropdown.Toggle as={ToggleButton}>
           <span className="d-flex align-items-center icon">
-            <FontAwesomeIcon icon={solid("circle-location-arrow")} />
+            <FontAwesomeIcon icon={solid('circle-location-arrow')} />
           </span>
         </Dropdown.Toggle>
 
@@ -249,16 +231,20 @@ const GeoLocation = () => {
                 {/* <FormControl placeholder="Search" /> */}
                 <MapboxAutocomplete
                   publicKey={helper.MapBoxPrimaryKey}
-                  inputClass='form-control search'
+                  inputClass="form-control search"
                   // query={location.locationName}
                   // defaultValue={location.locationName}
                   onSuggestionSelect={sugg}
                   country={location.organizationLocation}
-                  resetSearch={false} />
+                  resetSearch={false}
+                />
               </InputGroup>
 
               <div className="geo__distance" id="scale">
-                <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1" style={{ fontSize: 'small' }}>
+                <div
+                  className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1"
+                  style={{ fontSize: 'small' }}
+                >
                   {/* {objectVal} */}
                   {user.distance}
                 </div>
@@ -286,24 +272,24 @@ const GeoLocation = () => {
                 zoom={[location.zoomlevel]}
                 onRender={(e) => {
                   // console.log('e.boxZoom._container.outerText', e.boxZoom._container.outerText)
-                  setObjectVal(e.boxZoom._container.outerText)
-
+                  setObjectVal(e.boxZoom._container.outerText);
                 }} //boxZoom._container.outerText
                 containerStyle={{
-                  height: '300px',
+                  height: '300px'
                   //width: '310px'
                 }}
                 center={[location.lng, location.lat]}
 
-              // onStyleLoad={onStyleLoad}
-
+                // onStyleLoad={onStyleLoad}
               >
-                <Layer type="circle" id="circle" paint={Obj}
+                <Layer
+                  type="circle"
+                  id="circle"
+                  paint={Obj}
                   // layout={{ 'icon-image': 'custom-marker' }}
                   // layout={{ "icon-image": "harbor-15" }}
                   coordinates={[location.lng, location.lat]}
                 >
-
                   <Feature coordinates={[location.lng, location.lat]} />
                 </Layer>
 
@@ -317,7 +303,6 @@ const GeoLocation = () => {
                     }
                   }}
                 /> */}
-
 
                 {/* <Layer
                   id="point-blip"
@@ -341,47 +326,46 @@ const GeoLocation = () => {
                 /> */}
                 <ScaleControl />
 
-
-                <Marker
-                  coordinates={[location.lng, location.lat]}
-                  anchor="bottom">
+                <Marker coordinates={[location.lng, location.lat]} anchor="bottom">
                   <div className="mapboxgl-user-location-dot"></div>
                 </Marker>
-
               </Map>
-
             </div>
 
             <div className="geo__slider">
-
               <Slider
                 handleStyle={{
-                  width: "26px",
-                  height: "26px",
-                  border: "none",
-                  background: "#3596F3",
-                  marginTop: "-10px",
-                  opacity: "1",
+                  width: '26px',
+                  height: '26px',
+                  border: 'none',
+                  background: '#3596F3',
+                  marginTop: '-10px',
+                  opacity: '1'
                 }}
                 min={1}
                 max={220}
                 value={location.zoomlevel * 10}
-                railStyle={{ backgroundColor: "#C7E3FB", height: "9px" }}
+                railStyle={{ backgroundColor: '#C7E3FB', height: '9px' }}
                 disabled={state.locked}
                 onChange={(e) => setLocation({ ...location, zoomlevel: e / 10 })}
               />
             </div>
 
             <div className="d-grid gap-2 p-2">
-              <Button className="toggle__btn" variant="success" onClick={() => dispatch(setLocationFilter('true'))}>
-                Update Results {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
+              <Button
+                className="toggle__btn"
+                variant="success"
+                onClick={() => dispatch(setLocationFilter('true'))}
+              >
+                Update Results{' '}
+                {user.locationProductCount > 0 ? ' ( ' + user.locationProductCount + ' ) ' : ''}
               </Button>
             </div>
           </div>
         </Dropdown.Menu>
       </Dropdown>
     </>
-  )
-}
+  );
+};
 
 export default GeoLocation;
