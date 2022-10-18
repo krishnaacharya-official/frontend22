@@ -146,7 +146,7 @@ export default function Index(props) {
           </div>
           <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
             <div className="search__container">
-              <ul style={{ display: 'flex', listStyle: 'none', marginBottom: 'unset' }}>
+              <ul className="ps-0 ps-sm-2" style={{ display: 'flex', listStyle: 'none', marginBottom: 'unset' }}>
                 {props.searchTag.length > 0 &&
                   props.searchTag.map((tag, i) => {
                     return (

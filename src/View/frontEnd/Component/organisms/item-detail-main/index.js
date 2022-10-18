@@ -265,12 +265,12 @@ function ProjectDetailMain(props) {
         </div>
       )}
 
-      <div className="project__calculate mt-4">
+      <div className="project__calculate">
         {isFinish || (productDetails.isFulfiled && !productDetails.unlimited) ? (
           <></>
         ) : (
           <>
-            <div className="sub__total">
+            <div className="sub__total mt-2">
               <div className="text-dark fw-bold me-2">Subtotal:</div>
               <div className="price fs-4 fw-bold text-success">
                 {currencySymbol}
@@ -383,7 +383,7 @@ function ProjectDetailMain(props) {
       )}
 
       {isFinish || (productDetails.isFulfiled && !productDetails.unlimited) ? (
-        <div className="note note-info d-flex align-items-center mt-5">
+        <div className="note note-info d-flex align-items-center mt-3">
           <span className="post__badge post__badge--sold me-2 text-primary fs-3">
             <FontAwesomeIcon icon={solid('circle-check')} />
           </span>
