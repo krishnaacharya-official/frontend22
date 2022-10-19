@@ -48,7 +48,7 @@ import NoFooter from '../Component/templates/no-footer';
 function AdminDetail() {
   // const user = useContext(UserContext)
   const user = useSelector((state) => state.user);
-
+  const [totalPriceArray, setTotalPriceArray] = useState([]);
   const [selectedTabKey, setSelectedTabKey] = useState('');
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   // const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
@@ -88,7 +88,7 @@ function AdminDetail() {
 
       setLoading(false);
     })();
-    setSelectedTabKey(location.pathname.split('/')[3])
+    setSelectedTabKey(location.pathname.split('/')[3]);
   }, [user.isUpdateOrg, location]);
 
   // let data ={}
@@ -134,13 +134,20 @@ function AdminDetail() {
                       <span className="tab__text text-capitalize">{selectedTabKey}</span>
                       <span className="d-flex align-items-center ms-auto">
                         {selectedTabKey === 'items' ? (
-                          <span className="item__total-wrap d-flex ms-3">
-                            <FontAwesomeIcon
-                              icon={solid('money-bills-simple')}
-                              className="text-dark mr-12p fs-4"
-                            />
-                            USD $1,309.00
-                          </span>
+                          <div>
+                            {totalPriceArray.length > 0 &&
+                              totalPriceArray.map((val, key) => {
+                                return (
+                                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3">
+                                    <FontAwesomeIcon
+                                      icon={solid('money-bills-simple')}
+                                      className="text-dark mr-12p fs-4"
+                                    />
+                                    {val[0]} {val[1]}
+                                  </span>
+                                );
+                              })}
+                          </div>
                         ) : (
                           ''
                         )}

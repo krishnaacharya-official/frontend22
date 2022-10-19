@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import React, { useEffect, useState, useContext } from "react";
-import "./style.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import React, { useEffect, useState, useContext } from 'react';
+import './style.scss';
 import {
   Button,
   Accordion,
@@ -10,28 +10,28 @@ import {
   Card,
   Col,
   Row,
-  Dropdown,
-} from "react-bootstrap";
+  Dropdown
+} from 'react-bootstrap';
 
 // import { ToggleSwitch, FeedTag } from "@components/atoms";
-import ToggleSwitch from "../../atoms/toggle-switch";
-import FeedTag from "../../atoms/feed-tag";
+import ToggleSwitch from '../../atoms/toggle-switch';
+import FeedTag from '../../atoms/feed-tag';
 import * as Icon from '../../atoms/category-icons';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import categoryApi from '../../../../../Api/admin/category'
-import projectApi from '../../../../../Api/admin/project'
-import productApi from '../../../../../Api/admin/product'
-import { WithContext as ReactTags } from "react-tag-input";
-import noimg from "../../../../../assets/images/noimg.jpg"
-import helper from "../../../../../Common/Helper";
-import { validateAll } from "indicative/validator";
-import ToastAlert from "../../../../../Common/ToastAlert"
-import { confirmAlert } from "react-confirm-alert"
-import styled from "styled-components";
+import categoryApi from '../../../../../Api/admin/category';
+import projectApi from '../../../../../Api/admin/project';
+import productApi from '../../../../../Api/admin/product';
+import { WithContext as ReactTags } from 'react-tag-input';
+import noimg from '../../../../../assets/images/noimg.jpg';
+import helper from '../../../../../Common/Helper';
+import { validateAll } from 'indicative/validator';
+import ToastAlert from '../../../../../Common/ToastAlert';
+import { confirmAlert } from 'react-confirm-alert';
+import styled from 'styled-components';
 // import styles from "../../../../../Common/MapBoxStyles"
-import { SearchBox } from "@mapbox/search-js-react";
+import { SearchBox } from '@mapbox/search-js-react';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -39,36 +39,25 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
 
-
 const Map = ReactMapboxGl({
-  accessToken:
-    helper.MapBoxPrimaryKey
+  accessToken: helper.MapBoxPrimaryKey
 });
-
-
-
-
 
 function AccordionToggle({ children, eventKey, callback }) {
   const { activeEventKey } = useContext(AccordionContext);
   // window.scrollTo(0, 0);
 
-  const decoratedOnClick = useAccordionButton(
-    eventKey,
-    () => callback && callback(eventKey)
-  );
+  const decoratedOnClick = useAccordionButton(eventKey, () => callback && callback(eventKey));
 
   const isCurrentEventKey = activeEventKey === eventKey;
-
 
   return (
     <div className="accordion__btn">
       <div className="d-flex aling-items-center">
         {children}
         <FontAwesomeIcon
-          icon={solid("angle-right")}
-          className={`accordion__icon ms-2 fs-4 ${isCurrentEventKey ? "rotate-90" : ""
-            }`}
+          icon={solid('angle-right')}
+          className={`accordion__icon ms-2 fs-4 ${isCurrentEventKey ? 'rotate-90' : ''}`}
         />
       </div>
     </div>
@@ -76,69 +65,89 @@ function AccordionToggle({ children, eventKey, callback }) {
 }
 
 const AddPost = (props) => {
-
   const fileuploadinput = {
-    position: "absolute",
+    position: 'absolute',
     margin: 0,
     padding: 0,
-    width: "100%",
-    height: "100%",
-    outline: "none",
+    width: '100%',
+    height: '100%',
+    outline: 'none',
     opacity: 0,
-    cursor: "pointer",
-  }
+    cursor: 'pointer'
+  };
 
   const imageuploadwrap = {
-    marginTop: "20px",
+    marginTop: '20px',
     // border: " 4px dashed #3773c6",
-    position: "relative",
-    width: "100%"
-  }
+    position: 'relative',
+    width: '100%'
+  };
 
-
-
-
-  let organizationDetails = props.organizationDetails
-  let stateData = props.stateData
+  let organizationDetails = props.organizationDetails;
+  let stateData = props.stateData;
   const user = useSelector((state) => state.user);
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, media, displayPrice
+    id,
+    status,
+    title,
+    subtitle,
+    category,
+    subcategory,
+    description,
+    price,
+    image,
+    quantity,
+    organization,
+    slug,
+    error,
+    moreImg,
+    galleryUrl,
+    headline,
+    brand,
+    needheadline,
+    galleryImg,
+    unlimited,
+    tax,
+    postTag,
+    address,
+    lat,
+    lng,
+    media,
+    displayPrice
   } = props.stateData;
 
   // console.log(displayPrice)
 
-  let submitProductForm = props.submitProductForm
-  let changevalue = props.changevalue
-  let handleDelete = props.handleDelete
-  let handleAddition = props.handleAddition
-  let handleDrag = props.handleDrag
-  let handleTagClick = props.handleTagClick
-  let onClearAll = props.onClearAll
-  let onTagUpdate = props.onTagUpdate
-  let tags = props.tags
-  let categoryList = props.categoryList
-  let subcategoryList = props.subcategoryList
-  let Img = props.Img
-  let tempImg = props.tempImg
-  let changefile = props.changefile
-  let moreTempImages = props.moreTempImages
-  let moreImages = props.moreImages
-  let projectList = props.projectList
-  let onSelectProject = props.onSelectProject
-  let seletedProjectList = props.seletedProjectList
-  let gallaryTempImages = props.gallaryTempImages
-  let gallaryImages = props.gallaryImages
+  let submitProductForm = props.submitProductForm;
+  let changevalue = props.changevalue;
+  let handleDelete = props.handleDelete;
+  let handleAddition = props.handleAddition;
+  let handleDrag = props.handleDrag;
+  let handleTagClick = props.handleTagClick;
+  let onClearAll = props.onClearAll;
+  let onTagUpdate = props.onTagUpdate;
+  let tags = props.tags;
+  let categoryList = props.categoryList;
+  let subcategoryList = props.subcategoryList;
+  let Img = props.Img;
+  let tempImg = props.tempImg;
+  let changefile = props.changefile;
+  let moreTempImages = props.moreTempImages;
+  let moreImages = props.moreImages;
+  let projectList = props.projectList;
+  let onSelectProject = props.onSelectProject;
+  let seletedProjectList = props.seletedProjectList;
+  let gallaryTempImages = props.gallaryTempImages;
+  let gallaryImages = props.gallaryImages;
 
-  const setModelShow = props.setModelShow
-
+  const setModelShow = props.setModelShow;
 
   const [location, setLocation] = useState({
-    organizationLocation: "",
-    locationName: "",
+    organizationLocation: '',
+    locationName: '',
     lat: 0,
     lng: 0
-
-  })
+  });
 
   // console.log(galleryUrl)
   // let url = galleryUrl;
@@ -147,15 +156,12 @@ const AddPost = (props) => {
 
   // console.log(gallaryImages)
 
-
-
   const mapStyles = {
-    "londonCycle": "mapbox://styles/mapbox/light-v9",
-    "light": "mapbox://styles/mapbox/light-v9",
-    "dark": "mapbox://styles/mapbox/dark-v9",
-    "basic": "mapbox://styles/mapbox/basic-v9",
-    "outdoor": "mapbox://styles/mapbox/outdoors-v10"
-
+    londonCycle: 'mapbox://styles/mapbox/light-v9',
+    light: 'mapbox://styles/mapbox/light-v9',
+    dark: 'mapbox://styles/mapbox/dark-v9',
+    basic: 'mapbox://styles/mapbox/basic-v9',
+    outdoor: 'mapbox://styles/mapbox/outdoors-v10'
   };
 
   useEffect(() => {
@@ -169,12 +175,8 @@ const AddPost = (props) => {
       locationName: address ? address : props.data.country,
       lat: lat ? Number(lat) : 0,
       lng: lng ? Number(lng) : 0
-    })
-
-  }, [props.data, stateData])
-
-
-
+    });
+  }, [props.data, stateData]);
 
   const sugg = (result, lat, lng, text) => {
     // console.log("result", result)
@@ -186,38 +188,23 @@ const AddPost = (props) => {
       ...stateData,
       address: result,
       lat: lat,
-      lng: lng,
-
-    })
+      lng: lng
+    });
 
     setLocation({
       ...location,
       locationName: result,
       lat: lat,
       lng: lng
-    })
-
-  }
-
-
-
-
-
-
-
-
-
+    });
+  };
 
   return (
     <div className="add-post">
-
       {/* {console.log(location)} */}
       <div className="d-flex align-items-center flex-grow-1 pb-20p mb-3 border-bottom">
         <Button variant="link" className="me-sm-2 me-1" onClick={() => props.createPost(false)}>
-          <FontAwesomeIcon
-            icon={solid("angle-left")}
-            className="text-subtext fs-3"
-          />
+          <FontAwesomeIcon icon={solid('angle-left')} className="text-subtext fs-3" />
         </Button>
         <div className="fs-3 fw-bolder me-sm-3 flex__1">Create Item</div>
 
@@ -228,7 +215,6 @@ const AddPost = (props) => {
             className="text-white fw-bold fs-6"
             // onClick={() => submitProductForm(-1)}
             onClick={() => setModelShow(true)}
-
           >
             Save as Draft
           </Button>
@@ -243,17 +229,12 @@ const AddPost = (props) => {
           />
         </div>
         <div className="flex__1 text-light mb-2 text-center text-sm-start">
-          <div className="fs-5">
-            This category has a free posting limit of 3.
-          </div>
+          <div className="fs-5">This category has a free posting limit of 3.</div>
           <a
             href="/"
             className="studio__url mt-6p d-flex text-light justify-content-center justify-content-sm-start"
           >
-            <FontAwesomeIcon
-              icon={regular("circle-location-arrow")}
-              className="me-1"
-            />
+            <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
             <div className="fw-semibold fs-7">You have 3 posts remaining</div>
           </a>
         </div>
@@ -268,11 +249,11 @@ const AddPost = (props) => {
         <Accordion className="mb-5 pb-5" alwaysOpen>
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle >
+              <AccordionToggle>
                 <span className="fs-3 fw-bolder text-dark">Post Location</span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse className="py-5" >
+            <Accordion.Collapse className="py-5">
               <Row className="mw-850 ml-5">
                 <Col lg="6">
                   {/* <SearchBox accessToken={helper.MapBoxPrimaryKey} /> */}
@@ -286,43 +267,36 @@ const AddPost = (props) => {
 
                   </SearchBox> */}
 
-
                   <MapboxAutocomplete
                     publicKey={helper.MapBoxPrimaryKey}
-                    inputClass='form-control search'
+                    inputClass="form-control search"
                     query={location.locationName}
                     defaultValue={location.locationName}
                     onSuggestionSelect={sugg}
                     country={location.organizationLocation}
-                    resetSearch={false} />
-
+                    resetSearch={false}
+                  />
 
                   <div className="post-location-wrap">
                     <div className="px-3 py-20p bg-lighter rounded-3 my-20p">
                       <div className="d-flex align-items-center">
                         <div className="icon-wrap mr-20p">
-
                           <FontAwesomeIcon
-                            icon={solid("location-dot")}
+                            icon={solid('location-dot')}
                             className="fs-3 text-primary"
                           />
                         </div>
                         <div className="info-wrap">
-                          <div className="fs-6 mb-3p">
-                            Your post will be posted in
-                          </div>
+                          <div className="fs-6 mb-3p">Your post will be posted in</div>
                           <h3 className="mb-0 fs-4 fw-bolder">{location.locationName}</h3>
                         </div>
                       </div>
                     </div>
                     <div className="note note--clear">
-                      <FontAwesomeIcon
-                        icon={regular("circle-info")}
-                        className="text-info mr-3p"
-                      />
+                      <FontAwesomeIcon icon={regular('circle-info')} className="text-info mr-3p" />
                       <span>
-                        Not the city you want to post in? Try using the search
-                        bar to choose another location.
+                        Not the city you want to post in? Try using the search bar to choose another
+                        location.
                       </span>
                     </div>
                   </div>
@@ -337,7 +311,6 @@ const AddPost = (props) => {
                       width: '400px'
                     }}
                     center={[location.lng, location.lat]}
-
                   >
                     <Layer type="symbol" id="marker" layout={{ 'icon-image': 'custom-marker' }}>
                       <Feature coordinates={[location.lng, location.lat]} />
@@ -347,7 +320,6 @@ const AddPost = (props) => {
                       <h1>marker</h1>
                     </Marker> */}
                   </Map>
-
                 </Col>
               </Row>
             </Accordion.Collapse>
@@ -355,13 +327,11 @@ const AddPost = (props) => {
 
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle >
-                <span className="fs-3 fw-bolder text-dark">
-                  Product Details
-                </span>
+              <AccordionToggle>
+                <span className="fs-3 fw-bolder text-dark">Product Details</span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse className="py-5" >
+            <Accordion.Collapse className="py-5">
               <>
                 <Row className="mw-850 ml-5 mb-5">
                   <div className="col-lg-6 mb-5 mb-sm-0">
@@ -375,13 +345,22 @@ const AddPost = (props) => {
                           className="form-control form-control-lg mb-2"
                           // id="headlineInput"
                           placeholder="Ex: Children's Bicycle"
-                          name='headline' id="headline" value={headline} onChange={(e) => { changevalue(e) }}
+                          name="headline"
+                          id="headline"
+                          value={headline}
+                          onChange={(e) => {
+                            changevalue(e);
+                          }}
                         />
 
                         <div className="text-light fs-8 pb-2 mb-1">
                           <span>120</span> chars remaining
                         </div>
-                        {error && error.headline && <p className="error">{error ? error.headline ? error.headline : "" : ""}</p>}
+                        {error && error.headline && (
+                          <p className="error">
+                            {error ? (error.headline ? error.headline : '') : ''}
+                          </p>
+                        )}
                       </div>
                       <div className="form-group mb-4">
                         <label htmlFor="brandInput" className="form__label">
@@ -392,11 +371,17 @@ const AddPost = (props) => {
                           className="form-control form-control-lg"
                           // id="brandInput"
                           placeholder="Hasbro ®"
-                          name='brand' id="brand" value={brand} onChange={(e) => { changevalue(e) }}
+                          name="brand"
+                          id="brand"
+                          value={brand}
+                          onChange={(e) => {
+                            changevalue(e);
+                          }}
                         />
                         {/* <p className="error">Required</p> */}
-                        {error && error.brand && <p className="error">{error ? error.brand ? error.brand : "" : ""}</p>}
-
+                        {error && error.brand && (
+                          <p className="error">{error ? (error.brand ? error.brand : '') : ''}</p>
+                        )}
                       </div>
 
                       <div className="form-group mb-4">
@@ -409,11 +394,17 @@ const AddPost = (props) => {
                           // id="brandInput"
                           placeholder="Slug"
                           // disabled={id ? true : false}
-                          name='slug' id="slug" value={slug} onChange={(e) => { changevalue(e) }}
+                          name="slug"
+                          id="slug"
+                          value={slug}
+                          onChange={(e) => {
+                            changevalue(e);
+                          }}
                         />
                         {/* <p className="error">Required</p> */}
-                        {error && error.slug && <p className="error">{error ? error.slug ? error.slug : "" : ""}</p>}
-
+                        {error && error.slug && (
+                          <p className="error">{error ? (error.slug ? error.slug : '') : ''}</p>
+                        )}
                       </div>
                       <div className="price-group-wrap d-flex align-items-center gap-2 mb-3">
                         <div className="form-group">
@@ -425,10 +416,17 @@ const AddPost = (props) => {
                             placeholder="$0"
                             className="form-control form-control-lg"
                             // id="priceInput"
-                            name='price' id="price" value={price} onChange={(e) => { changevalue(e) }}
+                            name="price"
+                            id="price"
+                            value={price}
+                            onChange={(e) => {
+                              changevalue(e);
+                            }}
                           />
 
-                          {error && error.price && <p className="error">{error ? error.price ? error.price : "" : ""}</p>}
+                          {error && error.price && (
+                            <p className="error">{error ? (error.price ? error.price : '') : ''}</p>
+                          )}
                         </div>
 
                         <div className="form-group">
@@ -441,15 +439,13 @@ const AddPost = (props) => {
                             className="form-control form-control-lg"
                             disabled
                             // id="priceInput"
-                            name='displayprice' id="displayprice" value={displayPrice}
+                            name="displayprice"
+                            id="displayprice"
+                            value={displayPrice}
                           />
-
                         </div>
                         <div className="form-group quantity-from-group">
-                          <label
-                            htmlFor="quantityInput"
-                            className="form__label"
-                          >
+                          <label htmlFor="quantityInput" className="form__label">
                             Quantity
                           </label>
                           <input
@@ -457,43 +453,49 @@ const AddPost = (props) => {
                             className="form-control form-control-lg studio__input--quantity"
                             // id="quantityInput"
                             placeholder="12"
-                            name='quantity' id="quantity" disabled={unlimited} value={quantity} onChange={(e) => { changevalue(e) }}
+                            name="quantity"
+                            id="quantity"
+                            disabled={unlimited}
+                            value={quantity}
+                            onChange={(e) => {
+                              changevalue(e);
+                            }}
                           />
-                          {error && error.quantity && <p className="error">{error ? error.quantity ? error.quantity : "" : ""}</p>}
+                          {error && error.quantity && (
+                            <p className="error">
+                              {error ? (error.quantity ? error.quantity : '') : ''}
+                            </p>
+                          )}
                         </div>
                         <div className="form-group unlimited-switch-wrap">
                           <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p mb-2 text-white">
                             Unlimited
-                            <FontAwesomeIcon
-                              icon={solid("infinity")}
-                              className="ml-3p"
-                            />
+                            <FontAwesomeIcon icon={solid('infinity')} className="ml-3p" />
                           </div>
-                          <ToggleSwitch id="unlimited" checked={unlimited} name="unlimited" changevalue={changevalue} />
+                          <ToggleSwitch
+                            id="unlimited"
+                            checked={unlimited}
+                            name="unlimited"
+                            changevalue={changevalue}
+                          />
                         </div>
-
-
                       </div>
                       <div className="note note--info mb-3">
-
                         <span className="text-dark">
-                          Enter the unit price before taxes. Your <span style={{ color: "#3a94d4" }}>regional sales tax</span> will be automatically applied to the price of the item.
+                          Enter the unit price before taxes. Your{' '}
+                          <span style={{ color: '#3a94d4' }}>regional sales tax</span> will be
+                          automatically applied to the price of the item.
                         </span>
                       </div>
                       <div className="keyword-tags-wrap">
                         <div className="form-group">
-                          <label
-                            htmlFor="keywordsInput"
-                            className="form__label pb-3"
-                          >
+                          <label htmlFor="keywordsInput" className="form__label pb-3">
                             <FontAwesomeIcon
-                              icon={solid("magnifying-glass")}
+                              icon={solid('magnifying-glass')}
                               className="me-2 text-primary"
                             />
                             Keywords Tags
-                            <span className="fs-8 ms-1 text-light fw-normal">
-                              (up to 3)
-                            </span>
+                            <span className="fs-8 ms-1 text-light fw-normal">(up to 3)</span>
                           </label>
                           {/* <input
                             type="text"
@@ -502,7 +504,6 @@ const AddPost = (props) => {
                             placeholder="Keywords..."
                           /> */}
                           <ReactTags
-
                             handleDelete={handleDelete}
                             handleAddition={handleAddition}
                             handleDrag={handleDrag}
@@ -510,7 +511,6 @@ const AddPost = (props) => {
                             handleTagClick={handleTagClick}
                             onClearAll={onClearAll}
                             onTagUpdate={onTagUpdate}
-
                             placeholder="Enter Tags..."
                             // minQueryLength={10}
                             // maxLength={15}
@@ -527,49 +527,56 @@ const AddPost = (props) => {
                             tags={tags}
                           />
 
-                          {error && error.tags && <p className='error'>{error ? error.tags ? error.tags : "" : ""}</p>}
+                          {error && error.tags && (
+                            <p className="error">{error ? (error.tags ? error.tags : '') : ''}</p>
+                          )}
                         </div>
                       </div>
                       <div className="post-type-wrap">
                         <label className="form__label">
                           Post Type
-                          <span className="fs-7 text-light ms-1 fw-normal">
-                            (optional)
-                          </span>
+                          <span className="fs-7 text-light ms-1 fw-normal">(optional)</span>
                         </label>
                         <div className="d-flex gap-2">
                           <div className="d-flex align-items-center">
                             <FontAwesomeIcon
                               className="fs-3 text-info"
-                              icon={solid("calculator-simple")}
+                              icon={solid('calculator-simple')}
                             />
                             <div className="d-flex py-12p px-18p">
-                              <ToggleSwitch id="tax" checked={tax} name="tax" changevalue={changevalue} />
+                              <ToggleSwitch
+                                id="tax"
+                                checked={tax}
+                                name="tax"
+                                changevalue={changevalue}
+                              />
                             </div>
                           </div>
                           <div className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                              className="fs-3 text-primary"
-                              icon={solid("tag")}
-                            />
+                            <FontAwesomeIcon className="fs-3 text-primary" icon={solid('tag')} />
                             <div className="d-flex py-12p px-18p">
-                              <ToggleSwitch id="postTag" checked={postTag} name="postTag" changevalue={changevalue} />
+                              <ToggleSwitch
+                                id="postTag"
+                                checked={postTag}
+                                name="postTag"
+                                changevalue={changevalue}
+                              />
                             </div>
                           </div>
                           <div className="d-flex align-items-center image__switch-wrap">
-                            <FontAwesomeIcon
-                              className="fs-3 text-info"
-                              icon={solid("image")}
-                            />
+                            <FontAwesomeIcon className="fs-3 text-info" icon={solid('image')} />
                             <div className="d-flex py-12p px-18p">
-                              <ToggleSwitch checked={media} name="media" changevalue={changevalue} />
+                              <ToggleSwitch
+                                checked={media}
+                                name="media"
+                                changevalue={changevalue}
+                              />
                             </div>
                           </div>
                         </div>
                         <div className="post-type-note p-18p bg-lighter rounded-3 text-light mb-4">
-                          Will you be uploading media after you have purchased
-                          the items? Posts that upload pictures / videos of the
-                          proceeds tend to get funded quicker.
+                          Will you be uploading media after you have purchased the items? Posts that
+                          upload pictures / videos of the proceeds tend to get funded quicker.
                         </div>
                       </div>
 
@@ -596,50 +603,74 @@ const AddPost = (props) => {
                             </Dropdown.Menu>
                           </Dropdown> */}
                           <div className="form-group">
-
                             <div className="">
-                              <select className="form-control" onChange={(e) => { changevalue(e) }} id="category" name="category">
-                                <option selected disabled value=" ">Select Category</option>
+                              <select
+                                className="form-control"
+                                onChange={(e) => {
+                                  changevalue(e);
+                                }}
+                                id="category"
+                                name="category"
+                              >
+                                <option selected disabled value=" ">
+                                  Select Category
+                                </option>
                                 {categoryList.length > 0 &&
-                                  categoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })).map((cat, i) => {
-
-                                    return (
-                                      cat.status === 1 &&
-                                      <option value={cat._id} selected={category === cat._id}>{cat.name}</option>
+                                  categoryList
+                                    .sort((a, b) =>
+                                      a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })
                                     )
-
-                                  })
-
-                                }
-
+                                    .map((cat, i) => {
+                                      return (
+                                        cat.status === 1 && (
+                                          <option value={cat._id} selected={category === cat._id}>
+                                            {cat.name}
+                                          </option>
+                                        )
+                                      );
+                                    })}
                               </select>
-                              <p className='error'>{error ? error.category ? error.category : "" : ""}</p>
-
+                              <p className="error">
+                                {error ? (error.category ? error.category : '') : ''}
+                              </p>
                             </div>
-
                           </div>
 
                           <div className="form-group ">
-
                             <div className="">
-                              <select className="form-control" onChange={(e) => { changevalue(e) }} id="subcategory" name="subcategory">
-                                <option selected disabled value=" ">Select SubCategory</option>
+                              <select
+                                className="form-control"
+                                onChange={(e) => {
+                                  changevalue(e);
+                                }}
+                                id="subcategory"
+                                name="subcategory"
+                              >
+                                <option selected disabled value=" ">
+                                  Select SubCategory
+                                </option>
                                 {subcategoryList.length > 0 &&
-                                  subcategoryList.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })).map((cat, i) => {
-
-                                    return (
-                                      cat.status === 1 &&
-                                      <option value={cat._id} selected={subcategory === cat._id}>{cat.name}</option>
+                                  subcategoryList
+                                    .sort((a, b) =>
+                                      a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })
                                     )
-
-                                  })
-
-                                }
+                                    .map((cat, i) => {
+                                      return (
+                                        cat.status === 1 && (
+                                          <option
+                                            value={cat._id}
+                                            selected={subcategory === cat._id}
+                                          >
+                                            {cat.name}
+                                          </option>
+                                        )
+                                      );
+                                    })}
                               </select>
-                              <p className='error'>{error ? error.subcategory ? error.subcategory : "" : ""}</p>
-
+                              <p className="error">
+                                {error ? (error.subcategory ? error.subcategory : '') : ''}
+                              </p>
                             </div>
-
                           </div>
                           {/* <Dropdown className="d-flex" autoClose="outside">
                             <Dropdown.Toggle variant="outline-light" size="lg">
@@ -673,39 +704,57 @@ const AddPost = (props) => {
                             icon={solid("cloud-arrow-up")}
                             className="icon-cloud"
                           /> */}
-                          {Img || tempImg ?
-                            <img src={tempImg ? tempImg : Img ? Img !== "" ? helper.CampaignProductFullImagePath + Img : noimg : noimg} alt="lk" className="" style={{ objectFit: "contain" }} />
-                            :
+                          {Img || tempImg ? (
+                            <img
+                              src={
+                                tempImg
+                                  ? tempImg
+                                  : Img
+                                  ? Img !== ''
+                                    ? helper.CampaignProductFullImagePath + Img
+                                    : noimg
+                                  : noimg
+                              }
+                              alt="lk"
+                              className=""
+                              style={{ objectFit: 'contain' }}
+                            />
+                          ) : (
                             <FontAwesomeIcon
-                              icon={solid("cloud-arrow-up")}
+                              icon={solid('cloud-arrow-up')}
                               className="icon-cloud"
-                            />}
-                          <label >
-                            <input type="file" id="mainImg" name='mainImg' onChange={(e) => { changefile(e) }} />
+                            />
+                          )}
+                          <label>
+                            <input
+                              type="file"
+                              id="mainImg"
+                              name="mainImg"
+                              onChange={(e) => {
+                                changefile(e);
+                              }}
+                            />
                           </label>
                         </div>
-                        <p className='error'>{error ? error.image ? error.image : "" : ""}</p>
+                        <p className="error">{error ? (error.image ? error.image : '') : ''}</p>
                         <canvas id="canvas1" width={300} height={300}></canvas>
-
                       </div>
                       <div className="note note--info mb-3">
                         <FontAwesomeIcon
-                          icon={regular("circle-info")}
+                          icon={regular('circle-info')}
                           className="text-info icon-method mr-3p"
                         />
                         <span className="text-dark">
-                          Upload a transparent image of the item. See the how-to
-                          guide <a href="#">here</a> if you aren't sure how to
-                          make your image transparent.
+                          Upload a transparent image of the item. See the how-to guide{' '}
+                          <a href="#">here</a> if you aren't sure how to make your image
+                          transparent.
                         </span>
                       </div>
                       <div className="">
                         <div className="project-tilte-optional">
                           <div className="form__label">
                             More of Product
-                            <span className="fs-7 text-light ms-1 fw-normal">
-                              (optional)
-                            </span>
+                            <span className="fs-7 text-light ms-1 fw-normal">(optional)</span>
                           </div>
                         </div>
                         <div className="d-flex align-items-center flex-wrap gap-2 mb-3">
@@ -719,63 +768,99 @@ const AddPost = (props) => {
                             </label>
                           </div> */}
 
-                          <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
-                            <input className="file-upload-input" type='file'
-                              // name="identityDocumentImage" 
+                          <div
+                            className="image-upload-wrap mb-3"
+                            style={{
+                              ...imageuploadwrap,
+                              backgroundColor: '#e5f4ff',
+                              borderRadius: '9px',
+                              border: '2px dashed rgba(62, 170, 255, 0.58)',
+                              fontSize: '60px'
+                            }}
+                          >
+                            <input
+                              className="file-upload-input"
+                              type="file"
+                              // name="identityDocumentImage"
                               // onChange={props.changevalue}
-                              name='moreImg[]' id='moreImg'
+                              name="moreImg[]"
+                              id="moreImg"
                               accept=".jpg,.gif,.png"
                               multiple
                               onChange={(e) => changefile(e)}
-                              style={fileuploadinput} />
-                            <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-
+                              style={fileuploadinput}
+                            />
+                            <div
+                              className="drag-text"
+                              style={{ textAlign: 'center', padding: '70px' }}
+                            >
                               <FontAwesomeIcon
-                                icon={solid("cloud-arrow-up")}
+                                icon={solid('cloud-arrow-up')}
                                 className="icon-cloud"
                               />
                             </div>
                           </div>
 
-
-                          <div className='grid mt-3 mb-3' style={{ display: "contents" }}>
-                            {moreTempImages?.length ?
+                          <div className="grid mt-3 mb-3" style={{ display: 'contents' }}>
+                            {moreTempImages?.length ? (
                               moreTempImages.map((img, key) => {
                                 return (
                                   <div className="img-wrap">
-                                    <span className="close" onClick={() => props.removeGallaryempImages(key, 'moreImg')}>&times;</span>
-                                    <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                    <span
+                                      className="close"
+                                      onClick={() => props.removeGallaryempImages(key, 'moreImg')}
+                                    >
+                                      &times;
+                                    </span>
+                                    <img
+                                      src={img ? img : noimg}
+                                      alt="lk"
+                                      style={{ width: '100px', height: '100px' }}
+                                    />
                                   </div>
-
-                                )
-
+                                );
                               })
-
-                              :
+                            ) : (
                               <></>
-                            }
-                            {moreImages?.length ?
-                              moreImages.map((img, key) => {
-                                // console.log(img)
-                                return (
-                                  <>
-                                    {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                            )}
+                            {moreImages?.length
+                              ? moreImages.map((img, key) => {
+                                  // console.log(img)
+                                  return (
+                                    <>
+                                      {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
                                     <span> X</span> */}
 
-                                    <div className="img-wrap">
-                                      <span className="close" onClick={() => props.deleteProductImage(img.id, 'More')}>&times;</span>
-                                      <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
-                                    </div>
-                                  </>
-                                )
-
-                              })
-                              : ""
-
-                            }
-
+                                      <div className="img-wrap">
+                                        <span
+                                          className="close"
+                                          onClick={() => props.deleteProductImage(img.id, 'More')}
+                                        >
+                                          &times;
+                                        </span>
+                                        <img
+                                          src={
+                                            img.img
+                                              ? img.img !== ''
+                                                ? helper.CampaignProductImagePath + img.img
+                                                : noimg
+                                              : noimg
+                                          }
+                                          alt="lk"
+                                          style={{ width: '100px', height: '100px' }}
+                                          data-id="103"
+                                        />
+                                      </div>
+                                    </>
+                                  );
+                                })
+                              : ''}
                           </div>
-                          {error && error.moreImg && <p className='error'>{error ? error.moreImg ? error.moreImg : "" : ""}</p>}
+                          {error && error.moreImg && (
+                            <p className="error">
+                              {error ? (error.moreImg ? error.moreImg : '') : ''}
+                            </p>
+                          )}
 
                           {/* <p className='error'>{stateData.error ? stateData.error.moreImg ? stateData.error.moreImg : "" : ""}</p> */}
 
@@ -834,35 +919,30 @@ const AddPost = (props) => {
                 <div className="select-projects-option mb-5">
                   <div className="fw-bold mb-3">
                     Project
-                    <FontAwesomeIcon
-                      icon={solid("bolt")}
-                      className="text-primary ms-1 me-2"
-                    />
-                    <span className="fs-7 text-light  ms-1 fw-normal">
-                      (optional)
-                    </span>
+                    <FontAwesomeIcon icon={solid('bolt')} className="text-primary ms-1 me-2" />
+                    <span className="fs-7 text-light  ms-1 fw-normal">(optional)</span>
                   </div>
 
                   <div className="d-flex flex-wrap mb-3">
-
-                    {
-                      projectList.length > 0 &&
+                    {projectList.length > 0 &&
                       projectList.map((project, i) => {
                         return (
-                          <FeedTag data={project} name={project.name} onSelect={onSelectProject} checked={seletedProjectList.includes(project._id)} />
-
-                        )
-                      })
-
-                    }
+                          <FeedTag
+                            data={project}
+                            name={project.name}
+                            onSelect={onSelectProject}
+                            checked={seletedProjectList.includes(project._id)}
+                          />
+                        );
+                      })}
                     {/* <FeedTag />
                     <FeedTag />
                     <FeedTag /> */}
                   </div>
 
                   <div className="manage-post-type">
-                    <strong>Y</strong>ou can add this product to any of your
-                    existing projects. To manage your projects &nbsp;{" "}
+                    You can add this product to any of your existing projects. To manage your
+                    projects &nbsp;{' '}
                     <a href="./" className="link">
                       click here
                     </a>
@@ -874,11 +954,11 @@ const AddPost = (props) => {
 
           <Card>
             <Card.Header className="post__accordion-header">
-              <AccordionToggle >
+              <AccordionToggle>
                 <span className="fs-3 fw-bolder text-dark">Need Headline</span>
               </AccordionToggle>
             </Card.Header>
-            <Accordion.Collapse className="py-5" >
+            <Accordion.Collapse className="py-5">
               <Row className="mw-850 ml-5">
                 <Col lg="6">
                   <form className="profile-detail-form">
@@ -888,19 +968,24 @@ const AddPost = (props) => {
                         type="text"
                         className="form-control form-control-lg mb-2"
                         placeholder="Ex: For inner city kids in Colorado"
-                        name='needheadline' id="needheadline" value={needheadline} onChange={(e) => { changevalue(e) }}
-
+                        name="needheadline"
+                        id="needheadline"
+                        value={needheadline}
+                        onChange={(e) => {
+                          changevalue(e);
+                        }}
                       />
-                      {error && error.needheadline && <p className="error">{error ? error.needheadline ? error.needheadline : "" : ""}</p>}
+                      {error && error.needheadline && (
+                        <p className="error">
+                          {error ? (error.needheadline ? error.needheadline : '') : ''}
+                        </p>
+                      )}
                       <div className="text-light fs-8">
                         <span>120</span> chars remaining
                       </div>
                     </div>
                     <div className="form-group">
-                      <label
-                        htmlFor="needDescriptionTextarea"
-                        className="form__label"
-                      >
+                      <label htmlFor="needDescriptionTextarea" className="form__label">
                         Need Description
                       </label>
 
@@ -910,9 +995,18 @@ const AddPost = (props) => {
                         rows="6"
                         data-length="240"
                         placeholder="Enter some details about your need"
-                        name='description' id="description" value={description} onChange={(e) => { changevalue(e) }}
+                        name="description"
+                        id="description"
+                        value={description}
+                        onChange={(e) => {
+                          changevalue(e);
+                        }}
                       ></textarea>
-                      {error && error.description && <p className="error">{error ? error.description ? error.description : "" : ""}</p>}
+                      {error && error.description && (
+                        <p className="error">
+                          {error ? (error.description ? error.description : '') : ''}
+                        </p>
+                      )}
 
                       <div className="text-light fs-8 pb-2 mb-1">
                         <span>120</span> chars remaining
@@ -932,16 +1026,26 @@ const AddPost = (props) => {
                         className="form-control form-control-lg"
                         // id="videoInput"
                         placeholder="Video URL"
-                        name='galleryUrl' id="galleryUrl" value={galleryUrl} onChange={(e) => { changevalue(e) }}
+                        name="galleryUrl"
+                        id="galleryUrl"
+                        value={galleryUrl}
+                        onChange={(e) => {
+                          changevalue(e);
+                        }}
                       />
                     </div>
 
-                    <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: galleryUrl }} >
+                    <div
+                      className="project-video-wrap mb-4"
+                      dangerouslySetInnerHTML={{ __html: galleryUrl }}
+                    >
                       {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
-
                     </div>
                     <div className="">
-                      <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                      <div
+                        className="upload-picture-video-block mb-2"
+                        style={{ display: 'contents' }}
+                      >
                         {/* <div className="upload-wrap" style={{ width: "100%" }}>
                           <FontAwesomeIcon
                             icon={solid("cloud-arrow-up")}
@@ -952,61 +1056,101 @@ const AddPost = (props) => {
                           </label>
                         </div> */}
 
-                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
-                          <input className="file-upload-input" type='file'
-
-                            name='galleryImg[]' id='galleryImg'
+                        <div
+                          className="image-upload-wrap mb-3"
+                          style={{
+                            ...imageuploadwrap,
+                            backgroundColor: '#e5f4ff',
+                            borderRadius: '9px',
+                            border: '2px dashed rgba(62, 170, 255, 0.58)',
+                            fontSize: '60px'
+                          }}
+                        >
+                          <input
+                            className="file-upload-input"
+                            type="file"
+                            name="galleryImg[]"
+                            id="galleryImg"
                             accept=".jpg,.gif,.png"
                             multiple
-                            onChange={(e) => { changefile(e) }}
-                            style={fileuploadinput} title=" " />
-                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-
+                            onChange={(e) => {
+                              changefile(e);
+                            }}
+                            style={fileuploadinput}
+                            title=" "
+                          />
+                          <div
+                            className="drag-text"
+                            style={{ textAlign: 'center', padding: '70px' }}
+                          >
                             <FontAwesomeIcon
-                              icon={solid("cloud-arrow-up")}
+                              icon={solid('cloud-arrow-up')}
                               className="icon-cloud"
                             />
                           </div>
                         </div>
 
-                        <div className='grid mt-3 mb-3' style={{ display: "grid" }}>
-                          {gallaryTempImages?.length ?
+                        <div className="grid mt-3 mb-3" style={{ display: 'grid' }}>
+                          {gallaryTempImages?.length ? (
                             gallaryTempImages.map((img, key) => {
                               return (
                                 <div className="img-wrap">
-                                  <span className="close" onClick={() => props.removeGallaryempImages(key, 'galleryImg')} style={{ right: "7px" }}>&times;</span>
-                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                  <span
+                                    className="close"
+                                    onClick={() => props.removeGallaryempImages(key, 'galleryImg')}
+                                    style={{ right: '7px' }}
+                                  >
+                                    &times;
+                                  </span>
+                                  <img
+                                    src={img ? img : noimg}
+                                    alt="lk"
+                                    style={{ width: '100px', height: '100px' }}
+                                  />
                                 </div>
-
-                              )
-
+                              );
                             })
-
-                            :
+                          ) : (
                             <></>
-                          }
-                          {gallaryImages?.length ?
-                            gallaryImages.map((img, key) => {
-                              return (
-                                <>
+                          )}
+                          {gallaryImages?.length
+                            ? gallaryImages.map((img, key) => {
+                                return (
+                                  <>
+                                    {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> */}
 
-                                  {/* <img src={img ? img !== "" ? helper.CampaignProductImagePath + img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} /> */}
-
-                                  <div className="img-wrap">
-                                    <span className="close" onClick={() => props.deleteProductImage(img.id, 'Gallary')} style={{ right: "7px" }}>&times;</span>
-                                    <img src={img.img ? img.img !== "" ? helper.CampaignProductImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} data-id="103" />
-                                  </div>
-                                </>
-                              )
-
-                            })
-                            : ""
-
-                          }
-
+                                    <div className="img-wrap">
+                                      <span
+                                        className="close"
+                                        onClick={() => props.deleteProductImage(img.id, 'Gallary')}
+                                        style={{ right: '7px' }}
+                                      >
+                                        &times;
+                                      </span>
+                                      <img
+                                        src={
+                                          img.img
+                                            ? img.img !== ''
+                                              ? helper.CampaignProductImagePath + img.img
+                                              : noimg
+                                            : noimg
+                                        }
+                                        alt="lk"
+                                        style={{ width: '100px', height: '100px' }}
+                                        data-id="103"
+                                      />
+                                    </div>
+                                  </>
+                                );
+                              })
+                            : ''}
                         </div>
 
-                        {error && error.galleryImg && <p className='error'>{error ? error.galleryImg ? error.galleryImg : "" : ""}</p>}
+                        {error && error.galleryImg && (
+                          <p className="error">
+                            {error ? (error.galleryImg ? error.galleryImg : '') : ''}
+                          </p>
+                        )}
                         {/* <div className="upload-wrap">
                           <img src="../img/user2.jpeg" alt="img" />
                           <FontAwesomeIcon
@@ -1070,41 +1214,55 @@ const AddPost = (props) => {
               name="policy"
               id="policy"
               checked={stateData.policy}
-              onChange={(e) => { changevalue(e) }}
+              onChange={(e) => {
+                changevalue(e);
+              }}
             />
             <label className="form-check-label" htmlFor="policy">
-              By posting your ad, you are agreeing to our{" "}
+              By posting your ad, you are agreeing to our{' '}
               <a href="#" target="_blank">
                 <strong>terms of use</strong>
               </a>
-              ,{" "}
+              ,{' '}
               <a href="#" target="_blank">
                 <strong>privacy policy</strong>
-              </a>{" "}
-              and{" "}
+              </a>{' '}
+              and{' '}
               <a href="#" target="_blank">
                 <strong>site policies</strong>
               </a>
-              . Please do not post duplicate ads. You may not edit your post
-              after it has received funding. If you delete your post after it
-              has received donations, the donors will receive a full refund and
-              the post will be closed.
+              . Please do not post duplicate ads. You may not edit your post after it has received
+              funding. If you delete your post after it has received donations, the donors will
+              receive a full refund and the post will be closed.
             </label>
           </div>
-
         </div>
-        {error && error.policy && <p className='error'>{error ? error.policy ? error.policy : "" : ""}</p>}
+        {error && error.policy && (
+          <p className="error">{error ? (error.policy ? error.policy : '') : ''}</p>
+        )}
 
         <div className="products-detial-footer py-5">
-          {
-            stateData.status === 1 &&
-
-            <Button variant="info" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(-1)}>Un-publish</Button>
-          }
-          <Button variant="success" size="lg" className="fw-bold fs-6" onClick={() => submitProductForm(1)}>Post Ad</Button>
+          {stateData.status === 1 && (
+            <Button
+              variant="info"
+              size="lg"
+              className="fw-bold fs-6"
+              onClick={() => submitProductForm(-1)}
+            >
+              Un-publish
+            </Button>
+          )}
+          <Button
+            variant="success"
+            size="lg"
+            className="fw-bold fs-6"
+            onClick={() => submitProductForm(1)}
+          >
+            Post Ad
+          </Button>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

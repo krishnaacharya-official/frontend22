@@ -1,8 +1,7 @@
 // @import "../../../../assets/scss/components/dropdown";
-@import "../../../../../assets/scss/components/dropdown";
+@import '../../../../../assets/scss/components/dropdown';
 
 .geo__dropdown {
-
   .mapboxgl-map {
     background: #fff;
     height: 300px;
@@ -35,7 +34,7 @@
 }
 
 .mapboxgl-ctrl__scale {
-  color:$gray-700;
+  color: $gray-700;
 }
 
 .geo__lock {
@@ -48,4 +47,8 @@
 
 .geo__slider {
   padding: 20px 40px;
+}
+.mapbox-searchicon {
+  fill: #6f6f91;
+  font-size: 19px;
 }

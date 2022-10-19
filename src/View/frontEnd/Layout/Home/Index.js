@@ -252,7 +252,7 @@ export default function Index(props) {
       <Container fluid>
         <div className="d-sm-flex align-items-center py-20p">
           <div className="mb-1 mb-sm-0">{props.productList.length} items</div>
-          <div className="d-flex align-items-center flex__1 ms-sm-2 gap-1 mb-2 mb-sm-0">
+          <div className="d-flex align-items-center flex__1 ms-sm-2 gap-1 mb-2 mb-sm-0 overflow-auto px-sm-0 px-2 mx-sm-0 mx-n2">
             {props.seletedCategoryList.length > 0 &&
               props.categoryList.length > 0 &&
               props.categoryList.map((c, i) => {

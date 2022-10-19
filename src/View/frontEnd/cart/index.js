@@ -17,7 +17,6 @@ const Cart = (props) => {
   const [subTotal, setSubTotal] = useState(0);
   const [salesTax, setSalesTax] = useState(0);
 
-
   // let transectionFee = props.pricingFees?.transectionFee
   // let platformFee = props.pricingFees?.platformFee
   // let totalCharge = Number(transectionFee) + Number(platformFee)
@@ -31,17 +30,15 @@ const Cart = (props) => {
   const minusValue = async (value, id, productId) => {
     if (value > 1) {
       value--;
-      await props.updateCartItem(value, id, productId, 'minus')
+      await props.updateCartItem(value, id, productId, 'minus');
     }
     // setQuantity(value)
-
-
-  }
+  };
   const plusValue = async (value, id, productId) => {
     value++;
     // setQuantity(value)
-    await props.updateCartItem(value, id, productId, 'plus')
-  }
+    await props.updateCartItem(value, id, productId, 'plus');
+  };
 
   useEffect(() => {
     if (props.cartItem.length > 0) {
@@ -49,9 +46,9 @@ const Cart = (props) => {
       props.cartItem.map((item, i) => {
         // let price = Math.round(item.productDetails?.price + (totalCharge / 100) * item.productDetails?.price)
         // let price = getCalc.getData(item.productDetails?.price);
-        let price = item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price;
-
-
+        let price = item.productDetails?.displayPrice
+          ? item.productDetails?.displayPrice
+          : item.productDetails?.price;
 
         tempPriceArray.push(price * item.quantity);
       });
@@ -59,14 +56,13 @@ const Cart = (props) => {
       let sum = tempPriceArray.reduce(function (a, b) {
         return a + b;
       }, 0);
-      setSubTotal(sum)
+      setSubTotal(sum);
 
       // console.log(getCalc.getTaxValueOfPrice(sum))
       // let salesTax = getCalc.calculateSalesTax(sum)
-      setSalesTax(getCalc.getTaxValueOfPrice(sum))
+      setSalesTax(getCalc.getTaxValueOfPrice(sum));
       // setTotal(sum + salesTax);
       setTotal(getCalc.priceWithTax(sum));
-
     }
   }, [props.cartItem]);
   return (
@@ -76,7 +72,7 @@ const Cart = (props) => {
           <Logo />
         </div>
         <div className="cart__steps fs-7 pt-3 pt-sm-0">
-          <span className="active me-1">
+          <span className="active me-1 text-light">
             Cart
             {cartItem.length > 0 && (
               <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
@@ -85,11 +81,15 @@ const Cart = (props) => {
 
           {cartItem.length > 0 && (
             <>
-              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none">
+              <Link
+                variant="link"
+                to="/checkout"
+                className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark"
+              >
                 Checkout
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
-              </Button>
-              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none">
+              </Link>
+              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark">
                 Order
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Button>
@@ -106,7 +106,7 @@ const Cart = (props) => {
                 // let price = getCalc.getData(item.productDetails?.price)
 
                 return (
-                  <li className="d-flex align-items-center py-2" key={i}>
+                  <li className="d-flex flex-wrap flex--sm-nowrap align-items-center py-2" key={i}>
                     <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
                       <ListItemImg
                         size={75}
@@ -132,20 +132,20 @@ const Cart = (props) => {
                       </div>
                     </div>
 
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center flex-grow-sm-0 flex-grow-1 justify-content-start justify-content-sm-end ">
                       {item.productDetails?.tax && (
                         <ListItemImg
                           size={52}
-                          className="text-primary rounded-circle ms-2 d-none d-sm-flex"
+                          className="rounded-circle ms-2 d-none d-sm-flex"
                           icon={
                             <FontAwesomeIcon icon={solid('calculator-simple')} className="fs-4" />
                           }
                         />
                       )}
-                      <Link to={'/organization/' + item?.productDetails?.organizationDetails.slug}>
+                      <Link className="d-flex align-items-center justify-content-center" to={'/organization/' + item?.productDetails?.organizationDetails.slug}>
                         <ListItemImg
                           size={52}
-                          className="ms-2 d-none d-sm-flex no-bg"
+                          className="list__item-img ms-0 ms-sm-2 no-bg"
                           imgSrc={
                             helper.CampaignAdminLogoPath +
                             item.productDetails?.organizationDetails?.logo
@@ -153,15 +153,16 @@ const Cart = (props) => {
                         />
                       </Link>
 
-                      <span className="d-flex align-items-center ms-2 fw-bold text-subtext">
-                        <span className="mr-6p d-none d-sm-block">Qty:</span>{' '}
-
+                      <span className="d-flex align-items-center fw-bold text-subtext flex-grow-1 flex-sm-grow-0" style={{width: '200px'}}>
+                        {/*<span className="mr-6p d-none d-sm-block">Qty:</span>{' '}*/}
                         <Button
                           variant="link"
-                          className="text-decoration-none btn__link-light p-0 m-2"
-                          onClick={() => minusValue(item?.quantity, item._id, item?.productDetails?._id)}
+                          className="text-decoration-none btn__link-light p-0 m-2 fs-4"
+                          onClick={() =>
+                            minusValue(item?.quantity, item._id, item?.productDetails?._id)
+                          }
                         >
-                          <FontAwesomeIcon icon={regular("angle-down")} />
+                          <FontAwesomeIcon icon={regular('angle-down')} />
                         </Button>
                         <input
                           type="text"
@@ -173,17 +174,21 @@ const Cart = (props) => {
                         <Button
                           variant="link"
                           className="btn__link-light text-decoration-none p-0 m-2"
-                          onClick={() => plusValue(item?.quantity, item._id, item?.productDetails?._id)}
+                          onClick={() =>
+                            plusValue(item?.quantity, item._id, item?.productDetails?._id)
+                          }
                         >
-                          <FontAwesomeIcon icon={regular("angle-up")} />
+                          <FontAwesomeIcon icon={regular('angle-up')} />
                         </Button>
                       </span>
-                      <span className="fs-5 fw-bold text-success ms-3">
+                      <span className="fs-4 fw-bold text-success text-end" style={{minWidth: '90px'}}>
                         {currencySymbol +
                           // priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)
-                          priceFormat((item.productDetails?.displayPrice ? item.productDetails?.displayPrice : item.productDetails?.price) * item.quantity)
-
-                        }
+                          priceFormat(
+                            (item.productDetails?.displayPrice
+                              ? item.productDetails?.displayPrice
+                              : item.productDetails?.price) * item.quantity
+                          )}
                       </span>
                     </div>
                   </li>
@@ -199,18 +204,15 @@ const Cart = (props) => {
             </div>
 
             <div className="d-flex align-items-center py-3 border-bottom">
-           
               <span className="fw-bolder flex__1">
-              <img
-                className="img-stripe "
-                src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
-                alt=""
-                style={{ width: "44px" }}
-              />
+                <img
+                  className="img-stripe "
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62e82d7d4d59cb56b16a8b29_stripe.png"
+                  alt=""
+                  style={{ width: '44px' }}
+                />
               </span>
-              <span className="fw-bold text-light fs-5">
-                {currencySymbol + salesTax}
-              </span>
+              <span className="fw-bold text-light fs-5">{currencySymbol + salesTax}</span>
             </div>
             {/* <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Sales Tax:</span>
@@ -221,7 +223,7 @@ const Cart = (props) => {
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>
-            <span className="fw-bold text-success fs-4">{currencySymbol + (total)}</span>
+            <span className="fw-bold text-success fs-4">{currencySymbol + total}</span>
           </div>
           <div className="py-4 border-bottom d-grid d-sm-block">
             <Button
@@ -252,7 +254,7 @@ const Cart = (props) => {
       )}
 
       <footer className="py-3 py-sm-2">
-        <ul className="d-flex align-items-center justify-content-between justify-content-sm-start list-unstyled fs-7">
+        <ul className="d-flex align-items-center justify-content-center justify-content-sm-start list-unstyled fs-7">
           <li className="me-3">
             <a href="/donorport-refund-policy" className="text-subtext">
               Refund policy

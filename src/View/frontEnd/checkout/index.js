@@ -46,7 +46,9 @@ const Checkout = (props) => {
               </span>
             </div>
 
-            <span className="fw-bold text-success fs-4">{props.currencySymbol + (total ? total : 0)}</span>
+            <span className="fw-bold text-success fs-4">
+              {props.currencySymbol + (total ? total : 0)}
+            </span>
           </div>
 
           <div
@@ -86,23 +88,23 @@ const Checkout = (props) => {
               <Link
                 to="/cart"
                 variant="link"
-                className="p-0 me-1 fw-normal fs-7 text-decoration-none"
+                className="p-0 me-1 fw-normal text-light fs-7 text-decoration-none"
               >
                 Cart
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Link>
-              <span className="active me-1">
+              <span className="active me-1 text-light">
                 Checkout
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </span>
-              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none">
+              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark">
                 Order
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Button>
             </div>
           </header>
           <div className="d-flex align-items-center pt-5 mt-1 mb-3">
-            <Button variant="" className="btn__signout d-flex align-items-center p-1 rounded-pill">
+            <Button variant="" className="d-flex align-items-center p-1 rounded-pill pe-2">
               <Avatar size={36} avatarUrl={user.profileImage} border={0} shadow={false} />
               <span className="ml-12p fs-7 fw-semibold">
                 {userAuthToken ? userData.name : 'USER'}
@@ -221,7 +223,7 @@ const Checkout = (props) => {
                   <Form.Control
                     type="text"
                     size="lg"
-                    placeholder="•••• •••• •••• ••••"
+                    placeholder="XXXX XXXX XXXX 1234"
                     value={stateData.cardNumber}
                     name="cardNumber"
                     onChange={(e) => props.changevalue(e)}
@@ -335,9 +337,12 @@ const Checkout = (props) => {
             </div>
           </div>
 
-          <footer style={{ maxWidth: '480px' }} className="d-flex py-3 py-sm-2 border-top">
+          <footer
+            style={{ maxWidth: '480px' }}
+            className="d-flex flex-sm-row flex-column py-3 py-sm-2 border-top align-items-center"
+          >
             <img
-              className="me-3 img-stripe"
+              className="me-3 img-stripe mb-sm-0 mb-1"
               src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/63475460c46f3a43441688d4_Powered%20by%20Stripe%20-%20blurple.svg"
               alt=""
               style={{ width: '146px' }}

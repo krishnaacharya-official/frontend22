@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button, Dropdown } from "react-bootstrap";
-import ActivityList from "./activity-list";
-import FollowingList from "./following-list";
-import NotificationSettings from "../../molecules/notification-settings";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { light, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import React, { useState, useEffect } from 'react';
+import { Button, Dropdown } from 'react-bootstrap';
+import ActivityList from './activity-list';
+import FollowingList from './following-list';
+import NotificationSettings from '../../molecules/notification-settings';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import "./style.scss";
-
-
+import './style.scss';
 
 const Activity = (props) => {
   const [state, setState] = useState({
@@ -16,8 +14,8 @@ const Activity = (props) => {
     following: false,
     settings: false,
     allRead: false
-  })
-  const [allNotificationList, setAllNotificationList] = useState([])
+  });
+  const [allNotificationList, setAllNotificationList] = useState([]);
 
   const moreClick = () => {
     setState({ ...state, following: true });
@@ -33,7 +31,7 @@ const Activity = (props) => {
 
   const markNotification = async () => {
     // setState({ ...state, allRead: !state.allRead });
-    await props.notificationMarkAsRead(!state.allRead, allNotificationList)
+    await props.notificationMarkAsRead(!state.allRead, allNotificationList);
   };
 
   const ActivityButton = React.forwardRef(({ children, onClick }, ref) => {
@@ -59,24 +57,24 @@ const Activity = (props) => {
   useEffect(() => {
     // console.log(props.notificationList)
     if (props.notificationList.length > 0) {
-      let n_id = []
-      let temprray = []
-
+      let n_id = [];
+      let temprray = [];
 
       props.notificationList.map((notification, i) => {
-        let isRemoved = notification?.userNotificationDetails?.removed ? notification?.userNotificationDetails?.removed : false
+        let isRemoved = notification?.userNotificationDetails?.removed
+          ? notification?.userNotificationDetails?.removed
+          : false;
         if (!isRemoved) {
-          n_id.push(notification._id)
-          temprray.push(notification)
+          n_id.push(notification._id);
+          temprray.push(notification);
         }
-      })
-      setAllNotificationList(n_id)
+      });
+      setAllNotificationList(n_id);
       // console.log(temprray.filter(e => e.userNotificationDetails?.watched).length)
 
       // if (temprray.filter(e => e.userNotificationDetails?.watched === true)) {
       if (temprray.length > 0) {
-        if (temprray.filter(e => e.userNotificationDetails?.watched).length === temprray.length) {
-
+        if (temprray.filter((e) => e.userNotificationDetails?.watched).length === temprray.length) {
           setState({ ...state, allRead: true });
         } else {
           setState({ ...state, allRead: false });
@@ -86,15 +84,9 @@ const Activity = (props) => {
       }
       // console.log('watched',temprray.filter(e => e.userNotificationDetails?.watched).length )
       // console.log('all',temprray.length )
-
-
-
-
     } else {
       setState({ ...state, allRead: true });
-
     }
-
 
     // let isRemoved = props.notificationList.filter(e => e.userNotificationDetails.removed === true)
     // console.log(props.notificationList.filter(e => e?.userNotificationDetails?.removed===true && e?.userNotificationDetails?.watched===false ).length)
@@ -104,27 +96,30 @@ const Activity = (props) => {
     //   setState({ ...state, allRead: false });
 
     // }
-
-  }, [props.notificationList])
-
+  }, [props.notificationList]);
 
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
         {
           // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false).length > 0 &&
-          !state.allRead &&
-          <div className="c__badge" style={{ width: "12px", height: "12px", background: '#cb6f74', }}>
-          </div>
+          !state.allRead && (
+            <div
+              className="c__badge"
+              style={{ width: '12px', height: '12px', background: '#cb6f74' }}
+            ></div>
+          )
         }
         <Dropdown.Toggle as={ActivityButton} id="dropdown-custom-components">
           <span className="icon activity-icon d-flex align-items-center">
-
-            <FontAwesomeIcon icon={solid("bell")} />
+            <FontAwesomeIcon icon={solid('bell')} />
           </span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
+        <Dropdown.Menu
+          className="activity__dropdown w-310 dropdown-top-arrow"
+          style={{ transform: 'translate(45px, 30px) !important' }}
+        >
           <div className="dropdown__inner">
             <div className="d-flex activity__dropdown-header">
               {state.following || state.settings ? (
@@ -134,18 +129,18 @@ const Activity = (props) => {
                   onClick={() => goBack()}
                 >
                   {/* <i className="fa-solid fa-chevron-left"></i> */}
-                  <FontAwesomeIcon icon={solid("chevron-left")} />
+                  <FontAwesomeIcon icon={solid('chevron-left')} />
                 </Button>
               ) : (
-                ""
+                ''
               )}
 
               <div>
                 {state.following
-                  ? "Following"
+                  ? 'Following'
                   : state.settings
-                    ? "Notification Settings"
-                    : "Activity"}
+                  ? 'Notification Settings'
+                  : 'Activity'}
               </div>
 
               {!(state.following || state.settings) ? (
@@ -155,12 +150,10 @@ const Activity = (props) => {
                   onClick={() => moreClick()}
                 >
                   {/* <i className="fa-regular fa-ellipsis-stroke-vertical"></i> */}
-                  <FontAwesomeIcon icon={solid("ellipsis-stroke-vertical")} />
-
-
+                  <FontAwesomeIcon icon={solid('ellipsis-stroke-vertical')} />
                 </Button>
               ) : (
-                ""
+                ''
               )}
             </div>
 
@@ -179,25 +172,28 @@ const Activity = (props) => {
                     className="btn__link-light activity__settings ms-auto px-0"
                     onClick={() => showSettings()}
                   >
-
-                    <FontAwesomeIcon icon={solid("gear")} />
+                    <FontAwesomeIcon icon={solid('gear')} />
                   </Button>
                 </div>
               ) : (
-                ""
+                ''
               )}
 
-              {state.following ? <FollowingList
-
-                followedOrganizationList={props.followedOrganizationList}
-                followToOrganization={props.followToOrganization}
-                removeFollowedOrganization={props.removeFollowedOrganization}
-
-              /> : state.settings ? <NotificationSettings /> :
+              {state.following ? (
+                <FollowingList
+                  followedOrganizationList={props.followedOrganizationList}
+                  followToOrganization={props.followToOrganization}
+                  removeFollowedOrganization={props.removeFollowedOrganization}
+                />
+              ) : state.settings ? (
+                <NotificationSettings />
+              ) : (
                 <ActivityList
                   notificationList={props.notificationList}
                   setWatchNotification={props.setWatchNotification}
-                  removeNotification={props.removeNotification} />}
+                  removeNotification={props.removeNotification}
+                />
+              )}
             </div>
 
             <div className="activity__dropdown-footer"></div>
@@ -206,6 +202,6 @@ const Activity = (props) => {
       </Dropdown>
     </>
   );
-}
+};
 
 export default Activity;

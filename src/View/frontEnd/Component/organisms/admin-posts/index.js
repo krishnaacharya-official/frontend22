@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 // import { Button } from "react-bootstrap";
 import { Outlet, useOutletContext, Link, useNavigate } from 'react-router-dom';
 // import {
@@ -6,32 +6,37 @@ import { Outlet, useOutletContext, Link, useNavigate } from 'react-router-dom';
 //   PostsTable,
 //   AddPost,
 // } from "@components/organisms";
-import LadderMenuItems from "../ladder-menu-items";
-import PostsTable from "../posts-table";
-import AddPost from "../add-post";
+import LadderMenuItems from '../ladder-menu-items';
+import PostsTable from '../posts-table';
+import AddPost from '../add-post';
 // import productApi from "../../../../../Api/frontEnd/product";
-import "./style.scss";
-import FrontLoader from "../../../../../Common/FrontLoader";
+import './style.scss';
+import FrontLoader from '../../../../../Common/FrontLoader';
 
-import ToggleSwitch from "../../atoms/toggle-switch";
-import FeedTag from "../../atoms/feed-tag";
+import ToggleSwitch from '../../atoms/toggle-switch';
+import FeedTag from '../../atoms/feed-tag';
 import * as Icon from '../../atoms/category-icons';
 // import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import categoryApi from '../../../../../Api/admin/category'
-import projectApi from '../../../../../Api/admin/project'
-import productApi from '../../../../../Api/admin/product'
-import { WithContext as ReactTags } from "react-tag-input";
-import noimg from "../../../../../assets/images/noimg.jpg"
-import helper, { priceWithOrganizationTax, priceFormat, isIframe, download, hasAlpha } from "../../../../../Common/Helper";
-import { validateAll } from "indicative/validator";
-import ToastAlert from "../../../../../Common/ToastAlert"
-import { confirmAlert } from "react-confirm-alert"
+import categoryApi from '../../../../../Api/admin/category';
+import projectApi from '../../../../../Api/admin/project';
+import productApi from '../../../../../Api/admin/product';
+import { WithContext as ReactTags } from 'react-tag-input';
+import noimg from '../../../../../assets/images/noimg.jpg';
+import helper, {
+  priceWithOrganizationTax,
+  priceFormat,
+  isIframe,
+  download,
+  hasAlpha
+} from '../../../../../Common/Helper';
+import { validateAll } from 'indicative/validator';
+import ToastAlert from '../../../../../Common/ToastAlert';
+import { confirmAlert } from 'react-confirm-alert';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular, light } from "@fortawesome/fontawesome-svg-core/import.macro";
-import ListItemImg from "../../atoms/list-item-img";
-import { useSelector, useDispatch } from "react-redux";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular, light } from '@fortawesome/fontawesome-svg-core/import.macro';
+import ListItemImg from '../../atoms/list-item-img';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -41,32 +46,29 @@ import {
   Card,
   Col,
   Row,
-  Dropdown,
-} from "react-bootstrap";
-import moment from "moment";
-import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
+  Dropdown
+} from 'react-bootstrap';
+import moment from 'moment';
+import adminCampaignApi from '../../../../../Api/admin/adminCampaign';
 
 const AdminPosts = (props) => {
-
-
-
   const fileuploadinput = {
-    position: "absolute",
+    position: 'absolute',
     margin: 0,
     padding: 0,
-    width: "100%",
-    height: "100%",
-    outline: "none",
+    width: '100%',
+    height: '100%',
+    outline: 'none',
     opacity: 0,
-    cursor: "pointer",
-  }
+    cursor: 'pointer'
+  };
 
   const imageuploadwrap = {
-    marginTop: "20px",
+    marginTop: '20px',
     // border: " 4px dashed #3773c6",
-    position: "relative",
-    width: "100%"
-  }
+    position: 'relative',
+    width: '100%'
+  };
   const validExtensions = ['jpg', 'png', 'jpeg'];
   const [viewPost, createPost] = useState(false);
   // const [productList, setProductList] = useState([])
@@ -75,43 +77,43 @@ const AdminPosts = (props) => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const type = localStorage.getItem('type');
   const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
-  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+  const token = type
+    ? type === 'temp'
+      ? tempCampaignAdminAuthToken
+      : CampaignAdminAuthToken
+    : CampaignAdminAuthToken;
   const [data, setData] = useOutletContext();
   // const [update, setUpdate] = useState(false)
 
-
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const [loading, setLoading] = useState(false)
-  const [categoryList, setCategoryList] = useState([])
-  const [subcategoryList, setSubCategoryList] = useState([])
-  const [campaignAdminList, setCampaignAdminList] = useState([])
-  const [tempImg, setTempImg] = useState('')
-  const [Img, setImg] = useState('')
-  const [productList, setProductList] = useState([])
-  const [iconList, setIconList] = useState([])
-  const [projectList, setProjectList] = useState([])
-  const [update, setUpdate] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [categoryList, setCategoryList] = useState([]);
+  const [subcategoryList, setSubCategoryList] = useState([]);
+  const [campaignAdminList, setCampaignAdminList] = useState([]);
+  const [tempImg, setTempImg] = useState('');
+  const [Img, setImg] = useState('');
+  const [productList, setProductList] = useState([]);
+  const [iconList, setIconList] = useState([]);
+  const [projectList, setProjectList] = useState([]);
+  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
-  const [modelShow, setModelShow] = useState(false)
-  const [seletedProjectList, setSeletedProjectList] = useState([])
+  const [modelShow, setModelShow] = useState(false);
+  const [seletedProjectList, setSeletedProjectList] = useState([]);
 
+  const [moreTempImages, setMoreTempImages] = useState([]);
+  const [moreImages, setMoreImages] = useState([]);
 
-  const [moreTempImages, setMoreTempImages] = useState([])
-  const [moreImages, setMoreImages] = useState([])
+  const [gallaryTempImages, setGallaryTempImages] = useState([]);
+  const [gallaryImages, setGallaryImages] = useState([]);
 
-  const [gallaryTempImages, setGallaryTempImages] = useState([])
-  const [gallaryImages, setGallaryImages] = useState([])
+  const [pageNo, setPageNo] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalRecord, setTotalRecord] = useState(1);
 
-  const [pageNo, setPageNo] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [totalRecord, setTotalRecord] = useState(1)
-
-
-  const [sortField, setSortField] = useState("created_at");
-  const [order, setOrder] = useState("asc");
-  const [fulfilProductDetails, setFulfilProductDetails] = useState({})
-  const [primaryBankDetails, setPrimaryBankDetails] = useState({})
-
+  const [sortField, setSortField] = useState('created_at');
+  const [order, setOrder] = useState('asc');
+  const [fulfilProductDetails, setFulfilProductDetails] = useState({});
+  const [primaryBankDetails, setPrimaryBankDetails] = useState({});
 
   const [state, setstate] = useState({
     id: '',
@@ -141,87 +143,99 @@ const AdminPosts = (props) => {
     postTag: false,
     media: false,
     policy: false,
-    galleryImg: [],
-
-
-  })
+    galleryImg: []
+  });
   const {
-    id, status, title, subtitle, category, subcategory, description, price, image, quantity, organization, slug, error, moreImg, galleryUrl, headline, brand, needheadline, galleryImg, unlimited, tax, postTag, address, lat, lng, policy, media, displayPrice,
+    id,
+    status,
+    title,
+    subtitle,
+    category,
+    subcategory,
+    description,
+    price,
+    image,
+    quantity,
+    organization,
+    slug,
+    error,
+    moreImg,
+    galleryUrl,
+    headline,
+    brand,
+    needheadline,
+    galleryImg,
+    unlimited,
+    tax,
+    postTag,
+    address,
+    lat,
+    lng,
+    policy,
+    media,
+    displayPrice
   } = state;
 
-
   const [fulfilState, setFulfilState] = useState({
-    fulfilId: "",
+    fulfilId: '',
     fulfilMoreImg: [],
     videoUrl: '',
     receiptFile: '',
     fulfilPolicy: false,
     fulfilError: []
+  });
+  const [tempImgName, setTempImgName] = useState('');
 
-  })
-  const [tempImgName, setTempImgName] = useState('')
+  const { fulfilId, fulfilMoreImg, videoUrl, receiptFile, fulfilPolicy, fulfilError } = fulfilState;
 
-  const {
-    fulfilId, fulfilMoreImg, videoUrl, receiptFile, fulfilPolicy, fulfilError
-  } = fulfilState
+  const [fulfil, setFulfil] = useState(false);
 
-
-  const [fulfil, setFulfil] = useState(false)
-
-  const [fulfilMoreTempImages, setFulfilMoreTempImages] = useState([])
-  const [fulfilmoreImages, setFulfilMoreImages] = useState([])
+  const [fulfilMoreTempImages, setFulfilMoreTempImages] = useState([]);
+  const [fulfilmoreImages, setFulfilMoreImages] = useState([]);
 
   const user = useSelector((state) => state.user);
 
-
   const [tags, setTags] = useState([]);
   let url = galleryUrl;
-  let videoid = url?.split("?v=")[1];
-  let embedlink = videoid ? "http://www.youtube.com/embed/" + videoid : "";
+  let videoid = url?.split('?v=')[1];
+  let embedlink = videoid ? 'http://www.youtube.com/embed/' + videoid : '';
 
   useEffect(() => {
     (async () => {
-
       // console.log(data)
       // console.log(data.country_id)
-      setLoading(false)
+      setLoading(false);
       const getcategoryList = await categoryApi.listCategory(token);
       if (getcategoryList.data.success === true) {
-        setCategoryList(getcategoryList.data.data)
+        setCategoryList(getcategoryList.data.data);
       }
 
-      if (data._id) await orgProjectList()
-      await getPrimaryBankAccount()
-      setLoading(false)
-
-    })()
-  }, [data._id])
+      if (data._id) await orgProjectList();
+      await getPrimaryBankAccount();
+      setLoading(false);
+    })();
+  }, [data._id]);
 
   const orgProjectList = async () => {
-    let formData = {}
-    formData.filter = false
-    formData.sortField = 'created_at'
-    formData.sortType = 'asc'
-    formData.organizationId = data._id
-    formData.type = 'product'
+    let formData = {};
+    formData.filter = false;
+    formData.sortField = 'created_at';
+    formData.sortType = 'asc';
+    formData.organizationId = data._id;
+    formData.type = 'product';
 
-
-
-    const getProjectList = await projectApi.projectListByOrganization(token, formData)
+    const getProjectList = await projectApi.projectListByOrganization(token, formData);
     if (getProjectList.data.success) {
-      setProjectList(getProjectList.data.data)
+      setProjectList(getProjectList.data.data);
     }
-
-  }
+  };
 
   const getPrimaryBankAccount = async () => {
-    const acc = await adminCampaignApi.getPrimaryBankAccount(token)
+    const acc = await adminCampaignApi.getPrimaryBankAccount(token);
     if (acc.data.success) {
-      setPrimaryBankDetails(acc.data.data)
+      setPrimaryBankDetails(acc.data.data);
     }
-
-
-  }
+  };
 
   const handleDelete = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
@@ -241,7 +255,7 @@ const AdminPosts = (props) => {
   };
 
   const handleTagClick = (index) => {
-    console.log("The tag at index " + index + " was clicked");
+    console.log('The tag at index ' + index + ' was clicked');
   };
 
   const onClearAll = () => {
@@ -255,46 +269,43 @@ const AdminPosts = (props) => {
   };
 
   const onSelectProject = (e) => {
-
     if (e.target.checked) {
-      setSeletedProjectList([...seletedProjectList, e.target.id])
+      setSeletedProjectList([...seletedProjectList, e.target.id]);
     } else {
-
-      let tempArry = [...seletedProjectList]
+      let tempArry = [...seletedProjectList];
       const index = tempArry.indexOf(e.target.id);
       if (index > -1) {
         tempArry.splice(index, 1);
       }
-      setSeletedProjectList(tempArry)
-
+      setSeletedProjectList(tempArry);
     }
-
-
-  }
+  };
 
   const changevalue = async (e) => {
     let value = e.target.value;
     // console.log(value)
-    if (e.target.name === 'unlimited' || e.target.name === 'tax' || e.target.name === 'postTag' || e.target.name === 'policy' || e.target.name === 'media' || e.target.name === 'fulfilPolicy') {
-
-      value = e.target.checked
+    if (
+      e.target.name === 'unlimited' ||
+      e.target.name === 'tax' ||
+      e.target.name === 'postTag' ||
+      e.target.name === 'policy' ||
+      e.target.name === 'media' ||
+      e.target.name === 'fulfilPolicy'
+    ) {
+      value = e.target.checked;
 
       if (e.target.name === 'fulfilPolicy') {
         setFulfilState({
           ...fulfilState,
           fulfilPolicy: value
-        })
+        });
       }
-
-
     }
     if (e.target.name === 'price' || e.target.name === 'quantity') {
-      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-
+      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, '');
     }
 
-    if (e.target.name === "category") {
-
+    if (e.target.name === 'category') {
       // setstate({
       //   ...state,
       //   'subcategory': ''
@@ -306,41 +317,35 @@ const AdminPosts = (props) => {
 
       const getsubCategoryList = await categoryApi.listSubCategory(token, value);
       if (getsubCategoryList.data.success === true) {
-        setSubCategoryList(getsubCategoryList.data.data)
+        setSubCategoryList(getsubCategoryList.data.data);
         if (getsubCategoryList.data.data.length > 0) {
           setstate({
             ...state,
             subcategory: getsubCategoryList.data.data[0]._id,
             [e.target.name]: value
-          })
+          });
         } else {
           setstate({
             ...state,
             subcategory: '',
             [e.target.name]: value
-          })
+          });
         }
       } else {
         setstate({
           ...state,
           subcategory: '',
           [e.target.name]: value
-        })
+        });
       }
-
-
-
-
-
-    } else if (e.target.name === "headline") {
-
+    } else if (e.target.name === 'headline') {
       let productNameVar = value.toLowerCase();
       productNameVar = productNameVar.replace(/\s+/g, '-');
       setstate({
         ...state,
         slug: productNameVar,
         [e.target.name]: value
-      })
+      });
       // if (id === "") {
       //   let productNameVar = value.toLowerCase();
       //   productNameVar = productNameVar.replace(/\s+/g, '-');
@@ -355,52 +360,46 @@ const AdminPosts = (props) => {
       //     [e.target.name]: value
       //   })
       // }
-    } else if (e.target.name === "slug") {
+    } else if (e.target.name === 'slug') {
       // if (id === "") {
       let productNameVar = value.toLowerCase();
       productNameVar = productNameVar.replace(/\s+/g, '-');
       setstate({
         ...state,
-        slug: productNameVar,
-      })
+        slug: productNameVar
+      });
       // }
-
     } else {
       if (e.target.name === 'unlimited' && value === true) {
-        // console.log('first') 
+        // console.log('first')
         setstate({
           ...state,
           quantity: '',
           [e.target.name]: value
-        })
+        });
       } else if (e.target.name === 'price') {
         // console.log(priceWithOrganizationTax(Number(value), Number(data.taxRate)))
 
-        let display = priceWithOrganizationTax(Number(value), Number(data.taxRate))
+        let display = priceWithOrganizationTax(Number(value), Number(data.taxRate));
         // console.log(display)
         setstate({
           ...state,
           displayPrice: display,
           [e.target.name]: value
-        })
-
+        });
       } else if (e.target.name === 'videoUrl') {
         setFulfilState({
           ...fulfilState,
           videoUrl: value
-        })
-
-
+        });
       } else {
-
         setstate({
           ...state,
           [e.target.name]: value
-        })
+        });
       }
     }
-
-  }
+  };
 
   const changefile = async (e) => {
     // console.log('gg')
@@ -409,14 +408,13 @@ const AdminPosts = (props) => {
       let file = e.target.files[0] ? e.target.files[0] : '';
 
       if (file) {
-        let extension = file.name.substr(file.name.lastIndexOf('.') + 1)
+        let extension = file.name.substr(file.name.lastIndexOf('.') + 1);
         if (validExtensions.includes(extension)) {
-
-          setTempImg(URL.createObjectURL(file))
+          setTempImg(URL.createObjectURL(file));
           setstate({
             ...state,
             image: file
-          })
+          });
           // if (hasAlpha(URL.createObjectURL(file))) {
           //   alert(hasAlpha(URL.createObjectURL(file)))
 
@@ -428,45 +426,39 @@ const AdminPosts = (props) => {
           setstate({
             ...state,
             image: ''
-          })
+          });
         }
-
       } else {
         setstate({
           ...state,
           image: ''
-        })
-        setTempImg('')
+        });
+        setTempImg('');
       }
       // console.log(URL.createObjectURL(file))
-
     } else if (e.target.id === 'galleryImg') {
-
-
-      let gImgtempArry = []
-      let gImgtempObj = []
-      let tempGallaryFileArry = []
-
+      let gImgtempArry = [];
+      let gImgtempObj = [];
+      let tempGallaryFileArry = [];
 
       if (e.target.files && e.target.files.length > 0) {
-        gImgtempObj.push(e.target.files)
+        gImgtempObj.push(e.target.files);
         for (let i = 0; i < gImgtempObj[0].length; i++) {
-          let extension = gImgtempObj[0][i].name.substr(gImgtempObj[0][i].name.lastIndexOf('.') + 1)
+          let extension = gImgtempObj[0][i].name.substr(
+            gImgtempObj[0][i].name.lastIndexOf('.') + 1
+          );
           if (validExtensions.includes(extension)) {
-
-            tempGallaryFileArry.push(gImgtempObj[0][i])
-            gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]))
+            tempGallaryFileArry.push(gImgtempObj[0][i]);
+            gImgtempArry.push(URL.createObjectURL(gImgtempObj[0][i]));
           }
         }
-        let oldG = [...gallaryTempImages]
-        let combine = oldG.concat(gImgtempArry)
-        setGallaryTempImages(combine)
-
+        let oldG = [...gallaryTempImages];
+        let combine = oldG.concat(gImgtempArry);
+        setGallaryTempImages(combine);
 
         // let oldMG = [...galleryImg]
         // console.log(galleryImg)
         // let combineMainG = oldMG?.concat(tempGallaryFileArry)
-
 
         // setstate({
         //   ...state,
@@ -475,108 +467,84 @@ const AdminPosts = (props) => {
 
         // setGallaryTempImages(gImgtempArry)
         if (galleryImg && galleryImg.length) {
-
-          let oldMG = [...galleryImg]
+          let oldMG = [...galleryImg];
           // console.log(galleryImg)
-          let combineMainG = oldMG?.concat(tempGallaryFileArry)
-
+          let combineMainG = oldMG?.concat(tempGallaryFileArry);
 
           setstate({
             ...state,
             galleryImg: combineMainG
-          })
-
+          });
         } else {
           setstate({
             ...state,
             galleryImg: tempGallaryFileArry
-          })
+          });
         }
-
-
-
-
       }
-
-
-
     } else if (e.target.id === 'moreImg') {
-
-      let mImgtempArry = []
-      let mImgtempObj = []
-      let tempMainFileArry = []
-
+      let mImgtempArry = [];
+      let mImgtempObj = [];
+      let tempMainFileArry = [];
 
       if (e.target.files && e.target.files.length > 0) {
-        mImgtempObj.push(e.target.files)
+        mImgtempObj.push(e.target.files);
         for (let i = 0; i < mImgtempObj[0].length; i++) {
-          let extension = mImgtempObj[0][i].name.substr(mImgtempObj[0][i].name.lastIndexOf('.') + 1)
+          let extension = mImgtempObj[0][i].name.substr(
+            mImgtempObj[0][i].name.lastIndexOf('.') + 1
+          );
           if (validExtensions.includes(extension)) {
-            tempMainFileArry.push(mImgtempObj[0][i])
-            mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]))
-
+            tempMainFileArry.push(mImgtempObj[0][i]);
+            mImgtempArry.push(URL.createObjectURL(mImgtempObj[0][i]));
           }
         }
-        let oldG = [...moreTempImages]
-        let combined = oldG.concat(mImgtempArry)
-        setMoreTempImages(combined)
-
+        let oldG = [...moreTempImages];
+        let combined = oldG.concat(mImgtempArry);
+        setMoreTempImages(combined);
 
         if (moreImg && moreImg.length) {
+          let oldMG = [...moreImg];
 
-          let oldMG = [...moreImg]
-
-          let combineMainG = oldMG?.concat(tempMainFileArry)
-
+          let combineMainG = oldMG?.concat(tempMainFileArry);
 
           setstate({
             ...state,
             moreImg: combineMainG
-          })
-
+          });
         } else {
           setstate({
             ...state,
             moreImg: tempMainFileArry
-          })
+          });
         }
-
-
-
-
-
 
         // setstate({
         //   ...state,
         //   moreImg: tempMainFileArry
         // })
-
       }
-
     } else if (e.target.id === 'fulfilmoreImages') {
-
-
-      let fmImgtempArry = []
-      let fmImgtempObj = []
-      let ftempMainFileArry = []
-
+      let fmImgtempArry = [];
+      let fmImgtempObj = [];
+      let ftempMainFileArry = [];
 
       if (e.target.files && e.target.files.length > 0) {
-        fmImgtempObj.push(e.target.files)
+        fmImgtempObj.push(e.target.files);
         for (let i = 0; i < fmImgtempObj[0].length; i++) {
-          let extension = fmImgtempObj[0][i].name.substr(fmImgtempObj[0][i].name.lastIndexOf('.') + 1)
+          let extension = fmImgtempObj[0][i].name.substr(
+            fmImgtempObj[0][i].name.lastIndexOf('.') + 1
+          );
           if (validExtensions.includes(extension)) {
-            ftempMainFileArry.push(fmImgtempObj[0][i])
-            fmImgtempArry.push(URL.createObjectURL(fmImgtempObj[0][i]))
-
+            ftempMainFileArry.push(fmImgtempObj[0][i]);
+            fmImgtempArry.push(URL.createObjectURL(fmImgtempObj[0][i]));
           }
         }
-        let old = [...fulfilMoreTempImages]
-        let combine = old.concat(fmImgtempArry)
-        setFulfilMoreTempImages(combine)
+        let old = [...fulfilMoreTempImages];
+        let combine = old.concat(fmImgtempArry);
+        setFulfilMoreTempImages(combine);
 
-        let oldf = [...fulfilMoreImg]
-        let combineMain = oldf.concat(ftempMainFileArry)
+        let oldf = [...fulfilMoreImg];
+        let combineMain = oldf.concat(ftempMainFileArry);
 
         // setFulfilMoreTempImages(fmImgtempArry)
         // setFulfilState({
@@ -587,41 +555,37 @@ const AdminPosts = (props) => {
         setFulfilState({
           ...fulfilState,
           fulfilMoreImg: combineMain
-        })
-
+        });
       }
-
     } else if (e.target.id === 'receiptFile') {
       let file = e.target.files[0] ? e.target.files[0] : '';
       if (file) {
-        setTempImgName(file.name)
+        setTempImgName(file.name);
         // console.log(file)
         setFulfilState({
           ...fulfilState,
           receiptFile: file
-        })
+        });
       } else {
-        setTempImgName('')
+        setTempImgName('');
 
         setFulfilState({
           ...fulfilState,
           receiptFile: ''
-        })
-
+        });
       }
     }
-
-  }
+  };
   const resetForm = async (e) => {
     // setModal(false);
-    setTags([])
-    setTempImg('')
-    setImg('')
-    setMoreTempImages([])
-    setMoreImages([])
-    setGallaryTempImages([])
-    setGallaryImages([])
-    setSeletedProjectList([])
+    setTags([]);
+    setTempImg('');
+    setImg('');
+    setMoreTempImages([]);
+    setMoreImages([]);
+    setGallaryTempImages([]);
+    setGallaryImages([]);
+    setSeletedProjectList([]);
     setstate({
       id: '',
       status: 1,
@@ -650,54 +614,46 @@ const AdminPosts = (props) => {
       postTag: false,
       media: false,
       policy: false,
-      galleryImg: [],
+      galleryImg: []
     });
-
-  }
+  };
 
   const submitProductForm = (s) => {
-
     // console.log(galleryImg)
 
     window.scrollTo(0, 0);
     // console.log(tags)
-    const formaerrror = {}
+    const formaerrror = {};
 
     if (s === 1) {
       if (tags.length === 0) {
-        formaerrror['tags'] = "Please Enter Tags"
+        formaerrror['tags'] = 'Please Enter Tags';
       }
 
       if (!unlimited && !quantity) {
-        formaerrror['quantity'] = "Quantity is required"
-
+        formaerrror['quantity'] = 'Quantity is required';
       }
 
       if (!policy) {
-        formaerrror['policy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
-
+        formaerrror['policy'] =
+          'Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy.';
       }
     }
-    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH
+    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH;
 
-    let checkImg = id ? (gallaryImages?.length + galleryImg?.length) : (galleryImg?.length)
+    let checkImg = id ? gallaryImages?.length + galleryImg?.length : galleryImg?.length;
     if (checkImg > MAX_IMAGE_LENGTH) {
-      formaerrror['galleryImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
+      formaerrror['galleryImg'] = 'Image length Must be less then ' + MAX_IMAGE_LENGTH;
     }
 
-    let checkMore = id ? (moreImages?.length + moreImg?.length) : (moreImg?.length)
+    let checkMore = id ? moreImages?.length + moreImg?.length : moreImg?.length;
     if (checkMore > MAX_IMAGE_LENGTH) {
-      formaerrror['moreImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
-
+      formaerrror['moreImg'] = 'Image length Must be less then ' + MAX_IMAGE_LENGTH;
     }
-
-
-
 
     // console.log(formaerrror)
 
     if (!id) {
-
       // if (moreImg?.length > 0 && moreImg.length <= 1) {
       //   formaerrror['moreImg'] = "Please select more then one image"
       // }
@@ -707,7 +663,6 @@ const AdminPosts = (props) => {
       // if (galleryImg?.length <= 1) {
       //   formaerrror['galleryImg'] = "Please select more then one image"
       // }
-
     }
 
     let rules;
@@ -728,7 +683,7 @@ const AdminPosts = (props) => {
           // policy: 'boolean',
 
           slug: 'required'
-        }
+        };
       } else {
         rules = {
           brand: 'required',
@@ -742,14 +697,12 @@ const AdminPosts = (props) => {
           price: 'required',
           image: 'required',
           // quantity: 'required',
-          slug: 'required',
+          slug: 'required'
           // policy: 'boolean',
-
-        }
-
+        };
       }
     } else {
-      rules = {}
+      rules = {};
     }
 
     const message = {
@@ -765,158 +718,141 @@ const AdminPosts = (props) => {
       'image.required': 'image is Required',
       'quantity.required': 'Quantity is Required',
       'organization.required': 'Organization is Required',
-      'slug.required': 'Slug is Required',
+      'slug.required': 'Slug is Required'
+    };
 
+    validateAll(state, rules, message)
+      .then(async () => {
+        // const formaerrror = {};
+        setstate({
+          ...state,
+          error: formaerrror
+        });
 
-    }
+        let formData = {};
 
-    validateAll(state, rules, message).then(async () => {
-      // const formaerrror = {};
-      setstate({
-        ...state,
-        error: formaerrror
-      })
+        // data.title = title
+        // data.subtitle = subtitle
+        formData.status = s;
 
+        formData.brand = brand;
+        formData.needheadline = needheadline.trim();
+        if (galleryUrl && galleryUrl !== '') {
+          formData.galleryUrl = galleryUrl;
+        }
+        formData.headline = headline;
+        formData.unlimited = unlimited;
+        formData.media = media;
 
-      let formData = {}
+        formData.tax = tax;
+        formData.postTag = postTag;
 
-      // data.title = title
-      // data.subtitle = subtitle
-      formData.status = s
+        if (image) {
+          formData.image = image;
+        }
 
-      formData.brand = brand
-      formData.needheadline = needheadline.trim()
-      if (galleryUrl && galleryUrl !== '') {
-        formData.galleryUrl = galleryUrl
+        formData.organizationId = data._id;
 
-      }
-      formData.headline = headline
-      formData.unlimited = unlimited
-      formData.media = media
-
-      formData.tax = tax
-      formData.postTag = postTag
-
-
-      if (image) {
-        formData.image = image
-      }
-
-      formData.organizationId = data._id
-
-      // if (!id && id === '') {
-      formData.productSlug = slug
-
-      // }
-      let tagsArray = []
-      if (tags.length > 0) {
-        tags.map((ptage, i) => {
-          tagsArray.push(ptage.id)
-        })
-      }
-
-      if (moreImg?.length > 0) {
-        formData.moreImg = moreImg
-      }
-      if (galleryImg?.length > 0) {
-        formData.galleryImg = galleryImg
-      }
-      if (seletedProjectList?.length > 0) {
-        formData.prjects = seletedProjectList
-
-      }
-
-      if (address) {
-        formData.address = address
-      }
-
-      if (lat) {
-        formData.lat = lat
-
-      }
-
-      if (lng) {
-        formData.lng = lng
-
-      }
-
-
-      formData.organizationCountryId = data.country_id
-      formData.price = price ? Number(price) : 0
-      formData.description = description
-      formData.category_id = category
-      formData.subcategory_id = subcategory
-      formData.displayPrice = displayPrice ? Number(displayPrice) : 0
-
-
-      if (quantity) {
-        formData.quantity = quantity
-      }
-
-      formData.tags = tagsArray
-
-      // console.log(formData)
-
-      if (Object.keys(formaerrror).length === 0) {
+        // if (!id && id === '') {
+        formData.productSlug = slug;
 
         // }
-
-        let addProduct;
-        // Api Call for update Profile
-        setLoading(false)
-        if (id !== '') {
-          addProduct = await productApi.updateProduct(token, formData, id)
-        } else {
-          addProduct = await productApi.add(token, formData)
+        let tagsArray = [];
+        if (tags.length > 0) {
+          tags.map((ptage, i) => {
+            tagsArray.push(ptage.id);
+          });
         }
 
+        if (moreImg?.length > 0) {
+          formData.moreImg = moreImg;
+        }
+        if (galleryImg?.length > 0) {
+          formData.galleryImg = galleryImg;
+        }
+        if (seletedProjectList?.length > 0) {
+          formData.prjects = seletedProjectList;
+        }
 
-        if (addProduct) {
-          if (addProduct.data.success === false) {
-            setLoading(false)
-            ToastAlert({ msg: addProduct.data.message, msgType: 'error' });
+        if (address) {
+          formData.address = address;
+        }
 
+        if (lat) {
+          formData.lat = lat;
+        }
+
+        if (lng) {
+          formData.lng = lng;
+        }
+
+        formData.organizationCountryId = data.country_id;
+        formData.price = price ? Number(price) : 0;
+        formData.description = description;
+        formData.category_id = category;
+        formData.subcategory_id = subcategory;
+        formData.displayPrice = displayPrice ? Number(displayPrice) : 0;
+
+        if (quantity) {
+          formData.quantity = quantity;
+        }
+
+        formData.tags = tagsArray;
+
+        // console.log(formData)
+
+        if (Object.keys(formaerrror).length === 0) {
+          // }
+
+          let addProduct;
+          // Api Call for update Profile
+          setLoading(false);
+          if (id !== '') {
+            addProduct = await productApi.updateProduct(token, formData, id);
           } else {
-            if (addProduct.data.success === true) {
-              resetForm()
-              setLoading(false)
-              setUpdate(!update)
-              createPost(false)
-              setModelShow(false)
-              ToastAlert({ msg: addProduct.data.message, msgType: 'success' });
+            addProduct = await productApi.add(token, formData);
+          }
+
+          if (addProduct) {
+            if (addProduct.data.success === false) {
+              setLoading(false);
+              ToastAlert({ msg: addProduct.data.message, msgType: 'error' });
+            } else {
+              if (addProduct.data.success === true) {
+                resetForm();
+                setLoading(false);
+                setUpdate(!update);
+                createPost(false);
+                setModelShow(false);
+                ToastAlert({ msg: addProduct.data.message, msgType: 'success' });
+              }
             }
+          } else {
+            setLoading(false);
+            ToastAlert({ msg: 'Product not save', msgType: 'error' });
           }
         } else {
-          setLoading(false)
-          ToastAlert({ msg: 'Product not save', msgType: 'error' });
+          setModelShow(false);
         }
-      } else {
-        setModelShow(false)
-
-      }
-
-    }).catch(errors => {
-      setLoading(false)
-      // console.log(errors)
-      // const formaerrror = {};
-      if (errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
-        });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
-
-      setstate({
-        ...state,
-        error: formaerrror
       })
+      .catch((errors) => {
+        setLoading(false);
+        // console.log(errors)
+        // const formaerrror = {};
+        if (errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
-
-
-  }
+        setstate({
+          ...state,
+          error: formaerrror
+        });
+      });
+  };
 
   const deleteProduct = (id) => {
     confirmAlert({
@@ -925,59 +861,57 @@ const AdminPosts = (props) => {
       buttons: [
         {
           label: 'Yes',
-          onClick: (async () => {
-            setLoading(false)
+          onClick: async () => {
+            setLoading(false);
             if (id !== '') {
-              const deleteProductApi = await productApi.deleteProduct(token, id)
+              const deleteProductApi = await productApi.deleteProduct(token, id);
               if (deleteProductApi) {
                 if (deleteProductApi.data.success === false) {
-                  setLoading(false)
+                  setLoading(false);
                   ToastAlert({ msg: deleteProductApi.data.message, msgType: 'error' });
                 } else {
                   if (deleteProductApi.data.success === true) {
-                    setLoading(false)
-                    setUpdate(!update)
+                    setLoading(false);
+                    setUpdate(!update);
                     ToastAlert({ msg: deleteProductApi.data.message, msgType: 'success' });
                   }
                 }
               } else {
-                setLoading(false)
+                setLoading(false);
                 ToastAlert({ msg: 'Product not delete', msgType: 'error' });
               }
             } else {
-              setLoading(false)
+              setLoading(false);
               ToastAlert({ msg: 'Product not delete id Not found', msgType: 'error' });
             }
-          })
+          }
         },
         {
-          label: 'No',
+          label: 'No'
         }
       ]
     });
-  }
+  };
 
   const editProduct = async (productData) => {
-
-    setGallaryTempImages([])
-    setMoreTempImages([])
-    setTempImg('')
-    setLoading(false)
-    let formData = {}
-    formData.productId = productData._id
+    setGallaryTempImages([]);
+    setMoreTempImages([]);
+    setTempImg('');
+    setLoading(false);
+    let formData = {};
+    formData.productId = productData._id;
 
     const getProductDetails = await productApi.productDetailsById(token, formData);
     if (getProductDetails.data.success === true) {
-      setLoading(false)
+      setLoading(false);
 
-      productData = getProductDetails.data.data[0]
+      productData = getProductDetails.data.data[0];
 
       // console.log(productData)
 
-
-      if ((productData) && productData !== null && productData !== '') {
+      if (productData && productData !== null && productData !== '') {
         // console.log(productData)
-        // 
+        //
         setstate({
           id: productData._id,
           status: productData.status,
@@ -995,280 +929,261 @@ const AdminPosts = (props) => {
           unlimited: productData.unlimited,
           tax: productData.tax,
           postTag: productData.postTag,
-          address: productData.address ? productData.address : "",
-          lat: productData.lat ? productData.lat : "",
-          lng: productData.lng ? productData.lng : "",
+          address: productData.address ? productData.address : '',
+          lat: productData.lat ? productData.lat : '',
+          lng: productData.lng ? productData.lng : '',
           media: productData.media ? productData.media : false,
           displayPrice: productData.displayPrice ? productData.displayPrice : productData.price,
-          policy: true,
-
-
-
-
+          policy: true
         });
 
         let tempProjectArray = [];
         if (productData.projectDetails.length > 0) {
           productData.projectDetails.map((project, i) => {
-            tempProjectArray.push(project.projectId)
-          })
-          setSeletedProjectList(tempProjectArray)
+            tempProjectArray.push(project.projectId);
+          });
+          setSeletedProjectList(tempProjectArray);
         } else {
-          setSeletedProjectList([])
-
+          setSeletedProjectList([]);
         }
         // console.log(productData.projectDetails)
 
-
-        let tempMImgArray = []
+        let tempMImgArray = [];
 
         if (productData.imageDetails.length > 0) {
           productData.imageDetails.map((img, i) => {
             if (img.type === 'moreImage') {
-              let tempObj = {}
-              tempObj.img = img.image
-              tempObj.id = img._id
-              tempMImgArray.push(tempObj)
+              let tempObj = {};
+              tempObj.img = img.image;
+              tempObj.id = img._id;
+              tempMImgArray.push(tempObj);
             }
-
-          })
-          setMoreImages(tempMImgArray)
+          });
+          setMoreImages(tempMImgArray);
         } else {
-          setMoreImages([])
-
+          setMoreImages([]);
         }
 
-
-        let tempGImgArray = []
+        let tempGImgArray = [];
 
         if (productData.imageDetails.length > 0) {
           productData.imageDetails.map((img, i) => {
             if (img.type === 'galleryImage') {
-              let tempObj = {}
-              tempObj.img = img.image
-              tempObj.id = img._id
-              tempGImgArray.push(tempObj)
+              let tempObj = {};
+              tempObj.img = img.image;
+              tempObj.id = img._id;
+              tempGImgArray.push(tempObj);
             }
-
-          })
-          setGallaryImages(tempGImgArray)
+          });
+          setGallaryImages(tempGImgArray);
         } else {
-          setGallaryImages([])
-
+          setGallaryImages([]);
         }
 
-        let mytags = []
+        let mytags = [];
         let addedTags = [];
         if (productData.tags.length > 0) {
-          addedTags = productData.tags
+          addedTags = productData.tags;
 
           addedTags.map((aadedTag, i) => {
-            let tagsObj = {}
-            tagsObj.id = aadedTag
-            tagsObj.text = aadedTag
-            mytags.push(tagsObj)
-          })
-          setTags(mytags)
+            let tagsObj = {};
+            tagsObj.id = aadedTag;
+            tagsObj.text = aadedTag;
+            mytags.push(tagsObj);
+          });
+          setTags(mytags);
         }
-        setImg(productData.image)
+        setImg(productData.image);
 
         const getsubCategoryList = await categoryApi.listSubCategory(token, productData.categoryId);
         if (getsubCategoryList.data.success === true) {
-          setSubCategoryList(getsubCategoryList.data.data)
+          setSubCategoryList(getsubCategoryList.data.data);
         }
         createPost(true);
-        setLoading(false)
-
+        setLoading(false);
       } else {
-        setLoading(false)
-        ToastAlert({ msg: 'Something went wrong category data not found please try again', msgType: 'error' });
+        setLoading(false);
+        ToastAlert({
+          msg: 'Something went wrong category data not found please try again',
+          msgType: 'error'
+        });
       }
     }
-  }
+  };
 
   const createNewPost = () => {
     if (user.isAccountAdded) {
-      resetForm()
-      createPost(true)
+      resetForm();
+      createPost(true);
     } else {
-      let path = '/campaign/' + data.slug + '/settings/paymentMethod'
-      navigate(path)
+      let path = '/campaign/' + data.slug + '/settings/paymentMethod';
+      navigate(path);
       ToastAlert({ msg: 'Please add Bank Account.', msgType: 'error' });
-
     }
-  }
+  };
 
   const publishProduct = async (id, data) => {
-    if (!data || !data.headline || !data.categoryId || !data.subcategoryId || !data.slug || !data.brand || data.tags.length === 0 || !data.
-      needheadline || !data.unlimited && !data.quantity || !data.image || !data.price === 0 || !data.description) {
-      ToastAlert({ msg: 'Product not Published please fill Required information', msgType: 'error' });
+    if (
+      !data ||
+      !data.headline ||
+      !data.categoryId ||
+      !data.subcategoryId ||
+      !data.slug ||
+      !data.brand ||
+      data.tags.length === 0 ||
+      !data.needheadline ||
+      (!data.unlimited && !data.quantity) ||
+      !data.image ||
+      !data.price === 0 ||
+      !data.description
+    ) {
+      ToastAlert({
+        msg: 'Product not Published please fill Required information',
+        msgType: 'error'
+      });
     } else {
-      setLoading(false)
+      setLoading(false);
 
-      const publish = await productApi.publishProduct(token, id, 'PUBLISH')
+      const publish = await productApi.publishProduct(token, id, 'PUBLISH');
       if (publish) {
         if (publish.data.success === false) {
-          setLoading(false)
+          setLoading(false);
           ToastAlert({ msg: publish.data.message, msgType: 'error' });
         } else {
           if (publish.data.success === true) {
-            setLoading(false)
-            setUpdate(!update)
+            setLoading(false);
+            setUpdate(!update);
             ToastAlert({ msg: publish.data.message, msgType: 'success' });
           }
         }
       } else {
-        setLoading(false)
+        setLoading(false);
         ToastAlert({ msg: 'Product not Published', msgType: 'error' });
       }
     }
-
-  }
+  };
   const unPublishProduct = async (id) => {
-
-    const publish = await productApi.publishProduct(token, id, 'UNPUBLISH')
+    const publish = await productApi.publishProduct(token, id, 'UNPUBLISH');
     if (publish) {
       if (publish.data.success === false) {
-        setLoading(false)
+        setLoading(false);
         // ToastAlert({ msg: publish.data.message, msgType: 'error' });
       } else {
         if (publish.data.success === true) {
-          setLoading(false)
-          setUpdate(!update)
-          setFulfil(false)
-          createPost(false)
+          setLoading(false);
+          setUpdate(!update);
+          setFulfil(false);
+          createPost(false);
           // ToastAlert({ msg: publish.data.message, msgType: 'success' });
         }
       }
     } else {
-      setLoading(false)
+      setLoading(false);
       ToastAlert({ msg: 'Product not Published', msgType: 'error' });
     }
-
-
-  }
+  };
 
   // console.log(data)
   const getProductList = async (page, field, type) => {
-    setLoading(false)
-    let formData = {}
-    formData.organizationId = data._id
-    formData.pageNo = page
-    formData.sortField = field
-    formData.sortType = type
-    formData.filter = true
-    formData.type = 'product'
+    setLoading(false);
+    let formData = {};
+    formData.organizationId = data._id;
+    formData.pageNo = page;
+    formData.sortField = field;
+    formData.sortType = type;
+    formData.filter = true;
+    formData.type = 'product';
 
     // console.log(data._id)
-
 
     const getOrganizationProducts = await productApi.listByOrganization(token, formData);
     if (getOrganizationProducts.data.success === true) {
       if (getOrganizationProducts.data.data.length > 0) {
-
-
-        let productDetails = getOrganizationProducts.data.data.filter((value, index, self) =>
-          index === self.findIndex((t) => (
-            t._id === value._id
-          ))
-        )
-        setProductList(productDetails)
+        let productDetails = getOrganizationProducts.data.data.filter(
+          (value, index, self) => index === self.findIndex((t) => t._id === value._id)
+        );
+        setProductList(productDetails);
       } else {
-        setProductList([])
-
+        setProductList([]);
       }
       // setProductList(getOrganizationProducts.data.data)
-      setTotalPages(getOrganizationProducts.data.totalPages)
-      setTotalRecord(getOrganizationProducts.data.totalRecord)
+      setTotalPages(getOrganizationProducts.data.totalPages);
+      setTotalRecord(getOrganizationProducts.data.totalRecord);
     }
-    setLoading(false)
-
-
-  }
+    setLoading(false);
+  };
 
   useEffect(() => {
     (async () => {
       // console.log(data.country_id)
-      await getProductList(pageNo, sortField, order)
+      await getProductList(pageNo, sortField, order);
       // console.log(data)
-
-    })()
-  }, [data._id, update])
+    })();
+  }, [data._id, update]);
 
   const handleClick = async (e, v) => {
-
-    setPageNo(Number(v))
-    await getProductList(Number(v), sortField, order)
-  }
+    setPageNo(Number(v));
+    await getProductList(Number(v), sortField, order);
+  };
   const closeFulfilForm = () => {
-    createPost(false)
-    setFulfil(false)
-    setFulfilMoreTempImages([])
-    setFulfilMoreImages([])
+    createPost(false);
+    setFulfil(false);
+    setFulfilMoreTempImages([]);
+    setFulfilMoreImages([]);
 
     setFulfilState({
       ...fulfilState,
-      fulfilId: "",
+      fulfilId: '',
       fulfilMoreImg: [],
       videoUrl: '',
       receiptFile: '',
       fulfilPolicy: false,
       fulfilError: []
-    })
-
-  }
-
-
+    });
+  };
 
   const handleSortingChange = async (accessor) => {
-
-    const sortOrder =
-      accessor === sortField && order === "asc" ? "desc" : "asc";
+    const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc';
     setSortField(accessor);
     setOrder(sortOrder);
-    await getProductList(pageNo, accessor, sortOrder)
-
-
+    await getProductList(pageNo, accessor, sortOrder);
   };
 
   const deleteProductImage = async (id, type) => {
-    setLoading(true)
-    const deleteImg = await productApi.deleteProductImages(token, id)
+    setLoading(true);
+    const deleteImg = await productApi.deleteProductImages(token, id);
 
     if (deleteImg.data.success) {
       if (type === 'Fulfil') {
-
-        let imgs = [...fulfilmoreImages]
-        imgs = imgs.filter((item) => item.id !== id)
-        setFulfilMoreImages(imgs)
-
+        let imgs = [...fulfilmoreImages];
+        imgs = imgs.filter((item) => item.id !== id);
+        setFulfilMoreImages(imgs);
       } else {
-
         if (type === 'More') {
-          let imgs = [...moreImages]
-          imgs = imgs.filter((item) => item.id !== id)
-          setMoreImages(imgs)
+          let imgs = [...moreImages];
+          imgs = imgs.filter((item) => item.id !== id);
+          setMoreImages(imgs);
         } else {
-          let gImg = [...gallaryImages]
-          gImg = gImg.filter((item) => item.id !== id)
-          setGallaryImages(gImg)
-
+          let gImg = [...gallaryImages];
+          gImg = gImg.filter((item) => item.id !== id);
+          setGallaryImages(gImg);
         }
       }
-
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const fulfilOrder = async () => {
-    let formaerrror = {}
-    let rules = {}
+    let formaerrror = {};
+    let rules = {};
 
-    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH
+    const MAX_IMAGE_LENGTH = helper.MAX_IMAGE_LENGTH;
 
-    let checkMore = fulfilId ? (fulfilmoreImages?.length + fulfilMoreImg?.length) : (fulfilMoreImg?.length)
+    let checkMore = fulfilId
+      ? fulfilmoreImages?.length + fulfilMoreImg?.length
+      : fulfilMoreImg?.length;
     if (checkMore > MAX_IMAGE_LENGTH) {
-      formaerrror['fulfilMoreImg'] = "Image length Must be less then " + MAX_IMAGE_LENGTH
+      formaerrror['fulfilMoreImg'] = 'Image length Must be less then ' + MAX_IMAGE_LENGTH;
     }
 
     // if (fulfilMoreImg.length > helper.MAX_IMAGE_LENGTH) {
@@ -1277,94 +1192,82 @@ const AdminPosts = (props) => {
     // }
     // console.log(fulfilMoreImg)
     if (!fulfilPolicy) {
-      formaerrror['fulfilPolicy'] = "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy."
-
+      formaerrror['fulfilPolicy'] =
+        'Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy.';
     }
     if (!fulfilId) {
-      rules.receiptFile = 'required'
+      rules.receiptFile = 'required';
     }
     //  rules = {
     //   receiptFile: 'required',
     // }
 
     const message = {
-      'receiptFile.required': 'Receipt is Required',
-    }
+      'receiptFile.required': 'Receipt is Required'
+    };
 
-    validateAll(fulfilState, rules, message).then(async () => {
-
-      setFulfilState({
-        ...fulfilState,
-        fulfilError: formaerrror
-      })
-
-      if (Object.keys(formaerrror).length === 0) {
-
-        let formData = {}
-
-        if (fulfilMoreImg?.length > 0) {
-          formData.moreImg = fulfilMoreImg
-        }
-        if (receiptFile) {
-          formData.image = receiptFile
-        }
-        formData.organizationId = data._id
-        formData.productId = fulfilProductDetails._id
-        formData.organizationCountryId = data.country_id
-
-
-        if (videoUrl) {
-          formData.video = videoUrl
-        }
-
-        let fulfil;
-        if (fulfilId) {
-          fulfil = await productApi.updateFulfilOrder(token, formData, fulfilId)
-        } else {
-          fulfil = await productApi.fulfilOrder(token, formData)
-        }
-
-        if (fulfil && fulfil.data.success) {
-          closeFulfilForm()
-          setUpdate(!update)
-          ToastAlert({ msg: fulfil.data.message, msgType: 'success' });
-        } else {
-          ToastAlert({ msg: fulfil.data.message, msgType: 'error' });
-        }
-
-
-
-
-      }
-
-
-
-    }).catch(errors => {
-      setLoading(false)
-      if (errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+    validateAll(fulfilState, rules, message)
+      .then(async () => {
+        setFulfilState({
+          ...fulfilState,
+          fulfilError: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
 
-      setFulfilState({
-        ...fulfilState,
-        fulfilError: formaerrror
+        if (Object.keys(formaerrror).length === 0) {
+          let formData = {};
+
+          if (fulfilMoreImg?.length > 0) {
+            formData.moreImg = fulfilMoreImg;
+          }
+          if (receiptFile) {
+            formData.image = receiptFile;
+          }
+          formData.organizationId = data._id;
+          formData.productId = fulfilProductDetails._id;
+          formData.organizationCountryId = data.country_id;
+
+          if (videoUrl) {
+            formData.video = videoUrl;
+          }
+
+          let fulfil;
+          if (fulfilId) {
+            fulfil = await productApi.updateFulfilOrder(token, formData, fulfilId);
+          } else {
+            fulfil = await productApi.fulfilOrder(token, formData);
+          }
+
+          if (fulfil && fulfil.data.success) {
+            closeFulfilForm();
+            setUpdate(!update);
+            ToastAlert({ msg: fulfil.data.message, msgType: 'success' });
+          } else {
+            ToastAlert({ msg: fulfil.data.message, msgType: 'error' });
+          }
+        }
       })
+      .catch((errors) => {
+        setLoading(false);
+        if (errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
-
-
-  }
+        setFulfilState({
+          ...fulfilState,
+          fulfilError: formaerrror
+        });
+      });
+  };
 
   const showFulfillOrder = async (data) => {
     // console.log(data)
-    setFulfilProductDetails(data)
-    createPost(true)
-    setFulfil(true)
+    setFulfilProductDetails(data);
+    createPost(true);
+    setFulfil(true);
 
     setFulfilState({
       ...fulfilState,
@@ -1374,75 +1277,63 @@ const AdminPosts = (props) => {
       receiptFile: '',
       fulfilPolicy: data?.isFulfiled,
       fulfilError: []
-    })
-    let tempMImgArray = []
+    });
+    let tempMImgArray = [];
     if (data.imageDetails.length > 0) {
       data.imageDetails.map((img, i) => {
         if (img.type === 'fulfillImage') {
-          let tempObj = {}
-          tempObj.img = img.image
-          tempObj.id = img._id
-          tempMImgArray.push(tempObj)
+          let tempObj = {};
+          tempObj.img = img.image;
+          tempObj.id = img._id;
+          tempMImgArray.push(tempObj);
         }
-
-      })
-      setFulfilMoreImages(tempMImgArray)
+      });
+      setFulfilMoreImages(tempMImgArray);
     } else {
-      setFulfilMoreImages([])
-
+      setFulfilMoreImages([]);
     }
-  }
+  };
 
   const removeFulfilTempImages = async (id) => {
-
-    let imgs = [...fulfilMoreTempImages]
+    let imgs = [...fulfilMoreTempImages];
     imgs.splice(id, 1);
-    setFulfilMoreTempImages(imgs)
+    setFulfilMoreTempImages(imgs);
 
-    let fImg = [...fulfilMoreImg]
+    let fImg = [...fulfilMoreImg];
     fImg.splice(id, 1);
     setFulfilState({
       ...fulfilState,
       fulfilMoreImg: fImg
-    })
-
-  }
+    });
+  };
 
   const removeGallaryempImages = async (id, type) => {
-
     if (type === 'galleryImg') {
-      let imgs = [...gallaryTempImages]
+      let imgs = [...gallaryTempImages];
       imgs.splice(id, 1);
-      setGallaryTempImages(imgs)
+      setGallaryTempImages(imgs);
 
-      let fImg = [...galleryImg]
+      let fImg = [...galleryImg];
       fImg.splice(id, 1);
-
 
       setstate({
         ...state,
         galleryImg: fImg
-      })
+      });
     } else {
-
-      let imgs = [...moreTempImages]
+      let imgs = [...moreTempImages];
       imgs.splice(id, 1);
-      setMoreTempImages(imgs)
+      setMoreTempImages(imgs);
 
-      let fImg = [...moreImg]
+      let fImg = [...moreImg];
       fImg.splice(id, 1);
-
 
       setstate({
         ...state,
         moreImg: fImg
-      })
-
+      });
     }
-
-  }
-
-
+  };
 
   // function download(dataurl, filename) {
   //   const link = document.createElement("a");
@@ -1456,67 +1347,99 @@ const AdminPosts = (props) => {
       {/* {console.log('state', displayPrice)} */}
       <FrontLoader loading={loading} />
 
-      <div className="modal  common-modal" id="removeModalTwo" tabIndex="-1" aria-labelledby="removeModalTwoLabel"
-        aria-hidden="true" style={{ display: modelShow ? "block" : 'none', background: modelShow ? 'hsl(0deg 0% 100% / 75%)' : '' }}>
+      <div
+        className="modal  common-modal"
+        id="removeModalTwo"
+        tabIndex="-1"
+        aria-labelledby="removeModalTwoLabel"
+        aria-hidden="true"
+        style={{
+          display: modelShow ? 'block' : 'none',
+          background: modelShow ? 'hsl(0deg 0% 100% / 75%)' : ''
+        }}
+      >
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content shadow-lg">
             <div className="modal-body text-center">
               <div className="remove-img-wrap">
-                <img src='https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/6047be327f2bfa3c53385cd6_pencil.svg' alt="remove link" style={{ height: "120px", marginBottom: "10px", maxWidth: '100%' }} />
+                <img
+                  src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/6047be327f2bfa3c53385cd6_pencil.svg"
+                  alt="remove link"
+                  style={{ height: '120px', marginBottom: '10px', maxWidth: '100%' }}
+                />
               </div>
-              <h5 className="modal-title mb-3" id="removeModalTwoLabel" style={{ fontWeight: '700', fontSize: '24px' }}>Save Draft?</h5>
+              <h5
+                className="modal-title mb-3"
+                id="removeModalTwoLabel"
+                style={{ fontWeight: '700', fontSize: '24px' }}
+              >
+                Save Draft?
+              </h5>
               <p>You can view your drafts on the Admin page under Studio</p>
             </div>
-            <div className="modal-footer" style={{ background: "#f8fafd" }}>
-              <button type="button" className="btn btn-flat btn-link" style={{ color: '#3085d6' }} data-bs-dismiss="modal" onClick={() => setModelShow(false)}>Cancel</button>
-              <button type="button" className="btn btn-flat btn-info" data-bs-dismiss="modal" onClick={() => submitProductForm(-1)}>Save</button>
+            <div className="modal-footer" style={{ background: '#f8fafd' }}>
+              <button
+                type="button"
+                className="btn btn-flat btn-link"
+                style={{ color: '#3085d6' }}
+                data-bs-dismiss="modal"
+                onClick={() => setModelShow(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-flat btn-info"
+                data-bs-dismiss="modal"
+                onClick={() => submitProductForm(-1)}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
       </div>
 
+      {
+        !viewPost ? (
+          <div>
+            <header className="py-sm-2 mb-3 w-100 d-sm-flex align-items-center">
+              <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">Posts</h1>
+              <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
 
+              <div className="d-flex align-items-center ms-sm-auto">
+                <Button
+                  variant="info"
+                  size="lg"
+                  className="me-2 fw-bold fs-6"
+                  onClick={() => createNewPost()}
+                >
+                  Create New
+                </Button>
+                {/* <LadderMenuItems /> */}
+              </div>
+            </header>
 
-
-      {!viewPost ? (
-        <div>
-          <header className="py-sm-2 mb-3 w-100 d-sm-flex align-items-center">
-            <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">
-              Posts
-            </h1>
-            <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
-
-            <div className="d-flex align-items-center ms-sm-auto">
-              <Button variant="info" size="lg" className="me-2 fw-bold fs-6" onClick={() => createNewPost()}>Create New</Button>
-              {/* <LadderMenuItems /> */}
-            </div>
-          </header>
-
-          <PostsTable
-            productList={productList}
-            editProduct={editProduct}
-            deleteProduct={deleteProduct}
-            publishProduct={publishProduct}
-            handleClick={handleClick}
-            totalPages={totalPages}
-            totalRecord={totalRecord}
-            pageNo={pageNo}
-            handleSortingChange={handleSortingChange}
-            order={order}
-            sortField={sortField}
-            organizationDetails={data}
-            setFulfil={setFulfil}
-            createPost={createPost}
-            setFulfilProductDetails={setFulfilProductDetails}
-            showFulfillOrder={showFulfillOrder}
-
-
-
-
-          />
-        </div>
-      )
-        : !fulfil ?
+            <PostsTable
+              productList={productList}
+              editProduct={editProduct}
+              deleteProduct={deleteProduct}
+              publishProduct={publishProduct}
+              handleClick={handleClick}
+              totalPages={totalPages}
+              totalRecord={totalRecord}
+              pageNo={pageNo}
+              handleSortingChange={handleSortingChange}
+              order={order}
+              sortField={sortField}
+              organizationDetails={data}
+              setFulfil={setFulfil}
+              createPost={createPost}
+              setFulfilProductDetails={setFulfilProductDetails}
+              showFulfillOrder={showFulfillOrder}
+            />
+          </div>
+        ) : !fulfil ? (
           <AddPost
             createPost={createPost}
             organizationDetails={data}
@@ -1548,19 +1471,19 @@ const AdminPosts = (props) => {
             deleteProductImage={deleteProductImage}
             setModelShow={setModelShow}
             removeGallaryempImages={removeGallaryempImages}
-
           />
-          :
+        ) : (
           // fulfil ?
           <>
             <div className="d-flex align-items-center flex-grow-1 pb-20p border-bottom">
-              <Button variant="link" className="me-sm-2 me-1" onClick={() => {
-                closeFulfilForm()
-              }}>
-                <FontAwesomeIcon
-                  icon={solid("angle-left")}
-                  className="text-subtext fs-3"
-                />
+              <Button
+                variant="link"
+                className="me-sm-2 me-1"
+                onClick={() => {
+                  closeFulfilForm();
+                }}
+              >
+                <FontAwesomeIcon icon={solid('angle-left')} className="text-subtext fs-3" />
               </Button>
               <div className="d-flex align-items-center text-dark me-sm-3 flex__1">
                 <div className="item__image-wrap">
@@ -1581,9 +1504,7 @@ const AdminPosts = (props) => {
               </div>
 
               <div className="d-none d-sm-flex align-items-center flex__1">
-                <div className="d-flex align-items-center flex__1">
-
-                </div>
+                <div className="d-flex align-items-center flex__1"></div>
               </div>
 
               {/* <ListItemImg
@@ -1591,82 +1512,90 @@ const AdminPosts = (props) => {
                 imgSrc={helper.CampaignAdminLogoPath + item.itemDetails?.organizationDetails?.logo}
               /> */}
 
-              <Link variant="link" className="text-light p-0 fw-normal" to={'/item/' + fulfilProductDetails?.slug}>
-                <FontAwesomeIcon
-                  icon={regular("square-up-right")}
-                  className="me-1"
-                />{" "}
-                Go to Post
+              <Link
+                variant="link"
+                className="text-light p-0 fw-normal"
+                to={'/item/' + fulfilProductDetails?.slug}
+              >
+                <FontAwesomeIcon icon={regular('square-up-right')} className="me-1" /> Go to Post
               </Link>
             </div>
 
             <div className="empty_state mt-3">
-              <div className="note note-info d-flex align-items-center" style={{ maxWidth: "100%" }}>
+              <div
+                className="note note-info d-flex align-items-center"
+                style={{ maxWidth: '100%' }}
+              >
                 <span className="post__badge post__badge--sold me-2 text-primary fs-3">
-                  <FontAwesomeIcon icon={solid("party-horn")} />
+                  <FontAwesomeIcon icon={solid('party-horn')} />
                 </span>
                 <span className="post__badge post__badge--sold me-2 text-primary fs-3">
-                  <FontAwesomeIcon icon={solid("face-party")} />
+                  <FontAwesomeIcon icon={solid('face-party')} />
                 </span>
 
                 <span className="fs-6 text-subtext">
-                  Congratulations! Your post has been fully funded. Upload the sales receipt to complete your order.
+                  Congratulations! Your post has been fully funded. Upload the sales receipt to
+                  complete your order.
                 </span>
               </div>
             </div>
 
-
             <Card className="mt-5">
-
               <Row className="mw-850 ml-5">
-
-
                 <Col lg="6">
-
-
                   <Card.Header className="post__accordion-header pb-3">
-
                     <span className="fs-3 fw-bolder text-dark">Order Summary</span>
-
                   </Card.Header>
-                  {
-                    !fulfilProductDetails?.isFulfiled &&
-
+                  {!fulfilProductDetails?.isFulfiled && (
                     <label htmlFor="videoInput" className="form__label mt-3">
                       Transaction Details
                     </label>
-                  }
+                  )}
 
-                  <div className="order__widget mt-3 " style={{ border: fulfilProductDetails?.isFulfiled ? 'unset' : "" }}>
-
-
-
-
+                  <div
+                    className="order__widget mt-3 "
+                    style={{ border: fulfilProductDetails?.isFulfiled ? 'unset' : '' }}
+                  >
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
-                        <span className="flex__1">{fulfilProductDetails?.unlimited ? 'Soldout' : 'Qty'} :</span>
-                        <span className="text-dark">{fulfilProductDetails?.unlimited ? fulfilProductDetails?.soldout : fulfilProductDetails?.quantity}</span>
+                        <span className="flex__1">
+                          {fulfilProductDetails?.unlimited ? 'Soldout' : 'Qty'} :
+                        </span>
+                        <span className="text-dark">
+                          {fulfilProductDetails?.unlimited
+                            ? fulfilProductDetails?.soldout
+                            : fulfilProductDetails?.quantity}
+                        </span>
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">
                         <span className="fw-bolder flex__1">Each:</span>
-                        <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price)}</span>
+                        <span className="text-success fw-bold fs-4">
+                          {data?.symbol}
+                          {priceFormat(
+                            fulfilProductDetails?.displayPrice
+                              ? fulfilProductDetails?.displayPrice
+                              : fulfilProductDetails?.price
+                          )}
+                        </span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">{data?.symbol}{priceFormat(
-                        (fulfilProductDetails?.displayPrice ? fulfilProductDetails?.displayPrice : fulfilProductDetails?.price) *
-                        (fulfilProductDetails?.
-                          unlimited
-                          ? fulfilProductDetails?.soldout :
-                          fulfilProductDetails?.quantity))}</span>
+                      <span className="text-success fw-bold fs-4">
+                        {data?.symbol}
+                        {priceFormat(
+                          (fulfilProductDetails?.displayPrice
+                            ? fulfilProductDetails?.displayPrice
+                            : fulfilProductDetails?.price) *
+                            (fulfilProductDetails?.unlimited
+                              ? fulfilProductDetails?.soldout
+                              : fulfilProductDetails?.quantity)
+                        )}
+                      </span>
                     </div>
-
                   </div>
 
-                  {
-                    fulfilProductDetails?.isFulfiled &&
-
+                  {fulfilProductDetails?.isFulfiled && (
                     <>
                       <div className="linked__item d-flex align-items-center p-1 border mt-3">
                         <div className="accounts__icon">
@@ -1676,29 +1605,33 @@ const AdminPosts = (props) => {
                             // imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62277f679099844cc42cc1d1_5b5e656493af1e0441cd892a_mc_vrt_pos.svg"
                             icon={
                               <FontAwesomeIcon
-                                icon={regular("building-columns")}
+                                icon={regular('building-columns')}
                                 className="fs-3 text-subtext"
                               />
                             }
                           />
                         </div>
                         <div className=" flex__1 mx-2 text-break">
-                          <div className="accounts__email fw-bold">{primaryBankDetails?.businessName ? primaryBankDetails?.businessName : primaryBankDetails?.firstName + ' ' + primaryBankDetails?.lastName}</div>
+                          <div className="accounts__email fw-bold">
+                            {primaryBankDetails?.businessName
+                              ? primaryBankDetails?.businessName
+                              : primaryBankDetails?.firstName + ' ' + primaryBankDetails?.lastName}
+                          </div>
                           {/* <div className="fs-7 mb-3p">Mastercard</div> */}
-                          <div className="fs-7 mb-3p">{primaryBankDetails?.
-                            bankName
-                          }</div>
+                          <div className="fs-7 mb-3p">{primaryBankDetails?.bankName}</div>
 
-                          <div className="fs-7 text-subtext">{primaryBankDetails?.accountNumber}</div>
+                          <div className="fs-7 text-subtext">
+                            {primaryBankDetails?.accountNumber}
+                          </div>
                         </div>
                         {/* <Button variant="link" className="text-danger fs-7">
                       remove
                     </Button> */}
                       </div>
 
-                      <div className="note note--info mt-3" style={{ padding: "16px" }}>
+                      <div className="note note--info mt-3" style={{ padding: '16px' }}>
                         <FontAwesomeIcon
-                          icon={regular("circle-info")}
+                          icon={regular('circle-info')}
                           className="text-info icon-method mr-3p"
                         />
                         <span className="text-dark">
@@ -1706,19 +1639,17 @@ const AdminPosts = (props) => {
                         </span>
                       </div>
                     </>
-                  }
-                  {
-                    !fulfilProductDetails?.isFulfiled ?
+                  )}
+                  {!fulfilProductDetails?.isFulfiled ? (
+                    <>
+                      <label htmlFor="videoInput" className="form__label py-3">
+                        Upload Receipt &nbsp;
+                        <span className="post-type-text" style={{ color: '#dd4646' }}>
+                          (required)
+                        </span>
+                      </label>
 
-                      <>
-                        <label htmlFor="videoInput" className="form__label py-3">
-                          Upload Receipt
-                          &nbsp;
-                          <span className="post-type-text" style={{ color: '#dd4646' }}>(required)</span>
-                        </label>
-
-
-                        {/* <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                      {/* <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
                           <div className="upload-wrap" style={{ width: "100%", height: "200px" }}>
                             <FontAwesomeIcon
                               icon={solid("cloud-arrow-up")}
@@ -1734,54 +1665,117 @@ const AdminPosts = (props) => {
 
                         </div> */}
 
-                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
-                          <input className="file-upload-input" type='file'
-                            // name="identityDocumentImage" 
-                            // onChange={props.changevalue}
-                            name='receiptFile' id='receiptFile'
-                            onChange={(e) => { changefile(e) }}
-                            style={fileuploadinput} title=" " />
-                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-                            <h3 style={{ fontSize: "inherit" }}>
-                              {tempImgName && tempImgName !== "" ? tempImgName :
-                                fulfilError.receiptFile ? "Please Select File" :
-                                  "Drag and drop or select File"}</h3>
-                          </div>
+                      <div
+                        className="image-upload-wrap mb-3"
+                        style={{
+                          ...imageuploadwrap,
+                          backgroundColor: '#e5f4ff',
+                          borderRadius: '9px',
+                          fontSize: '60px',
+                          border:
+                            tempImgName === '' && fulfilError.receiptFile
+                              ? '2px dashed red'
+                              : '2px dashed rgba(62, 170, 255, 0.58)'
+                        }}
+                      >
+                        <input
+                          className="file-upload-input"
+                          type="file"
+                          // name="identityDocumentImage"
+                          // onChange={props.changevalue}
+                          name="receiptFile"
+                          id="receiptFile"
+                          onChange={(e) => {
+                            changefile(e);
+                          }}
+                          style={fileuploadinput}
+                          title=" "
+                        />
+                        <div className="drag-text" style={{ textAlign: 'center', padding: '70px' }}>
+                          <h3 style={{ fontSize: 'inherit' }}>
+                            {tempImgName && tempImgName !== ''
+                              ? tempImgName
+                              : fulfilError.receiptFile
+                              ? 'Please Select File'
+                              : 'Drag and drop or select File'}
+                          </h3>
                         </div>
-                        {fulfilError && fulfilError.receiptFile && <p className='error'>{fulfilError ? fulfilError.receiptFile ? fulfilError.receiptFile : "" : ""}</p>}
-                      </>
-                      :
-                      <>
-                        <label htmlFor="videoInput" className="form__label py-3">
-                          Update Receipt
-                          &nbsp;
-                          <span className="post-type-text" style={{ color: '#dd4646' }}>(required)</span>
-                        </label>
+                      </div>
+                      {fulfilError && fulfilError.receiptFile && (
+                        <p className="error">
+                          {fulfilError
+                            ? fulfilError.receiptFile
+                              ? fulfilError.receiptFile
+                              : ''
+                            : ''}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <label htmlFor="videoInput" className="form__label py-3">
+                        Update Receipt &nbsp;
+                        <span className="post-type-text" style={{ color: '#dd4646' }}>
+                          (required)
+                        </span>
+                      </label>
 
-                        <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: tempImgName === "" && fulfilError.receiptFile ? "2px dashed red" : "2px dashed rgba(62, 170, 255, 0.58)" }}>
-                          <input className="file-upload-input" type='file'
-                            // name="identityDocumentImage" 
-                            // onChange={props.changevalue}
-                            name='receiptFile' id='receiptFile'
-                            onChange={(e) => { changefile(e) }}
-                            style={fileuploadinput} title=" " />
-                          <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-                            <h3 style={{ fontSize: "inherit" }}>
-                              {tempImgName && tempImgName !== "" ? tempImgName :
-                                fulfilError.receiptFile ? "Please Select File" :
-                                  "Drag and drop or select File"}</h3>
-                          </div>
+                      <div
+                        className="image-upload-wrap mb-3"
+                        style={{
+                          ...imageuploadwrap,
+                          backgroundColor: '#e5f4ff',
+                          borderRadius: '9px',
+                          fontSize: '60px',
+                          border:
+                            tempImgName === '' && fulfilError.receiptFile
+                              ? '2px dashed red'
+                              : '2px dashed rgba(62, 170, 255, 0.58)'
+                        }}
+                      >
+                        <input
+                          className="file-upload-input"
+                          type="file"
+                          // name="identityDocumentImage"
+                          // onChange={props.changevalue}
+                          name="receiptFile"
+                          id="receiptFile"
+                          onChange={(e) => {
+                            changefile(e);
+                          }}
+                          style={fileuploadinput}
+                          title=" "
+                        />
+                        <div className="drag-text" style={{ textAlign: 'center', padding: '70px' }}>
+                          <h3 style={{ fontSize: 'inherit' }}>
+                            {tempImgName && tempImgName !== ''
+                              ? tempImgName
+                              : fulfilError.receiptFile
+                              ? 'Please Select File'
+                              : 'Drag and drop or select File'}
+                          </h3>
                         </div>
-                        {fulfilError && fulfilError.receiptFile && <p className='error'>{fulfilError ? fulfilError.receiptFile ? fulfilError.receiptFile : "" : ""}</p>}
+                      </div>
+                      {fulfilError && fulfilError.receiptFile && (
+                        <p className="error">
+                          {fulfilError
+                            ? fulfilError.receiptFile
+                              ? fulfilError.receiptFile
+                              : ''
+                            : ''}
+                        </p>
+                      )}
 
-
-                        <Card.Header className="post__accordion-header pb-3 mt-3">
-
-                          <span className="fs-3 fw-bolder text-dark">Sales Receipt</span>
-
-                        </Card.Header>
-                        <div className="mt-3 d-flex align-item-center" style={{ alignItems: "center" }}>
-                          <div className="nn" style={{
+                      <Card.Header className="post__accordion-header pb-3 mt-3">
+                        <span className="fs-3 fw-bolder text-dark">Sales Receipt</span>
+                      </Card.Header>
+                      <div
+                        className="mt-3 d-flex align-item-center"
+                        style={{ alignItems: 'center' }}
+                      >
+                        <div
+                          className="nn"
+                          style={{
                             display: 'flex',
                             position: 'relative',
                             color: '#64a9ee',
@@ -1792,90 +1786,102 @@ const AdminPosts = (props) => {
                             background: '#edf6fd',
                             borderRadius: '6px',
                             marginRight: '6px'
-                          }}>
-                            <span className="post__badge post__badge--sold fs-3">
-                              <FontAwesomeIcon icon={solid("receipt")} />
-                            </span>
+                          }}
+                        >
+                          <span className="post__badge post__badge--sold fs-3">
+                            <FontAwesomeIcon icon={solid('receipt')} />
+                          </span>
+                        </div>
+                        <div style={{ paddingLeft: '9px' }}>
+                          <text
+                            className="post__title"
+                            style={{
+                              lineHeight: '1rem',
+                              fontWeight: 700
+                            }}
+                          >
+                            {fulfilProductDetails?.fulfilDetails?.receipt}
+                          </text>
+                          <div
+                            className="date__name"
+                            style={{
+                              fontWeight: 600,
+                              fontSize: 'smaller',
+                              color: '#9796b1'
+                            }}
+                          >
+                            Added &nbsp;
+                            {moment(fulfilProductDetails?.fulfilDetails.created_at).fromNow()}
                           </div>
-                          <div style={{ paddingLeft: '9px' }}>
-                            <text className="post__title"
-                              style={{
-                                lineHeight: '1rem',
-                                fontWeight: 700
-                              }}
+                        </div>
+                        <div style={{ marginLeft: 'auto' }}>
+                          <Dropdown className="d-flex ms-auto" autoClose="outside">
+                            <Dropdown.Toggle
+                              variant="link"
+                              className="no-caret text-decoration-none"
                             >
-                              {fulfilProductDetails?.fulfilDetails?.receipt}
-                            </text>
-                            <div className="date__name"
-                              style={{
-                                fontWeight: 600,
-                                fontSize: 'smaller',
-                                color: '#9796b1',
-                              }}
-                            >Added &nbsp;
-                              {moment(fulfilProductDetails?.fulfilDetails.created_at).fromNow()}</div>
+                              <FontAwesomeIcon
+                                icon={regular('ellipsis-vertical')}
+                                className="text-light fs-3"
+                              />
+                            </Dropdown.Toggle>
 
-
-                          </div>
-                          <div style={{ marginLeft: "auto" }}>
-                            <Dropdown className="d-flex ms-auto" autoClose="outside">
-                              <Dropdown.Toggle
-                                variant="link"
-                                className="no-caret text-decoration-none"
+                            <Dropdown.Menu className="">
+                              <Dropdown.Item
+                                className="d-flex align-items-center p-2"
+                                onClick={() =>
+                                  download(
+                                    helper.FulfilRecieptPath +
+                                      fulfilProductDetails?.fulfilDetails?.receipt,
+                                    fulfilProductDetails?.fulfilDetails?.receipt
+                                  )
+                                }
                               >
+                                <span className="fw-bold fs-7 flex__1">View</span>
                                 <FontAwesomeIcon
-                                  icon={regular("ellipsis-vertical")}
-                                  className="text-light fs-3"
+                                  icon={solid('magnifying-glass')}
+                                  className="ms-1"
                                 />
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu className="">
-                                <Dropdown.Item className="d-flex align-items-center p-2" onClick={() => download(helper.FulfilRecieptPath + fulfilProductDetails?.fulfilDetails?.receipt, fulfilProductDetails?.fulfilDetails?.receipt)}>
-                                  <span className="fw-bold fs-7 flex__1">View</span>
-                                  <FontAwesomeIcon
-                                    icon={solid("magnifying-glass")}
-                                    className="ms-1"
-                                  />
-                                </Dropdown.Item>
-                                <Dropdown.Divider />
-                                <Dropdown.Item className="d-flex align-items-center p-2" onClick={() => download(helper.FulfilRecieptPath + fulfilProductDetails?.fulfilDetails?.receipt, fulfilProductDetails?.fulfilDetails?.receipt)}>
-                                  <span className="fw-bold fs-7 flex__1">Download</span>
-                                  {/* <a href={helper.FulfilRecieptPath + fulfilProductDetails?.fulfilDetails?.receipt} download
+                              </Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item
+                                className="d-flex align-items-center p-2"
+                                onClick={() =>
+                                  download(
+                                    helper.FulfilRecieptPath +
+                                      fulfilProductDetails?.fulfilDetails?.receipt,
+                                    fulfilProductDetails?.fulfilDetails?.receipt
+                                  )
+                                }
+                              >
+                                <span className="fw-bold fs-7 flex__1">Download</span>
+                                {/* <a href={helper.FulfilRecieptPath + fulfilProductDetails?.fulfilDetails?.receipt} download
                                     // variant="info"
                                     // target="_blank"
                                     className="fw-bold fs-7 flex__1"
                                   >
                                     Download
                                   </a> */}
-                                  <FontAwesomeIcon icon={regular("download")} className="ms-1" />
-                                </Dropdown.Item>
-                                {/* <Dropdown.Divider /> */}
-                                {/* <Dropdown.Item className="d-flex align-items-center p-2">
+                                <FontAwesomeIcon icon={regular('download')} className="ms-1" />
+                              </Dropdown.Item>
+                              {/* <Dropdown.Divider /> */}
+                              {/* <Dropdown.Item className="d-flex align-items-center p-2">
                               <span className="fw-bold fs-7 flex__1">Delete</span>
                               <FontAwesomeIcon
                                 icon={regular("trash")}
                                 className="ms-1"
                               />
                             </Dropdown.Item> */}
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </div>
+                            </Dropdown.Menu>
+                          </Dropdown>
                         </div>
-                      </>
-                  }
-
-
-
-
-
-
+                      </div>
+                    </>
+                  )}
                 </Col>
                 <Col lg="6">
-
                   <Card.Header className="post__accordion-header pb-3">
-
                     <span className="fs-3 fw-bolder text-dark">Follow-up Media</span>
-
                   </Card.Header>
                   <form className="video-detail-form mt-3">
                     <div className="form-group mb-2">
@@ -1887,23 +1893,28 @@ const AdminPosts = (props) => {
                         type="text"
                         className="form-control form-control-lg"
                         placeholder="Video URL"
-                        name='videoUrl' id="videoUrl"
-                        value={videoUrl} onChange={(e) => { changevalue(e) }}
+                        name="videoUrl"
+                        id="videoUrl"
+                        value={videoUrl}
+                        onChange={(e) => {
+                          changevalue(e);
+                        }}
                       />
                     </div>
 
-                    {
-                      videoUrl && isIframe(videoUrl) &&
-
-                      <div className="project-video-wrap mb-4" dangerouslySetInnerHTML={{ __html: videoUrl }} >
+                    {videoUrl && isIframe(videoUrl) && (
+                      <div
+                        className="project-video-wrap mb-4"
+                        dangerouslySetInnerHTML={{ __html: videoUrl }}
+                      >
                         {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
-
                       </div>
-
-                    }
+                    )}
                     <div className="">
-
-                      <div className="upload-picture-video-block mb-2" style={{ display: "contents" }}>
+                      <div
+                        className="upload-picture-video-block mb-2"
+                        style={{ display: 'contents' }}
+                      >
                         {
                           // !fulfilProductDetails?.isFulfiled &&
 
@@ -1918,74 +1929,105 @@ const AdminPosts = (props) => {
                           //     />
                           //   </label>
                           // </div>
-                          <div className="image-upload-wrap mb-3" style={{ ...imageuploadwrap, backgroundColor: '#e5f4ff', borderRadius: '9px', border: "2px dashed rgba(62, 170, 255, 0.58)" }}>
-                            <input className="file-upload-input" type='file'
-
-                              name='fulfilmoreImages[]' id='fulfilmoreImages'
+                          <div
+                            className="image-upload-wrap mb-3"
+                            style={{
+                              ...imageuploadwrap,
+                              backgroundColor: '#e5f4ff',
+                              borderRadius: '9px',
+                              fontSize: '60px',
+                              border: '2px dashed rgba(62, 170, 255, 0.58)'
+                            }}
+                          >
+                            <input
+                              className="file-upload-input"
+                              type="file"
+                              name="fulfilmoreImages[]"
+                              id="fulfilmoreImages"
                               accept=".jpg,.gif,.png"
                               multiple
-                              onChange={(e) => { changefile(e) }}
-                              style={fileuploadinput} title=" " />
-                            <div className="drag-text" style={{ textAlign: "center", padding: "70px" }}>
-
+                              onChange={(e) => {
+                                changefile(e);
+                              }}
+                              style={fileuploadinput}
+                              title=" "
+                            />
+                            <div
+                              className="drag-text"
+                              style={{ textAlign: 'center', padding: '70px' }}
+                            >
                               <FontAwesomeIcon
-                                icon={solid("cloud-arrow-up")}
+                                icon={solid('cloud-arrow-up')}
                                 className="icon-cloud"
                               />
                             </div>
                           </div>
                         }
 
-                        <div className='grid mt-3 mb-3' style={{ display: "grid" }}>
-                          {fulfilMoreTempImages?.length ?
+                        <div className="grid mt-3 mb-3" style={{ display: 'grid' }}>
+                          {fulfilMoreTempImages?.length ? (
                             fulfilMoreTempImages.map((img, key) => {
                               return (
                                 <div className="img-wrap">
-                                  <span className="close" onClick={() => removeFulfilTempImages(key)}>&times;</span>
-                                  <img src={img ? img : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
+                                  <span
+                                    className="close"
+                                    onClick={() => removeFulfilTempImages(key)}
+                                  >
+                                    &times;
+                                  </span>
+                                  <img
+                                    src={img ? img : noimg}
+                                    alt="lk"
+                                    style={{ width: '100px', height: '100px' }}
+                                  />
                                 </div>
-
-                              )
-
+                              );
                             })
-
-                            :
+                          ) : (
                             <></>
-                          }
-                          {fulfilmoreImages?.length ?
-                            fulfilmoreImages.map((img, key) => {
-                              return (
-                                <>
-
-
-
-                                  <div className="img-wrap">
-                                    <span className="close" onClick={() => deleteProductImage(img.id, 'Fulfil')} style={{ right: "7px" }}>&times;</span>
-                                    <img src={img.img ? img.img !== "" ? helper.CampaignProductFullImagePath + img.img : noimg : noimg} alt="lk" style={{ width: "100px", height: "100px" }} />
-                                  </div>
-                                </>
-                              )
-
-                            })
-                            : ""
-
-                          }
-
+                          )}
+                          {fulfilmoreImages?.length
+                            ? fulfilmoreImages.map((img, key) => {
+                                return (
+                                  <>
+                                    <div className="img-wrap">
+                                      <span
+                                        className="close"
+                                        onClick={() => deleteProductImage(img.id, 'Fulfil')}
+                                        style={{ right: '7px' }}
+                                      >
+                                        &times;
+                                      </span>
+                                      <img
+                                        src={
+                                          img.img
+                                            ? img.img !== ''
+                                              ? helper.CampaignProductFullImagePath + img.img
+                                              : noimg
+                                            : noimg
+                                        }
+                                        alt="lk"
+                                        style={{ width: '100px', height: '100px' }}
+                                      />
+                                    </div>
+                                  </>
+                                );
+                              })
+                            : ''}
                         </div>
-                        {fulfilError && fulfilError.fulfilMoreImg && <p className='error'>{fulfilError ? fulfilError.fulfilMoreImg ? fulfilError.fulfilMoreImg : "" : ""}</p>}
-
-
-
-
-
-
-
-
+                        {fulfilError && fulfilError.fulfilMoreImg && (
+                          <p className="error">
+                            {fulfilError
+                              ? fulfilError.fulfilMoreImg
+                                ? fulfilError.fulfilMoreImg
+                                : ''
+                              : ''}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </form>
                 </Col>
-
               </Row>
             </Card>
 
@@ -2000,7 +2042,9 @@ const AdminPosts = (props) => {
                       name="fulfilPolicy"
                       id="fulfilPolicy"
                       checked={fulfilPolicy}
-                      onChange={(e) => { changevalue(e) }}
+                      onChange={(e) => {
+                        changevalue(e);
+                      }}
                     />
                     <label className="form-check-label" htmlFor="policy">
                       {/* By posting your ad, you are agreeing to our{" "}
@@ -2019,44 +2063,60 @@ const AdminPosts = (props) => {
                   after it has received funding. If you delete your post after it
                   has received donations, the donors will receive a full refund and
                   the post will be closed. */}
-
-                      By fulfilling your order, you are agreeing that you have purchased the product as it was presented at the time the post was created for the amount of items you requested. The sales receipt for your order will be shared with your donors on their order page.
+                      By fulfilling your order, you are agreeing that you have purchased the product
+                      as it was presented at the time the post was created for the amount of items
+                      you requested. The sales receipt for your order will be shared with your
+                      donors on their order page.
                     </label>
                   </div>
-
                 </div>
-                {fulfilError && fulfilError.fulfilPolicy && <p className='error'>{fulfilError ? fulfilError.fulfilPolicy ? fulfilError.fulfilPolicy : "" : ""}</p>}
+                {fulfilError && fulfilError.fulfilPolicy && (
+                  <p className="error">
+                    {fulfilError ? (fulfilError.fulfilPolicy ? fulfilError.fulfilPolicy : '') : ''}
+                  </p>
+                )}
 
                 <div className="products-detial-footer py-5">
-                  {
-                    !fulfilProductDetails?.isFulfiled &&
+                  {!fulfilProductDetails?.isFulfiled && (
+                    <Button
+                      variant="danger"
+                      size="lg"
+                      className="fw-bold fs-6"
+                      onClick={() => {
+                        closeFulfilForm();
+                      }}
+                    >
+                      Disregard
+                    </Button>
+                  )}
+                  {fulfilProductDetails?.isFulfiled && fulfilProductDetails.status === 1 && (
+                    <Button
+                      variant="info"
+                      size="lg"
+                      className="fw-bold fs-6"
+                      onClick={() => {
+                        unPublishProduct(fulfilProductDetails._id);
+                      }}
+                    >
+                      Unpublish
+                    </Button>
+                  )}
 
-                    <Button variant="danger" size="lg" className="fw-bold fs-6" onClick={() => {
-                      closeFulfilForm()
-                    }}>Disregard</Button>
-                  }
-                  {
-                    fulfilProductDetails?.isFulfiled && fulfilProductDetails.status === 1 &&
-                    <Button variant="info" size="lg" className="fw-bold fs-6" onClick={() => {
-                      unPublishProduct(fulfilProductDetails._id)
-                    }}>Unpublish</Button>
-
-                  }
-
-                  <Button variant="success" size="lg" className="fw-bold fs-6"
+                  <Button
+                    variant="success"
+                    size="lg"
+                    className="fw-bold fs-6"
                     onClick={() => fulfilOrder()}
                   >
-                    {fulfilProductDetails?.isFulfiled ? 'Update' : 'Fulfil Order'}</Button>
+                    {fulfilProductDetails?.isFulfiled ? 'Update' : 'Fulfil Order'}
+                  </Button>
                 </div>
               </>
             }
-
-
           </>
+        )
 
         // : ""
-
-
       }
     </>
   );

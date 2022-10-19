@@ -3,11 +3,11 @@
     border-radius: 4px;
     padding: 0;
     @include media-breakpoint-up(sm) {
-      top: 50px !important;
+      top: 40px !important;
     }
-    /* @include media-breakpoint-down(sm) {
-      top: 10px !important;
-    }*/
+    @include media-breakpoint-down(sm) {
+      top: 40px !important;
+    }
     width: 310px;
   }
 
@@ -17,7 +17,7 @@
     z-index: 1;
   }
 
-  @include media-breakpoint-up(sm) {
+
     &:after {
       background: #f8fafd;
       content: '';
@@ -28,7 +28,7 @@
       right: 10px;
       transform: rotate(45deg) scale(1);
       z-index: 0;
-    }
+
   }
 }
 

@@ -72,7 +72,7 @@ const UserSettings = (props) => {
           <Avatar size={39} className={userData ? 'donor_avatar_bg' : 'charity_avatar_bg'} style={{ border: "", boxShadow: "" }} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="activity__dropdown w-310 dropdown-top-arrow">
+        <Dropdown.Menu className="profile__dropdown w-310 dropdown-top-arrow">
           <div className="dropdown__inner">
             <div className="d-flex activity__dropdown-header">
               {state.wishlist || state.linked_org ? (

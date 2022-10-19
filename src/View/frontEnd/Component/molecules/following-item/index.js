@@ -4,6 +4,7 @@ import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button } from "react-bootstrap";
 import ListItemImg from "../../atoms/list-item-img";
 import helper from "../../../../../Common/Helper";
+import { Link } from "react-router-dom";
 
 import './style.scss';
 
@@ -37,17 +38,17 @@ function FollowingItem(props) {
     <li
       className="ad__activity__item p-1 d-flex align-items-center border-bottom"
     >
-      <div className="d-flex align-items-center">
-        <ListItemImg size={68} imgSrc={avatar} className='charity_avatar_bg' />
-        <div className="ad__activity__main px-12p" style={{ width: "135px" }}>
+      <div className="d-flex align-items-center flex-grow-1">
+        <ListItemImg size={56} imgSrc={avatar} className='charity_avatar_bg' />
+        <div className="ad__activity__main px-12p" style={{ width: "110px" }}>
           <div className="ad__activity__title">
-            <div className="ad__activity__name mb-0">{data?.CampaignAdminDetails?.name}</div>
+            <Link to={"/organization/" + data.CampaignAdminDetails.slug} className="ad__activity__name mb-0 text-decoration-none text-dark fw-bold">{data?.CampaignAdminDetails?.name}</Link>
           </div>
         </div>
         <div className="ad__activity__right d-flex align-items-center me-2">
           <Button
             variant="link"
-            className="btn__link-light p-0 text-decoration-none btn__follow"
+            className="btn__link-light p-0 text-decoration-none btn__follow fs-3"
             // onClick={() => setActive(!active)}
             onClick={() => onClickBell()}
 

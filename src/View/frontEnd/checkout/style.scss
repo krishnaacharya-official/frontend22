@@ -7,8 +7,7 @@
     .logo__wrap {
       @include media-breakpoint-down(sm) {
         border-bottom: 1px solid var(--border-input);
-        padding: 20px;
-        margin: 0 -20px;
+        min-height: 80px
       }
     }
 
@@ -58,6 +57,7 @@
         bottom: 0;
         width: 300%;
         z-index: 0;
+        border-bottom: 1px solid #e6e6e6;
       }
     }
 

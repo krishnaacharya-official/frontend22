@@ -226,7 +226,7 @@ const GeoLocation = () => {
             <div className="geo_dropdown-top d-flex align-items-center">
               <InputGroup className="input-group__alpha">
                 <InputGroup.Text>
-                  <SearchIcon />
+                  <SearchIcon size={2} className="mapbox-searchicon" />
                 </InputGroup.Text>
                 {/* <FormControl placeholder="Search" /> */}
                 <MapboxAutocomplete
@@ -241,10 +241,7 @@ const GeoLocation = () => {
               </InputGroup>
 
               <div className="geo__distance" id="scale">
-                <div
-                  className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1"
-                  style={{ fontSize: 'small' }}
-                >
+                <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1 fs-5">
                   {/* {objectVal} */}
                   {user.distance}
                 </div>
@@ -256,7 +253,7 @@ const GeoLocation = () => {
                   className="p-0 text-decoration-none mx-auto"
                   onClick={() => toggleState()}
                 >
-                  <span className="d-flex align-items-center icon">
+                  <span className="d-flex align-items-center icon fs-5">
                     {!state.locked ? (
                       <FontAwesomeIcon icon={light('lock-open')} />
                     ) : (
