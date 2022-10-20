@@ -138,7 +138,7 @@ const XpTable = (props) => {
 
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: "500px", minHeight: "500px" }}>
+        <ul className="list-unstyled mb-0 list__table-list" style={{ minHeight: "500px" }}>
 
           {
             ItemList.length > 0 ?
@@ -146,7 +146,7 @@ const XpTable = (props) => {
                 return (
                   <li className="table__list-item p-2">
                     <div className="d-flex align-items-center flex-grow-1">
-                      <div className="order-2 order-sm-1 ms-2 ms-sm-0 me-sm-2">
+                      <div className="order-2 order-sm-1 ms-2 ms-sm-0 pe-1" style={{width: '65px'}}>
                         <div className="text-info fw-bold fs-5">{item.xp}XP</div>
                         <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                       </div>

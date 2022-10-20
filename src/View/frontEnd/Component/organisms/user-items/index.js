@@ -357,33 +357,39 @@ const UserItems = () => {
                             </span>
                           </div> */}
                     </div>
-                    {item.itemDetails?.isFulfiled &&
-                      item.fulfilDetails[0].video &&
-                      isIframe(item.fulfilDetails[0].video) && (
-                        <div
-                          className="project-video-wrap mt-4"
-                          dangerouslySetInnerHTML={{ __html: item.fulfilDetails[0].video }}
-                        >
-                          {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
+                    {item.itemDetails?.isFulfiled && (
+                      <div class="note note-info align-items-center mt-5">
+                        <Card.Header className="post__accordion-header pb-2 pt-2">
+                          <span className="fs-3 fw-bolder text-dark">Followup</span>
+                          <div className="project__detail-subtitle mb-12p fw-bold">Media</div>
+                        </Card.Header>
+
+                        {item.itemDetails?.isFulfiled &&
+                          item.fulfilDetails[0].video &&
+                          isIframe(item.fulfilDetails[0].video) && (
+                            <div
+                              className="project-video-wrap mt-4"
+                              dangerouslySetInnerHTML={{ __html: item.fulfilDetails[0].video }}
+                            >
+                              {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
+                            </div>
+                          )}
+
+                        <div className="gallery__container my-2">
+                          {item.itemDetails?.fulfil.length > 0 &&
+                            Number(detail.key) === i &&
+                            item.itemDetails?.fulfil.map((im, ky) => {
+                              return (
+                                <GalleryImg
+                                  key={ky}
+                                  thumbImgSrc={helper.CampaignProductFullImagePath + im.image}
+                                  bigImgSrc={helper.CampaignProductFullImagePath + im.image}
+                                />
+                              );
+                            })}
                         </div>
-                      )}
-
-                    <div className="gallery__container my-2">
-                      {item.itemDetails?.fulfil.length > 0 &&
-                        Number(detail.key) === i &&
-                        item.itemDetails?.fulfil.map((im, ky) => {
-                          return (
-                            <GalleryImg
-                              key={ky}
-                              thumbImgSrc={helper.CampaignProductFullImagePath + im.image}
-                              bigImgSrc={helper.CampaignProductFullImagePath + im.image}
-                            />
-                          );
-                        })}
-                    </div>
-
-                    {/* </> */}
-                    {/* } */}
+                      </div>
+                    )}
 
                     {!item.itemDetails?.isFulfiled && (
                       <div className="note note-info d-flex align-items-center">

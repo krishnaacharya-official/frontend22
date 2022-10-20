@@ -53,7 +53,7 @@ const PostsTable = (props) => {
         <ul
           className="list-unstyled mb-0 list__table-list"
           style={{
-            maxHeight: productList.length > 0 && '600px',
+           // maxHeight: productList.length > 0 && '600px',
             minHeight: productList.length > 0 && '600px'
           }}
         >

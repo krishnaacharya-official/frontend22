@@ -385,7 +385,6 @@ export default function Index(props) {
             <div className="mb-3 mb-sm-0">
               <IconText
                 size={42}
-                style={{ border: 'unset' }}
                 icon={
                   // <FontAwesomeIcon icon="fa-solid fa-rectangle-ad" />
                   <FontAwesomeIcon icon={solid('rectangle-ad')} className="fs-4 text-info" />

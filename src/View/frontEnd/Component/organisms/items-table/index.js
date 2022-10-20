@@ -44,7 +44,7 @@ const ItemsTable = (props) => {
         </div>
         <ul
           className="list-unstyled mb-0 list__table-list"
-          style={{ maxHeight: '500px', minHeight: '500px' }}
+          style={{ minHeight: '500px' }}
         >
           {orderItemList.length > 0 ? (
             orderItemList.map((item, key) => {
@@ -61,7 +61,7 @@ const ItemsTable = (props) => {
                     <Button
                       variant="link"
                       onClick={() => props.onItemClick(key)}
-                      className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start"
+                      className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
                     >
                       <div className="me-2" style={{width: "65px", minWidth: "65px"}}>
                         <div className="text-success fw-bold fs-5">
