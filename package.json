@@ -62,6 +62,7 @@
     "@mui/lab": "^5.0.0-alpha.47",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.0.0",
+    "@szhsin/react-accordion": "^1.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@turf/turf": "^6.5.0",
     "apexcharts": "^3.28.3",

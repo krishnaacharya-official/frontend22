@@ -138,7 +138,7 @@ const XpTable = (props) => {
 
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ minHeight: "500px" }}>
+        <ul className="list-unstyled mb-0 list__table-list">
 
           {
             ItemList.length > 0 ?

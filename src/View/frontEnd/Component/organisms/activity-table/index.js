@@ -48,16 +48,16 @@ const ActivityTable = (props) => {
             </Button>
           </div>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ maxHeight: activityList.length > 0 ? "600px" : "", minHeight: activityList.length > 0 ? "600px" : "" }}>
+        <ul className="list-unstyled mb-0 list__table-list" /*style={{ maxHeight: activityList.length > 0 ? "600px" : "", minHeight: activityList.length > 0 ? "600px" : "" }}*/>
           {
             activityList.length > 0 ?
               activityList.map((list, i) => {
                 // console.log(list)
                 return (
-                  <li className="table__list-item p-2">
+                  <li className="table__list-item px-2 py-1">
                     <div className="d-sm-flex align-items-center flex-grow-1">
                       <div className="d-flex align-items-center me-sm-2 flex__1">
-                        <div className="admin__billing-value ms-2 ms-sm-0 me-sm-2">
+                        <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
                           <div className="text-success fw-bold fs-5">{list.type === 'BOUGHT' || list.type === 'DONATED' ? (data.symbol) + priceFormat(list.amount) : ""}</div>
                           <div className="text-light fs-8">{moment(list.created_at).fromNow()}</div>
                         </div>
