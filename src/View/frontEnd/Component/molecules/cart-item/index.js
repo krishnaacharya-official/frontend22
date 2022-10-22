@@ -4,7 +4,7 @@ import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Button } from 'react-bootstrap';
 import ListItemImg from '../../atoms/list-item-img';
 import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import './style.scss';
 
@@ -55,9 +55,12 @@ function CartItem(props) {
           size={62}
           imgSrc={helper.CampaignProductImagePath + cartItem?.productDetails?.image}
         />
-        <div className="cd__cart__main pl-12p">
+        <div className="cd__cart__main pl-12p" style={{ width: '105px' }}>
           <div className="cd__cart__title pr-12p">
-            <Link to={'/item/' + cartItem?.productDetails.slug} className="cd__cart__name text-decoration-none text-dark">
+            <Link
+              to={'/item/' + cartItem?.productDetails.slug}
+              className="cd__cart__name text-decoration-none text-dark"
+            >
               {cartItem?.productDetails?.headline}
             </Link>
             <div className="cd__cart__location">
@@ -80,6 +83,7 @@ function CartItem(props) {
         <Button
           variant="link"
           className="btn__link-light text-decoration-none"
+          style={{ fontSize: '18px' }}
           onClick={() => props.removeCartItem(cartItem._id)}
         >
           <FontAwesomeIcon icon={solid('trash')} />

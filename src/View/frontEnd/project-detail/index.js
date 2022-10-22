@@ -104,7 +104,7 @@ const ProjectDetail = (props) => {
         <DonateModal show={modalShow} onHide={() => setModalShow(false)} /> */}
         {/* <GrabDropdown /> */}
       </div>
-      <Container fluid className="py-5">
+      <Container fluid className="py-3 py-sm-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
             <ProjectDetailMain

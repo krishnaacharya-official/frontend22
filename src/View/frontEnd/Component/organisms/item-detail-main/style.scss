@@ -125,3 +125,9 @@
     max-width: 100% !important;
   }
 }
+@include media-breakpoint-down(sm) {
+  .category__icons {
+    order: -1;
+    margin-bottom: 24px !important;
+  }
+}

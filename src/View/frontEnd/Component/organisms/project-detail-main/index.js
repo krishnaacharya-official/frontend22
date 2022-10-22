@@ -28,6 +28,7 @@ import { Link } from 'react-router-dom';
 
 function ProjectDetailMain(props) {
   let projectDetails = props.projectDetails;
+  let productDetails = props.productDetails;
   let video = projectDetails?.video;
   // let videoid = url ? url.split("?v=")[1] : "";
   // let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
@@ -137,7 +138,7 @@ function ProjectDetailMain(props) {
           </div>
           <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
-            Toronto, ON
+            {projectDetails?.productDetails.itemDetails.address}
           </div>
         </div>
 
@@ -153,7 +154,9 @@ function ProjectDetailMain(props) {
                 <FontAwesomeIcon icon={regular('infinity')} />
               </span>
             ) : (
-              <span className="text-light">{countProjectProcess(projectDetails.productDetails)}%</span>
+              <span className="text-light">
+                {countProjectProcess(projectDetails.productDetails)}%
+              </span>
             )}
           </div>
           <div className="text-light d-flex align-items-center ms-3">

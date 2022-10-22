@@ -26,4 +26,7 @@
 }
 .szh-accordion__item-btn {
   text-align: start !important;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
 }

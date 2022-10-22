@@ -10,7 +10,8 @@ import Stack from '@mui/material/Stack';
 import helper, { priceFormat } from '../../../../../Common/Helper';
 import { List } from '@mui/material';
 import CSVExportBtn from '../../../CSVExportBtn';
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
+import chevronDown from '../../../../../assets/images/chevron-down.svg';
 
 const TaxTable = (props) => {
   const totalVal = (data) => {
@@ -28,6 +29,24 @@ const TaxTable = (props) => {
     }
     return sum.toFixed(2);
   };
+
+  const AccordionItem = ({ header, ...rest }) => (
+    <Item
+      {...rest}
+      header={({ state: { isEnter: expanded } }) => (
+        <>
+          {header}
+          <img
+            className={`ml-auto transition-transform duration-200 ease-in-out ${
+              expanded && 'rotate-180'
+            }`}
+            src={chevronDown}
+            alt="Chevron Down"
+          />
+        </>
+      )}
+    />
+  );
 
   return (
     <>
@@ -69,7 +88,7 @@ const TaxTable = (props) => {
                   <Accordion allowMultiple>
                     <AccordionItem
                       header={
-                        <li className="table__list-item px-0 px-sm-2">
+                        <li className="flex-grow-1 table__list-item px-0 px-sm-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">
                             <div
                               className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0"
@@ -232,6 +251,7 @@ const TaxTable = (props) => {
                                   </div>
                                 </Button> */}
                                   <a
+                                    onClick={(e) => e.stopPropagation()}
                                     href={helper.recieptPath + item[0].receipt}
                                     download
                                     variant="info"
@@ -249,6 +269,7 @@ const TaxTable = (props) => {
                                 <Button
                                   variant="link"
                                   className="d-flex align-items-center ms-auto text-white"
+                                  onClick={(e) => e.stopPropagation()}
                                 >
                                   <FontAwesomeIcon
                                     icon={solid('clock')}

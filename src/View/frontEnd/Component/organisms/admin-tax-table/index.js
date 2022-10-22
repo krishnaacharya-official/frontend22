@@ -12,7 +12,8 @@ import moment from 'moment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import './style.scss';
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
+import chevronDown from '../../../../../assets/images/chevron-down.svg';
 // import AvatarImg from "../../../assets/images/avatar.png";
 
 const AdminTaxTable = (props) => {
@@ -33,6 +34,25 @@ const AdminTaxTable = (props) => {
     }
     return sum.toFixed(2);
   };
+
+  const AccordionItem = ({ header, ...rest }) => (
+    <Item
+      {...rest}
+      header={({ state: { isEnter: expanded } }) => (
+        <>
+          {header}
+          <img
+            className={`ml-auto transition-transform duration-200 ease-in-out ${
+              expanded && 'rotate-180'
+            }`}
+            src={chevronDown}
+            alt="Chevron Down"
+          />
+        </>
+      )}
+    />
+  );
+
   return (
     <>
       <div className="admin__tax-table list__table mb-4">
@@ -70,7 +90,7 @@ const AdminTaxTable = (props) => {
                     <AccordionItem
                       style={{ textAlign: 'left' }}
                       header={
-                        <li className="table__list-item px-2">
+                        <li className="flex-grow-1 table__list-item px-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">
                             <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                               <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
@@ -184,7 +204,11 @@ const AdminTaxTable = (props) => {
                                   </div>
                                   <div>
                                     <div>
-                                      <Button variant="link" className="text-dark px-0 py-3p">
+                                      <Button
+                                        onClick={(e) => e.stopPropagation()}
+                                        variant="link"
+                                        className="text-dark px-0 py-3p"
+                                      >
                                         {/* {item[0].orderItemDetails?.productName} */}
                                         {item[0].type === 'Purchased'
                                           ? item[0].orderItemDetails?.productName
@@ -222,6 +246,7 @@ const AdminTaxTable = (props) => {
                               {item.length > 0 && item[0].receipt ? (
                                 <div className="d-flex align-items-center ms-sm-2 btn__wrap">
                                   <Button
+                                    onClick={(e) => e.stopPropagation()}
                                     variant="link"
                                     className="d-flex align-items-center p-0 text-decoration-none me-2"
                                   >
@@ -273,6 +298,7 @@ const AdminTaxTable = (props) => {
                                 </div>
                               ) : (
                                 <Button
+                                  onClick={(e) => e.stopPropagation()}
                                   variant="warning"
                                   className="d-flex align-items-center ms-auto text-white"
                                 >

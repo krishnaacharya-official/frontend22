@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Button, InputGroup, FormControl } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
 // import { Logo } from "@components/atoms";
 // import { Footer } from "@components/organisms";
 
 import Logo from '../Component/atoms/logo';
-import Footer from '../Component/organisms/footer';
+import NoFooterHeader from '../Component/templates/no-footer-header';
 
-import "./style.scss";
+import './style.scss';
 
 const ResetPassword = (props) => {
   let stateData = props.stateData;
@@ -18,12 +18,11 @@ const ResetPassword = (props) => {
   const [showCPassword, toggleCPassword] = useState(false);
 
   return (
-    <>
+    <NoFooterHeader>
       <div className="bg-lighter authPage">
         <div className="login">
           <div className="login__left d-none d-sm-flex align-items-center justify-content-center flex__1">
             <div className="login__hero">
-              <h2 className="login-title fw-bolder">Welcome to Donorport</h2>
               <div className="chart-comment-block">
                 <div className="from-me">
                   <p>Have you made a Donorport account yet?</p>
@@ -42,10 +41,7 @@ const ResetPassword = (props) => {
                 </div>
                 <div className="clear"></div>
                 <div className="from-me">
-                  <p>
-                    You pay for things non-profits need instead of just giving
-                    them money
-                  </p>
+                  <p>You pay for things non-profits need instead of just giving them money</p>
                 </div>
                 <div className="clear"></div>
                 <div className="from-them">
@@ -54,14 +50,10 @@ const ResetPassword = (props) => {
               </div>
               <div className="chat-info-wrap">
                 <a href="/" className="d-flex">
-                  <FontAwesomeIcon
-                    icon={regular("circle-info")}
-                    className="text-info"
-                  />
+                  <FontAwesomeIcon icon={regular('circle-info')} className="text-info" />
                 </a>
                 <span className="lh-1">
-                  For information on how Donorport works{" "}
-                  <a href="/"> click here.</a>
+                  For information on how Donorport works <a href="/"> click here.</a>
                 </span>
               </div>
             </div>
@@ -73,17 +65,22 @@ const ResetPassword = (props) => {
               </div>
 
               <form className="login__form">
-                <div className="login-header">Reset Password</div>
+                <div className="login-header text-dark">Reset Password</div>
                 <div className="mb-3">
                   <input
                     type="text"
                     className="form-control"
                     id="otp"
                     placeholder="OTP"
-                    name="otp" value={stateData.otp}
+                    name="otp"
+                    value={stateData.otp}
                     onChange={(e) => props.changevalue(e)}
                   />
-                  {stateData.error && stateData.error.otp && <p className="error">{stateData.error ? stateData.error.otp ? stateData.error.otp : "" : ""}</p>}
+                  {stateData.error && stateData.error.otp && (
+                    <p className="error">
+                      {stateData.error ? (stateData.error.otp ? stateData.error.otp : '') : ''}
+                    </p>
+                  )}
                 </div>
 
                 {/* <div className="mb-3">
@@ -99,7 +96,7 @@ const ResetPassword = (props) => {
                 </div> */}
                 <InputGroup className="input-group__alpha ">
                   <FormControl
-                    type={!showPassword ? "password" : "text"}
+                    type={!showPassword ? 'password' : 'text'}
                     placeholder="Password"
                     className="bg-white pl-12p"
                     name="password"
@@ -108,15 +105,25 @@ const ResetPassword = (props) => {
                   />
 
                   <Button variant="link" onClick={() => togglePassword(!showPassword)}>
-                    <FontAwesomeIcon icon={solid("eye")} className={`${showPassword ? 'text-primary' : 'text-light'}`} />
+                    <FontAwesomeIcon
+                      icon={solid('eye')}
+                      className={`${showPassword ? 'text-primary' : 'text-light'}`}
+                    />
                   </Button>
-
                 </InputGroup>
-                {stateData.error && stateData.error.password && <p className="error">{stateData.error ? stateData.error.password ? stateData.error.password : "" : ""}</p>}
+                {stateData.error && stateData.error.password && (
+                  <p className="error">
+                    {stateData.error
+                      ? stateData.error.password
+                        ? stateData.error.password
+                        : ''
+                      : ''}
+                  </p>
+                )}
 
                 <InputGroup className="input-group__alpha mt-3 ">
                   <FormControl
-                    type={!showCPassword ? "password" : "text"}
+                    type={!showCPassword ? 'password' : 'text'}
                     placeholder="Confirm Password"
                     className="bg-white pl-12p"
                     name="cpassword"
@@ -125,11 +132,21 @@ const ResetPassword = (props) => {
                   />
 
                   <Button variant="link" onClick={() => toggleCPassword(!showCPassword)}>
-                    <FontAwesomeIcon icon={solid("eye")} className={`${showCPassword ? 'text-primary' : 'text-light'}`} />
+                    <FontAwesomeIcon
+                      icon={solid('eye')}
+                      className={`${showCPassword ? 'text-primary' : 'text-light'}`}
+                    />
                   </Button>
-
                 </InputGroup>
-                {stateData.error && stateData.error.cpassword && <p className="error">{stateData.error ? stateData.error.cpassword ? stateData.error.cpassword : "" : ""}</p>}
+                {stateData.error && stateData.error.cpassword && (
+                  <p className="error">
+                    {stateData.error
+                      ? stateData.error.cpassword
+                        ? stateData.error.cpassword
+                        : ''
+                      : ''}
+                  </p>
+                )}
 
                 {/* <div className="mb-3">
                   <input
@@ -143,22 +160,19 @@ const ResetPassword = (props) => {
                   {stateData.error && stateData.error.cpassword && <p className="error">{stateData.error ? stateData.error.cpassword ? stateData.error.cpassword : "" : ""}</p>}
                 </div> */}
 
-
-
                 <Button size="lg" className="w-100 mb-4 mt-3" onClick={() => props.reset()}>
                   Submit
                 </Button>
 
-                <Link className="text-light w-100 p-0 fw-normal" to='/signin'>Back To Sign in</Link>
-
+                <Link className="text-light w-100 p-0 fw-normal" to="/signin">
+                  Back To Sign in
+                </Link>
               </form>
             </div>
           </div>
         </div>
       </div>
-
-      <Footer />
-    </>
+    </NoFooterHeader>
   );
 };
 

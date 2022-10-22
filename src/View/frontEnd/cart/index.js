@@ -153,7 +153,7 @@ const Cart = (props) => {
                         />
                       </Link>
 
-                      <span className="d-flex align-items-center fw-bold text-subtext flex-grow-1 flex-sm-grow-0" style={{width: '200px'}}>
+                      <span className="cart_controller d-flex align-items-center fw-bold text-subtext flex-grow-1 flex-sm-grow-0" style={{width: '200px'}}>
                         {/*<span className="mr-6p d-none d-sm-block">Qty:</span>{' '}*/}
                         <Button
                           variant="link"

@@ -74,6 +74,8 @@ import { Link } from 'react-router-dom';
 
 const ItemDetail = (props) => {
   let productDetails = props.productDetails;
+  let categoryProducts = props.categoryProducts;
+  let similerProductsCount = categoryProducts.filter((e) => e._id !== productDetails._id).length;
 
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const userAuthToken = localStorage.getItem('userAuthToken');
@@ -83,18 +85,16 @@ const ItemDetail = (props) => {
   //   ? productDetails.isFulfiled
   //   : productDetails.quantity <= productDetails.soldout;
 
+  let isFinish =
+    !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false;
+  let isFulfiled = productDetails.isFulfiled;
 
-  let isFinish = !productDetails.unlimited && productDetails.soldout >= productDetails.quantity ? true : false
-  let isFulfiled = productDetails.isFulfiled
+  const isSold = isFinish || (isFulfiled && !productDetails.unlimited) ? true : false;
 
-  const isSold = isFinish || isFulfiled && !productDetails.unlimited ? true : false
-
-  let allProjects = productDetails?.projectProducts?.concat(productDetails?.projectDetails)
-  allProjects = allProjects?.filter((value, index, self) =>
-    index === self.findIndex((t) => (
-      t.projectId === value.projectId
-    ))
-  )
+  let allProjects = productDetails?.projectProducts?.concat(productDetails?.projectDetails);
+  allProjects = allProjects?.filter(
+    (value, index, self) => index === self.findIndex((t) => t.projectId === value.projectId)
+  );
   return (
     <>
       <HeaderController />
@@ -106,7 +106,7 @@ const ItemDetail = (props) => {
           productDetails={productDetails}
         />
       </SuggestionWrapper>
-      <Container fluid className="py-5">
+      <Container fluid className="py-3 py-sm-5">
         <Row>
           <Col md="7" className="mb-4 mb-0">
             <ItemDetailMain
@@ -140,7 +140,7 @@ const ItemDetail = (props) => {
                 ''
               )}
             </div>
-            <div className="gallery__container my-2">
+            <div className="gallery__container my-2 pb-5" style={{ maxWidth: '400px' }}>
               {productDetails?.productImages &&
                 productDetails?.productImages.length > 0 &&
                 productDetails?.productImages.map((img, i) => {
@@ -156,8 +156,6 @@ const ItemDetail = (props) => {
                   }
                 })}
             </div>
-
-
 
             <History list={props.purchasedItemList} />
           </Col>
@@ -209,66 +207,64 @@ const ItemDetail = (props) => {
           })} */}
         {/* {          console.log(productDetails?.projectProducts)} */}
 
-        {allProjects
-          &&
-          allProjects
-            .length > 0 &&
-          allProjects
-            .map((project, i) => {
-              return (
-                <div>
-                  <Row className="py-5 border-top">
-                    <Col md="6" className="mb-4 mb-0">
-                      <TagTitle>Projects</TagTitle>
+        {allProjects &&
+          allProjects.length > 0 &&
+          allProjects.map((project, i) => {
+            return (
+              <div>
+                <Row className="py-5 border-top">
+                  <Col md="6" className="mb-4 mb-0">
+                    <TagTitle>Projects</TagTitle>
 
-                      <div>
-                        <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
+                    <div>
+                      <WidgetTitle>{project.projectDetails.name}</WidgetTitle>
 
-                        <div className="gallery__container my-2">
-                          {project.projectDetails?.projectImages &&
-                            project.projectDetails?.projectImages.length > 0 &&
-                            project.projectDetails?.projectImages.map((img2, i) => {
-                              // if (img.type === 'moreImage') {
+                      <div className="gallery__container my-2">
+                        {project.projectDetails?.projectImages &&
+                          project.projectDetails?.projectImages.length > 0 &&
+                          project.projectDetails?.projectImages.map((img2, i) => {
+                            // if (img.type === 'moreImage') {
 
-                              return (
-                                <GalleryImg
-                                  key={i}
-                                  thumbImgSrc={helper.ProjectImagePath + img2.image}
-                                  bigImgSrc={helper.ProjectFullImagePath + img2?.image}
-                                />
-                              );
-                              // }
-                            })}
-                        </div>
-
-                        <Link
-                          to={'/project/' + project.projectDetails?.slug}
-                          variant="link"
-                          className=" btn btn-info text-white"
-                        >
-                          <span className="fs-6">Go to Project</span>
-                        </Link>
+                            return (
+                              <GalleryImg
+                                key={i}
+                                thumbImgSrc={helper.ProjectImagePath + img2.image}
+                                bigImgSrc={helper.ProjectFullImagePath + img2?.image}
+                              />
+                            );
+                            // }
+                          })}
                       </div>
-                    </Col>
-                  </Row>
-                </div>
-              );
-            })}
-        {/* {console.log(productDetails)} */}
 
-        <Row className="py-5 border-top">
-          <Col md="6" className="mb-4 mb-0">
-            <SimilarItems
-              productDetails={productDetails}
-              categoryProducts={props.categoryProducts}
-              removeCartItem={props.removeCartItem}
-              checkItemInCart={props.checkItemInCart}
-              pricingFees={props.pricingFees}
-              addToCart={props.addToCart}
-            />
-          </Col>
-          <Col md="6"></Col>
-        </Row>
+                      <Link
+                        to={'/project/' + project.projectDetails?.slug}
+                        variant="link"
+                        className=" btn btn-info text-white"
+                      >
+                        <span className="fs-6">Go to Project</span>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            );
+          })}
+        {/* {console.log(productDetails)} */}
+        {similerProductsCount > 0 && (
+          <Row className="py-5 border-top">
+            <Col md="6" className="mb-4 mb-0">
+              <SimilarItems
+                productDetails={productDetails}
+                categoryProducts={props.categoryProducts}
+                removeCartItem={props.removeCartItem}
+                checkItemInCart={props.checkItemInCart}
+                pricingFees={props.pricingFees}
+                addToCart={props.addToCart}
+              />
+            </Col>
+            <Col md="6"></Col>
+          </Row>
+        )}
       </Container>
 
       <Footer />

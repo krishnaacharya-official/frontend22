@@ -48,9 +48,14 @@
   background-color: unset;
   border: unset;
 }
-
+.cart_controller {
+  width: 200px;
+}
 @include media-breakpoint-down(sm) {
   .list__item-img {
     width: 75px;
+  }
+  .cart_controller {
+    width: 100%;
   }
 }

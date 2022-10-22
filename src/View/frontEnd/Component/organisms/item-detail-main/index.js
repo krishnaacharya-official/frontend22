@@ -254,16 +254,18 @@ function ProjectDetailMain(props) {
         {productDetails?.description?.replace(/<\/?[^>]+(>|$)/g, '')}
       </div>
 
-      {productDetails?.productImages && productDetails?.productImages.length > 0 && (
-        <div className="mt-5">
-          <ProjectGallery
-            className="mb-3"
-            title={true}
-            tagTitle="Products"
-            images={productDetails?.productImages}
-          />
-        </div>
-      )}
+      {productDetails?.productImages &&
+        productDetails?.productImages.length > 0 &&
+        productDetails?.productImages.filter((e) => e.type === 'galleryImage').length > 0 && (
+          <div className="mt-5">
+            <ProjectGallery
+              className="mb-3"
+              title={true}
+              tagTitle="Products"
+              images={productDetails?.productImages}
+            />
+          </div>
+        )}
 
       <div className="project__calculate">
         {isFinish || (productDetails.isFulfiled && !productDetails.unlimited) ? (

@@ -464,7 +464,7 @@ function OrganisationWidget(props) {
   return (
     <>
       {/* {console.log('in rander')} */}
-      <TagTitle>Organisation</TagTitle>
+      <TagTitle>Organization</TagTitle>
       <div className="mb-2">
         <WidgetTitle>Items</WidgetTitle>
       </div>

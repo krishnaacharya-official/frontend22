@@ -1,4 +1,3 @@
-
 .logo-name {
   display: flex;
   font-family: Fredoka, sans-serif;
@@ -9,10 +8,17 @@
   margin-left: 3px;
   color: #6f6f91;
   font-weight: 700;
-  font-size: 14px
+  font-size: 14px;
 }
 
 .logo-icon {
   width: 26px;
   height: 26px;
+}
+
+@include media-breakpoint-down(sm) {
+  .logo-icon {
+    width: 21px;
+    height: 21px;
+  }
 }

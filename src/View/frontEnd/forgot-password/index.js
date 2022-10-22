@@ -1,27 +1,26 @@
 import { useState } from 'react';
-import { Button, InputGroup, FormControl } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
 // import { Logo } from "@components/atoms";
 // import { Footer } from "@components/organisms";
 
 import Logo from '../Component/atoms/logo';
-import Footer from '../Component/organisms/footer';
+import NoFooterHeader from '../Component/templates/no-footer-header';
 
-import "./style.scss";
+import './style.scss';
 
 const ForgotPassword = (props) => {
   let stateData = props.stateData;
 
   const [showPassword, togglePassword] = useState(false);
   return (
-    <>
+    <NoFooterHeader>
       <div className="bg-lighter authPage">
         <div className="login">
           <div className="login__left d-none d-sm-flex align-items-center justify-content-center flex__1">
             <div className="login__hero">
-              <h2 className="login-title fw-bolder">Welcome to Donorport</h2>
               <div className="chart-comment-block">
                 <div className="from-me">
                   <p>Have you made a Donorport account yet?</p>
@@ -40,10 +39,7 @@ const ForgotPassword = (props) => {
                 </div>
                 <div className="clear"></div>
                 <div className="from-me">
-                  <p>
-                    You pay for things non-profits need instead of just giving
-                    them money
-                  </p>
+                  <p>You pay for things non-profits need instead of just giving them money</p>
                 </div>
                 <div className="clear"></div>
                 <div className="from-them">
@@ -52,14 +48,10 @@ const ForgotPassword = (props) => {
               </div>
               <div className="chat-info-wrap">
                 <a href="/" className="d-flex">
-                  <FontAwesomeIcon
-                    icon={regular("circle-info")}
-                    className="text-info"
-                  />
+                  <FontAwesomeIcon icon={regular('circle-info')} className="text-info" />
                 </a>
                 <span className="lh-1">
-                  For information on how Donorport works{" "}
-                  <a href="/"> click here.</a>
+                  For information on how Donorport works <a href="/"> click here.</a>
                 </span>
               </div>
             </div>
@@ -71,38 +63,37 @@ const ForgotPassword = (props) => {
               </div>
 
               <form className="login__form">
-                <div className="login-header">Forgot Password</div>
+                <div className="login-header text-dark">Forgot Password</div>
                 <div className="mb-3">
                   <input
                     type="email"
                     className="form-control"
                     id="email"
                     placeholder="Email"
-                    name="email" value={stateData.email}
+                    name="email"
+                    value={stateData.email}
                     onChange={(e) => props.changevalue(e)}
                   />
-                  {stateData.error && stateData.error.email && <p className="error">{stateData.error ? stateData.error.email ? stateData.error.email : "" : ""}</p>}
+                  {stateData.error && stateData.error.email && (
+                    <p className="error">
+                      {stateData.error ? (stateData.error.email ? stateData.error.email : '') : ''}
+                    </p>
+                  )}
                 </div>
-
-
-
-
-
 
                 <Button size="lg" className="w-100 mb-4" onClick={() => props.sendOtp()}>
                   Submit
                 </Button>
-        
-                <Link className="text-light w-100 p-0 fw-normal" to='/signin'>Back To Sign in</Link>
 
+                <Link className="text-light w-100 p-0 fw-normal" to="/signin">
+                  Back To Sign in
+                </Link>
               </form>
             </div>
           </div>
         </div>
       </div>
-
-      <Footer />
-    </>
+    </NoFooterHeader>
   );
 };
 

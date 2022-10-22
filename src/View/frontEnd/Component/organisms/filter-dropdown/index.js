@@ -132,7 +132,7 @@ const FilterDropdown = (props) => {
             />
           </div>
         </Dropdown.Toggle> */}
-        <Dropdown.Menu renderOnMount className="filter__dropdown mobile__dropdown">
+        <Dropdown.Menu renderOnMount className="filter__dropdown mobile__dropdown dropdown-top-arrow">
           <div className="filter__dropdown-hd border-bottom">
             <div className="filter__checkboxes d-flex align-items-center">
               <div className="filter__item d-flex justify-content-center text-center text-light flex__1">

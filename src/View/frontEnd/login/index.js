@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // import { Footer } from "@components/organisms";
 
 import Logo from '../Component/atoms/logo';
-import Footer from '../Component/organisms/footer';
+import NoFooterHeader from '../Component/templates/no-footer-header';
 
 import './style.scss';
 
@@ -16,12 +16,11 @@ const Login = (props) => {
 
   const [showPassword, togglePassword] = useState(false);
   return (
-    <>
-      <div className="bg-lighter authPage">
+    <NoFooterHeader>
+      <div className="d-flex flex-column bg-lighter authPage">
         <div className="login">
           <div className="login__left d-none d-sm-flex align-items-center justify-content-center flex__1">
             <div className="login__hero">
-              <h2 className="login-title fw-bolder">Welcome to Donorport</h2>
               <div className="chart-comment-block">
                 <div className="from-me">
                   <p>Have you made a Donorport account yet?</p>
@@ -64,7 +63,7 @@ const Login = (props) => {
               </div>
 
               <form className="login__form">
-                <div className="login-header">Sign in</div>
+                <div className="login-header text-dark">Sign in</div>
                 <div className="mb-3">
                   <input
                     type="email"
@@ -149,9 +148,7 @@ const Login = (props) => {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </>
+    </NoFooterHeader>
   );
 };
 
