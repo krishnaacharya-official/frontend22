@@ -225,9 +225,9 @@ const ActivityTable = (props) => {
         {props.totalPages > 1 ? <div className="mt-5 d-flex justify-content-center mb-5">
 
 
-          < Stack spacing={2} >
+         {/* < Stack spacing={2} >
             <Pagination count={props.totalPages} shape="rounded" page={props.pageNo} onChange={props.handleClick} />
-          </Stack>
+          </Stack>*/}
 
         </div> : <></>}
       </div>

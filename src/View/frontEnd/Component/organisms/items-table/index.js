@@ -12,9 +12,10 @@ import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/H
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
+let PageSize = 10;
+
 const ItemsTable = (props) => {
   const calculatedPrice = getCalculatedPrice();
-
   let orderItemList = props.orderItemList;
 
   const totalPriceArray = props.totalPriceArray;
@@ -42,10 +43,7 @@ const ItemsTable = (props) => {
             <FontAwesomeIcon icon={solid('angle-down')} className="small ml-6p" />
           </Button>
         </div>
-        <ul
-          className="list-unstyled mb-0 list__table-list"
-          style={{ minHeight: '500px' }}
-        >
+        <ul className="list-unstyled mb-0 list__table-list" style={{ minHeight: '500px' }}>
           {orderItemList.length > 0 ? (
             orderItemList.map((item, key) => {
               // console.log(item)
@@ -63,7 +61,7 @@ const ItemsTable = (props) => {
                       onClick={() => props.onItemClick(key)}
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
                     >
-                      <div className="me-2" style={{width: "65px", minWidth: "65px"}}>
+                      <div className="me-2" style={{ width: '65px', minWidth: '65px' }}>
                         <div className="text-success fw-bold fs-5">
                           {item.currencySymbol}
                           {price}
@@ -91,7 +89,10 @@ const ItemsTable = (props) => {
                     </Button>
                     <div className="d-flex align-items-center flex__1">
                       <div className="d-flex align-items-center flex__1 ms-3">
-                        <div className="d-flex align-items-center progress__wrap me-2 flex__1 gap-2" style={{maxWidth: "250px"}}>
+                        <div
+                          className="d-flex align-items-center progress__wrap me-2 flex__1 gap-2"
+                          style={{ maxWidth: '250px' }}
+                        >
                           {!item.itemDetails?.unlimited ? (
                             <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
                               {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
@@ -193,7 +194,7 @@ const ItemsTable = (props) => {
           {props.totalPages > 1 ? (
             <Stack spacing={2}>
               <Pagination
-                pageSize={15}
+                pageSize={PageSize}
                 count={props.totalPages}
                 color="primary"
                 shape="rounded"

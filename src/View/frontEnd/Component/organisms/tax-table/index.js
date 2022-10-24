@@ -30,19 +30,23 @@ const TaxTable = (props) => {
     return sum.toFixed(2);
   };
 
-  const AccordionItem = ({ header, ...rest }) => (
+  const AccordionItem = ({ header, buttonProps, hideChevron, ...rest }) => (
     <Item
       {...rest}
       header={({ state: { isEnter: expanded } }) => (
         <>
           {header}
-          <img
-            className={`ml-auto transition-transform duration-200 ease-in-out ${
-              expanded && 'rotate-180'
-            }`}
-            src={chevronDown}
-            alt="Chevron Down"
-          />
+          <div className="chev-wrapper">
+            {!hideChevron && (
+              <img
+                className={`ml-auto transition-transform duration-200 ease-in-out ${
+                  expanded && 'rotate-180'
+                }`}
+                src={chevronDown}
+                alt="Chevron Down"
+              />
+            )}
+          </div>
         </>
       )}
     />
@@ -79,14 +83,17 @@ const TaxTable = (props) => {
             )}
           </Button>
         </div>
+
         <ul className="list-unstyled mb-0 pt-2 list__table-list">
           {props.taxList.length > 0 ? (
             props.taxList.map((item, i) => {
-              // console.log(item)
+              const disableHeader = item.length === 1;
               return (
                 <>
                   <Accordion allowMultiple>
                     <AccordionItem
+                      hideChevron={disableHeader}
+                      buttonProps={{ disabled: disableHeader }}
                       header={
                         <li className="flex-grow-1 table__list-item px-0 px-sm-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">

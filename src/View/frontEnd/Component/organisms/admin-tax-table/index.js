@@ -15,6 +15,7 @@ import './style.scss';
 import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import chevronDown from '../../../../../assets/images/chevron-down.svg';
 // import AvatarImg from "../../../assets/images/avatar.png";
+let PageSize = 10;
 
 const AdminTaxTable = (props) => {
   const taxList = props.taxList;
@@ -35,19 +36,23 @@ const AdminTaxTable = (props) => {
     return sum.toFixed(2);
   };
 
-  const AccordionItem = ({ header, ...rest }) => (
+  const AccordionItem = ({ header, buttonProps, hideChevron, ...rest }) => (
     <Item
       {...rest}
       header={({ state: { isEnter: expanded } }) => (
         <>
           {header}
-          <img
-            className={`ml-auto transition-transform duration-200 ease-in-out ${
-              expanded && 'rotate-180'
-            }`}
-            src={chevronDown}
-            alt="Chevron Down"
-          />
+          <div className="chev-wrapper">
+            {!hideChevron && (
+              <img
+                className={`ml-auto transition-transform duration-200 ease-in-out ${
+                  expanded && 'rotate-180'
+                }`}
+                src={chevronDown}
+                alt="Chevron Down"
+              />
+            )}
+          </div>
         </>
       )}
     />
@@ -83,12 +88,13 @@ const AdminTaxTable = (props) => {
         <ul className="list-unstyled pt-2 mb-0 list__table-list">
           {taxList.length > 0 ? (
             taxList.map((item, i) => {
-              // console.log(item)
+              const disableHeader = item.length === 1;
               return (
                 <>
                   <Accordion allowMultiple>
                     <AccordionItem
-                      style={{ textAlign: 'left' }}
+                      hideChevron={disableHeader}
+                      buttonProps={{ disabled: disableHeader }}
                       header={
                         <li className="flex-grow-1 table__list-item px-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">
@@ -417,6 +423,7 @@ const AdminTaxTable = (props) => {
               <div className="mt-5 d-flex justify-content-center mb-5">
                 <Stack spacing={2}>
                   <Pagination
+                    pageSize={PageSize}
                     count={props.totalPages}
                     shape="rounded"
                     page={props.pageNo}
