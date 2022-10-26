@@ -39,8 +39,14 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   // console.log(currentOption)
   return (
     <>
-      <Nav className="d-flex flex-column gap-2" variant="pills" {...otherProps} onClick={_onClick} style={navItemStyle}>
-        <Link to={'/user/' + newSlug + '/dashboard'}>
+      <Nav
+        className="d-flex flex-column gap-2"
+        variant="pills"
+        {...otherProps}
+        onClick={_onClick}
+        style={navItemStyle}
+      >
+        {/* <Link to={'/user/' + newSlug + '/dashboard'}>
           <Nav.Item>
             <Nav.Link
               eventKey="dashboard"
@@ -56,7 +62,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </Link>*/}
 
         <Link to={'/user/' + newSlug + '/items'}>
           <Nav.Item>

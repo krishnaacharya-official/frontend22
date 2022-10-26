@@ -153,7 +153,7 @@ function SigninController() {
                                 }
                                 localStorage.setItem('CampaignAdminAuthToken', uselogin.data.accessToken)
                                 localStorage.setItem('CampaignAdmin', JSON.stringify(uselogin.data))
-                                navigate('/campaign/' + uselogin.data.slug + '/dashboard', { replace: true })
+                                navigate('/campaign/' + uselogin.data.slug + '/posts', { replace: true })
                             } else {
                                 if (uselogin.data.image) {
                                     dispatch(setProfileImage(helper.DonorImageResizePath + uselogin.data.image))

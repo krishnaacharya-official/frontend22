@@ -1,4 +1,4 @@
-@import "../../../../../assets/scss/components/list-table";
+@import '../../../../../assets/scss/components/list-table';
 
 .post__value {
   width: 65px;
@@ -6,4 +6,7 @@
 .project--btn {
   background: unset;
   color: inherit;
+}
+.table__list-item:last-child {
+  border: none !important;
 }

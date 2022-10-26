@@ -25,7 +25,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
   return (
     <>
       <Nav className="d-flex flex-column gap-2" variant="pills" {...otherProps} onClick={_onClick}>
-        <Link to={'/campaign/' + data?.slug + '/dashboard'}>
+       {/* <Link to={'/campaign/' + data?.slug + '/dashboard'}>
           <Nav.Item>
             <Nav.Link
               eventKey="dashboard"
@@ -41,7 +41,7 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
               <span className="tab__text">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
-        </Link>
+        </Link>*/}
 
         <Link to={'/campaign/' + data?.slug + '/posts'}>
           <Nav.Item>

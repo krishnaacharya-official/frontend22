@@ -5,6 +5,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import ListItemImg from "@components/atoms/list-item-img";
 import ListItemImg from '../../atoms/list-item-img';
 import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 
 import moment from 'moment';
 import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
@@ -12,14 +13,27 @@ import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/H
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-let PageSize = 10;
-
 const ItemsTable = (props) => {
   const calculatedPrice = getCalculatedPrice();
   let orderItemList = props.orderItemList;
 
   const totalPriceArray = props.totalPriceArray;
   // console.log(orderItemList)
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <div className="list__table">
@@ -54,15 +68,16 @@ const ItemsTable = (props) => {
                 : item.itemDetails.price;
 
               return (
-                <li className="table__list-item p-2" key={key}>
+                <li className="table__list-item p-2 border-bottom" key={key}>
                   <div className="d-xl-flex align-items-center flex-grow-1">
                     <Button
                       variant="link"
                       onClick={() => props.onItemClick(key)}
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
+                      style={{maxWidth: '325px'}}
                     >
                       <div className="me-2" style={{ width: '65px', minWidth: '65px' }}>
-                        <div className="text-success fw-bold fs-5">
+                        <div className="text-success fw-bold fs-4">
                           {item.currencySymbol}
                           {price}
                         </div>
@@ -190,16 +205,20 @@ const ItemsTable = (props) => {
           )}
         </ul>
 
-        <div className="mt-5 d-flex justify-content-center mb-5">
+        <div
+          className="py-2 mt-2 d-flex justify-content-center border-top"
+          style={{ background: '#f8fafd78' }}
+        >
           {props.totalPages > 1 ? (
             <Stack spacing={2}>
               <Pagination
-                pageSize={PageSize}
                 count={props.totalPages}
-                color="primary"
-                shape="rounded"
                 page={props.pageNo}
                 onChange={props.handleClick}
+                shape="rounded"
+                classes={{ ul: classes.ul }}
+                showFirstButton
+                showLastButton
               />
             </Stack>
           ) : (

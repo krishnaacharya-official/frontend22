@@ -34,7 +34,7 @@ function UserSettingsList(props) {
       {
         userAuthToken ?
           <>
-            <Link to={'/user/' + newSlug + '/dashboard/'} >
+            <Link to={'/user/' + newSlug + '/items/'} >
               <UserSettingsItem
                 icon={<FontAwesomeIcon icon={solid("circle-user")} />}
                 // icon={<i className="fa-solid fa-circle-user"></i>}

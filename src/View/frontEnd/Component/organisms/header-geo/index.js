@@ -12,7 +12,7 @@ import UserSettings from '../user-settings';
 
 import './style.scss';
 
-const Header = (props) => {
+const HeaderGeo = (props) => {
   const adminAuthToken = localStorage.getItem('adminAuthToken');
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const userAuthToken = localStorage.getItem('userAuthToken');
@@ -22,10 +22,8 @@ const Header = (props) => {
       <Container className="d-flex align-items-center" fluid>
         <Logo />
         {
-          // adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
-
           <div className="ms-auto header__right d-flex gap-1">
-            {/*  <GeoLocation />*/}
+            <GeoLocation />
             {/* {
               userAuthToken || CampaignAdminAuthToken ?
                 <GeoLocation />
@@ -36,7 +34,6 @@ const Header = (props) => {
             {userAuthToken ? (
               <>
                 {/* <GeoLocation /> */}
-
                 <ShoppingCart
                   cartItem={props.cartItem}
                   removeCartItem={props.removeCartItem}
@@ -63,11 +60,10 @@ const Header = (props) => {
               getAuthToken={props.getAuthToken}
             />
           </div>
-          //  : <></>
         }
       </Container>
     </header>
   );
 };
 
-export default Header;
+export default HeaderGeo;

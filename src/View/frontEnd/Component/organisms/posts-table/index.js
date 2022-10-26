@@ -4,13 +4,14 @@ import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Avatar from '../../atoms/avatar';
 import ListItemImg from '../../atoms/list-item-img';
 import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect } from 'react';
 import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import noimg from '../../../../../assets/images/noimg.jpg'
+import noimg from '../../../../../assets/images/noimg.jpg';
 
 const PostsTable = (props) => {
   let organizationDetails = props.organizationDetails;
@@ -26,6 +27,21 @@ const PostsTable = (props) => {
   // }, [organizationDetails])
 
   // console.log(productList)
+
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
 
   return (
     <>
@@ -53,7 +69,7 @@ const PostsTable = (props) => {
         <ul
           className="list-unstyled mb-0 list__table-list"
           style={{
-           // maxHeight: productList.length > 0 && '600px',
+            // maxHeight: productList.length > 0 && '600px',
             minHeight: productList.length > 0 && '600px'
           }}
         >
@@ -61,31 +77,31 @@ const PostsTable = (props) => {
             productList.map((product, i) => {
               // console.log(product)
               return (
-                <li className="table__list-item p-2">
+                <li className="table__list-item p-2 border-bottom">
                   <div className="d-xl-flex align-items-center flex-grow-1">
                     <div
                       className="d-flex align-items-center text-dark me-sm-3 mb-2"
                       style={{ width: '300px' }}
                     >
                       <div className="ms-auto ms-sm-0 me-sm-2 post__value">
-                        {
-                          product.status === 1 &&
-
-                          <div className="text-success fw-bold fs-5">
-
+                        {product.status === 1 && (
+                          <div className="text-success fw-bold fs-4">
                             {organizationDetails.symbol}
-                            {priceFormat(product.displayPrice ? product.displayPrice : product.price)}
+                            {priceFormat(
+                              product.displayPrice ? product.displayPrice : product.price
+                            )}
                             {/* {product.displayPrice ? product.displayPrice : product.price} */}
-
                           </div>
-                        }
+                        )}
                         <div className="text-light fw-light fs-8">
                           {moment(product.created_at).fromNow()}
                         </div>
                       </div>
                       <ListItemImg
                         size={68}
-                        imgSrc={product.image ? helper.CampaignProductImagePath + product.image : noimg}
+                        imgSrc={
+                          product.image ? helper.CampaignProductImagePath + product.image : noimg
+                        }
                       />
                       <div className="ms-2">
                         <div className="fw-bolder fs-5 mb-3p">{product.headline}</div>
@@ -104,8 +120,7 @@ const PostsTable = (props) => {
                     </div>
                     <div className="d-flex align-items-center flex__1 mb-2 mb-sm-0">
                       <div className="d-flex align-items-center flex__1">
-                        {
-                          product.status === 1 &&
+                        {product.status === 1 && (
                           // }
                           <div className="d-flex align-items-center progress__wrap me-2 flex__1">
                             {!product.unlimited && (
@@ -139,17 +154,15 @@ const PostsTable = (props) => {
                               </div>
                             )}
                           </div>
-                        }
+                        )}
                       </div>
                     </div>
                     <div className="billing__buttons d-flex align-items-center">
                       {product.projectDetails.length > 0 && (
-                        <Button
-                          className="project--btn me-auto pt-6p pb-6p pl-6p pr-12p"
-                        >
+                        <Button className="project--btn me-auto pt-6p pb-6p pl-6p pr-12p">
                           <div className="d-flex align-items-center justify-content-center">
                             {product.projectDetails[0].projectMainDetails.projectImages.length >
-                              0 ? (
+                            0 ? (
                               <Avatar
                                 size={26}
                                 border={0}
@@ -160,17 +173,14 @@ const PostsTable = (props) => {
                                     .image
                                 }
                               />
-                            ) :
+                            ) : (
                               <Avatar
                                 size={26}
                                 border={0}
                                 shadow={false}
-                                avatarUrl=
-                                'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
-
+                                avatarUrl="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg"
                               />
-
-                            }
+                            )}
                             <span className="ms-1 fs-7">
                               {product.projectDetails[0].projectMainDetails.name}
                             </span>
@@ -227,22 +237,26 @@ const PostsTable = (props) => {
                           >
                             Fulfil Order
                           </Button>
-                        ) : product.isFulfiled && !product.unlimited &&(
-                          <Button
-                            variant="link"
-                            className="p-0"
-                            onClick={() => props.showFulfillOrder(product)}
-                          >
-                            <FontAwesomeIcon
-                              icon={solid('square-up-right')}
-                              className="text-success fs-2 me-2"
-                            />
-                          </Button>
-                        )
-                        }
+                        ) : (
+                          product.isFulfiled &&
+                          !product.unlimited && (
+                            <Button
+                              variant="link"
+                              className="p-0"
+                              onClick={() => props.showFulfillOrder(product)}
+                            >
+                              <FontAwesomeIcon
+                                icon={solid('square-up-right')}
+                                className="text-success fs-2 me-2"
+                              />
+                            </Button>
+                          )
+                        )}
 
-                        {(product.status === 1 && product.quantity <= product.soldout && !product.isFulfiled) ||
-                          (product.status === 1 && product.unlimited && !product.isFulfiled) ? (
+                        {(product.status === 1 &&
+                          product.quantity <= product.soldout &&
+                          !product.isFulfiled) ||
+                        (product.status === 1 && product.unlimited && !product.isFulfiled) ? (
                           <Button
                             variant="success"
                             className="btn-md fw-bold"
@@ -270,9 +284,7 @@ const PostsTable = (props) => {
                                 className="text-warning fs-2 me-2"
                               />
                             </Button>
-                            {
-                              product.soldout <= 0 &&
-
+                            {product.soldout <= 0 && (
                               <Button
                                 variant="link"
                                 className="p-0  mr-2"
@@ -283,7 +295,7 @@ const PostsTable = (props) => {
                                   className="text-danger fs-2 me-2"
                                 />
                               </Button>
-                            }
+                            )}
 
                             {product.status === -1 && (
                               <Button
@@ -395,13 +407,19 @@ const PostsTable = (props) => {
           </li> */}
         </ul>
         {props.totalPages > 1 ? (
-          <div className="mt-5 d-flex justify-content-center mb-5">
+          <div
+            className="py-2 mt-2 d-flex justify-content-center border-top"
+            style={{ background: '#f8fafd78' }}
+          >
             <Stack spacing={2}>
               <Pagination
                 count={props.totalPages}
-                shape="rounded"
                 page={props.pageNo}
                 onChange={props.handleClick}
+                shape="rounded"
+                classes={{ ul: classes.ul }}
+                showFirstButton
+                showLastButton
               />
             </Stack>
           </div>

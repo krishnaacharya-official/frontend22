@@ -4,6 +4,7 @@ import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import ListItemImg from '../../atoms/list-item-img';
 import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -100,6 +101,21 @@ const XpTable = (props) => {
     return Res;
   }
 
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <div className="list__table">
@@ -135,9 +151,9 @@ const XpTable = (props) => {
           {ItemList.length > 0 ? (
             ItemList.map((item, i) => {
               return (
-                <li className="table__list-item p-2">
+                <li className="table__list-item p-2 border-bottom">
                   <div className="d-flex align-items-center flex-grow-1">
-                    <div className="order-2 order-sm-1 ms-2 ms-sm-0 pe-1" style={{ width: '65px' }}>
+                    <div className="order-2 order-sm-1 me-2" style={{ width: '65px' }}>
                       <div className="text-info fw-bold fs-5">{item.xp}XP</div>
                       <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                     </div>
@@ -221,14 +237,20 @@ const XpTable = (props) => {
             </li>
           )}
         </ul>
-        <div className="mt-5 d-flex justify-content-center mb-5">
+        <div
+          className="py-2 mt-2 d-flex justify-content-center border-top"
+          style={{ background: '#f8fafd78' }}
+        >
           {props.totalPages > 1 ? (
             <Stack spacing={2}>
               <Pagination
                 count={props.totalPages}
-                shape="rounded"
                 page={props.pageNo}
                 onChange={props.handleClick}
+                shape="rounded"
+                classes={{ ul: classes.ul }}
+                showFirstButton
+                showLastButton
               />
             </Stack>
           ) : (

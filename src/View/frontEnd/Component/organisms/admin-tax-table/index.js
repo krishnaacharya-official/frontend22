@@ -9,9 +9,10 @@ import helper from '../../../../../Common/Helper';
 import Avatar from '../../atoms/avatar';
 import AvatarImg from '../../../../../assets/images/avatar.png';
 import moment from 'moment';
+import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import './style.scss';
 import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import chevronDown from '../../../../../assets/images/chevron-down.svg';
 // import AvatarImg from "../../../assets/images/avatar.png";
@@ -58,6 +59,21 @@ const AdminTaxTable = (props) => {
     />
   );
 
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <div className="admin__tax-table list__table mb-4">
@@ -85,7 +101,7 @@ const AdminTaxTable = (props) => {
             <FontAwesomeIcon icon={solid('angle-down')} className="small ml-6p" />
           </Button>
         </div>
-        <ul className="list-unstyled pt-2 mb-0 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list">
           {taxList.length > 0 ? (
             taxList.map((item, i) => {
               const disableHeader = item.length === 1;
@@ -96,7 +112,7 @@ const AdminTaxTable = (props) => {
                       hideChevron={disableHeader}
                       buttonProps={{ disabled: disableHeader }}
                       header={
-                        <li className="flex-grow-1 table__list-item px-2">
+                        <li className="flex-grow-1 table__list-item px-2 py-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">
                             <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                               <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
@@ -121,20 +137,19 @@ const AdminTaxTable = (props) => {
                                   className="mr-12p donor_avatar_bg"
                                 />
                               </div>
-                              <div className="text__wrap mw- ms-2">
-                                <div className="fw-bolder fs-5">{item[0].userDetails?.name}</div>
-                                <div className="fs-7 text-light mb-6p">
-                                  {item[0].userDetails?.email}
-                                </div>
-                                <div className="fs-7 text-light">
+                              <div
+                                className="text__wrap ms-2 user-select-auto fs-7"
+                                style={{ cursor: 'default' }}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <div className="fw-bold fs-5">{item[0].userDetails?.name}</div>
+                                <div className="text-light mb-1">{item[0].userDetails?.email}</div>
+                                <div className="text-light">
                                   {item[0].userDetails.street +
-                                    ' , ' +
+                                    ', ' +
                                     item[0].userDetails.cityDetails[0]?.city}
-                                  <br />
                                   {item[0].userDetails.stateDetails[0]?.state +
-                                    ' , ' +
-                                    item[0].userDetails.countryDetails[0]?.country +
-                                    ' , ' +
+                                    ', ' +
                                     item[0].userDetails.zip}
                                   {/* 255 West Baker St. */}
                                   {/* <br /> Dallas TX, USA 118098 */}
@@ -250,9 +265,11 @@ const AdminTaxTable = (props) => {
                               )}
 
                               {item.length > 0 && item[0].receipt ? (
-                                <div className="d-flex align-items-center ms-sm-2 btn__wrap">
+                                <div
+                                  className="d-flex align-items-center ms-sm-2 btn__wrap"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   <Button
-                                    onClick={(e) => e.stopPropagation()}
                                     variant="link"
                                     className="d-flex align-items-center p-0 text-decoration-none me-2"
                                   >
@@ -270,7 +287,7 @@ const AdminTaxTable = (props) => {
                                       </div>
                                     </div>
                                   </Button>
-                                  <Dropdown className="d-flex ms-auto" autoClose="outside">
+                                 {/* <Dropdown className="d-flex ms-auto" autoClose="outside">
                                     <Dropdown.Toggle
                                       variant="link"
                                       className="no-caret text-decoration-none"
@@ -300,7 +317,7 @@ const AdminTaxTable = (props) => {
                                         <FontAwesomeIcon icon={regular('trash')} className="ms-1" />
                                       </Dropdown.Item>
                                     </Dropdown.Menu>
-                                  </Dropdown>
+                                  </Dropdown>*/}
                                 </div>
                               ) : (
                                 <Button
@@ -351,10 +368,9 @@ const AdminTaxTable = (props) => {
 
                             return (
                               <>
-                                <hr />
-                                <li className="table__list-item px-2">
+                                <li className="table__list-item py-1">
                                   <div className="d-sm-flex align-items-center flex-grow-1">
-                                    <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                    <div className="d-flex align-items-center mb-1 mb-sm-0">
                                       <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
                                         <div className="text-success fw-bold fs-5">
                                           {i1.currencySymbol}
@@ -407,7 +423,6 @@ const AdminTaxTable = (props) => {
                       </div>
                     </AccordionItem>
                   </Accordion>
-                  <hr />
                 </>
               );
             })
@@ -420,14 +435,20 @@ const AdminTaxTable = (props) => {
           )}
           <>
             {props.totalPages > 1 ? (
-              <div className="mt-5 d-flex justify-content-center mb-5">
+              <div
+                className="py-2 mt-2 d-flex justify-content-center border-top"
+                style={{ background: '#f8fafd78' }}
+              >
                 <Stack spacing={2}>
                   <Pagination
                     pageSize={PageSize}
                     count={props.totalPages}
-                    shape="rounded"
                     page={props.pageNo}
                     onChange={props.handleClick}
+                    shape="rounded"
+                    classes={{ ul: classes.ul }}
+                    showFirstButton
+                    showLastButton
                   />
                 </Stack>
               </div>

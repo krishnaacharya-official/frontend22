@@ -12,6 +12,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 import helper from '../../../../../Common/Helper';
 import { Link } from 'react-router-dom';
 
@@ -65,6 +66,21 @@ const ProjectsTable = (props) => {
     return Math.round(per);
   };
 
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <div className="projects__table list__table mb-5">
@@ -99,7 +115,7 @@ const ProjectsTable = (props) => {
             projectList.map((project, i) => {
               // console.log(project)
               return (
-                <li className="table__list-item p-2" key={i}>
+                <li className="table__list-item p-2 border-bottom" key={i}>
                   <div className="d-xl-flex align-items-center flex-grow-1">
                     <div className="billing__main d-flex align-items-center text-dark me-sm-3 mb-2">
                       <div className="ms-auto ms-sm-0 me-sm-2 post__value">
@@ -219,13 +235,19 @@ const ProjectsTable = (props) => {
           )}
         </ul>
         {props.totalPages > 1 ? (
-          <div className="mt-5 d-flex justify-content-center mb-5">
+          <div
+            className="py-2 mt-2 d-flex justify-content-center border-top"
+            style={{ background: '#f8fafd78' }}
+          >
             <Stack spacing={2}>
               <Pagination
                 count={props.totalPages}
-                shape="rounded"
                 page={props.pageNo}
                 onChange={props.handleClick}
+                shape="rounded"
+                classes={{ ul: classes.ul }}
+                showFirstButton
+                showLastButton
               />
             </Stack>
           </div>

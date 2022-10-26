@@ -490,18 +490,14 @@ const UserItems = () => {
                         style={{ alignItems: 'center' }}
                       >
                         <div
-                          className="nn"
+                          className="d-flex justify-content-center align-items-center me-1 nn"
                           style={{
-                            display: 'flex',
                             position: 'relative',
                             color: '#64a9ee',
                             height: '49px',
                             width: '49px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
                             background: '#edf6fd',
-                            borderRadius: '6px',
-                            marginRight: '6px'
+                            borderRadius: '6px'
                           }}
                         >
                           <span className="post__badge post__badge--sold fs-3">

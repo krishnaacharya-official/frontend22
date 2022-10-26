@@ -18,9 +18,10 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import notificationApi from "../../Api/frontEnd/notification";
 import followApi from "../../Api/frontEnd/follow";
 import adminCampaignApi from "../../Api/admin/adminCampaign";
+import HeaderGeo from "src/View/frontEnd/Component/organisms/header-geo";
 
 
-export default function HeaderController() {
+export default function HeaderGeoController() {
 
     const userAuthToken = localStorage.getItem('userAuthToken');
     const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
@@ -384,7 +385,7 @@ export default function HeaderController() {
         <>
 
             {/*<FrontLoader loading={loading} />*/}
-            <Header
+            <HeaderGeo
                 cartItem={cartItem}
                 removeCartItem={removeCartItem}
                 updateCartItem={updateCartItem}

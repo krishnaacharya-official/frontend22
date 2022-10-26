@@ -75,7 +75,7 @@ const AddProject = (props) => {
           Save as Draft
         </Button>
       </div>
-      <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
+    {/*  <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
         <div className="studio__thumb p-1 mr-20p d-none d-sm-block">
           <img
             className="img-fluid"
@@ -98,7 +98,7 @@ const AddProject = (props) => {
             Upgrade
           </Button>
         </div>
-      </div>
+      </div>*/}
 
       <div className="d-flex py-2 border-bottom">
         <h3 className="mb-0 fw-bolder me-2">Project Details</h3>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Button } from 'react-bootstrap';
-
+import { makeStyles } from '@material-ui/core/styles';
 import ListItemImg from '../../atoms/list-item-img';
 import moment from 'moment';
 import helper, { priceFormat, getCalculatedPrice, getCardIcon } from '../../../../../Common/Helper';
@@ -53,9 +53,24 @@ const HistoryList = (props) => {
     }
   };
 
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
-      <ul className="history__list list-unstyled mb-0">
+      <ul className="d-flex flex-column gap-2 history__list list-unstyled mb-0">
         {orderList.length > 0 ? (
           orderList.map((order, i) => {
             // console.log(order.uniqueTransactionId)
@@ -96,14 +111,14 @@ const HistoryList = (props) => {
                       </Button>
                     </div>
                     {/* <div className="fw-bold fs-7 text-light">July 21, 2020</div> */}
-                    <div className="fs-6 text-lighter">
+                    <div className="fs-7 text-lighter">
                       {moment(order.created_at).format('MMMM DD , YYYY')}
                     </div>
                   </div>
                   {
                     // activeDetail && key === order._id ?
                     activeList.includes(order._id) ? (
-                      <ul className="list-unstyled ms-1">
+                      <ul className="list-unstyled ms-1 mt-2">
                         {order.orderItems.length > 0 &&
                           order.orderItems.map((item, key) => {
                             // console.log(item)
@@ -114,7 +129,7 @@ const HistoryList = (props) => {
                             // let price = calculatedPrice.priceWithTax(item.productPrice)
 
                             return (
-                              <li className="d-sm-flex align-items-center px-sm-2 py-2 border-bottom border-sm-none">
+                              <li className="d-sm-flex align-items-center px-sm-0 py-2">
                                 <div className="d-flex align-items-center mb-2 mb-sm-0 flex__1">
                                   <ListItemImg
                                     size={68}
@@ -134,7 +149,8 @@ const HistoryList = (props) => {
                                     </div>
                                   </div>
                                   <ListItemImg
-                                    size={68}
+                                    size={54}
+                                    style={{ maxWidth: 'auto !important' }}
                                     className="rounded-circle img--nobg"
                                     imgSrc={
                                       helper.CampaignAdminLogoPath +
@@ -146,7 +162,10 @@ const HistoryList = (props) => {
                                   <span className="text-info fw-bold flex__1">
                                     {item.xp ? item.xp : 100} xp
                                   </span>
-                                  <span className="fs-5 fw-bold text-success ms-2">
+                                  <span
+                                    className="fs-5 fw-bold text-success ms-2"
+                                    style={{ width: '80px', textAlign: 'end' }}
+                                  >
                                     {order.currencySymbol ? order.currencySymbol : '$'}
                                     {priceFormat(Number(price * item.quantity))}
                                   </span>
@@ -155,7 +174,7 @@ const HistoryList = (props) => {
                             );
                           })}
 
-                        <li className="order__transaction px-sm-2 py-2">
+                        <li className="order__transaction my-2">
                           <div className="bg-lighter d-flex align-items-center pt-20p pb-20p px-2">
                             <div className="order__logo me-2">
                               <img src={getCardIcon(CardType)} alt="" className="img-fluid" />
@@ -187,14 +206,17 @@ const HistoryList = (props) => {
         )}
       </ul>
       {/* <div className="position-absolute start-50 bottom-0"> */}
-      <div className="mt-5 d-flex justify-content-center mb-5">
+      <div className="py-2 mt-2 d-flex justify-content-center">
         {props.totalPages > 1 ? (
           <Stack spacing={2}>
             <Pagination
               count={props.totalPages}
-              shape="rounded"
               page={props.pageNo}
               onChange={props.handleClick}
+              shape="rounded"
+              classes={{ ul: classes.ul }}
+              showFirstButton
+              showLastButton
             />
           </Stack>
         ) : (

@@ -58,7 +58,7 @@ const UserSettings = (props) => {
 
   const onClickOrg = () => {
     localStorage.setItem('type', 'main')
-    navigate('/campaign/' + CampaignAdmin?.slug + '/dashboard', { state: { type: 'temp' } }, { replace: true })
+    navigate('/campaign/' + CampaignAdmin?.slug + '/posts', { state: { type: 'temp' } }, { replace: true })
 
   }
   const onClickLeaderBoard = () => {

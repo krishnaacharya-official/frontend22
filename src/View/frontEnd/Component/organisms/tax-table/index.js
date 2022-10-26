@@ -4,6 +4,7 @@ import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useState, useEffect } from 'react';
 import ListItemImg from '../../atoms/list-item-img';
 import './style.scss';
+import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -52,6 +53,21 @@ const TaxTable = (props) => {
     />
   );
 
+  const useStyles = makeStyles(() => ({
+    ul: {
+      '& .MuiPaginationItem-root': {
+        color: '#6f6f91 !important'
+      },
+      '& .MuiPaginationItem-root:hover': {
+        background: '#f2f6fc !important'
+      },
+      '& .Mui-selected': {
+        background: '#f2f6fc !important'
+      }
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <div className="list__table">
@@ -84,7 +100,7 @@ const TaxTable = (props) => {
           </Button>
         </div>
 
-        <ul className="list-unstyled mb-0 pt-2 list__table-list">
+        <ul className="list-unstyled mb-0 list__table-list">
           {props.taxList.length > 0 ? (
             props.taxList.map((item, i) => {
               const disableHeader = item.length === 1;
@@ -92,6 +108,7 @@ const TaxTable = (props) => {
                 <>
                   <Accordion allowMultiple>
                     <AccordionItem
+                      className="py-2"
                       hideChevron={disableHeader}
                       buttonProps={{ disabled: disableHeader }}
                       header={
@@ -289,7 +306,7 @@ const TaxTable = (props) => {
                         </li>
                       }
                     >
-                      <div className="container-fluid">
+                      <div className="container-fluid mb-2">
                         {item.length > 1 &&
                           item.map((i1, k) => {
                             let Aimg =
@@ -309,10 +326,9 @@ const TaxTable = (props) => {
 
                             return (
                               <>
-                                <hr />
-                                <li className="table__list-item mx-sm-4 mx-0">
+                                <li className="table__list-item py-1">
                                   <div className="d-flex d-sm-flex align-items-center flex-grow-1">
-                                    <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
+                                    <div className="d-flex align-items-center mb-1 mb-sm-0">
                                       <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-start">
                                         <div className="text-success fw-bold fs-5">
                                           {i1.currencySymbol}
@@ -375,7 +391,6 @@ const TaxTable = (props) => {
                       </div>
                     </AccordionItem>
                   </Accordion>
-                  <hr />
                 </>
               );
             })
@@ -425,14 +440,20 @@ const TaxTable = (props) => {
           </li> */}
         </ul>
         {props.totalPages > 1 && (
-          <div className="mt-5 d-flex justify-content-center mb-5">
+          <div
+            className="py-2 d-flex justify-content-center border-top"
+            style={{ background: '#f8fafd78' }}
+          >
             {props.totalPages > 1 ? (
               <Stack spacing={2}>
                 <Pagination
                   count={props.totalPages}
-                  shape="rounded"
                   page={props.pageNo}
                   onChange={props.handleClick}
+                  shape="rounded"
+                  classes={{ ul: classes.ul }}
+                  showFirstButton
+                  showLastButton
                 />
               </Stack>
             ) : (
