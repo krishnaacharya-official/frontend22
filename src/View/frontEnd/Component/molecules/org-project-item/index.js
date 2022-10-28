@@ -7,7 +7,7 @@ import "./style.scss";
 
 function OrganisationProjectItem(props) {
   let project = props.project
-  let img = project.imageDetails.length > 0 ? helper.ProjectFullImagePath + project.imageDetails[0].image : 'https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5bcffaeab823417be2a23023_east_africa_crisis_appeal_disastersemergencycomittee_credit_colin-crowley_save-the-children_0.jpg'
+  let img = project.imageDetails.length > 0 ? helper.ProjectFullImagePath + project.imageDetails[0].image : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg'
 
   // console.log(project)
   return (

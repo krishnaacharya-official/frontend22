@@ -1,31 +1,31 @@
-import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useState, useEffect } from "react";
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useState, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
 // import { ListItemImg, ToggleSwitch } from "@components/atoms";
 
-import ListItemImg from "../../atoms/list-item-img";
-import ToggleSwitch from "../../atoms/toggle-switch";
+import ListItemImg from '../../atoms/list-item-img';
+import ToggleSwitch from '../../atoms/toggle-switch';
 // import { Link } from "react-router-dom";
-import AddBankModal from "../../molecules/add-bank-modal";
-import "./style.scss";
-import adminCampaignApi from "../../../../../Api/admin/adminCampaign";
-import FrontLoader from "../../../../../Common/FrontLoader";
+import AddBankModal from '../../molecules/add-bank-modal';
+import './style.scss';
+import adminCampaignApi from '../../../../../Api/admin/adminCampaign';
+import FrontLoader from '../../../../../Common/FrontLoader';
 
-import { validateAll } from "indicative/validator";
-import ToastAlert from "../../../../../Common/ToastAlert"
-import { confirmAlert } from "react-confirm-alert"
-import { encryptData, decryptData } from "../../../../../Common/Helper";
-import locationApi from "../../../../../Api/frontEnd/location";
-import { Link, Outlet, useOutletContext, useParams,useNavigate } from 'react-router-dom';
-import { DataArraySharp } from "@mui/icons-material";
-import Label from "../../../../../components/Label";
+import { validateAll } from 'indicative/validator';
+import ToastAlert from '../../../../../Common/ToastAlert';
+import { confirmAlert } from 'react-confirm-alert';
+import { encryptData, decryptData } from '../../../../../Common/Helper';
+import locationApi from '../../../../../Api/frontEnd/location';
+import { Link, Outlet, useOutletContext, useParams, useNavigate } from 'react-router-dom';
+import { DataArraySharp } from '@mui/icons-material';
+import Label from '../../../../../components/Label';
 import CheckIcon from '@mui/icons-material/Check';
-import { setIsAccountAdd } from "../../../../../user/user.action";
-import { useSelector, useDispatch } from "react-redux";
+import { setIsAccountAdd } from '../../../../../user/user.action';
+import { useSelector, useDispatch } from 'react-redux';
 
 const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -34,65 +34,98 @@ const PaymentMethod = () => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const type = localStorage.getItem('type');
   const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
-  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+  const token = type
+    ? type === 'temp'
+      ? tempCampaignAdminAuthToken
+      : CampaignAdminAuthToken
+    : CampaignAdminAuthToken;
   const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const [loading, setLoading] = useState(false)
-  const [update, setUpdate] = useState(false)
-  const [defaultCountry, setDefaultCountry] = useState([])
-  const [defaultHomeCountry, setDefaultHomeCountry] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [defaultCountry, setDefaultCountry] = useState([]);
+  const [defaultHomeCountry, setDefaultHomeCountry] = useState([]);
   const [data, setData] = useOutletContext();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const params = useParams();
-  const navigate =useNavigate()
-  const [countryList, setCountryList] = useState([])
-  const [stateList, setStateList] = useState([])
-  const [defaultState, setDefaultState] = useState([])
-  const [tempImg, setTempImg] = useState('')
-  const [tempImgName, setTempImgName] = useState('')
-  const [selectedDoc, setSelectedDoc] = useState('')
+  const navigate = useNavigate();
+  const [countryList, setCountryList] = useState([]);
+  const [stateList, setStateList] = useState([]);
+  const [defaultState, setDefaultState] = useState([]);
+  const [tempImg, setTempImg] = useState('');
+  const [tempImgName, setTempImgName] = useState('');
+  const [selectedDoc, setSelectedDoc] = useState('');
   const [value, setValue] = useState(0);
   const [defaultTypeOfBusiness, setDefaultTypeOfBusiness] = useState([
-    { value: 'individual ', label: 'Individual ' },
-  ])
-
-
+    { value: 'individual ', label: 'Individual ' }
+  ]);
 
   const [state, setstate] = useState({
-    registerdBusinessAddress: "US",
-    typeOfBusiness: "individual",
-    firstName: "",
-    lastName: "",
-    personalEmail: "",
-    dob: "",
-    phoneNo: "",
-    ssn: "",
-    homeCountry: "US",
-    addLine1: "",
-    addLine2: "",
-    city: "",
-    stateName: "",
-    zip: "",
-    personalIdNumber: "",
-    businessName: "",
-    businessWebsite: "",
-    mcc: "",
-    accountHolderName: "",
-    accountHolderType: "individual",
-    routingNumber: "",
-    accountNumber: "",
-    confirmAccountNumber: "",
-    bankEmail: "",
-    identity: "",
-    identityDocumentImage: "",
+    registerdBusinessAddress: 'US',
+    typeOfBusiness: 'individual',
+    firstName: '',
+    lastName: '',
+    personalEmail: '',
+    dob: '',
+    phoneNo: '',
+    ssn: '',
+    homeCountry: 'US',
+    addLine1: '',
+    addLine2: '',
+    city: '',
+    stateName: '',
+    zip: '',
+    personalIdNumber: '',
+    businessName: '',
+    businessWebsite: '',
+    mcc: '',
+    accountHolderName: '',
+    accountHolderType: 'individual',
+    routingNumber: '',
+    accountNumber: '',
+    confirmAccountNumber: '',
+    bankEmail: '',
+    identity: '',
+    identityDocumentImage: '',
     status: 1,
     error: [],
     taxRate: '',
     paymentLoginId: '',
     transectionKey: '',
     currency: 'USD'
-  })
+  });
   const {
-    status, accountHolderName, accountHolderType, routingNumber, error, accountNumber, registerdBusinessAddress, typeOfBusiness, firstName, lastName, personalEmail, dob, phoneNo, ssn, homeCountry, addLine1, addLine2, city, stateName, zip, personalIdNumber, businessName, businessWebsite, mcc, bankEmail, identity, identityDocumentImage, confirmAccountNumber, taxRate, paymentLoginId, transectionKey, currency
+    status,
+    accountHolderName,
+    accountHolderType,
+    routingNumber,
+    error,
+    accountNumber,
+    registerdBusinessAddress,
+    typeOfBusiness,
+    firstName,
+    lastName,
+    personalEmail,
+    dob,
+    phoneNo,
+    ssn,
+    homeCountry,
+    addLine1,
+    addLine2,
+    city,
+    stateName,
+    zip,
+    personalIdNumber,
+    businessName,
+    businessWebsite,
+    mcc,
+    bankEmail,
+    identity,
+    identityDocumentImage,
+    confirmAccountNumber,
+    taxRate,
+    paymentLoginId,
+    transectionKey,
+    currency
   } = state;
 
   const [bankAccount, setBankAccount] = useState({
@@ -103,68 +136,59 @@ const PaymentMethod = () => {
     lname: '',
     accEmail: '',
     accError: []
-  })
-  const { BusinessType, country, companyName, fname, lname, accError, accEmail } = bankAccount
+  });
+  const { BusinessType, country, companyName, fname, lname, accError, accEmail } = bankAccount;
 
   const getBankAccountList = async () => {
     const getAccountList = await adminCampaignApi.listBankAccount(token);
     if (getAccountList.data.success === true) {
-      setBankAccountList(getAccountList.data.data)
+      setBankAccountList(getAccountList.data.data);
       if (getAccountList.data.data.length === 0) {
-        dispatch(setIsAccountAdd(false))
+        dispatch(setIsAccountAdd(false));
       } else {
-        dispatch(setIsAccountAdd(true))
-
+        dispatch(setIsAccountAdd(true));
       }
     }
-  }
+  };
   const addAccountDetails = async (accountId) => {
-    let data = {}
-    data.accountId = accountId
-    const makeAcPrimary = await adminCampaignApi.addAccountDetails(token, data)
+    let data = {};
+    data.accountId = accountId;
+    const makeAcPrimary = await adminCampaignApi.addAccountDetails(token, data);
     if (makeAcPrimary && makeAcPrimary.data.success) {
-      await getBankAccountList()
-
+      await getBankAccountList();
     }
-
-  }
+  };
   useEffect(() => {
     (async () => {
-
       // console.log(params.accountId)
 
-      setLoading(false)
+      setLoading(false);
       // const getAccountList = await adminCampaignApi.listBankAccount(token);
       // if (getAccountList.data.success === true) {
       //   // console.log(getAccountList)
       //   setBankAccountList(getAccountList.data.data)
       // }
-      await getBankAccountList()
-      await getCountryList()
-      await getCountryStateList(233)
-      setLoading(false)
-
-    })()
-  }, [update])
+      await getBankAccountList();
+      await getCountryList();
+      await getCountryStateList(233);
+      setLoading(false);
+    })();
+  }, [update]);
 
   useEffect(() => {
     (async () => {
       if (params?.accountId) {
-        await addAccountDetails(params?.accountId)
+        await addAccountDetails(params?.accountId);
       }
-
-    })()
-  }, [params?.accountId])
-
+    })();
+  }, [params?.accountId]);
 
   useEffect(() => {
     if (countryList.length > 0) {
-      setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
-      setDefaultHomeCountry(countryList.find(x => x.value === "US"));
-
+      setDefaultCountry(countryList.find((x) => x.value === registerdBusinessAddress));
+      setDefaultHomeCountry(countryList.find((x) => x.value === 'US'));
     }
-
-  }, [countryList])
+  }, [countryList]);
 
   useEffect(() => {
     (async () => {
@@ -173,28 +197,22 @@ const PaymentMethod = () => {
         ...state,
         taxRate: data.taxRate,
         paymentLoginId: data.paymentLoginId,
-        transectionKey: data.transectionKey,
-
-
-      })
+        transectionKey: data.transectionKey
+      });
       setBankAccount({
         ...bankAccount,
         country: data.iso2
-      })
-
-
-    })()
-  }, [data])
-
-
+      });
+    })();
+  }, [data]);
 
   const changevaluebankAc = (e) => {
     let value = e.target.value;
     setBankAccount({
       ...bankAccount,
       [e.target.name]: value
-    })
-  }
+    });
+  };
 
   const hideAccForm = () => {
     setBankAccount({
@@ -205,182 +223,175 @@ const PaymentMethod = () => {
       fname: '',
       lname: '',
       accError: []
-
-
-    })
-    setModalShow(false)
-  }
-
-
+    });
+    setModalShow(false);
+  };
 
   const getCountryList = async () => {
-    let tempArray = []
+    let tempArray = [];
     const getCountryList = await locationApi.countryList(token);
     if (getCountryList) {
       if (getCountryList.data.success) {
         if (getCountryList.data.data.length > 0) {
           getCountryList.data.data.map((country, i) => {
-            let Obj = {}
-            Obj.value = country.iso2
-            Obj.label = country.country
-            Obj.id = country.id
-            Obj.currency = country.currency
-            tempArray.push(Obj)
-
-
-          })
-          setCountryList(tempArray)
+            let Obj = {};
+            Obj.value = country.iso2;
+            Obj.label = country.country;
+            Obj.id = country.id;
+            Obj.currency = country.currency;
+            tempArray.push(Obj);
+          });
+          setCountryList(tempArray);
         }
       }
     }
-  }
+  };
 
   const getCountryStateList = async (countryId) => {
-    let tempArray = []
+    let tempArray = [];
     const getCountryStateList = await locationApi.stateListByCountry(token, Number(countryId));
     if (getCountryStateList) {
       if (getCountryStateList.data.success) {
         if (getCountryStateList.data.data.length > 0) {
           getCountryStateList.data.data.map((state, i) => {
-            let Obj = {}
-            Obj.value = state.state
-            Obj.label = state.state
-            tempArray.push(Obj)
-          })
-          setDefaultState([])
-          setStateList(tempArray)
+            let Obj = {};
+            Obj.value = state.state;
+            Obj.label = state.state;
+            tempArray.push(Obj);
+          });
+          setDefaultState([]);
+          setStateList(tempArray);
         }
       }
     }
-  }
+  };
 
   const changevalue = (e) => {
     let value = e.target.value;
 
-    if (e.target.name === 'accountNumber' || e.target.name === 'phoneNo' || e.target.name === 'ssn' || e.target.name === 'personalIdNumber' || e.target.name === 'mcc') {
-      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+    if (
+      e.target.name === 'accountNumber' ||
+      e.target.name === 'phoneNo' ||
+      e.target.name === 'ssn' ||
+      e.target.name === 'personalIdNumber' ||
+      e.target.name === 'mcc'
+    ) {
+      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, '');
     }
     if (e.target.name === 'identity') {
-
-      setSelectedDoc(e.target.getAttribute('data-label'))
-
+      setSelectedDoc(e.target.getAttribute('data-label'));
 
       setstate({
         ...state,
         [e.target.name]: value
-      })
+      });
     }
     if (e.target.name === 'identityDocumentImage') {
       // console.log(e)
       let file = e.target.files[0] ? e.target.files[0] : '';
       if (file) {
-        setTempImg(URL.createObjectURL(file))
-        setTempImgName(file.name)
+        setTempImg(URL.createObjectURL(file));
+        setTempImgName(file.name);
         setstate({
           ...state,
           identityDocumentImage: file
-        })
+        });
       } else {
-        setTempImg('')
-        setTempImgName('')
+        setTempImg('');
+        setTempImgName('');
         setstate({
           ...state,
           identityDocumentImage: ''
-        })
+        });
       }
-
     } else {
-
       setstate({
         ...state,
         [e.target.name]: value
-      })
+      });
     }
-  }
+  };
 
   const resetForm = () => {
     setModalShow(false);
-    setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
-    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' })
-    setTempImg('')
-    setTempImgName('')
-    setSelectedDoc('')
-    setValue(0)
+    setDefaultCountry(countryList.find((x) => x.value === registerdBusinessAddress));
+    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' });
+    setTempImg('');
+    setTempImgName('');
+    setSelectedDoc('');
+    setValue(0);
     setstate({
       ...state,
-      registerdBusinessAddress: "US",
-      typeOfBusiness: "individual",
-      firstName: "",
-      lastName: "",
-      personalEmail: "",
-      dob: "",
-      phoneNo: "",
-      ssn: "",
-      homeCountry: "US",
-      addLine1: "",
-      addLine2: "",
-      city: "",
-      stateName: "",
-      zip: "",
-      personalIdNumber: "",
-      businessName: "",
-      businessWebsite: "",
-      mcc: "",
-      accountHolderName: "",
-      accountHolderType: "individual",
-      routingNumber: "",
-      accountNumber: "",
-      confirmAccountNumber: "",
-      bankEmail: "",
-      identity: "",
-      identityDocumentImage: "",
+      registerdBusinessAddress: 'US',
+      typeOfBusiness: 'individual',
+      firstName: '',
+      lastName: '',
+      personalEmail: '',
+      dob: '',
+      phoneNo: '',
+      ssn: '',
+      homeCountry: 'US',
+      addLine1: '',
+      addLine2: '',
+      city: '',
+      stateName: '',
+      zip: '',
+      personalIdNumber: '',
+      businessName: '',
+      businessWebsite: '',
+      mcc: '',
+      accountHolderName: '',
+      accountHolderType: 'individual',
+      routingNumber: '',
+      accountNumber: '',
+      confirmAccountNumber: '',
+      bankEmail: '',
+      identity: '',
+      identityDocumentImage: '',
       status: 1,
-      error: [],
-
+      error: []
     });
-
-  }
+  };
   const openModel = () => {
-    setDefaultCountry(countryList.find(x => x.value === registerdBusinessAddress));
-    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' })
+    setDefaultCountry(countryList.find((x) => x.value === registerdBusinessAddress));
+    setDefaultTypeOfBusiness({ value: 'individual ', label: 'Individual ' });
     setModalShow(true);
-    setTempImg('')
-    setTempImgName('')
-    setSelectedDoc('')
-    setValue(0)
+    setTempImg('');
+    setTempImgName('');
+    setSelectedDoc('');
+    setValue(0);
     setstate({
       ...state,
-      registerdBusinessAddress: "US",
-      typeOfBusiness: "individual",
-      firstName: "",
-      lastName: "",
-      personalEmail: "",
-      dob: "",
-      phoneNo: "",
-      ssn: "",
-      homeCountry: "US",
-      addLine1: "",
-      addLine2: "",
-      city: "",
-      stateName: "",
-      zip: "",
-      personalIdNumber: "",
-      businessName: "",
-      businessWebsite: "",
-      mcc: "",
-      accountHolderName: "",
-      accountHolderType: "individual",
-      routingNumber: "",
-      accountNumber: "",
-      confirmAccountNumber: "",
-      bankEmail: "",
-      identity: "",
-      identityDocumentImage: "",
+      registerdBusinessAddress: 'US',
+      typeOfBusiness: 'individual',
+      firstName: '',
+      lastName: '',
+      personalEmail: '',
+      dob: '',
+      phoneNo: '',
+      ssn: '',
+      homeCountry: 'US',
+      addLine1: '',
+      addLine2: '',
+      city: '',
+      stateName: '',
+      zip: '',
+      personalIdNumber: '',
+      businessName: '',
+      businessWebsite: '',
+      mcc: '',
+      accountHolderName: '',
+      accountHolderType: 'individual',
+      routingNumber: '',
+      accountNumber: '',
+      confirmAccountNumber: '',
+      bankEmail: '',
+      identity: '',
+      identityDocumentImage: '',
       status: 1,
-      error: [],
-
+      error: []
     });
-  }
+  };
 
   const addBankAccount = (e) => {
     // console.log(status)
@@ -388,76 +399,68 @@ const PaymentMethod = () => {
       accountHolderName: 'required',
       accountHolderType: 'required',
       routingNumber: 'required',
-      accountNumber: 'required',
-
-
-    }
+      accountNumber: 'required'
+    };
     const message = {
       'accountHolderType.required': 'AccountHolder Type is Required.',
       'accountHolderName.required': 'Category accountHolderName is Required.',
       'routingNumber.required': 'Routing Number is Required.',
-      'accountNumber.required': 'Account Number is Required.',
-
-    }
-    validateAll(state, rules, message).then(async () => {
-      const formaerrror = {};
-      setstate({
-        ...state,
-        error: formaerrror
-      })
-
-      let data = {}
-      // data.accountHolderName = encryptData(accountHolderName)
-      // data.accountHolderType = encryptData(accountHolderType)
-      // data.status = status
-      // data.routingNumber = encryptData(routingNumber.toString())
-      // data.accountNumber = encryptData(accountNumber.toString())
-
-
-
-      // Api Call for update Profile
-      setLoading(false)
-      const addBank = await adminCampaignApi.addBankAccount(token, data)
-
-
-      if (addBank) {
-        if (addBank.data.success === false) {
-          setLoading(false)
-          ToastAlert({ msg: addBank.data.message, msgType: 'error' });
-
-        } else {
-          if (addBank.data.success === true) {
-            resetForm()
-            setLoading(false)
-            setUpdate(!update)
-            ToastAlert({ msg: addBank.data.message, msgType: 'success' });
-          }
-        }
-      } else {
-        setLoading(false)
-        ToastAlert({ msg: 'Bank Account Not Added', msgType: 'error' });
-      }
-
-    }).catch(errors => {
-      // console.log(errors)
-      setLoading(false)
-      const formaerrror = {};
-      if (errors && errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+      'accountNumber.required': 'Account Number is Required.'
+    };
+    validateAll(state, rules, message)
+      .then(async () => {
+        const formaerrror = {};
+        setstate({
+          ...state,
+          error: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
 
-      setstate({
-        ...state,
-        error: formaerrror
+        let data = {};
+        // data.accountHolderName = encryptData(accountHolderName)
+        // data.accountHolderType = encryptData(accountHolderType)
+        // data.status = status
+        // data.routingNumber = encryptData(routingNumber.toString())
+        // data.accountNumber = encryptData(accountNumber.toString())
+
+        // Api Call for update Profile
+        setLoading(false);
+        const addBank = await adminCampaignApi.addBankAccount(token, data);
+
+        if (addBank) {
+          if (addBank.data.success === false) {
+            setLoading(false);
+            ToastAlert({ msg: addBank.data.message, msgType: 'error' });
+          } else {
+            if (addBank.data.success === true) {
+              resetForm();
+              setLoading(false);
+              setUpdate(!update);
+              ToastAlert({ msg: addBank.data.message, msgType: 'success' });
+            }
+          }
+        } else {
+          setLoading(false);
+          ToastAlert({ msg: 'Bank Account Not Added', msgType: 'error' });
+        }
       })
+      .catch((errors) => {
+        // console.log(errors)
+        setLoading(false);
+        const formaerrror = {};
+        if (errors && errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
-  }
+        setstate({
+          ...state,
+          error: formaerrror
+        });
+      });
+  };
 
   const removeBank = (id) => {
     confirmAlert({
@@ -466,38 +469,38 @@ const PaymentMethod = () => {
       buttons: [
         {
           label: 'Yes',
-          onClick: (async () => {
-            setLoading(false)
+          onClick: async () => {
+            setLoading(false);
             if (id !== '') {
-              const removeBank = await adminCampaignApi.deleteBankAccount(token, id)
+              const removeBank = await adminCampaignApi.deleteBankAccount(token, id);
               if (removeBank) {
                 if (removeBank.data.success === false) {
-                  setLoading(false)
+                  setLoading(false);
                   ToastAlert({ msg: removeBank.data.message, msgType: 'error' });
                 } else {
                   if (removeBank.data.success === true) {
-                    setLoading(false)
-                    setUpdate(!update)
+                    setLoading(false);
+                    setUpdate(!update);
                     ToastAlert({ msg: removeBank.data.message, msgType: 'success' });
                   }
                 }
               } else {
-                setLoading(false)
+                setLoading(false);
                 ToastAlert({ msg: 'Account not Removed', msgType: 'error' });
               }
             } else {
-              setLoading(false)
+              setLoading(false);
               ToastAlert({ msg: 'Account not Removed id Not found', msgType: 'error' });
             }
-          })
+          }
         },
         {
-          label: 'No',
+          label: 'No'
           // onClick: () => alert('Click No')
         }
       ]
     });
-  }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -513,14 +516,11 @@ const PaymentMethod = () => {
     setValue(key);
   };
 
-
   const goToNextStep = (key) => {
-
-    let rules = {}
-    let message = {}
+    let rules = {};
+    let message = {};
 
     switch (key) {
-
       case 1:
         rules = {
           firstName: 'required',
@@ -534,8 +534,8 @@ const PaymentMethod = () => {
           zip: 'required',
           city: 'required',
           ssn: 'required',
-          personalIdNumber: 'required',
-        }
+          personalIdNumber: 'required'
+        };
 
         message = {
           'firstName.required': 'First Name is Required.',
@@ -550,37 +550,33 @@ const PaymentMethod = () => {
           'zip.required': 'Zip code is Required.',
           'personalIdNumber.required': 'personal Id Number is Required.',
           'ssn.required': 'SSN is Required.',
-          'city.required': 'city is Required.',
-        }
+          'city.required': 'city is Required.'
+        };
         break;
 
       case 2:
-
         rules = {
           businessName: 'required',
           businessWebsite: 'required',
-          mcc: 'required',
-        }
+          mcc: 'required'
+        };
 
         message = {
           'businessName.required': 'Business Name is Required.',
           'businessWebsite.required': 'Business Website is Required.',
-          'mcc.required': 'MCC is Required.',
-        }
+          'mcc.required': 'MCC is Required.'
+        };
 
         break;
 
       case 3:
-
         rules = {
           accountHolderName: 'required',
           bankEmail: 'required|email',
           routingNumber: 'required',
           accountNumber: 'required',
-          confirmAccountNumber: 'required|same:accountNumber',
-
-
-        }
+          confirmAccountNumber: 'required|same:accountNumber'
+        };
 
         message = {
           'accountHolderName.required': 'Accountholder Name is Required.',
@@ -589,323 +585,281 @@ const PaymentMethod = () => {
           'routingNumber.required': 'Routing number is Required.',
           'accountNumber.required': 'Account number is Required.',
           'confirmAccountNumber.required': 'Confirm Account number is Required.',
-          'confirmAccountNumber.same': 'Account number and Confirm Account Number is Required.',
-
-        }
+          'confirmAccountNumber.same': 'Account number and Confirm Account Number is Required.'
+        };
 
         break;
 
       case 4:
-
         rules = {
-          identity: 'required',
-
-        }
+          identity: 'required'
+        };
 
         message = {
-          'identity.required': 'Please select type of Identity document to Upload',
-        }
+          'identity.required': 'Please select type of Identity document to Upload'
+        };
 
         break;
 
       case 5:
-
         rules = {
-          identityDocumentImage: 'required',
-
-        }
+          identityDocumentImage: 'required'
+        };
 
         message = {
-          'identityDocumentImage.required': 'Please upload Identity Document',
-        }
+          'identityDocumentImage.required': 'Please upload Identity Document'
+        };
 
         break;
 
       default:
-
         break;
-
     }
 
-
-    validateAll(state, rules, message).then(async () => {
-      const formaerrror = {};
-      setstate({
-        ...state,
-        error: formaerrror
-      })
-
-
-      setLoading(false)
-      if (key !== 5) {
-        setValue(key + 1);
-
-      } else {
-
-        let fdata = {}
-        fdata.registerdBusinessAddress = registerdBusinessAddress
-        fdata.typeOfBusiness = typeOfBusiness
-        fdata.firstName = firstName
-        fdata.lastName = lastName
-        fdata.personalEmail = personalEmail
-        fdata.dob = dob
-        fdata.phoneNo = phoneNo
-        fdata.ssn = ssn
-        fdata.homeCountry = homeCountry
-        fdata.addLine1 = addLine1
-        fdata.addLine2 = addLine2
-        fdata.city = city
-        fdata.stateName = stateName
-        fdata.zip = zip
-        fdata.personalIdNumber = personalIdNumber
-        fdata.businessName = businessName
-        fdata.businessWebsite = businessWebsite
-        fdata.mcc = mcc
-        fdata.accountHolderName = accountHolderName
-        fdata.accountHolderType = accountHolderType
-        fdata.routingNumber = routingNumber
-        fdata.accountNumber = accountNumber
-        fdata.bankEmail = bankEmail
-        fdata.identityDocumentType = identity
-        fdata.identityDocumentImage = identityDocumentImage
-        fdata.status = status
-        fdata.countryId = data.country_id
-        fdata.currency = currency
-
-
-
-        const addBank = await adminCampaignApi.addBankAccount(token, fdata)
-        // console.log(addBank)
-
-        if (addBank) {
-          if (addBank.data.success === false) {
-            setLoading(false)
-            ToastAlert({ msg: addBank.data.message, msgType: 'error' });
-
-          } else {
-            if (addBank.data.success === true) {
-              resetForm()
-              setLoading(false)
-              setUpdate(!update)
-              ToastAlert({ msg: addBank.data.message, msgType: 'success' });
-            }
-          }
-        } else {
-          setLoading(false)
-          ToastAlert({ msg: 'Bank Account Not Added', msgType: 'error' });
-        }
-      }
-      setLoading(false)
-
-    }).catch(errors => {
-      console.log(errors)
-      setLoading(false)
-      const formaerrror = {};
-      if (errors && errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+    validateAll(state, rules, message)
+      .then(async () => {
+        const formaerrror = {};
+        setstate({
+          ...state,
+          error: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
 
-      setstate({
-        ...state,
-        error: formaerrror
+        setLoading(false);
+        if (key !== 5) {
+          setValue(key + 1);
+        } else {
+          let fdata = {};
+          fdata.registerdBusinessAddress = registerdBusinessAddress;
+          fdata.typeOfBusiness = typeOfBusiness;
+          fdata.firstName = firstName;
+          fdata.lastName = lastName;
+          fdata.personalEmail = personalEmail;
+          fdata.dob = dob;
+          fdata.phoneNo = phoneNo;
+          fdata.ssn = ssn;
+          fdata.homeCountry = homeCountry;
+          fdata.addLine1 = addLine1;
+          fdata.addLine2 = addLine2;
+          fdata.city = city;
+          fdata.stateName = stateName;
+          fdata.zip = zip;
+          fdata.personalIdNumber = personalIdNumber;
+          fdata.businessName = businessName;
+          fdata.businessWebsite = businessWebsite;
+          fdata.mcc = mcc;
+          fdata.accountHolderName = accountHolderName;
+          fdata.accountHolderType = accountHolderType;
+          fdata.routingNumber = routingNumber;
+          fdata.accountNumber = accountNumber;
+          fdata.bankEmail = bankEmail;
+          fdata.identityDocumentType = identity;
+          fdata.identityDocumentImage = identityDocumentImage;
+          fdata.status = status;
+          fdata.countryId = data.country_id;
+          fdata.currency = currency;
+
+          const addBank = await adminCampaignApi.addBankAccount(token, fdata);
+          // console.log(addBank)
+
+          if (addBank) {
+            if (addBank.data.success === false) {
+              setLoading(false);
+              ToastAlert({ msg: addBank.data.message, msgType: 'error' });
+            } else {
+              if (addBank.data.success === true) {
+                resetForm();
+                setLoading(false);
+                setUpdate(!update);
+                ToastAlert({ msg: addBank.data.message, msgType: 'success' });
+              }
+            }
+          } else {
+            setLoading(false);
+            ToastAlert({ msg: 'Bank Account Not Added', msgType: 'error' });
+          }
+        }
+        setLoading(false);
       })
+      .catch((errors) => {
+        console.log(errors);
+        setLoading(false);
+        const formaerrror = {};
+        if (errors && errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
-
-
-
-  }
+        setstate({
+          ...state,
+          error: formaerrror
+        });
+      });
+  };
 
   const onChangeTaxRate = (e) => {
-    let value = e.target.value
+    let value = e.target.value;
 
     if (e.target.name === 'taxRate') {
-      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+      value = e.target.value.replace(/[^\d.]|\.(?=.*\.)/g, '');
     }
 
     setstate({
       ...state,
       [e.target.name]: value
-    })
-  }
+    });
+  };
 
   function myFunction(field) {
-    let rule = {}
-    rule[field] = 'required'
+    let rule = {};
+    rule[field] = 'required';
 
     // const rules = {
     //   taxRate: 'required',
 
     // }
-    const rules = rule
+    const rules = rule;
     const message = {
       'taxRate.required': 'Tax Rate is Required.',
       'paymentLoginId.required': 'Api Login Id is Required.',
-      'transectionKey.required': 'Transection Key is Required.',
-
-    }
-    validateAll(state, rules, message).then(async () => {
-      const formaerrror = {};
-      setstate({
-        ...state,
-        error: formaerrror
-      })
-      let fdata = {}
-      fdata.field = field
-      if (field === 'taxRate') {
-        fdata.value = Number(taxRate)
-      }
-
-      if (field === 'paymentLoginId') {
-        fdata.value = paymentLoginId
-      }
-
-      if (field === 'transectionKey') {
-        fdata.value = transectionKey
-      }
-
-      // console.log('first')
-      const updateSalesTax = await adminCampaignApi.updateSalesTax(token, fdata)
-      if (updateSalesTax && updateSalesTax.data.success) {
-        // ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-
-      }
-
-    }).catch(errors => {
-      // console.log(errors)
-      setLoading(false)
-      const formaerrror = {};
-      if (errors && errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+      'transectionKey.required': 'Transection Key is Required.'
+    };
+    validateAll(state, rules, message)
+      .then(async () => {
+        const formaerrror = {};
+        setstate({
+          ...state,
+          error: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
+        let fdata = {};
+        fdata.field = field;
+        if (field === 'taxRate') {
+          fdata.value = Number(taxRate);
+        }
 
-      setstate({
-        ...state,
-        error: formaerrror
+        if (field === 'paymentLoginId') {
+          fdata.value = paymentLoginId;
+        }
+
+        if (field === 'transectionKey') {
+          fdata.value = transectionKey;
+        }
+
+        // console.log('first')
+        const updateSalesTax = await adminCampaignApi.updateSalesTax(token, fdata);
+        if (updateSalesTax && updateSalesTax.data.success) {
+          // ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
       })
+      .catch((errors) => {
+        // console.log(errors)
+        setLoading(false);
+        const formaerrror = {};
+        if (errors && errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
+        setstate({
+          ...state,
+          error: formaerrror
+        });
+      });
   }
 
   const checkAcc = async (accountId) => {
-    let data = {}
-    data.accountId = accountId
-    const check = await adminCampaignApi.chekConnectAccount(token, data)
+    let data = {};
+    data.accountId = accountId;
+    const check = await adminCampaignApi.chekConnectAccount(token, data);
     if (check && check.data.success) {
-      await getBankAccountList()
-
+      await getBankAccountList();
     }
-  }
-
+  };
 
   const addExpressAccount = async () => {
-
-    let rules = {}
-    rules.accEmail = 'required|email'
-
+    let rules = {};
+    rules.accEmail = 'required|email';
 
     if (BusinessType === 'individual') {
-      rules.lname = 'required'
-      rules.fname = 'required'
-
+      rules.lname = 'required';
+      rules.fname = 'required';
     } else {
-      rules.companyName = 'required'
+      rules.companyName = 'required';
     }
-
 
     let message = {
       'accEmail.required': 'Email is Required.',
-      'accEmail.email': 'please enter valid email.',
-      'lname.required': 'lname is Required.',
-      'fname.required': 'fname is Required.',
-      'companyName.required': 'Company Name is Required.',
-
-    }
-    validateAll(bankAccount, rules, message).then(async () => {
-      const formaerrror = {};
-      setBankAccount({
-        ...bankAccount,
-        accError: formaerrror
-      })
-
-      let formData = {}
-      formData.country = country
-      formData.email = accEmail
-      formData.business_type = BusinessType
-      formData.slug = data.slug
-
-
-      if (BusinessType === 'individual') {
-
-        formData.first_name = fname
-        formData.last_name = lname
-      } else {
-
-        formData.companyName = companyName
-      }
-      setLoading(true)
-      const create = await adminCampaignApi.createExpressAccount(token, formData)
-      if (create && create.data.success) {
-        window.location.replace(create.data.data.url);
-      }
-      setLoading(false)
-
-
-
-
-    }).catch(errors => {
-      // console.log(errors)
-      setLoading(false)
-      const formaerrror = {};
-      if (errors && errors.length) {
-        errors.forEach(element => {
-          formaerrror[element.field] = element.message
+      'accEmail.email': 'Please enter valid email.',
+      'lname.required': 'Last Name is Required.',
+      'fname.required': 'First Name is Required.',
+      'companyName.required': 'Company Name is Required.'
+    };
+    validateAll(bankAccount, rules, message)
+      .then(async () => {
+        const formaerrror = {};
+        setBankAccount({
+          ...bankAccount,
+          accError: formaerrror
         });
-      } else {
-        ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
-      }
 
-      setBankAccount({
-        ...bankAccount,
-        accError: formaerrror
+        let formData = {};
+        formData.country = country;
+        formData.email = accEmail;
+        formData.business_type = BusinessType;
+        formData.slug = data.slug;
+
+        if (BusinessType === 'individual') {
+          formData.first_name = fname;
+          formData.last_name = lname;
+        } else {
+          formData.companyName = companyName;
+        }
+        setLoading(true);
+        const create = await adminCampaignApi.createExpressAccount(token, formData);
+        if (create && create.data.success) {
+          window.location.replace(create.data.data.url);
+        }
+        setLoading(false);
       })
+      .catch((errors) => {
+        // console.log(errors)
+        setLoading(false);
+        const formaerrror = {};
+        if (errors && errors.length) {
+          errors.forEach((element) => {
+            formaerrror[element.field] = element.message;
+          });
+        } else {
+          ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
+        }
 
-    });
-
-  }
+        setBankAccount({
+          ...bankAccount,
+          accError: formaerrror
+        });
+      });
+  };
   const makeAccountPrimary = async (id) => {
-    let data = {}
-    data.id = id
-    const makeAcPrimary = await adminCampaignApi.makeAccountPrimary(token, data)
+    let data = {};
+    data.id = id;
+    const makeAcPrimary = await adminCampaignApi.makeAccountPrimary(token, data);
     if (makeAcPrimary && makeAcPrimary.data.success) {
-      await getBankAccountList()
-
+      await getBankAccountList();
     }
-
-  }
-
-
-
+  };
 
   return (
     <>
-
-
-      <FrontLoader loading={loading} />
+      {/*<FrontLoader loading={loading} />*/}
       <div className="mw-600">
-       {/* <div className="mb-5">
+        {/* <div className="mb-5">
           <h4 className="fw-bolder">Saved Payment Methods</h4>
           <div className="text-subtext mb-3">
             Credit Cards you saved when donating
@@ -958,17 +912,18 @@ const PaymentMethod = () => {
           </div>
         </div>*/}
 
-
         <h4 className="fw-bolder">Tax Rate</h4>
-        <div className="text-subtext mb-3">
-          What is your regional sales tax?
-        </div>
-
+        <div className="text-subtext mb-3">What is your regional sales tax?</div>
 
         <div className="input__wrap mb-3">
           <label className="input__label flex__1">
-            <input type="text" name="taxRate" value={taxRate} className={state.error && state.error.taxRate ? 'inputerror' : ""} onChange={(e) => onChangeTaxRate(e)}
-              // onFocu={()=>alert('okk')} 
+            <input
+              type="text"
+              name="taxRate"
+              value={taxRate}
+              className={state.error && state.error.taxRate ? 'inputerror' : ''}
+              onChange={(e) => onChangeTaxRate(e)}
+              // onFocu={()=>alert('okk')}
               // onBlur={() => myFunction('taxRate')}
             />
             <span className="input__span">Ex: HST/ON 13%</span>
@@ -976,33 +931,34 @@ const PaymentMethod = () => {
           {state.error && state.error.taxRate && <p className="error">{state.error.taxRate}</p>}
         </div>
 
-
         <div className="note text-dark mb-2">
-          The tax rate will be automatically added to the unit price of items you post to make sure you enough funds to cover the sales tax when you purchase the items.
-
+          The tax rate will be automatically added to the unit price of items you post to make sure
+          you enough funds to cover the sales tax when you purchase the items.
         </div>
-        <Button className="mb-3" variant="info" onClick={() =>  myFunction('taxRate')}>Save</Button>
-
+        <Button className="mb-3" variant="info" onClick={() => myFunction('taxRate')}>
+          Save
+        </Button>
 
         <div className="mb-5 mt-5">
-          <h4 className="fw-bolder">Direct Deposit Accounts</h4>
+          <h4 className="fw-bolder">Add Bank Details</h4>
+          <div className="text-subtext mb-3">
+            Link the bank account that {CampaignAdmin?.name} will use to receive direct deposits
+            from our donors.
+          </div>
           <div className="d-flex align-items-center mb-3">
-            <span className="text-subtext flex__1">
+            {/*     <span className="text-subtext flex__1">
               Direct Deposit information for contributions from your donors
             </span>
-            <Button variant="info" onClick={() => openModel()}>Add Bank</Button>
+            <Button variant="info" onClick={() => openModel()}>Add Bank</Button>*/}
             <AddBankModal
-              show={modalShow}
+              //show={modalShow}
               // onHide={() => setModalShow(false)}
-              onHide={() => hideAccForm()}
+              //onHide={() => hideAccForm()}
               bankAccount={bankAccount}
               setBankAccount={setBankAccount}
               changevaluebankAc={changevaluebankAc}
               addExpressAccount={addExpressAccount}
             />
-
-
-
 
             {/* <AddBankModal
               show={modalShow}
@@ -1043,60 +999,63 @@ const PaymentMethod = () => {
                         className="bg-white"
                         icon={
                           <FontAwesomeIcon
-                            icon={regular("building-columns")}
+                            icon={regular('building-columns')}
                             className="fs-3 text-subtext"
                           />
                         }
                       />
                     </div>
                     <div className=" flex__1 mx-2 text-break">
-                      {
-                        list.businessName ?
-                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.businessName}</div>
-                          :
-                          <div className="accounts__email fw-bold" style={{ textTransform: "capitalize", width: "171px" }}>{list.personalEmail}</div>
+                      {list.businessName ? (
+                        <div
+                          className="accounts__email fw-bold"
+                          style={{ textTransform: 'capitalize', width: '171px' }}
+                        >
+                          {list.businessName}
+                        </div>
+                      ) : (
+                        <div
+                          className="accounts__email fw-bold"
+                          style={{ textTransform: 'capitalize', width: '171px' }}
+                        >
+                          {list.personalEmail}
+                        </div>
+                      )}
 
-
-                      }
-
-                      {
-                        list.bankName &&
+                      {list.bankName && (
                         <>
-                          <span className="input__span" style={{ color: '#6f6f90' }}>{list.bankName}</span><br />
+                          <span className="input__span" style={{ color: '#6f6f90' }}>
+                            {list.bankName}
+                          </span>
+                          <br />
                         </>
-
-
-                      }
-                      {
-                        list.accountNumber &&
-                        <span className="input__span" style={{ color: '#aaa9c2' }}>{list.
-                          accountNumber
-                        }</span>
-
-                      }
-
-
-
+                      )}
+                      {list.accountNumber && (
+                        <span className="input__span" style={{ color: '#aaa9c2' }}>
+                          {list.accountNumber}
+                        </span>
+                      )}
                     </div>
 
-
-                    {
-                      list.isPrimary ?
-                        <>
-                          <div className="flex__1">
-                            <FontAwesomeIcon
-                              icon={solid("shield-halved")}
-                              className="fs-3 text-primary"
-                            />
-                          </div>
-                        </>
-                        // <Chip label="Primary" color="success" variant="outlined" />
-                        :
-                        <Button variant="link" className="text-info" onClick={() => makeAccountPrimary(list._id)}>
-                          Make Primary
-                        </Button>
-                    }
-
+                    {list.isPrimary ? (
+                      <>
+                        <div className="flex__1">
+                          <FontAwesomeIcon
+                            icon={solid('shield-halved')}
+                            className="fs-3 text-primary"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      // <Chip label="Primary" color="success" variant="outlined" />
+                      <Button
+                        variant="link"
+                        className="text-info"
+                        onClick={() => makeAccountPrimary(list._id)}
+                      >
+                        Make Primary
+                      </Button>
+                    )}
 
                     {/* {
                       list.status === 1 ?
@@ -1132,37 +1091,32 @@ const PaymentMethod = () => {
                       Verify
                     </Button> */}
 
-                    {
-                      !list.isPrimary &&
-
-                      <Button variant="link" className="text-danger" onClick={() => removeBank(list._id)}>
+                    {!list.isPrimary && (
+                      <Button
+                        variant="link"
+                        className="text-danger"
+                        onClick={() => removeBank(list._id)}
+                      >
                         remove
                       </Button>
-
-                    }
+                    )}
+                  </div>
+                  <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
+                    <FontAwesomeIcon
+                      icon={solid('shield-halved')}
+                      className="fs-5 text-primary me-2"
+                    />
+                    This method will be used for deposits from donations / items you post.
                   </div>
                 </div>
-              )
-            })
-
-          }
-
-
-          <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
-            <FontAwesomeIcon
-              icon={solid("shield-halved")}
-              className="fs-5 text-primary me-2"
-            />
-            This method will be used for deposits from donations / items you post.
-          </div>
+              );
+            })}
 
           <div className="note text-dark">
-            Funds will be deposited into this account when items you post are
-            fully funded or you receive donations from users (both one-time &
-            recurring).
+            Funds will be deposited into this account when items you post are fully funded or marked
+            as infinity items, or if you receive cash donations.
           </div>
         </div>
-
 
         {/* <div className="mb-5">
           <h4 className="fw-bolder">Direct Deposit Accounts</h4>(Authorize.Net)

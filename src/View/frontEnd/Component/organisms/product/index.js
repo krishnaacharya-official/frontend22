@@ -1,66 +1,57 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 // import { UserContext } from '../../../../../App';
-import { ProgressBar, Button } from "react-bootstrap";
+import { ProgressBar, Button } from 'react-bootstrap';
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
-import { ReactComponent as HeartSvg } from "../../../../../assets/svg/heart-o.svg";
-import helper, { getCalculatedPrice, priceFormat } from "../../../../../Common/Helper";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import IconToggle from "../../atoms/icon-toggle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  regular,
-  solid,
-  light,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
+import { ReactComponent as HeartSvg } from '../../../../../assets/svg/heart-o.svg';
+import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+import IconToggle from '../../atoms/icon-toggle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid, light } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Icon } from '@iconify/react';
-import { useSelector, useDispatch } from "react-redux";
-import { setIsUpdateCart } from "../../../../../user/user.action"
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsUpdateCart } from '../../../../../user/user.action';
 
-
-import "./style.scss";
-
-
+import './style.scss';
 
 const Product = (props) => {
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
   // console.log(props)
-  let name = props.headline
-  let sold = props.soldout
-  let total = props.quantity
-  let location = props.cityDetails?.length > 0 && props.cityDetails[0]?.city
+  let name = props.headline;
+  let sold = props.soldout;
+  let total = props.quantity;
+  let location = props.cityDetails?.length > 0 && props.cityDetails[0]?.city;
 
   // 30/40*100 = 75.
-  let unlimited = props.unlimited
-  let media = props.media ? props.media : false
+  let unlimited = props.unlimited;
+  let media = props.media ? props.media : false;
 
-  let fullAddress = props.address?.split(',')
-  let address = props.address ? fullAddress[fullAddress?.length - 2] : ""
+  let fullAddress = props.address?.split(',');
+  let address = props.address ? fullAddress[fullAddress?.length - 2] : '';
 
-
-  let progress = unlimited ? 100 : Math.round(sold / total * 100)
-
-
+  let progress = unlimited ? 100 : Math.round((sold / total) * 100);
 
   const getCalc = getCalculatedPrice();
 
   // let price = getCalc.getData(props.price)
-  let price = props.displayPrice ? props.displayPrice : props.price
+  let price = props.displayPrice ? props.displayPrice : props.price;
 
-  let currencySymbol = getCalc.currencySymbol()
+  let currencySymbol = getCalc.currencySymbol();
 
+  let theme_color = props.categoryDetails?.color;
+  let categorySlug = props.categoryDetails?.slug;
+  let category = props.subCategoryDetails?.name;
+  let isFulfiled = props.isFulfiled;
 
-  let theme_color = props.categoryDetails?.color
-  let categorySlug = props.categoryDetails?.slug
-  let category = props.subCategoryDetails?.name
-  let isFulfiled = props.isFulfiled
-
-
-  let organisation = props.campaignDetails?.logo && props.campaignDetails?.logo ? (helper.CampaignAdminLogoPath + props.campaignDetails?.logo) : ('https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg')
+  let organisation =
+    props.campaignDetails?.logo && props.campaignDetails?.logo
+      ? helper.CampaignAdminLogoPath + props.campaignDetails?.logo
+      : 'https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5f4ab31be9fe7d7453a60b1f_user.svg';
 
   // console.log(props.campaignDetails?.logo)
-  let img = props.image
+  let img = props.image;
   let date = moment(props.created_at).format('MMM DD');
   let catIcon = props.categoryDetails?.iconDetails?.class;
   // let subCatIcon = props.subCategoryDetails?.iconDetails?.class;
@@ -71,15 +62,14 @@ const Product = (props) => {
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
-    added_to_cart: false,
-  })
+    added_to_cart: false
+  });
   useEffect(() => {
     (async () => {
       if (!CampaignAdminAuthToken) {
-
         setState({
           added_to_cart: props.cartProductIds.includes(props._id)
-        })
+        });
 
         // const checkItem = await props.checkItemInCart(props._id)
         // if (checkItem === true) {
@@ -92,16 +82,10 @@ const Product = (props) => {
         //   })
         // }
       }
+    })();
+  }, [!user.isUpdateCart, props.cartProductIds, props.t]);
 
-    })()
-
-  }, [!user.isUpdateCart, props.cartProductIds,props.t])
-
-
-  let isFinish = !unlimited && sold >= total ? true : false
-
-
-
+  let isFinish = !unlimited && sold >= total ? true : false;
 
   // const {
 
@@ -117,41 +101,40 @@ const Product = (props) => {
   //   organisation,
   // } = props;
 
-
-  const { added_to_cart } = state
+  const { added_to_cart } = state;
 
   const addToCart = async () => {
     // alert(props._id)
     // user.setCart(true)
     // user.setCart(!user.isUpdateCart)
 
-    await props.addToCart(props._id)
+    await props.addToCart(props._id);
     if (!CampaignAdminAuthToken) {
-      setState({ added_to_cart: true })
+      setState({ added_to_cart: true });
 
-      dispatch(setIsUpdateCart(!user.isUpdateCart))
+      dispatch(setIsUpdateCart(!user.isUpdateCart));
     }
   };
 
   const removeFromCart = async () => {
     // user.setCart(!user.isUpdateCart)
-    dispatch(setIsUpdateCart(!user.isUpdateCart))
-    await props.removeCartItem(props._id)
-    setState({ added_to_cart: false })
+    dispatch(setIsUpdateCart(!user.isUpdateCart));
+    await props.removeCartItem(props._id);
+    setState({ added_to_cart: false });
   };
 
   const onClickFilter = async (e) => {
-    await props.addProductToWishlist(props._id)
-  }
+    await props.addProductToWishlist(props._id);
+  };
 
   const cart_btn = added_to_cart ? (
     <Button
       variant="success"
       //size="sm"
       className="icon icon__pro"
-    // onClick={removeFromCart}
+      // onClick={removeFromCart}
     >
-      <FontAwesomeIcon icon={solid("circle-check")} />
+      <FontAwesomeIcon icon={solid('circle-check')} />
     </Button>
   ) : (
     <Button
@@ -160,11 +143,11 @@ const Product = (props) => {
       className="icon icon__pro"
       onClick={() => addToCart()}
     >
-      <FontAwesomeIcon icon={regular("cart-shopping")} />
+      <FontAwesomeIcon icon={regular('cart-shopping')} />
     </Button>
   );
   const btn =
-    isFinish || isFulfiled && !unlimited ? (
+    isFinish || (isFulfiled && !unlimited) ? (
       <span className="btn btn-outline-danger btn__sold">Sold</span>
     ) : (
       cart_btn
@@ -172,12 +155,17 @@ const Product = (props) => {
   return (
     <div className="product">
       <Link
-        to={"/categories/" + categorySlug}
+        to={'/categories/' + categorySlug}
         // params={{ testvalue: "hello" }}
         // to={{ pathname: "/categories/" + categorySlug, state: {key:props.categoryDetails?._id} }}
         className="product__header d-block"
         style={{ backgroundColor: theme_color }}
-        state={{ id: props.categoryDetails?._id, catIcon: catIcon, theme_color: theme_color, catName: props.categoryDetails?.name }}
+        state={{
+          id: props.categoryDetails?._id,
+          catIcon: catIcon,
+          theme_color: theme_color,
+          catName: props.categoryDetails?.name
+        }}
       >
         &nbsp;
       </Link>
@@ -195,8 +183,8 @@ const Product = (props) => {
           <IconToggle
             activeColor="rgb(246, 100, 97)"
             ischecked={props.wishListproductIds.includes(props._id)}
-            icon={<FontAwesomeIcon icon={regular("heart")} />}
-            checkedIcon={<FontAwesomeIcon icon={solid("heart")} />}
+            icon={<FontAwesomeIcon icon={regular('heart')} />}
+            checkedIcon={<FontAwesomeIcon icon={solid('heart')} />}
             name={props._id}
             onClickFilter={onClickFilter}
           />
@@ -204,25 +192,23 @@ const Product = (props) => {
         <div className="flex-grow-1">
           <ProgressBar variant={unlimited ? 'infinity' : 'success'} now={progress} />
         </div>
-        {
-          !unlimited ?
-
-            <span className="ms-1">{progress}%</span>
-            :
-            <div className="unlimited unlimited--home" style={{ marginLeft: "10px" }}>
-              <div className="tag tag--ongoing _2">
-                <div className="d-flex icon icon--unlimited">
-                  <FontAwesomeIcon icon={solid("infinity")} className="" />
-                </div>
+        {!unlimited ? (
+          <span className="ms-1">{progress}%</span>
+        ) : (
+          <div className="unlimited unlimited--home" style={{ marginLeft: '10px' }}>
+            <div className="tag tag--ongoing _2">
+              <div className="d-flex icon icon--unlimited">
+                <FontAwesomeIcon icon={solid('infinity')} className="" />
               </div>
             </div>
-        }
+          </div>
+        )}
       </div>
 
       <div className="product__columns border-bottom d-flex align-items-center">
         <div className="product__left d-flex flex-column">
           <div className="product__order">
-            <Link to={"/item/" + props.slug} className="d-inline-block">
+            <Link to={'/item/' + props.slug} className="d-inline-block">
               <h4 className="product__title mt-12p text-dark">{name}</h4>
             </Link>
             <div className="small">Price:</div>
@@ -230,98 +216,81 @@ const Product = (props) => {
               <span>{currencySymbol}</span>
               <span className="cost">{priceFormat(price)}</span>
               {/* <span className="cost">{(price)}</span> */}
-
             </div>
           </div>
           {
             // !CampaignAdminAuthToken &&
             // <div className="mt-auto mb-12p"> {!unlimited ? btn : cart_btn}</div>
             <div className="mt-auto mb-12p"> {btn}</div>
-
-
           }
         </div>
         <div className="product__mid d-flex align-items-center justify-content-center">
           <div className="proudct__img-wrap d-flex align-items-center justify-content-center">
-            <Link to={"/item/" + props.slug}>
-              <img className="product__img img-fluid" alt="" src={helper.CampaignProductImagePath + img} />
+            <Link to={'/item/' + props.slug}>
+              <img
+                className="product__img img-fluid"
+                alt=""
+                src={helper.CampaignProductImagePath + img}
+              />
             </Link>
           </div>
         </div>
         <div className="product__right d-flex flex-column align-items-center pt-12p pb-2">
           <div className="product__org">
-            <Link to={"/organization/" + props.campaignDetails?.slug} className="">
-              <img
-                alt=""
-                className="img-fluid org__img charity_avatar_bg"
-                src={organisation}
-              />
+            <Link to={'/organization/' + props.campaignDetails?.slug} className="">
+              <img alt="" className="img-fluid org__img charity_avatar_bg" src={organisation} />
             </Link>
           </div>
-          {
-            address &&
-
+          {address && (
             <div className="product__location d-flex align-items-center mt-auto">
               {/* <span className="icon icon__pro"></span> */}
               {/* <FontAwesomeIcon icon="fa-light fa-circle-location-arrow" /> */}
-              <FontAwesomeIcon icon={regular("circle-location-arrow")} className="mr-6p" />
+              <FontAwesomeIcon icon={regular('circle-location-arrow')} className="mr-6p" />
 
               <span className="date__name">{address}</span>
             </div>
-          }
+          )}
         </div>
       </div>
 
       <div className="product__details border-bottom d-flex align-items-center">
         <div className="product__date d-flex align-items-center">
           {/* <span className="icon icon__pro-400 date__icon mr-6p"></span> */}
-          <FontAwesomeIcon icon={regular("clock")} className="mr-6p" />
+          <FontAwesomeIcon icon={regular('clock')} className="mr-6p" />
 
           <span className="date__name">{date}</span>
         </div>
         <div className="product__meta d-flex align-items-center ms-auto">
-          {(props.projectDetails?.length > 0 || props.projectProducts.length > 0) &&
-            <span className="product__type icon icon__solid-900 text-dark">
-              {/*  */}
-              {/* <Icon icon="bi:lightning-charge-fill" /> */}
-              <FontAwesomeIcon icon={solid("bolt")} />
+          {(props.projectDetails?.length > 0 || props.projectProducts.length > 0) && (
+            <span className="product__type icon icon__solid-900 text-success">
+              <Link to={'/project/' + props.projectMainDetails?.slug}>
+                <FontAwesomeIcon icon={solid('bolt')} />
+              </Link>
             </span>
-          }
+          )}
 
-          {
-            props.postTag &&
-            <span className="product__type product__type-tab icon icon__solid-900 text-dark">
+          {props.postTag && (
+            <span className="product__type product__type-tab icon icon__solid-900">
               {/* <Icon icon="bxs:purchase-tag" color="#947ada" /> */}
-              <FontAwesomeIcon icon={solid("tag")} color="#947ada" />
-
+              <FontAwesomeIcon icon={solid('tag')} color="#947ada" />
             </span>
-          }
+          )}
 
-
-
-          {
-            props.tax &&
-
+          {props.tax && (
             <span className="product__type product__type-tax icon icon__solid-900">
               {/*  */}
-              {/* <FontAwesomeIcon icon="fa-solid fa-calculator-simple" /> */}
-              <FontAwesomeIcon icon={solid("calculator-simple")} />
+              {/* <FontAwesomeIcon icon="fa-solid fa-calculator" /> */}
+              <FontAwesomeIcon icon={solid('calculator')} />
             </span>
+          )}
 
-          }
-
-          {
-            props.media &&
-            <span className="product__type product__type-tab icon icon__solid-900 text-dark">
+          {props.media && (
+            <span className="product__type product__type-tab icon icon__solid-900">
               {/* <Icon icon="bxs:purchase-tag" color="#947ada" /> */}
               {/* <FontAwesomeIcon icon={solid("tag")} color="#947ada" /> */}
-              <FontAwesomeIcon className="fs-3 text-info" icon={solid("image")} />
-
+              <FontAwesomeIcon className="fs-3 text-info" icon={solid('camera')} />
             </span>
-          }
-
-
-
+          )}
         </div>
       </div>
 
@@ -343,12 +312,9 @@ const Product = (props) => {
           <div className="product__cat-icon mr-6p">
             {/* <i className={subCatIcon} style={{ fontFamily: "fontAwesome", fontStyle: "normal" }}></i> */}
 
-
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
-              <path
-                d={subCatIcon}
-                fill="#6f6f90"
-              ></path> </svg>
+              <path d={subCatIcon} fill="#6f6f90"></path>{' '}
+            </svg>
 
             {/* <svg
                 viewBox="0 0 25 25"
@@ -367,26 +333,22 @@ const Product = (props) => {
           </div>
           <span>{category}</span>
         </div>
-        {
-          unlimited ?
-            <div className="product__count d-flex align-items-center ms-auto text-dark">
-              <span>{sold} sold</span>
-            </div>
-            :
-            <div className="product__count d-flex align-items-center ms-auto text-dark">
-              <span>{sold}&nbsp;/&nbsp;{total} sold</span>
-            </div>
-        }
-
+        {unlimited ? (
+          <div className="product__count d-flex align-items-center ms-auto text-dark">
+            <span>{sold} sold</span>
+          </div>
+        ) : (
+          <div className="product__count d-flex align-items-center ms-auto text-dark">
+            <span>
+              {sold}&nbsp;/&nbsp;{total} sold
+            </span>
+          </div>
+        )}
       </div>
 
-      <div
-        style={{ backgroundColor: theme_color }}
-        className="product__footer"
-      ></div>
+      <div style={{ backgroundColor: theme_color }} className="product__footer"></div>
     </div>
   );
-
-}
+};
 
 export default Product;

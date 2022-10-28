@@ -26,7 +26,7 @@ const ItemTags = () => {
                   className="flex-shrink-0"
                   icon={
                     <FontAwesomeIcon
-                      icon={solid('calculator-simple')}
+                      icon={solid('calculator')}
                       className="fs-2 text-info p-3"
                     />
                   }

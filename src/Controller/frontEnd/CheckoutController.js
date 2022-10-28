@@ -228,10 +228,10 @@ export default function CheckoutController() {
         }
 
         const message = {
-            'cardNumber.required': 'card Number is Required.',
-            'cardExpMonth.required': 'card Expiry Month is Required.',
-            'cardExpYear.required': 'card Expiry Year is Required.',
-            'cardCVC.required': 'card cvc is Required.',
+            'cardNumber.required': 'Card Number is Required.',
+            'cardExpMonth.required': 'Card Expiry Month is Required.',
+            'cardExpYear.required': 'Card Expiry Year is Required.',
+            'cardCVC.required': 'Card cvc is Required.',
 
         }
         validateAll(state, rules, message).then(async () => {

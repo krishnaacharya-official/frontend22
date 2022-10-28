@@ -138,7 +138,7 @@ const Cart = (props) => {
                           size={52}
                           className="rounded-circle ms-2 d-none d-sm-flex"
                           icon={
-                            <FontAwesomeIcon icon={solid('calculator-simple')} className="fs-4" />
+                            <FontAwesomeIcon icon={solid('calculator')} className="fs-4" />
                           }
                         />
                       )}

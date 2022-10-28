@@ -24,7 +24,7 @@ const defaultProps = {
 
 function HistoryItem({ active, ...otherProps }) {
   const getC = getCalculatedPrice();
-  const location = useLocation()
+  const location = useLocation();
 
   const sharedProps = {
     active,
@@ -53,17 +53,24 @@ function HistoryItem({ active, ...otherProps }) {
   let xp = type === 'donation' ? item?.userDetails?.xp : item?.orderDetails?.userDetails?.xp;
   let isDeleted =
     type === 'donation' ? item?.userDetails?.isDeleted : item?.orderDetails?.userDetails?.isDeleted;
-  const page = location.pathname.split('/').length > 0 && location.pathname.split('/')[1]
+  const page = location.pathname.split('/').length > 0 && location.pathname.split('/')[1];
 
   // console.log(location.pathname.split('/')[1])
 
   return (
     <li
-      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${sharedProps.active ? 'active' : ''
-        }`}
+      className={`similar__item__wrap p-2 d-flex align-items-center mb-1 ${
+        sharedProps.active ? 'active' : ''
+      }`}
     >
       <div className="d-flex align-items-center w-100">
-        <Avatar size={46} avatarUrl={getAvatarImage(avatar)} border={0} shadow={false} className="donor_avatar_bg" />
+        <Avatar
+          size={46}
+          avatarUrl={getAvatarImage(avatar)}
+          border={0}
+          shadow={false}
+          className="donor_avatar_bg"
+        />
         <div className="ms-2 flex-grow-1">
           <div className="d-flex align-items-center justify-content-between">
             <div className="text-dark fw-bold">{name}</div>
@@ -80,7 +87,6 @@ function HistoryItem({ active, ...otherProps }) {
             >
               {sharedProps.categoryName}
             </IconButton> */}
-            <span className="btn-sm ms-auto p-0">{getC.getUserRank(xp)}</span>
           </div>
           <div className="text-light fs-7 fw-semibold">
             {/*  {
@@ -97,14 +103,19 @@ function HistoryItem({ active, ...otherProps }) {
               </>
             ) : (
               <>
-                <div className="d-flex">
-                  <FontAwesomeIcon icon={solid('bag-shopping')} className="mr-6p text-lighter" style={{ whiteSpace: 'nowrap' }} />
+                <div className="d-flex text-wrap w-50">
+                  <FontAwesomeIcon
+                    icon={solid('bag-shopping')}
+                    className="mr-6p text-lighter"
+                    style={{ whiteSpace: 'nowrap' }}
+                  />
                   Bought {item?.quantity} {page !== 'item' && item?.productName}
                 </div>
               </>
             )}
           </div>
         </div>
+        <span className="btn-sm ms-auto p-0">{getC.getUserRank(xp)}</span>
 
         <div className="billing__value text-end">
           <div className="fs-5 fw-bold text-success mb-3p">

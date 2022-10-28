@@ -312,8 +312,8 @@ const Checkout = (props) => {
               </div>
             </div>
             <div className="note note--info mb-3">
-              Your payment will be processed when you click Pay. By doing so you agree to
-              Donorport's{' '}
+              Your payment will be processed when you click Pay. By doing so you agree to the
+              Donorport{' '}
               <a href="#">
                 <span className="text-subtext">Terms and Conditions.</span>
               </a>

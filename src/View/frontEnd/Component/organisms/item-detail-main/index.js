@@ -344,7 +344,7 @@ function ProjectDetailMain(props) {
             <IconText
               className="pt-12p pb-12p"
               icon={
-                <FontAwesomeIcon icon={solid('calculator-simple')} className="fs-3 text-info" />
+                <FontAwesomeIcon icon={solid('calculator')} className="fs-3 text-info" />
               }
             >
               These items are tax deductible.

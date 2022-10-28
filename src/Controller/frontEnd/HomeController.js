@@ -127,7 +127,7 @@ export default function HomeController() {
     function showError(error) {
         if (error) {
             console.log(error)
-            dispatch(setUserCountrySort('US'))
+            dispatch(setUserCountrySort('CA'))
             if (userAuthToken) {
                 if (userData.country_id && userData.country_id !== null && userData.country_id > 0) {
                     dispatch(setUserCountry(userData.country_id))
@@ -136,9 +136,9 @@ export default function HomeController() {
                     currencyData.currencySymbol = userData.symbol
                     dispatch(setCurrency(currencyData))
                 } else {
-                    dispatch(setUserCountry(233))
+                    dispatch(setUserCountry(39))
                     let currencyData = {}
-                    currencyData.currency = 'USD'
+                    currencyData.currency = 'CAD'
                     currencyData.currencySymbol = "$"
                     dispatch(setCurrency(currencyData))
 
@@ -154,7 +154,7 @@ export default function HomeController() {
                 if (CampaignAdmin.country_id && CampaignAdmin.country_id !== null && CampaignAdmin.country_id > 0) {
                     dispatch(setUserCountry(CampaignAdmin.country_id))
                 } else {
-                    dispatch(setUserCountry(233))
+                    dispatch(setUserCountry(39))
 
                 }
 
@@ -168,7 +168,7 @@ export default function HomeController() {
                 // dispatch(setUserCountry(CampaignAdmin.country_id))
 
             } else {
-                dispatch(setUserCountry(233))
+                dispatch(setUserCountry(39))
                 dispatch(setUserState(3830))
             }
         }

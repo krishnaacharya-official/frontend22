@@ -138,7 +138,7 @@ function ProjectDetailMain(props) {
           </div>
           <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
-            {projectDetails?.productDetails.itemDetails.address}
+            {projectDetails?.campaignDetails?.address}
           </div>
         </div>
 

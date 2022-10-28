@@ -50,7 +50,7 @@ function OrganisationDetailMain(props) {
 
           <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
-            {organizationDetails?.stateDetails?.state}, {organizationDetails?.cityDetails?.city}
+            {organizationDetails?.cityDetails?.city}, {organizationDetails?.stateDetails?.state}
           </div>
 
           <div className="d-flex align-items-center me-2">

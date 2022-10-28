@@ -252,7 +252,7 @@ const UserItems = () => {
                         className="product__type product__type-tax icon icon__solid-900"
                         style={{ fontSize: 'x-large' }}
                       >
-                        <FontAwesomeIcon icon={solid('calculator-simple')} />
+                        <FontAwesomeIcon icon={solid('calculator')} />
                       </span>
                     )}
                   </div>

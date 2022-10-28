@@ -302,7 +302,7 @@ export default function Index(props) {
             {props.filters.taxEligible ? (
               <div className="filter__item d-flex align-items-center bg-lighter rounded-pill py-1 px-2">
                 <span className="filter__item-icon">
-                  <FontAwesomeIcon icon={solid('calculator-simple')} color="#3a94d4" />
+                  <FontAwesomeIcon icon={solid('calculator')} color="#3a94d4" />
                 </span>
                 <Button
                   variant="link"

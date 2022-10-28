@@ -541,7 +541,7 @@ const AddPost = (props) => {
                           <div className="d-flex align-items-center">
                             <FontAwesomeIcon
                               className="fs-3 text-info"
-                              icon={solid('calculator-simple')}
+                              icon={solid('calculator')}
                             />
                             <div className="d-flex py-12p px-18p">
                               <ToggleSwitch

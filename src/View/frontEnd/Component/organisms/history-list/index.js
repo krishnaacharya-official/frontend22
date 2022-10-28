@@ -84,13 +84,13 @@ const HistoryList = (props) => {
               <>
                 <li className="history__list-item">
                   <div className="py-2 border-bottom">
-                    <div className="d-flex align-items-center mb-1">
+                    <div className="d-flex align-items-center mb-2">
                       <span className="flex__1 me-2">
                         <FontAwesomeIcon
                           icon={solid('receipt')}
                           className="mr-12p text-dark fs-4"
                         />
-                        <span className="text-success fw-bold fs-4">
+                        <span className="text-dark fw-bolder fs-3">
                           {order.currencySymbol ? order.currencySymbol : '$'}{' '}
                           {priceFormat(Number(order.total))}
                         </span>
@@ -103,7 +103,7 @@ const HistoryList = (props) => {
                     <div>
                       <Button
                         variant="link"
-                        className="text-dark fs-5 p-0 mb-1"
+                        className="text-dark fw-semibold fs-5 p-0 mb-1"
                         // onClick={() => setOpenData({ ...openData, key: order._id, activeDetail: !activeDetail })}
                         onClick={() => showDetails(order._id)}
                       >
