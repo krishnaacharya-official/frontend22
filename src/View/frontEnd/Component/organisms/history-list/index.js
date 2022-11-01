@@ -84,7 +84,7 @@ const HistoryList = (props) => {
               <>
                 <li className="history__list-item">
                   <div className="py-2 border-bottom">
-                    <div className="d-flex align-items-center mb-2">
+                    <div className="d-flex align-items-center">
                       <span className="flex__1 me-2">
                         <FontAwesomeIcon
                           icon={solid('receipt')}
@@ -103,7 +103,7 @@ const HistoryList = (props) => {
                     <div>
                       <Button
                         variant="link"
-                        className="text-dark fw-semibold fs-5 p-0 mb-1"
+                        className="fw-bold fs-5 p-0"
                         // onClick={() => setOpenData({ ...openData, key: order._id, activeDetail: !activeDetail })}
                         onClick={() => showDetails(order._id)}
                       >
@@ -111,7 +111,7 @@ const HistoryList = (props) => {
                       </Button>
                     </div>
                     {/* <div className="fw-bold fs-7 text-light">July 21, 2020</div> */}
-                    <div className="fs-7 text-lighter">
+                    <div className="fs-6 text-light">
                       {moment(order.created_at).format('MMMM DD , YYYY')}
                     </div>
                   </div>
@@ -159,11 +159,11 @@ const HistoryList = (props) => {
                                   />
                                 </div>
                                 <div className="order__values d-flex align-items-center">
-                                  <span className="text-info fw-bold flex__1">
+                                  <span className="fs-5 text-info fw-bold flex__1">
                                     {item.xp ? item.xp : 100} xp
                                   </span>
                                   <span
-                                    className="fs-5 fw-bold text-success ms-2"
+                                    className="fs-4 fw-bold text-success ms-2"
                                     style={{ width: '80px', textAlign: 'end' }}
                                   >
                                     {order.currencySymbol ? order.currencySymbol : '$'}

@@ -174,7 +174,7 @@ export default function Rank(props) {
                                     <div className="xp__btn-wrap mb-2 mb-sm-0">
                                         <IconButton
                                             bgColor="#000"
-                                            className="rounded-pill rounded-pill--xp"
+                                            className="rounded-pill rounded-pill--xp "
                                             icon={<FontAwesomeIcon icon={solid("anchor")} />}
                                         >
                                             Captain

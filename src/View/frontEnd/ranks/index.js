@@ -79,7 +79,7 @@ const Ranks = () => {
               Norwhal
             </IconButton> */}
               <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-                {priceFormat(user.xp)} xp
+                {(user.xp)} xp
               </a>
             </div>
           )}
@@ -94,7 +94,7 @@ const Ranks = () => {
             </div>
           </div>
 
-          <div className="rank__list mw-800 pb-5">
+          <div className="rank__list mw-800 pb-5 fs-5">
             <div className="rank__item d-sm-flex align-items-center py-4">
               <div className="xp__btn-wrap mb-2 mb-sm-0">
                 <IconButton

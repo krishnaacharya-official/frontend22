@@ -87,17 +87,17 @@ function SimilarItem(props) {
     <li className="similar__item__item pt-12p pb-3 d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <a href="/" className="d-block">
-          <ListItemImg size={56} imgSrc={helper.CampaignProductImagePath + product.image} />
+          <ListItemImg size={62} imgSrc={helper.CampaignProductImagePath + product.image} />
         </a>
         <div className="similar__item__main pl-12p flex-grow-1">
           <div className="similar__item__title pr-12p">
             <Link
               to={"/item/" + product.slug}
-              className="similar__item__name mb-3p text-dark d-inline-block"
+              className="similar__item__name mb-3p text-dark d-inline-block fs-5"
             >
               {product.headline}
             </Link>
-            <div className="similar__item__location mb-6p">{moment(product.created_at).fromNow()}</div>
+            <div className="fw-semibold similar__item__location mb-6p fs-7">{moment(product.created_at).fromNow()}</div>
           </div>
           {/* <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div> */}
           <div className="similar__item__price">{currencySymbol}{product.displayPrice ? product.displayPrice : product.price}</div>

@@ -43,7 +43,7 @@ const Activity = (props) => {
           e.preventDefault();
           onClick(e);
         }}
-        className="p-0 icon__btn text-decoration-none"
+        className="position-relative p-0 icon__btn text-decoration-none"
       >
         {children}
       </Button>
@@ -101,16 +101,16 @@ const Activity = (props) => {
   return (
     <>
       <Dropdown className="d-flex" autoClose="outside">
-        {
-          // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false).length > 0 &&
-          !state.allRead && (
-            <div
-              className="c__badge"
-              style={{ width: '12px', height: '12px', background: '#cb6f74' }}
-            ></div>
-          )
-        }
         <Dropdown.Toggle as={ActivityButton} id="dropdown-custom-components">
+          {
+            // props.notificationList.filter(e => e?.userNotificationDetails?.removed === false).length > 0 &&
+            !state.allRead && (
+              <div
+                className="c__badge"
+                style={{ width: '12px', height: '12px', background: '#cb6f74' }}
+              ></div>
+            )
+          }
           <span className="icon activity-icon d-flex align-items-center">
             <FontAwesomeIcon icon={solid('bell')} />
           </span>

@@ -29,7 +29,7 @@ const ShoppingCart = (props) => {
           e.preventDefault();
           onClick(e);
         }}
-        className="p-0 icon__btn text-decoration-none"
+        className="position-relative p-0 icon__btn text-decoration-none"
       >
         {children}
       </Button>
@@ -116,9 +116,9 @@ const ShoppingCart = (props) => {
               )}
               {!state.empty && (
                 <div className="cd__cart__controls d-flex align-items-center">
-                  <div className="cd__cart__value">
+                  <div className="cd__cart__value fs-5 fw-semibold">
                     <span>Total:</span>
-                    <span className="cd__cart__total ml-6p">
+                    <span className="cd__cart__total ml-6p fs-4 fw-bold">
                       {currencySymbol + priceFormat(Number(state?.subTotal))}
                     </span>
                   </div>

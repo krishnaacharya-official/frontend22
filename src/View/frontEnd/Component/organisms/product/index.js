@@ -158,7 +158,7 @@ const Product = (props) => {
         to={'/categories/' + categorySlug}
         // params={{ testvalue: "hello" }}
         // to={{ pathname: "/categories/" + categorySlug, state: {key:props.categoryDetails?._id} }}
-        className="product__header d-block"
+        className="product__header d-block text-decoration-none"
         style={{ backgroundColor: theme_color }}
         state={{
           id: props.categoryDetails?._id,

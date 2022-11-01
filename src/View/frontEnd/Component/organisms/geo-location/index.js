@@ -221,7 +221,7 @@ const GeoLocation = () => {
           </span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310">
+        <Dropdown.Menu renderOnMount className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310">
           <div className="dropdown__inner position-relative">
             <div className="geo_dropdown-top d-flex align-items-center">
               <InputGroup className="input-group__alpha">

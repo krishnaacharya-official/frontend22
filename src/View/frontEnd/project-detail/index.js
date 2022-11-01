@@ -97,7 +97,7 @@ const ProjectDetail = (props) => {
         </div>
       </SuggestionWrapper>
 
-      <div className="ms-auto d-flex mt-2 flex-column d-sm-none align-items-center px-3">
+      <div className="ms-auto d-sm-flex d-none mt-2 flex-column align-items-center px-3">
         {/* <Button size="lg" className="fw-bold mb-1 w-100" onClick={() => setModalShow(true)}>
           Donatehhhh
         </Button>

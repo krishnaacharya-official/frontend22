@@ -103,7 +103,7 @@ function HistoryItem({ active, ...otherProps }) {
               </>
             ) : (
               <>
-                <div className="d-flex text-wrap w-50">
+                <div className="d-flex text-wrap me-1">
                   <FontAwesomeIcon
                     icon={solid('bag-shopping')}
                     className="mr-6p text-lighter"
@@ -122,7 +122,7 @@ function HistoryItem({ active, ...otherProps }) {
             {currencySymbol ? currencySymbol : '$'}
             {priceFormat(amount)}
           </div>
-          <div className="fs-8 fw-bold text-light">{moment(date).fromNow()}</div>
+          <div className="fs-8 fw-semibold text-light">{moment(date).fromNow()}</div>
         </div>
       </div>
     </li>

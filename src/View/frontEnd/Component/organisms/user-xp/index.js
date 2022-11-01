@@ -103,7 +103,7 @@ const UserXp = () => {
             My XP
           </h1>
           <Avatar
-            size={35}
+            size={46}
             avatarUrl={user.profileImage}
             border={0}
             shadow={false}

@@ -102,10 +102,10 @@ const Xp = () => {
             </div>
           </div>
 
-          <div className="mw-800 pb-5">
+          <div className="mw-800 pb-5 fs-5">
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ef61a93718f37b258157a4d_crown.svg"
               />
               <span className="mx-sm-4 mx-2 flex__1 text-light">
@@ -116,7 +116,7 @@ const Xp = () => {
             </div>
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ef61d975395ccef43cbb71f_top.svg"
               />
               <span className="mx-sm-4 mx-2 flex__1 text-light">
@@ -126,7 +126,7 @@ const Xp = () => {
             </div>
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ea77ef8debb84eec8354d5b_bank.svg"
               />
               <span className="mx-sm-4 mx-2 flex__1 text-light">
@@ -136,7 +136,7 @@ const Xp = () => {
             </div>
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4c2ff23144db148fd45b43_wallet.svg"
               />
               <span className="mx-sm-4 mx-2 flex__1 text-light">
@@ -146,7 +146,7 @@ const Xp = () => {
             </div>
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ef61ef15babc48a50bd2bd5_share.svg"
               />
               <span className="mx-4 flex__1 text-light">
@@ -157,7 +157,7 @@ const Xp = () => {
             </div>
             <div className="d-flex align-items-center py-12p">
               <ListItemImg
-                size={46}
+                size={64}
                 imgSrc="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5ef6176ab4ea47d76444346c_speech-bubble.svg"
               />
               <span className="mx-4 flex__1 text-light">

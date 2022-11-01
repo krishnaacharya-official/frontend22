@@ -18,3 +18,9 @@
   align-items: center;
   justify-content: center;
 }
+.container-fluid.accordion-sublist > li {
+  border-bottom: 1px solid #efefef;
+}
+.container-fluid.accordion-sublist > li:first-child {
+  margin-top: 1.3rem;
+}

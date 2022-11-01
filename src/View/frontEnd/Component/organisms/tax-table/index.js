@@ -119,7 +119,7 @@ const TaxTable = (props) => {
                               style={{ width: '300px' }}
                             >
                               <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-start">
-                                <div className="text-success fw-bold fs-5">
+                                <div className="text-success fw-bold fs-4">
                                   {item[0].currencySymbol}
                                   {totalVal(item)}
                                 </div>
@@ -306,7 +306,7 @@ const TaxTable = (props) => {
                         </li>
                       }
                     >
-                      <div className="container-fluid mb-2">
+                      <div className="container-fluid">
                         {item.length > 1 &&
                           item.map((i1, k) => {
                             let Aimg =

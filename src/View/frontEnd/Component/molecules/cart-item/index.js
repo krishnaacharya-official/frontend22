@@ -59,11 +59,11 @@ function CartItem(props) {
           <div className="cd__cart__title pr-12p">
             <Link
               to={'/item/' + cartItem?.productDetails.slug}
-              className="cd__cart__name text-decoration-none text-dark"
+              className="cd__cart__name text-decoration-none text-dark fs-5"
             >
               {cartItem?.productDetails?.headline}
             </Link>
-            <div className="cd__cart__location">
+            <div className="cd__cart__location fw-semibold fs-7 mb-3p">
               {cartItem?.productDetails?.organizationDetails?.name}
             </div>
           </div>

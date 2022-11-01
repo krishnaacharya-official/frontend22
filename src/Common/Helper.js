@@ -255,7 +255,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="hsla(0, 96.46%, 76.14%, 1.00)"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("fish")} />}
                     >
                         Fish
@@ -267,7 +267,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="#78bafc"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("whale")} />}
                     >
                         Beluga
@@ -280,7 +280,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="#a278fc"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("narwhal")} />}
                     >
                         Narwhal
@@ -293,7 +293,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="#fc8c63"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("swords")} />}
                     >
                         Pirate
@@ -306,7 +306,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="#95dbb0"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("ship")} />}
                     >
                         Admiral
@@ -320,7 +320,7 @@ export function getCalculatedPrice() {
                 rank = (
                     <IconButton
                         bgColor="#000"
-                        className="rounded-pill rounded-pill--xp"
+                        className="rounded-pill rounded-pill--xp fs-7"
                         icon={<FontAwesomeIcon icon={solid("anchor")} />}
                     >
                         Captain

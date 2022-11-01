@@ -18,13 +18,13 @@ const Header = (props) => {
   const userAuthToken = localStorage.getItem('userAuthToken');
 
   return (
-    <header className="frontend_pages main-header">
+    <header className="d-flex frontend_pages main-header">
       <Container className="d-flex align-items-center" fluid>
         <Logo />
         {
           // adminAuthToken || CampaignAdminAuthToken || userAuthToken ?
 
-          <div className="ms-auto header__right d-flex gap-1">
+          <div className="position-relative ms-auto header__right d-flex gap-1">
             {/*  <GeoLocation />*/}
             {/* {
               userAuthToken || CampaignAdminAuthToken ?

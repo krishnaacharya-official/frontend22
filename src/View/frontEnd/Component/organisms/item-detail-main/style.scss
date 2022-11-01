@@ -131,3 +131,10 @@
     margin-bottom: 24px !important;
   }
 }
+.btn__sold {
+  &:hover {
+    background: transparent;
+    color: $danger;
+    cursor: default;
+  }
+}

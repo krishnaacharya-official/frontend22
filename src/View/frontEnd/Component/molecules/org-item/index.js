@@ -99,22 +99,22 @@ function OrganisationItem(props) {
     <li className="org__item__item pt-12p pb-12p d-sm-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <a href="/" className="d-block">
-          <ListItemImg imgSrc={helper.CampaignProductImagePath + image} />
+          <ListItemImg size={62} imgSrc={helper.CampaignProductImagePath + image} />
         </a>
         <div className="org__item__main pl-12p flex-grow-1">
           <div className="org__item__title pr-12p">
             <Link
               to={"/item/" + slug}
-              className="org__item__name mb-3p text-dark d-inline-block"
+              className="org__item__name mb-3p text-dark d-inline-block fs-5"
             >
               {headline}
             </Link>
-            <div className="org__item__location mb-6p">{moment(created_at).fromNow()}</div>
+            <div className="fw-semibold org__item__location mb-6p fs-7">{moment(created_at).fromNow()}</div>
           </div>
           <div className="org__item__price">{props.currencySymbol}{productPrice.toFixed(2)}</div>
         </div>
 
-        <span className="org__item-subtotal d-sm-none text-success fw-bolder">
+        <span className="org__item-subtotal d-sm-none text-success fw-bolder fs-4 fs-sm-6">
           {props.currencySymbol}{productPrice}
         </span>
       </div>

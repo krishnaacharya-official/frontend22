@@ -662,31 +662,25 @@ button.ReactTags__remove {
 
 }
 
-.activity__dropdown,
-.cart__dropdown,
-.profile__dropdown {
-  position: absolute !important;
-  inset: 0 0 auto auto !important;
+.geo__dropdown {
   overflow: visible !important;
 }
 
-.activity__dropdown {
-  -webkit-transform: translate(45px, 30px) !important;
-  transform: translate(45px, 30px) !important;
-}
-
-.cart__dropdown {
-  -webkit-transform: translate(83px, 30px) !important;
-  transform: translate(83px, 30px) !important;
-}
-
-.profile__dropdown {
+.activity__dropdown,
+.cart__dropdown,
+.profile__dropdown,
+.geo__dropdown {
+  position: absolute !important;
+  inset: 0 0 auto auto !important;
+  overflow: visible !important;
   -webkit-transform: translate(-4px, 30px) !important;
   transform: translate(-4px, 30px) !important;
 }
 
 @include media-breakpoint-down(sm) {
-
+  .filter__dropdown {
+    overflow: unset !important;
+  }
   .activity__dropdown,
   .profile__dropdown,
   .cart__dropdown {
@@ -1269,14 +1263,6 @@ li.search__tag {
   border-radius: 6px;
   font-size: 9px;
   font-weight: 700;
-}
-
-.geo__dropdown {
-  position: absolute !important;
-  inset: 0 0 auto auto !important;
-  -webkit-transform: translate(-15px, 39px) !important;
-  transform: translate(121px, 30px) !important;
-  overflow: visible !important;
 }
 
 .mapboxgl-user-location-dot:after {

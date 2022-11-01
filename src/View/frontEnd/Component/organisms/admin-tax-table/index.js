@@ -270,6 +270,7 @@ const AdminTaxTable = (props) => {
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Button
+                                    size="large"
                                     variant="link"
                                     className="d-flex align-items-center p-0 text-decoration-none me-2"
                                   >
@@ -287,7 +288,7 @@ const AdminTaxTable = (props) => {
                                       </div>
                                     </div>
                                   </Button>
-                                 {/* <Dropdown className="d-flex ms-auto" autoClose="outside">
+                                  {/* <Dropdown className="d-flex ms-auto" autoClose="outside">
                                     <Dropdown.Toggle
                                       variant="link"
                                       className="no-caret text-decoration-none"
