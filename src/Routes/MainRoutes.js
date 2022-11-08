@@ -77,7 +77,7 @@ import VerifiedDonors from '../View/frontEnd/verified-donors';
 import Terms from '../View/frontEnd/terms';
 import CategoryProductsController from '../Controller/frontEnd/CategoryProductsController';
 import LeaderBoard from '../View/frontEnd/Component/organisms/leaderboard';
-import OrderConfirmPage from '../View/frontEnd/OrderConfirmPage';
+import OrderConfirmPage from '../View/frontEnd/order-confirmation';
 import DonationConfirmPage from '../View/frontEnd/DonationConfirmPage';
 import Pricing from '../View/frontEnd/pricing';
 

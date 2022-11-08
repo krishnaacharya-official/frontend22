@@ -106,7 +106,7 @@ const ProjectDetail = (props) => {
       </div>
       <Container fluid className="py-3 py-sm-5">
         <Row>
-          <Col md="7" className="mb-4 mb-0">
+          <Col md="5" className="mb-4 mb-0" style={{ maxWidth: '545px' }}>
             <ProjectDetailMain
               progress={70}
               projectDetails={props.projectDetails}

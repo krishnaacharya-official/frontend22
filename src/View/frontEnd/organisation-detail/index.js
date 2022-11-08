@@ -128,7 +128,7 @@ const OrganisationDetail = (props) => {
       </Container>
       <Container fluid>
         <Row className="py-5">
-          <Col md="6" className="mb-4 mb-0">
+          <Col md="6" className="mb-4 mb-0" style={{ maxWidth: '545px' }}>
             <OrganisationProjectsWidget projectList={projectList} />
           </Col>
           <Col md="6"></Col>

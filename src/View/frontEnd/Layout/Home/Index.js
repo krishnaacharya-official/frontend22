@@ -144,7 +144,7 @@ export default function Index(props) {
               prodctFilterData={props.prodctFilterData}
             />
           </div>
-          <div className="filter__search-wrap mb-2 mb-sm-0 order-3 order-sm-2">
+          <div className="filter__search-wrap my-1 my-sm-0 order-3 order-sm-2">
             <div className="search__container">
               <ul
                 className="ps-0 ps-sm-2"
@@ -199,7 +199,7 @@ export default function Index(props) {
             </div>
           </div>
 
-          <div className="grab__info ms-auto d-flex align-items-center order-2 order-sm-3">
+          <div className="grab__info ms-auto d-none align-items-center order-2 order-sm-3">
             <Button variant="link" className="p-1 fs-5 d-none d-sm-block">
               {/* <FontAwesomeIcon
               icon={regular("circle-question")}
@@ -238,10 +238,7 @@ export default function Index(props) {
             >
               Add to Cart ({props.cartProductList.length})
             </Button>
-            <div
-              className="p-2 d-sm-flex align-items-center flex-grow-1 mt-sm-0 mt-2"
-              style={{ fontSize: '14px' }}
-            >
+            <div className="fs-6 p-sm-2 p-0 py-2 d-sm-flex align-items-center flex-grow-1 mt-sm-0 mt-2">
               <FontAwesomeIcon icon={regular('circle-question')} style={{ color: '#5f5df8' }} />
               &nbsp; How does it work?&nbsp;
               <Link to="/about-us" className="text-light d-inline-block">

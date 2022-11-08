@@ -459,7 +459,7 @@ const CompanySettings = () => {
         <div className="input__wrap mb-3">
           <label className="input__label flex__1">
             <input type="text" name="name" value={name} onChange={(e) => changevalue(e)} />
-            <span className="input__span">Organisation Name</span>
+            <span className="input__span">Organization Name</span>
           </label>
           {error && error.name && <p className="error">{error.name}</p>}
         </div>

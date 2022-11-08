@@ -405,23 +405,18 @@ const AdminPosts = (props) => {
     // console.log('gg')
     // console.log(e.target.id)
     if (e.target.id === 'mainImg') {
+      1;
       let file = e.target.files[0] ? e.target.files[0] : '';
 
-      if (file) {
+      if (await hasAlpha(file)) {
         let extension = file.name.substr(file.name.lastIndexOf('.') + 1);
+
         if (validExtensions.includes(extension)) {
           setTempImg(URL.createObjectURL(file));
           setstate({
             ...state,
             image: file
           });
-          // if (hasAlpha(URL.createObjectURL(file))) {
-          //   alert(hasAlpha(URL.createObjectURL(file)))
-
-          // } else {
-          //   alert('error')
-
-          // }
         } else {
           setstate({
             ...state,
@@ -429,12 +424,17 @@ const AdminPosts = (props) => {
           });
         }
       } else {
+        ToastAlert({
+          msg: 'Please upload an image with transparent background',
+          msgType: 'error'
+        });
         setstate({
           ...state,
           image: ''
         });
         setTempImg('');
       }
+
       // console.log(URL.createObjectURL(file))
     } else if (e.target.id === 'galleryImg') {
       let gImgtempArry = [];

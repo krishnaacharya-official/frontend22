@@ -628,7 +628,7 @@ const UserProfile = () => {
             {/* <input type="text" value='' /> */}
             {/* {countrySelect.current} */}
             <Select
-              styles={colourStyles}
+              /*styles={colourStyles}*/
               className="basic-single"
               classNamePrefix="select"
               value={defaultCountry}
@@ -671,12 +671,14 @@ const UserProfile = () => {
               className="basic-single"
               classNamePrefix="select"
               value={defaultCity}
-              name="city"
               options={cityList}
               onChange={onClickCity}
-              components={{
-                IndicatorSeparator: () => null
-              }}
+              components={{ IndicatorSeparator: () => null }}
+              /*USE THESE FOR TEXT ONLY*/
+              //name="city"
+              //value={city}
+              //type="text"
+              //onChange={(e) => changevalue(e)}
             />
             <span className="input__span">City</span>
           </label>

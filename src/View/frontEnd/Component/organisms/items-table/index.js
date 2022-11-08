@@ -74,9 +74,12 @@ const ItemsTable = (props) => {
                       variant="link"
                       onClick={() => props.onItemClick(key)}
                       className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
-                      style={{maxWidth: '325px'}}
+                      style={{ maxWidth: '325px' }}
                     >
-                      <div className="me-2" style={{ width: '65px', minWidth: '65px' }}>
+                      <div
+                        className="me-2 order-sm-0 order-1"
+                        style={{ width: '65px', minWidth: '65px' }}
+                      >
                         <div className="text-success fw-bold fs-4">
                           {item.currencySymbol}
                           {price}
@@ -92,18 +95,13 @@ const ItemsTable = (props) => {
                           {item.quantity}
                         </span>
                       </div>
-                      <div className="ms-2">
-                        <div
-                          className="fw-bolder fs-5 mb-3p"
-                          style={{ maxWidth: '300px', minWidth: '300px' }}
-                        >
-                          {item.itemDetails?.headline}
-                        </div>
+                      <div className="flex-grow-1 flex-sm-0 ms-2">
+                        <div className="fw-bolder fs-5 mb-3p">{item.itemDetails?.headline}</div>
                         <div className="fs-7 text-light">{item.itemDetails?.brand}</div>
                       </div>
                     </Button>
                     <div className="d-flex align-items-center flex__1">
-                      <div className="d-flex align-items-center flex__1 ms-3">
+                      <div className="d-flex align-items-center flex__1 ms-sm-3 ms-0">
                         <div
                           className="d-flex align-items-center progress__wrap me-2 flex__1 gap-2"
                           style={{ maxWidth: '250px' }}

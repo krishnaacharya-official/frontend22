@@ -63,7 +63,7 @@ function CartItem(props) {
             >
               {cartItem?.productDetails?.headline}
             </Link>
-            <div className="cd__cart__location fw-semibold fs-7 mb-3p">
+            <div className="cd__cart__location fw-semibold fs-7 mb-3p mt-3p">
               {cartItem?.productDetails?.organizationDetails?.name}
             </div>
           </div>

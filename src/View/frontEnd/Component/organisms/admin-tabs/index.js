@@ -24,8 +24,13 @@ function AdminTabs({ activeKey, data, _onClick, ...otherProps }) {
   // console.log(location.pathname.split('/')[3])
   return (
     <>
-      <Nav className="d-flex flex-column gap-2" variant="pills" {...otherProps} onClick={_onClick}>
-       {/* <Link to={'/campaign/' + data?.slug + '/dashboard'}>
+      <Nav
+        className="d-flex flex-column gap-sm-2 gap-0"
+        variant="pills"
+        {...otherProps}
+        onClick={_onClick}
+      >
+        {/* <Link to={'/campaign/' + data?.slug + '/dashboard'}>
           <Nav.Item>
             <Nav.Link
               eventKey="dashboard"

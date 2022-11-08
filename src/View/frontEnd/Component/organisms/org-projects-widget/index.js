@@ -17,7 +17,7 @@ function OrganisationProjectsWidget(props) {
   const [loadMore, setLoadMore] = useState(false);
   return (
     <>
-      <TagTitle>Organisation</TagTitle>
+      <TagTitle>Organization</TagTitle>
       <WidgetTitle>Projects</WidgetTitle>
 
       <ul className="list-unstyled mb-0 mt-12p">

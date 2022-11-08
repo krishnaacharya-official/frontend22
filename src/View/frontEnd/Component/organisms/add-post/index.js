@@ -220,7 +220,7 @@ const AddPost = (props) => {
           </Button>
         </div>
       </div>
-     {/* <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
+      {/* <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
         <div className="studio__thumb p-1 mr-20p d-none d-sm-block">
           <img
             className="img-fluid"
@@ -745,12 +745,14 @@ const AddPost = (props) => {
                           className="text-info icon-method mr-3p"
                         />
                         <span className="text-dark">
-                          Upload a transparent image of the item. See the how-to guide{' '}
-                          <a href="#">here</a> if you aren't sure how to make your image
-                          transparent.
+                          Please upload a transparent image of the product. Click{' '}
+                          <a href="https://www.youtube.com/watch?v=G3Y5PcuH23Y" target="_blank">
+                            here
+                          </a>{' '}
+                          to learn more about transparent images and how to find them.
                         </span>
                       </div>
-                      <div className="">
+                      <div>
                         <div className="project-tilte-optional">
                           <div className="form__label">
                             More of Product

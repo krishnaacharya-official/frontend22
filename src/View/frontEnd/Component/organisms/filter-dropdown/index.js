@@ -104,8 +104,7 @@ const FilterDropdown = (props) => {
         ) : (
           <Dropdown.Toggle
             variant="primary"
-            size="lg"
-            className="no-caret rounded-pill w-100"
+            className="toggle__btn toggle__btn--filters no-caret w-100"
             style={{ backgroundColor: categoryDetails?.color, borderColor: categoryDetails?.color }}
           >
             <div className="d-flex align-items-center justify-content-center">

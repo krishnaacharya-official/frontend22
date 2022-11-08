@@ -162,7 +162,7 @@ function AdminDetail() {
                       </Button>
 
                       {dropdown ? (
-                        <div className="tab__dropdown w-100">
+                        <div className="tab__dropdown pt-0 w-100">
                           <AdminTabs
                             _onClick={() => setDropdown(false)}
                             activeKey={selectedTabKey}

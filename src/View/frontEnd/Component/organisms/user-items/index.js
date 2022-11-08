@@ -118,7 +118,7 @@ const UserItems = () => {
       <FrontLoader loading={loading} />
       {!detail.show ? (
         <div>
-          <header className="py-sm-2 pb-2 mb-3 w-100 d-sm-flex align-items-center">
+          <header className="py-sm-2 pb-2 mb-3 w-100 d-none d-sm-flex align-items-center">
             <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">My Items</h1>
             <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
             {totalPriceArray.length > 0 &&
@@ -277,7 +277,7 @@ const UserItems = () => {
                 </div>
               </div>
 
-              <Row className="pt-5">
+              <Row className="pt-sm-5 pt-0 row">
                 <Col md="6">
                   <div className="project__detail-main me-sm-3">
                     <h4 className="project__detail-label mb-3p">Item</h4>
@@ -403,7 +403,7 @@ const UserItems = () => {
                     )}
                   </div>
                 </Col>
-                <Col md="6">
+                <Col md="6" className="mt-5 mt-sm-0">
                   <div className="d-flex align-items-center mb-3">
                     <div className="flex__1 fs-5">
                       <div className="fw-bolder mb-6p">Order Number</div>
