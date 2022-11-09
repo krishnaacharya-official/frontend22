@@ -10,13 +10,19 @@ import { ReactComponent as CategoryIcon } from '../../../../../assets/svg/child.
 import IconText from '../../molecules/icon-text';
 import ProjectGallery from '../project-gallery';
 import moment from 'moment';
-import helper, { getCalculatedPrice, priceFormat, isIframe } from '../../../../../Common/Helper';
+import helper, {
+  getCalculatedPrice,
+  priceFormat,
+  isIframe,
+  convertAddress
+} from '../../../../../Common/Helper';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsUpdateCart } from '../../../../../user/user.action';
 import './style.scss';
 import { GalleryImg } from '../../atoms';
+
 //import { TagTitle,WidgetTitle } from "../../atoms";
 // import WidgetTitle from "../../atoms";
 
@@ -30,10 +36,7 @@ function ProjectDetailMain(props) {
 
   let per = (productDetails.soldout / productDetails.quantity) * 100;
 
-  let fullAddress = productDetails?.address?.split(',');
-  let address = productDetails?.address
-    ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1]
-    : '';
+  let address = productDetails?.address ? convertAddress(productDetails?.address) : '';
 
   const [quantity, setQuantity] = useState(1);
 
@@ -343,9 +346,7 @@ function ProjectDetailMain(props) {
           {productDetails.tax && (
             <IconText
               className="pt-12p pb-12p"
-              icon={
-                <FontAwesomeIcon icon={solid('calculator')} className="fs-3 text-info" />
-              }
+              icon={<FontAwesomeIcon icon={solid('calculator')} className="fs-3 text-info" />}
             >
               These items are tax deductible.
             </IconText>

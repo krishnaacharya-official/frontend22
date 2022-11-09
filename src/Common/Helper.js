@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import IconButton from '../View/frontEnd/Component/molecules/icon-button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { State, Country } from 'country-state-city';
 
 let Mode = 'production';
 // let BASE_URL = 'https://donorport.herokuapp.com/'
@@ -553,4 +554,22 @@ export function hasAlpha(file) {
 }
 export function countInArray(array, what) {
   return array.filter((item) => item === what).length;
+}
+
+export function convertAddress(address) {
+  const split = address.split(',');
+
+  const countryName = Country.getAllCountries().filter(
+    (c) => c.name === split[split.length - 1].replace(' ', '')
+  );
+
+  const resultStateProvince = split[split.length - 2];
+
+  const state = State.getStatesOfCountry(countryName[0].isoCode).filter((s) =>
+    resultStateProvince.includes(s.name)
+  );
+
+  console.log();
+
+  return `${split[split.length - 3]}${state.length > 0 ? `, ${state[0].isoCode}` : ''}`;
 }
