@@ -23,7 +23,7 @@ import projectApi from '../../../../../Api/admin/project';
 import productApi from '../../../../../Api/admin/product';
 import { WithContext as ReactTags } from 'react-tag-input';
 import noimg from '../../../../../assets/images/noimg.jpg';
-import helper from '../../../../../Common/Helper';
+import helper, { convertAddress } from '../../../../../Common/Helper';
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 import { confirmAlert } from 'react-confirm-alert';
@@ -179,21 +179,16 @@ const AddPost = (props) => {
   }, [props.data, stateData]);
 
   const sugg = (result, lat, lng, text) => {
-    // console.log("result", result)
-    // console.log("lat", lat)
-    // console.log("lng", lng)
-    // console.log("text", text)
-
     props.setstate({
       ...stateData,
-      address: result,
+      address: convertAddress(result),
       lat: lat,
       lng: lng
     });
 
     setLocation({
       ...location,
-      locationName: result,
+      locationName: convertAddress(result),
       lat: lat,
       lng: lng
     });
@@ -746,7 +741,11 @@ const AddPost = (props) => {
                         />
                         <span className="text-dark">
                           Please upload a transparent image of the product. Click{' '}
-                          <a href="https://www.youtube.com/watch?v=G3Y5PcuH23Y" target="_blank">
+                          <a
+                            href="https://www.youtube.com/watch?v=G3Y5PcuH23Y"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
                             here
                           </a>{' '}
                           to learn more about transparent images and how to find them.

@@ -528,9 +528,10 @@ const UserProfile = () => {
   const colourStyles = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      // eslint-disable-next-line no-undef
       const color = chroma(data.color);
       return {
-        backgroundColor: isDisabled ? 'red' : blue,
+        backgroundColor: isDisabled ? 'red' : 'blue',
         color: '#FFF',
         cursor: isDisabled ? 'not-allowed' : 'default'
       };

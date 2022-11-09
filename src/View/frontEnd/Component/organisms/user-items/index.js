@@ -23,7 +23,8 @@ import helper, {
   purchasedPriceWithTax,
   download,
   isIframe,
-  getCardIcon
+  getCardIcon,
+  convertAddress
 } from '../../../../../Common/Helper';
 import { GalleryImg } from '../../atoms';
 
@@ -122,9 +123,9 @@ const UserItems = () => {
             <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">My Items</h1>
             <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
             {totalPriceArray.length > 0 &&
-              totalPriceArray.map((val, key) => {
+              totalPriceArray.map((val, index) => {
                 return (
-                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3">
+                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
                     <FontAwesomeIcon
                       icon={solid('money-bills-simple')}
                       className="text-dark mr-12p fs-4"
@@ -158,10 +159,7 @@ const UserItems = () => {
         orderItemList.map((item, i) => {
           // item = detail
 
-          let fullAddress = item.itemDetails?.address?.split(',');
-          let address = item.itemDetails?.address
-            ? fullAddress[fullAddress?.length - 2] + ',' + fullAddress[fullAddress.length - 1]
-            : '';
+          let address = item.itemDetails?.address ? convertAddress(item.itemDetails?.address) : '';
           // console.log(item.appliedTaxPer)
           // let price = Math.round(Number(item.productPrice) + (Number(item.appliedTaxPer) / 100) * Number(item.productPrice))
           // let price = priceFormat(Math.round(calculatedPrice.priceWithTax(Number(item.itemDetails.price))))
@@ -179,7 +177,7 @@ const UserItems = () => {
           // console.log(purchasedPrice)
 
           return (
-            <div className={detail.show && Number(detail.key) === i ? '' : 'd-none'}>
+            <div className={detail.show && Number(detail.key) === i ? '' : 'd-none'} key={1}>
               <div className="d-flex align-items-center flex-grow-1 pb-20p border-bottom">
                 <Button variant="link" className="me-sm-2 me-1" onClick={() => setDetail(false)}>
                   <FontAwesomeIcon icon={solid('angle-left')} className="text-subtext fs-3" />
@@ -378,7 +376,7 @@ const UserItems = () => {
                           </div> */}
                     </div>
                     {item.itemDetails?.isFulfiled && (
-                      <div class="note note-info align-items-center mt-5">
+                      <div className="note note-info align-items-center mt-5">
                         <Card.Header className="post__accordion-header pb-2 pt-2">
                           <span className="fs-3 fw-bolder text-dark">Followup</span>
                           <div className="project__detail-subtitle mb-12p fw-bold">Media</div>
@@ -398,10 +396,10 @@ const UserItems = () => {
                         <div className="gallery__container my-2">
                           {item.itemDetails?.fulfil.length > 0 &&
                             Number(detail.key) === i &&
-                            item.itemDetails?.fulfil.map((im, ky) => {
+                            item.itemDetails?.fulfil.map((im, index) => {
                               return (
                                 <GalleryImg
-                                  key={ky}
+                                  key={index}
                                   thumbImgSrc={helper.CampaignProductFullImagePath + im.image}
                                   bigImgSrc={helper.CampaignProductFullImagePath + im.image}
                                 />

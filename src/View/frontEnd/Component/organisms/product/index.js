@@ -3,7 +3,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ProgressBar, Button } from 'react-bootstrap';
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
 import { ReactComponent as HeartSvg } from '../../../../../assets/svg/heart-o.svg';
-import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
+import helper, {
+  getCalculatedPrice,
+  priceFormat,
+  convertAddress
+} from '../../../../../Common/Helper';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import IconToggle from '../../atoms/icon-toggle';
@@ -28,8 +32,7 @@ const Product = (props) => {
   let unlimited = props.unlimited;
   let media = props.media ? props.media : false;
 
-  let fullAddress = props.address?.split(',');
-  let address = props.address ? fullAddress[fullAddress?.length - 2] : '';
+  let address = props.address ? convertAddress(props.address) : '';
 
   let progress = unlimited ? 100 : Math.round((sold / total) * 100);
 

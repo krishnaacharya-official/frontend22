@@ -60,35 +60,35 @@ const OrderConfirmPage = () => {
                 src="https://i.pinimg.com/originals/7f/91/19/7f9119b483a3b4c966bdbad251f0b483.gif"
                 alt=""
               />*/}
-              <div class="boat-container relative mb-3">
-                <div class="absolute boat">
-                  <ul class="no-bullet">
-                    <ul class="no-bullet fume">
-                      <li class="fume4"></li>
-                      <li class="fume3"></li>
-                      <li class="fume2"></li>
-                      <li class="fume1"></li>
+              <div className="boat-container relative mb-3">
+                <div className="absolute boat">
+                  <ul className="no-bullet">
+                    <ul className="no-bullet fume">
+                      <li className="fume4"></li>
+                      <li className="fume3"></li>
+                      <li className="fume2"></li>
+                      <li className="fume1"></li>
                     </ul>
-                    <li class="smokestack"></li>
-                    <li class="white-body">
-                      <ul class="windows inline-list">
-                        <li class="circle"></li>
-                        <li class="circle"></li>
-                        <li class="circle"></li>
+                    <li className="smokestack"></li>
+                    <li className="white-body">
+                      <ul className="windows inline-list">
+                        <li className="circle"></li>
+                        <li className="circle"></li>
+                        <li className="circle"></li>
                       </ul>
                     </li>
-                    <li class="boat-body"></li>
+                    <li className="boat-body"></li>
                   </ul>
                 </div>
-                <div class="w-1"></div>
-                <div class="r w-1"></div>
+                <div className="w-1"></div>
+                <div className="r w-1"></div>
               </div>
               <h1 className="fs-1 fw-bolder">Order Completed</h1>
               <span className="fs-3" style={{ color: '#6f6f90' }}>
                 Order #{orderDetails.uniqueTransactionId}
               </span>
 
-              <p class="col-sm-6 email__note fs-5 mt-1 text-justify text-sm-center">
+              <p className="col-sm-6 email__note fs-5 mt-1 text-justify text-sm-center">
                 Thank you for donating through Donorport ♥<br></br>
                 The organization(s) have received your donation and will purchase the items on your
                 behalf. Navigate to your profile to track updates to your orders including
