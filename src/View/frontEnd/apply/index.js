@@ -20,7 +20,6 @@ const Apply = (props) => {
   const countryList = props.countryList;
   const categoryList = props.categoryList;
 
-
   return (
     <div className="frontend_pages">
       <DefaultLayout>
@@ -55,7 +54,7 @@ const Apply = (props) => {
                   application process click here
                 </div>
                 <Form className="mb-5">
-                  <div className="py-1 d-flex justify-content-between fs-4 mb-3">
+                  {/*    <div className="py-1 d-flex justify-content-between fs-4 mb-3">
                     <RadioToggle
                       outline={true}
                       checked={selected === 'charity'}
@@ -86,7 +85,7 @@ const Apply = (props) => {
                     >
                       B Corp
                     </RadioToggle>
-                  </div>
+                  </div>*/}
 
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
@@ -123,9 +122,6 @@ const Apply = (props) => {
                   </div>
                   {error && error.country && <p className="error">{error.country}</p>}
 
-
-
-
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
                       {/* <input type="text" value='' /> */}
@@ -145,17 +141,6 @@ const Apply = (props) => {
                     </label>
                   </div>
                   {error && error.category && <p className="error">{error.category}</p>}
-
-
-
-
-
-
-
-
-
-
-
 
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
@@ -179,7 +164,6 @@ const Apply = (props) => {
                       <input type="text" name="ein" value={ein} onChange={(e) => changevalue(e)} />
                       {/* <span className="input__span">Employer Identification Number (EIN)</span> */}
                       <span className="input__span">Charity Registration Number</span>
-
                     </label>
                   </div>
                   {error && error.ein && (

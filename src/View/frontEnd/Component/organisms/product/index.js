@@ -263,7 +263,7 @@ const Product = (props) => {
         <div className="product__meta d-flex align-items-center ms-auto">
           {(props.projectDetails?.length > 0 || props.projectProducts.length > 0) && (
             <span className="product__type icon icon__solid-900 text-success">
-              <Link to={'/project/' + props.projectMainDetails?.slug}>
+              <Link to={'/project/' + props.projectDetails?.projectMainDetails?.slug}>
                 <FontAwesomeIcon icon={solid('bolt')} />
               </Link>
             </span>

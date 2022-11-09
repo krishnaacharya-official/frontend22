@@ -67,7 +67,7 @@ function CartItem(props) {
               {cartItem?.productDetails?.organizationDetails?.name}
             </div>
           </div>
-          <div className="cd__cart__price">{currencySymbol + priceFormat(price)}</div>
+          <div className="cd__cart__price text-light fw-bold">{currencySymbol + priceFormat(price)}</div>
         </div>
         <div className="cd__cart__right d-flex align-items-center">
           <Button variant="link" className="text-decoration-none btn__link-light p-0">

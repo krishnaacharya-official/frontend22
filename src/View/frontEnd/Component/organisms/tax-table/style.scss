@@ -24,3 +24,12 @@
 .container-fluid.accordion-sublist > li:first-child {
   margin-top: 1.3rem;
 }
+.tax__left {
+  width: 300px;
+}
+@include media-breakpoint-down(sm) {
+  .tax__left {
+    width: 100%;
+    max-width: 100%;
+  }
+}

@@ -90,7 +90,7 @@ const HistoryList = (props) => {
                           icon={solid('receipt')}
                           className="mr-12p text-dark fs-4"
                         />
-                        <span className="text-dark fw-bolder fs-3">
+                        <span className="text-dark fw-bolder fs-4">
                           {order.currencySymbol ? order.currencySymbol : '$'}{' '}
                           {priceFormat(Number(order.total))}
                         </span>

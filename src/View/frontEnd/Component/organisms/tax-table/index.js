@@ -37,7 +37,7 @@ const TaxTable = (props) => {
       header={({ state: { isEnter: expanded } }) => (
         <>
           {header}
-          <div className="chev-wrapper">
+          <div className="chev-wrapper d-none d-sm-flex">
             {!hideChevron && (
               <img
                 className={`ml-auto transition-transform duration-200 ease-in-out ${
@@ -114,12 +114,9 @@ const TaxTable = (props) => {
                       header={
                         <li className="flex-grow-1 table__list-item px-0 px-sm-2">
                           <div className="d-sm-flex align-items-center flex-grow-1">
-                            <div
-                              className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0"
-                              style={{ width: '300px' }}
-                            >
-                              <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-start">
-                                <div className="text-success fw-bold fs-4">
+                            <div className="tax__left d-flex align-items-center me-sm-2 mb-1 mb-sm-0 ps-2 ps-sm-0">
+                              <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-sm-start text-end">
+                                <div className="text-light fw-bold fs-5">
                                   {item[0].currencySymbol}
                                   {totalVal(item)}
                                 </div>
@@ -205,7 +202,7 @@ const TaxTable = (props) => {
                                 //   </div>
                                 // </div>
 
-                                <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0">
+                                <div className="d-flex align-items-center flex__1 mb-1 mb-sm-0 ms-2 ms-sm-0">
                                   <div className="pe-1 p-sm-2 mr-12p">
                                     <img
                                       loading="lazy"
@@ -328,9 +325,9 @@ const TaxTable = (props) => {
                               <>
                                 <li className="table__list-item py-1">
                                   <div className="d-flex d-sm-flex align-items-center flex-grow-1">
-                                    <div className="d-flex align-items-center mb-1 mb-sm-0">
-                                      <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-start">
-                                        <div className="text-success fw-bold fs-5">
+                                    <div className="d-flex align-items-center mb-1 mb-sm-0 order-1 order-sm-0">
+                                      <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-sm-start text-end">
+                                        <div className="text-light fw-bold fs-5">
                                           {i1.currencySymbol}
                                           {i1.amount.toFixed(2)}
                                         </div>

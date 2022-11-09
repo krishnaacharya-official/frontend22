@@ -36,7 +36,7 @@ const XpTable = (props) => {
               </span>
             </div>
             <div className="d-flex align-items-center">
-              <span className="text-success fw-bold fs-4">
+              <span className="text-success fw-bold fs-4 d-none d-sm-flex">
                 {data.currencySymbol} {data.amount.toFixed(2)}
               </span>
             </div>
@@ -62,7 +62,7 @@ const XpTable = (props) => {
               </span>
             </div>
             <div className="d-flex align-items-center">
-              <span className="text-success fw-bold fs-4">
+              <span className="text-success fw-bold fs-4 d-none d-sm-flex">
                 {data.currencySymbol}
                 {data.amount.toFixed(2)}
               </span>
@@ -153,7 +153,7 @@ const XpTable = (props) => {
               return (
                 <li className="table__list-item p-2 border-bottom">
                   <div className="d-flex align-items-center flex-grow-1">
-                    <div className="order-2 order-sm-1 me-2" style={{ width: '65px' }}>
+                    <div className="order-2 order-sm-1 me-2 text-sm-start text-end" style={{ width: '65px' }}>
                       <div className="text-info fw-bold fs-5">{item.xp}XP</div>
                       <div className="text-light fs-8">{moment(item.created_at).fromNow()}</div>
                     </div>

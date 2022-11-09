@@ -89,7 +89,10 @@ const Cart = (props) => {
                 Checkout
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Link>
-              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark">
+              <Button
+                variant="link"
+                className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark"
+              >
                 Order
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Button>
@@ -137,12 +140,13 @@ const Cart = (props) => {
                         <ListItemImg
                           size={52}
                           className="rounded-circle ms-2 d-none d-sm-flex"
-                          icon={
-                            <FontAwesomeIcon icon={solid('calculator')} className="fs-4" />
-                          }
+                          icon={<FontAwesomeIcon icon={solid('calculator')} className="fs-4" />}
                         />
                       )}
-                      <Link className="d-flex align-items-center justify-content-center" to={'/organization/' + item?.productDetails?.organizationDetails.slug}>
+                      <Link
+                        className="d-flex align-items-center justify-content-center"
+                        to={'/organization/' + item?.productDetails?.organizationDetails.slug}
+                      >
                         <ListItemImg
                           size={52}
                           className="list__item-img ms-0 ms-sm-2 no-bg"
@@ -153,7 +157,10 @@ const Cart = (props) => {
                         />
                       </Link>
 
-                      <span className="cart_controller d-flex align-items-center fw-bold text-subtext flex-grow-1 flex-sm-grow-0" style={{width: '200px'}}>
+                      <span
+                        className="cart_controller d-flex align-items-center fw-bold text-subtext flex-grow-1 flex-sm-grow-0"
+                        style={{ width: '200px' }}
+                      >
                         {/*<span className="mr-6p d-none d-sm-block">Qty:</span>{' '}*/}
                         <Button
                           variant="link"
@@ -181,7 +188,10 @@ const Cart = (props) => {
                           <FontAwesomeIcon icon={regular('angle-up')} />
                         </Button>
                       </span>
-                      <span className="fs-4 fw-bold text-success text-end" style={{minWidth: '90px'}}>
+                      <span
+                        className="fs-4 fw-bold text-light text-end"
+                        style={{ minWidth: '90px' }}
+                      >
                         {currencySymbol +
                           // priceFormat(getCalc.getData(item.productDetails?.price) * item.quantity)
                           priceFormat(
@@ -198,12 +208,12 @@ const Cart = (props) => {
 
             <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Subtotal:</span>
-              <span className="fw-bold text-success fs-5">
+              <span className="fw-bold text-light fs-5">
                 {currencySymbol + priceFormat(subTotal)}
               </span>
             </div>
 
-            <div className="d-flex align-items-center py-3 border-bottom">
+            {/*<div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">
                 <img
                   className="img-stripe "
@@ -213,7 +223,7 @@ const Cart = (props) => {
                 />
               </span>
               <span className="fw-bold text-light fs-5">{currencySymbol + salesTax}</span>
-            </div>
+            </div>*/}
             {/* <div className="d-flex align-items-center py-3 border-bottom">
               <span className="fw-bolder flex__1">Sales Tax:</span>
               <span className="fw-bold text-success fs-5">
@@ -223,7 +233,7 @@ const Cart = (props) => {
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>
-            <span className="fw-bold text-success fs-4">{currencySymbol + total}</span>
+            <span className="fw-bolder text-light fs-4">{currencySymbol + total}</span>
           </div>
           <div className="py-4 border-bottom d-grid d-sm-block">
             <Button

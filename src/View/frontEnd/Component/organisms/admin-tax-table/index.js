@@ -371,7 +371,7 @@ const AdminTaxTable = (props) => {
                               <>
                                 <li className="table__list-item py-1">
                                   <div className="d-sm-flex align-items-center flex-grow-1">
-                                    <div className="d-flex align-items-center mb-1 mb-sm-0">
+                                    <div className="d-flex align-items-center mb-1 mb-sm-0 order-1 order-sm-0">
                                       <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
                                         <div className="text-success fw-bold fs-5">
                                           {i1.currencySymbol}

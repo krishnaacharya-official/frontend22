@@ -203,7 +203,7 @@ const UserItems = () => {
                   <div className="d-flex align-items-center flex__1">
                     <div className="d-flex align-items-center progress__wrap me-2 flex__1">
                       {!item.itemDetails?.unlimited ? (
-                        <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
+                        <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light ">
                           {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
                         </span>
                       ) : (
@@ -269,11 +269,31 @@ const UserItems = () => {
 
               <div className="d-sm-none pt-20p pb-20p">
                 <div className="d-flex align-items-center">
-                  <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light">
-                    7/10
+                  <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light ms-3 ms-sm-0">
+                    {item.itemDetails?.soldout}/{item.itemDetails?.quantity}
                   </span>
-                  <ProgressBar variant="success" now={30} className="flex__1" />
-                  <span className="text-light ms-1 fw-bold">30%</span>
+                  <ProgressBar
+                    variant={!item.itemDetails?.unlimited ? 'success' : 'infinity'}
+                    now={
+                      !item.itemDetails?.unlimited
+                        ? Math.round((item.itemDetails?.soldout / item.itemDetails?.quantity) * 100)
+                        : 100
+                    }
+                    className="flex-grow-1"
+                  />
+                  {!item.itemDetails?.unlimited ? (
+                    <span className="text-light ms-1 fw-bold">
+                      {Math.round((item.itemDetails?.soldout / item.itemDetails?.quantity) * 100)}%
+                    </span>
+                  ) : (
+                    <div className="unlimited unlimited--home" style={{ marginLeft: '10px' }}>
+                      <div className="tag tag--ongoing _2">
+                        <div className="d-flex icon icon--unlimited">
+                          <FontAwesomeIcon icon={solid('infinity')} className="" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -426,7 +446,7 @@ const UserItems = () => {
                       </div>
                       <div className="ms-2 flex__1 fw-bolder">
                         <div className="mb-3p">{item.itemDetails?.headline}</div>
-                        <div className="text-success ">
+                        <div className="text-light ">
                           {item.currencySymbol ? item.currencySymbol : '$'}
                           {priceFormat(purchasedPrice)}
                         </div>
@@ -439,7 +459,7 @@ const UserItems = () => {
                     <div className="py-3 border-top border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">Subtotal:</span>
-                        <span className="text-success">
+                        <span className="text-light">
                           {item.currencySymbol ? item.currencySymbol : '$'}
                           {priceFormat(Number(purchasedPrice) * Number(item.quantity))}
                         </span>
@@ -451,7 +471,7 @@ const UserItems = () => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">
+                      <span className="text-light fw-bolder fs-4">
                         {item.currencySymbol ? item.currencySymbol : '$'}
                         {priceFormat(Number(purchasedPrice) * Number(item.quantity))}
                       </span>

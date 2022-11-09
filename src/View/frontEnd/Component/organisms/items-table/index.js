@@ -73,14 +73,13 @@ const ItemsTable = (props) => {
                     <Button
                       variant="link"
                       onClick={() => props.onItemClick(key)}
-                      className="d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
-                      style={{ maxWidth: '325px' }}
+                      className="user__left d-flex align-items-center text-dark me-sm-3 p-0 text-decoration-none text-start fw-normal"
                     >
                       <div
-                        className="me-2 order-sm-0 order-1"
+                        className="me-0 me-sm-2 order-sm-0 order-1 text-sm-start text-end"
                         style={{ width: '65px', minWidth: '65px' }}
                       >
-                        <div className="text-success fw-bold fs-4">
+                        <div className="text-light fw-bold fs-4">
                           {item.currencySymbol}
                           {price}
                         </div>
@@ -101,7 +100,7 @@ const ItemsTable = (props) => {
                       </div>
                     </Button>
                     <div className="d-flex align-items-center flex__1">
-                      <div className="d-flex align-items-center flex__1 ms-sm-3 ms-0">
+                      <div className="d-flex align-items-center flex__1 ms-sm-3 ms-0 mt-2 mt-sm-0">
                         <div
                           className="d-flex align-items-center progress__wrap me-2 flex__1 gap-2"
                           style={{ maxWidth: '250px' }}
@@ -146,7 +145,7 @@ const ItemsTable = (props) => {
                         </div>
                         <Button
                           variant="link"
-                          className="category__link me-auto p-0 text-decoration-none"
+                          className="category__link ms-auto ms-sm-0 p-0 text-decoration-none"
                         >
                           <div className="category__img-wrap d-flex align-items-center justify-content-center">
                             <img
@@ -160,13 +159,13 @@ const ItemsTable = (props) => {
                           </div>
                         </Button>
                       </div>
-                      <div className="d-none d-sm-block billing__buttons d-flex align-items-center gap-1">
+                      <div className="d-none d-sm-flex billing__buttons d-flex align-items-center gap-1">
                         {item.itemDetails?.tax && (
-                          <span
-                            className="product__type product__type-tax icon icon__solid-900"
-                            style={{ fontSize: 'x-large' }}
-                          >
-                            <FontAwesomeIcon icon={solid('calculator')} />
+                          <span className="category__link p-1 text-decoration-none">
+                            <FontAwesomeIcon
+                              icon={solid('calculator')}
+                              className="fs-3 text-info"
+                            />
                           </span>
                         )}
                         {item.fulfilDetails.length > 0 && item.fulfilDetails[0]?.receipt && (
