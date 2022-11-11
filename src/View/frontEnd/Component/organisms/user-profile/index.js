@@ -595,7 +595,7 @@ const UserProfile = () => {
           </label>
         </div>
 
-        <div className="d-flex align-items-center py-3">
+        {/*  <div className="d-flex align-items-center py-3">
           <ToggleSwitch
             isOn={check}
             handleToggle={() => setCheck(!check)}
@@ -606,7 +606,7 @@ const UserProfile = () => {
             Hide your order history on public posts for items & organizations you donate to.
           </span>
           <FontAwesomeIcon icon={solid('eye-slash')} className="icon__hide fs-4 ms-2" />
-        </div>
+        </div>*/}
       </div>
 
       <div className="mb-5">
@@ -747,7 +747,7 @@ const UserProfile = () => {
         Save Details
       </Button>
 
-      <div className="mb-5">
+      <div className="mb-5 mt-5">
         <h4 className="fw-bolder">Account Deactivation</h4>
         <div className="text-subtext mb-3">Permanently delete your Donorport account</div>
         <div className="w-400">

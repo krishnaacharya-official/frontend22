@@ -2,7 +2,7 @@ import './style.scss';
 import { Outlet, Link, useLocation, useOutletContext, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
 import FrontLoader from '../../../../../Common/FrontLoader';
-import helper, { isIframe } from '../../../../../Common/Helper';
+import helper, { isIframe, hasAlpha } from '../../../../../Common/Helper';
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 import adminCampaignApi from '../../../../../Api/admin/adminCampaign';
@@ -192,14 +192,25 @@ const CompanySettings = () => {
     });
   };
 
-  const changefile = (e) => {
+  const changefile = async (e) => {
     let file = e.target.files[0] ? e.target.files[0] : '';
-    setTempImg(URL.createObjectURL(file));
-
-    setState({
-      ...state,
-      logo: file
-    });
+    if (await hasAlpha(file)) {
+      setTempImg(URL.createObjectURL(file));
+      setState({
+        ...state,
+        logo: file
+      });
+    } else {
+      ToastAlert({
+        msg: 'Please upload an image with transparent background',
+        msgType: 'error'
+      });
+      setstate({
+        ...state,
+        image: ''
+      });
+      setTempImg('');
+    }
   };
 
   const changevalue = (e) => {

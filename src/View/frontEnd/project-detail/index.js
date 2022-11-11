@@ -97,16 +97,16 @@ const ProjectDetail = (props) => {
         </div>
       </SuggestionWrapper>
 
-      <div className="ms-auto d-sm-flex d-none mt-2 flex-column align-items-center px-3">
-        {/* <Button size="lg" className="fw-bold mb-1 w-100" onClick={() => setModalShow(true)}>
+      {/*     <div className="ms-auto d-sm-flex d-none mt-2 flex-column align-items-center px-3">
+        <Button size="lg" className="fw-bold mb-1 w-100" onClick={() => setModalShow(true)}>
           Donatehhhh
         </Button>
-        <DonateModal show={modalShow} onHide={() => setModalShow(false)} /> */}
-        {/* <GrabDropdown /> */}
-      </div>
+        <DonateModal show={modalShow} onHide={() => setModalShow(false)} /> 
+
+      </div>*/}
       <Container fluid className="py-3 py-sm-5">
         <Row>
-          <Col md="5" className="mb-4 mb-0" style={{ maxWidth: '545px' }}>
+          <Col md="7" className="mb-4">
             <ProjectDetailMain
               progress={70}
               projectDetails={props.projectDetails}

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import orderApi from '../../../Api/frontEnd/order';
 import FrontLoader from '../../../Common/FrontLoader';
 import DefaultLayout from '../Component/templates/default-layout';
+import ShareWidget from '../Component/organisms/share-widget';
 import { Button } from 'react-bootstrap';
 import ListItemImg from '../Component/atoms/list-item-img';
 import helper, { priceFormat, getCalculatedPrice, getCardIcon } from '../../../Common/Helper';
@@ -112,6 +113,14 @@ const OrderConfirmPage = () => {
               </div>
             </div>
             <div className="email__container">
+              <div class="order__container d-flex align-items-center justify-content-between m-3 mx-0 border-bottom">
+                <div class="order__wrap">
+                  <p class="total__title fs-2 fw-bolder">Order Details</p>
+                </div>
+                <div class="order__value text-light">
+                  <ShareWidget />
+                </div>
+              </div>
               <div className="email__wrap">
                 <div role="list" className="note email__list d-flex flex-column">
                   {orderDetails?.orderItems?.length > 0 &&
@@ -145,8 +154,9 @@ const OrderConfirmPage = () => {
                                 <div className="checkout__brand">
                                   <div>{itm.itemDetails.brand}</div>
                                 </div>
-                                <div className="checkout__price flex-row">
-                                  <h5>{itm.itemDetails.price}</h5>
+                                <div className="checkout__price flex-row fs-5 fw-bold text-light">
+                                  {orderDetails.currencySymbol}
+                                  {itm.itemDetails.displayPrice}
                                 </div>
                               </div>
                             </div>
@@ -169,13 +179,13 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4 className="fw-bolder text-dark">
+                              <h4 className="fw-bolder text-success">
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
                             </div>
                           </div>
-                          {itm.tax === true && (
+                          {/*   {itm.tax === true && (
                             <div className="pt-2">
                               <img
                                 alt=""
@@ -186,7 +196,7 @@ const OrderConfirmPage = () => {
                                 <span className="link link--terms" />
                               </a>
                             </div>
-                          )}
+                          )}*/}
                         </div>
                       );
                     })}
@@ -196,8 +206,8 @@ const OrderConfirmPage = () => {
                 <div className="total__wrapper note">
                   <div className="total__sub d-flex justify-content-between">
                     <div className="total__title fw-bold">Subtotal:</div>
-                    <div className="total__value">
-                      <p className="fs-4 fw-bold">
+                    <div className="total__value text-light">
+                      <p className="fs-4 fw-bolder">
                         {' '}
                         {orderDetails.currencySymbol}
                         {/* {purchasedPriceWithTax(Number(orderDetails.subtotal), Number(orderDetails.appliedTaxPercentage))} */}
@@ -219,18 +229,17 @@ const OrderConfirmPage = () => {
                   Stripe : ({orderDetails.salesTaxPer}%)
                 </p>
               </div>*/}
-                  <div className="total__sub d-flex justify-content-between">
+                  {/*    <div className="total__sub d-flex justify-content-between">
                     <p className="total__title fw-bold">Fee:</p>
                     <p className="fs-6 fw-bold">
                       {' '}
                       {orderDetails.currencySymbol}
-                      {/* {orderDetails.salesTax} */}
                       {priceFormat(Number(orderDetails.salesTax))}
                     </p>
-                  </div>
+                  </div>*/}
                   <div className="total__sub d-flex justify-content-between">
                     <p className="total__title fw-bold">XP:</p>
-                    <div className="order__xp">
+                    <div className="order__xp text-info">
                       <p>
                         <b>{orderDetails.xp} xp </b>
                       </p>
@@ -238,14 +247,14 @@ const OrderConfirmPage = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="order__container d-flex align-items-center justify-content-between mt-3">
+                  <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3">
                     <div className="order__wrap">
                       <p className="total__title fs-4 fw-bolder">Total Paid:</p>
                     </div>
                     <div className="order__value text-light">
                       <p>
                         {orderDetails.currency}
-                        <b className="fs-2 text-dark">
+                        <b className="fs-3 text-success">
                           {' '}
                           {orderDetails.currencySymbol}
                           {orderDetails.total}

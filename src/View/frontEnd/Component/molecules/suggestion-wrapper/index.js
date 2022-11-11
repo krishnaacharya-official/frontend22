@@ -4,7 +4,7 @@ import "./style.scss";
 
 function SuggestionWrapper(props) {
   return (
-    <div className="suggested__list-wrap d-flex align-items-center p-0 mb-0" style={{minHeight:"75px"}}>
+    <div className="suggested__list-wrap d-flex align-items-center p-0 mb-0" style={{height:"75px"}}>
           {props.children}
     </div>
   );
