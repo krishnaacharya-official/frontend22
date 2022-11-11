@@ -78,7 +78,7 @@ export function priceFormat(m = 0) {
   // let nf = new Intl.NumberFormat('en-US');
   // return nf.format(price)
   m = Number(m);
-  return m?.toFixed(2);
+  return m?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export function getCookie(cname) {
@@ -178,7 +178,7 @@ export function getCalculatedPrice() {
     let transectionFee = user.transectionFee;
     let platformFee = user.platformFee;
 
-    //Calculate total charges (transectionFee + platformFee )
+    // Calculate total charges (transectionFee + platformFee )
 
     let totalCharge = Number(transectionFee) + Number(platformFee);
 
@@ -409,8 +409,8 @@ export function getCardIcon(card) {
 }
 
 export function priceWithOrganizationTax(price, salesTax) {
-  let taxPrice = price + (Number(salesTax) / 100) * price;
-  // console.log(taxPrice)
+  let taxPrice = price + (Number(salesTax + 2.9) / 100) * price;
+
   return taxPrice;
 }
 
@@ -557,19 +557,20 @@ export function countInArray(array, what) {
 }
 
 export function convertAddress(address) {
-  const split = address.split(',');
+  if (address.split(' ').length > 1) {
+    const split = address.split(',');
 
-  const countryName = Country.getAllCountries().filter(
-    (c) => c.name === split[split.length - 1].replace(' ', '')
-  );
+    const countryName = Country.getAllCountries().filter(
+      (c) => c.name === split[split.length - 1].replace(' ', '')
+    );
 
-  const resultStateProvince = split[split.length - 2];
+    const resultStateProvince = split[split.length - 2];
 
-  const state = State.getStatesOfCountry(countryName[0].isoCode).filter((s) =>
-    resultStateProvince.includes(s.name)
-  );
+    const state = State.getStatesOfCountry(countryName[0].isoCode).filter((s) =>
+      resultStateProvince.includes(s.name)
+    );
+    return `${split[split.length - 3]}${state.length > 0 ? `, ${state[0].isoCode}` : ''}`;
+  }
 
-  console.log();
-
-  return `${split[split.length - 3]}${state.length > 0 ? `, ${state[0].isoCode}` : ''}`;
+  return address;
 }

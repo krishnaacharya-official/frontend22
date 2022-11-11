@@ -279,7 +279,7 @@ function ProjectDetailMain(props) {
               <div className="text-dark fw-bold me-2">Subtotal:</div>
               <div className="price fs-4 fw-bold text-success">
                 {currencySymbol}
-                {priceFormat(price * quantity)}
+                {priceFormat(Number(price * quantity))}
               </div>
             </div>
             <div className="d-flex align-items-center fs-5 py-1 mb-3">

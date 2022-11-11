@@ -958,6 +958,7 @@ const PaymentMethod = () => {
               setBankAccount={setBankAccount}
               changevaluebankAc={changevaluebankAc}
               addExpressAccount={addExpressAccount}
+              isLoading={loading}
             />
 
             {/* <AddBankModal

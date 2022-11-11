@@ -79,7 +79,7 @@ const Ranks = () => {
               Norwhal
             </IconButton> */}
               <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-                {(user.xp)} xp
+                {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })} xp
               </a>
             </div>
           )}

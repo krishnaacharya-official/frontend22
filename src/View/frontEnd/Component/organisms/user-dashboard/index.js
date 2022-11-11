@@ -1,40 +1,34 @@
-import React from "react";
+import React from 'react';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import IconButton from "@components/molecules/icon-button";
 
-import IconButton from "../../molecules/icon-button";
+import IconButton from '../../molecules/icon-button';
 
 // import AreaChart from "@assets/images/area-chart.jpg";
 // import BarChart from "@assets/images/bar-chart.jpg";
 // import PieChart from "@assets/images/piechart.jpg";
 
-import AreaChart from "../../../../../assets/images/area-chart.jpg"
-import BarChart from "../../../../../assets/images/bar-chart.jpg"
-import PieChart from "../../../../../assets/images/piechart.jpg"
-import { useSelector, useDispatch } from "react-redux";
-import helper, { priceFormat, getCalculatedPrice } from "../../../../../Common/Helper";
+import AreaChart from '../../../../../assets/images/area-chart.jpg';
+import BarChart from '../../../../../assets/images/bar-chart.jpg';
+import PieChart from '../../../../../assets/images/piechart.jpg';
+import { useSelector, useDispatch } from 'react-redux';
+import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
 
+import { Col, Row, Button } from 'react-bootstrap';
 
-import { Col, Row, Button } from "react-bootstrap";
-
-import "./style.scss";
-
-
+import './style.scss';
 
 const UserDashboard = () => {
   const user = useSelector((state) => state.user);
-  const getC = getCalculatedPrice()
+  const getC = getCalculatedPrice();
   return (
     <>
       <header className="d-none d-sm-flex py-2 mb-3 w-100 d-flex align-items-center border-bottom">
         <h1 className="page__title mb-0 fs-3 fw-bolder me-2">Dashboard</h1>
-        <span className="me-2">
-        {getC.getUserRank(user.xp)}
-
-        </span>
+        <span className="me-2">{getC.getUserRank(user.xp)}</span>
         {/* <IconButton
           bgColor="#a278fc"
           className="btn__xs rounded-pill me-2"
@@ -42,10 +36,12 @@ const UserDashboard = () => {
         >
           Norwhal
         </IconButton> */}
-        <span className="text-info fw-bold fs-5">{(user.xp)} xp</span>
+        <span className="text-info fw-bold fs-5">
+          {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })} xp
+        </span>
       </header>
       <div className="text-light text-center text-sm-left page__sub-title py-3 mb-12p">
-        You have donated a total of{" "}
+        You have donated a total of{' '}
         <span className="ms-1 fs-5 text-success fw-bolder">$ 2,304</span>
       </div>
 
@@ -56,7 +52,7 @@ const UserDashboard = () => {
               <div className="d-flex align-items-center">
                 <h2 className="dash__section__title mb-0">Activity</h2>
                 <FontAwesomeIcon
-                  icon={regular("chart-line")}
+                  icon={regular('chart-line')}
                   className="dash__icon text-light ms-1 fs-5"
                 />
               </div>
@@ -106,7 +102,7 @@ const UserDashboard = () => {
             <div className="d-flex align-items-center mb-2">
               <h2 className="dash__section__title mb-0">Interactions</h2>
               <FontAwesomeIcon
-                icon={regular("computer-mouse")}
+                icon={regular('computer-mouse')}
                 className="dash__icon text-light ms-1 fs-5"
               />
             </div>
@@ -121,10 +117,7 @@ const UserDashboard = () => {
           <div className="pe-md-2">
             <div className="d-flex align-items-center mb-2">
               <h2 className="dash__section__title mb-0">Contributions</h2>
-              <FontAwesomeIcon
-                icon={regular("sack")}
-                className="dash__icon text-light ms-1 fs-5"
-              />
+              <FontAwesomeIcon icon={regular('sack')} className="dash__icon text-light ms-1 fs-5" />
             </div>
             <div className="dash__chart">
               <img src={BarChart} alt="" className="img-fluid" />
@@ -136,7 +129,7 @@ const UserDashboard = () => {
             <div className="d-flex align-items-center mb-2">
               <h2 className="dash__section__title mb-0">Coverage</h2>
               <FontAwesomeIcon
-                icon={regular("planet-moon")}
+                icon={regular('planet-moon')}
                 className="dash__icon text-light ms-1 fs-5"
               />
             </div>
@@ -153,7 +146,6 @@ const UserDashboard = () => {
       </Row>
     </>
   );
-
-}
+};
 
 export default UserDashboard;

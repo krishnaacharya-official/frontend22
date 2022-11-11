@@ -85,7 +85,12 @@ const SummaryContent = (props) => {
           </div>*/}
           <div className="d-flex align-items-center">
             <span className="fw-bolder flex__1">XP</span>
-            <span className="fw-bold text-info">{props.xp} xp</span>
+            <span className="fw-bold text-info">
+              {Number(props.xp).toLocaleString('en-US', {
+                maximumFractionDigits: 2
+              })}{' '}
+              xp
+            </span>
           </div>
         </div>
       </div>
@@ -94,7 +99,12 @@ const SummaryContent = (props) => {
         {/* <span className="text-subtext me-2 fs-7">USD</span> */}
         <span className="fw-bolder text-light fs-4">
           {/* {props.currencySymbol + priceFormat(total ? total : 0)} */}
-          {props.currencySymbol + (total ? total : 0)}
+          {props.currencySymbol +
+            (total
+              ? Number(total).toLocaleString('en-US', {
+                  maximumFractionDigits: 2
+                })
+              : 0)}
         </span>
       </div>
 

@@ -790,7 +790,7 @@ const AdminPosts = (props) => {
         formData.description = description;
         formData.category_id = category;
         formData.subcategory_id = subcategory;
-        formData.displayPrice = displayPrice ? Number(displayPrice) : 0;
+        formData.displayPrice = displayPrice ? priceFormat(displayPrice) : 0;
 
         if (quantity) {
           formData.quantity = quantity;
