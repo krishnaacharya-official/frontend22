@@ -23,7 +23,7 @@ import projectApi from '../../../../../Api/admin/project';
 import productApi from '../../../../../Api/admin/product';
 import { WithContext as ReactTags } from 'react-tag-input';
 import noimg from '../../../../../assets/images/noimg.jpg';
-import helper, { convertAddress } from '../../../../../Common/Helper';
+import helper, { convertAddress, priceFormat } from '../../../../../Common/Helper';
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 import { confirmAlert } from 'react-confirm-alert';
@@ -35,6 +35,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { CircularProgress } from '@mui/material';
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
@@ -181,14 +182,14 @@ const AddPost = (props) => {
   const sugg = (result, lat, lng, text) => {
     props.setstate({
       ...stateData,
-      address: convertAddress(result),
+      address: result,
       lat: lat,
       lng: lng
     });
 
     setLocation({
       ...location,
-      locationName: convertAddress(result),
+      locationName: result,
       lat: lat,
       lng: lng
     });
@@ -283,7 +284,9 @@ const AddPost = (props) => {
                         </div>
                         <div className="info-wrap">
                           <div className="fs-6 mb-3p">Your post will be posted in</div>
-                          <h3 className="mb-0 fs-4 fw-bolder">{location.locationName}</h3>
+                          <h3 className="mb-0 fs-4 fw-bolder">
+                            {convertAddress(location.locationName)}
+                          </h3>
                         </div>
                       </div>
                     </div>
@@ -436,7 +439,7 @@ const AddPost = (props) => {
                             // id="priceInput"
                             name="displayprice"
                             id="displayprice"
-                            value={displayPrice}
+                            value={priceFormat(Number(displayPrice))}
                           />
                         </div>
                         <div className="form-group quantity-from-group">
@@ -1245,22 +1248,25 @@ const AddPost = (props) => {
         <div className="products-detial-footer py-5">
           {stateData.status === 1 && (
             <Button
+              style={{ opacity: props.isLoading ? '0.7' : '1' }}
               variant="info"
               size="lg"
               className="fw-bold fs-6"
-              onClick={() => submitProductForm(-1)}
+              onClick={() => !props.isLoading && submitProductForm(-1)}
             >
               Un-publish
             </Button>
           )}
           <Button
+            style={{ opacity: props.isLoading ? '0.7' : '1' }}
             variant="success"
             size="lg"
             className="fw-bold fs-6"
-            onClick={() => submitProductForm(1)}
+            onClick={() => !props.isLoading && submitProductForm(1)}
           >
             Post Ad
           </Button>
+          {props.isLoading && <CircularProgress style={{ marginLeft: '30px' }} />}
         </div>
       </div>
     </div>

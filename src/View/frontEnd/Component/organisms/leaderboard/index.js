@@ -112,10 +112,13 @@ const LeaderBoard = () => {
 
                                 <div
                                   className="billing__value"
-                                  style={{ width: '100px !important' }}
+                                  style={{ width: '100px!important' }}
                                 >
                                   <div className="d-flex justify-content-end pe-4 s-5 fw-bold text-info mb-3p">
-                                    {person.xp} XP
+                                    {Number(person.xp).toLocaleString('en-US', {
+                                      maximumFractionDigits: 2
+                                    })}{' '}
+                                    XP
                                   </div>
                                 </div>
                                 <div
@@ -202,7 +205,8 @@ const LeaderBoard = () => {
                             className="tag tag--xp tag--xp_nobg w-embed"
                             style={{ fontSize: '15px', marginLeft: '10px' }}
                           >
-                            {user.xp}&nbsp;XP
+                            {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })}
+                            &nbsp;XP
                           </div>
                         </div>
                       </div>

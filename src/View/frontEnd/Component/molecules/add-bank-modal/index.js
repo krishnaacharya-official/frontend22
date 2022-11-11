@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Button, Modal } from 'react-bootstrap';
-import ListItemImg from '../../atoms/list-item-img';
 import Select from 'react-select';
+
+import ListItemImg from '../../atoms/list-item-img';
 
 import './style.scss';
 
@@ -13,6 +15,7 @@ const AddBankModal = (props) => {
     { value: 'individual', label: 'Individual' },
     { value: 'company', label: 'Company' }
   ];
+
   return (
     <>
       <div className="px-2">
@@ -152,14 +155,22 @@ const AddBankModal = (props) => {
               <span className="link text-light">Trust &amp; Security</span>
             </a>
           </div>
-          <Button
-            variant="info"
-            // onClick={props.onHide}
-            onClick={() => props.addExpressAccount()}
-            className="border-top-left-radius-0 py-20p flex__1 m-0 rounded-0"
-          >
-            Add Bank
-          </Button>
+          <div className="d-flex align-items-center">
+            <Button
+              style={{
+                maxWidth: '30%',
+                marginRight: '20px !important',
+                opacity: props.isLoading ? '0.7' : '1'
+              }}
+              variant="info"
+              // onClick={props.onHide}
+              onClick={() => !props.isLoading && props.addExpressAccount()}
+              className="border-top-left-radius-0 py-20p flex__1 m-0 rounded-0"
+            >
+              Add Bank
+            </Button>
+            {props.isLoading && <CircularProgress />}
+          </div>
         </div>
       </div>
 

@@ -80,7 +80,11 @@ const Pricing = () => {
                 transaction. We include this cost, along with the Charity's local tax rate, in the
                 display price for products posted by our Charities. For More information please
                 visit our{' '}
-                <a href="https://www.youtube.com/watch?v=G3Y5PcuH23Y" target="_blank">
+                <a
+                  href="https://www.youtube.com/watch?v=G3Y5PcuH23Y"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Terms of Service
                 </a>{' '}
               </div>

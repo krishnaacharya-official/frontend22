@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import { Link } from 'react-router-dom';
 import { sortedLastIndex } from 'lodash';
+import { CircularProgress } from '@mui/material';
 
 const Checkout = (props) => {
   const user = useSelector((state) => state.user);
@@ -97,7 +98,10 @@ const Checkout = (props) => {
                 Checkout
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </span>
-              <Button variant="link" className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark">
+              <Button
+                variant="link"
+                className="p-0 me-1 fw-normal fs-7 text-decoration-none text-dark"
+              >
                 Order
                 <FontAwesomeIcon icon={regular('chevron-right')} className="ms-1" />
               </Button>
@@ -321,14 +325,15 @@ const Checkout = (props) => {
 
             <div className="d-flex align-items-center pb-20p">
               <Button
-                style={{ width: '100%' }}
+                style={{ width: '100%', opacity: props.isLoading ? '0.7' : '1' }}
                 variant="primary"
                 size="lg"
                 className="fs-6 fw-bold"
-                onClick={() => props.pay()}
+                onClick={() => !props.isLoading && props.pay()}
               >
                 Pay {props.currencySymbol + (total ? total : 0)}
               </Button>
+              {props.isLoading && <CircularProgress style={{ marginLeft: '25px' }} />}
             </div>
 
             <div className="fs-6 d-flex justify-content-center mt-3 pb-20p">
