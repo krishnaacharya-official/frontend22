@@ -217,7 +217,7 @@ const Product = (props) => {
             <div className="small">Price:</div>
             <div className="product__price">
               <span>{currencySymbol}</span>
-              <span className="cost">{priceFormat(price)}</span>
+              <span className="cost">{priceFormat(props.displayPrice)}</span>
               {/* <span className="cost">{(price)}</span> */}
             </div>
           </div>

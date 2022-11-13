@@ -170,7 +170,7 @@ export default function CheckoutController() {
           setSubtotalWithTax(Number(sumSubTotal));
           let salesTax = CalculatedPrice.calculateSalesTax(sum);
           // setSalesTax(salesTax)
-          setTotal(CalculatedPrice.priceWithTax(sum + 0.3));
+          setTotal(sum + 0.3);
           // setStripeTax(CalculatedPrice.getTaxValueOfPrice(sum))
           setSalesTax(CalculatedPrice.getTaxValueOfPrice(sum));
 
@@ -178,7 +178,7 @@ export default function CheckoutController() {
 
           // setTotal(sum)
 
-          setSubTotal(Number(CalculatedPrice.priceWithTax(sum + 0.3)));
+          setSubTotal(sum + 0.3);
         } else {
           navigate('/');
         }
