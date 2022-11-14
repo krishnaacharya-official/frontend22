@@ -947,7 +947,7 @@ const AddPost = (props) => {
                   <div className="manage-post-type">
                     You can add this product to any of your existing projects. To manage your
                     projects &nbsp;{' '}
-                    <a href="./" className="link">
+                    <a href="./project" className="link">
                       click here
                     </a>
                   </div>

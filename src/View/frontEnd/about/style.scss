@@ -60,6 +60,13 @@
   -ms-transform: translate(0, 50%);
   transform: translate(0, 50%);
 }
+@include media-breakpoint-down(sm) {
+  .bigcircle._2 {
+    -webkit-transform: unset;
+    -ms-transform: unset;
+    transform: unset;
+  }
+}
 .section--hero {
   position: relative;
   width: 100%;

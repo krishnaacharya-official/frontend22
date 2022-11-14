@@ -1,3 +1,13 @@
 .billing__value {
-    width: 110px !important
+  width: 110px !important;
+}
+@include media-breakpoint-down(md) {
+  .ladder__name {
+    width: 90px;
+  }
+}
+@include media-breakpoint-down(sm) {
+  .ladder__name {
+    width: 45px;
+  }
 }

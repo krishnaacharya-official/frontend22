@@ -179,7 +179,7 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4 className="fw-bolder text-success">
+                              <h4 className="fw-bold text-light">
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
@@ -254,7 +254,7 @@ const OrderConfirmPage = () => {
                     <div className="order__value text-light">
                       <p>
                         {orderDetails.currency}
-                        <b className="fs-3 text-success">
+                        <b className="fs-3 text-light">
                           {' '}
                           {orderDetails.currencySymbol}
                           {orderDetails.total}
@@ -262,6 +262,20 @@ const OrderConfirmPage = () => {
                       </p>
                     </div>
                   </div>
+
+                  {/*<div className="bg-lighter d-flex align-items-center p-20p rounded">
+                      <div className="order__logo me-2">
+                        <img src={getCardIcon(cardType)} alt="" className="img-fluid" />
+                      </div>
+                      <div className="order__card fs-7">
+                        <div className="text-dark fw-semibold mb-6p">
+                          XXXX XXXX XXXX {lastFourDigits}
+                        </div>
+                        <div className="text-light fw-semibold">
+                          <div>Transaction: {moment(item.created_at).format('MMMM DD,YYYY')}</div>
+                        </div>
+                      </div>
+                    </div>*/}
                 </div>
               </div>
             </div>

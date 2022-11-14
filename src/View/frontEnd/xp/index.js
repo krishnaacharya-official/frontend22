@@ -87,9 +87,9 @@ const Xp = () => {
             >
               Norwhal
             </IconButton> */}
-              <span className="ml-3p">{getC.getUserRank(user.xp)}</span>
+              <span>{getC.getUserRank(user.xp)}</span>
               <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-                {priceFormat(user.xp)} XP
+                {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
               </a>
             </div>
           )}

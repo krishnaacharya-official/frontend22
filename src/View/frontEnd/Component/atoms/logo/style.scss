@@ -8,7 +8,7 @@
   margin-left: 3px;
   color: #6f6f91;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .logo-icon {
@@ -16,9 +16,11 @@
   height: 26px;
 }
 
-/*@include media-breakpoint-down(sm) {
-  .logo-icon {
-    width: 21px;
-    height: 21px;
+@include media-breakpoint-down(sm) {
+  .logo-span {
+    position: absolute;
+    font-size: 9px;
+    top: -3px;
+    right: -6px;
   }
-}*/
+}

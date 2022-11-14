@@ -107,7 +107,7 @@ const ProjectsTable = (props) => {
         <ul
           className="list-unstyled mb-0 list__table-list"
           style={{
-            maxHeight: projectList.length > 1 ? '550px' : '',
+            //maxHeight: projectList.length > 1 ? '550px' : '',
             minHeight: projectList.length > 1 ? '550px' : ''
           }}
         >
