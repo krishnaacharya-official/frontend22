@@ -87,6 +87,7 @@ const AdminPosts = (props) => {
 
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
   const [loading, setLoading] = useState(false);
+  const [totalPriceArray, setTotalPriceArray] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [subcategoryList, setSubCategoryList] = useState([]);
   const [campaignAdminList, setCampaignAdminList] = useState([]);
@@ -1405,6 +1406,18 @@ const AdminPosts = (props) => {
             <header className="py-sm-2 mb-3 w-100 d-sm-flex align-items-center">
               <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">Posts</h1>
               <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
+              {totalPriceArray.length > 0 &&
+              totalPriceArray.map((val, index) => {
+                return (
+                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
+                    <FontAwesomeIcon
+                      icon={solid('money-bills-simple')}
+                      className="text-dark mr-12p fs-4"
+                    />
+                    {val[0]} {val[1]}
+                  </span>
+                );
+              })}
 
               <div className="d-flex align-items-center ms-sm-auto">
                 <Button
@@ -1525,17 +1538,25 @@ const AdminPosts = (props) => {
                 className="note note-info d-flex align-items-center"
                 style={{ maxWidth: '100%' }}
               >
-                <span className="post__badge post__badge--sold me-2 text-primary fs-3">
+                {/*<span className="post__badge post__badge--sold me-2 text-primary fs-3">
                   <FontAwesomeIcon icon={solid('party-horn')} />
                 </span>
                 <span className="post__badge post__badge--sold me-2 text-primary fs-3">
                   <FontAwesomeIcon icon={solid('face-party')} />
-                </span>
-
-                <span className="fs-6 text-subtext">
-                  Congratulations! Your post has been fully funded. Upload the sales receipt to
-                  complete your order.
-                </span>
+                </span>*/}
+                {!fulfilProductDetails?.unlimited && (
+                  <span className="fs-6 text-subtext">
+                    Congratulations! Your post has been fully funded. Upload the sales receipt to
+                    complete your order. A copy of the sales receipt will be shared with your
+                    donors.
+                  </span>
+                )}
+                {fulfilProductDetails?.unlimited && (
+                  <span className="fs-6 text-subtext">
+                    Your item was marked as ongoing. You may upload a sales receipt & followup media
+                    at any time. A copy of the sales receipt will be shared with your donors.
+                  </span>
+                )}
               </div>
             </div>
 
@@ -1558,9 +1579,9 @@ const AdminPosts = (props) => {
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">
-                          {fulfilProductDetails?.unlimited ? 'Soldout' : 'Qty'} :
+                          {fulfilProductDetails?.unlimited ? 'Sold' : 'Qty'} :
                         </span>
-                        <span className="text-dark">
+                        <span className="fs-4 fw-bold">
                           {fulfilProductDetails?.unlimited
                             ? fulfilProductDetails?.soldout
                             : fulfilProductDetails?.quantity}
@@ -1568,7 +1589,7 @@ const AdminPosts = (props) => {
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">
                         <span className="fw-bolder flex__1">Each:</span>
-                        <span className="text-success fw-bold fs-4">
+                        <span className="fs-4 fw-bold text-light">
                           {data?.symbol}
                           {priceFormat(
                             fulfilProductDetails?.displayPrice
@@ -1580,7 +1601,7 @@ const AdminPosts = (props) => {
                     </div>
                     <div className="d-flex align-items-center pt-3 mb-2">
                       <span className="fw-bolder flex__1">Total:</span>
-                      <span className="text-success fw-bold fs-4">
+                      <span className="text-dark fw-bold fs-4">
                         {data?.symbol}
                         {priceFormat(
                           (fulfilProductDetails?.displayPrice
@@ -1641,7 +1662,7 @@ const AdminPosts = (props) => {
                   )}
                   {!fulfilProductDetails?.isFulfiled ? (
                     <>
-                      <label htmlFor="videoInput" className="form__label py-3">
+                      <label htmlFor="videoInput" className="form__label mt-3">
                         Upload Receipt &nbsp;
                         <span className="post-type-text" style={{ color: '#dd4646' }}>
                           (required)
@@ -1712,7 +1733,7 @@ const AdminPosts = (props) => {
                     </>
                   ) : (
                     <>
-                      <label htmlFor="videoInput" className="form__label py-3">
+                      <label htmlFor="videoInput" className="form__label mt-3">
                         Update Receipt &nbsp;
                         <span className="post-type-text" style={{ color: '#dd4646' }}>
                           (required)
@@ -1768,52 +1789,22 @@ const AdminPosts = (props) => {
                       <Card.Header className="post__accordion-header pb-3 mt-3">
                         <span className="fs-3 fw-bolder text-dark">Sales Receipt</span>
                       </Card.Header>
-                      <div
-                        className="mt-3 d-flex align-item-center"
-                        style={{ alignItems: 'center' }}
-                      >
-                        <div
-                          className="nn"
-                          style={{
-                            display: 'flex',
-                            position: 'relative',
-                            color: '#64a9ee',
-                            height: '49px',
-                            width: '49px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            background: '#edf6fd',
-                            borderRadius: '6px',
-                            marginRight: '6px'
-                          }}
-                        >
+                      <div className="my-3 pb-5  d-flex align-item-center">
+                        <div className="nn d-flex position-relative justify-content-center align-items-center me-2">
                           <span className="post__badge post__badge--sold fs-3">
                             <FontAwesomeIcon icon={solid('receipt')} />
                           </span>
                         </div>
-                        <div style={{ paddingLeft: '9px' }}>
-                          <text
-                            className="post__title"
-                            style={{
-                              lineHeight: '1rem',
-                              fontWeight: 700
-                            }}
-                          >
+                        <div className="ps-2">
+                          <text className="post__title fw-semibold">
                             {fulfilProductDetails?.fulfilDetails?.receipt}
                           </text>
-                          <div
-                            className="date__name"
-                            style={{
-                              fontWeight: 600,
-                              fontSize: 'smaller',
-                              color: '#9796b1'
-                            }}
-                          >
+                          <div className="date__name fw-semibold">
                             Added &nbsp;
                             {moment(fulfilProductDetails?.fulfilDetails.created_at).fromNow()}
                           </div>
                         </div>
-                        <div style={{ marginLeft: 'auto' }}>
+                        <div className="ms-auto">
                           <Dropdown className="d-flex ms-auto" autoClose="outside">
                             <Dropdown.Toggle
                               variant="link"
@@ -1883,9 +1874,9 @@ const AdminPosts = (props) => {
                     <span className="fs-3 fw-bolder text-dark">Follow-up Media</span>
                   </Card.Header>
                   <form className="video-detail-form mt-3">
-                    <div className="form-group mb-2">
-                      <label htmlFor="videoUrl" className="form__label">
-                        Video & Images (iframe)&nbsp;
+                    <div className="form-group mb-5">
+                      <label htmlFor="videoUrl" className="form__label mb-4">
+                        Video (iframe)&nbsp;
                         <span className="post-type-text">(optional)</span>
                       </label>
                       <input
@@ -1909,6 +1900,10 @@ const AdminPosts = (props) => {
                         {/* <iframe src={embedlink} title="YouTube video player"></iframe> */}
                       </div>
                     )}
+                    <label htmlFor="videoUrl" className="form__label">
+                      Images &nbsp;
+                      <span className="post-type-text">(optional)</span>
+                    </label>
                     <div className="">
                       <div
                         className="upload-picture-video-block mb-2"
@@ -2033,7 +2028,7 @@ const AdminPosts = (props) => {
             {
               // !fulfilProductDetails?.isFulfiled &&
               <>
-                <div className="fulfilling-check-wrap">
+                <div className="fulfilling-check-wrap pb-5">
                   <div className="form-check">
                     <input
                       type="checkbox"

@@ -8,7 +8,6 @@ import DefaultLayout from '../Component/templates/default-layout';
 
 import './style.scss';
 
-
 const About = (props) => {
   // console.log(props.campaignAdminList)
   const navigate = useNavigate();
@@ -120,7 +119,7 @@ const About = (props) => {
             </div>
           </Col>
           <Col md="6">
-            <div className="d-flex justify-content-between mb-5 flex-wrap">
+            <div className="d-flex justify-content-center justify-content-sm-between mb-0 mb-sm-5 flex-wrap">
               <div className="bigcircle">
                 <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624ba8a3688ae7c3ef86a416_20139509001_front_a06_%402.png"
@@ -128,7 +127,7 @@ const About = (props) => {
                   alt=""
                 />
               </div>
-              <div className="bigcircle _2 mb-5">
+              <div className="bigcircle _2 bigcircle _2 mb-0 mb-sm-5">
                 <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5f7b731470e7e18043959c58_s-l300.png"
                   className="img-fluid"

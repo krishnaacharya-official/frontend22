@@ -595,7 +595,7 @@ const UserProfile = () => {
           </label>
         </div>
 
-        <div className="d-flex align-items-center py-3">
+        {/*  <div className="d-flex align-items-center py-3">
           <ToggleSwitch
             isOn={check}
             handleToggle={() => setCheck(!check)}
@@ -606,7 +606,7 @@ const UserProfile = () => {
             Hide your order history on public posts for items & organizations you donate to.
           </span>
           <FontAwesomeIcon icon={solid('eye-slash')} className="icon__hide fs-4 ms-2" />
-        </div>
+        </div>*/}
       </div>
 
       <div className="mb-5">
@@ -668,19 +668,18 @@ const UserProfile = () => {
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <Select
+            {/*USE THESE FOR CITY SELECT */}
+            {/* <Select
               className="basic-single"
               classNamePrefix="select"
               value={defaultCity}
               options={cityList}
               onChange={onClickCity}
               components={{ IndicatorSeparator: () => null }}
-              /*USE THESE FOR TEXT ONLY*/
-              //name="city"
-              //value={city}
-              //type="text"
-              //onChange={(e) => changevalue(e)}
-            />
+            />*/}
+
+            {/*USE THESE FOR TEXT ONLY. Getting "Something Went Wrong error" when saving*/}
+            <input type="text" name="city" value={city} onChange={(e) => changevalue(e)} />
             <span className="input__span">City</span>
           </label>
         </div>
@@ -747,7 +746,7 @@ const UserProfile = () => {
         Save Details
       </Button>
 
-      <div className="mb-5">
+      <div className="mb-5 mt-5">
         <h4 className="fw-bolder">Account Deactivation</h4>
         <div className="text-subtext mb-3">Permanently delete your Donorport account</div>
         <div className="w-400">

@@ -109,13 +109,13 @@ function OrganisationItem(props) {
               {moment(created_at).fromNow()}
             </div>
           </div>
-          <div className="org__item__price fw-bolder fs-5">
+          <div className="org__item__price fw-bold fs-5 text-light">
             {props.currencySymbol}
             {productPrice.toFixed(2)}
           </div>
         </div>
 
-        <span className="org__item-subtotal d-sm-none text-success fw-bolder fs-4 fs-sm-6">
+        <span className="org__item-subtotal d-sm-none text-light fw-bolder fs-4 fs-sm-6">
           {props.currencySymbol}
           {productPrice}
         </span>

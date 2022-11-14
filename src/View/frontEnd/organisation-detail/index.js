@@ -18,7 +18,7 @@ import OrganisationProjectsWidget from '../Component/organisms/org-projects-widg
 import GrabDropdown from '../Component/organisms/grab-dropdown';
 //import HeaderController from '../../../Controller/frontEnd/HeaderController';
 import DonateModal from '../Component/molecules/donate-modal';
-import HeaderController from '../../../Controller/frontEnd/HeaderGeoController';
+import HeaderController from '../../../Controller/frontEnd/HeaderController';
 
 // style
 import './style.scss';

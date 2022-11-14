@@ -662,10 +662,6 @@ button.ReactTags__remove {
 
 }
 
-.geo__dropdown {
-  overflow: visible !important;
-}
-
 .activity__dropdown,
 .cart__dropdown,
 .profile__dropdown,
@@ -678,9 +674,12 @@ button.ReactTags__remove {
 }
 
 @include media-breakpoint-down(sm) {
-  .filter__dropdown {
-    overflow: unset !important;
+
+  .filter__dropdown,
+  .geo__dropdown {
+    overflow: hidden !important;
   }
+
   .activity__dropdown,
   .profile__dropdown,
   .cart__dropdown {

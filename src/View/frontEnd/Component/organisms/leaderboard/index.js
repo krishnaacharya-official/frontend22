@@ -68,21 +68,19 @@ const LeaderBoard = () => {
             </div>
 
             <Row className="ml-5 mr-5">
-              <Col lg="6">
-                <ul style={{ padding: '0' }}>
+              <Col lg="6" className="order-2 order-lg-0 mt-5 mt-lg-0">
+                <ul className="p-0">
                   {list.length > 0 &&
                     list.map((person, i) => {
                       if (person.xp > 0) {
                         return (
                           <li className="similar__item__wrap  d-flex align-items-center">
                             <div
-                              className="d-flex align-items-center w-100 "
-                              style={{ borderBottom: '1px solid #f5f5f5', height: '90px' }}
+                              className="d-flex align-items-center w-100 border-bottom"
+                              style={{ height: '90px' }}
                             >
                               <div className="">
-                                <div className="fs-5 fw-bold mb-3p" style={{ marginRight: '30px' }}>
-                                  {i + 1}
-                                </div>
+                                <div className="fs-5 fw-bold mb-3p me-2 me-sm-5">{i + 1}</div>
                               </div>
                               <div className="d-flex align-items-center w-100">
                                 <Avatar
@@ -93,8 +91,8 @@ const LeaderBoard = () => {
                                   border={0}
                                   shadow={false}
                                 />
-                                <div className="ms-2" style={{ flex: '1' }}>
-                                  <div className="d-flex align-items-center justify-content-start me-3">
+                                <div className="ms-2 flex-grow-1">
+                                  <div className="ladder__name d-flex align-items-center justify-content-start me-0 me-md-3">
                                     <div className="text-dark fw-bold">{person.name}</div>
 
                                     {/*<span className="text-info fs-5" style={{ marginLeft: "10px" }}>
@@ -110,11 +108,8 @@ const LeaderBoard = () => {
                                                     </div> */}
                                 </div>
 
-                                <div
-                                  className="billing__value"
-                                  style={{ width: '100px!important' }}
-                                >
-                                  <div className="d-flex justify-content-end pe-4 s-5 fw-bold text-info mb-3p">
+                                <div className="billing__value">
+                                  <div className="d-flex justify-content-end pe-0 pe-sm-4 s-5 fw-bold text-info mb-3p">
                                     {Number(person.xp).toLocaleString('en-US', {
                                       maximumFractionDigits: 2
                                     })}{' '}
@@ -185,10 +180,8 @@ const LeaderBoard = () => {
                       className="rank__avatar w-inline-block"
                     ></a>
                     <div className="rank__header">
-                      <h3 className="fw-bolder" style={{ marginLeft: '13px', marginBottom: 0 }}>
-                        {userData.name}
-                      </h3>
-                      <div className="ladder__xp d-flex align-items-center">
+                      <h3 className="fw-bolder ms-2 mb-0">{userData.name}</h3>
+                      <div className="ladder__xp d-flex align-items-center mt-1">
                         {/* <a style={{backgroundColor:"#a278fc"}} href="/ranks" className="btn btn--xpbadge w-inline-block">
                                                 <div className="icon icon--badge">
                                                     <div></div>
@@ -201,10 +194,7 @@ const LeaderBoard = () => {
                           <span className="btn-sm ">{getC.getUserRank(user.xp)}</span>
                         }
                         <div className="ladder__xp ladder__xp--user w-inline-block">
-                          <div
-                            className="tag tag--xp tag--xp_nobg w-embed"
-                            style={{ fontSize: '15px', marginLeft: '10px' }}
-                          >
+                          <div className="tag tag--xp tag--xp_nobg w-embed ms-2 fs-5 text-info">
                             {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })}
                             &nbsp;XP
                           </div>

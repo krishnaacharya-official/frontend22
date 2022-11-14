@@ -37,6 +37,7 @@
 .profile-detail-form {
   .form-group {
     margin-bottom: 16px;
+    min-width: 90px;
   }
 
   .text-start {
@@ -172,7 +173,6 @@
 }
 
 .fulfilling-check-wrap {
-  margin: 60px 0 30px;
 
   .form-check {
     display: flex;
