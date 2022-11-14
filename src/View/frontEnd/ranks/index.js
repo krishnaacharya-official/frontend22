@@ -13,6 +13,7 @@ import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import helper, { priceFormat, getCalculatedPrice } from '../../../Common/Helper';
 import { Link } from 'react-router-dom';
+import Page from '../../../components/Page';
 
 const Ranks = () => {
   const userAuthToken = localStorage.getItem('userAuthToken');
@@ -56,6 +57,7 @@ const Ranks = () => {
   }, []);
   return (
     <>
+      <Page title="Donorport | XP"></Page>
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">

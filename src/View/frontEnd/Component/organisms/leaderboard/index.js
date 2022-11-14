@@ -110,10 +110,7 @@ const LeaderBoard = () => {
                                                     </div> */}
                                 </div>
 
-                                <div
-                                  className="billing__value"
-                                  style={{ width: '100px!important' }}
-                                >
+                                <div className="billing__value">
                                   <div className="d-flex justify-content-end pe-4 s-5 fw-bold text-info mb-3p">
                                     {Number(person.xp).toLocaleString('en-US', {
                                       maximumFractionDigits: 2

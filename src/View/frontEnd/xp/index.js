@@ -12,6 +12,7 @@ import settingApi from '../../../Api/admin/setting';
 import FrontLoader from '../../../Common/FrontLoader';
 import { useSelector, useDispatch } from 'react-redux';
 import helper, { priceFormat, getCalculatedPrice } from '../../../Common/Helper';
+import Page from '../../../components/Page';
 
 import './style.scss';
 
@@ -63,6 +64,7 @@ const Xp = () => {
 
   return (
     <>
+      <Page title="Donorport | XP"></Page>
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">
@@ -76,7 +78,7 @@ const Xp = () => {
                 className="mr-12p"
               />
 
-              <span className="fs-7 text-light mr-2">Your Rank</span>
+              <span className="fs-7 text-light me-2">Your Rank</span>
 
               {/* <IconButton
               bgColor="#a278fc"
@@ -87,7 +89,7 @@ const Xp = () => {
             </IconButton> */}
               <span className="ml-3p">{getC.getUserRank(user.xp)}</span>
               <a href="/" className="text-info fw-bold fs-5 ms-auto me-1">
-                {priceFormat(user.xp)} xp
+                {priceFormat(user.xp)} XP
               </a>
             </div>
           )}

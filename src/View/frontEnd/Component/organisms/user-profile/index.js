@@ -668,19 +668,18 @@ const UserProfile = () => {
 
         <div className="input__wrap d-flex">
           <label className="input__label flex__1">
-            <Select
+            {/*USE THESE FOR CITY SELECT */}
+            {/* <Select
               className="basic-single"
               classNamePrefix="select"
               value={defaultCity}
               options={cityList}
               onChange={onClickCity}
               components={{ IndicatorSeparator: () => null }}
-              /*USE THESE FOR TEXT ONLY*/
-              //name="city"
-              //value={city}
-              //type="text"
-              //onChange={(e) => changevalue(e)}
-            />
+            />*/}
+
+            {/*USE THESE FOR TEXT ONLY. Getting "Something Went Wrong error" when saving*/}
+            <input type="text" name="city" value={city} onChange={(e) => changevalue(e)} />
             <span className="input__span">City</span>
           </label>
         </div>

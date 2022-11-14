@@ -332,8 +332,8 @@ const Checkout = (props) => {
                 onClick={() => !props.isLoading && props.pay()}
               >
                 Pay {props.currencySymbol + (total ? total : 0)}
+                {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
               </Button>
-              {props.isLoading && <CircularProgress style={{ marginLeft: '25px' }} />}
             </div>
 
             <div className="fs-6 d-flex justify-content-center mt-3 pb-20p">

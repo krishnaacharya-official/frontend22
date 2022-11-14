@@ -168,8 +168,8 @@ const AddBankModal = (props) => {
               className="border-top-left-radius-0 py-20p flex__1 m-0 rounded-0"
             >
               Add Bank
+              {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
             </Button>
-            {props.isLoading && <CircularProgress />}
           </div>
         </div>
       </div>

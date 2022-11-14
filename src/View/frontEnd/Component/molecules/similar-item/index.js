@@ -96,7 +96,7 @@ function SimilarItem(props) {
             </div>
           </div>
           {/* <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div> */}
-          <div className="similar__item__price text-light fw-bolder fs-5">
+          <div className="similar__item__price text-light fw-bold fs-5">
             {currencySymbol}
             {product.displayPrice ? product.displayPrice : product.price}
           </div>

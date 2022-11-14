@@ -1,5 +1,5 @@
 // @import "@styles/scss/components/custom-select";
-@import "../../../../../assets/scss/components/custom-select";
+@import '../../../../../assets/scss/components/custom-select';
 .studio__thumb {
   height: 58px;
   width: 58px;
@@ -8,6 +8,7 @@
 .profile-detail-form {
   .form-group {
     margin-bottom: 16px;
+    min-width: 90px;
   }
 
   .text-start {
@@ -27,7 +28,7 @@
   position: relative;
   &:after {
     background: $gray-100;
-    content: "";
+    content: '';
     width: 15px;
     height: 15px;
     position: absolute;
