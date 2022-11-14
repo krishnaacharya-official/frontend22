@@ -22,6 +22,8 @@ function OrganisationDetailMain(props) {
   // console.log(organizationDetails)
   let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '');
 
+  // console.log(organizationDetails);
+
   return (
     <div className="project__detail-main">
       <div className="d-flex flex-column mb-4">

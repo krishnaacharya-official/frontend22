@@ -229,14 +229,17 @@ const OrderConfirmPage = () => {
                   Stripe : ({orderDetails.salesTaxPer}%)
                 </p>
               </div>*/}
-                  {/*    <div className="total__sub d-flex justify-content-between">
+                  {/* <div className="total__sub d-flex justify-content-between">
                     <p className="total__title fw-bold">Fee:</p>
                     <p className="fs-6 fw-bold">
                       {' '}
                       {orderDetails.currencySymbol}
-                      {priceFormat(Number(orderDetails.salesTax))}
+
+                     {orderDetails.salesTax}
+                   {priceFormat(Number(orderDetails.salesTax))} 
                     </p>
-                  </div>*/}
+                  </div> */}
+
                   <div className="total__sub d-flex justify-content-between">
                     <p className="total__title fw-bold">XP:</p>
                     <div className="order__xp text-info">
@@ -257,7 +260,7 @@ const OrderConfirmPage = () => {
                         <b className="fs-3 text-light">
                           {' '}
                           {orderDetails.currencySymbol}
-                          {orderDetails.total}
+                          {priceFormat(Number(orderDetails.subtotal) + 0.3)}
                         </b>
                       </p>
                     </div>
