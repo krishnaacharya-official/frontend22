@@ -54,7 +54,7 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
-                  <span className="fs-5 fw-bold text-light ms-3">
+                  <span className="fs-4 fw-bold text-light ms-3">
                     {props.currencySymbol +
                       // priceFormat(
                       //   props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity
@@ -75,7 +75,7 @@ const SummaryContent = (props) => {
         <div className=" py-3 border-bottom">
           <div className="d-flex align-items-center pb-20p">
             <span className="fw-bolder flex__1">Subtotal:</span>
-            <span className="fw-bold text-light fs-5">
+            <span className="fw-bold text-light fs-4">
               {props.currencySymbol + priceFormat(subtotal)}
             </span>
           </div>
@@ -108,7 +108,7 @@ const SummaryContent = (props) => {
         </span>
       </div>
 
-      <div className="note note--info px-0 text-start">
+      <div className="note note--info px-3 px-sm-0 text-start">
         All prices include merchant fees & sales tax. The organization(s) will receive the exact
         amount required to purchase each unit. By completing the transaction, you have agreed to a
         transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or

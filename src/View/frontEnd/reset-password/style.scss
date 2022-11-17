@@ -386,6 +386,7 @@
     bottom: auto;
     display: flex;
     padding-top: 24px;
+    height: 80px;
 
     @include media-breakpoint-up(sm) {
       position: absolute;

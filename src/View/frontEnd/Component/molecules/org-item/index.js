@@ -101,7 +101,7 @@ function OrganisationItem(props) {
           <div className="org__item__title pr-12p">
             <Link
               to={'/item/' + slug}
-              className="org__item__name mb-3p text-dark d-inline-block fs-5"
+              className="org__item__name mb-3p text-dark d-inline-block fw-bold fs-5"
             >
               {headline}
             </Link>

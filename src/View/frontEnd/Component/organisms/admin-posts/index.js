@@ -1345,7 +1345,7 @@ const AdminPosts = (props) => {
   return (
     <>
       {/* {console.log('state', displayPrice)} */}
-      <FrontLoader loading={loading} />
+      {/* <FrontLoader loading={loading} />*/}
 
       <div
         className="modal  common-modal"
@@ -1407,17 +1407,17 @@ const AdminPosts = (props) => {
               <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">Posts</h1>
               <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
               {totalPriceArray.length > 0 &&
-              totalPriceArray.map((val, index) => {
-                return (
-                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
-                    <FontAwesomeIcon
-                      icon={solid('money-bills-simple')}
-                      className="text-dark mr-12p fs-4"
-                    />
-                    {val[0]} {val[1]}
-                  </span>
-                );
-              })}
+                totalPriceArray.map((val, index) => {
+                  return (
+                    <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
+                      <FontAwesomeIcon
+                        icon={solid('money-bills-simple')}
+                        className="text-dark mr-12p fs-4"
+                      />
+                      {val[0]} {val[1]}
+                    </span>
+                  );
+                })}
 
               <div className="d-flex align-items-center ms-sm-auto">
                 <Button
@@ -1615,7 +1615,7 @@ const AdminPosts = (props) => {
                     </div>
                   </div>
 
-                  {fulfilProductDetails?.isFulfiled && (
+                  {/* {fulfilProductDetails?.isFulfiled && (
                     <>
                       <div className="linked__item d-flex align-items-center p-1 border mt-3">
                         <div className="accounts__icon">
@@ -1637,16 +1637,12 @@ const AdminPosts = (props) => {
                               ? primaryBankDetails?.businessName
                               : primaryBankDetails?.firstName + ' ' + primaryBankDetails?.lastName}
                           </div>
-                          {/* <div className="fs-7 mb-3p">Mastercard</div> */}
                           <div className="fs-7 mb-3p">{primaryBankDetails?.bankName}</div>
 
                           <div className="fs-7 text-subtext">
                             {primaryBankDetails?.accountNumber}
                           </div>
                         </div>
-                        {/* <Button variant="link" className="text-danger fs-7">
-                      remove
-                    </Button> */}
                       </div>
 
                       <div className="note note--info mt-3" style={{ padding: '16px' }}>
@@ -1659,7 +1655,7 @@ const AdminPosts = (props) => {
                         </span>
                       </div>
                     </>
-                  )}
+                  )}*/}
                   {!fulfilProductDetails?.isFulfiled ? (
                     <>
                       <label htmlFor="videoInput" className="form__label mt-3">
@@ -2028,7 +2024,7 @@ const AdminPosts = (props) => {
             {
               // !fulfilProductDetails?.isFulfiled &&
               <>
-                <div className="fulfilling-check-wrap pb-5">
+                <div className="fulfilling-check-wrap pb-4">
                   <div className="form-check">
                     <input
                       type="checkbox"

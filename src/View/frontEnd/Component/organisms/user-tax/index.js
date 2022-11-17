@@ -154,12 +154,12 @@ const UserTax = () => {
     } else {
       per = 0;
     }
-    return per.toFixed(2);
+    return per;
   };
 
   return (
     <>
-      <FrontLoader loading={loading} />
+      {/*<FrontLoader loading={loading} />*/}
       <header className="py-sm-2 pb-2 w-100 d-sm-flex align-items-center d-none">
         <div className="me-sm-2 flex-grow-1 mb-3 mb-sm-0">
           <h1 className="d-none d-sm-flex page__title fs-3 fw-bolder">Annual Tax Receipts</h1>
@@ -179,7 +179,9 @@ const UserTax = () => {
         Total :
         <span className="text-success fs-3">
           {userData.symbol}
-          {countProjectAmount(all)}
+          {countProjectAmount(all).toLocaleString('en-US', {
+            maximumFractionDigits: 2
+          })}
         </span>
         <small className="fs-5 text-light">{userData.currency} </small>{' '}
       </div>

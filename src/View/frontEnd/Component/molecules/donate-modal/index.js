@@ -194,11 +194,11 @@ const DonateModal = (props) => {
               {/* <span className="m-1">/</span>
               <span>One-time</span> */}
             </div>
-            <div className="note note--donation d-flex flex-column">
+            <div className="note note--donation d-flex flex-column fw-semibold">
               <Button size="lg" variant="info" className="mb-4" onClick={() => setShowPaymentForm(true)}>
                 Credit Card
               </Button>
-              <Button
+           {/*   <Button
                 size="lg"
                 variant="warning"
                 className="btn__checkout paypal mb-2"
@@ -229,6 +229,7 @@ const DonateModal = (props) => {
                   className="powered-logo"
                 />
               </div>
+              */}
             </div>
           </>
         ) : showPaymentForm

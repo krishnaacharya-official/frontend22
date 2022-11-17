@@ -32,7 +32,7 @@ const Checkout = (props) => {
     <div className="checkout__page">
       {isTab ? (
         <>
-          <div className="logo__wrap pb-lg-3 p-20p border-bottom">
+          <div className="logo__wrap d-flex pb-lg-3 p-20p border-bottom">
             <Logo />
           </div>
           <div
@@ -48,7 +48,12 @@ const Checkout = (props) => {
             </div>
 
             <span className="fw-bolder text-light fs-4">
-              {props.currencySymbol + (total ? total : 0)}
+              {props.currencySymbol +
+                (total
+                  ? Number(total).toLocaleString('en-US', {
+                      maximumFractionDigits: 2
+                    })
+                  : 0)}
             </span>
           </div>
 
@@ -58,7 +63,7 @@ const Checkout = (props) => {
               height: summary ? summaryElementRef.current?.clientHeight + 'px' : '0'
             }}
           >
-            <div ref={summaryElementRef} className="summary__section pe-4 pt-0">
+            <div ref={summaryElementRef} className="summary__section px-2 pe-s-4 pt-0">
               <SummaryContent
                 currencySymbol={props.currencySymbol}
                 cartItem={cartItem}
@@ -331,7 +336,13 @@ const Checkout = (props) => {
                 className="fs-6 fw-bold"
                 onClick={() => !props.isLoading && props.pay()}
               >
-                Pay {props.currencySymbol + (total ? total : 0)}
+                Pay{' '}
+                {props.currencySymbol +
+                  (total
+                    ? Number(total).toLocaleString('en-US', {
+                        maximumFractionDigits: 2
+                      })
+                    : 0)}
                 {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
               </Button>
             </div>

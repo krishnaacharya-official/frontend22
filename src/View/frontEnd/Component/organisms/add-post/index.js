@@ -572,7 +572,7 @@ const AddPost = (props) => {
                             </div>
                           </div>
                         </div>
-                        <div className="post-type-note p-18p bg-lighter rounded-3 text-light mb-4">
+                        <div className="note note--info mb-5">
                           Will you be uploading media after you have purchased the items? Posts that
                           upload pictures / videos of the proceeds tend to get funded quicker.
                         </div>
@@ -1210,7 +1210,7 @@ const AddPost = (props) => {
           </Card>
         </Accordion>
 
-        <div className="fulfilling-check-wrap">
+        <div className="fulfilling-check-wrap pb-4">
           <div className="form-check">
             <input
               type="checkbox"

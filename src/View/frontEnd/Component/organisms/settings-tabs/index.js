@@ -41,7 +41,7 @@ function SettingsTabs({ activeKey, data, _onClick, ...otherProps }) {
             // className={}
             >
               <span className="stab__icon">
-                <ProfileIcon active={activeKey === "[profile]"} />
+                <ProfileIcon active={activeKey === "profile"} />
               </span>
               <span className="stab__text">Profile</span>
               <div className="tab__active--indicator"></div>

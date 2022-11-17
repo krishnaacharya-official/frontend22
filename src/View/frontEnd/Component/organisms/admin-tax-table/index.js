@@ -116,7 +116,7 @@ const AdminTaxTable = (props) => {
                           <div className="d-sm-flex align-items-center flex-grow-1">
                             <div className="d-flex align-items-center me-sm-2 mb-1 mb-sm-0">
                               <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
-                                <div className="text-success fw-bold fs-5">
+                                <div className="text-light fw-bold fs-5">
                                   {item[0].currencySymbol}
                                   {totalVal(item)}
                                 </div>
@@ -373,7 +373,7 @@ const AdminTaxTable = (props) => {
                                   <div className="d-sm-flex align-items-center flex-grow-1">
                                     <div className="d-flex align-items-center mb-1 mb-sm-0 order-1 order-sm-0">
                                       <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4">
-                                        <div className="text-success fw-bold fs-5">
+                                        <div className="text-light fw-bold fs-4">
                                           {i1.currencySymbol}
                                           {i1.amount.toFixed(2)}
                                         </div>

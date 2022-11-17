@@ -68,7 +68,7 @@ const Cart = (props) => {
   return (
     <Container fluid className="cart__page py-sm-5 mw-1280">
       <header className="pt-sm-5">
-        <div className="logo__wrap pb-sm-3">
+        <div className="d-flex logo__wrap pb-sm-3">
           <Logo />
         </div>
         <div className="cart__steps fs-7 pt-3 pt-sm-0">
@@ -180,7 +180,7 @@ const Cart = (props) => {
                         />
                         <Button
                           variant="link"
-                          className="btn__link-light text-decoration-none p-0 m-2"
+                          className="text-decoration-none btn__link-light p-0 m-2 fs-4"
                           onClick={() =>
                             plusValue(item?.quantity, item._id, item?.productDetails?._id)
                           }
@@ -233,7 +233,15 @@ const Cart = (props) => {
           </div>
           <div className="d-flex align-items-center py-1">
             <span className="fw-bolder flex__1">Total:</span>
-            <span className="fw-bolder text-light fs-4">{currencySymbol + total}</span>
+            <span className="fw-bolder text-light fs-4">
+              {' '}
+              {currencySymbol +
+                (total
+                  ? Number(total).toLocaleString('en-US', {
+                      maximumFractionDigits: 2
+                    })
+                  : 0)}
+            </span>
           </div>
           <div className="py-4 border-bottom d-grid d-sm-block">
             <Button

@@ -14,7 +14,7 @@ function SuggestedList(props) {
     <ul className="suggested__list d-flex align-items-center container-fluid p-0 mb-0">
       {props.itemTag === 'organization'
         ? organizationList?.length > 0 &&
-          organizationList.map((org, i) => {
+          organizationList.slice(0, 12).map((org, i) => {
             return (
               org._id !== props.organizationId && (
                 <SuggestedItem
@@ -26,7 +26,7 @@ function SuggestedList(props) {
             );
           })
         : props.productList?.length > 0 &&
-          props.productList.slice(0, 12).map((pro, i) => {
+          props.productList.slice(0).map((pro, i) => {
             let sold = pro.unlimited ? pro.isFulfiled : pro.quantity <= pro.soldout;
             // let isFulfiled = pro.isFulfiled
             let media = pro?.media ? pro.media : false;
@@ -37,8 +37,7 @@ function SuggestedList(props) {
             const isSold = isFinish || (isFulfiled && !pro.unlimited) ? true : false;
             // console.log(pro)
             return (
-              pro._id !== props.productId &&
-              !isSold && (
+              pro._id !== props.productId && !isFinish && (
                 <SuggestedItem
                   imgUrl={helper.CampaignProductImagePath + pro.image}
                   product={pro}

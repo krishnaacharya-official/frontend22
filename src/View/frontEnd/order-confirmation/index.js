@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import orderApi from '../../../Api/frontEnd/order';
-import FrontLoader from '../../../Common/FrontLoader';
 import DefaultLayout from '../Component/templates/default-layout';
-import ShareWidget from '../Component/organisms/share-widget';
-import { Button } from 'react-bootstrap';
 import ListItemImg from '../Component/atoms/list-item-img';
 import helper, { priceFormat, getCalculatedPrice, getCardIcon } from '../../../Common/Helper';
 import Page from '../../../components/Page';
+import ShareWidget from '../Component/organisms/share-widget';
 import './style.scss';
 
 const OrderConfirmPage = () => {
@@ -85,12 +83,11 @@ const OrderConfirmPage = () => {
                 <div className="r w-1"></div>
               </div>
               <h1 className="fs-1 fw-bolder">Order Completed</h1>
-              <span className="fs-3" style={{ color: '#6f6f90' }}>
-                Order #{orderDetails.uniqueTransactionId}
-              </span>
+              <span className="fs-3">Order #{orderDetails.uniqueTransactionId}</span>
 
               <p className="col-sm-6 email__note fs-5 mt-1 text-justify text-sm-center">
                 Thank you for donating through Donorport ♥<br></br>
+                <br></br>
                 The organization(s) have received your donation and will purchase the items on your
                 behalf. Navigate to your profile to track updates to your orders including
                 tax-receipts & follow-up media.
@@ -122,7 +119,7 @@ const OrderConfirmPage = () => {
                 </div>
               </div>
               <div className="email__wrap">
-                <div role="list" className="note email__list d-flex flex-column">
+                <div role="list" className="d-flex flex-column gap-5 my-5">
                   {orderDetails?.orderItems?.length > 0 &&
                     orderDetails?.orderItems.map((itm, i) => {
                       // console.log(itm)
@@ -144,7 +141,7 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="checkout__info d-flex flex-column flex-wrap align-items-start px-3 pt-2">
+                              <div className="checkout__info d-flex flex-column flex-wrap align-items-start px-3">
                                 <Link
                                   to={'/item/' + itm.itemDetails.slug}
                                   className="checkout__title d-flex flex-row align-items-start fw-bolder"
@@ -179,7 +176,7 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4 className="fw-bold text-light">
+                              <h4 className="fw-bold">
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
@@ -249,7 +246,7 @@ const OrderConfirmPage = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="total__box">
                   <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3">
                     <div className="order__wrap">
                       <p className="total__title fs-4 fw-bolder">Total Paid:</p>
