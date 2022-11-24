@@ -47,7 +47,7 @@ const Checkout = (props) => {
               </span>
             </div>
 
-            <span className="fw-bolder text-light fs-4">
+            <span className="fw-bold text-light fs-4">
               {props.currencySymbol +
                 (total
                   ? Number(total).toLocaleString('en-US', {
@@ -333,7 +333,7 @@ const Checkout = (props) => {
                 style={{ width: '100%', opacity: props.isLoading ? '0.7' : '1' }}
                 variant="primary"
                 size="lg"
-                className="fs-6 fw-bold"
+                className="d-flex align-items-center justify-content-center fs-6 fw-bold"
                 onClick={() => !props.isLoading && props.pay()}
               >
                 Pay{' '}
@@ -343,7 +343,7 @@ const Checkout = (props) => {
                         maximumFractionDigits: 2
                       })
                     : 0)}
-                {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
+                {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={14} />}
               </Button>
             </div>
 

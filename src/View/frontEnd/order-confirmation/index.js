@@ -148,7 +148,7 @@ const OrderConfirmPage = () => {
                                 >
                                   <div>{itm.itemDetails.headline}</div>
                                 </Link>
-                                <div className="checkout__brand">
+                                <div className="cd__cart__location fw-semibold fs-7 mb-3p mt-3p">
                                   <div>{itm.itemDetails.brand}</div>
                                 </div>
                                 <div className="checkout__price flex-row fs-5 fw-bold text-light">
@@ -176,7 +176,7 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4 className="fw-bold">
+                              <h4 className="text-light fs-4 fw-semibold">
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
@@ -204,7 +204,7 @@ const OrderConfirmPage = () => {
                   <div className="total__sub d-flex justify-content-between">
                     <div className="total__title fw-bold">Subtotal:</div>
                     <div className="total__value text-light">
-                      <p className="fs-4 fw-bolder">
+                      <p className="fs-5 fw-semibold">
                         {' '}
                         {orderDetails.currencySymbol}
                         {/* {purchasedPriceWithTax(Number(orderDetails.subtotal), Number(orderDetails.appliedTaxPercentage))} */}

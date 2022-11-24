@@ -75,7 +75,7 @@ function ProjectDetailMain(props) {
       variant="success"
       size="lg"
       className="icon icon__pro fw-semibold"
-      style={{ width: '250px' }}
+      style={{ minWidth: '250px' }}
     >
       Added In cart &nbsp;
       <FontAwesomeIcon icon={solid('circle-check')} />
@@ -270,7 +270,7 @@ function ProjectDetailMain(props) {
           </div>
         )}
 
-      <div className="project__calculate">
+      <div className="d-flex flex-column project__calculate">
         {isFinish || (productDetails.isFulfiled && !productDetails.unlimited) ? (
           <></>
         ) : (

@@ -47,21 +47,31 @@ function OrganisationTeamItem(props) {
             ''
           )}
         </div>
-        <div className="org__team__item__price fs-8 text-light mb-2">
-          {member?.campaignadminDetails?.name}
-        </div>
+
+        {member.campaignadminDetails ? (
+          <div className="org__team__item__price fs-8 text-light mb-2">
+            {member?.campaignadminDetails?.name}
+          </div>
+        ) : (
+          ''
+        )}
+
         <div className="org__team__item__price fs-7 text-light">
           {moment(member?.created_at).format('MMMM DD, YYYY')}
         </div>
       </div>
-      <Avatar
-        style={{ borderRadius: 'unset' }}
-        className="charity_avatar_bg"
-        size={46}
-        avatarUrl={avatar}
-        border={0}
-        shadow={false}
-      />
+      {member.campaignadminDetails ? (
+        <Avatar
+          style={{ borderRadius: 'unset' }}
+          className="charity_avatar_bg"
+          size={46}
+          avatarUrl={avatar}
+          border={0}
+          shadow={false}
+        />
+      ) : (
+        ''
+      )}
       {props.showContact ? (
         <Button variant="outline-info" size="lg" className="ms-auto fw-bold">
           Contact

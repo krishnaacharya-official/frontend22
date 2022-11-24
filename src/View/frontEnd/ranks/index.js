@@ -111,7 +111,9 @@ const Ranks = () => {
                 You have done it. You're the top donor on Donorport. Wear this badge with pride as
                 your contributions have made a major impact in the community
               </div>
-              <span className="fw-bold text-info">{captian} XP</span>
+              <span className="fw-bold text-info">
+                {Number(captian).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
 
             <div className="rank__item d-sm-flex align-items-center py-4">
@@ -128,7 +130,9 @@ const Ranks = () => {
                 The senior donor, you command the fleet. Your contributions are what drive the
                 platform. You should feel proud of this rank
               </div>
-              <span className="fw-bold text-info">{admiral} XP</span>
+              <span className="fw-bold text-info">
+                {Number(admiral).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
 
             <div className="rank__item d-sm-flex align-items-center py-4">
@@ -144,7 +148,9 @@ const Ranks = () => {
               <div className="mx-sm-4 flex__1 text-light  mb-2 mb-sm-0">
                 A master of the ports, you're revered for your efforts
               </div>
-              <span className="fw-bold text-info">{pirate} XP</span>
+              <span className="fw-bold text-info">
+                {Number(pirate).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
 
             <div className="rank__item d-sm-flex align-items-center py-4">
@@ -161,7 +167,9 @@ const Ranks = () => {
                 Poking your way around the ports, you're admired for your commitment to helping the
                 community
               </div>
-              <span className="fw-bold text-info">{narwhal} XP</span>
+              <span className="fw-bold text-info">
+                {Number(narwhal).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
 
             <div className="rank__item d-sm-flex align-items-center py-4">
@@ -178,7 +186,9 @@ const Ranks = () => {
                 You've made your presence known on Donorport. We hear your calls to help the
                 community
               </div>
-              <span className="fw-bold text-info">{beluga} XP</span>
+              <span className="fw-bold text-info">
+                {Number(beluga).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
 
             <div className="rank__item d-sm-flex align-items-center py-4">
@@ -195,7 +205,9 @@ const Ranks = () => {
                 There are plenty of fish in the sea but without you, there wouldn't be anything to
                 fish for
               </div>
-              <span className="fw-bold text-info">{fish} XP</span>
+              <span className="fw-bold text-info">
+                {Number(fish).toLocaleString('en-US', { maximumFractionDigits: 2 })} XP
+              </span>
             </div>
           </div>
         </Container>

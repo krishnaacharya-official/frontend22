@@ -198,8 +198,8 @@ const UserItems = () => {
                 </div>
 
                 <div className="d-none d-sm-flex align-items-center flex__1">
-                  <div className="d-flex align-items-center flex__1">
-                    <div className="d-flex align-items-center progress__wrap me-2 flex__1">
+                  <div className="d-flex align-items-center flex__1 me-2">
+                    <div className="d-flex align-items-center progress__wrap flex__1">
                       {!item.itemDetails?.unlimited ? (
                         <span className="qty__tag pl-9p pb-3p pr-9p pt-3p me-1 fw-bold text-light ">
                           {item.itemDetails?.soldout}/{item.itemDetails?.quantity}

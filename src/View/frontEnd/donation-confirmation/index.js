@@ -183,7 +183,7 @@ const DonationConfirmPage = () => {
                     <div className="order__value text-light">
                       <p>
                         {doantionDetails.currency}
-                        <b className="fs-3 text-light">
+                        <b className="fw-bold fs-3 text-light">
                           {' '}
                           {doantionDetails?.currencySymbol}
                           {doantionDetails.amount}

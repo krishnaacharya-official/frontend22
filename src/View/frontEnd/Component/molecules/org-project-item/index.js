@@ -14,7 +14,7 @@ function OrganisationProjectItem(props) {
 
   // console.log(project)
   return (
-    <li className="org__project__item pt-12p pb-12p d-sm-flex align-items-center">
+    <li className="org__project__item pt-12p pb-12p d-flex align-items-center">
       <div className="d-flex align-items-center flex-grow-1">
         <div
           className="circle__progress"

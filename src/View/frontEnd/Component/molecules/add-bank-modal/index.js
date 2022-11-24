@@ -20,6 +20,15 @@ const AddBankModal = (props) => {
     <>
       <div className="px-2">
         <div>
+          <div className="note text-dark mb-2">
+            <p>
+              Donorport will store this information for deposits and withdrawals and share it with
+              payment processors.
+            </p>
+            <a href="/terms">
+              <span className="link text-light">Trust &amp; Security</span>
+            </a>
+          </div>
           <div className="input__wrap d-flex">
             <label className="input__label flex__1">
               <Select
@@ -146,29 +155,18 @@ const AddBankModal = (props) => {
             </div>
           )}
 
-          <div className="note text-dark my-2">
-            <p>
-              Donorport will store this information for deposits and withdrawals and share it with
-              payment processors.
-            </p>
-            <a href="/terms">
-              <span className="link text-light">Trust &amp; Security</span>
-            </a>
-          </div>
           <div className="d-flex align-items-center">
             <Button
               style={{
-                maxWidth: '30%',
-                marginRight: '20px !important',
                 opacity: props.isLoading ? '0.7' : '1'
               }}
               variant="info"
               // onClick={props.onHide}
               onClick={() => !props.isLoading && props.addExpressAccount()}
-              className="border-top-left-radius-0 py-20p flex__1 m-0 rounded-0"
+              className="d-flex m-0"
             >
               Add Bank
-              {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
+              {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={14} />}
             </Button>
           </div>
         </div>

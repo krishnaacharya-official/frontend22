@@ -303,7 +303,7 @@ const TaxTable = (props) => {
                         </li>
                       }
                     >
-                      <div className="container-fluid px-2 pt-3">
+                      <div className="container-fluid px-2">
                         {item.length > 1 &&
                           item.map((i1, k) => {
                             let Aimg =
@@ -323,11 +323,11 @@ const TaxTable = (props) => {
 
                             return (
                               <>
-                                <li className="table__list-item py-1">
+                                <li className="table__list-item table__list-item--tax py-1">
                                   <div className="d-flex d-sm-flex align-items-center flex-grow-1">
                                     <div className="d-flex align-items-center mb-1 mb-sm-0 order-1 order-sm-0">
                                       <div className="admin__billing-value ms-2 ms-sm-0 me-sm-4 text-sm-start text-end">
-                                        <div className="text-lighter fw-bold fs-5">
+                                        <div className="text-light fw-bold fs-5">
                                           {i1.currencySymbol}
                                           {i1.amount.toFixed(2)}
                                         </div>

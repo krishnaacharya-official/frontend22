@@ -91,7 +91,7 @@ function SimilarItem(props) {
             >
               {product.headline}
             </Link>
-            <div className="fw-semibold similar__item__location mb-6p fs-7">
+            <div className="fw-semibold similar__item__location mb-3p fs-7">
               {moment(product.created_at).fromNow()}
             </div>
           </div>

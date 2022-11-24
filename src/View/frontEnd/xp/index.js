@@ -13,6 +13,7 @@ import FrontLoader from '../../../Common/FrontLoader';
 import { useSelector, useDispatch } from 'react-redux';
 import helper, { priceFormat, getCalculatedPrice } from '../../../Common/Helper';
 import Page from '../../../components/Page';
+import { Link } from 'react-router-dom';
 
 import './style.scss';
 
@@ -62,6 +63,9 @@ const Xp = () => {
     })();
   }, []);
 
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  let newSlug = userData?.name.split(/\s/).join('');
+
   return (
     <>
       <Page title="Donorport | XP"></Page>
@@ -100,9 +104,9 @@ const Xp = () => {
                 for sharing and following Organizations and Projects. To track the XP you've earned,
                 click here:
               </div>
-              <a href="/" className="text-dark fw-bolder">
+              <Link to={'/user/' + newSlug + '/xp'} className="text-dark fw-bolder">
                 My XP
-              </a>
+              </Link>
             </div>
           </div>
 

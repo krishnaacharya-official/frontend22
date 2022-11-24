@@ -57,8 +57,12 @@ function OrganisationItem(props) {
         dispatch(setIsUpdateCart(!user.isUpdateCart));
       }}
     >
-      {props.currencySymbol}
-      {Number(totalPrice).toFixed(2)}
+      {props.currencySymbol +
+        (totalPrice
+          ? Number(totalPrice).toLocaleString('en-US', {
+              maximumFractionDigits: 2
+            })
+          : 0)}
     </Button>
   );
 
@@ -71,9 +75,11 @@ function OrganisationItem(props) {
 
   const btn =
     isFinish || (isFulfiled && !infinite) ? (
-      <span className="btn btn-outline-danger btn__sold">Sold</span>
+      <div className="button__wrap d-flex">
+        <span className="btn btn-outline-danger btn__sold">Sold</span>
+      </div>
     ) : (
-      cart_btn
+      <div className="button__wrap d-flex">{cart_btn}</div>
     );
 
   useEffect(() => {
@@ -105,23 +111,30 @@ function OrganisationItem(props) {
             >
               {headline}
             </Link>
-            <div className="fw-semibold org__item__location mb-6p fs-7">
+            <div className="fw-semibold org__item__location mb-3p fs-7">
               {moment(created_at).fromNow()}
             </div>
           </div>
           <div className="org__item__price fw-bold fs-5 text-light">
-            {props.currencySymbol}
-            {productPrice.toFixed(2)}
+            {props.currencySymbol +
+              (productPrice
+                ? Number(productPrice).toLocaleString('en-US', {
+                    maximumFractionDigits: 2
+                  })
+                : 0)}
           </div>
         </div>
 
-        <span className="org__item-subtotal d-sm-none text-light fw-bolder fs-4 fs-sm-6">
+        {/* <span className="org__item-subtotal d-sm-none fw-bolder fs-4 fs-sm-6">
           {props.currencySymbol}
           {productPrice}
-        </span>
+        </span>*/}
       </div>
       <div className="price__slider d-flex align-items-center mt-2 mt-sm-0">
-        <div className="d-flex align-items-center flex-grow-1 fs-5 me-2">
+        <div
+          className="d-flex align-items-center flex-grow-1 fs-5 me-2"
+          style={{ minWidth: '150px' }}
+        >
           <div className="org__item__count mt-3p me-1">1</div>
           <div className="org__item-slider flex-grow-1 mx-2">
             <Slider

@@ -61,7 +61,7 @@
   .rc-slider-rail,
   .rc-slider-track {
     position: absolute;
-    height: 8px;
+    height: 8px !important;
     background-color: #9695af38;
     border-radius: 6px;
   }

@@ -8,8 +8,8 @@ import ToastAlert from '../../../Common/ToastAlert';
 import { validateAll } from 'indicative/validator';
 // import DefaultLayout from "@templates/default-layout";
 import DefaultLayout from '../Component/templates/default-layout';
-import FrontLoader from '../../../Common/FrontLoader';
 import userApi from '../../../Api/frontEnd/user';
+import Page from '../../../components/Page';
 
 import './style.scss';
 
@@ -27,6 +27,7 @@ const Partnership = () => {
     error: []
   });
   const { name, organization, reson, email, error } = state;
+  const [textAreaCount, ChangeTextAreaCount] = useState(0);
 
   const changevalue = (e) => {
     let value = e.target.value;
@@ -35,6 +36,7 @@ const Partnership = () => {
       ...state,
       [e.target.name]: value
     });
+    ChangeTextAreaCount(e.target.value.length);
   };
 
   const onValueChange = (e) => {
@@ -115,97 +117,112 @@ const Partnership = () => {
 
   return (
     <>
-      <FrontLoader loading={loading} />
-      <DefaultLayout>
-        <div className="password-reset position-relative">
-          <Container fluid className="position-relative pb-5 pt-5">
-            <h1 className="text-dark fw-bolder mb-6p pt-2">Join Forces</h1>
-            <div className="fs-5 fw-semibold text-light mb-5">
-              Tell us how you can help Donorport grow.
-            </div>
+      <Page title="Donorport | Partnership ">
+        <DefaultLayout>
+          <div className="password-reset position-relative">
+            <Container fluid className="position-relative pb-5 pt-5">
+              <h1 className="text-dark fw-bolder mb-6p pt-2">Join Forces</h1>
+              <div className="fs-5 fw-semibold text-light mb-5">
+                Tell us how you can help Donorport grow.
+              </div>
 
-            <Form className="mw-400">
-              <div className="py-1 d-flex align-items-center fs-4 mb-3" style={{height: "60px"}}>
-                <RadioToggle
-                  outline={true}
-                  checked={selected === 'sponsor'}
-                  value="sponsor"
-                  className="rounded-pill"
-                  name="app"
-                  onChange={onValueChange}
+              <Form className="mw-400">
+                <div
+                  className="py-1 d-flex align-items-center fs-4 mb-3"
+                  style={{ height: '60px' }}
                 >
-                  Sponsor
-                </RadioToggle>
-                <RadioToggle
-                  outline={true}
-                  checked={selected === 'other'}
-                  value="other"
-                  className="rounded-pill ms-2"
-                  name="app"
-                  onChange={onValueChange}
-                >
-                  Other
-                </RadioToggle>
-              </div>
-              <div className="input__wrap d-flex">
-                <label className="input__label flex__1">
-                  <input type="text" name="name" value={name} onChange={(e) => changevalue(e)} />
-                  <span className="input__span">Name</span>
-                </label>
-              </div>
-              {error && error.name && (
-                <p className="error">{error ? (error.name ? error.name : '') : ''}</p>
-              )}
+                  <RadioToggle
+                    outline={true}
+                    checked={selected === 'sponsor'}
+                    value="sponsor"
+                    className="rounded-pill"
+                    name="app"
+                    onChange={onValueChange}
+                  >
+                    Sponsor
+                  </RadioToggle>
+                  <RadioToggle
+                    outline={true}
+                    checked={selected === 'other'}
+                    value="other"
+                    className="rounded-pill ms-2"
+                    name="app"
+                    onChange={onValueChange}
+                  >
+                    Other
+                  </RadioToggle>
+                </div>
+                <div className="input__wrap d-flex">
+                  <label className="input__label flex__1">
+                    <input type="text" name="name" value={name} onChange={(e) => changevalue(e)} />
+                    <span className="input__span">Name</span>
+                  </label>
+                </div>
+                {error && error.name && (
+                  <p className="error">{error ? (error.name ? error.name : '') : ''}</p>
+                )}
 
-              <div className="input__wrap d-flex">
-                <label className="input__label flex__1">
-                  <input type="email" name="email" value={email} onChange={(e) => changevalue(e)} />
-                  <span className="input__span">Email</span>
-                </label>
-              </div>
-              {error && error.email && (
-                <p className="error">{error ? (error.email ? error.email : '') : ''}</p>
-              )}
+                <div className="input__wrap d-flex">
+                  <label className="input__label flex__1">
+                    <input
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => changevalue(e)}
+                    />
+                    <span className="input__span">Email</span>
+                  </label>
+                </div>
+                {error && error.email && (
+                  <p className="error">{error ? (error.email ? error.email : '') : ''}</p>
+                )}
 
-              <div className="input__wrap d-flex">
-                <label className="input__label flex__1">
-                  <input
-                    type="text"
-                    name="organization"
-                    value={organization}
-                    onChange={(e) => changevalue(e)}
-                  />
-                  <span className="input__span">Organization (optional)</span>
-                </label>
-              </div>
-              {error && error.organization && (
-                <p className="error">
-                  {error ? (error.organization ? error.organization : '') : ''}
-                </p>
-              )}
+                <div className="input__wrap d-flex">
+                  <label className="input__label flex__1">
+                    <input
+                      type="text"
+                      name="organization"
+                      value={organization}
+                      onChange={(e) => changevalue(e)}
+                    />
+                    <span className="input__span">Organization (optional)</span>
+                  </label>
+                </div>
+                {error && error.organization && (
+                  <p className="error">
+                    {error ? (error.organization ? error.organization : '') : ''}
+                  </p>
+                )}
 
-              <div className="input__wrap d-flex">
-                <label className="input__label flex__1">
-                  <textarea rows={5} name="reson" value={reson} onChange={(e) => changevalue(e)}>
-                    {reson}
-                  </textarea>
-                  <span className="input__span">How can we partner?</span>
-                </label>
-              </div>
-              {error && error.reson && (
-                <p className="error">{error ? (error.reson ? error.reson : '') : ''}</p>
-              )}
+                <div className="input__wrap d-flex">
+                  <label className="input__label flex__1">
+                    <textarea
+                      maxLength={250}
+                      rows={5}
+                      name="reson"
+                      value={reson}
+                      onChange={(e) => changevalue(e)}
+                    >
+                      {reson}
+                    </textarea>
+                    <span className="input__span">How can we partner?</span>
+                  </label>
+                </div>
+                {error && error.reson && (
+                  <p className="error">{error ? (error.reson ? error.reson : '') : ''}</p>
+                )}
 
-              <div className="text-end text-dark mb-2">
-                <span className="fw-bold mr-6p">240</span> chars remaining
-              </div>
-              <Button variant="info" size="lg" className="fw-bold" onClick={() => apply()}>
-                Submit
-              </Button>
-            </Form>
-          </Container>
-        </div>
-      </DefaultLayout>
+                <div className="text-end text-dark mb-2">
+                  <span className="fw-bold mr-6p">{textAreaCount}/250</span> chars remaining
+                </div>
+                <Button variant="info" size="lg" className="fw-bold" onClick={() => apply()}>
+                  Submit
+                </Button>
+              </Form>
+            </Container>
+          </div>
+        </DefaultLayout>
+      </Page>
     </>
   );
 };

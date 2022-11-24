@@ -212,13 +212,14 @@ const CompanySettings = () => {
       setTempImg('');
     }
   };
-
+  const [textAreaCount, ChangeTextAreaCount] = useState(0);
   const changevalue = (e) => {
     let value = e.target.value;
     setState({
       ...state,
       [e.target.name]: value
     });
+    ChangeTextAreaCount(e.target.value.length);
     if (e.target.name === 'promoVideo') {
       let url = value;
       // let id = url && url.split("?v=")[1];
@@ -530,11 +531,14 @@ const CompanySettings = () => {
               rows="6"
               name="mission"
               value={mission}
+              maxLength={250}
               onChange={(e) => changevalue(e)}
             ></textarea>
             <span className="input__span">Mission</span>
           </label>
-          <div className="helper__text fs-7 text-end text-subtext">240 chars remaining</div>
+          <div className="helper__text fs-7 text-end text-subtext">
+            {textAreaCount}/250 characters
+          </div>
           {error && error.mission && <p className="error">{error.mission}</p>}
         </div>
 

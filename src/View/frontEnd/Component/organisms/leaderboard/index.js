@@ -194,7 +194,7 @@ const LeaderBoard = () => {
                           <span className="btn-sm ">{getC.getUserRank(user.xp)}</span>
                         }
                         <div className="ladder__xp ladder__xp--user w-inline-block">
-                          <div className="tag tag--xp tag--xp_nobg w-embed ms-2 fs-5 text-info">
+                          <div className="tag tag--xp tag--xp_nobg w-embed ms-3 fs-5 text-info">
                             {Number(user.xp).toLocaleString('en-US', { maximumFractionDigits: 2 })}
                             &nbsp;XP
                           </div>

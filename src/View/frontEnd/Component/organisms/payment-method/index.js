@@ -130,7 +130,7 @@ const PaymentMethod = () => {
 
   const [bankAccount, setBankAccount] = useState({
     BusinessType: 'individual',
-    country: 'us',
+    country: 'ca',
     companyName: '',
     fname: '',
     lname: '',
@@ -186,7 +186,7 @@ const PaymentMethod = () => {
   useEffect(() => {
     if (countryList.length > 0) {
       setDefaultCountry(countryList.find((x) => x.value === registerdBusinessAddress));
-      setDefaultHomeCountry(countryList.find((x) => x.value === 'US'));
+      setDefaultHomeCountry(countryList.find((x) => x.value === 'CA'));
     }
   }, [countryList]);
 
@@ -940,12 +940,12 @@ const PaymentMethod = () => {
         </Button>
 
         <div className="mb-5 mt-5">
-          <h4 className="fw-bolder">Add Bank Details</h4>
+          <h4 className="fw-bolder">Add Payout Account</h4>
           <div className="text-subtext mb-3">
             Link the bank account that {CampaignAdmin?.name} will use to receive direct deposits
             from our donors.
           </div>
-          <div className="d-flex align-items-center mb-3">
+          <div className="d-flex align-items-center mb-5">
             {/*     <span className="text-subtext flex__1">
               Direct Deposit information for contributions from your donors
             </span>
@@ -993,21 +993,20 @@ const PaymentMethod = () => {
           {bankAccountList.length > 0 &&
             bankAccountList.map((list, i) => {
               return (
-                <div className="linked__list d-flex flex-column mb-2" key={i}>
-                  <div className="linked__item d-flex align-items-center p-2 border">
-                    <div className="accounts__icon">
-                      <ListItemImg
-                        className="bg-white"
-                        icon={
-                          <FontAwesomeIcon
-                            icon={regular('building-columns')}
-                            className="fs-3 text-subtext"
-                          />
-                        }
+                <div className="linked__list--bank d-flex flex-column mb-2" key={i}>
+                  <h4 className="fw-bolder">Connected Accounts</h4>
+                  <div className="text-subtext mb-3">
+                    Below are the bank accounts you have connect through the Stripe API.
+                  </div>
+                  <div className="linked__item--bank d-flex align-items-center p-2 border">
+                    <div className="accounts__icon p-1 border">
+                      <FontAwesomeIcon
+                        icon={regular('building-columns')}
+                        className="fs-3 text-subtext"
                       />
                     </div>
-                    <div className=" flex__1 mx-2 text-break">
-                      {list.businessName ? (
+                    <div className="flex__1 mx-2 text-break">
+                      {/*  {list.businessName ? (
                         <div
                           className="accounts__email fw-bold"
                           style={{ textTransform: 'capitalize', width: '171px' }}
@@ -1021,26 +1020,30 @@ const PaymentMethod = () => {
                         >
                           {list.personalEmail}
                         </div>
-                      )}
+                      )}*/}
 
                       {list.bankName && (
                         <>
-                          <span className="input__span" style={{ color: '#6f6f90' }}>
-                            {list.bankName}
-                          </span>
-                          <br />
+                          <span className="linked__bank fw-bold">{list.bankName}</span>
                         </>
                       )}
-                      {list.accountNumber && (
-                        <span className="input__span" style={{ color: '#aaa9c2' }}>
-                          {list.accountNumber}
-                        </span>
-                      )}
+                      <span className="linked__country fw-bold p-3p ms-1">{list.homeCountry}</span>
+                      <FontAwesomeIcon
+                        icon={solid('circle-check')}
+                        className="fs-5 text-success ms-1"
+                      />
+                      <div className="d-flex linked__account mt-3p">
+                        <span className="linked__transit me-1">⑆</span>
+                        <span className="">{list.routingNumber}</span>
+                        <span className="linked__transit mx-1">⑆</span>
+                        <span className="linked__space me-1">••••</span>
+                        {list.accountNumber && <span className="">{list.accountNumber}</span>}
+                      </div>
                     </div>
 
                     {list.isPrimary ? (
                       <>
-                        <div className="flex__1">
+                        <div>
                           <FontAwesomeIcon
                             icon={solid('shield-halved')}
                             className="fs-3 text-primary"
@@ -1051,7 +1054,7 @@ const PaymentMethod = () => {
                       // <Chip label="Primary" color="success" variant="outlined" />
                       <Button
                         variant="link"
-                        className="text-info"
+                        className="ms-auto text-info p-0"
                         onClick={() => makeAccountPrimary(list._id)}
                       >
                         Make Primary
@@ -1102,17 +1105,15 @@ const PaymentMethod = () => {
                       </Button>
                     )}
                   </div>
-                  <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
-                    <FontAwesomeIcon
-                      icon={solid('shield-halved')}
-                      className="fs-5 text-primary me-2"
-                    />
-                    This method will be used for deposits from donations / items you post.
-                  </div>
                 </div>
               );
             })}
-
+          {bankAccountList.length > 0 && (
+            <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
+              <FontAwesomeIcon icon={solid('shield-halved')} className="fs-5 text-primary me-2" />
+              This method will be used for deposits from donations / items you post.
+            </div>
+          )}
           <div className="note text-dark">
             Funds will be deposited into this account when items you post are fully funded or marked
             as infinity items, or if you receive cash donations.

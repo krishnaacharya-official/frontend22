@@ -36,11 +36,11 @@
   }
 }
 .price__slider {
-  width: 225px
+  width: 225px;
 }
 @include media-breakpoint-down(sm) {
   .price__slider {
-    width: 100%
+    width: 100%;
   }
 }
 .btn__sold {
@@ -49,4 +49,10 @@
     color: $danger;
     cursor: default;
   }
+}
+.button__wrap {
+  min-width: 85px;
+}
+.button__wrap > * {
+  flex: 1;
 }

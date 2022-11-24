@@ -1582,9 +1582,13 @@ const AdminPosts = (props) => {
                           {fulfilProductDetails?.unlimited ? 'Sold' : 'Qty'} :
                         </span>
                         <span className="fs-4 fw-bold">
-                          {fulfilProductDetails?.unlimited
+                          {Number(fulfilProductDetails?.unlimited).toLocaleString('en-US', {
+                            maximumFractionDigits: 2
+                          })
                             ? fulfilProductDetails?.soldout
-                            : fulfilProductDetails?.quantity}
+                            : Number(fulfilProductDetails?.quantity).toLocaleString('en-US', {
+                                maximumFractionDigits: 2
+                              })}
                         </span>
                       </div>
                       <div className="d-flex align-items-center pt-1 mb-2">

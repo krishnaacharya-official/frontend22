@@ -60,7 +60,7 @@ function OrganisationDetailMain(props) {
 
             <a
               href={organizationDetails?.url}
-              className="text-light"
+              className="org__url text-light overflow-hidden text-truncate"
               rel="noreferrer"
               target="_blank"
             >

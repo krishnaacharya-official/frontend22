@@ -53,6 +53,11 @@
   color: inherit;
   font-size: 16px;
 }
-.input__label input, .input__label textarea {
-  color: inherit
+.input__label input,
+.input__label textarea {
+  color: inherit !important
+}
+.select__input-container,
+.select__single-value {
+  color: inherit !important;
 }

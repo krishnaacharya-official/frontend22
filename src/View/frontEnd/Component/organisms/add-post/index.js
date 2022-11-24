@@ -36,6 +36,7 @@ import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
@@ -481,8 +482,14 @@ const AddPost = (props) => {
                       <div className="note note--info mb-3">
                         <span className="text-dark">
                           Enter the unit price before taxes. Your{' '}
-                          <span style={{ color: '#3a94d4' }}>regional sales tax</span> will be
-                          automatically applied to the price of the item.
+                          <Link
+                            to={'/campaign/' + props?.slug + '/settings/paymentMethod'}
+                            style={{ color: '#3a94d4' }}
+                          >
+                            regional sales tax
+                          </Link>{' '}
+                          & merchant fees will be automatically applied to the price of the item to
+                          ensure you receive enough funds to purchase the item(s).
                         </span>
                       </div>
                       <div className="keyword-tags-wrap">
@@ -1224,17 +1231,17 @@ const AddPost = (props) => {
             />
             <label className="form-check-label" htmlFor="policy">
               By posting your ad, you are agreeing to our{' '}
-              <a href="#" target="_blank">
+              <Link to="/terms">
                 <strong>terms of use</strong>
-              </a>
+              </Link>
               ,{' '}
-              <a href="#" target="_blank">
+              <Link to="/terms">
                 <strong>privacy policy</strong>
-              </a>{' '}
+              </Link>{' '}
               and{' '}
-              <a href="#" target="_blank">
+              <Link to="/terms">
                 <strong>site policies</strong>
-              </a>
+              </Link>
               . Please do not post duplicate ads. You may not edit your post after it has received
               funding. If you delete your post after it has received donations, the donors will
               receive a full refund and the post will be closed.
