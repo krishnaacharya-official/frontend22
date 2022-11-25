@@ -10,6 +10,13 @@
   &__list {
     gap: 1.3rem;
   }
+  &__item {
+    padding-bottom: 2rem;
+  }
+  &__item:last-child {
+    padding-bottom: 0 !important;
+    border: unset !important;
+  }
 }
 .item__img-badge {
   background-color: #0e75f9 !important;
@@ -31,6 +38,9 @@
     max-width: 175px;
   }
 }
+.email__container {
+  border-radius: 9px;
+}
 @include media-breakpoint-down(sm) {
   .boat-container {
     width: 100% !important;
@@ -40,7 +50,10 @@
     width: 100%;
   }
 }
-
+.total__wrapper.note {
+  margin: auto;
+  width: 100%;
+}
 /*.checkout {
   &__subtotal {
     margin-top: 3px;

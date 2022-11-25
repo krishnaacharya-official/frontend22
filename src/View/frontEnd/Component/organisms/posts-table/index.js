@@ -86,11 +86,20 @@ const PostsTable = (props) => {
                       <div className="ms-auto ms-sm-0 me-sm-2 post__value">
                         {product.status === 1 && (
                           <div className="text-success fw-bold fs-4">
+
+
+
+
                             {organizationDetails.symbol}
                             {priceFormat(
                               product.displayPrice ? product.displayPrice : product.price
                             )}
                             {/* {product.displayPrice ? product.displayPrice : product.price} */}
+
+
+
+
+                            
                           </div>
                         )}
                         <div className="text-light fw-light fs-8">

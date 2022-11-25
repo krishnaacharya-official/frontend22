@@ -109,7 +109,7 @@ const OrderConfirmPage = () => {
                 </Link>
               </div>
             </div>
-            <div className="email__container">
+            <div className="email__container border my-5 p-3">
               <div class="order__container d-flex align-items-center justify-content-between m-3 mx-0 border-bottom">
                 <div class="order__wrap">
                   <p class="total__title fs-2 fw-bolder">Order Details</p>
@@ -124,7 +124,11 @@ const OrderConfirmPage = () => {
                     orderDetails?.orderItems.map((itm, i) => {
                       // console.log(itm)
                       return (
-                        <div data-id="product" role="listitem" className="email__item">
+                        <div
+                          data-id="product"
+                          role="listitem"
+                          className="email__item border-bottom"
+                        >
                           <div className="checkout__top d-flex flex-row align-items-start flex-nowrap">
                             <div className="checkout__left d-flex flex-row align-items-start flex-nowrap">
                               <div className="checkout__thumb position-relative d-flex align-items-center justify-content-center">
@@ -144,11 +148,11 @@ const OrderConfirmPage = () => {
                               <div className="checkout__info d-flex flex-column flex-wrap align-items-start px-3">
                                 <Link
                                   to={'/item/' + itm.itemDetails.slug}
-                                  className="checkout__title d-flex flex-row align-items-start fw-bolder"
+                                  className="text-dark fw-bolder p-0 mb-3p fs-4 btn btn-link"
                                 >
                                   <div>{itm.itemDetails.headline}</div>
                                 </Link>
-                                <div className="cd__cart__location fw-semibold fs-7 mb-3p mt-3p">
+                                <div className="text-light mb-1">
                                   <div>{itm.itemDetails.brand}</div>
                                 </div>
                                 <div className="checkout__price flex-row fs-5 fw-bold text-light">
@@ -158,7 +162,7 @@ const OrderConfirmPage = () => {
                               </div>
                             </div>
                             <div className="flex-grow-1 checkout__right d-flex flex-row align-items-center justify-content-between flex-wrap">
-                              <Link to={'/organization/' + itm?.campaignadminsDetails.slug}>
+                              {/* <Link to={'/organization/' + itm?.campaignadminsDetails.slug}>
                                 <ListItemImg
                                   size={46}
                                   className="ms-2 d-none d-sm-flex"
@@ -166,7 +170,7 @@ const OrderConfirmPage = () => {
                                     helper.CampaignAdminLogoPath + itm.campaignadminsDetails?.logo
                                   }
                                 />
-                              </Link>
+                              </Link>*/}
                               <div className="checkout__subtotal d-flex flex-row align-items-center fw-bold">
                                 {/* <div className="checkout__itemvalue d-flex align-items-center">
                                   <div className="checkout__tag">
@@ -176,7 +180,14 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4 className="text-light fs-4 fw-semibold">
+                              <h4
+                                className="text-light fs-4 fw-bolder"
+                                style={{
+                                  background: '#f8fafd',
+                                  borderRadius: '4px',
+                                  padding: '3px 9px'
+                                }}
+                              >
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
@@ -199,12 +210,12 @@ const OrderConfirmPage = () => {
                     })}
                 </div>
               </div>
-              <div className="total__container mt-3">
-                <div className="total__wrapper note">
+              <div className="total__container mt-3 pt-3 border-top">
+                <div>
                   <div className="total__sub d-flex justify-content-between">
-                    <div className="total__title fw-bold">Subtotal:</div>
+                    <div className="total__title fw-bolder">Subtotal:</div>
                     <div className="total__value text-light">
-                      <p className="fs-5 fw-semibold">
+                      <p className="fw-bold text-light fs-5">
                         {' '}
                         {orderDetails.currencySymbol}
                         {/* {purchasedPriceWithTax(Number(orderDetails.subtotal), Number(orderDetails.appliedTaxPercentage))} */}
@@ -238,18 +249,14 @@ const OrderConfirmPage = () => {
                   </div> */}
 
                   <div className="total__sub d-flex justify-content-between">
-                    <p className="total__title fw-bold">XP:</p>
-                    <div className="order__xp text-info">
-                      <p>
-                        <b>{orderDetails.xp} xp </b>
-                      </p>
-                    </div>
+                    <p className="total__title fw-bolder">XP:</p>
+                    <div className="order__xp text-info fw-bold">{orderDetails.xp} xp</div>
                   </div>
                 </div>
                 <div className="total__box">
-                  <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3">
+                  <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3 border-top pt-3">
                     <div className="order__wrap">
-                      <p className="total__title fs-4 fw-bolder">Total Paid:</p>
+                      <p className="total__title fs-5 fw-bolder">Total Paid:</p>
                     </div>
                     <div className="order__value text-light">
                       <p>

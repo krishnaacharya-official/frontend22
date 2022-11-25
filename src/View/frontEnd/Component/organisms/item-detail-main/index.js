@@ -119,7 +119,7 @@ function ProjectDetailMain(props) {
         </h1>
         <h5 className="project__detail-sublabel mb-0 fw-bolder">Product</h5>
         <div className="project__detail-subtitle mb-12p fw-bold">{productDetails?.brand} ™</div>
-        <div className="project__detail-price fs-2 text-price">
+        <div className="project__detail-price fs-1 text-price">
           {currencySymbol}
           {priceFormat(price)}
         </div>

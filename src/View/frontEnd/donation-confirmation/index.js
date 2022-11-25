@@ -104,7 +104,7 @@ const DonationConfirmPage = () => {
                 </Link>
               </div>
             </div>
-            <div className="email__container">
+            <div className="email__container border my-5 p-3">
               <div class="order__container d-flex align-items-center justify-content-between m-3 mx-0 border-bottom">
                 <div class="order__wrap">
                   <p class="total__title fs-2 fw-bolder">Donation Details</p>
@@ -165,7 +165,7 @@ const DonationConfirmPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="total__wrapper note">
+                <div>
                   <div className="total__sub d-flex justify-content-between">
                     <p className="total__title fw-bold">XP:</p>
                     <div className="order__xp text-info">

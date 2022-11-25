@@ -935,7 +935,7 @@ const PaymentMethod = () => {
           The tax rate will be automatically added to the unit price of items you post to make sure
           you enough funds to cover the sales tax when you purchase the items.
         </div>
-        <Button className="mb-3" variant="info" onClick={() => myFunction('taxRate')}>
+        <Button variant="info" onClick={() => myFunction('taxRate')}>
           Save
         </Button>
 
@@ -989,15 +989,19 @@ const PaymentMethod = () => {
 
             /> */}
           </div>
+          {bankAccountList.length > 0 && (
+            <>
+              <h4 className="fw-bolder">Connected Accounts</h4>
+              <div className="text-subtext mb-3">
+                Below are the bank accounts you have connect through the Stripe API.
+              </div>
+            </>
+          )}
 
           {bankAccountList.length > 0 &&
             bankAccountList.map((list, i) => {
               return (
                 <div className="linked__list--bank d-flex flex-column mb-2" key={i}>
-                  <h4 className="fw-bolder">Connected Accounts</h4>
-                  <div className="text-subtext mb-3">
-                    Below are the bank accounts you have connect through the Stripe API.
-                  </div>
                   <div className="linked__item--bank d-flex align-items-center p-2 border">
                     <div className="accounts__icon p-1 border">
                       <FontAwesomeIcon
@@ -1095,15 +1099,14 @@ const PaymentMethod = () => {
                       Verify
                     </Button> */}
 
-                    {!list.isPrimary && (
-                      <Button
-                        variant="link"
-                        className="text-danger"
-                        onClick={() => removeBank(list._id)}
-                      >
-                        remove
+                    {/*  {!list.isPrimary && (
+                      <Button variant="link" className="pe-0" onClick={() => removeBank(list._id)}>
+                        <FontAwesomeIcon icon={solid('trash')} className="fs-4 text-danger" />
                       </Button>
-                    )}
+                    )}*/}
+                    <Button variant="link" className="pe-0" onClick={() => removeBank(list._id)}>
+                      <FontAwesomeIcon icon={solid('trash')} className="fs-4 text-danger" />
+                    </Button>
                   </div>
                 </div>
               );
