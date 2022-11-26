@@ -1,31 +1,17 @@
 import {
-    Card,
-    Table,
     Stack,
-    Avatar,
     Button,
-    Checkbox,
-    TableRow,
-    TableBody,
-    TableCell,
     Container,
-    Typography,
-    TableContainer,
-    TablePagination
+    Typography
 } from '@mui/material';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import trash from '@iconify/icons-eva/trash-2-fill';
-import editfill from '@iconify/icons-eva/edit-fill';
-import Label from '../../../components/Label';
 
-import { Icon } from '@iconify/react';
-import { Link as RouterLink } from 'react-router-dom';
 import Page from '../../../components/Page';
-import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
 import helper,{ ImageExist }  from '../../../Common/Helper';
 // import from '../../../Common/Helper';
 import noimg from "../../../assets/images/noimg.jpg"
+
+const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 
 export default function Index(props) {
     let stateData = props.stateData

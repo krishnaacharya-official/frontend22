@@ -1,44 +1,34 @@
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
-import React, { useEffect, useState, useContext } from 'react';
-import './style.scss';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  Button,
   Accordion,
   AccordionContext,
-  useAccordionButton,
+  Button,
   Card,
   Col,
   Row,
-  Dropdown
+  useAccordionButton
 } from 'react-bootstrap';
+import './style.scss';
 
 // import { ToggleSwitch, FeedTag } from "@components/atoms";
-import ToggleSwitch from '../../atoms/toggle-switch';
-import FeedTag from '../../atoms/feed-tag';
-import * as Icon from '../../atoms/category-icons';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import categoryApi from '../../../../../Api/admin/category';
-import projectApi from '../../../../../Api/admin/project';
-import productApi from '../../../../../Api/admin/product';
 import { WithContext as ReactTags } from 'react-tag-input';
 import noimg from '../../../../../assets/images/noimg.jpg';
 import helper, { convertAddress, priceFormat } from '../../../../../Common/Helper';
-import { validateAll } from 'indicative/validator';
-import ToastAlert from '../../../../../Common/ToastAlert';
-import { confirmAlert } from 'react-confirm-alert';
-import styled from 'styled-components';
+import FeedTag from '../../atoms/feed-tag';
+import ToggleSwitch from '../../atoms/toggle-switch';
 // import styles from "../../../../../Common/MapBoxStyles"
-import { SearchBox } from '@mapbox/search-js-react';
+// import { SearchBox } from '@mapbox/search-js-react';
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
-import { useSelector, useDispatch } from 'react-redux';
-import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { useSelector } from 'react-redux';
+// import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import { CircularProgress } from '@mui/material';
+import 'mapbox-gl/dist/mapbox-gl.css';
 // require('mapbox-gl/dist/mapbox-gl.css');
-
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+// mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+import ReactMapboxGl, { Feature, Layer } from 'react-mapbox-gl';
 
 const Map = ReactMapboxGl({
   accessToken: helper.MapBoxPrimaryKey

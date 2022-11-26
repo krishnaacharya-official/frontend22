@@ -1,6 +1,6 @@
 import './style.scss';
-import { Outlet, Link, useLocation, useOutletContext, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useContext } from 'react';
+import { useOutletContext, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import FrontLoader from '../../../../../Common/FrontLoader';
 import helper, { isIframe, hasAlpha } from '../../../../../Common/Helper';
 import { validateAll } from 'indicative/validator';
@@ -10,7 +10,6 @@ import { Button } from 'react-bootstrap';
 // import { UserContext } from '../../../../../App';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  setIsUpdateCart,
   setIsUpdateOrganization,
   setProfileImage,
   setLogout
@@ -31,9 +30,11 @@ const CompanySettings = () => {
   const [embedlink, setEmbedlink] = useState('');
   const [tempImg, setTempImg] = useState('');
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const type = localStorage.getItem('type');
-  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const type = typeof window !== 'undefined' && localStorage.getItem('type');
+  const tempCampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('tempCampaignAdminAuthToken');
   const token = type
     ? type === 'temp'
       ? tempCampaignAdminAuthToken
@@ -205,7 +206,7 @@ const CompanySettings = () => {
         msg: 'Please upload an image with transparent background',
         msgType: 'error'
       });
-      setstate({
+      setState({
         ...state,
         image: ''
       });

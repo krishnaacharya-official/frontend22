@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import { Button, Modal } from "react-bootstrap";
-import { Button, Card } from '@mui/material';
+import { Button } from '@mui/material';
 
 // import ListItemImg from "@components/atoms/list-item-img";
 import ListItemImg from "../../atoms/list-item-img";
 import Select from 'react-select'
 import "./style.scss";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -20,7 +20,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
-import locationApi from "../../../../../Api/frontEnd/location";
 import { TabContainer } from "react-bootstrap";
 
 

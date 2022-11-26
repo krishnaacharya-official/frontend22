@@ -1,12 +1,11 @@
 import { Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import { ToggleSwitch, FeedTag, FileUpload } from "@components/atoms";
 
 import ToggleSwitch from '../../atoms/toggle-switch';
 import FeedTag from '../../atoms/feed-tag';
-import FileUpload from '../../atoms/file-upload';
 import helper from '../../../../../Common/Helper';
 // import noimg from "../../../assets/images/noimg.jpg"
 import noimg from '../../../../../assets/images/noimg.jpg';

@@ -1,10 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 
-import ListItemImg from '../../atoms/list-item-img';
 
 import './style.scss';
 

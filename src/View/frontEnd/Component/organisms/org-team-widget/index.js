@@ -5,7 +5,6 @@ import WidgetTitle from "../../atoms/widget-title"
 
 import TagTitle from "../../atoms/tag-title"
 
-import OrganisationTeamItem from "../../molecules/org-team-item";
 
 import "./style.scss";
 

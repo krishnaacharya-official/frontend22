@@ -1,26 +1,21 @@
 import { useState, useEffect } from 'react';
 // import { Button } from "react-bootstrap";
-import { Outlet, useOutletContext, Link, useNavigate } from 'react-router-dom';
+import { useOutletContext, Link, useNavigate } from 'react-router-dom';
 // import {
 //   LadderMenuItems,
 //   PostsTable,
 //   AddPost,
 // } from "@components/organisms";
-import LadderMenuItems from '../ladder-menu-items';
 import PostsTable from '../posts-table';
 import AddPost from '../add-post';
 // import productApi from "../../../../../Api/frontEnd/product";
 import './style.scss';
 import FrontLoader from '../../../../../Common/FrontLoader';
 
-import ToggleSwitch from '../../atoms/toggle-switch';
-import FeedTag from '../../atoms/feed-tag';
-import * as Icon from '../../atoms/category-icons';
 // import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import categoryApi from '../../../../../Api/admin/category';
 import projectApi from '../../../../../Api/admin/project';
 import productApi from '../../../../../Api/admin/product';
-import { WithContext as ReactTags } from 'react-tag-input';
 import noimg from '../../../../../assets/images/noimg.jpg';
 import helper, {
   priceWithOrganizationTax,
@@ -34,15 +29,12 @@ import ToastAlert from '../../../../../Common/ToastAlert';
 import { confirmAlert } from 'react-confirm-alert';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular, light } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import ListItemImg from '../../atoms/list-item-img';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
   Button,
-  Accordion,
-  AccordionContext,
-  useAccordionButton,
   Card,
   Col,
   Row,
@@ -74,9 +66,11 @@ const AdminPosts = (props) => {
   // const [productList, setProductList] = useState([])
   // const [projectList, setProjectList] = useState([])
   // const [loading, setLoading] = useState(false)
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const type = localStorage.getItem('type');
-  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const type = typeof window !== 'undefined' && localStorage.getItem('type');
+  const tempCampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('tempCampaignAdminAuthToken');
   const token = type
     ? type === 'temp'
       ? tempCampaignAdminAuthToken
@@ -1407,17 +1401,17 @@ const AdminPosts = (props) => {
               <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">Posts</h1>
               <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
               {totalPriceArray.length > 0 &&
-              totalPriceArray.map((val, index) => {
-                return (
-                  <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
-                    <FontAwesomeIcon
-                      icon={solid('money-bills-simple')}
-                      className="text-dark mr-12p fs-4"
-                    />
-                    {val[0]} {val[1]}
-                  </span>
-                );
-              })}
+                totalPriceArray.map((val, index) => {
+                  return (
+                    <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
+                      <FontAwesomeIcon
+                        icon={solid('money-bills-simple')}
+                        className="text-dark mr-12p fs-4"
+                      />
+                      {val[0]} {val[1]}
+                    </span>
+                  );
+                })}
 
               <div className="d-flex align-items-center ms-sm-auto">
                 <Button

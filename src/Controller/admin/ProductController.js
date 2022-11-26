@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import FrontLoader from '../../Common/FrontLoader';
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../Common/ToastAlert';
 import { confirmAlert } from 'react-confirm-alert';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import categoryApi from '../../Api/admin/category';
 import Index from '../../View/admin/Products/Index';
 import AddProductForm from '../../View/admin/Products/AddProductForm';
@@ -29,8 +28,8 @@ function ProductController() {
   const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
 
-  const adminAuthToken = localStorage.getItem('adminAuthToken');
-  const adminData = JSON.parse(localStorage.getItem('adminData'));
+  const adminAuthToken = typeof window !== 'undefined' && localStorage.getItem('adminAuthToken');
+  const adminData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('adminData'));
   const [seletedProjectList, setSeletedProjectList] = useState([]);
   // const [productImages, setproductImages] = useState([])
 

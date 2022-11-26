@@ -1,19 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import IconButton from "@components/molecules/icon-button";
-import IconButton from '../../molecules/icon-button';
 // import { LadderMenuXp, XpTable, ShareWidget } from "@components/organisms";
 import ShareWidget from '../share-widget';
 import LadderMenuXp from '../ladder-menu-xp';
 import XpTable from '../xp-table';
 import Avatar from '../../atoms/avatar';
-import AvatarImg from '../../../../../assets/images/avatar.jpeg';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { Outlet, Link, useLocation, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import userApi from '../../../../../Api/frontEnd/user';
 import FrontLoader from '../../../../../Common/FrontLoader';
-import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
+import { getCalculatedPrice } from '../../../../../Common/Helper';
 
 import './style.scss';
 
@@ -21,7 +17,7 @@ const UserXp = () => {
   const user = useSelector((state) => state.user);
   const [sortField, setSortField] = useState('created_at');
   const [order, setOrder] = useState('asc');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useOutletContext();
   const [pageNo, setPageNo] = useState(1);

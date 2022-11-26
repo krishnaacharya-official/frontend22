@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import IconButton from "@components/molecules/icon-button";
 // import ListItemImg from "@components/atoms/list-item-img";
-import IconButton from '../icon-button';
 import ListItemImg from '../../atoms/list-item-img';
 import helper, { getCalculatedPrice } from '../../../../../Common/Helper';
 import React, { useState, useEffect } from 'react';
@@ -22,7 +21,8 @@ function SimilarItem(props) {
   const [addedToCart, setAddedToCart] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   let currencySymbol = getCalc.currencySymbol();
   let maxQuentity = product.unlimited ? '∞' : product.quantity - product.soldout;
 

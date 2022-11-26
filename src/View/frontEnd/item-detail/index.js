@@ -2,7 +2,7 @@
 import React from 'react';
 
 // third party
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 // app specific
 // import SuggestionWrapper from "@components/molecules/suggestion-wrapper";
@@ -15,7 +15,6 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 //   SimilarItems,
 // } from "@components/organisms";
 
-import Header from '../Component/organisms/header';
 import Footer from '../Component/organisms/footer';
 import History from '../Component/organisms/history';
 import SuggestedList from '../Component/organisms/suggested-list';
@@ -77,8 +76,9 @@ const ItemDetail = (props) => {
   let categoryProducts = props.categoryProducts;
   let similerProductsCount = categoryProducts.filter((e) => e._id !== productDetails._id).length;
 
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken;
 
   // const isSold = productDetails.unlimited

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 // import { UserContext } from '../App';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
@@ -11,8 +11,7 @@ import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css'
 // import hasPermission from '../Common/Helper'
-import { hasPermission } from '../Common/Helper'
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLogout } from "../user/user.action"
 // ----------------------------------------------------------------------
 

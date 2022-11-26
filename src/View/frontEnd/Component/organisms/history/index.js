@@ -7,12 +7,12 @@ import TagTitle from '../../atoms/tag-title';
 import HistoryItem from '../../molecules/history-item';
 import './style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 function History(props) {
   const [loadMore, setLoadMore] = useState(false);
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   const [historyList, setHistoryList] = useState([]);
 
   let list = props.list;

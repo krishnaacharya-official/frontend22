@@ -6,7 +6,6 @@ import 'rc-slider/assets/index.css';
 
 import IconToggle from '../../atoms/icon-toggle';
 import ShareWidget from '../share-widget';
-import { ReactComponent as CategoryIcon } from '../../../../../assets/svg/child.svg';
 import IconText from '../../molecules/icon-text';
 import ProjectGallery from '../project-gallery';
 import moment from 'moment';
@@ -19,7 +18,6 @@ import helper, {
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsUpdateCart } from '../../../../../user/user.action';
 import './style.scss';
 import { GalleryImg } from '../../atoms';
 
@@ -41,7 +39,8 @@ function ProjectDetailMain(props) {
   const [quantity, setQuantity] = useState(1);
 
   const [addedToCard, setAddedToCard] = useState(false);
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   let maxQuentity = productDetails.unlimited

@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import { RadioToggle } from "@components/atoms";
 import RadioToggle from '../Component/atoms/radio-toggle';
 import ToastAlert from '../../../Common/ToastAlert';
@@ -14,7 +12,7 @@ import userApi from '../../../Api/frontEnd/user';
 import './style.scss';
 
 const Partnership = () => {
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
 
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState('sponsor');
@@ -125,7 +123,7 @@ const Partnership = () => {
             </div>
 
             <Form className="mw-400">
-              <div className="py-1 d-flex align-items-center fs-4 mb-3" style={{height: "60px"}}>
+              <div className="py-1 d-flex align-items-center fs-4 mb-3" style={{ height: '60px' }}>
                 <RadioToggle
                   outline={true}
                   checked={selected === 'sponsor'}

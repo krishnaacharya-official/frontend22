@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ZooIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
     <path
@@ -232,5 +234,5 @@ export {
   EquipmentIcon,
   ShelterIcon,
   SportingGoodsIcon,
-  BooksIcon,
+  BooksIcon
 };

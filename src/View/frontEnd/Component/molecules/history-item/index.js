@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import IconButton from '../icon-button';
 import Avatar from '../../atoms/avatar';
 import AvatarImg from '../../../../../assets/images/avatar_default.png';
 import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';

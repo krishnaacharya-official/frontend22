@@ -2,15 +2,14 @@
 import { useState, useEffect } from 'react';
 import LadderMenu from '../ladder-menu';
 import TaxTable from '../tax-table';
-import { Outlet, Link, useLocation, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import userApi from '../../../../../Api/frontEnd/user';
 import FrontLoader from '../../../../../Common/FrontLoader';
 import moment from 'moment';
-import helper from '../../../../../Common/Helper';
 import './style.scss';
 
 const UserTax = () => {
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useOutletContext();
   const [pageNo, setPageNo] = useState(1);
@@ -22,7 +21,7 @@ const UserTax = () => {
   const [activeKey, setActiveKey] = useState(0);
   const [activeYear, setActiveYear] = useState('Show All');
   const [all, setAll] = useState([]);
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
 
   const [csvData, setCsvData] = useState([]);
 

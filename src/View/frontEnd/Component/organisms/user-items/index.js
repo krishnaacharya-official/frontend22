@@ -10,17 +10,15 @@ import ListItemImg from '../../atoms/list-item-img';
 //   ItemsTable,
 //   ShareWidget,
 // } from "@components/organisms";
-import LadderMenuItems from '../ladder-menu-items';
 import ShareWidget from '../share-widget';
 import ItemsTable from '../items-table';
-import { Outlet, Link, useLocation, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import userApi from '../../../../../Api/frontEnd/user';
 import FrontLoader from '../../../../../Common/FrontLoader';
 import moment from 'moment';
 import helper, {
   getCalculatedPrice,
   priceFormat,
-  purchasedPriceWithTax,
   download,
   isIframe,
   getCardIcon,
@@ -30,9 +28,6 @@ import { GalleryImg } from '../../atoms';
 
 import {
   Button,
-  Accordion,
-  AccordionContext,
-  useAccordionButton,
   Card,
   Col,
   Row,
@@ -48,7 +43,7 @@ const UserItems = () => {
     show: false
   });
   const { key, show } = detail;
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useOutletContext();
   const [pageNo, setPageNo] = useState(1);

@@ -1,9 +1,8 @@
-import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import ListItemImg from "../../atoms/list-item-img";
-import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 import "./style.scss";
 

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Modal } from "react-bootstrap"
 import { Button } from '@mui/material';
-import helper from '../../../../Common/Helper';
-import noimg from "../../../../assets/images/noimg.jpg"
-import { unescape } from 'lodash';
 
 export default function AddSubCategoryForm(props) {
     let stateData = props.stateData

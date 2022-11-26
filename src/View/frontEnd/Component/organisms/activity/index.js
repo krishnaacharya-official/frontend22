@@ -4,7 +4,7 @@ import ActivityList from './activity-list';
 import FollowingList from './following-list';
 import NotificationSettings from '../../molecules/notification-settings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import './style.scss';
 

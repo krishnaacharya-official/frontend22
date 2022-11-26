@@ -1,27 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tab, Button, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/device-check';
 import UserTabs from '../Component/organisms/user-tabs';
 import {
-  DashboardIcon,
   ItemsIcon,
   XpIcon,
   TaxIcon,
   HistoryIcon,
   SettingsIcon
 } from '../Component/organisms/user-tabs/tab-icons';
-import DefaultLayout from '../Component/templates/default-layout';
 import userApi from '../../../Api/frontEnd/user';
-import FrontLoader from '../../../Common/FrontLoader';
-import helper, { ImageExist } from '../../../Common/Helper';
+import helper from '../../../Common/Helper';
 
 // import { UserContext } from '../../../App';
-import noimg from '../../../assets/images/noimg.jpg';
 import AvatarImg from '../../../assets/images/avatar.png';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import NoFooter from '../Component/templates/no-footer';
 import Page from '../../../components/Page';
 
@@ -31,7 +27,7 @@ function UserDetail(props) {
   // const user = useContext(UserContext)
   const user = useSelector((state) => state.user);
   const [totalPriceArray, setTotalPriceArray] = useState([]);
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [selectedTabKey, setSelectedTabKey] = useState('');
   const [dropdown, setDropdown] = useState(false);
   const isMobile = useWindowSize() <= 575;

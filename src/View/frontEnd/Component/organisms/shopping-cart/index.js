@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
-import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
+import { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
 import EmptyCart from '../../atoms/empty-cart';
 import CartList from './cart-list';
 

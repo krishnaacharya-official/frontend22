@@ -1,28 +1,51 @@
 // scroll bar
-import 'simplebar/src/simplebar.css';
-
+import React from 'react';
+import SSRProvider from 'react-bootstrap/SSRProvider';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
 
 //
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import reportWebVitals from './reportWebVitals';
-import ScrollToTop from './components/ScrollToTop';
+import { persistor } from './store';
 
+import reportWebVitals from './reportWebVitals';
+import * as serviceWorker from './serviceWorker';
+
+import App from './App';
+
+// import ScrollToTop from './components/ScrollToTop';
 
 // ----------------------------------------------------------------------
+window.React = React;
 
-ReactDOM.render(
-  <HelmetProvider>
-    <BrowserRouter>
-    <ScrollToTop />
-      <App />
-    </BrowserRouter>
-  </HelmetProvider>,
-  document.getElementById('root')
-);
+const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
+
+const helmetContext = {};
+
+function Main() {
+  return (
+    <React.StrictMode>
+      <HelmetProvider context={helmetContext}>
+        <SSRProvider>
+          <BrowserRouter>
+            {/* <ScrollToTop /> */}
+            <App />
+          </BrowserRouter>
+        </SSRProvider>
+      </HelmetProvider>
+    </React.StrictMode>
+  );
+}
+
+if (typeof document !== 'undefined') {
+  persistor.subscribe(() => {
+    const { bootstrapped } = persistor.getState();
+
+    if (bootstrapped) {
+      renderMethod(<Main />, document.getElementById('root'));
+    }
+  });
+}
 
 // If you want to enable client cache, register instead.
 serviceWorker.unregister();

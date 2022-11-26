@@ -64,9 +64,11 @@ function ActivityItem(props) {
   //   return Math.round(per);
 
   // }
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken;
 
   let userData = props.userData;

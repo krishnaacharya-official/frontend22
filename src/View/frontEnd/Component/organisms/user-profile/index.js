@@ -1,13 +1,9 @@
-import { useState, useEffect, useContext, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useState, useEffect } from 'react';
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 // import { ToggleSwitch } from "@components/atoms";
 // import { LadderMenu } from "@components/organisms";
-import ToggleSwitch from '../../atoms/toggle-switch';
-import LadderMenu from '../ladder-menu';
-import { Outlet, Link, useLocation, useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import FrontLoader from '../../../../../Common/FrontLoader';
 import Select from 'react-select';
 import locationApi from '../../../../../Api/frontEnd/location';
@@ -20,8 +16,6 @@ import {
   setIsUpdateUserDetails,
   setCurrency,
   setCurrencyPrice,
-  setUserCountrySort,
-  setUserLanguage,
   setProfileImage,
   setUserCountry,
   setUserState,
@@ -41,7 +35,7 @@ const UserProfile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [update, setUpdate] = useState(false);
   const [data, setData] = useOutletContext();
   const [countryList, setCountryList] = useState([]);

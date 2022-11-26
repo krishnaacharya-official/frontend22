@@ -1,36 +1,30 @@
-import Index from '../../View/frontEnd/Layout/Home/Index';
-import productApi from '../../Api/frontEnd/product';
-import React, { useState, useEffect, useContext } from 'react';
-import FrontLoader from '../../Common/FrontLoader';
-import ToastAlert from '../../Common/ToastAlert';
+import React, { useEffect, useState } from 'react';
 import cartApi from '../../Api/frontEnd/cart';
-import settingApi from '../../Api/admin/setting';
+import productApi from '../../Api/frontEnd/product';
+import ToastAlert from '../../Common/ToastAlert';
+import Index from '../../View/frontEnd/Layout/Home/Index';
 // import { UserContext } from '../../App';
+import { getDistance } from 'geolib';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import adminCampaignApi from '../../Api/admin/adminCampaign';
+import advertisementApi from '../../Api/admin/advertisement';
 import categoryApi from '../../Api/admin/category';
 import locationApi from '../../Api/frontEnd/location';
-import { useSelector, useDispatch } from 'react-redux';
+import wishlistApi from '../../Api/frontEnd/wishlist';
+import { arrayUnique } from '../../Common/Helper';
+import Page from '../../components/Page';
 import {
   setCurrency,
-  setUserLanguage,
-  setCurrencyPrice,
   setIsUpdateCart,
-  setProfileImage,
-  setUserCountry,
-  setUserAddress,
-  setUserState,
-  setSalesTax,
-  setUserCountrySort,
-  setProductCount,
   setLocationFilter,
-  setDistance
+  setProductCount,
+  setSalesTax,
+  setUserAddress,
+  setUserCountry,
+  setUserCountrySort,
+  setUserState
 } from '../../user/user.action';
-import advertisementApi from '../../Api/admin/advertisement';
-import { arrayUnique, getCalculatedPrice } from '../../Common/Helper';
-import wishlistApi from '../../Api/frontEnd/wishlist';
-import { useNavigate } from 'react-router-dom';
-import { getDistance } from 'geolib';
-import Page from '../../components/Page';
 
 export default function HomeController() {
   const [productList, setProductList] = useState([]);
@@ -47,13 +41,14 @@ export default function HomeController() {
   const [resultTags, setresultTags] = useState([]);
   const [tempProductList, setTempProductList] = useState([]);
 
-  const getCalc = getCalculatedPrice();
+  // const getCalc = getCalculatedPrice();
 
   const navigate = useNavigate();
   // const adminAuthToken = localStorage.getItem('adminAuthToken');
   const [loading, setLoading] = useState(false);
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   // const user = useContext(UserContext)
   const user = useSelector((state) => state.user);
   const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken;
@@ -64,8 +59,9 @@ export default function HomeController() {
   const [seletedCategoryList, setSeletedCategoryList] = useState([]);
   const [selectedKey, setSelectedKey] = useState(3);
   const dispatch = useDispatch();
-  const userData = JSON.parse(localStorage.getItem('userData'));
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
   const [price, setPrice] = useState();
   const [cartProductList, setCartProductList] = useState([]);
   const [cartProductIds, setCartProductIds] = useState([]);

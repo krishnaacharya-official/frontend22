@@ -1,12 +1,10 @@
-import { Button, Container } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Container } from 'react-bootstrap';
 
 // import DefaultLayout from "@templates/default-layout";
 import DefaultLayout from '../Component/templates/default-layout';
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Page from '../../../components/Page';
 
 const Pricing = () => {

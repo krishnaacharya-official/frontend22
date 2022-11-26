@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, InputGroup, Container, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import DefaultLayout from "@templates/default-layout";
 
@@ -19,8 +19,9 @@ const ChangePassword = () => {
   const [showNPassword, toggleNPassword] = useState(false);
   const [showRNPassword, toggleRNPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const params = useParams();
   const navigate = useNavigate();
   const [state, setstate] = useState({

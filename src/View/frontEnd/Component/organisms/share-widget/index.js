@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import { Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
@@ -103,7 +103,7 @@ function ShareWidget() {
                 <FontAwesomeIcon icon={brands("twitter")} />
               </a> */}
                 <TwitterShareButton
-                  title={'test'}
+                  title="test"
                   hashtags={['hashtag1', 'hashtag2']}
                   url={currentPageLink}
                   // hashtags={["hashtag1", "hashtag2"]}
@@ -151,8 +151,8 @@ function ShareWidget() {
                 <LinkedinShareButton
                   url={currentPageLink}
                   quote={currentPageLink}
-                  hashtag={'#hashtag #new'}
-                  description={'test'}
+                  hashtag="#hashtag #new"
+                  description="test"
                   className="Demo__some-network__share-button"
                 >
                   <LinkedinIcon size={32} round />

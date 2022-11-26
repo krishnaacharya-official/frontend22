@@ -1,6 +1,6 @@
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular, light } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import Avatar from "@components/atoms/avatar";
 // import AvatarImg from "@assets/images/avatar.jpeg";

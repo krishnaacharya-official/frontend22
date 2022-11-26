@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 // import IconButton from "@components/molecules/icon-button";
 
-import IconButton from '../../molecules/icon-button';
 
 // import AreaChart from "@assets/images/area-chart.jpg";
 // import BarChart from "@assets/images/bar-chart.jpg";
@@ -14,8 +13,8 @@ import IconButton from '../../molecules/icon-button';
 import AreaChart from '../../../../../assets/images/area-chart.jpg';
 import BarChart from '../../../../../assets/images/bar-chart.jpg';
 import PieChart from '../../../../../assets/images/piechart.jpg';
-import { useSelector, useDispatch } from 'react-redux';
-import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
+import { useSelector } from 'react-redux';
+import { getCalculatedPrice } from '../../../../../Common/Helper';
 
 import { Col, Row, Button } from 'react-bootstrap';
 

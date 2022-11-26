@@ -1,10 +1,10 @@
-import React from "react";
-import { Container, Button } from "react-bootstrap";
+import React from 'react';
+import { Button, Container } from 'react-bootstrap';
 
 // import Logo from "@components/atoms/logo";
-import Logo from "../../atoms/logo";
+import Logo from '../../atoms/logo';
 
-import "./style.scss";
+import './style.scss';
 
 // class HeaderHelp extends React.Component {
 //   render() {
@@ -48,6 +48,6 @@ const HeaderHelp = () => {
       </Container>
     </header>
   );
-}
+};
 
 export default HeaderHelp;

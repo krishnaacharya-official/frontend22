@@ -6,7 +6,6 @@ import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import ListItemImg from "@components/atoms/list-item-img";
 
 import Avatar from '../../atoms/avatar';
-import ListItemImg from '../../atoms/list-item-img';
 import moment from 'moment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';

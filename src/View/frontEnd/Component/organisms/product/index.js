@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { UserContext } from '../../../../../App';
 import { ProgressBar, Button } from 'react-bootstrap';
 // import { ReactComponent as HeartSvg } from "@assets/svg/heart-o.svg";
-import { ReactComponent as HeartSvg } from '../../../../../assets/svg/heart-o.svg';
 import helper, {
   getCalculatedPrice,
   priceFormat,
@@ -12,15 +11,15 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import IconToggle from '../../atoms/icon-toggle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid, light } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Icon } from '@iconify/react';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsUpdateCart } from '../../../../../user/user.action';
 
 import './style.scss';
 
 const Product = (props) => {
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
 
   // console.log(props)
   let name = props.headline;

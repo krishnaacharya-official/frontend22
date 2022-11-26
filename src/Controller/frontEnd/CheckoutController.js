@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import FrontLoader from '../../Common/FrontLoader';
-import Cart from '../../View/frontEnd/cart';
 import cartApi from '../../Api/frontEnd/cart';
 import authApi from '../../Api/admin/auth';
 import ToastAlert from '../../Common/ToastAlert';
@@ -9,7 +7,7 @@ import Checkout from '../../View/frontEnd/checkout';
 import orderApi from '../../Api/frontEnd/order';
 import { validateAll } from 'indicative/validator';
 import settingApi from '../../Api/admin/setting';
-import helper, { getCalculatedPrice, priceFormat } from '../../Common/Helper';
+import { getCalculatedPrice } from '../../Common/Helper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserXp, setUserRank } from '../../user/user.action';
 import userApi from '../../Api/frontEnd/user';
@@ -17,7 +15,7 @@ import Page from '../../components/Page';
 
 export default function CheckoutController() {
   const [cartItem, setCartItem] = useState([]);
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [loading, setLoading] = useState(false);
   const [update, setIsUpdate] = useState(false);
   const [subtotal, setSubTotal] = useState(0);
@@ -45,7 +43,7 @@ export default function CheckoutController() {
 
   const user = useSelector((state) => state.user);
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   // const [pricingFees, setPricingFees] = useState({
   //     platformFee: 0,
   //     transectionFee: 0,

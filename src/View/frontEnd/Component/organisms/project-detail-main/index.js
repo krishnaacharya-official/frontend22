@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 
 // import { IconToggle, RoundedIcon, TagTitle } from "@components/atoms";
 // import {
@@ -13,15 +13,12 @@ import { Button, ProgressBar } from 'react-bootstrap';
 import ShareWidget from '../share-widget';
 import OrganisationWidget from '../organisation-widget';
 import ProjectGallery from '../project-gallery';
-import OrganisationTeamWidget from '../org-team-widget';
 // import IconButton from "../../molecules/icon-button";
-import RoundedIcon from '../../atoms/rounded-icon';
 import TagTitle from '../../atoms/tag-title';
 import IconToggle from '../../atoms/icon-toggle';
 // import helper from "../../../../../Common/Helper";
-import noImg from '../../../../../assets/images/noimg.jpg';
 import moment from 'moment';
-import helper, { getCalculatedPrice, priceFormat, isIframe } from '../../../../../Common/Helper';
+import helper, { isIframe } from '../../../../../Common/Helper';
 
 import './style.scss';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { validateAll } from "indicative/validator";
 import FrontLoader from "../../Common/FrontLoader"
 import ToastAlert from "../../Common/ToastAlert"
@@ -7,7 +7,7 @@ import userAuthApi from "../../Api/frontEnd/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../../View/frontEnd/login";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency, setUserLanguage, setCurrencyPrice, setProfileImage, setUserCountry, setUserXp, setUserRank, setUserRole, setIsAccountAdd } from "../../user/user.action"
+import { setCurrency, setCurrencyPrice, setProfileImage, setUserXp, setUserRank, setUserRole, setIsAccountAdd } from "../../user/user.action"
 import locationApi from "../../Api/frontEnd/location";
 import helper from "../../Common/Helper";
 import userApi from "../../Api/frontEnd/user";

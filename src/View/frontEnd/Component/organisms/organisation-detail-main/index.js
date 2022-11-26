@@ -6,12 +6,10 @@ import { Button } from 'react-bootstrap';
 import IconToggle from '../../atoms/icon-toggle';
 import RoundedIcon from '../../atoms/rounded-icon';
 // import WidgetTitle from "../widget-title"
-import TagTitle from '../../atoms/tag-title';
 
 import IconButton from '../../molecules/icon-button';
 import ShareWidget from '../share-widget';
 import OrganisationWidget from '../organisation-widget';
-import moment from 'moment';
 import helper, { isIframe } from '../../../../../Common/Helper';
 import { useNavigate } from 'react-router-dom';
 import './style.scss';

@@ -13,7 +13,8 @@
   "plugins": [
     "prettier",
     "react",
-    "react-hooks"
+    "react-hooks",
+    "unused-imports"
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
@@ -47,6 +48,7 @@
     "no-underscore-dangle": 0,
     "react/button-has-type": 1,
     "react/no-children-prop": 0,
+    "react/jsx-uses-react": 1,
     "react/forbid-prop-types": 0,
     "jsx-a11y/anchor-is-valid": 0,
     "react/react-in-jsx-scope": 0,
@@ -90,7 +92,7 @@
     "jsx-a11y/no-autofocus":0,
     "no-loop-func":0,
     "no-useless-escape":0,
-    "import/no-webpack-loader-syntax":0,
+    "import/no-webpack-loader-syntax": "off",
     "no-webpack-loader-syntax":0,
 
 
@@ -123,11 +125,16 @@
       }
     ],
     "no-unused-vars": [
-      1,
+      0,
       {
         "ignoreRestSiblings": false
       }
     ],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+			"warn",
+			{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+		],
     "prettier/prettier": [
       0,
       {
@@ -142,5 +149,6 @@
         "endOfLine": "auto"
       }
     ]
-  }
+  },
+ 
 }

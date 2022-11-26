@@ -8,7 +8,7 @@ import './style.scss';
 import { makeStyles } from '@material-ui/core/styles';
 
 import moment from 'moment';
-import helper, { getCalculatedPrice, priceFormat } from '../../../../../Common/Helper';
+import helper, { getCalculatedPrice } from '../../../../../Common/Helper';
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';

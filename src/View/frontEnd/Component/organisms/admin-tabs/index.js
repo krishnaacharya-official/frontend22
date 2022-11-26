@@ -1,18 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import { Nav } from 'react-bootstrap';
-import {
-  DashboardIcon,
-  PostsIcon,
-  ActivityIcon,
-  TaxIcon,
-  ProjectIcon,
-  SettingsIcon
-} from './tab-icons';
+import { ActivityIcon, PostsIcon, ProjectIcon, SettingsIcon, TaxIcon } from './tab-icons';
 
-import './style.scss';
 import { Link, useLocation } from 'react-router-dom';
+import './style.scss';
 
 const propTypes = {
   activeKey: PropTypes.string

@@ -1,4 +1,4 @@
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 const CSVExportBtn = (props) => {
     const headers = props.headers

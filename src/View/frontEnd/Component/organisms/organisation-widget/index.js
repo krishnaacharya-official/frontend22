@@ -13,7 +13,7 @@ import ToggleSwitch from '../../atoms/toggle-switch';
 import OrganisationItem from '../../molecules/org-item';
 
 import './style.scss';
-import helper, { getCalculatedPrice, countInArray } from '../../../../../Common/Helper';
+import { getCalculatedPrice } from '../../../../../Common/Helper';
 import cartApi from '../../../../../Api/frontEnd/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsUpdateCart } from '../../../../../user/user.action';

@@ -7,15 +7,12 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 
 // app specific
 
-import Header from '../Component/organisms/header';
 import Footer from '../Component/organisms/footer';
 import OrganisationDetailMain from '../Component/organisms/organisation-detail-main';
 import History from '../Component/organisms/history';
 import SuggestionWrapper from '../Component/molecules/suggestion-wrapper';
 import SuggestedList from '../Component/organisms/suggested-list';
-import OrganisationTeamWidget from '../Component/organisms/org-team-widget';
 import OrganisationProjectsWidget from '../Component/organisms/org-projects-widget';
-import GrabDropdown from '../Component/organisms/grab-dropdown';
 //import HeaderController from '../../../Controller/frontEnd/HeaderController';
 import DonateModal from '../Component/molecules/donate-modal';
 import HeaderController from '../../../Controller/frontEnd/HeaderController';
@@ -63,8 +60,9 @@ const OrganisationDetail = (props) => {
   let organizationDetails = props.organizationDetails;
   let projectList = props.projectList;
   const [modalShow, setModalShow] = useState(false);
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken;
 
   return (

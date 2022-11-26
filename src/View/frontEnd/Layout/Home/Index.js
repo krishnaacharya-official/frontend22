@@ -1,13 +1,12 @@
-import Header from '../../Component/organisms/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Button, Container, Row, Col, FormControl, InputGroup, ProgressBar } from 'react-bootstrap';
-import { Product, GrabDropdown, FilterDropdown, LadderMenu } from '../../Component/organisms';
+import { Button, Container, Row, Col, FormControl, InputGroup } from 'react-bootstrap';
+import { Product, FilterDropdown, LadderMenu } from '../../Component/organisms';
 // import { ProgressBar } from "react-bootstrap";
 
 import './style.scss';
 import HeaderGeoController from '../../../../Controller/frontEnd/HeaderGeoController';
-import React, { useState } from 'react';
+import React from 'react';
 import IconText from '../../Component/molecules/icon-text';
 import helper, { getCalculatedPrice } from '../../../../Common/Helper';
 import { Link } from 'react-router-dom';
@@ -19,7 +18,8 @@ export default function Index(props) {
   const module = props.module;
   const getCalc = getCalculatedPrice();
   let currencySymbol = getCalc.currencySymbol();
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
 
   let products;
   const title = {

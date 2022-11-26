@@ -1,33 +1,15 @@
 import {
-    Card,
-    Table,
     Stack,
-    Avatar,
-    Button,
-    Checkbox,
-    TableRow,
-    TableBody,
-    TableCell,
     Container,
-    Typography,
-    TableContainer,
-    TablePagination
+    Typography
 } from '@mui/material';
 
-import { Modal, Row, Tab, Col, Nav } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import trash from '@iconify/icons-eva/trash-2-fill';
-import editfill from '@iconify/icons-eva/edit-fill';
-import Label from '../../../components/Label';
 import Page from '../../../components/Page';
-import DataTable from 'react-data-table-component';
-import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import '../../../assets/css/style.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid, brands } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid, brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function Settings() {
     const cardStyle = {

@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import Logo from '../Component/atoms/logo';
 import NoFooterHeader from '../Component/templates/no-footer-header';
-import Select from 'react-select';
 
 import './style.scss';
 

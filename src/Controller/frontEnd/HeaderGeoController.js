@@ -1,11 +1,7 @@
-import Index from '../../View/frontEnd/Layout/Home/Index';
-import productApi from '../../Api/admin/product';
-import React, { useState, useEffect, useContext } from 'react';
-import FrontLoader from '../../Common/FrontLoader';
-import Header from '../../View/frontEnd/Component/organisms/header';
+import React, { useState, useEffect } from 'react';
 import cartApi from '../../Api/frontEnd/cart';
 import authApi from '../../Api/admin/auth';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ToastAlert from '../../Common/ToastAlert';
 // import { UserContext } from '../../App';`
 import settingApi from '../../Api/admin/setting';
@@ -19,11 +15,13 @@ import notificationApi from '../../Api/frontEnd/notification';
 import followApi from '../../Api/frontEnd/follow';
 import adminCampaignApi from '../../Api/admin/adminCampaign';
 // eslint-disable-next-line import/no-unresolved
-import HeaderGeo from 'src/View/frontEnd/Component/organisms/header-geo/index';
+import HeaderGeo from '../../View/frontEnd/Component/organisms/header-geo/index';
+// 'src/View/frontEnd/Component/organisms/header-geo/index';
 
 export default function HeaderGeoController() {
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const token = userAuthToken
     ? userAuthToken
     : CampaignAdminAuthToken

@@ -11,12 +11,7 @@ import { Tab } from "react-bootstrap";
 // } from "@components/organisms";
 
 import SettingsTabs from "../settings-tabs";
-import UserAccounts from "../user-accounts";
-import UserProfile from "../user-profile";
-import UserBilling from "../user-billing";
-import UserControl from "../user-control";
-import UserAdmin from "../user-admin";
-import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 
 import "./style.scss";
 

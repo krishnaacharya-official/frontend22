@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
@@ -41,15 +41,14 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const adminData = JSON.parse(localStorage.getItem('adminData'));
-
+  const adminData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('adminData'));
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname,adminData]);
+  }, [pathname, adminData]);
 
   const renderContent = (
     <Scrollbar
@@ -61,8 +60,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ px: 2.5, py: 3 }}>
         <Box component={RouterLink} to="/" sx={{ display: 'inline-flex' }}>
           <Logo />
-      <div className="logo-name ms-1 text-dark fs-2 fs-sm-0">Donorport</div>
-
+          <div className="logo-name ms-1 text-dark fs-2 fs-sm-0">Donorport</div>
         </Box>
       </Box>
 
@@ -72,7 +70,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-              {adminData?adminData.name.toUpperCase():"ADMIN"}
+                {adminData ? adminData.name.toUpperCase() : 'ADMIN'}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}

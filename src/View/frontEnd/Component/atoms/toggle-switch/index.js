@@ -1,7 +1,6 @@
 // import React from "react";
 import React, { useState } from "react";
 import _uniqueId from 'lodash/uniqueId';
-import PropTypes from "prop-types";
 
 import "./style.scss";
 

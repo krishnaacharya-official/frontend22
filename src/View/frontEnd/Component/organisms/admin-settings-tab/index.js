@@ -11,13 +11,8 @@ import { Tab } from "react-bootstrap";
 // } from "@components/organisms";
 
 import SettingsTabsAdmin from "../settings-tabs-admin";
-import PaymentMethod from "../payment-method";
-import CompanySettings from "../company-settings";
-import AdminBilling from "../admin-billing";
-import AdminControl from "../admin-control";
-import AdminAdmin from "../admin-admin";
-import { Outlet, Link, useLocation, useOutletContext } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Outlet, useOutletContext } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 

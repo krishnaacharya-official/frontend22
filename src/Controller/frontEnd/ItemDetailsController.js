@@ -1,10 +1,6 @@
-import Index from '../../View/frontEnd/Layout/Home/Index';
 // import productApi from "../../Api/admin/product";
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import FrontLoader from '../../Common/FrontLoader';
-import OrganisationDetail from '../../View/frontEnd/organisation-detail';
-import organizationApi from '../../Api/frontEnd/organization';
 import ItemDetail from '../../View/frontEnd/item-detail';
 import productApi from '../../Api/frontEnd/product';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,28 +9,21 @@ import cartApi from '../../Api/frontEnd/cart';
 import wishlistApi from '../../Api/frontEnd/wishlist';
 import helper from '../../Common/Helper';
 import {
-  setCurrency,
-  setUserLanguage,
-  setCurrencyPrice,
-  setIsUpdateCart,
-  setProfileImage,
-  setUserCountry,
-  setUserAddress,
-  setUserState,
-  setSalesTax
+  setIsUpdateCart
 } from '../../user/user.action';
 import followApi from '../../Api/frontEnd/follow';
 import Page from '../../components/Page';
 
 export default function ItemDetailsController() {
   const [productList, setProductList] = useState([]);
-  const adminAuthToken = localStorage.getItem('adminAuthToken');
+  const adminAuthToken = typeof window !== 'undefined' && localStorage.getItem('adminAuthToken');
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState({});
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const token = CampaignAdminAuthToken ? CampaignAdminAuthToken : userAuthToken;
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [purchasedItemList, setPurchasedItemList] = useState([]);

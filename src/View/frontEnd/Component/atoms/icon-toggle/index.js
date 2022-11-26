@@ -1,28 +1,20 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import "./style.scss";
+import React, { useState } from 'react';
+import './style.scss';
 
-const propTypes = {
-  checked: PropTypes.bool,
-  activeColor: PropTypes.string,
-  icon: PropTypes.element,
-  checkedIcon: PropTypes.element,
-};
+// const propTypes = {
+//   checked: PropTypes.bool,
+//   activeColor: PropTypes.string,
+//   icon: PropTypes.element,
+//   checkedIcon: PropTypes.element
+// };
 
-const defaultProps = {
-  checked: false,
-  activeColor: "",
-};
+// const defaultProps = {
+//   checked: false,
+//   activeColor: ''
+// };
 
 function IconToggle(props) {
-  const {
-    ischecked,
-    icon,
-    checkedIcon,
-    activeColor,
-    name,
-    onClickFilter
-  } =props
+  const { ischecked, icon, checkedIcon, activeColor, name, onClickFilter } = props;
 
   const [_checked, setChecked] = useState(ischecked);
 
@@ -35,11 +27,17 @@ function IconToggle(props) {
   //   ...otherProps,
   // };
   return (
-    <label className="icon__toggle-label" >
-      <input type="checkbox"  className="icon__toggle-input" checked={ischecked}  name={name}  onChange={(e) => onClickFilter(e)} />
+    <label className="icon__toggle-label">
+      <input
+        type="checkbox"
+        className="icon__toggle-input"
+        checked={ischecked}
+        name={name}
+        onChange={(e) => onClickFilter(e)}
+      />
       <span
         className="icon__toggle-icon d-flex align-items-center"
-        style={{ color:ischecked ? activeColor :"" }}
+        style={{ color: ischecked ? activeColor : '' }}
       >
         {ischecked ? checkedIcon : icon}
       </span>

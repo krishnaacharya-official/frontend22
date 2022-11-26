@@ -5,7 +5,7 @@ import Avatar from '../../atoms/avatar';
 import ListItemImg from '../../atoms/list-item-img';
 import './style.scss';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useEffect } from 'react';
+import React from 'react';
 import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';

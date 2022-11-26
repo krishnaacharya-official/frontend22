@@ -1,20 +1,17 @@
 import { Icon } from '@iconify/react';
-import { useRef, useState,useContext } from 'react';
-import homeFill from '@iconify/icons-eva/home-fill';
-import personFill from '@iconify/icons-eva/person-fill';
-import settings2Fill from '@iconify/icons-eva/settings-2-fill';
-import { Link as RouterLink,useNavigate } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { alpha } from '@mui/material/styles';
-import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
+import { Button, Box, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
 // components
 import MenuPopover from '../../components/MenuPopover';
 //
 import account from '../../_mocks_/account';
 // import { UserContext } from '../../App';
 import { confirmAlert } from 'react-confirm-alert';
-import { useSelector, useDispatch } from "react-redux";
-import { setLogout } from "../../user/user.action"
+import { useDispatch } from 'react-redux';
+import { setLogout } from '../../user/user.action';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +36,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  const adminData = JSON.parse(localStorage.getItem('adminData'));
+  const adminData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('adminData'));
   // const user = useContext(UserContext)
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,15 +62,15 @@ export default function AccountPopover() {
           onClick: () => {
             // user.logout()
             dispatch(setLogout());
-            navigate('/admin/login')
+            navigate('/admin/login');
           }
         },
         {
-          label: 'No',
+          label: 'No'
         }
       ]
     });
-  }
+  };
 
   return (
     <>
@@ -111,7 +108,7 @@ export default function AccountPopover() {
             {adminData?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {adminData?.roleName ? adminData.roleName.replace('_'," "):""}
+            {adminData?.roleName ? adminData.roleName.replace('_', ' ') : ''}
           </Typography>
         </Box>
 
@@ -140,7 +137,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined" onClick={()=>logOut()}>
+          <Button fullWidth color="inherit" variant="outlined" onClick={() => logOut()}>
             Logout
           </Button>
         </Box>

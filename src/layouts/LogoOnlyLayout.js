@@ -1,5 +1,5 @@
 // import { Link as RouterLink, Outlet } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Routes, useLocation, Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, Route, Routes } from 'react-router-dom';
 
 // material
 import { styled } from '@mui/material/styles';
@@ -7,8 +7,6 @@ import { styled } from '@mui/material/styles';
 import Login from '../pages/Login';
 
 import Logo from '../components/Logo';
-import Register from '../pages/Register';
-import VerifyOtp from '../pages/VerifyOtp';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +37,6 @@ export default function LogoOnlyLayout() {
         {/* <Route exact path="/admin/register" element={<Register />} /> */}
         {/* <Route exact path="/admin/otp/:email" element={<VerifyOtp />} /> */}
         <Route exact path="*" element={<Login />} />
-
       </Routes>
     </>
   );

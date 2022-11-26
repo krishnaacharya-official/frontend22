@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { DashboardIcon, ItemsIcon, XpIcon, TaxIcon, HistoryIcon, SettingsIcon } from './tab-icons';
+import { ItemsIcon, XpIcon, TaxIcon, HistoryIcon, SettingsIcon } from './tab-icons';
 
 import './style.scss';
 
@@ -18,7 +18,7 @@ const navItemStyle = {
 function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
 
   const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[3]);
 
@@ -34,7 +34,7 @@ function UserTabs({ activeKey, data, _onClick, ...otherProps }) {
     // setCurrentOption(location.pathname.split('/')[3])
   }, [location.pathname]);
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   let newSlug = userData?.name.split(/\s/).join('');
   // console.log(currentOption)
   return (

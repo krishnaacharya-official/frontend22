@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // import { ListItemImg } from "@components/atoms";
 import ListItemImg from '../../atoms/list-item-img';

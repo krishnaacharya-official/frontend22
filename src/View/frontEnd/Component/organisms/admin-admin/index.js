@@ -1,138 +1,128 @@
-import { Button, FormControl } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import OrganisationTeamItem from "@components/molecules/org-team-item";
-import OrganisationTeamItem from "../../molecules/org-team-item"
-import React, { useState, useEffect } from "react";
-import helper, { isValidEmail } from "../../../../../Common/Helper";
-import organizationApi from "../../../../../Api/frontEnd/organization";
-import "./style.scss";
-import ToastAlert from "../../../../../Common/ToastAlert"
-import { confirmAlert } from "react-confirm-alert"
-import FrontLoader from "../../../../../Common/FrontLoader";
-import { Outlet, useOutletContext } from 'react-router-dom';
+import OrganisationTeamItem from '../../molecules/org-team-item';
+import React, { useState, useEffect } from 'react';
+import { isValidEmail } from '../../../../../Common/Helper';
+import organizationApi from '../../../../../Api/frontEnd/organization';
+import './style.scss';
+import ToastAlert from '../../../../../Common/ToastAlert';
+import { confirmAlert } from 'react-confirm-alert';
+import FrontLoader from '../../../../../Common/FrontLoader';
+import { useOutletContext } from 'react-router-dom';
 
 const AdminAdmin = () => {
-  const [email, setEmail] = useState()
-  const [isValid, setisValid] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [teamMemberList, setTeamMemberList] = useState([])
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const type = localStorage.getItem('type');
-  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
-  const token = type ? type === 'temp' ? tempCampaignAdminAuthToken : CampaignAdminAuthToken : CampaignAdminAuthToken
+  const [email, setEmail] = useState();
+  const [isValid, setisValid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [teamMemberList, setTeamMemberList] = useState([]);
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const type = typeof window !== 'undefined' && localStorage.getItem('type');
+  const tempCampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('tempCampaignAdminAuthToken');
+  const token = type
+    ? type === 'temp'
+      ? tempCampaignAdminAuthToken
+      : CampaignAdminAuthToken
+    : CampaignAdminAuthToken;
   const [data, setData] = useOutletContext();
 
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const userData = JSON.parse(localStorage.getItem('userData'));
-  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
+  const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id;
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
 
   // console.log(userData.id)
 
-
-
   useEffect(() => {
     (async () => {
-      await listTeamMembers()
-
-    })()
-
-  }, [])
-
-
-
+      await listTeamMembers();
+    })();
+  }, []);
 
   const onChangeEmail = (e) => {
-    setEmail(e.target.value)
-    setisValid(isValidEmail(e.target.value))
-  }
+    setEmail(e.target.value);
+    setisValid(isValidEmail(e.target.value));
+  };
 
   const inviteTeamMember = async () => {
-    setLoading(false)
-    let fdata = {}
-    fdata.email = email
-    fdata.organizationName = data.name
+    setLoading(false);
+    let fdata = {};
+    fdata.email = email;
+    fdata.organizationName = data.name;
 
-    const invite = await organizationApi.inviteTeamMember(token, fdata)
+    const invite = await organizationApi.inviteTeamMember(token, fdata);
     if (invite) {
       if (invite.data.success === false) {
-        setLoading(false)
+        setLoading(false);
         ToastAlert({ msg: invite.data.message, msgType: 'error' });
       } else {
-        setEmail('')
-        setisValid(false)
-        await listTeamMembers()
-        setLoading(false)
+        setEmail('');
+        setisValid(false);
+        await listTeamMembers();
+        setLoading(false);
         ToastAlert({ msg: invite.data.message, msgType: 'success' });
       }
-
     } else {
-      setLoading(false)
+      setLoading(false);
       ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
     }
-
-  }
-
+  };
 
   const listTeamMembers = async () => {
-    const list = await organizationApi.listTeamMember(token)
+    const list = await organizationApi.listTeamMember(token);
     if (list) {
       if (list.data.success) {
-        setTeamMemberList(list.data.data)
+        setTeamMemberList(list.data.data);
       } else {
-        setTeamMemberList([])
+        setTeamMemberList([]);
       }
     }
-
-  }
-
+  };
 
   const removeTeamMember = async (id) => {
-
     confirmAlert({
       title: 'Confirm to submit',
       message: 'Are you sure to Remove Member.',
       buttons: [
         {
           label: 'Yes',
-          onClick: (async () => {
-            setLoading(false)
+          onClick: async () => {
+            setLoading(false);
             if (id !== '') {
-              const deleteAd = await organizationApi.removeTeamMember(token, id)
+              const deleteAd = await organizationApi.removeTeamMember(token, id);
               if (deleteAd) {
                 if (deleteAd.data.success === false) {
-                  setLoading(false)
+                  setLoading(false);
                   ToastAlert({ msg: deleteAd.data.message, msgType: 'error' });
                 } else {
                   if (deleteAd.data.success === true) {
-                    setEmail('')
-                    setisValid(false)
+                    setEmail('');
+                    setisValid(false);
                     ToastAlert({ msg: deleteAd.data.message, msgType: 'success' });
-                    await listTeamMembers()
-                    setLoading(false)
-
+                    await listTeamMembers();
+                    setLoading(false);
                   }
                 }
               } else {
-                setLoading(false)
+                setLoading(false);
                 ToastAlert({ msg: 'Member not Removed', msgType: 'error' });
               }
             } else {
-              setLoading(false)
+              setLoading(false);
               ToastAlert({ msg: 'Member not delete id Not found', msgType: 'error' });
             }
-          })
+          }
         },
         {
-          label: 'No',
+          label: 'No'
         }
       ]
     });
-
-  }
-
-
+  };
 
   return (
     <>
@@ -142,22 +132,30 @@ const AdminAdmin = () => {
           <h4 className="fw-bolder">Administrators</h4>
           <div className="text-subtext mb-3">
             These users have full access to the account for
-            <FontAwesomeIcon
-              icon={regular("link")}
-              className="text-subtext me-1 ms-2"
-            />
+            <FontAwesomeIcon icon={regular('link')} className="text-subtext me-1 ms-2" />
             {data.name}
           </div>
 
           <div className="d-flex align-items-center gap-2 mb-3">
-            <FormControl placeholder="Email" size="lg" value={email} onChange={(e) => onChangeEmail(e)} />
+            <FormControl
+              placeholder="Email"
+              size="lg"
+              value={email}
+              onChange={(e) => onChangeEmail(e)}
+            />
 
-            <Button variant="info" disabled={!isValid} size="lg" className="rounded fw-bold text-white" onClick={() => inviteTeamMember()}>
+            <Button
+              variant="info"
+              disabled={!isValid}
+              size="lg"
+              className="rounded fw-bold text-white"
+              onClick={() => inviteTeamMember()}
+            >
               Invite
             </Button>
 
             <Button variant="outline-primary" size="lg" className="rounded text-nowrap fw-bold">
-              {3 - (teamMemberList.length)} remaining
+              {3 - teamMemberList.length} remaining
             </Button>
           </div>
 
@@ -182,8 +180,7 @@ const AdminAdmin = () => {
           </div> */}
 
           <ul className="list-unstyeld flex__1 ps-0">
-            {
-              teamMemberList.length > 0 &&
+            {teamMemberList.length > 0 &&
               teamMemberList.map((member, i) => {
                 // console.log(member)
                 return (
@@ -194,14 +191,13 @@ const AdminAdmin = () => {
                     removeTeamMember={removeTeamMember}
                     rightElement={
                       <FontAwesomeIcon
-                        icon={solid("shield-halved")}
+                        icon={solid('shield-halved')}
                         className="text-info fs-4 ms-auto"
                       />
                     }
                   />
-                )
-              })
-            }
+                );
+              })}
 
             {/* <OrganisationTeamItem
               showEmail={true}
@@ -221,10 +217,7 @@ const AdminAdmin = () => {
           </ul>
 
           <div className="px-1 py-20p mt-1 mb-20p fs-7 text-subtext">
-            <FontAwesomeIcon
-              icon={solid("shield-halved")}
-              className="fs-5 text-info me-2"
-            />
+            <FontAwesomeIcon icon={solid('shield-halved')} className="fs-5 text-info me-2" />
             The Organization Administrator controls access for Team Members
           </div>
 
@@ -233,7 +226,6 @@ const AdminAdmin = () => {
             For support with user admin accounts click here.
           </div>
         </div>
-
       </div>
     </>
   );

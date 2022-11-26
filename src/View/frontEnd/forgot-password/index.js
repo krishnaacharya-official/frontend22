@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
 // import { Logo } from "@components/atoms";
 // import { Footer } from "@components/organisms";

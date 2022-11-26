@@ -1,27 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Image } from "./style";
+import React from 'react';
+import { Image } from './style';
 
-const propTypes = {
-  className: PropTypes.string,
-  avatarUrl: PropTypes.string,
-  name: PropTypes.string,
-  size: PropTypes.number,
-};
+// const propTypes = {
+//   className: PropTypes.string,
+//   avatarUrl: PropTypes.string,
+//   name: PropTypes.string,
+//   size: PropTypes.number
+// };
 
 const defaultProps = {
   className: undefined,
-  avatarUrl: null,
-  name: "",
-  size: 35,
+  avatarUrl: '',
+  name: '',
+  size: 35
 };
 
 const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
   const sharedProps = {
     className,
     size,
-    "data-testid": name ? `avatar:${name}` : "avatar",
-    ...otherProps,
+    'data-testid': name ? `avatar:${name}` : 'avatar',
+    ...otherProps
   };
 
   if (avatarUrl) {
@@ -35,7 +34,7 @@ const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
   );
 };
 
-Avatar.propTypes = propTypes;
+// Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
 
 export default Avatar;

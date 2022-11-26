@@ -1,16 +1,17 @@
-import { Logout } from '@mui/icons-material';
 import React from 'react';
 import UserSettingsItem from '../../../molecules/user-settings-item';
-import { NavLink as RouterLink, matchPath, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { useSelector, useDispatch } from 'react-redux';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useDispatch } from 'react-redux';
 import { setLogout } from '../../../../../../user/user.action';
 
 function UserSettingsList(props) {
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const token = userAuthToken ? userAuthToken : CampaignAdminAuthToken;
   const navigate = useNavigate();
   const dispatch = useDispatch();

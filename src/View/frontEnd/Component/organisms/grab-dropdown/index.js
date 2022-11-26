@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Button, Dropdown, FormControl, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import RadioToggle from '../../atoms/radio-toggle';
 import GrabItem from '../../molecules/grab-item';

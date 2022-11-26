@@ -5,16 +5,12 @@ import React, { useState } from 'react';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 
 // app specific
-import Header from '../Component/organisms/header';
 import Footer from '../Component/organisms/footer';
 import ProjectDetailMain from '../Component/organisms/project-detail-main';
-import SimilarItems from '../Component/organisms/similar-items';
 import History from '../Component/organisms/history';
 import SuggestionWrapper from '../Component/molecules/suggestion-wrapper';
 import DonateModal from '../Component/molecules/donate-modal';
-import SuggestedList from '../Component/organisms/suggested-list';
 import ProjectSuggestionList from '../Component/organisms/project-suggestion-list';
-import GrabDropdown from '../Component/organisms/grab-dropdown';
 import HeaderController from '../../../Controller/frontEnd/HeaderController';
 
 // style
@@ -62,7 +58,8 @@ import './style.scss';
 
 const ProjectDetail = (props) => {
   const [modalShow, setModalShow] = useState(false);
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
 
   return (
     <>

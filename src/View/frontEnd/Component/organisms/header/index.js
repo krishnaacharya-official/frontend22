@@ -5,7 +5,6 @@ import { Container } from 'react-bootstrap';
 // import Avatar from '../avatar/index'
 import Logo from '../../atoms/logo';
 
-import GeoLocation from '../geo-location';
 import ShoppingCart from '../shopping-cart';
 import Activity from '../activity';
 import UserSettings from '../user-settings';
@@ -13,9 +12,10 @@ import UserSettings from '../user-settings';
 import './style.scss';
 
 const Header = (props) => {
-  const adminAuthToken = localStorage.getItem('adminAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const adminAuthToken = typeof window !== 'undefined' && localStorage.getItem('adminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
 
   return (
     <header className="d-flex frontend_pages main-header">

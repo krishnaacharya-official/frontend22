@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Button } from 'react-bootstrap';
 import ListItemImg from '../../atoms/list-item-img';
-import helper, { priceFormat, getCalculatedPrice } from '../../../../../Common/Helper';
+import helper, { priceFormat } from '../../../../../Common/Helper';
 import { Link } from 'react-router-dom';
 
 import './style.scss';

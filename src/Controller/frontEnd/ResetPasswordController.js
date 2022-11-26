@@ -6,7 +6,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import ToastAlert from "../../Common/ToastAlert";
 import { validateAll } from "indicative/validator";
 import userAuthApi from "../../Api/frontEnd/auth";
-import ForgotPassword from "../../View/frontEnd/forgot-password";
 import ResetPassword from "../../View/frontEnd/reset-password";
 import CryptoJS from 'crypto-js';
 import Page from '../../components/Page';

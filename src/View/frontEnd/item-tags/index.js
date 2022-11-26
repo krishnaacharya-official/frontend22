@@ -1,4 +1,4 @@
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import ListItemImg from '../Component/atoms/list-item-img';

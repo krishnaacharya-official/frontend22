@@ -1,8 +1,7 @@
-import FrontLoader from "../../Common/FrontLoader";
 // import ForgotPassword from "../../View/frontEnd/Layout/ForgotPassword";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import ResetPassword from "../../View/frontEnd/Layout/ResetPassword";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ToastAlert from "../../Common/ToastAlert";
 import { validateAll } from "indicative/validator";
 import userAuthApi from "../../Api/frontEnd/auth";

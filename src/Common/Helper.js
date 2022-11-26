@@ -1,19 +1,22 @@
 import Permissions from './Permissions';
 import CryptoJS from 'crypto-js';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import IconButton from '../View/frontEnd/Component/molecules/icon-button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { State, Country } from 'country-state-city';
 
 let Mode = 'production';
 // let BASE_URL = 'https://donorport.herokuapp.com/'
 let BASE_URL = 'https://www.donorport.org/app/';
 
-if (window.location.hostname === 'localhost') {
-  Mode = 'development';
-  BASE_URL = 'http://localhost:8080/';
+if (typeof window !== 'undefined') {
+  if (window.location.hostname === 'localhost') {
+    Mode = 'development';
+    BASE_URL = 'http://localhost:8080/';
+  }
 }
+
 const AWS_S3_BUCKET_BASE_URL = 'https://donorport.s3.us-west-2.amazonaws.com/';
 
 let helper = {
@@ -33,7 +36,7 @@ let helper = {
 
   recieptPath: AWS_S3_BUCKET_BASE_URL + 'images/donor/receipt/',
   websitePath:
-    window.location.hostname === 'localhost'
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
       ? 'http://localhost:3000'
       : 'https://www.donorport.org',
   FulfilRecieptPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/product/fulfil/receipt/',
@@ -141,7 +144,8 @@ export function getCalculatedPrice() {
   const user = useSelector((state) => state.user);
   const setting = useSelector((state) => state.setting);
 
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   // console.log('first', user.pricePerCurrency)
 
   //calculating price

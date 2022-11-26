@@ -7,7 +7,7 @@ import { solid, brands, regular } from '@fortawesome/fontawesome-svg-core/import
 // import FooterCategoryLinks from "@components/molecules/footer-category-links";
 import IconButton from '../../molecules/icon-button';
 import FooterCategoryLinks from '../../molecules/footer-category-links';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import categoryApi from '../../../../../Api/admin/category';
 
 import './style.scss';
@@ -15,7 +15,7 @@ import './style.scss';
 function Footer() {
   const user = useSelector((state) => state.user);
   const [categoryList, setCategoryList] = useState([]);
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
 
   const getCategoryList = async () => {
     const categoryList = await categoryApi.listCategory();

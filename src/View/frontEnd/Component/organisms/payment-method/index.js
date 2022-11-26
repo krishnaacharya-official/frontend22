@@ -2,44 +2,39 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useState, useEffect } from 'react';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 
 // import { ListItemImg, ToggleSwitch } from "@components/atoms";
 
 import ListItemImg from '../../atoms/list-item-img';
-import ToggleSwitch from '../../atoms/toggle-switch';
 // import { Link } from "react-router-dom";
 import AddBankModal from '../../molecules/add-bank-modal';
 import './style.scss';
 import adminCampaignApi from '../../../../../Api/admin/adminCampaign';
-import FrontLoader from '../../../../../Common/FrontLoader';
 
 import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 import { confirmAlert } from 'react-confirm-alert';
-import { encryptData, decryptData } from '../../../../../Common/Helper';
 import locationApi from '../../../../../Api/frontEnd/location';
-import { Link, Outlet, useOutletContext, useParams, useNavigate } from 'react-router-dom';
-import { DataArraySharp } from '@mui/icons-material';
-import Label from '../../../../../components/Label';
-import CheckIcon from '@mui/icons-material/Check';
+import { useOutletContext, useParams, useNavigate } from 'react-router-dom';
 import { setIsAccountAdd } from '../../../../../user/user.action';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const PaymentMethod = () => {
   const [modalShow, setModalShow] = useState(false);
   const [bankAccountList, setBankAccountList] = useState([]);
   // const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const type = localStorage.getItem('type');
-  const tempCampaignAdminAuthToken = localStorage.getItem('tempCampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const type = typeof window !== 'undefined' && localStorage.getItem('type');
+  const tempCampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('tempCampaignAdminAuthToken');
   const token = type
     ? type === 'temp'
       ? tempCampaignAdminAuthToken
       : CampaignAdminAuthToken
     : CampaignAdminAuthToken;
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
   const [defaultCountry, setDefaultCountry] = useState([]);

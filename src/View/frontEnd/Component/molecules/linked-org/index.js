@@ -7,14 +7,15 @@ import React, { useState, useEffect } from 'react';
 import helper, { getCookie, setCookie, deleteCookie } from '../../../../../Common/Helper';
 import FrontLoader from '../../../../../Common/FrontLoader';
 import ToastAlert from '../../../../../Common/ToastAlert';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import removeImg from '../../../../../assets/images/remove-link.svg';
 
 function LinkedOrg(props) {
   // const userAuthToken = localStorage.getItem('userAuthToken');
   const user = useSelector((state) => state.user);
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const token = userAuthToken
     ? userAuthToken
     : CampaignAdminAuthToken
@@ -22,8 +23,9 @@ function LinkedOrg(props) {
     : '';
   const [teamMemberList, setTeamMemberList] = useState([]);
 
-  const CampaignAdmin = JSON.parse(localStorage.getItem('CampaignAdmin'));
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const CampaignAdmin =
+    typeof window !== 'undefined' && JSON.parse(localStorage.getItem('CampaignAdmin'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   const currentId = CampaignAdminAuthToken ? CampaignAdmin.id : userData.id;
 
   const [orgList, setorgList] = useState([]);

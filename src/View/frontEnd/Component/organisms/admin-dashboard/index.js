@@ -10,7 +10,6 @@ import PieChart from "../../../../../assets/images/piechart.jpg";
 import { Col, Row, Button } from "react-bootstrap";
 
 import "./style.scss";
-import {Outlet, useOutletContext } from 'react-router-dom';
 // import { useOutlet } from "react-router-dom";
 
 

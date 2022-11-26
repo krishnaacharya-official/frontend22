@@ -6,9 +6,8 @@ import ListItemImg from '../../atoms/list-item-img';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import helper from '../../../../../Common/Helper';
-import cartApi from '../../../../../Api/frontEnd/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsUpdateCart } from '../../../../../user/user.action';
 
@@ -40,7 +39,8 @@ function OrganisationItem(props) {
   let isFinish = !infinite && soldout >= quantity ? true : false;
 
   const [addedToCard, setAddedToCard] = useState(false);
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 

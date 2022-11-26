@@ -1,28 +1,28 @@
 #!/usr/bin/env node
 
-var fileSystem = require('fs');
-var readLine = require('readline');
-var path = require('path');
+let fileSystem = require('fs');
+let readLine = require('readline');
+let path = require('path');
 
 // Output file path
-var MAP_FILE_NAME = 'MaterialIcons-Regular.ijmap';
+let MAP_FILE_NAME = 'MaterialIcons-Regular.ijmap';
 
 // Create a file streaming interface
-var readLineHandle = readLine.createInterface({
+let readLineHandle = readLine.createInterface({
   input: fileSystem.createReadStream('codepoints'),
   output: process.stdout,
   terminal: false
 });
 
 // Read each line by line from the file codepoints file
-var json = {icons: {}};
+let json = {icons: {}};
 readLineHandle.on('line', function(line) {
   // Match the name, space then any unicode after it
-  var nameCodepointPair = line.split(' ');
+  let nameCodepointPair = line.split(' ');
 
   // Titleize the glyph name
-  var codepoint = nameCodepointPair[1];
-  var name = nameCodepointPair[0].toLowerCase().trim()
+  let codepoint = nameCodepointPair[1];
+  let name = nameCodepointPair[0].toLowerCase().trim()
       .replace(/[^0-9a-z]+/gi, ' ')
       .replace(/\b[a-z]/g, function(char) {
         return char.toUpperCase();

@@ -1,8 +1,5 @@
-import { Button, Container } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Container } from 'react-bootstrap';
 // import ListItemImg from "@components/atoms/list-item-img";
-import ListItemImg from '../Component/atoms/list-item-img';
 
 // import DefaultLayout from "@templates/default-layout";
 import DefaultLayout from '../Component/templates/default-layout';

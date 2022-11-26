@@ -1,24 +1,21 @@
 import { Container } from 'react-bootstrap';
 
 import DefaultLayout from '../Component/templates/default-layout';
-import AvatarImg from '../../../assets/images/avatar.jpeg';
 import Avatar from '../Component/atoms/avatar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import React, { useEffect, useState } from 'react';
-import IconButton from '../Component/molecules/icon-button';
 import ListItemImg from '../Component/atoms/list-item-img';
 import settingApi from '../../../Api/admin/setting';
 import FrontLoader from '../../../Common/FrontLoader';
-import { useSelector, useDispatch } from 'react-redux';
-import helper, { priceFormat, getCalculatedPrice } from '../../../Common/Helper';
+import { useSelector } from 'react-redux';
+import { getCalculatedPrice } from '../../../Common/Helper';
 import Page from '../../../components/Page';
 
 import './style.scss';
 
 const Xp = () => {
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
   const user = useSelector((state) => state.user);
   const getC = getCalculatedPrice();
   const [loading, setLoading] = useState(false);

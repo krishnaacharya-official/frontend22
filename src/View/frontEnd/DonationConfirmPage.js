@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import orderApi from '../../Api/frontEnd/order';
 import FrontLoader from '../../Common/FrontLoader';
-import helper, { purchasedPriceWithTax } from '../../Common/Helper';
+import helper from '../../Common/Helper';
 import DefaultLayout from './Component/templates/default-layout';
 import organizationApi from '../../Api/frontEnd/organization';
-import {Button} from 'react-bootstrap';
 
 const DonationConfirmPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [doantionDetails, setDonationDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   let newSlug = userData?.name.split(/\s/).join('');
 
   const getDonationDetails = async () => {
@@ -56,7 +54,7 @@ const DonationConfirmPage = () => {
               <img
                 style={{ width: '120px' }}
                 src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/62f91f5a4baf698de2fbded0_%E2%80%94Pngtree%E2%80%94green%20check%20mark%20icon%20flat_5253210.png"
-                alt=''
+                alt=""
               />
               {/* <p
                 style={{
@@ -88,11 +86,14 @@ const DonationConfirmPage = () => {
               Go to Donation
             </Button> */}
 
-            <Link to='/' className="btn btn-primary fw bold my-5 ">
+            <Link to="/" className="btn btn-primary fw bold my-5 ">
               Back To Home
             </Link>
 
-            <Link to={'/user/' + newSlug + '/settings/billing'} className="btn btn-secondary fw bold my-5 ">
+            <Link
+              to={'/user/' + newSlug + '/settings/billing'}
+              className="btn btn-secondary fw bold my-5 "
+            >
               Go to Order
             </Link>
           </div>
@@ -194,7 +195,7 @@ const DonationConfirmPage = () => {
                             className="checkout__price flex-row"
                             style={{
                               display: 'none',
-                              paddingTop: '6px',
+                              paddingTop: '6px'
                             }}
                           >
                             <h5>$22</h5>

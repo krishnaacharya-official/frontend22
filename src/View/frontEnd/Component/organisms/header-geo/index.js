@@ -5,17 +5,18 @@ import { Container } from 'react-bootstrap';
 // import Avatar from '../avatar/index'
 import Logo from '../../atoms/logo';
 
-import GeoLocation from '../geo-location';
-import ShoppingCart from '../shopping-cart';
 import Activity from '../activity';
+// import GeoLocation from '../geo-location';
+import ShoppingCart from '../shopping-cart';
 import UserSettings from '../user-settings';
 
 import './style.scss';
 
 const HeaderGeo = (props) => {
-  const adminAuthToken = localStorage.getItem('adminAuthToken');
-  const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const adminAuthToken = typeof window !== 'undefined' && localStorage.getItem('adminAuthToken');
+  const CampaignAdminAuthToken =
+    typeof window !== 'undefined' && localStorage.getItem('CampaignAdminAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
 
   return (
     <header className="d-flex frontend_pages main-header">
@@ -23,7 +24,7 @@ const HeaderGeo = (props) => {
         <Logo />
         {
           <div className="position-relative ms-auto header__right d-flex gap-1">
-            <GeoLocation />
+            {/* <GeoLocation /> */}
             {/* {
               userAuthToken || CampaignAdminAuthToken ?
                 <GeoLocation />

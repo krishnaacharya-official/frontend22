@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import orderApi from '../../../Api/frontEnd/order';
-import FrontLoader from '../../../Common/FrontLoader';
 import DefaultLayout from '../Component/templates/default-layout';
 import ShareWidget from '../Component/organisms/share-widget';
-import { Button } from 'react-bootstrap';
 import ListItemImg from '../Component/atoms/list-item-img';
-import helper, { priceFormat, getCalculatedPrice, getCardIcon } from '../../../Common/Helper';
+import helper, { priceFormat } from '../../../Common/Helper';
 import Page from '../../../components/Page';
 import './style.scss';
 
@@ -14,11 +12,11 @@ const OrderConfirmPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const userAuthToken = localStorage.getItem('userAuthToken');
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
   const [orderDetails, setOrderDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
   let newSlug = userData?.name.split(/\s/).join('');
 
   const getOrderDetails = async () => {
@@ -113,11 +111,11 @@ const OrderConfirmPage = () => {
               </div>
             </div>
             <div className="email__container">
-              <div class="order__container d-flex align-items-center justify-content-between m-3 mx-0 border-bottom">
-                <div class="order__wrap">
-                  <p class="total__title fs-2 fw-bolder">Order Details</p>
+              <div className="order__container d-flex align-items-center justify-content-between m-3 mx-0 border-bottom">
+                <div className="order__wrap">
+                  <p className="total__title fs-2 fw-bolder">Order Details</p>
                 </div>
-                <div class="order__value text-light">
+                <div className="order__value text-light">
                   <ShareWidget />
                 </div>
               </div>

@@ -8,12 +8,12 @@ import Logo from '../Component/atoms/logo';
 import Avatar from '../Component/atoms/avatar';
 import SummaryContent from '../Component/organisms/summary-content';
 import useWindowSize from '../../../hooks/device-check';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { sortedLastIndex } from 'lodash';
 import { CircularProgress } from '@mui/material';
+import { priceFormat } from '../../../Common/Helper';
 
 const Checkout = (props) => {
   const user = useSelector((state) => state.user);
@@ -23,8 +23,8 @@ const Checkout = (props) => {
   const isTab = useWindowSize() <= 991;
   const summaryElementRef = useRef(null);
   let stateData = props.stateData;
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userAuthToken = typeof window !== 'undefined' && localStorage.getItem('userAuthToken');
+  const userData = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userData'));
 
   // console.log(summaryElementRef.current?.clientHeight);
 
@@ -331,7 +331,7 @@ const Checkout = (props) => {
                 className="fs-6 fw-bold"
                 onClick={() => !props.isLoading && props.pay()}
               >
-                Pay {props.currencySymbol + (total ? total : 0)}
+                Pay {props.currencySymbol + (total ? priceFormat(total) : 0)}
                 {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={19} />}
               </Button>
             </div>

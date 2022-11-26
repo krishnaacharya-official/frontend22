@@ -1,19 +1,16 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
-  Link,
   Stack,
-  Checkbox,
   TextField,
   IconButton,
-  InputAdornment,
-  FormControlLabel
+  InputAdornment
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import ToastAlert from '../../../Common/ToastAlert';
@@ -28,20 +25,18 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
-    email: "",
-    password: ""
-  })
-  const { email, password } = state
+    email: '',
+    password: ''
+  });
+  const { email, password } = state;
 
   const onChangeValue = (e) => {
-    let value = e.target.value
+    let value = e.target.value;
     setState({
       ...state,
       [e.target.name]: value
-
-    })
-  }
-
+    });
+  };
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -49,7 +44,6 @@ export default function LoginForm() {
   });
 
   const formik = useFormik({
-
     initialValues: {
       email: '',
       password: '',
@@ -57,30 +51,30 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async () => {
-      setLoading(false)
-      const login = await authApi.login(formik.values.email, formik.values.password)
+      setLoading(false);
+      const login = await authApi.login(formik.values.email, formik.values.password);
       if (login) {
         if (!login.data.success || login.data.status !== 1) {
-          setLoading(false)
+          setLoading(false);
           ToastAlert({ msg: login.data.message, msgType: 'error' });
         } else {
-          if (login.data.roleName === "ADMIN") {
-            if (login.data.roleName === "CAMPAIGN_ADMIN" && login.data.otp_status !== 1) {
-              setLoading(false)
+          if (login.data.roleName === 'ADMIN') {
+            if (login.data.roleName === 'CAMPAIGN_ADMIN' && login.data.otp_status !== 1) {
+              setLoading(false);
               ToastAlert({ msg: 'Campaign Admin not Approved.', msgType: 'error' });
             } else {
-              localStorage.clear()
-              if (login.data.roleName === "CAMPAIGN_ADMIN") {
-                localStorage.setItem('CampaignAdminAuthToken', login.data.accessToken)
-                localStorage.setItem('CampaignAdmin', JSON.stringify(login.data))
-                navigate('/campaign/' + login.data.slug + '/posts', { replace: true })
+              localStorage.clear();
+              if (login.data.roleName === 'CAMPAIGN_ADMIN') {
+                localStorage.setItem('CampaignAdminAuthToken', login.data.accessToken);
+                localStorage.setItem('CampaignAdmin', JSON.stringify(login.data));
+                navigate('/campaign/' + login.data.slug + '/posts', { replace: true });
               } else {
-                localStorage.setItem('adminAuthToken', login.data.accessToken)
-                localStorage.setItem('adminData', JSON.stringify(login.data))
-                navigate('/admin/dashboard', { replace: true })
+                localStorage.setItem('adminAuthToken', login.data.accessToken);
+                localStorage.setItem('adminData', JSON.stringify(login.data));
+                navigate('/admin/dashboard', { replace: true });
               }
-              ToastAlert({ msg: login.data.message + " " + login.data.name, msgType: 'success' });
-              setLoading(false)
+              ToastAlert({ msg: login.data.message + ' ' + login.data.name, msgType: 'success' });
+              setLoading(false);
             }
 
             // } else if (login.data.roleName === "CAMPAIGN_ADMIN") {
@@ -95,16 +89,13 @@ export default function LoginForm() {
             //     setLoading(false)
             //     ToastAlert({ msg: 'Campaign Admin not Approved.', msgType: 'error' });
             //   }
-
           } else {
-            setLoading(false)
+            setLoading(false);
             ToastAlert({ msg: 'Admin Not Found', msgType: 'error' });
-
           }
         }
-
       } else {
-        setLoading(false)
+        setLoading(false);
         ToastAlert({ msg: 'Something went wrong', msgType: 'error' });
       }
       // navigate('/dashboard', { replace: true });

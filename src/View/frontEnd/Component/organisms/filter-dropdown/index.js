@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 
 // third party
-import { Button, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 // import lottie from 'lottie-web/build/player/lottie_light';
@@ -15,7 +15,6 @@ import { IconToggle, CategoryCheckbox } from '../../atoms';
 //import TooltipSlider from "../../molecules/tooltip-slider/index.tsx";
 
 import sliderAnimationData from '../../../../../assets/lottie/slider.json';
-import helper from '../../../../../Common/Helper';
 
 // component style
 import './style.scss';
