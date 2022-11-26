@@ -98,98 +98,105 @@ function OrganisationItem(props) {
 
   // console.log("product",product)
   return (
-    <li className="org__item__item pt-12p pb-12p d-sm-flex align-items-center mb-1">
-      <div className="d-flex align-items-center flex-grow-1">
-        <a href="/" className="d-block">
-          <ListItemImg size={62} imgSrc={helper.CampaignProductImagePath + image} />
-        </a>
-        <div className="org__item__main pl-12p flex-grow-1">
-          <div className="org__item__title pr-12p">
-            <Link
-              to={'/item/' + slug}
-              className="org__item__name mb-3p text-dark d-inline-block fw-bold fs-5"
-            >
-              {headline}
-            </Link>
-            <div className="fw-semibold org__item__location mb-3p fs-7">
-              {moment(created_at).fromNow()}
+    <>
+      {!isFinish && (
+        <li className="org__item__item pt-12p pb-12p d-sm-flex align-items-center mb-1">
+          <div className="d-flex align-items-center flex-grow-1">
+            <a href="/" className="d-block">
+              <ListItemImg size={62} imgSrc={helper.CampaignProductImagePath + image} />
+            </a>
+            <div className="org__item__main pl-12p flex-grow-1">
+              <div className="org__item__title pr-12p">
+                <Link
+                  to={'/item/' + slug}
+                  className="org__item__name mb-3p text-dark d-inline-block fw-bold fs-5"
+                >
+                  {headline}
+                </Link>
+                <div className="fw-semibold org__item__location mb-3p fs-7">
+                  {moment(created_at).fromNow()}
+                </div>
+              </div>
+              <div className="org__item__price fw-bold fs-5 text-light">
+                {props.currencySymbol +
+                  (productPrice
+                    ? Number(productPrice).toLocaleString('en-US', {
+                        maximumFractionDigits: 2
+                      })
+                    : 0)}
+              </div>
             </div>
-          </div>
-          <div className="org__item__price fw-bold fs-5 text-light">
-            {props.currencySymbol +
-              (productPrice
-                ? Number(productPrice).toLocaleString('en-US', {
-                    maximumFractionDigits: 2
-                  })
-                : 0)}
-          </div>
-        </div>
 
-        {/* <span className="org__item-subtotal d-sm-none fw-bolder fs-4 fs-sm-6">
+            {/* <span className="org__item-subtotal d-sm-none fw-bolder fs-4 fs-sm-6">
           {props.currencySymbol}
           {productPrice}
         </span>*/}
-      </div>
-      <div className="price__slider d-flex align-items-center mt-2 mt-sm-0">
-        <div
-          className="d-flex align-items-center flex-grow-1 fs-5 me-2"
-          style={{ minWidth: '150px' }}
-        >
-          <div className="org__item__count mt-3p me-1">1</div>
-          <div className="org__item-slider flex-grow-1 mx-2">
-            <Slider
-              handleStyle={{
-                width: '26px',
-                height: '26px',
-                border: 'none',
-                background: '#3596F3',
-                marginTop: '-10px',
-                opacity: '1'
-              }}
-              railStyle={{ backgroundColor: '#C7E3FB', height: '8px' }}
-              min={1}
-              max={infinite ? 999 : Number(quantity)}
-              // onChange={(e) => setTotalPrice({
-              //   ...props.productPrice,
-              //   [product?.itemDetails?._id]:e*productPrice
-              // })}
-              onChange={(e) => {
-                setTotalPrice((e * productPrice).toFixed(2));
-                setTotalQuantity(e);
-              }}
-            />
           </div>
-          <div className="org__item__count mt-3p">
-            {infinite ? (
-              <div
-                className="tag tag--ongoing"
-                style={{
-                  height: '26px',
-                  width: '26px',
-                  backgroundColor: '#a976f0',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                {/* <div className="icon icon--unlimited"></div> */}
-                <FontAwesomeIcon icon={solid('infinity')} className="d-flex icon icon--unlimited" />
+          <div className="price__slider d-flex align-items-center mt-2 mt-sm-0">
+            <div
+              className="d-flex align-items-center flex-grow-1 fs-5 me-2"
+              style={{ minWidth: '150px' }}
+            >
+              <div className="org__item__count mt-3p me-1">1</div>
+              <div className="org__item-slider flex-grow-1 mx-2">
+                <Slider
+                  handleStyle={{
+                    width: '26px',
+                    height: '26px',
+                    border: 'none',
+                    background: '#3596F3',
+                    marginTop: '-10px',
+                    opacity: '1'
+                  }}
+                  railStyle={{ backgroundColor: '#C7E3FB', height: '8px' }}
+                  min={1}
+                  max={infinite ? 999 : Number(quantity)}
+                  // onChange={(e) => setTotalPrice({
+                  //   ...props.productPrice,
+                  //   [product?.itemDetails?._id]:e*productPrice
+                  // })}
+                  onChange={(e) => {
+                    setTotalPrice((e * productPrice).toFixed(2));
+                    setTotalQuantity(e);
+                  }}
+                />
               </div>
-            ) : (
-              quantity
-            )}
-          </div>
-        </div>
-        {/* <span className="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
+              <div className="org__item__count mt-3p">
+                {infinite ? (
+                  <div
+                    className="tag tag--ongoing"
+                    style={{
+                      height: '26px',
+                      width: '26px',
+                      backgroundColor: '#a976f0',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {/* <div className="icon icon--unlimited"></div> */}
+                    <FontAwesomeIcon
+                      icon={solid('infinity')}
+                      className="d-flex icon icon--unlimited"
+                    />
+                  </div>
+                ) : (
+                  quantity
+                )}
+              </div>
+            </div>
+            {/* <span className="org__item-subtotal d-none d-sm-block text-success fw-bolder me-2">
           ${totalPrice}
         </span> */}
-        {/* <Button className="ms-auto" disabled={true}>
+            {/* <Button className="ms-auto" disabled={true}>
           <span className="fw-bold">${infinite ? productPrice : totalPrice}</span>
         </Button> */}
-        {!CampaignAdminAuthToken && btn}
-      </div>
-    </li>
+            {!CampaignAdminAuthToken && btn}
+          </div>
+        </li>
+      )}
+    </>
   );
 }
 

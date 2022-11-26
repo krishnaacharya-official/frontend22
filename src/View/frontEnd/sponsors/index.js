@@ -6,42 +6,45 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import DefaultLayout from '../Component/templates/default-layout';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import Page from '../../../components/Page';
 
 const Sponsors = () => {
   return (
-    <DefaultLayout>
-      <div className="password-reset position-relative">
-        <Container fluid className="position-relative pb-5 pt-5">
-          <h1 className="text-dark fw-bolder mb-6p pt-2">Sponsorships</h1>
-          <div className="fs-5 fw-semibold text-light pb-5 mb-3 mw-600">
-            Donorport teams up with top brands to promote the platform. Show your customers that you
-            care about local communities by sponsoring a category.
-          </div>
-
-          <div className="">
-            <div className="d-flex align-items-center mb-5">
-              <div className="p-12p rounded bg-lighter me-2">
-                <FontAwesomeIcon icon={solid('rectangle-ad')} className="text-info fs-3" />
-              </div>
-              <div className="sponsor__list d-flex flex-wrap align-items-center flex__1">
-                <div className="sponsor__item mb-2 mb-sm-0">
-                  <a href="https://www.dunkindonuts.com/en" className="sponsor__link">
-                    <img
-                      src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
-                      alt=""
-                      className="sponsor__logo"
-                    />
-                  </a>
-                </div>
-              </div>
+    <Page title="Donorport | Sponsors">
+      <DefaultLayout>
+        <div className="password-reset position-relative">
+          <Container fluid className="position-relative pb-5 pt-5">
+            <h1 className="text-dark fw-bolder mb-6p pt-2">Sponsorships</h1>
+            <div className="fs-5 text-light pb-5 mb-3 mw-600">
+              Donorport teams up with top brands to promote the platform. Show your customers that
+              you care about local communities by sponsoring a category.
             </div>
 
-            <p className="fs-5 text-light pt-3 mb-5">
-              By partnering with different suppliers, Donorport is able to expand its reach to serve
-              more communities across the world! Interesting in becoming a sponsor on Donorport?
-            </p>
+            <div className="">
+              <div className="d-flex align-items-center mb-5">
+                <div className="p-12p rounded bg-lighter me-2">
+                  <FontAwesomeIcon icon={solid('rectangle-ad')} className="text-info fs-3" />
+                </div>
+                <div className="sponsor__list d-flex flex-wrap align-items-center flex__1">
+                  <div className="sponsor__item mb-2 mb-sm-0">
+                    <a href="https://www.dunkindonuts.com/en" className="sponsor__link">
+                      <img
+                        src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
+                        alt=""
+                        className="sponsor__logo"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
 
-          {/*  <ul className="list-unstyled mb-0 ms-sm-3">
+              <p className="fs-5 text-light pt-3 mb-5">
+                By partnering with different suppliers, Donorport is able to expand its reach to
+                serve more communities across the world! Interesting in becoming a sponsor on
+                Donorport?
+              </p>
+
+              {/*  <ul className="list-unstyled mb-0 ms-sm-3">
               <li className="d-flex align-items-center py-1">
                 <div className="p-12p mr-12p">
                   <FontAwesomeIcon icon={solid('sailboat')} className="fs-3 text-primary" />
@@ -73,18 +76,19 @@ const Sponsors = () => {
                 </div>
               </li>
   </ul> */}
-            <Link
-              variant="info"
-              size="lg"
-              className="btn btn-lg btn-info fw-bold"
-              to="/partnership"
-            >
-              Apply
-            </Link>
-          </div>
-        </Container>
-      </div>
-    </DefaultLayout>
+              <Link
+                variant="info"
+                size="lg"
+                className="btn btn-lg btn-info fw-bold"
+                to="/partnership"
+              >
+                Apply
+              </Link>
+            </div>
+          </Container>
+        </div>
+      </DefaultLayout>
+    </Page>
   );
 };
 

@@ -54,7 +54,7 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
-                  <span className="fs-4 fw-bold text-light ms-3">
+                  <span className="fs-4 fw-bold text-light ms-3 fs-sm-4 fs-5">
                     {props.currencySymbol +
                       // priceFormat(
                       //   props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity

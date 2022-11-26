@@ -122,7 +122,7 @@ const Partnership = () => {
           <div className="password-reset position-relative">
             <Container fluid className="position-relative pb-5 pt-5">
               <h1 className="text-dark fw-bolder mb-6p pt-2">Join Forces</h1>
-              <div className="fs-5 fw-semibold text-light mb-5">
+              <div className="fs-5 text-light mb-5">
                 Tell us how you can help Donorport grow.
               </div>
 

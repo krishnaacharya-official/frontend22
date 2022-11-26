@@ -19,7 +19,7 @@ const Plans = (props) => {
         <Container fluid className="position-relative pb-5 pt-5">
           <div className="mw-600 pb-2 mb-4">
             <h1 className="text-dark fw-bolder mb-6p pt-2">Premium Plans</h1>
-            <div className="fs-5 fw-semibold text-light mb-4 lh-1.5">
+            <div className="fs-5 text-light mb-4 lh-1.5">
               Upgrade your organization's account to unlock more features including posting more
               items and creating more projects. You can cancel your plan at any time if you no
               longer require premium access to Donorport.

@@ -62,7 +62,7 @@ const LeaderBoard = () => {
             <h1 className="fs-2 text-dark fw-bolder" style={{ marginTop: '50px' }}>
               Leaderboard
             </h1>
-            <div className="fs-5 fw-semibold text-light" style={{ marginBottom: '56px' }}>
+            <div className="fs-5 text-light" style={{ marginBottom: '56px' }}>
               See where you rank among the top Donors in{' '}
               {user.countryName ? user.countryName : userData ? userData.country : ''}
             </div>

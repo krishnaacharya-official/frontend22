@@ -27,7 +27,7 @@ const Apply = (props) => {
           <Container fluid className="position-relative pb-5 pt-5 container-fluid">
             <div className="mw-600">
               <h1 className="text-dark fw-bolder mb-6p pt-2">New Charities</h1>
-              <div className="fs-5 fw-semibold text-light mb-4">
+              <div className="fs-5 text-light mb-4">
                 Active your account to create your organization's administration page or apply to
                 receive your activation code.
               </div>
@@ -90,6 +90,7 @@ const Apply = (props) => {
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
                       <input
+                        autoComplete="new-password"
                         type="text"
                         name="name"
                         value={name}
@@ -109,6 +110,7 @@ const Apply = (props) => {
                       <Select
                         className="basic-single"
                         classNamePrefix="select"
+                        autoComplete="new-password"
                         value={props.defaultCountry}
                         name="country"
                         options={countryList}
@@ -129,6 +131,7 @@ const Apply = (props) => {
                       <Select
                         className="basic-single"
                         classNamePrefix="select"
+                        autoComplete="new-password"
                         value={props.defaultCategory}
                         name="country"
                         options={categoryList}
@@ -146,6 +149,7 @@ const Apply = (props) => {
                     <label className="input__label flex__1">
                       <input
                         type="text"
+                        autoComplete="new-password"
                         name="organization"
                         value={organization}
                         onChange={(e) => changevalue(e)}
@@ -161,7 +165,13 @@ const Apply = (props) => {
 
                   <div className="input__wrap d-flex">
                     <label className="input__label flex__1">
-                      <input type="text" name="ein" value={ein} onChange={(e) => changevalue(e)} />
+                      <input
+                        type="text"
+                        autoComplete="new-password"
+                        name="ein"
+                        value={ein}
+                        onChange={(e) => changevalue(e)}
+                      />
                       {/* <span className="input__span">Employer Identification Number (EIN)</span> */}
                       <span className="input__span">Charity Registration Number</span>
                     </label>
@@ -174,6 +184,7 @@ const Apply = (props) => {
                     <label className="input__label flex__1">
                       <input
                         type="email"
+                        autoComplete="new-password"
                         name="email"
                         value={email}
                         onChange={(e) => changevalue(e)}
@@ -190,6 +201,7 @@ const Apply = (props) => {
                       <input
                         type="email"
                         name="confirmEmail"
+                        autoComplete="new-password"
                         value={confirmEmail}
                         onChange={(e) => changevalue(e)}
                       />
@@ -209,6 +221,7 @@ const Apply = (props) => {
                       <input
                         type="password"
                         name="password"
+                        autoComplete="new-password"
                         value={password}
                         onChange={(e) => changevalue(e)}
                       />
@@ -226,6 +239,7 @@ const Apply = (props) => {
                       <input
                         type="password"
                         name="cpassword"
+                        autoComplete="new-password"
                         value={cpassword}
                         onChange={(e) => changevalue(e)}
                       />

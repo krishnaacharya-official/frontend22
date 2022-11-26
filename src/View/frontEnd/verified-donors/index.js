@@ -14,7 +14,7 @@ const VerifiedDonors = () => {
       <div className="password-reset position-relative">
         <Container fluid className="position-relative pb-5 pt-5">
           <h1 className="text-dark fw-bolder mb-6p pt-2">Verified Donors</h1>
-          <div className="fs-5 fw-semibold text-light mb-5 mw-600">
+          <div className="fs-5 text-light mb-5 mw-600">
             Show your fans / followers your commitment to the community by
             becoming verified. Apply to become a verified donor. Verified
             accounts are able to leave comments on their donations.

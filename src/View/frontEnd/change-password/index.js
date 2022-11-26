@@ -111,7 +111,7 @@ const ChangePassword = () => {
         <div className="password-reset position-relative">
           <Container fluid className="position-relative pb-5 pt-3">
             <h1 className="fs-2 text-dark fw-bolder mb-6p">Change Password</h1>
-            <div className="fs-5 fw-semibold text-light mb-4">
+            <div className="fs-5 text-light mb-4">
               Complate below process to Change your password
             </div>
 

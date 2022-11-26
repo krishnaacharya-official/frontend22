@@ -63,7 +63,7 @@ function HistoryItem({ active, ...otherProps }) {
         sharedProps.active ? 'active' : ''
       }`}
     >
-      <div className="d-flex align-items-center w-100">
+      <div className="d-flex align-items-sm-center align-items-start w-100">
         <Avatar
           size={46}
           avatarUrl={getAvatarImage(avatar)}
@@ -115,7 +115,7 @@ function HistoryItem({ active, ...otherProps }) {
             )}
           </div>
         </div>
-        <span className="btn-sm ms-auto p-0">{getC.getUserRank(xp)}</span>
+        <span className="btn-sm ms-auto p-0 me-sm-0 me-2">{getC.getUserRank(xp)}</span>
 
         <div className="billing__value text-end">
           <div className="fs-5 fw-bold text-success mb-3p">
