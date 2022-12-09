@@ -94,8 +94,8 @@ const HistoryList = (props) => {
                           {order.currencySymbol ? order.currencySymbol : '$'}{' '}
                           {priceFormat(Number(order.total))}
                         </span>
-                        <span className="ml-6p text-light">
-                          {order.currency ? order.currency : 'USD'}
+                        <span className="ml-6p text-light fs-8">
+                          {order.currency ? order.currency : 'CAD'}
                         </span>
                       </span>
                       <span className="text-info fs-5 fw-bold">{order.xp ? order.xp : 200} xp</span>

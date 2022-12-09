@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 // import { ListItemImg } from "@components/atoms";
 import ListItemImg from '../../atoms/list-item-img';
 import helper, { priceFormat } from '../../../../../Common/Helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import './style.scss';
 
 const SummaryContent = (props) => {
   let cartItem = props.cartItem;
@@ -54,6 +57,11 @@ const SummaryContent = (props) => {
                       </Button>
                     </div>
                   </div>
+                  {item.productDetails?.tax && (
+                    <div className="checkout__tax p-1 d-flex align-items-center justify-content-center">
+                      <FontAwesomeIcon icon={solid('calculator')} className="text-info fs-4" />
+                    </div>
+                  )}
                   <span className="fs-4 fw-bold text-light ms-3 fs-sm-4 fs-5">
                     {props.currencySymbol +
                       // priceFormat(
@@ -94,7 +102,7 @@ const SummaryContent = (props) => {
           </div>
         </div>
       </div>
-      <div className="d-flex align-items-center pt-1 pb-4">
+      <div className="d-flex align-items-center pt-1 pb-2">
         <span className="fw-bolder flex__1">Total:</span>
         {/* <span className="text-subtext me-2 fs-7">USD</span> */}
         <span className="fw-bolder text-light fs-4">
@@ -107,19 +115,27 @@ const SummaryContent = (props) => {
               : 0)}
         </span>
       </div>
-
+      <div className="checkout__legend d-flex my-3 fs-7 p-2">
+        <FontAwesomeIcon icon={solid('calculator')} className="fs-4 text-info me-1" />
+        <span> You'll receive a tax deductabile receipt for this donation.</span>
+      </div>
       <div className="note note--info px-3 px-sm-0 text-start">
         All prices include merchant fees & sales tax. The organization(s) will receive the exact
-        amount required to purchase each unit. By completing the transaction, you have agreed to a
-        transfer of funds and not a gift-in-kind transaction, no physical goods are ordered or
-        delivered to the organization upon the completion of the sale. <br />
-        {/* </br> */}
-        <br />
-        {/* </br> */}
+        amount required to purchase each unit. Your donation is not a gift-in-kind transaction. No
+        physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}
         <a href="/pricing">Click here</a> to learn more.
+        <br />
+        <br />
+        <div className="d-flex">
+          <FontAwesomeIcon icon={solid('shield-halved')} className="fs-6 text-info me-2" />
+          <span>
+            {' '}
+            Your donation is gauranteed under our <a href="/">Giving Gaurantee.</a>
+          </span>
+        </div>
+        <br />
       </div>
     </div>
   );
 };
-
 export default SummaryContent;

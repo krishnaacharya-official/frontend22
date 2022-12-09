@@ -75,6 +75,9 @@ const PostsTable = (props) => {
         >
           {productList.length > 0 ? (
             productList.map((product, i) => {
+              let revenue = Number(product.displayPrice * product.soldout).toLocaleString('en-US', {
+                maximumFractionDigits: 2
+              });
               // console.log(product)
               return (
                 <li className="table__list-item p-2 border-bottom">
@@ -85,21 +88,12 @@ const PostsTable = (props) => {
                     >
                       <div className="ms-auto ms-sm-0 me-sm-2 post__value">
                         {product.status === 1 && (
-                          <div className="text-success fw-bold fs-4">
-
-
-
-
+                          <div className="text-light fw-bold fs-5">
                             {organizationDetails.symbol}
                             {priceFormat(
                               product.displayPrice ? product.displayPrice : product.price
                             )}
                             {/* {product.displayPrice ? product.displayPrice : product.price} */}
-
-
-
-
-                            
                           </div>
                         )}
                         <div className="text-light fw-light fs-8">
@@ -162,6 +156,11 @@ const PostsTable = (props) => {
                                 </div>
                               </div>
                             )}
+                            <div className="qty__tag ms-3 p-2 fw-bold text-light">
+                              <FontAwesomeIcon icon={solid('up')} className="text-success me-1" />{' '}
+                              {organizationDetails.symbol}
+                              {revenue}
+                            </div>
                           </div>
                         )}
                       </div>
@@ -317,7 +316,7 @@ const PostsTable = (props) => {
                             )}
                           </>
                         )}
-                        {product.isFulfiled && product.status === -1 && (
+                        {/*{product.isFulfiled && product.status === -1 && (
                           <Button
                             variant="info"
                             className=" mr-2"
@@ -325,7 +324,7 @@ const PostsTable = (props) => {
                           >
                             Publish
                           </Button>
-                        )}
+                        )}*/}
                       </div>
                     </div>
                   </div>

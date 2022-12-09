@@ -75,7 +75,7 @@ const AddProject = (props) => {
           Save as Draft
         </Button>
       </div>
-    {/*  <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
+      {/*  <div className="studio__note d-sm-flex align-items-center py-2 px-3 border rounded mb-5">
         <div className="studio__thumb p-1 mr-20p d-none d-sm-block">
           <img
             className="img-fluid"
@@ -102,19 +102,19 @@ const AddProject = (props) => {
 
       <div className="d-flex py-2 border-bottom">
         <h3 className="mb-0 fw-bolder me-2">Project Details</h3>
-        <div className="me-2">
+        <div className="d-flex align-items-center">
+          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p text-white">
+            Ongoing Need?
+            <FontAwesomeIcon icon={solid('infinity')} className="ml-3p" />
+          </div>
+        </div>
+        <div className="ms-2">
           <ToggleSwitch
             id="infinite"
             checked={infinite}
             name="infinite"
             changevalue={props.changevalue}
           />
-        </div>
-        <div className="d-flex align-items-center">
-          <div className="bg-purple text-nowrap fs-8 fw-semibold rounded-3 p-6p text-white">
-            Ongoing Need
-            <FontAwesomeIcon icon={solid('infinity')} className="ml-3p" />
-          </div>
         </div>
       </div>
       <Row className="mw-850 py-5">
@@ -239,7 +239,7 @@ const AddProject = (props) => {
                 </label>
               </div> */}
               <div
-                className="image-upload-wrap mb-3"
+                className="image-upload-wrap mb-3 fs-2"
                 style={{
                   ...imageuploadwrap,
                   backgroundColor: '#e5f4ff',

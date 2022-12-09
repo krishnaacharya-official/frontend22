@@ -9,14 +9,18 @@ import Avatar from '../Component/atoms/avatar';
 import SummaryContent from '../Component/organisms/summary-content';
 import useWindowSize from '../../../hooks/device-check';
 import { useSelector, useDispatch } from 'react-redux';
-
+import styled from 'styled-components';
 import './style.scss';
 import { Link } from 'react-router-dom';
 import { sortedLastIndex } from 'lodash';
 import { CircularProgress } from '@mui/material';
+import Slider from '@material-ui/core/Slider';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const Checkout = (props) => {
   const user = useSelector((state) => state.user);
+  let subtotal = props.subtotal;
   let total = props.total;
   let cartItem = props.cartItem;
   const [summary, showSummary] = useState(false);
@@ -26,7 +30,30 @@ const Checkout = (props) => {
   const userAuthToken = localStorage.getItem('userAuthToken');
   const userData = JSON.parse(localStorage.getItem('userData'));
 
+  const [show, setShow] = useState(false);
+
+  const showInput = () => {
+    setShow(true);
+  };
+  const hideInput = () => {
+    setShow(false);
+  };
+
+  const [value, setValue] = useState('');
+  const addCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const removeNonNumeric = (num) => num.toString().replace(/[^0-9]/g, '');
+
+  const handleChange = (event) => setValue(addCommas(removeNonNumeric(event.target.value)));
   // console.log(summaryElementRef.current?.clientHeight);
+  const marks = [
+    { value: 0, label: '0%' },
+    { value: 5, label: '' },
+    { value: 10, label: '' },
+    { value: 15, label: '' },
+    { value: 20, label: '' },
+    { value: 25, label: '' },
+    { value: 30, label: '30%' }
+  ];
 
   return (
     <div className="checkout__page">
@@ -320,14 +347,92 @@ const Checkout = (props) => {
                 </div>
               </div>
             </div>
-            <div className="note note--info mb-3">
+
+            <div className="px-3 px-sm-0 pb-4 pt-2">
+              <div className="d-flex">
+                <h5 className="project__detail-sublabel mb-2 fw-bolder">Help Donorport</h5>
+                <FontAwesomeIcon icon={regular('heart')} className="fs-6 ms-1" />
+              </div>
+
+              <div className="">
+                Donorport is a free service run by a small group of volunteers and relies on the
+                genorosity of donors like you to stay up and running.
+              </div>
+            </div>
+
+            <div className="d-flex flex-column" style={{ height: '125px' }}>
+              {!show && (
+                <div className="d-flex flex-column mt-5 flex-grow-1">
+                  <StyledSlider className="px-4">
+                    <Slider
+                      className="tip__slider"
+                      defaultValue={0}
+                      step={5}
+                      marks={marks}
+                      min={0}
+                      max={30}
+                      valueLabelDisplay="on"
+                      valueLabelFormat={(value) => (
+                        <div className="tip__label d-flex fs-5 fw-bold text-light">
+                          <div>
+                            $
+                            {((value / 100) * subtotal).toLocaleString('en-US', {
+                              maximumFractionDigits: 2
+                            })}
+                          </div>
+                          <span className="ms-1 fs-7 fw-semibold">({value}%)</span>
+                        </div>
+                      )}
+                    />
+                  </StyledSlider>
+
+                  <a
+                    style={{ marginTop: 'auto' }}
+                    href="#"
+                    onClick={() => {
+                      showInput();
+                    }}
+                  >
+                    Custom Tip
+                  </a>
+                </div>
+              )}
+              {show && (
+                <div className="d-flex flex-column flex-grow-1">
+                  <StyledInput>
+                    <TextField
+                      value={value}
+                      onChange={handleChange}
+                      helperText="Enter a tip amount"
+                      id="outlined-tel"
+                      variant="outlined"
+                      type="tel"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">{props.currencySymbol}</InputAdornment>
+                        )
+                      }}
+                    />
+                  </StyledInput>
+                  <a
+                    style={{ marginTop: 'auto' }}
+                    href="#"
+                    onClick={() => {
+                      hideInput();
+                    }}
+                  >
+                    Back to slider
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className="note note--info mb-3 mt-5">
               Your payment will be processed when you click Pay. By doing so you agree to the
               Donorport{' '}
               <a href="#">
                 <span className="text-subtext">Terms and Conditions.</span>
               </a>
             </div>
-
             <div className="d-flex align-items-center pb-20p">
               <Button
                 style={{ width: '100%', opacity: props.isLoading ? '0.7' : '1' }}
@@ -346,7 +451,6 @@ const Checkout = (props) => {
                 {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={14} />}
               </Button>
             </div>
-
             <div className="fs-6 d-flex justify-content-center mt-3 pb-20p">
               <FontAwesomeIcon icon={solid('lock-keyhole')} className="me-1" /> Payments are secure
               and encrypted
@@ -405,5 +509,68 @@ const Checkout = (props) => {
     </div>
   );
 };
-
+const StyledInput = styled.div`
+  & .MuiOutlinedInput-input,
+  & .MuiInputBase-input,
+  & .MuiInputAdornment-root > p {
+    font-weight: 700;
+    font-size: 21px;
+    font-family: 'Jcfonts linotte', Arial, sans-serif;
+    color: #9896b1;
+  }
+`;
+const StyledSlider = styled.div`
+  & .tip__label {
+    font-family: 'Jcfonts linotte', Arial, sans-serif;
+  }
+  & .tip__slider {
+    & .MuiSlider-rail {
+      height: 9px;
+      background-color: #3898ec;
+      border-radius: 19px;
+    }
+    & .MuiSlider-mark {
+      width: 4px;
+      height: 9px;
+      background-color: #fff;
+    }
+    & .MuiSlider-markLabel {
+      font-family: 'Jcfonts linotte';
+      font-weight: 600;
+      top: 9px;
+      transform: translateX(50%);
+    }
+    & .MuiSlider-markLabel[data-index='0'] {
+      transform: translateX(-150%);
+      color: rgba(0, 0, 0, 0.54) !important;
+    }
+    & .MuiSlider-mark[data-index='6'] {
+      display: none;
+    }
+    & .MuiSlider-markActive {
+      display: none;
+      color: rgba(0, 0, 0, 0.54) !important;
+    }
+    & .MuiSlider-track {
+      height: 9px;
+      display: block;
+      position: absolute;
+      background-color: #3898ec;
+      border-radius: 19px;
+    }
+    & .MuiSlider-valueLabel {
+      color: #ffffff00 !important;
+    }
+    & .MuiSlider-thumb {
+      height: 29px;
+      width: 29px;
+      background-color: #3898ec;
+      border: 4px solid #bedaf8;
+      margin-top: -10px;
+    }
+    &.PrivateValueLabel-circle {
+      background-color: unset !important;
+    }
+  }
+`;
 export default Checkout;

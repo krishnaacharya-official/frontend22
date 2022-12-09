@@ -1406,18 +1406,14 @@ const AdminPosts = (props) => {
             <header className="py-sm-2 mb-3 w-100 d-sm-flex align-items-center">
               <h1 className="d-none d-sm-flex page__title mb-0 fs-3 fw-bolder me-2">Posts</h1>
               <span className="d-none d-sm-flex text-light fs-5 ml-2">({totalRecord})</span>
-              {totalPriceArray.length > 0 &&
-                totalPriceArray.map((val, index) => {
-                  return (
-                    <span className="d-none d-sm-flex item__total-wrap d-flex ms-3" key={index}>
-                      <FontAwesomeIcon
-                        icon={solid('money-bills-simple')}
-                        className="text-dark mr-12p fs-4"
-                      />
-                      {val[0]} {val[1]}
-                    </span>
-                  );
-                })}
+
+              <span className="d-none d-sm-flex item__total-wrap d-flex ms-3">
+                <FontAwesomeIcon
+                  icon={solid('money-bills-simple')}
+                  className="text-dark mr-12p fs-4"
+                />
+                $234.56
+              </span>
 
               <div className="d-flex align-items-center ms-sm-auto">
                 <Button
@@ -1563,9 +1559,6 @@ const AdminPosts = (props) => {
             <Card className="mt-5">
               <Row className="mw-850 ml-5">
                 <Col lg="6">
-                  <Card.Header className="post__accordion-header pb-3">
-                    <span className="fs-3 fw-bolder text-dark">Order Summary</span>
-                  </Card.Header>
                   {!fulfilProductDetails?.isFulfiled && (
                     <label htmlFor="videoInput" className="form__label mt-3">
                       Transaction Details
@@ -1574,8 +1567,11 @@ const AdminPosts = (props) => {
 
                   <div
                     className="order__widget mt-3 "
-                    style={{ border: fulfilProductDetails?.isFulfiled ? 'unset' : '' }}
+                    //style={{ border: fulfilProductDetails?.isFulfiled ? 'unset' : '' }}
                   >
+                    <Card.Header className="post__accordion-header pb-3 mb-3">
+                      <span className="fs-3 fw-bolder text-dark">Order Summary</span>
+                    </Card.Header>
                     <div className="border-bottom">
                       <div className="d-flex align-items-center fw-bolder mb-20p">
                         <span className="flex__1">
@@ -1686,7 +1682,7 @@ const AdminPosts = (props) => {
                         </div> */}
 
                       <div
-                        className="image-upload-wrap mb-3"
+                        className="image-upload-wrap mb-3 fs-2"
                         style={{
                           ...imageuploadwrap,
                           backgroundColor: '#e5f4ff',
@@ -1741,7 +1737,7 @@ const AdminPosts = (props) => {
                       </label>
 
                       <div
-                        className="image-upload-wrap mb-3"
+                        className="image-upload-wrap mb-3 fs-2"
                         style={{
                           ...imageuploadwrap,
                           backgroundColor: '#e5f4ff',
@@ -1786,7 +1782,7 @@ const AdminPosts = (props) => {
                         </p>
                       )}
 
-                      <Card.Header className="post__accordion-header pb-3 mt-3">
+                      <Card.Header className="post__accordion-header pb-3 mt-5">
                         <span className="fs-3 fw-bolder text-dark">Sales Receipt</span>
                       </Card.Header>
                       <div className="my-3 pb-5  d-flex align-item-center">
@@ -1924,7 +1920,7 @@ const AdminPosts = (props) => {
                           //   </label>
                           // </div>
                           <div
-                            className="image-upload-wrap mb-3"
+                            className="image-upload-wrap mb-3 fs-2"
                             style={{
                               ...imageuploadwrap,
                               backgroundColor: '#e5f4ff',

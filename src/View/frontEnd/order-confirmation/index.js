@@ -47,13 +47,16 @@ const OrderConfirmPage = () => {
   }, [params.id]);
   //
 
+  //let cardType = JSON.parse(orderDetails.paymentResponse)?.payment_method_details?.card?.brand;
+  //let lastFourDigits = JSON.parse(orderDetails.paymentResponse)?.payment_method_details?.card?.last4;
+
   return (
     <>
       <Page title={'Order | ' + orderDetails.uniqueTransactionId}>
         <DefaultLayout>
           {/* <FrontLoader loading={loading} />*/}
           <div className="container-fluid d-flex flex-wrap">
-            <div className="col-sm-6 d-flex flex-column align-items-sm-center align-items-stretch py-5 text-center">
+            <div className="col-sm-6 d-flex flex-column align-items-sm-center align-items-stretch py-5 text-center pb-0 pb-sm-5">
               {/* <img
                 style={{ width: '320px' }}
                 src="https://i.pinimg.com/originals/7f/91/19/7f9119b483a3b4c966bdbad251f0b483.gif"
@@ -102,7 +105,7 @@ const OrderConfirmPage = () => {
                 </Link>
 
                 <Link
-                  to={'/user/' + newSlug + '/history'}
+                  to={'/user/' + newSlug + '/items'}
                   className="btn btn-lg fw-bold btn-info my-2 flex-grow-sm-0 flex-grow-1"
                 >
                   Go to Order
@@ -180,14 +183,7 @@ const OrderConfirmPage = () => {
                                   </div>
                                 </div>*/}
                               </div>
-                              <h4
-                                className="text-light fs-4 fw-bolder"
-                                style={{
-                                  background: '#f8fafd',
-                                  borderRadius: '4px',
-                                  padding: '3px 9px'
-                                }}
-                              >
+                              <h4 className="order__itemtotal text-light fs-5 fw-bold">
                                 {orderDetails.currencySymbol}
                                 {priceFormat(Number(itm.totalPrice))}
                               </h4>
@@ -254,14 +250,14 @@ const OrderConfirmPage = () => {
                   </div>
                 </div>
                 <div className="total__box">
-                  <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3 border-top pt-3">
+                  <div className="order__container d-flex align-items-center justify-content-between mt-3 border-top pt-3">
                     <div className="order__wrap">
                       <p className="total__title fs-5 fw-bolder">Total Paid:</p>
                     </div>
                     <div className="order__value text-light">
                       <p>
                         {orderDetails.currency}
-                        <b className="fs-3 text-light">
+                        <b className="fs-4 text-light">
                           {' '}
                           {orderDetails.currencySymbol}
                           {priceFormat(Number(orderDetails.subtotal) + 0.3)}
@@ -270,19 +266,21 @@ const OrderConfirmPage = () => {
                     </div>
                   </div>
 
-                  {/*<div className="bg-lighter d-flex align-items-center p-20p rounded">
-                      <div className="order__logo me-2">
-                        <img src={getCardIcon(cardType)} alt="" className="img-fluid" />
+                  {/*      <div className="bg-lighter d-flex align-items-center p-20p rounded">
+                    <div className="order__logo me-2">
+                      <img src={getCardIcon(cardType)} alt="" className="img-fluid" />
+                    </div>
+                    <div className="order__card fs-7">
+                      <div className="text-dark fw-semibold mb-6p">
+                        XXXX XXXX XXXX {lastFourDigits}
                       </div>
-                      <div className="order__card fs-7">
-                        <div className="text-dark fw-semibold mb-6p">
-                          XXXX XXXX XXXX {lastFourDigits}
-                        </div>
-                        <div className="text-light fw-semibold">
-                          <div>Transaction: {moment(item.created_at).format('MMMM DD,YYYY')}</div>
+                      <div className="text-light fw-semibold">
+                        <div>
+                          Transaction: {moment(orderDetails.created_at).format('MMMM DD,YYYY')}
                         </div>
                       </div>
-                    </div>*/}
+                    </div>
+                  </div>*/}
                 </div>
               </div>
             </div>

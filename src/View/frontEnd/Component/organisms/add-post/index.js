@@ -780,7 +780,7 @@ const AddPost = (props) => {
                           </div> */}
 
                           <div
-                            className="image-upload-wrap mb-3"
+                            className="image-upload-wrap mb-3 fs-2"
                             style={{
                               ...imageuploadwrap,
                               backgroundColor: '#e5f4ff',
@@ -1068,7 +1068,7 @@ const AddPost = (props) => {
                         </div> */}
 
                         <div
-                          className="image-upload-wrap mb-3"
+                          className="image-upload-wrap mb-3 fs-2"
                           style={{
                             ...imageuploadwrap,
                             backgroundColor: '#e5f4ff',
@@ -1268,12 +1268,12 @@ const AddPost = (props) => {
             style={{ opacity: props.isLoading ? '0.7' : '1' }}
             variant="success"
             size="lg"
-            className="fw-bold fs-6"
+            className="d-flex align-items-center justify-content-center fs-6 fw-bold"
             onClick={() => !props.isLoading && submitProductForm(1)}
           >
-            Post Ad
+            Post Ad{' '}
+            {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={14} />}
           </Button>
-          {props.isLoading && <CircularProgress style={{ marginLeft: '30px' }} />}
         </div>
       </div>
     </div>

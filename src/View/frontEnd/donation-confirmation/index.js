@@ -51,7 +51,7 @@ const DonationConfirmPage = () => {
       <Page title={'Donation | ' + doantionDetails.uniqueTransactionId}>
         <DefaultLayout>
           <div className="container-fluid d-flex flex-wrap">
-            <div className="col-sm-6 d-flex flex-column align-items-sm-center align-items-stretch py-5 text-center">
+            <div className="col-sm-6 d-flex flex-column align-items-sm-center align-items-stretch py-5 text-center pb-0 pb-sm-5">
               <div className="boat-container relative mb-3">
                 <div className="absolute boat">
                   <ul className="no-bullet">
@@ -96,12 +96,22 @@ const DonationConfirmPage = () => {
                 >
                   Back To Home
                 </Link>
-                <Link
-                  to={'/project/' + doantionDetails?.projectDetails?.slug}
-                  className="btn btn-lg fw-bold btn-info my-2 flex-grow-sm-0 flex-grow-1"
-                >
-                  Go to Project
-                </Link>
+                {doantionDetails.type === 'PROJECT' && (
+                  <Link
+                    to={'/project/' + doantionDetails?.projectDetails?.slug}
+                    className="btn btn-lg fw-bold btn-info my-2 flex-grow-sm-0 flex-grow-1"
+                  >
+                    Go to Project
+                  </Link>
+                )}
+                {!doantionDetails.type === 'PROJECT' && (
+                  <Link
+                    to={'/user/' + newSlug + '/items'}
+                    className="btn btn-lg fw-bold btn-info my-2 flex-grow-sm-0 flex-grow-1"
+                  >
+                    Go to Profile
+                  </Link>
+                )}
               </div>
             </div>
             <div className="email__container border my-5 p-3">
@@ -115,7 +125,7 @@ const DonationConfirmPage = () => {
               </div>
               <div className="total__container mt-3">
                 <div role="list" className="d-flex flex-column gap-5 my-5">
-                  <div data-id="product" role="listitem" className="email__item w-dyn-item">
+                  <div data-id="product" role="listitem" className="pb-3 border-bottom">
                     <div className="checkout__top d-flex align-items-center flex-row flex-nowrap">
                       <div className="checkout__left d-flex flex-row align-items-center flex-wrap">
                         <div className="checkout__thumb position-relative d-flex align-items-center justify-content-center">
@@ -157,7 +167,7 @@ const DonationConfirmPage = () => {
                             <div className="checkout__tag d-flex justify-content-center"></div>
                           </div>
                         </div>
-                        <h4>
+                        <h4 className="order__itemtotal text-light fs-5 fw-bold">
                           {doantionDetails?.currencySymbol}
                           {doantionDetails.amount}
                         </h4>
@@ -176,14 +186,14 @@ const DonationConfirmPage = () => {
                   </div>
                 </div>
                 <div className="total__box">
-                  <div className="order__container d-flex align-items-center justify-content-between mt-3 mx-3">
+                  <div className="order__container d-flex align-items-center justify-content-between mt-3 border-top pt-3">
                     <div className="order__wrap">
                       <p className="total__title fs-4 fw-bolder">Total Paid:</p>
                     </div>
                     <div className="order__value text-light">
                       <p>
                         {doantionDetails.currency}
-                        <b className="fw-bold fs-3 text-light">
+                        <b className="fs-4 text-light">
                           {' '}
                           {doantionDetails?.currencySymbol}
                           {doantionDetails.amount}

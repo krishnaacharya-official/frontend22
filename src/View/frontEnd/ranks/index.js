@@ -57,7 +57,7 @@ const Ranks = () => {
   }, []);
   return (
     <>
-      <Page title="Donorport | XP"></Page>
+      <Page title="Donorport | XP">
       <FrontLoader loading={loading} />
       <DefaultLayout>
         <Container fluid className="pt-5">
@@ -212,6 +212,7 @@ const Ranks = () => {
           </div>
         </Container>
       </DefaultLayout>
+      </Page>
     </>
   );
 };

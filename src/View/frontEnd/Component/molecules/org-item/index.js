@@ -33,6 +33,7 @@ function OrganisationItem(props) {
   let image = props.tagTitle === 'Project' ? product?.itemDetails?.image : product?.image;
   let soldout = props.tagTitle === 'Project' ? product?.itemDetails?.soldout : product?.soldout;
   let quantity = props.tagTitle === 'Project' ? product?.itemDetails?.quantity : product?.quantity;
+  let available = quantity - soldout;
   let slug = props.tagTitle === 'Project' ? product?.itemDetails?.slug : product?.slug;
   let isFulfiled =
     props.tagTitle === 'Project' ? product?.itemDetails?.isFulfiled : product?.isFulfiled;
@@ -150,7 +151,7 @@ function OrganisationItem(props) {
                   }}
                   railStyle={{ backgroundColor: '#C7E3FB', height: '8px' }}
                   min={1}
-                  max={infinite ? 999 : Number(quantity)}
+                  max={infinite ? 999 : Number(available)}
                   // onChange={(e) => setTotalPrice({
                   //   ...props.productPrice,
                   //   [product?.itemDetails?._id]:e*productPrice
@@ -182,7 +183,7 @@ function OrganisationItem(props) {
                     />
                   </div>
                 ) : (
-                  quantity
+                  available
                 )}
               </div>
             </div>
