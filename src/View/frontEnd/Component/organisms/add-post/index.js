@@ -12,12 +12,11 @@ import {
   Row,
   Dropdown
 } from 'react-bootstrap';
-
+import { Link, Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 // import { ToggleSwitch, FeedTag } from "@components/atoms";
 import ToggleSwitch from '../../atoms/toggle-switch';
 import FeedTag from '../../atoms/feed-tag';
 import * as Icon from '../../atoms/category-icons';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import categoryApi from '../../../../../Api/admin/category';
 import projectApi from '../../../../../Api/admin/project';
 import productApi from '../../../../../Api/admin/product';
@@ -36,7 +35,7 @@ import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { CircularProgress } from '@mui/material';
-import { Link } from 'react-router-dom';
+
 // require('mapbox-gl/dist/mapbox-gl.css');
 
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default; // eslint-disable-line

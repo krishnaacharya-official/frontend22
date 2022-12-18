@@ -15,7 +15,7 @@ if (window.location.hostname === 'localhost') {
   BASE_URL = 'http://localhost:8080/';
 }
 const AWS_S3_BUCKET_BASE_URL = 'https://donorport.s3.us-west-2.amazonaws.com/';
-
+console.log({BASE_URL})
 let helper = {
   ApiUrl: BASE_URL + 'api/',
   CampaignAdminLogoPath: AWS_S3_BUCKET_BASE_URL + 'images/campaign/logo/resize/',
