@@ -8,3 +8,11 @@
   background: #eff4fb;
   border-radius: 4px;
 }
+.checkout__subtotal--price {
+  width: 85px;
+}
+@include media-breakpoint-down(sm) {
+  .checkout__subtotal--price {
+    width: auto;
+  }
+}

@@ -69,7 +69,7 @@
   padding: 3px $dropdown-item-padding-x;
   clear: both;
   font-weight: normal;
-  color: $dropdown-link-color;
+  color: inherit;
   text-align: inherit; // For `<button>`s
   white-space: nowrap; // prevent links from randomly breaking onto new lines
   background: none; // For `<button>`s

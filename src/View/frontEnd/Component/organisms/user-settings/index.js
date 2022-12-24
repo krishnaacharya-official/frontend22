@@ -69,7 +69,7 @@ const UserSettings = (props) => {
     <>
       <Dropdown className="d-flex" autoClose="outside">
         <Dropdown.Toggle as={UserButton}>
-          <Avatar size={39} className={userData ? 'donor_avatar_bg' : 'charity_avatar_bg'} style={{ border: "", boxShadow: "" }} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
+          <Avatar size={39} className={userData ? 'donor_avatar_bg' : 'charity_avatar_bg'} avatarUrl={user.profileImage ? user.profileImage : AvatarImg} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="profile__dropdown w-310 dropdown-top-arrow">

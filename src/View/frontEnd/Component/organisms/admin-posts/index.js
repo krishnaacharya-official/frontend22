@@ -1813,16 +1813,7 @@ const AdminPosts = (props) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu className="">
-                              <Dropdown.Item
-                                className="d-flex align-items-center p-2"
-                                onClick={() =>
-                                  download(
-                                    helper.FulfilRecieptPath +
-                                      fulfilProductDetails?.fulfilDetails?.receipt,
-                                    fulfilProductDetails?.fulfilDetails?.receipt
-                                  )
-                                }
-                              >
+                              <Dropdown.Item className="d-flex align-items-center p-2">
                                 <span className="fw-bold fs-7 flex__1">View</span>
                                 <FontAwesomeIcon
                                   icon={solid('magnifying-glass')}
@@ -1850,14 +1841,11 @@ const AdminPosts = (props) => {
                                   </a> */}
                                 <FontAwesomeIcon icon={regular('download')} className="ms-1" />
                               </Dropdown.Item>
-                              {/* <Dropdown.Divider /> */}
-                              {/* <Dropdown.Item className="d-flex align-items-center p-2">
-                              <span className="fw-bold fs-7 flex__1">Delete</span>
-                              <FontAwesomeIcon
-                                icon={regular("trash")}
-                                className="ms-1"
-                              />
-                            </Dropdown.Item> */}
+                              <Dropdown.Divider />
+                              <Dropdown.Item className="d-flex align-items-center p-2">
+                                <span className="fw-bold fs-7 flex__1">Delete</span>
+                                <FontAwesomeIcon icon={regular('trash')} className="ms-1" />
+                              </Dropdown.Item>
                             </Dropdown.Menu>
                           </Dropdown>
                         </div>

@@ -44,7 +44,10 @@ const SummaryContent = (props) => {
                     </div>
 
                     <div className="ms-2">
-                      <Button variant="link" className="text-dark fw-bolder p-0 mb-3p fs-4">
+                      <Button
+                        variant="link"
+                        className="text-dark text-start fw-bolder p-0 mb-3p fs-4"
+                      >
                         {item?.productDetails?.headline}
                       </Button>
                       <div className="text-light mb-1">{item?.productDetails?.brand} ®</div>
@@ -62,7 +65,7 @@ const SummaryContent = (props) => {
                       <FontAwesomeIcon icon={solid('calculator')} className="text-info fs-4" />
                     </div>
                   )}
-                  <span className="fs-4 fw-bold text-light ms-3 fs-sm-4 fs-5">
+                  <span className="checkout__subtotal--price text-end fs-4 fw-bold text-light ms-3 fs-sm-4 fs-4">
                     {props.currencySymbol +
                       // priceFormat(
                       //   props.CalculatedPrice.getData(item.productDetails?.price) * item.quantity
@@ -107,19 +110,14 @@ const SummaryContent = (props) => {
         {/* <span className="text-subtext me-2 fs-7">USD</span> */}
         <span className="fw-bolder text-light fs-4">
           {/* {props.currencySymbol + priceFormat(total ? total : 0)} */}
-          {props.currencySymbol +
-            (total
-              ? Number(total).toLocaleString('en-US', {
-                  maximumFractionDigits: 2
-                })
-              : 0)}
+          {props.currencySymbol + priceFormat(total)}
         </span>
       </div>
       <div className="checkout__legend d-flex my-3 fs-7 p-2">
         <FontAwesomeIcon icon={solid('calculator')} className="fs-4 text-info me-1" />
         <span> You'll receive a tax deductabile receipt for this donation.</span>
       </div>
-      <div className="note note--info px-3 px-sm-0 text-start">
+      <div className="note note--info px-0 text-start">
         All prices include merchant fees & sales tax. The organization(s) will receive the exact
         amount required to purchase each unit. Your donation is not a gift-in-kind transaction. No
         physical goods are ordered or delivered to the organization upon the completion of the sale.{' '}

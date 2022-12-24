@@ -746,11 +746,10 @@ const PaymentMethod = () => {
         if (field === 'transectionKey') {
           fdata.value = transectionKey;
         }
-
         // console.log('first')
         const updateSalesTax = await adminCampaignApi.updateSalesTax(token, fdata);
         if (updateSalesTax && updateSalesTax.data.success) {
-          // ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
+          ToastAlert({ msg: updateSalesTax.data.message, msgType: 'success' });
         } else {
           ToastAlert({ msg: 'Something Went Wrong', msgType: 'error' });
         }
@@ -935,8 +934,14 @@ const PaymentMethod = () => {
           The tax rate will be automatically added to the unit price of items you post to make sure
           you enough funds to cover the sales tax when you purchase the items.
         </div>
-        <Button variant="info" onClick={() => myFunction('taxRate')}>
-          Save
+        <Button
+          variant="info"
+          onClick={() => !loading && myFunction('taxRate')}
+          style={{
+            opacity: loading ? '0.7' : '1'
+          }}
+        >
+          Save {loading && <CircularProgress className="ms-2" color="inherit" size={14} />}
         </Button>
 
         <div className="mb-5 mt-5">

@@ -6,6 +6,7 @@ import ListItemImg from '../Component/atoms/list-item-img';
 import helper, { priceFormat, getCalculatedPrice, getCardIcon } from '../../../Common/Helper';
 import Page from '../../../components/Page';
 import ShareWidget from '../Component/organisms/share-widget';
+import moment from 'moment';
 import './style.scss';
 
 const OrderConfirmPage = () => {
@@ -46,9 +47,10 @@ const OrderConfirmPage = () => {
     })();
   }, [params.id]);
   //
-
-  //let cardType = JSON.parse(orderDetails.paymentResponse)?.payment_method_details?.card?.brand;
-  //let lastFourDigits = JSON.parse(orderDetails.paymentResponse)?.payment_method_details?.card?.last4;
+  let cardType = JSON.parse(orderDetails?.paymentResponse || '{}')?.data?.payment_method_details
+    ?.card?.brand;
+  let lastFourDigits = JSON.parse(orderDetails?.paymentResponse || '{}')?.data
+    ?.payment_method_details?.card?.last4;
 
   return (
     <>
@@ -151,7 +153,7 @@ const OrderConfirmPage = () => {
                               <div className="checkout__info d-flex flex-column flex-wrap align-items-start px-3">
                                 <Link
                                   to={'/item/' + itm.itemDetails.slug}
-                                  className="text-dark fw-bolder p-0 mb-3p fs-4 btn btn-link"
+                                  className="text-dark text-start fw-bolder p-0 mb-3p fs-4 btn btn-link"
                                 >
                                   <div>{itm.itemDetails.headline}</div>
                                 </Link>
@@ -265,8 +267,7 @@ const OrderConfirmPage = () => {
                       </p>
                     </div>
                   </div>
-
-                  {/*      <div className="bg-lighter d-flex align-items-center p-20p rounded">
+                  <div className="bg-lighter d-flex align-items-center p-20p rounded">
                     <div className="order__logo me-2">
                       <img src={getCardIcon(cardType)} alt="" className="img-fluid" />
                     </div>
@@ -280,7 +281,7 @@ const OrderConfirmPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>*/}
+                  </div>
                 </div>
               </div>
             </div>

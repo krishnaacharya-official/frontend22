@@ -73,16 +73,16 @@ function OrganisationTeamItem(props) {
         ''
       )}
       {props.showContact ? (
-        <Button variant="outline-info" size="lg" className="ms-auto fw-bold">
+        <Button variant="outline-info" size="sm" className="ms-auto fw-bold">
           Contact
         </Button>
       ) : (
         ''
       )}
       {!member.status && (
-        <Button variant="outline-primary" size="lg" className="ms-auto fw-bold">
+        <span className="d-flex align-items-center ms-auto fw-bold me-2" style={{ height: '46px' }}>
           PENDING
-        </Button>
+        </span>
       )}
       &nbsp;
       {!props.isCurrent && (

@@ -17,6 +17,7 @@ import { CircularProgress } from '@mui/material';
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { priceFormat } from 'src/Common/Helper';
 
 const Checkout = (props) => {
   const user = useSelector((state) => state.user);
@@ -75,12 +76,7 @@ const Checkout = (props) => {
             </div>
 
             <span className="fw-bold text-light fs-4">
-              {props.currencySymbol +
-                (total
-                  ? Number(total).toLocaleString('en-US', {
-                      maximumFractionDigits: 2
-                    })
-                  : 0)}
+              {props.currencySymbol + priceFormat(total)}
             </span>
           </div>
 
@@ -348,7 +344,7 @@ const Checkout = (props) => {
               </div>
             </div>
 
-            <div className="px-3 px-sm-0 pb-4 pt-2">
+            <div className="pb-4 pt-2">
               <div className="d-flex">
                 <h5 className="project__detail-sublabel mb-2 fw-bolder">Help Donorport</h5>
                 <FontAwesomeIcon icon={regular('heart')} className="fs-6 ms-1" />
@@ -388,7 +384,7 @@ const Checkout = (props) => {
 
                   <a
                     style={{ marginTop: 'auto' }}
-                    href="#"
+                    href="javascript:;"
                     onClick={() => {
                       showInput();
                     }}
@@ -415,8 +411,9 @@ const Checkout = (props) => {
                     />
                   </StyledInput>
                   <a
+                    href="javascript:;"
+                    className="link"
                     style={{ marginTop: 'auto' }}
-                    href="#"
                     onClick={() => {
                       hideInput();
                     }}
@@ -441,13 +438,7 @@ const Checkout = (props) => {
                 className="d-flex align-items-center justify-content-center fs-6 fw-bold"
                 onClick={() => !props.isLoading && props.pay()}
               >
-                Pay{' '}
-                {props.currencySymbol +
-                  (total
-                    ? Number(total).toLocaleString('en-US', {
-                        maximumFractionDigits: 2
-                      })
-                    : 0)}
+                Pay {props.currencySymbol + priceFormat(total)}
                 {props.isLoading && <CircularProgress className="ms-2" color="inherit" size={14} />}
               </Button>
             </div>

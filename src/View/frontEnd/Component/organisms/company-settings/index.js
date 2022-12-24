@@ -7,6 +7,7 @@ import { validateAll } from 'indicative/validator';
 import ToastAlert from '../../../../../Common/ToastAlert';
 import adminCampaignApi from '../../../../../Api/admin/adminCampaign';
 import { Button } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 // import { UserContext } from '../../../../../App';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -304,7 +305,7 @@ const CompanySettings = () => {
       name: 'required',
       mission: 'required',
       //promoVideo: "required",
-      city: 'required',
+      //city: 'required',
       stateId: 'required',
       country: 'required',
       category: 'required',
@@ -317,7 +318,7 @@ const CompanySettings = () => {
       //'promoVideo.required': 'Promo Video is Required.',
       'ein.required': 'Ein Number is Required.',
       'stateId.required': 'State is Required.',
-      'city.required': 'City is Required.',
+      //'city.required': 'City is Required.',
       'country.required': 'Country is Required.',
       'category.required': 'Category is Required.'
     };
@@ -349,7 +350,7 @@ const CompanySettings = () => {
           // console.log(logo)
         }
 
-        setLoading(false);
+        setLoading(true);
         const addUser = await adminCampaignApi.saveCampaignDetails(token, fdata);
         if (addUser) {
           if (!addUser.data.success) {
@@ -400,7 +401,7 @@ const CompanySettings = () => {
           label: 'Yes',
 
           onClick: async () => {
-            setLoading(false);
+            setLoading(true);
             const deleteUser = await adminCampaignApi.deleteCampaignAdmin(token, id);
             if (deleteUser) {
               if (!deleteUser.data.success) {
@@ -435,7 +436,7 @@ const CompanySettings = () => {
   };
   return (
     <>
-      <FrontLoader loading={loading} />
+      {/* <FrontLoader loading={loading} />*/}
       <div className="mb-5 mw-400">
         <h4 className="fw-bolder">About</h4>
         <div className="text-subtext mb-3">This info appears on your organization's page:</div>
@@ -632,8 +633,15 @@ const CompanySettings = () => {
             src={embedlink}
           ></iframe>
         </div> */}
-        <Button variant="info" className="mt-3 mb-3" onClick={() => updateProfile()}>
-          Save Details
+        <Button
+          variant="info"
+          className="mt-3 mb-3"
+          onClick={() => !loading && updateProfile()}
+          style={{
+            opacity: loading ? '0.7' : '1'
+          }}
+        >
+          Save Details {loading && <CircularProgress className="ms-2" color="inherit" size={14} />}
         </Button>
         <div className="fw-bolder mb-3">Account Deactivation</div>
         <div className="deactivate">
@@ -656,8 +664,14 @@ const CompanySettings = () => {
             Deactivate
           </a> */}
 
-          <button className="btn btn--deactivate" onClick={() => deleteAccount(data._id)}>
-            Deactivate
+          <button
+            className="btn btn--deactivate"
+            onClick={() => !loading && deleteAccount(data._id)}
+            style={{
+              opacity: loading ? '0.7' : '1'
+            }}
+          >
+            Deactivate {loading && <CircularProgress className="ms-2" color="inherit" size={14} />}
           </button>
         </div>
       </div>

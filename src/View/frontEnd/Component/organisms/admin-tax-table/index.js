@@ -289,7 +289,7 @@ const AdminTaxTable = (props) => {
                                       </div>
                                     </div>
                                   </Button>
-                                  {/* <Dropdown className="d-flex ms-auto" autoClose="outside">
+                                  <Dropdown className="d-flex ms-auto" autoClose="outside">
                                     <Dropdown.Toggle
                                       variant="link"
                                       className="no-caret text-decoration-none"
@@ -310,16 +310,11 @@ const AdminTaxTable = (props) => {
                                       </Dropdown.Item>
                                       <Dropdown.Divider />
                                       <Dropdown.Item className="d-flex align-items-center p-2">
-                                        <span className="fw-bold fs-7 flex__1">Edit</span>
-                                        <FontAwesomeIcon icon={light('pen')} className="ms-1" />
-                                      </Dropdown.Item>
-                                      <Dropdown.Divider />
-                                      <Dropdown.Item className="d-flex align-items-center p-2">
                                         <span className="fw-bold fs-7 flex__1">Delete</span>
                                         <FontAwesomeIcon icon={regular('trash')} className="ms-1" />
                                       </Dropdown.Item>
                                     </Dropdown.Menu>
-                                  </Dropdown>*/}
+                                  </Dropdown>
                                 </div>
                               ) : (
                                 <Button

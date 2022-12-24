@@ -286,7 +286,7 @@ const AddPost = (props) => {
                         <div className="info-wrap">
                           <div className="fs-6 mb-3p">Your post will be posted in</div>
                           <h3 className="mb-0 fs-4 fw-bolder">
-                            {convertAddress(location.locationName)}
+                            {location.locationName}
                           </h3>
                         </div>
                       </div>

@@ -105,7 +105,6 @@ const UserBilling = () => {
 
   return (
     <>
-      <FrontLoader loading={loading} />
       <div className="mb-5">
         <div className="d-sm-flex align-items-center mb-5 mb-sm-3">
           <div className="flex__1 mb-2">

@@ -75,7 +75,6 @@ const HistoryList = (props) => {
           orderList.map((order, i) => {
             // console.log(order.uniqueTransactionId)
             let last4 = JSON.parse(order.paymentResponse).data?.payment_method_details?.card?.last4;
-            let totalCharge = Number(order.appliedTaxPercentage);
             let CardType = JSON.parse(order.paymentResponse).data?.payment_method_details?.card
               ?.brand;
             //
