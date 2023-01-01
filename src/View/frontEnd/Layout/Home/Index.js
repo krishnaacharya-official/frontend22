@@ -1,16 +1,15 @@
-import Header from '../../Component/organisms/header';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Button, Container, Row, Col, FormControl, InputGroup, ProgressBar } from 'react-bootstrap';
-import { Product, GrabDropdown, FilterDropdown, LadderMenu } from '../../Component/organisms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Col, Container, FormControl, InputGroup, Row } from 'react-bootstrap';
+import { FilterDropdown, LadderMenu, Product } from '../../Component/organisms';
 // import { ProgressBar } from "react-bootstrap";
+import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import './style.scss';
+import { Link } from 'react-router-dom';
+import helper, { getCalculatedPrice } from '../../../../Common/Helper';
 import HeaderGeoController from '../../../../Controller/frontEnd/HeaderGeoController';
 import IconText from '../../Component/molecules/icon-text';
-import helper, { getCalculatedPrice } from '../../../../Common/Helper';
-import { Link } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
+import './style.scss';
 
 export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
@@ -36,7 +35,7 @@ export default function Index(props) {
     })();
   }, []);
 
-  loading ? <CircularProgress/> : (props.productList && props.productList.length > 0) ? {
+  {loading ? <CircularProgress/> : (props.productList && props.productList.length > 0 )? 
     products = props.productList.map((item, index) => {
       return (
         item.status === 1 && (
@@ -57,8 +56,7 @@ export default function Index(props) {
         )
         );
       })
-    } : 
-    {
+     : 
    products = (
       <div className="container">
         <div className="empty__modal">
@@ -84,8 +82,8 @@ export default function Index(props) {
           </div>
          </div>
       </div>
-    );
-  }
+    )
+  };
 
   const items = [
     <div className="fw-semibold text-dark">
