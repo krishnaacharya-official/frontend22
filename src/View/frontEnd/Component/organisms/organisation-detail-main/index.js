@@ -12,7 +12,7 @@ import IconButton from '../../molecules/icon-button';
 import ShareWidget from '../share-widget';
 import OrganisationWidget from '../organisation-widget';
 import moment from 'moment';
-import helper, { isIframe } from '../../../../../Common/Helper';
+import helper, { isIframe, convertAddress } from '../../../../../Common/Helper';
 import { useNavigate } from 'react-router-dom';
 import './style.scss';
 
@@ -22,7 +22,15 @@ function OrganisationDetailMain(props) {
   // console.log(organizationDetails)
   let iconClass = organizationDetails?.categoryDetails?.iconDetails?.class.replace('fa-', '');
 
-  // console.log(organizationDetails);
+  const setAddress =
+    organizationDetails?.cityDetails?.city +
+    ',' +
+    organizationDetails?.stateDetails?.state +
+    ',' +
+    organizationDetails?.countryDetails?.country;
+
+  //const address = setAddress ? convertAddress(setAddress) : '';
+  console.log(setAddress);
 
   return (
     <div className="project__detail-main">
@@ -52,7 +60,7 @@ function OrganisationDetailMain(props) {
 
           <div className="d-flex align-items-center me-2">
             <FontAwesomeIcon icon={regular('circle-location-arrow')} className="me-1" />
-            {organizationDetails?.cityDetails?.city}, {organizationDetails?.stateDetails?.state}
+            {/*{address}*/}
           </div>
 
           <div className="d-flex align-items-center me-2">

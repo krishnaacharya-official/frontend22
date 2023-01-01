@@ -99,11 +99,11 @@ export default function CategoryProductsController() {
 
     const [pricingFees, setPricingFees] = useState({
         platformFee: 0,
-        transectionFee: 0,
+        transactionFee: 0,
 
     })
 
-    const { platformFee, transectionFee } = pricingFees
+    const { platformFee, transactionFee } = pricingFees
 
 
 
@@ -350,7 +350,7 @@ export default function CategoryProductsController() {
             setPricingFees({
                 ...pricingFees,
                 platformFee: user.platformFee,
-                transectionFee: user.transectionFee
+                transactionFee: user.transactionFee
             })
             if (user.countryId && categoryDetails?.id) {
                 await getCategoryAdList(categoryDetails?.id)

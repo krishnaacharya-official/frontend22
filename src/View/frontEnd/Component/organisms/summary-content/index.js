@@ -15,11 +15,11 @@ const SummaryContent = (props) => {
   let salesTax = props.salesTax;
   let subtotal = props.subtotal;
   let salesTaxPer = props.salesTaxPer;
-  let transectionFee = props.transectionFee;
+  let transactionFee = props.transactionFee;
 
-  // let transectionFee = props.pricingFees?.transectionFee
+  // let transactionFee = props.pricingFees?.transactionFee
   // let platformFee = props.pricingFees?.platformFee
-  // let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let totalCharge = Number(transactionFee) + Number(platformFee)
 
   return (
     <div className="summary__content">

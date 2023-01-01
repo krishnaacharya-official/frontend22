@@ -290,9 +290,9 @@ const CompanySettings = () => {
     if (stateList.length > 0) {
       setDefaultState(stateList.find((x) => x.value === data.state_id));
     }
-    if (cityList.length > 0) {
+    /*if (cityList.length > 0) {
       setDefaultCity(cityList.find((x) => x.value === data.city_id));
-    }
+    }*/
 
     if (categoryList.length > 0 && data.category_id) {
       setDefaultCategory(categoryList.find((x) => x.value === data.category_id));
@@ -584,7 +584,7 @@ const CompanySettings = () => {
         </div>
         {error && error.stateId && <p className="error">{error.stateId}</p>}
 
-        <div className="input__wrap d-flex">
+        {/*   <div className="input__wrap d-flex">
           <label className="input__label flex__1">
             <Select
               className="basic-single"
@@ -597,6 +597,14 @@ const CompanySettings = () => {
                 IndicatorSeparator: () => null
               }}
             />
+            <span className="input__span">City</span>
+          </label>
+        </div>
+        {error && error.city && <p className="error">{error.city}</p>}*/}
+        {/*USE THESE FOR TEXT ONLY. Getting "Something Went Wrong error" when saving*/}
+        <div className="input__wrap d-flex">
+          <label className="input__label flex__1">
+            <input type="text" name="city" value={city} onChange={(e) => changevalue(e)} />
             <span className="input__span">City</span>
           </label>
         </div>

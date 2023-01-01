@@ -4,7 +4,7 @@ const userInitialState = {
     isUpdateOrg: false,
     isUpdateUserDetails: false,
     isActiveOrg: false,
-    transectionFee: 0,
+    transactionFee: 0,
     platformFee: 0,
     currency: '',
     role: '',

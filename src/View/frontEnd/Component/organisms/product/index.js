@@ -151,7 +151,11 @@ const Product = (props) => {
   );
   const btn =
     isFinish || (isFulfiled && !unlimited) ? (
-      <span className="btn btn-outline-danger btn__sold">Sold</span>
+      <span className="btn btn__sold">
+        {' '}
+        <FontAwesomeIcon icon={solid('circle-check')} className="sold__icon" />
+        Funded
+      </span>
     ) : (
       cart_btn
     );

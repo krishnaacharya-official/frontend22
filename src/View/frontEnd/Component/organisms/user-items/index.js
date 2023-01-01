@@ -503,43 +503,17 @@ const UserItems = () => {
                     </div>
                   ) : (
                     <>
-                      <div
-                        className="mt-3 d-flex align-item-center"
-                        style={{ alignItems: 'center' }}
-                      >
-                        <div
-                          className="d-flex justify-content-center align-items-center me-1 nn"
-                          style={{
-                            position: 'relative',
-                            color: '#64a9ee',
-                            height: '49px',
-                            width: '49px',
-                            background: '#edf6fd',
-                            borderRadius: '6px'
-                          }}
-                        >
+                      <div className="mt-3 d-flex align-items-center">
+                        <div className="type__icon d-flex justify-content-center align-items-center me-1">
                           <span className="post__badge post__badge--sold fs-3">
                             <FontAwesomeIcon icon={solid('receipt')} />
                           </span>
                         </div>
-                        <div style={{ paddingLeft: '9px' }}>
-                          <text
-                            className="post__title"
-                            style={{
-                              lineHeight: '1rem',
-                              fontWeight: 700
-                            }}
-                          >
+                        <div className="ms-1">
+                          <text className="post__title fw-bold lh-1">
                             {item.fulfilDetails[0].receipt}
                           </text>
-                          <div
-                            className="date__name"
-                            style={{
-                              fontWeight: 600,
-                              fontSize: 'smaller',
-                              color: '#9796b1'
-                            }}
-                          >
+                          <div className="date__name fw-semibold fs-7">
                             Added &nbsp;
                             {moment(item.fulfilDetails[0].created_at).fromNow()}
                           </div>

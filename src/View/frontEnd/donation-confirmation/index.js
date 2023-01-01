@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import helper, { priceFormat } from '../../../Common/Helper';
+import helper, { priceFormat, getCardIcon } from '../../../Common/Helper';
 import DefaultLayout from '../Component/templates/default-layout';
 import ListItemImg from '../Component/atoms/list-item-img';
 import organizationApi from '../../../Api/frontEnd/organization';
 import Page from '../../../components/Page';
 import ShareWidget from '../Component/organisms/share-widget';
 import './style.scss';
+import moment from 'moment';
 
 const DonationConfirmPage = () => {
   const params = useParams();
@@ -45,6 +46,14 @@ const DonationConfirmPage = () => {
       }
     })();
   }, [params.id]);
+  //
+  let cardType = JSON.parse(doantionDetails?.paymentResponse || '{}')?.data?.payment_method_details
+    ?.card?.brand;
+  let lastFourDigits = JSON.parse(doantionDetails?.paymentResponse || '{}')?.data
+    ?.payment_method_details?.card?.last4;
+
+  console.log(cardType);
+  console.log(lastFourDigits);
 
   return (
     <>
@@ -199,6 +208,21 @@ const DonationConfirmPage = () => {
                           {doantionDetails.amount}
                         </b>
                       </p>
+                    </div>
+                  </div>
+                  <div className="bg-lighter d-flex align-items-center p-20p rounded">
+                    <div className="order__logo me-2">
+                      <img src={getCardIcon(cardType)} alt="" className="img-fluid" />
+                    </div>
+                    <div className="order__card fs-7">
+                      <div className="text-dark fw-semibold mb-6p">
+                        XXXX XXXX XXXX {lastFourDigits}
+                      </div>
+                      <div className="text-light fw-semibold">
+                        <div>
+                          Transaction: {moment(doantionDetails.created_at).format('MMMM DD,YYYY')}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

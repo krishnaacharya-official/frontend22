@@ -41,7 +41,7 @@ const userReducer = (state = userInitialState, action) => {
 
             return {
                 ...state,
-                transectionFee: action.payload.transectionFee,
+                transactionFee: action.payload.transactionFee,
                 platformFee: action.payload.platformFee
 
 
@@ -200,7 +200,7 @@ const userReducer = (state = userInitialState, action) => {
                 isUpdateOrg: false,
                 isUpdateUserDetails: false,
                 isActiveOrg: false,
-                // transectionFee: 0,
+                // transactionFee: 0,
                 // platformFee: 0,
                 // currency: '',
                 // currencySymbol: '',

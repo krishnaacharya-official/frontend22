@@ -4,13 +4,13 @@ import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Button, Container, Row, Col, FormControl, InputGroup, ProgressBar } from 'react-bootstrap';
 import { Product, GrabDropdown, FilterDropdown, LadderMenu } from '../../Component/organisms';
 // import { ProgressBar } from "react-bootstrap";
-
+import { useEffect, useState } from 'react';
 import './style.scss';
 import HeaderGeoController from '../../../../Controller/frontEnd/HeaderGeoController';
-import React, { useState } from 'react';
 import IconText from '../../Component/molecules/icon-text';
 import helper, { getCalculatedPrice } from '../../../../Common/Helper';
 import { Link } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 export default function Index(props) {
   // const [selectedKey, setSelectedKey] = useState(3)
@@ -20,13 +20,23 @@ export default function Index(props) {
   const getCalc = getCalculatedPrice();
   let currencySymbol = getCalc.currencySymbol();
   const CampaignAdminAuthToken = localStorage.getItem('CampaignAdminAuthToken');
-
+  const [loading, setLoading] = useState(true);
   let products;
   const title = {
     color: '#6b68f8'
   };
 
-  if (props.productList && props.productList.length > 0) {
+  useEffect(() => {
+    (async () => {
+      const data = await products();
+      if (data) {
+        setLoading(false);
+      }
+      setLoading(true);
+    })();
+  }, []);
+
+  loading ? <CircularProgress/> : (props.productList && props.productList.length > 0) ? {
     products = props.productList.map((item, index) => {
       return (
         item.status === 1 && (
@@ -45,10 +55,11 @@ export default function Index(props) {
             />
           </Col>
         )
-      );
-    });
-  } else {
-    products = (
+        );
+      })
+    } : 
+    {
+   products = (
       <div className="container">
         <div className="empty__modal">
           <div id="noSlider" className="empty__block">
@@ -71,13 +82,7 @@ export default function Index(props) {
               </div>
             </div>
           </div>
-          {/* 
-          <div id="noFilter" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4af73f9963441ad99d98ef_023-setting.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results with these filters</text></div><div className="empty__text"><p>Try removing some toggles.</p></div></div></div></div>
-
-          <div id="noButton" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4b07b4c980734faa9e452a_blend.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">No matches in this category</text></div><div className="empty__text"><p>Try removing your search or checking another category.</p></div></div></div></div>
-
-          <div id="noData" className="empty__block hidden"><div className="empty__container"><div className="empty__circle empty--small"><img src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/5e4a25127a18113aa8c6cd10_qr-code.svg" alt="" /></div><div className="empty__message"><div className="title title--small w-embed"><text className="item__title project__title">There are no results matching your search</text></div><div className="empty__text"><p>Try broadening your search.</p></div></div></div></div> */}
-        </div>
+         </div>
       </div>
     );
   }

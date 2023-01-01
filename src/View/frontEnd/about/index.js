@@ -55,7 +55,7 @@ const About = (props) => {
       </div>
       <Container fluid>
         <h4 className="fs-1 fw-bolder text-center text-dark">Our services</h4>
-        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
+        <Row className="section--hero pt-0 pt-sm-5 mt-0 mt-sm-5 mb-5 pb-0 pb-sm-5">
           <Col md="6">
             <div className="d-flex align-items-center  justify-content-sm-center">
               <img
@@ -107,7 +107,7 @@ const About = (props) => {
         </Row>
       </Container>
       <Container fluid>
-        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
+        <Row className="section--hero pt-0 pt-sm-5 mt-0 mt-sm-5 mb-5 pb-0 pb-sm-5">
           <Col md="6" className="pt-5">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">Donations</div>
@@ -119,7 +119,7 @@ const About = (props) => {
             </div>
           </Col>
           <Col md="6">
-            <div className="d-flex justify-content-center justify-content-sm-between mb-0 mb-sm-5 flex-wrap">
+            <div className="d-flex justify-content-center justify-content-sm-between mb-0 mb-sm-5 flex-wrap gap-5 gap-sm-0">
               <div className="bigcircle">
                 <img
                   src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624ba8a3688ae7c3ef86a416_20139509001_front_a06_%402.png"
@@ -145,7 +145,7 @@ const About = (props) => {
           </Col>
         </Row>
       </Container>
-      <div className="section--hero pt-5 mt-5 mb-5 pb-5 section--cityscape">
+      <div className="section--hero pt-0 pt-sm-5 mt-0 mt-sm-5 mb-5 pb-0 pb-sm-5 row row section--cityscape">
         <img
           src="https://uploads-ssl.webflow.com/59de7f3f07bb6700016482bc/621fbd2a971cc27a3898b387_60e47ee6c4af646a50d5b8e3_hero-illustration.svg"
           className="cityscape"
@@ -214,60 +214,60 @@ const About = (props) => {
       </div>
 
       <Container fluid>
-        <Row className="section--hero pt-5 mt-5 mb-5 pb-5 d-flex justify-content-between">
-          <div className="ourbrand__item d-flex align-items-center justify-content-center">
+        <Row className="section--hero pt-0 pt-sm-5 mt-0 mt-sm-5 mb-5 pb-0 pb-sm-5 row row d-flex justify-content-between">
+          <div className="ourbrand__item d-flex align-items-center justify-content-cente gap-1">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626cb8aafbea8678573371cd_Tim_Hortons_logo.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f437fab93d764b284564d_McDonald%27s_Golden_Arches.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/6271d71d721c60e1ee063619_Crocs_wordmark.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f4471dc441c225745284c_Target_logo.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/624de9e9e4496f32fd5463ad_brand_chichis.png"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/626f44aef1df651c17c8f3e6_Purina-logo.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
           <div className="ourbrand__item d-flex align-items-center justify-content-center">
             <img
               src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/61f88ffad85ed5121f3c986c_Dunkin-Donuts-01.svg"
-              className="img-fluid"
+              className="img-fluid ourbrand__img"
               alt=""
             />
           </div>
         </Row>
       </Container>
 
-      <section className="section--hero pt-5 mt-5 mb-5 pb-5">
+      <section className="section--hero pb-0 pt-0 row">
         <Container fluid>
           <div className="p-5 rounded-5 bg-lighter">
             <Row>
@@ -324,7 +324,7 @@ const About = (props) => {
       </section>
 
       <Container fluid>
-        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
+        <Row className="section--hero pt-0 pt-sm-5 mt-0 mt-sm-5 mb-5 pb-0 pb-sm-5">
           <Col md="6">
             <div className="d-flex align-items-center justify-content-center pe-sm-5">
               <img
@@ -434,7 +434,7 @@ const About = (props) => {
                 />
               </div>
             </div>
-            <p className="fs-5 text-light mb-3 pb-5 lh-1.5">
+            <p className="fs-5 text-light mb-3 mb-sm-3 pb-sm-5 pb-0 lh-1.5">
               Donorport accepts several forms of traditional payment methods including credit cards,
               Google Pay, PayPal and Stripe. Choose the payment method that works best for your
               giving.
@@ -464,7 +464,7 @@ const About = (props) => {
                 />
               </div>
             </div>
-            <p className="fs-5 text-light mb-3 pb-5 lh-1.5">
+            <p className="fs-5 text-light mb-0 mb-sm-3 pb-sm-5 pb-0 lh-1.5">
               Donorport understands the importance of privacy which is why we have adopted
               cryptocurrency on our platform so you can send your donations anonymously.
             </p>
@@ -472,13 +472,13 @@ const About = (props) => {
         </Row>
       </Container>
 
-      <section className="py-3">
+      <section className="py-0 py-sm-3">
         <MarqueeList campaignAdminList={props.campaignAdminList} />
       </section>
 
       <Container fluid>
-        <Row className="section--hero pt-5 mt-5 mb-5 pb-5">
-          <Col md="6">
+        <Row className="section--hero pb-0 pt-0 row">
+          <Col md="6" className="pt-5">
             <div className="d-flex flex-column align-items-start">
               <div className="about__label d-flex flex-column align-items-start ">Our Partners</div>
               <h3 className="fs-1 fw-bolder text-dark pt-3">Trusted Charities</h3>
@@ -488,7 +488,6 @@ const About = (props) => {
               </p>
             </div>
           </Col>
-          <Col md="6"></Col>
         </Row>
       </Container>
     </DefaultLayout>

@@ -57,7 +57,7 @@ const ItemsTable = (props) => {
             <FontAwesomeIcon icon={solid('angle-down')} className="small ml-6p" />
           </Button>
         </div>
-        <ul className="list-unstyled mb-0 list__table-list" style={{ minHeight: '500px' }}>
+        <ul className="list-unstyled mb-0 list__table-list">
           {orderItemList.length > 0 ? (
             orderItemList.map((item, key) => {
               // console.log(item)

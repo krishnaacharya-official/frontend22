@@ -26,7 +26,7 @@ export default function App() {
     isUpdateCart: false,
     isUpdateOrg: false,
     data: {},
-    transectionFee: 0,
+    transactionFee: 0,
     platformFee: 0
   });
   const UserProviderContext = useUser(user, userdispatch);

@@ -40,12 +40,19 @@
   border-radius: 4px;
 }
 .btn__sold {
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-.btn__sold:hover {
-  background: unset;
-  color: #f15e5e;
+  padding: 2px 6px !important;
+  border: 0 !important;
+  margin-top: 0px !important;
+  line-height: initial;
+  height: auto;
+  background: #5ec996 !important;
+  color: #fff !important;
+  &:hover {
+    color: inherit;
+    background: inherit;
+  }
+  .sold__icon {
+    margin-right: 3px;
+    height: 12px;
+  }
 }

@@ -117,14 +117,14 @@ function OrganisationItem(props) {
                 <div className="fw-semibold org__item__location mb-3p fs-7">
                   {moment(created_at).fromNow()}
                 </div>
-              </div>
-              <div className="org__item__price fw-bold fs-5 text-light">
-                {props.currencySymbol +
-                  (productPrice
-                    ? Number(productPrice).toLocaleString('en-US', {
-                        maximumFractionDigits: 2
-                      })
-                    : 0)}
+                <div className="org__item__price fw-bold fs-5 text-light">
+                  {props.currencySymbol +
+                    (productPrice
+                      ? Number(productPrice).toLocaleString('en-US', {
+                          maximumFractionDigits: 2
+                        })
+                      : 0)}
+                </div>
               </div>
             </div>
 

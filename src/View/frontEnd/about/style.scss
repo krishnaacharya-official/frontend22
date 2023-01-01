@@ -1,5 +1,11 @@
 .ourbrand__item {
   width: 120px;
+  min-width: 90px;
+  max-height: 120px;
+  padding: 1.3rem;
+}
+.ourbrand__img {
+  max-height: 62px;
 }
 .section--cityscape {
   position: relative;
@@ -66,8 +72,12 @@
     -ms-transform: unset;
     transform: unset;
   }
+  .section--hero {
+    margin: 0;
+  }
 }
 .section--hero {
+  overflow: hidden;
   position: relative;
   width: 100%;
   //max-width: 1440px;

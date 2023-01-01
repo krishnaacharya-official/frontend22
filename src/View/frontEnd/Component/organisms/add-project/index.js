@@ -18,9 +18,9 @@ const AddProject = (props) => {
   const { id, status, name, headline, video, description, error, images, infinite } =
     props.stateData;
 
-  // let url = video;
-  // let videoid = url.split("?v=")[1];
-  // let embedlink = url ? "http://www.youtube.com/embed/" + videoid : "";
+  let url = video;
+  let videoid = url.split('?v=')[1];
+  let embedlink = url ? 'http://www.youtube.com/embed/' + videoid : '';
 
   let tempImages = props.tempImages;
   let projectImages = props.projectImages;
@@ -61,9 +61,9 @@ const AddProject = (props) => {
             <FontAwesomeIcon icon={solid('angle-left')} className="text-subtext fs-3" />
           </Button>
           <span className="fs-3 fw-bolder me-sm-3">Create Project</span>
-          <Button variant="link" className="text-decoration-none ms-auto ms-sm-0">
+          {/* <Button variant="link" className="text-decoration-none ms-auto ms-sm-0">
             <FontAwesomeIcon icon={solid('circle-question')} className="text-dark fs-4" />
-          </Button>
+          </Button>*/}
         </div>
 
         <Button
@@ -333,53 +333,19 @@ const AddProject = (props) => {
       <div className="d-flex flex-wrap mb-3 p-20p border rounded-3">
         {productList.length > 0 &&
           productList.map((product, i) => {
+            const available = product.quantity !== product.soldout;
             return (
-              <FeedTag
-                data={product}
-                name={product.headline}
-                onSelect={(e) => onSelectProduct(e)}
-                checked={seletedProductList.includes(product._id)}
-                icon={<img src={helper.CampaignProductImagePath + product.image} alt="" />}
-              />
+              available && (
+                <FeedTag
+                  data={product}
+                  name={product.headline}
+                  onSelect={(e) => onSelectProduct(e)}
+                  checked={seletedProductList.includes(product._id)}
+                  icon={<img src={helper.CampaignProductImagePath + product.image} alt="" />}
+                />
+              )
             );
           })}
-
-        {/* <FeedTag
-          border={true}
-          icon={
-            <img
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c26551110ec14dd05ef15_image%20(1).png"
-              alt=""
-            />
-          }
-        />
-        <FeedTag
-          border={true}
-          icon={
-            <img
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c86a9da1a12a5c3a4ffea06_Glasses-PNG-Image-with-Transparent-Background.png"
-              alt=""
-            />
-          }
-        />
-        <FeedTag
-          border={true}
-          icon={
-            <img
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c24cdbda7359a71d94025_aj1_top3.png"
-              alt=""
-            />
-          }
-        />
-        <FeedTag
-          border={true}
-          icon={
-            <img
-              src="https://uploads-ssl.webflow.com/59df9e77ad9420000140eafe/5c2c24f9fd28a7ccebf49f8d_lpk25_web_large_700x438.png"
-              alt=""
-            />
-          }
-        /> */}
       </div>
       {error && error.products && (
         <p className="error">{error ? (error.products ? error.products : '') : ''}</p>

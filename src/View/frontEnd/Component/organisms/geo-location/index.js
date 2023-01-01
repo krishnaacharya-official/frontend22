@@ -61,6 +61,7 @@ const GeoLocation = () => {
     lat: 0,
     zoomlevel: 7
   });
+
   // const scale = new mapboxgl.ScaleControl({
   //   unit: "imperial"
   // });
@@ -142,7 +143,7 @@ const GeoLocation = () => {
     setState({ ...state, locked: user.isMapLocked });
   }, [user]);
 
-  let Obj = {
+  /*let Obj = {
     // "circle-radius": 100,
     'circle-radius': {
       stops: [
@@ -161,7 +162,7 @@ const GeoLocation = () => {
     'circle-opacity': 1,
     'circle-stroke-opacity': 1,
     'circle-stroke-width': 1
-  };
+  };*/
 
   useEffect(() => {
     // console.log(objectVal)
@@ -221,7 +222,10 @@ const GeoLocation = () => {
           </span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu renderOnMount className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310">
+        <Dropdown.Menu
+          renderOnMount
+          className="geo__dropdown mobile__dropdown dropdown-top-arrow w-310"
+        >
           <div className="dropdown__inner position-relative">
             <div className="geo_dropdown-top d-flex align-items-center">
               <InputGroup className="input-group__alpha">
@@ -240,8 +244,8 @@ const GeoLocation = () => {
                 />
               </InputGroup>
 
-              <div className="geo__distance" id="scale">
-                <div className="mapboxgl-ctrl mapboxgl-ctrl__scale me-1 fs-5">
+              <div className="geo__distance" id="">
+                <div className="me-1 fs-5">
                   {/* {objectVal} */}
                   {user.distance}
                 </div>
@@ -279,49 +283,52 @@ const GeoLocation = () => {
 
                 // onStyleLoad={onStyleLoad}
               >
-                <Layer
+                <div className="radius-container">
+                  <div className="radius-circle"></div>
+                </div>
+
+                {/* <Layer
                   type="circle"
                   id="circle"
                   paint={Obj}
-                  // layout={{ 'icon-image': 'custom-marker' }}
-                  // layout={{ "icon-image": "harbor-15" }}
                   coordinates={[location.lng, location.lat]}
                 >
                   <Feature coordinates={[location.lng, location.lat]} />
-                </Layer>
+                </Layer>*/}
 
-                {/* <Source
+                {/*     <Source
                   id="point"
                   geoJsonSource={{
-                    type: "geojson",
+                    type: 'geojson',
                     data: {
-                      type: "Point",
+                      type: 'Point',
                       coordinates: [0, 0]
                     }
                   }}
-                /> */}
+                />
 
-                {/* <Layer
+                <Layer
                   id="point-blip"
                   type="circle"
                   sourceId="point"
                   paint={{
-                    "circle-radius": 8,
-                    "circle-radius-transition": { duration: 0 },
-                    "circle-opacity-transition": { duration: 0 },
-                    "circle-color": "#007cbf"
+                    'circle-radius': 8,
+                    'circle-radius-transition': { duration: 0 },
+                    'circle-opacity-transition': { duration: 0 },
+                    'circle-color': '#007cbf'
                   }}
-                /> */}
-                {/* <Layer
+                />
+                <Layer
                   id="point"
                   type="circle"
                   sourceId="point"
                   paint={{
-                    "circle-radius": 8,
-                    "circle-color": "#007cbf"
+                    'circle-radius': 8,
+                    'circle-color': '#007cbf'
                   }}
-                /> */}
-                <ScaleControl />
+                />
+                */}
+                <ScaleControl style={{ zIndex: '-1' }} />
 
                 <Marker coordinates={[location.lng, location.lat]} anchor="bottom">
                   <div className="mapboxgl-user-location-dot"></div>

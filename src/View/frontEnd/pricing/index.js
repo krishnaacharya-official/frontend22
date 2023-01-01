@@ -66,7 +66,7 @@ const Pricing = () => {
       <DefaultLayout>
         <div className="password-reset position-relative">
           <Container fluid className="position-relative pb-5 pt-5">
-            <div className="row container d-flex flex-column">
+            <div className="d-flex flex-column">
               <h1 className="text-dark fw-bolder mb-6p pt-2">Pricing and Fees</h1>
               <div className="fs-5 text-light pb-2 mb-3 mw-600">
                 It is 100% free for organizations to create posts and receive funding on Donorport.
@@ -88,7 +88,7 @@ const Pricing = () => {
                   Terms of Service
                 </a>{' '}
               </div>
-              <div className="row py-4">
+              <div className="row py-4 justify-content-center">
                 <div className="col-sm-4 mb-3 mb-md-0">
                   <div className=" text-center h-100">
                     <div className="card-body d-flex flex-column">
@@ -115,7 +115,7 @@ const Pricing = () => {
                     <div className="card-body d-flex flex-column">
                       <div className="mb-4">
                         <h5>Transaction Fees</h5>
-                        <span className="display-4">{user?.transectionFee}%</span>
+                        <span className="display-4">{user?.transactionFee}%</span>
                         {/* <span className="display-4">3%</span> */}
                       </div>
 
@@ -139,7 +139,7 @@ const Pricing = () => {
                         {/* <span className="display-4">{isNaN(totalFees) ? 0 : totalFees.toFixed(1)}%</span> */}
                         {/* <span className="display-4">5%</span> */}
                         <span className="display-4">
-                          {(Number(user?.platformFee) + Number(user?.transectionFee)).toFixed(1)}%
+                          {(Number(user?.platformFee) + Number(user?.transactionFee)).toFixed(1)}%
                         </span>
                       </div>
 

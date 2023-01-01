@@ -52,6 +52,9 @@ const OrderConfirmPage = () => {
   let lastFourDigits = JSON.parse(orderDetails?.paymentResponse || '{}')?.data
     ?.payment_method_details?.card?.last4;
 
+  console.log(cardType);
+  console.log(lastFourDigits);
+
   return (
     <>
       <Page title={'Order | ' + orderDetails.uniqueTransactionId}>

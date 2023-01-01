@@ -131,7 +131,10 @@ const FilterDropdown = (props) => {
             />
           </div>
         </Dropdown.Toggle> */}
-        <Dropdown.Menu renderOnMount className="filter__dropdown mobile__dropdown dropdown-top-arrow">
+        <Dropdown.Menu
+          renderOnMount
+          className="filter__dropdown mobile__dropdown dropdown-top-arrow"
+        >
           <div className="filter__dropdown-hd border-bottom">
             <div className="filter__checkboxes d-flex align-items-center">
               <div className="filter__item d-flex justify-content-center text-center text-light flex__1">
@@ -140,9 +143,7 @@ const FilterDropdown = (props) => {
                   <IconToggle
                     iconSize={24}
                     activeColor="#3a94d4"
-                    icon={
-                      <FontAwesomeIcon icon={regular('calculator')} className="tax__icon" />
-                    }
+                    icon={<FontAwesomeIcon icon={regular('calculator')} className="tax__icon" />}
                     checkedIcon={<FontAwesomeIcon icon={solid('calculator')} />}
                     name="taxEligible"
                     onClickFilter={props.onClickFilter}

@@ -44,10 +44,20 @@
   }
 }
 .btn__sold {
+  padding: 2px 6px !important;
+  border: 0 !important;
+  margin-top: 0px !important;
+  line-height: initial;
+  height: auto;
+  background: #5ec996 !important;
+  color: #fff !important;
   &:hover {
-    background: transparent;
-    color: $danger;
-    cursor: default;
+    color: inherit;
+    background: inherit;
+  }
+  .sold__icon {
+    margin-right: 3px;
+    height: 12px;
   }
 }
 .button__wrap {

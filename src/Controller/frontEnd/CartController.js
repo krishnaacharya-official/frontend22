@@ -23,10 +23,10 @@ export default function CartController() {
     const navigate = useNavigate();
     const [pricingFees, setPricingFees] = useState({
         platformFee: 0,
-        transectionFee: 0,
+        transactionFee: 0,
 
     })
-    const { platformFee, transectionFee } = pricingFees
+    const { platformFee, transactionFee } = pricingFees
 
     const getFeesValues = async () => {
         const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
@@ -41,7 +41,7 @@ export default function CartController() {
             setPricingFees({
                 ...data
             })
-            // user.setTransectionFee(data.transectionFee)
+            // user.settransactionFee(data.transactionFee)
             // user.setPlatformFee(data.platformFee)
 
 
@@ -72,7 +72,7 @@ export default function CartController() {
             // setPricingFees({
             //     ...pricingFees,
             //     platformFee:user.platformFee,
-            //     transectionFee:user.transectionFee
+            //     transactionFee:user.transactionFee
             // })
 
         })()

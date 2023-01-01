@@ -43,7 +43,7 @@ export default function HeaderController() {
 
     const [pricingFees, setPricingFees] = useState({
         platformFee: 0,
-        transectionFee: 0,
+        transactionFee: 0,
         captian: "",
         admiral: "",
         pirate: "",
@@ -58,7 +58,7 @@ export default function HeaderController() {
         forEachOrganization: "",
 
     })
-    const { platformFee, transectionFee } = pricingFees
+    const { platformFee, transactionFee } = pricingFees
 
 
     const getUserFollowedOrgList = async () => {
@@ -177,7 +177,7 @@ export default function HeaderController() {
                     })
                     let feesData = {}
                     feesData.platformFee = data.platformFee
-                    feesData.transectionFee = data.transectionFee
+                    feesData.transactionFee = data.transactionFee
                     dispatch(setFees(feesData))
 
                     let rankData = {}
@@ -201,7 +201,7 @@ export default function HeaderController() {
                     dispatch(setXpSettings(xpData))
 
 
-                    // user.setTransectionFee(data.transectionFee)
+                    // user.settransactionFee(data.transactionFee)
                     // user.setPlatformFee(data.platformFee)
 
 

@@ -124,12 +124,12 @@ export function decryptData(val) {
 //     const user = useSelector((state) => state.user);
 //     // Get Fees(%) from Reducer
 
-//     let transectionFee = user.transectionFee
+//     let transactionFee = user.transactionFee
 //     let platformFee = user.platformFee
 
-//     //Calculate total charges (transectionFee + platformFee )
+//     //Calculate total charges (transactionFee + platformFee )
 
-//     let totalCharge = Number(transectionFee) + Number(platformFee)
+//     let totalCharge = Number(transactionFee) + Number(platformFee)
 
 //     // Applying to Price
 //     let taxPrice = Math.round(price + (totalCharge / 100) * price)
@@ -149,12 +149,12 @@ export function getCalculatedPrice() {
   const getData = (price) => {
     // Get Fees(%) from Reducer
 
-    let transectionFee = user.transectionFee;
+    let transactionFee = user.transactionFee;
     let platformFee = user.platformFee;
 
-    //Calculate total charges (transectionFee + platformFee )
+    //Calculate total charges (transactionFee + platformFee )
 
-    let totalCharge = Number(transectionFee) + Number(platformFee);
+    let totalCharge = Number(transactionFee) + Number(platformFee);
 
     // Applying to Price
     let taxPrice = Math.round(price + (totalCharge / 100) * price);
@@ -175,12 +175,12 @@ export function getCalculatedPrice() {
   };
 
   const priceWithTax = (price) => {
-    let transectionFee = user.transectionFee;
+    let transactionFee = user.transactionFee;
     let platformFee = user.platformFee;
 
-    // Calculate total charges (transectionFee + platformFee )
+    // Calculate total charges (transactionFee + platformFee )
 
-    let totalCharge = Number(transectionFee) + Number(platformFee);
+    let totalCharge = Number(transactionFee) + Number(platformFee);
 
     // Applying to Price
     let taxPrice = price + (totalCharge / 100) * price;
@@ -190,7 +190,7 @@ export function getCalculatedPrice() {
   //get Currency Symbol
 
   const currencySymbol = () => {
-    let currencySymbol = '$';
+    let currencySymbol = 'na';
     // if (!CampaignAdminAuthToken) {
     currencySymbol = user.currencySymbol;
     // }
@@ -308,12 +308,12 @@ export function getCalculatedPrice() {
   };
 
   const getTaxValueOfPrice = (amount) => {
-    let transectionFee = user.transectionFee;
+    let transactionFee = user.transactionFee;
     let platformFee = user.platformFee;
 
-    //Calculate total charges (transectionFee + platformFee )
+    //Calculate total charges (transactionFee + platformFee )
 
-    let totalCharge = Number(transectionFee) + Number(platformFee);
+    let totalCharge = Number(transactionFee) + Number(platformFee);
 
     const salesTax = Number(totalCharge);
     // let taxAmount = Math.round((salesTax / 100) * amount)
@@ -556,21 +556,17 @@ export function countInArray(array, what) {
   return array.filter((item) => item === what).length;
 }
 
-export function convertAddress(address) {
-  if (address.split(' ').length > 1) {
-    const split = address.split(',');
+export function convertAddress(myAddress) {
+  const split = myAddress.split(',');
 
-    const countryName = Country.getAllCountries().filter(
-      (c) => c.name === split[split.length - 1].replace(' ', '')
-    );
+  const countryName = Country.getAllCountries().filter(
+    (c) => c.name === split[split.length - 1].replace(' ', '')
+  );
 
-    const resultStateProvince = split[split.length - 2];
+  const resultStateProvince = split[split.length - 2];
 
-    const state = State.getStatesOfCountry(countryName[0].isoCode).filter((s) =>
-      resultStateProvince.includes(s.name)
-    );
-    return `${split[split.length - 3]}${state.length > 0 ? `, ${state[0].isoCode}` : ''}`;
-  }
-
-  return address;
+  const state = State.getStatesOfCountry(countryName[0].isoCode).filter((s) =>
+    resultStateProvince.includes(s.name)
+  );
+  return `${split[split.length - 3]}${state.length > 0 ? `, ${state[0].isoCode}` : ''}`;
 }

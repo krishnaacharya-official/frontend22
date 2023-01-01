@@ -1,4 +1,4 @@
-import { setData, setLogin, setCart, setUpdateOrg, setTransectionFee, setPlatformFee } from "../action/userAction";
+import { setData, setLogin, setCart, setUpdateOrg, settransactionFee, setPlatformFee } from "../action/userAction";
 
 
 const useUser = (user, userdispatch) => {
@@ -7,7 +7,7 @@ const useUser = (user, userdispatch) => {
         isUpdateCart: user.isUpdateCart,
         isUpdateOrg: user.isUpdateOrg,
         data: user.data,
-        transectionFee: user.transectionFee,
+        transactionFee: user.transactionFee,
         platformFee: user.platformFee,
 
 
@@ -24,8 +24,8 @@ const useUser = (user, userdispatch) => {
             userdispatch(setUpdateOrg(cartStatus));
         },
 
-        setTransectionFee: (fee) => {
-            userdispatch(setTransectionFee(fee));
+        settransactionFee: (fee) => {
+            userdispatch(settransactionFee(fee));
         },
         setPlatformFee: (fee) => {
             userdispatch(setPlatformFee(fee));

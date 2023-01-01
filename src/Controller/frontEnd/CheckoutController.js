@@ -48,10 +48,10 @@ export default function CheckoutController() {
   const userData = JSON.parse(localStorage.getItem('userData'));
   // const [pricingFees, setPricingFees] = useState({
   //     platformFee: 0,
-  //     transectionFee: 0,
+  //     transactionFee: 0,
 
   // })
-  // const { platformFee, transectionFee } = pricingFees
+  // const { platformFee, transactionFee } = pricingFees
 
   const getSettingsValue = async () => {
     const getSettingsValue = await settingApi.list(userAuthToken, ['forEachItem']);
@@ -121,7 +121,7 @@ export default function CheckoutController() {
       //     setPricingFees({
       //         ...data
       //     })
-      //     // user.setTransectionFee(data.transectionFee)
+      //     // user.settransactionFee(data.transactionFee)
       //     // user.setPlatformFee(data.platformFee)
 
       // }
@@ -138,9 +138,9 @@ export default function CheckoutController() {
         if (getCartList.data.data.length > 0) {
           getCartList.data.data.map((item, i) => {
             ProductItems.push(1 * item.quantity);
-            // let transectionFee = data.transectionFee
+            // let transactionFee = data.transactionFee
             // let platformFee = data.platformFee
-            // let totalCharge = Number(transectionFee) + Number(platformFee)
+            // let totalCharge = Number(transactionFee) + Number(platformFee)
 
             // let price = CalculatedPrice.getData(item.productDetails?.price)
             // let price = CalculatedPrice.getData(item.productDetails?.price)
@@ -186,7 +186,7 @@ export default function CheckoutController() {
       setLoading(false);
       // console.log(salesTax,user.salesTax)
     })();
-  }, [update, user.transectionFee, xpForeEachItem]);
+  }, [update, user.transactionFee, xpForeEachItem]);
 
   const pay = async () => {
     // if (cartItem.find(e => e.productDetails.tax === true)) {
@@ -326,9 +326,9 @@ export default function CheckoutController() {
             orderDetails.paymentResponse = JSON.stringify(payment.data);
             orderDetails.subtotal = Number(subtotalWithTax);
             orderDetails.appliedTaxPercentage =
-              Number(user.platformFee) + Number(user.transectionFee);
+              Number(user.platformFee) + Number(user.transactionFee);
             orderDetails.platformFees = user.platformFee;
-            orderDetails.transectionFees = user.transectionFee;
+            orderDetails.transactionFees = user.transactionFee;
             orderDetails.tax = Number(subtotal) - Number(Number(subtotalWithTax));
             orderDetails.total = total;
             orderDetails.transactionStatus = payment.data.data.status;
@@ -430,7 +430,7 @@ export default function CheckoutController() {
           salesTax={salesTax}
           subtotal={subtotal}
           salesTaxPer={user.salesTax}
-          transectionFee={user.transectionFee}
+          transactionFee={user.transactionFee}
           stripeTax={stripeTax}
           isLoading={loading}
           // pricingFees={pricingFees}

@@ -71,8 +71,10 @@ function SimilarItem(props) {
   const btn =
     isFinish || (product.isFulfiled && !product.unlimited) ? (
       // product.soldout === product.quantity
-      <span className="d-flex align-items-center justify-content-center btn btn-outline-danger btn-sm btn__sold">
-        Sold
+      <span className="btn btn__sold">
+        {' '}
+        <FontAwesomeIcon icon={solid('circle-check')} className="sold__icon" />
+        Funded
       </span>
     ) : (
       cart_btn
@@ -91,15 +93,15 @@ function SimilarItem(props) {
             >
               {product.headline}
             </Link>
-            <div className="fw-semibold similar__item__location mb-3p fs-7">
+            <div className="similar__item__price text-light fw-bold fs-5">
+              {currencySymbol}
+              {product.displayPrice ? product.displayPrice : product.price}
+            </div>
+            <div className="fw-semibold similar__item__location my-3p fs-7">
               {moment(product.created_at).fromNow()}
             </div>
           </div>
           {/* <div className="similar__item__price">{currencySymbol}{getCalc.getData(product.price)}</div> */}
-          <div className="similar__item__price text-light fw-bold fs-5">
-            {currencySymbol}
-            {product.displayPrice ? product.displayPrice : product.price}
-          </div>
         </div>
 
         {!CampaignAdminAuthToken && !isFinish && (

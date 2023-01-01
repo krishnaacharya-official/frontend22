@@ -16,9 +16,9 @@ function CartItem(props) {
   // const CalculatePrice = getCalculatedPrice()
   // console.log(cartItem)
 
-  // let transectionFee = props.pricingFees?.transectionFee
+  // let transactionFee = props.pricingFees?.transactionFee
   // let platformFee = props.pricingFees?.platformFee
-  // let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let totalCharge = Number(transactionFee) + Number(platformFee)
   // let price = props.CalculatePrice.getData(cartItem?.productDetails?.price)
   let price = cartItem.productDetails?.displayPrice
     ? cartItem.productDetails?.displayPrice

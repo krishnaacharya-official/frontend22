@@ -43,14 +43,14 @@ export default function PricingFees(props) {
 
     const [state, setState] = useState({
         platformFee: 0,
-        transectionFee: 0,
+        transactionFee: 0,
 
     })
-    const { platformFee, transectionFee } = state
+    const { platformFee, transactionFee } = state
 
     const [changePlatform, setChangePlatform] = useState(false)
     const [changeTransaction, setChangeTransaction] = useState(false)
-    const [totalFees, setTotalFees] = useState(Number(platformFee) + Number(transectionFee))
+    const [totalFees, setTotalFees] = useState(Number(platformFee) + Number(transactionFee))
     const [update, setUpdate] = useState(false)
     const [country, setCountry] = useState(39)
 
@@ -66,7 +66,7 @@ export default function PricingFees(props) {
         setState({
             ...state,
             platformFee: pf,
-            transectionFee: tf
+            transactionFee: tf
         })
         setChangePlatform(type === 'PLATFORM')
         setChangeTransaction(type === 'TRANSECTION')
@@ -82,18 +82,18 @@ export default function PricingFees(props) {
             }
         } else {
             rules = {
-                transectionFee: "required",
+                transactionFee: "required",
             }
         }
         // const rules = {
         //     platformFee: "required",
-        //     transectionFee: "required",
+        //     transactionFee: "required",
 
         // }
 
         const message = {
             'platformFee.required': 'Platform Fee is Required.',
-            'transectionFee.required': 'STransection Fee is Required.',
+            'transactionFee.required': 'STransection Fee is Required.',
 
         }
 
@@ -105,7 +105,7 @@ export default function PricingFees(props) {
             )
             // let tempData = {}
             // tempData.platformFee = platformFee
-            // tempData.transectionFee = transectionFee
+            // tempData.transactionFee = transactionFee
             // tempData.countryId = country
 
             setLoading(false)
@@ -149,7 +149,7 @@ export default function PricingFees(props) {
             ...state,
             [e.target.name]: value
         })
-        // setTotalFees(Number(platformFee) + Number(transectionFee))
+        // setTotalFees(Number(platformFee) + Number(transactionFee))
     }
 
     const getCountryList = async () => {
@@ -189,11 +189,11 @@ export default function PricingFees(props) {
     //         setState({
     //             ...state,
     //             platformFee: getSettingsValue.data.data.platformFee,
-    //             transectionFee: getSettingsValue.data.data.transectionFee
+    //             transactionFee: getSettingsValue.data.data.transactionFee
     //         })
     //         setPf(getSettingsValue.data.data.platformFee)
-    //         setTf(getSettingsValue.data.data.transectionFee)
-    //         setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
+    //         setTf(getSettingsValue.data.data.transactionFee)
+    //         setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transactionFee))
 
 
     //     }
@@ -218,11 +218,11 @@ export default function PricingFees(props) {
                 // setState({
                 //     ...state,
                 //     platformFee: getSettingsValue.data.data.platformFee,
-                //     transectionFee: getSettingsValue.data.data.transectionFee
+                //     transactionFee: getSettingsValue.data.data.transactionFee
                 // })
                 // setPf(getSettingsValue.data.data.platformFee)
-                // setTf(getSettingsValue.data.data.transectionFee)
-                // setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transectionFee))
+                // setTf(getSettingsValue.data.data.transactionFee)
+                // setTotalFees(Number(getSettingsValue.data.data.platformFee) + Number(getSettingsValue.data.data.transactionFee))
 
                 let data = {}
 
@@ -234,10 +234,10 @@ export default function PricingFees(props) {
                 })
                 // console.log(data)
 
-                if (data.platformFee || data.transectionFee) {
+                if (data.platformFee || data.transactionFee) {
                     setPf(data.platformFee)
-                    setTf(data.transectionFee)
-                    setTotalFees(Number(data.platformFee) + Number(data.transectionFee))
+                    setTf(data.transactionFee)
+                    setTotalFees(Number(data.platformFee) + Number(data.transactionFee))
 
                 } else {
                     setTotalFees(0)
@@ -258,9 +258,9 @@ export default function PricingFees(props) {
             // if(country.country === 'Canada'){
             //    
             // }
-            // if (platformFee && transectionFee) {
+            // if (platformFee && transactionFee) {
 
-            setTotalFees(Number(platformFee) + Number(transectionFee))
+            setTotalFees(Number(platformFee) + Number(transactionFee))
 
             // } else {
             //     setTotalFees(0)
@@ -268,7 +268,7 @@ export default function PricingFees(props) {
 
 
         })()
-    }, [update, platformFee, transectionFee])
+    }, [update, platformFee, transactionFee])
 
     const lineStyle = {
 
@@ -416,15 +416,15 @@ export default function PricingFees(props) {
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="transectionFee"
-                                                            name="transectionFee"
-                                                            value={transectionFee}
+                                                            id="transactionFee"
+                                                            name="transactionFee"
+                                                            value={transactionFee}
                                                             onChange={(e) => changevalue(e)}
                                                         />
                                                         :
-                                                        <span className="display-4">{transectionFee}%</span>
+                                                        <span className="display-4">{transactionFee}%</span>
                                                 }
-                                                {error && error.transectionFee && <p className="error">{error ? error.transectionFee ? error.transectionFee : "" : ""}</p>}
+                                                {error && error.transactionFee && <p className="error">{error ? error.transactionFee ? error.transactionFee : "" : ""}</p>}
                                             </div>
 
                                             <p>

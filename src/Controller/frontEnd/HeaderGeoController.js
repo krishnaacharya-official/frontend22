@@ -45,7 +45,7 @@ export default function HeaderGeoController() {
 
   const [pricingFees, setPricingFees] = useState({
     platformFee: 0,
-    transectionFee: 0,
+    transactionFee: 0,
     captian: '',
     admiral: '',
     pirate: '',
@@ -59,7 +59,7 @@ export default function HeaderGeoController() {
     forEachShare: '',
     forEachOrganization: ''
   });
-  const { platformFee, transectionFee } = pricingFees;
+  const { platformFee, transactionFee } = pricingFees;
 
   const getUserFollowedOrgList = async () => {
     if (userAuthToken) {
@@ -164,7 +164,7 @@ export default function HeaderGeoController() {
           });
           let feesData = {};
           feesData.platformFee = data.platformFee;
-          feesData.transectionFee = data.transectionFee;
+          feesData.transactionFee = data.transactionFee;
           dispatch(setFees(feesData));
 
           let rankData = {};
@@ -186,7 +186,7 @@ export default function HeaderGeoController() {
           xpData.forEachOrganization = data.forEachOrganization;
           dispatch(setXpSettings(xpData));
 
-          // user.setTransectionFee(data.transectionFee)
+          // user.settransactionFee(data.transactionFee)
           // user.setPlatformFee(data.platformFee)
         }
       }

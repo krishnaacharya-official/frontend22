@@ -97,7 +97,7 @@ const Checkout = (props) => {
                 salesTax={props.salesTax}
                 subtotal={props.subtotal}
                 salesTaxPer={props.salesTaxPer}
-                transectionFee={props.transectionFee}
+                transactionFee={props.transactionFee}
                 stripeTax={props.stripeTax}
               />
             </div>
@@ -491,7 +491,7 @@ const Checkout = (props) => {
               salesTax={props.salesTax}
               subtotal={props.subtotal}
               salesTaxPer={props.salesTaxPer}
-              transectionFee={props.transectionFee}
+              transactionFee={props.transactionFee}
               stripeTax={props.stripeTax}
             />
           </div>

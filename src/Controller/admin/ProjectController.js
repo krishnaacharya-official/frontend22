@@ -204,7 +204,7 @@ function ProjectController() {
         const rules = {
             name: 'required',
             headline: 'required',
-            video: 'required',
+            //video: 'required',
             description: 'required',
             organization: 'required',
 
@@ -215,7 +215,7 @@ function ProjectController() {
             'name.required': 'Name is Required',
             'headline.required': 'Headline is Required',
             'description.required': 'Description is Required',
-            'video.required': 'video is Required',
+            //'video.required': 'video is Required',
             'organization.required': 'organization is Required',
 
         }
@@ -254,7 +254,7 @@ function ProjectController() {
 
                 let addProject;
 
-                setLoading(false)
+                setLoading(true)
                 if (id !== '') {
                     addProject = await projectApi.updateProject(adminAuthToken, data, id)
                 } else {

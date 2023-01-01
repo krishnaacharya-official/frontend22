@@ -117,10 +117,10 @@ export default function HomeController() {
 
   const [pricingFees, setPricingFees] = useState({
     platformFee: 0,
-    transectionFee: 0
+    transactionFee: 0
   });
 
-  const { platformFee, transectionFee } = pricingFees;
+  const { platformFee, transactionFee } = pricingFees;
 
   const getOrganizationList = async () => {
     const getOrganizationList = await adminCampaignApi.list(token);
@@ -536,7 +536,7 @@ export default function HomeController() {
         setPricingFees({
           ...pricingFees,
           platformFee: user.platformFee,
-          transectionFee: user.transectionFee
+          transactionFee: user.transactionFee
         });
         // const getSettingsValue = await settingApi.list(userAuthToken ? userAuthToken : CampaignAdminAuthToken, Object.keys(pricingFees));
 

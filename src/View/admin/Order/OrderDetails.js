@@ -164,8 +164,8 @@ const OrderDetails = (props) => {
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>
-                                    <td colSpan="2">TRANSECTION FEES ( {orderDetails.transectionFees ? orderDetails.transectionFees : 0} %)</td>
-                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.transectionFees ? orderDetails.transectionFees : 0) / 100) * Number(orderDetails.subtotal)))}</td>
+                                    <td colSpan="2">TRANSECTION FEES ( {orderDetails.transactionFees ? orderDetails.transactionFees : 0} %)</td>
+                                    <td>{(orderDetails.currencySymbol ? orderDetails.currencySymbol : "$") + priceFormat(Math.round((Number(orderDetails.transactionFees ? orderDetails.transactionFees : 0) / 100) * Number(orderDetails.subtotal)))}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="3"></td>

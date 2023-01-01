@@ -224,7 +224,7 @@ const UserProfile = () => {
       ...state,
       [e.target.name]: value
     });
-    // setTotalFees(Number(platformFees) + Number(transectionFees))
+    // setTotalFees(Number(platformFees) + Number(transactionFees))
   };
 
   const onClickCity = async (e) => {
@@ -358,9 +358,10 @@ const UserProfile = () => {
     if (stateList.length > 0) {
       setDefaultState(stateList.find((x) => x.value === data.state_id));
     }
-    if (cityList.length > 0) {
+    /*if (cityList.length > 0) {
       setDefaultCity(cityList.find((x) => x.value === data.city_id));
-    }
+    }*/
+
     setDefaultLanguage(options.find((x) => x.value === data.language));
     let tempCurrencyObj = {};
     // console.log(countryCurrency.find(x => x.id === data.country_id))
@@ -540,7 +541,6 @@ const UserProfile = () => {
 
   return (
     <>
-      <FrontLoader loading={loading} />
       <div className="mb-5">
         <h4 className="fw-bolder">Personal</h4>
         <div className="text-subtext mb-3">

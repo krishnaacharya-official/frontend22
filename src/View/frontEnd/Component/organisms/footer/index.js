@@ -131,7 +131,7 @@ function Footer() {
             </div>
             <div className="copyright mb-1 mb-sm-0 ms-1">
               <FontAwesomeIcon icon={regular('earth-americas')} />
-              <span className="logo-span">
+              <span className="ms-1">
                 {user.countryName ? user.countryName : userData ? userData.country : ''}
               </span>
             </div>

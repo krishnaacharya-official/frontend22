@@ -17,9 +17,9 @@ const Cart = (props) => {
   const [subTotal, setSubTotal] = useState(0);
   const [salesTax, setSalesTax] = useState(0);
 
-  // let transectionFee = props.pricingFees?.transectionFee
+  // let transactionFee = props.pricingFees?.transactionFee
   // let platformFee = props.pricingFees?.platformFee
-  // let totalCharge = Number(transectionFee) + Number(platformFee)
+  // let totalCharge = Number(transactionFee) + Number(platformFee)
   const getCalc = getCalculatedPrice();
   let currencySymbol = getCalc.currencySymbol();
 
